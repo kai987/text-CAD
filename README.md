@@ -2,6 +2,28 @@
 
 当前图纸版本：R02（日本制图基准准用版）。**用户已确认的 R01 平面布局保持不变**，三维模型继续使用该布局。房间名、面积、尺寸、门编号及家具文字采用高对比显示。
 
+## 在线查看
+
+[打开房屋 CAD 查看页](https://kai987.github.io/text-CAD/)。浏览器可以旋转、缩放三维模型，切换一层／二层内部、显示或隐藏楼层、楼梯和屋顶，以及调节水平剖切高度。平面页展示完整 R02 A3 图纸，支持放大查看和下载可编辑 DXF；文件页提供 STEP、GLB、DXF、PDF 和参数说明。
+
+网页位于 `web/`，使用 React、TypeScript、Three.js 和 Vite；不依赖本地 Python 查看器。它直接读取已生成的 GLB，不改变 CAD 几何。STEP 和 DXF 提供原始文件下载，在线平面预览使用对应的 PNG。模型内部保留原始 `F1`、`F2`、`stairs` 和 `roof` 分组。手机支持触摸旋转和缩放；浏览器无法运行 WebGL 时显示静态外观预览。
+
+使用 Node.js 24 或更新的兼容版本：
+
+```bash
+cd web
+npm ci
+npm test
+npm run dev
+# 生产构建与本地预览
+npm run build
+npm run preview
+```
+
+开发和构建时从仓库复制 13 个允许公开的 CAD、图纸及说明文件，并生成 SHA-256 清单；生产构建再次核对副本。修改方案后先重建 CAD 并完成对应检查，再构建网页。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
+
+`.github/workflows/pages.yml` 在 `main` 推送时执行安装、模型控制测试、TypeScript 检查、构建和文件哈希检查，然后发布到 GitHub Pages。在线尺寸仍是演示假设，现有结构和管线待定项见下文。
+
 ## 文件
 
 - `src/lib/house_plan.py`：两层共享的毫米参数、房间净边界、墙体、门窗、家具占位和假设。

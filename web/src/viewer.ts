@@ -11,11 +11,14 @@ import type { ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
 import { createHorizontalCap } from './section-caps';
+import { themePalette } from './theme-preferences';
+import type { ResolvedTheme } from './theme-preferences';
 
 export interface HouseViewer {
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
   camera: (mode: 'iso' | 'top') => void;
   select: (name: string | null) => void;
+  setTheme: (theme: ResolvedTheme) => void;
   dispose: () => void;
 }
 
@@ -31,10 +34,19 @@ function disposeObject(root: Object3D) {
 }
 
 export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: () => void,
-  onSelection: (selection: ModelSelection | null) => void): HouseViewer {
+  onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light'): HouseViewer {
+  let theme = initialTheme;
+  const outlineMaterials = new Set<LineBasicMaterial>();
+  function createOutlineMaterial() {
+    const material = new LineBasicMaterial({
+      color: new Color(themePalette[theme].outline), transparent: true, opacity: 0.55,
+    });
+    outlineMaterials.add(material);
+    return material;
+  }
   const renderer = new WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor('#f2f4f7');
+  renderer.setClearColor(themePalette[theme].canvasBackground);
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', '可旋转和缩放的房屋三维模型');
   renderer.domElement.setAttribute('role', 'img');
@@ -70,6 +82,13 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     controls.update(); renderer.render(scene, camera);
   }
   function requestRender() { if (!disposed && !frame) frame = requestAnimationFrame(draw); }
+  function setTheme(next: ResolvedTheme) {
+    if (disposed) return;
+    theme = next;
+    renderer.setClearColor(themePalette[theme].canvasBackground);
+    outlineMaterials.forEach(material => material.color.set(themePalette[theme].outline));
+    requestRender();
+  }
   controls.addEventListener('change', requestRender);
   function resize() {
     const width = host.clientWidth, height = host.clientHeight;
@@ -107,7 +126,16 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   function updateSectionCaps(height: number | null) {
     if (!root || height === capHeight) return;
     capHeight = height;
-    for (const [mesh, cap] of sectionCaps) { mesh.remove(cap); disposeObject(cap); }
+    for (const [mesh, cap] of sectionCaps) {
+      cap.traverse(object => {
+        if (!(object instanceof LineSegments)) return;
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach(material => {
+          if (material instanceof LineBasicMaterial) outlineMaterials.delete(material);
+        });
+      });
+      mesh.remove(cap); disposeObject(cap);
+    }
     sectionCaps.clear();
     if (height === null) return;
     root.updateWorldMatrix(true, true);
@@ -121,9 +149,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       cap.name = `${mesh.name}_section_cap`;
       cap.userData.cadName = mesh.userData.cadName;
       cap.userData.sectionCap = true;
-      cap.add(new LineSegments(new EdgesGeometry(geometry, 28), new LineBasicMaterial({
-        color: '#535d68', transparent: true, opacity: 0.55,
-      })));
+      cap.add(new LineSegments(new EdgesGeometry(geometry, 28), createOutlineMaterial()));
       mesh.add(cap); sectionCaps.set(mesh, cap);
     }
   }
@@ -232,9 +258,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         // Pull outline lines forward through a fill offset; back-face culling prevents shared-face fighting.
         m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
       });
-      const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), new LineBasicMaterial({
-        color: new Color('#535d68'), transparent: true, opacity: 0.55,
-      }));
+      const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial());
       o.add(edges);
     });
     for (const group of [...groups, ...parts]) {
@@ -248,6 +272,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   return {
     apply,
     select,
+    setTheme,
     camera(next) { mode = next; fit(); },
     dispose() {
       disposed = true; cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();
@@ -259,6 +284,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       renderer.domElement.removeEventListener('keydown', keyDown);
       clearHighlight();
       if (root) disposeObject(root);
+      outlineMaterials.clear();
       renderer.dispose(); renderer.domElement.remove();
     },
   };

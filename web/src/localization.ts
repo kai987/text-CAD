@@ -16,6 +16,7 @@ export function format(template: string, values: Record<string, string | number>
 }
 
 const zh = {
+  theme: { label: '颜色模式', system: '系统', light: '浅色', dark: '深色', help: '选择系统可跟随设备的明暗设置。' },
   app: { skip: '跳到查看区域', home: 'text-CAD 首页', nav: '房屋模型与图纸', language: '界面语言',
     title: '日本两层一户建', description: '查看日本两层一户建的参数化方案模型、平面图和可下载 CAD 文件。',
     tabs: { '3d': '三维模型', '1f': '一层平面', '2f': '二层平面', files: '文件下载' } },
@@ -63,6 +64,7 @@ type Strings<T> = T extends string ? string : T extends readonly string[] ? read
 export type Messages = Strings<typeof zh>;
 
 const ja: Messages = {
+  theme: { label: '表示モード', system: '自動', light: 'ライト', dark: 'ダーク', help: '自動を選ぶと端末の明暗設定に連動します。' },
   app: { skip: '閲覧エリアへ移動', home: 'text-CAD ホーム', nav: '住宅モデルと図面', language: '表示言語',
     title: '日本の2階建て戸建住宅', description: '日本の2階建て戸建住宅のパラメトリックな計画モデル、平面図、CADファイルを閲覧できます。',
     tabs: { '3d': '3Dモデル', '1f': '1階平面図', '2f': '2階平面図', files: 'ダウンロード' } },
@@ -133,6 +135,7 @@ const ja: Messages = {
 };
 
 const en: Messages = {
+  theme: { label: 'Color mode', system: 'Auto', light: 'Light', dark: 'Dark', help: 'Auto follows your device’s light or dark appearance.' },
   app: { skip: 'Skip to viewer', home: 'text-CAD home', nav: 'House model and drawings', language: 'Interface language',
     title: 'Japanese two-storey house', description: 'Explore a parametric concept model, floor plans and downloadable CAD files for a Japanese two-storey house.',
     tabs: { '3d': '3D model', '1f': 'First-floor plan', '2f': 'Second-floor plan', files: 'Downloads' } },

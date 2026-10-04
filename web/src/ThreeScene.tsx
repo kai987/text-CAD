@@ -6,6 +6,7 @@ import { activePreset } from './model-state';
 import { asset } from './data';
 import type { ModelSelection } from './model-scene';
 import { useLanguage } from './LanguageContext';
+import { useTheme } from './ThemeContext';
 
 interface Props {
   settings: ModelSettings;
@@ -16,10 +17,11 @@ interface Props {
 }
 export default function ThreeScene({ settings, cameraRequest, onReady, selection, onSelection }: Props) {
   const { copy } = useLanguage();
+  const { theme } = useTheme();
   const host = useRef<HTMLDivElement>(null);
   const viewer = useRef<HouseViewer | null>(null);
-  const latest = useRef({ settings, cameraRequest, selection });
-  latest.current = { settings, cameraRequest, selection };
+  const latest = useRef({ settings, cameraRequest, selection, theme });
+  latest.current = { settings, cameraRequest, selection, theme };
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   useEffect(() => {
     let alive = true;
@@ -29,7 +31,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
         controller.apply(latest.current.settings, latest.current.selection?.name ?? null);
         controller.camera(latest.current.cameraRequest.mode);
         setStatus('ready'); onReady(true);
-      }, () => { if (alive) { setStatus('error'); onReady(false); } }, onSelection);
+      }, () => { if (alive) { setStatus('error'); onReady(false); } }, onSelection, latest.current.theme);
       viewer.current = controller;
     } catch {
       setStatus('error'); onReady(false);
@@ -39,6 +41,8 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
   useEffect(() => {
     host.current?.querySelector('canvas')?.setAttribute('aria-label', copy.model.canvas);
   }, [copy, status]);
+  // Theme changes only recolor the canvas and outlines; the existing viewer stays mounted.
+  useEffect(() => { viewer.current?.setTheme(theme); }, [theme, status]);
   // Visibility and selection must update together when isolation hides the previous selection.
   useEffect(() => { viewer.current?.apply(settings, selection?.name ?? null); }, [settings, selection]);
   useEffect(() => { viewer.current?.camera(cameraRequest.mode); }, [cameraRequest]);

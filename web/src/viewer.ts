@@ -1,5 +1,5 @@
 import {
-  Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, HemisphereLight, LineBasicMaterial,
+  Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
   LineSegments, Mesh, Object3D, OrthographicCamera, Plane, Raycaster, Scene, Vector2, Vector3, WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -10,6 +10,7 @@ import { groups, parts, settingsForPreset } from './model-state';
 import type { ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
+import { createHorizontalCap } from './section-caps';
 
 export interface HouseViewer {
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
@@ -42,7 +43,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   scene.add(new HemisphereLight(0xffffff, 0xbac2cc, 2.2));
   const sun = new DirectionalLight(0xffffff, 2.2);
   sun.position.set(-8, 16, 12); scene.add(sun);
-  const camera = new OrthographicCamera(-8, 8, 8, -8, 0.01, 500);
+  const camera = new OrthographicCamera(-8, 8, 8, -8, 0.1, 100);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.12;
@@ -57,6 +58,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const groupObjects = new Map<ModelPartId, Object3D>();
   let cadObjects = new Map<string, Object3D>();
   const originalMaterials = new Map<Mesh, Material | Material[]>();
+  const sourceMeshes: Mesh[] = [];
+  const sectionCaps = new Map<Mesh, Mesh>();
+  let capHeight: number | null = null;
   let selectedName: string | null = null;
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
@@ -99,6 +103,29 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     }
     requestRender();
   }
+  function updateSectionCaps(height: number | null) {
+    if (!root || height === capHeight) return;
+    capHeight = height;
+    for (const [mesh, cap] of sectionCaps) { mesh.remove(cap); disposeObject(cap); }
+    sectionCaps.clear();
+    if (height === null) return;
+    root.updateWorldMatrix(true, true);
+    for (const mesh of sourceMeshes) {
+      const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+      if (material.transparent || material.opacity < 1) continue;
+      // Place the display-only cap 0.05 mm below the plane to avoid GPU clip round-off.
+      const geometry = createHorizontalCap(mesh, height - 0.00005);
+      if (!geometry) continue;
+      const cap = new Mesh(geometry, material.clone());
+      cap.name = `${mesh.name}_section_cap`;
+      cap.userData.cadName = mesh.userData.cadName;
+      cap.userData.sectionCap = true;
+      cap.add(new LineSegments(new EdgesGeometry(geometry, 28), new LineBasicMaterial({
+        color: '#535d68', transparent: true, opacity: 0.55,
+      })));
+      mesh.add(cap); sectionCaps.set(mesh, cap);
+    }
+  }
   function fit() {
     if (!root) return;
     root.updateWorldMatrix(true, true);
@@ -129,11 +156,15 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     controls.update(); resize();
   }
   function apply(next: ModelSettings, selectionName = selectedName) {
+    // Return temporary highlight materials before replacing any section geometry.
+    clearHighlight();
     settings = next;
     groups.forEach(g => { const part = groupObjects.get(g.id); if (part) part.visible = next.visibility[g.id]; });
     parts.forEach(p => { const part = groupObjects.get(p.id); if (part) part.visible = next.partVisibility[p.id]; });
     // GLB is Y-up/metres; display the cut height relative to the original F1 datum.
-    renderer.clippingPlanes = next.cutaway ? [new Plane(new Vector3(0, -1, 0), next.heightMm / 1000 + floorOffset)] : [];
+    const height = next.cutaway ? next.heightMm / 1000 + floorOffset : null;
+    renderer.clippingPlanes = height === null ? [] : [new Plane(new Vector3(0, -1, 0), height)];
+    updateSectionCaps(height);
     if (selectionName) {
       const target = cadObjects.get(selectionName);
       if (!target || !visibleMeshes(target).length) { select(null); onSelection(null); }
@@ -186,8 +217,14 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     root.position.set(-center.x, floorOffset, -center.z);
     root.traverse(o => {
       if (!(o instanceof Mesh)) return;
+      sourceMeshes.push(o);
       const materials = Array.isArray(o.material) ? o.material : [o.material];
-      materials.forEach(m => { m.side = DoubleSide; m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1; });
+      materials.forEach(m => {
+        // Closed solids need outward faces only: cabinet backs touch walls with opposite normals.
+        m.side = m.transparent ? DoubleSide : FrontSide;
+        // Pull outline lines forward through a fill offset; back-face culling prevents shared-face fighting.
+        m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
+      });
       const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), new LineBasicMaterial({
         color: new Color('#535d68'), transparent: true, opacity: 0.55,
       }));

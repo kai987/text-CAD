@@ -1,4 +1,4 @@
-:root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif; color: #253249; background: #fff; font-synthesis: none; line-height: 1.5; --accent: #274d70; --line: #dce2e7; --muted: #768398; }
+:root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif; color: #253249; background: #fff; font-synthesis: none; line-height: 1.5; --accent: #274d70; --line: #dce2e7; --muted: #647389; }
 * { box-sizing: border-box; }
 body { margin: 0; }
 button, input { font: inherit; }
@@ -27,6 +27,23 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .preset { width: 100%; min-height: 42px; padding: 9px 16px; text-align: left; border: 1px solid #c9d3df; border-radius: 4px; background: #fff; color: #253249; font-size: 15px; font-weight: 550; }
 .preset:hover:not(:disabled):not(.selected) { border-color: var(--accent); background: #f5f8fb; }
 .preset.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+.view-presets { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; padding: 11px 26px; background: #fff; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.view-presets .preset { text-align: center; min-height: 38px; padding: 7px 12px; font-size: 14px; }
+.part-tree { display: grid; gap: 10px; }
+.part-group-row { display: grid; grid-template-columns: 18px 18px minmax(0,1fr) 36px; gap: 5px; align-items: center; }
+.part-expand { width: 18px; height: 30px; padding: 0; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 0; color: #526278; }
+.tree-checkbox { width: 18px; height: 18px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.part-select { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-width: 0; min-height: 32px; padding: 5px; border: 0; border-radius: 3px; color: #253249; background: transparent; font-size: 14px; text-align: left; }
+.part-group-row .part-select { font-weight: 600; }
+.part-select svg { flex-shrink: 0; color: #647389; }
+.part-select:hover, .part-select.selected { color: var(--accent); background: #eaf0f6; }
+.part-select.selected { box-shadow: inset 2px 0 var(--accent); }
+.part-isolate { min-height: 29px; padding: 3px 5px; border: 1px solid #dce2e7; border-radius: 3px; background: #fff; color: #405874; font-size: 11px; }
+.part-isolate:hover:not(:disabled) { border-color: var(--accent); background: #f5f8fb; }
+.part-children { display: grid; gap: 3px; padding: 5px 0 3px 23px; }
+.part-child-row { display: grid; grid-template-columns: 18px minmax(0,1fr) 36px; gap: 5px; align-items: center; }
+.part-child-row .part-select { font-size: 13px; }
+.part-tree-help { color: var(--muted); font-size: 12px; line-height: 1.8; margin-top: 3px; }
 .part-list { display: grid; gap: 10px; }
 .part-row { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; }
 .part-row input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); }
@@ -54,6 +71,14 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .model-canvas { flex: 1; position: relative; min-height: 0; }
 .scene-host { width: 100%; height: 100%; position: absolute; inset: 0; }
 .scene-host > canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.scene-host > canvas { cursor: grab; }
+.scene-host > canvas:active { cursor: grabbing; }
+.selection-details { position: absolute; top: 18px; left: 22px; display: flex; align-items: flex-start; gap: 10px; max-width: min(360px, calc(100% - 44px)); padding: 10px 12px; border: 1px solid #d2dce7; border-radius: 4px; background: #fffffff5; box-shadow: 0 2px 6px #23384d08; }
+.selection-details > div { min-width: 0; display: grid; gap: 3px; }
+.selection-details strong { font-size: 13px; font-weight: 600; }
+.selection-details span { font-size: 11px; color: var(--muted); overflow-wrap: anywhere; }
+.selection-clear { flex-shrink: 0; display: grid; place-items: center; width: 25px; height: 25px; padding: 0; border: 0; background: transparent; color: #526278; }
+.mobile-gesture { display: none; }
 .canvas-footer { position: absolute; left: 26px; right: 26px; bottom: 24px; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); pointer-events: none; }
 .canvas-footer a { pointer-events: auto; text-underline-offset: 4px; }
 .canvas-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(85%, 420px); text-align: center; color: #526278; font-size: 15px; }
@@ -69,6 +94,14 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .room-table td, .room-table th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 .plan-scroll { min-height: 0; flex: 1; overflow: auto; padding: 24px; overscroll-behavior: contain; }
 .plan-sheet { height: auto; display: block; max-width: none; border: 1px solid #dce2e7; box-shadow: 0 3px 12px #23384d0b; }
+.plan-vector { background: #fff; }
+.plan-toolbar-controls { display: flex; align-items: center; gap: 18px; }
+.plan-view-switch { display: inline-flex; border: 1px solid #c9d3df; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+.plan-view-switch button { border: 0; min-height: 36px; padding: 7px 11px; color: #405874; background: #fff; font-size: 13px; white-space: nowrap; }
+.plan-view-switch button + button { border-left: 1px solid #c9d3df; }
+.plan-view-switch button[aria-pressed='true'] { color: #fff; background: var(--accent); }
+.plan-view-switch button:hover:not([aria-pressed='true']) { background: #f5f8fb; }
+.plan-preview-note { font-size: 14px; color: var(--muted); text-align: center; padding: 30px; }
 .icon-button { width: 34px; min-height: 34px; padding: 5px; }
 .zoom-value { font-size: 13px; font-variant-numeric: tabular-nums; min-width: 43px; text-align: center; }
 .downloads-page { max-width: 960px; margin: 0 auto; padding: 40px 34px 56px; }
@@ -103,6 +136,8 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .viewer-toolbar { padding: 0 20px; }
   .toolbar-actions { gap: 7px; }
   .outline-button { font-size: 13px; padding-left: 10px; padding-right: 10px; }
+  .plan-workspace .viewer-toolbar { flex-wrap: wrap; flex-basis: auto; min-height: 100px; padding-block: 12px; gap: 8px; }
+  .plan-toolbar-controls { flex-wrap: wrap; gap: 8px; }
 }
 @media (max-width: 760px) {
   .app-header { height: 105px; grid-template-columns: 1fr auto; grid-template-rows: 57px 48px; }
@@ -117,6 +152,16 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .sidebar section + section { margin-top: 26px; }
   .presets { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .preset { text-align: center; font-size: 14px; padding: 8px 5px; }
+  .view-presets { padding: 10px 14px; gap: 6px; }
+  .view-presets .preset { padding-inline: 5px; font-size: 13px; min-height: 36px; }
+  .part-group-row { grid-template-columns: 20px 20px minmax(0,1fr) 47px; gap: 8px; }
+  .part-child-row { grid-template-columns: 20px minmax(0,1fr) 47px; gap: 8px; }
+  .part-select, .part-child-row .part-select { min-height: 37px; font-size: 14px; }
+  .part-isolate { min-height: 33px; font-size: 12px; }
+  .tree-checkbox { width: 20px; height: 20px; }
+  .selection-details { top: 12px; left: 14px; max-width: calc(100% - 28px); }
+  .mobile-gesture { display: inline; }
+  .desktop-gesture { display: none; }
   .part-list { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
   .parameters dl { max-width: 440px; }
   .viewer-toolbar { flex-basis: 62px; min-height: 62px; padding: 0 14px; gap: 8px; }
@@ -129,6 +174,10 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .fit-button { font-size: 0; width: 33px; padding: 5px; gap: 0; }
   .fit-button svg { width: 17px; height: 17px; }
   .plan-actions { gap: 4px; }
+  .plan-workspace .viewer-toolbar { min-height: 109px; align-content: center; }
+  .plan-workspace .viewer-toolbar h1 { width: 100%; }
+  .plan-toolbar-controls { width: 100%; flex-wrap: nowrap; justify-content: space-between; gap: 6px; }
+  .plan-view-switch button { min-height: 32px; font-size: 12px; padding: 6px 8px; }
   .icon-button { width: 30px; min-height: 30px; }
   .zoom-value { min-width: 39px; font-size: 12px; }
   .downloads-page { padding: 28px 22px 40px; }

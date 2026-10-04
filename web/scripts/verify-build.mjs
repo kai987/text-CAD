@@ -2,8 +2,15 @@ import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { validatePlanMetadata } from './plan-preview-validation.mjs';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+const vectorMetadata = JSON.parse(await readFile(new URL('../src/plan-preview-metadata.json', import.meta.url), 'utf8'));
+validatePlanMetadata(vectorMetadata,
+  await readFile(resolve(dist, 'artifacts', vectorMetadata.source.path)),
+  new Map(await Promise.all(vectorMetadata.floors.map(async floor => [
+    floor.floor, await readFile(resolve(dist, 'artifacts', floor.path)),
+  ]))));
 const manifest = JSON.parse(await readFile(resolve(dist, 'artifacts/manifest.json'), 'utf8'));
 for (const [name, expected] of Object.entries(manifest)) {
   const bytes = await readFile(resolve(dist, 'artifacts', name));

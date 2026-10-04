@@ -4,9 +4,9 @@
 
 ## 在线查看
 
-[打开房屋 CAD 查看页](https://kai987.github.io/text-CAD/)。浏览器可以旋转、缩放三维模型，切换一层／二层内部、显示或隐藏楼层、楼梯和屋顶，以及调节水平剖切高度。平面页展示完整 R02 A3 图纸，支持放大查看和下载可编辑 DXF；文件页提供 STEP、GLB、DXF、PDF 和参数说明。
+[打开房屋 CAD 查看页](https://kai987.github.io/text-CAD/)。画布上方可直接切换完整外观／一层内部／二层内部。部件树支持楼层、外墙、内隔墙、楼板、门、窗、收纳柜、楼梯和屋顶的显示与隐藏；点击名称或三维实体可高亮并查看原始部件名，“单独”按钮隔离选定分类，顶部预设恢复显示。浏览器还支持旋转、缩放和水平剖切。平面页默认展示房间与尺寸，可切换完整 R02 A3 图框，支持矢量放大和下载可编辑 DXF；文件页提供 STEP、GLB、DXF、PDF 和参数说明。
 
-网页位于 `web/`，使用 React、TypeScript、Three.js 和 Vite；不依赖本地 Python 查看器。它直接读取已生成的 GLB，不改变 CAD 几何。STEP 和 DXF 提供原始文件下载，在线平面预览使用对应的 PNG。模型内部保留原始 `F1`、`F2`、`stairs` 和 `roof` 分组。手机支持触摸旋转和缩放；浏览器无法运行 WebGL 时显示静态外观预览。
+网页位于 `web/`，使用 React、TypeScript、Three.js 和 Vite；不依赖本地 Python 查看器。它直接读取已生成的 GLB，不改变 CAD 几何。STEP 和 DXF 提供原始文件下载，在线平面使用从原始 PDF 转换的 SVG，全部文字转为字形轮廓，不依赖访问者的中日文字体。完整纸面内容不变，平面范围采用同一 SVG 的裁切视口；两向总尺寸、房间名、门号、门弧和北向箭头均保留。模型内部保留原始 `F1`、`F2`、`stairs` 和 `roof` 及楼层内的六类节点，并通过 GLTFLoader 节点索引映射恢复原始名称。手机支持触摸旋转和缩放；浏览器无法运行 WebGL 时显示静态外观预览。
 
 使用 Node.js 24 或更新的兼容版本：
 
@@ -20,7 +20,16 @@ npm run build
 npm run preview
 ```
 
-开发和构建时从仓库复制 13 个允许公开的 CAD、图纸及说明文件，并生成 SHA-256 清单；生产构建再次核对副本。修改方案后先重建 CAD 并完成对应检查，再构建网页。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
+开发和构建时从仓库复制 15 个 CAD、图纸及说明文件（原13个加两层矢量预览），并生成 SHA-256 清单；生产构建再次核对副本。矢量元数据还记录来源 PDF 的哈希、SVG 哈希和裁切内的标注边界；源 PDF 变化或 SVG 不匹配时拒绝构建，要求先重新转换。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
+
+修改方案后先重建 CAD、PDF 并完成对应检查，再更新矢量预览；转换工具在本地使用 Python，GitHub Pages 构建直接读取已提交的 SVG：
+
+```bash
+uv pip install --python .venv/bin/python PyMuPDF==1.26.7
+.venv/bin/python web/scripts/generate-plan-svg.py
+```
+
+提交 `output/vector/house_1f_plan.svg`、`house_2f_plan.svg` 与 `web/src/plan-preview-metadata.json` 后重新构建。当前裁切范围及必需标签对应已批准的7280毫米演示方案；若平面尺寸或纸面排版改变，需要重新核对裁切和标注。
 
 `.github/workflows/pages.yml` 在 `main` 推送时执行安装、模型控制测试、TypeScript 检查、构建和文件哈希检查，然后发布到 GitHub Pages。在线尺寸仍是演示假设，现有结构和管线待定项见下文。
 

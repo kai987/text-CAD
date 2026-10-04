@@ -2,9 +2,12 @@ import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { validatePlanPreviews } from './plan-preview-validation.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
+// Fail before publishing if the approved PDF was changed without regenerating SVG.
+const vectorPlans = await validatePlanPreviews(root);
 export const artifacts = [
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
   'DXF/001D0PL2-1FPLAN.DXF', 'DXF/002D0PL2-2FPLAN.DXF',
@@ -13,6 +16,7 @@ export const artifacts = [
   'output/review/house_3d_iso.png',
   'output/review/house_3d_1f_interior.png', 'output/review/house_3d_2f_interior.png',
   'output/review/design_manifest.json', 'output/review/house_3d_assumptions_R01.json',
+  ...vectorPlans.floors.map(floor => floor.path),
 ];
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -39,4 +43,4 @@ const data = {
 };
 await mkdir(resolve(root, 'web/src'), { recursive: true });
 await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
-console.log(`Prepared ${artifacts.length} original CAD/drawing assets.`);
+console.log(`Prepared ${artifacts.length} CAD/drawing assets, including verified vector PDF previews.`);

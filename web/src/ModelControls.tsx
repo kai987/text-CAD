@@ -1,35 +1,22 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { activePreset, clampCutHeight, groups, presets, settingsForPreset } from './model-state';
-import type { ModelSettings, PresetId } from './model-state';
+import { clampCutHeight } from './model-state';
+import type { ModelPartId, ModelSettings } from './model-state';
 import Parameters from './Parameters';
+import PartTree from './PartTree';
 
 interface Props {
   settings: ModelSettings;
   setSettings: Dispatch<SetStateAction<ModelSettings>>;
   ready: boolean;
-  onPreset: (id: PresetId) => void;
+  selectedPart?: ModelPartId | null;
+  onSelectPart?: (id: ModelPartId, fit?: boolean) => void;
 }
-export default function ModelControls({ settings, setSettings, ready, onPreset }: Props) {
+export default function ModelControls({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
   return <aside className="sidebar" aria-label="模型控制">
     <section>
-      <h2>模型视图</h2>
-      <div className="presets">
-        {presets.map(p => <button key={p.id} type="button" disabled={!ready}
-          className={activePreset(settings) === p.id ? 'preset selected' : 'preset'}
-          aria-pressed={activePreset(settings) === p.id} onClick={() => {
-            setSettings(settingsForPreset(p.id)); onPreset(p.id);
-          }}>{p.label}</button>)}
-      </div>
-    </section>
-    <section>
       <h2>部件显示</h2>
-      <div className="part-list">
-        {groups.map(g => <label key={g.id} className="part-row">
-          <input type="checkbox" checked={settings.visibility[g.id]} disabled={!ready}
-            onChange={e => setSettings(s => ({ ...s, visibility: { ...s.visibility, [g.id]: e.target.checked } }))} />
-          <span>{g.label}</span>
-        </label>)}
-      </div>
+      <PartTree settings={settings} setSettings={setSettings} ready={ready}
+        selectedPart={selectedPart} onSelectPart={onSelectPart} />
     </section>
     <section>
       <h2>剖切</h2>

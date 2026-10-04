@@ -1,0 +1,130 @@
+# Parametric concept for a Japanese two-storey house
+
+[简体中文](README.md) | [日本語](README.ja.md) | **English**
+
+The current drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
+
+## Online viewer
+
+[Open the house CAD viewer](https://kai987.github.io/text-CAD/). Above the canvas, switch between the complete exterior, first-floor interior, and second-floor interior. The component tree controls the visibility of floors, external walls, partitions, slabs, doors, windows, storage, stairs, and the roof. Click a name or a 3D component to highlight it and inspect its original name. Use “Only” to show only the selected category and the top presets to restore visibility. The browser also supports rotation, zoom, and horizontal section cuts. The plan page initially shows rooms and dimensions, with an option to display the complete R02 A3 sheet. It supports vector zoom and editable DXF downloads. The files page provides STEP, GLB, DXF, PDF, and parameter notes.
+
+The language selector supports **简体中文, 日本語, and English**. Chinese is the default when no selection has been saved. Your choice is saved in the current browser and restored on your next visit. Interface text updates immediately while preserving the current page, floor, camera, section cut, component visibility and selection, and plan zoom. The web room table uses translated room names. Japanese labels in the original CAD, PDF, and SVG drawings, and original component names, remain unchanged. The links above switch between the repository’s README language versions.
+
+The web app is in `web/` and uses React, TypeScript, Three.js, and Vite. It does not require the local Python viewer. It reads the generated GLB directly without changing CAD geometry. STEP and DXF are available as original-file downloads. Online plans use SVG converted from the original PDF, with all text converted to glyph outlines so that visitors do not need Japanese or Chinese fonts. The complete sheet content is retained; the focused plan view uses a cropped viewport of the same SVG. Overall dimensions in both directions, room names, door references, door swing arcs, and the north arrow are preserved. The model retains the original `F1`, `F2`, `stairs`, and `roof` nodes and six component categories within each floor. Original names are restored through the GLTFLoader node-index mapping. Phones support touch rotation and zoom. Browsers that cannot run WebGL show a static preview matching the current preset.
+
+Use Node.js 24 or a later compatible version:
+
+```bash
+cd web
+npm ci
+npm test
+npm run dev
+# Production build and local preview
+npm run build
+npm run preview
+```
+
+Development and builds copy 15 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
+
+After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:
+
+```bash
+uv pip install --python .venv/bin/python PyMuPDF==1.26.7
+.venv/bin/python web/scripts/generate-plan-svg.py
+```
+
+Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the approved 7,280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
+
+On pushes to `main`, `.github/workflows/pages.yml` installs dependencies, runs model-control tests, checks TypeScript, builds the app, verifies file hashes, and publishes to GitHub Pages. Online dimensions remain demonstration assumptions. Outstanding structural and service-design items are listed below.
+
+## Files
+
+- `src/lib/house_plan.py`: shared millimetre parameters, clear room boundaries, walls, door and window openings, furniture placeholders, and assumptions for both floors.
+- `src/generate_plans.py`: ezdxf generation of editable TEXT / DIMENSION annotations and house plans, plus a two-page landscape A3 review PDF at 1:50.
+- `src/lib/jp_drafting.py`, `src/lib/jp_sheet.py`: adapted layer names, paper text heights and lineweights, and the shared A3 frame, title block, area table, and notes.
+- `DXF/001D0PL2-1FPLAN.DXF`, `DXF/002D0PL2-2FPLAN.DXF`: floor plans with filenames adapted to the R02 naming rules.
+- `DXF/house_1f_plan.dxf`, `DXF/house_2f_plan.dxf`: R2018 DXF, millimetres, model space at 1:1.
+- `output/pdf/house_floor_plans_R02_JP.pdf`: current floor plans, frames, title blocks, area tables, and assumptions. Print at actual A3 size without automatic scaling. The R01 PDF is retained as a historical version.
+- `docs/tokyo_cad_standard_mapping_R02.md`: source-standard sections and pages, residential adaptations, and items outside the scope.
+- `checks/validate_jp_drafting.py`, `output/review/validation_jp_drafting.json`: checks of saved layers, text heights, colours, lineweights, native dimensions, and paper space.
+- `output/review/design_manifest.json`: machine-readable parameters, all assumptions, and room areas.
+- `checks/validate_plans.py`: checks of the current layout geometry, doors, stairs, and saved DXF files.
+- `output/review/validation.json`: actual check results and unverified items.
+- `src/lib/house_geometry.py`: 3D parameters using the approved plans, wall apertures, slabs, gable roof, doors, windows, and U-shaped stairs.
+- `src/house_3d.py`: 3D assembly entry point for regenerating STEP and GLB.
+- `STEP/house_3d.step`: precise millimetre solids, named by `F1`, `F2`, `stairs`, `roof`, and component. The adjacent `.step.json` stores CADgen viewer materials and other metadata.
+- `GLB/house_3d.glb`: standard glTF 2.0 in metres with Y up, preserving component names and hierarchy for viewing and editing in Blender and other tools.
+- `output/review/house_3d_assumptions_R01.json`: 3D demonstration parameters and specific assumptions.
+- `checks/validate_3d.py`, `output/review/validation_3d.json`: checks of saved STEP solids and GLB units, names, hierarchy, and related properties.
+
+## Layout
+
+Coordinates use X east and Y north. The south entrance and north direction are demonstration assumptions; no site or road information has been supplied.
+
+First floor: an LDK living/dining/kitchen space to the south (20.17 m²), entrance and shoe storage to the southeast, bathroom, wash/changing room and pantry to the north, toilet to the east, and stairs to the northeast. The bathroom is entered through the wash/changing room.
+
+Second floor: main bedroom (10.45 m²), bedroom 2 (L-shaped, exact area 8.895 m²), bedroom 3 (9.17 m²), storage room, toilet, and shared corridor. The toilet is entered from the north side of the corridor without passing through a bedroom. The original drawing labels are 「主寝室」「洋室 2」「洋室 3」「納戸」.
+
+Toilets and stairs align between floors. The northeast U-shaped stairs have 16 risers at 175 mm, 260 mm treads, a clear width of 900 mm per flight, and a 900 mm intermediate landing. The reserved stairwell is 1,900 × 2,720 mm. The second-floor slab has an opening for the complete stairwell.
+
+All visible DXF layers use ACI 7, with geometry inheriting colour through ByLayer and no fixed RGB. CAD viewers display white on dark backgrounds and black on light backgrounds, keeping room labels, door references, and furniture text readable. The PDF uses black lines and text on white. Changing the background does not require regenerating the model.
+
+## R02 drafting-standard adaptation
+
+The drawings adapt common provisions of the [Tokyo Metropolitan Government Construction Bureau CAD Drafting Standard, April 2024](https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788). This document governs civil engineering. The house concept adopts its common drafting rules; the mapping record explains each decision and its source section. This does not establish compliance with all residential construction-drawing or electronic-delivery requirements.
+
+Landscape A3 at 1:50 is retained. The standard normally uses A1 but allows other A-series sizes as appropriate. Margins are 7.5 mm on all sides, with a 0.70 mm frame line. A 60 × 45 mm title block sits at the bottom right and uses a Japanese-era date. General geometry uses 0.13 / 0.25 / 0.50 mm lineweights; dimension lines use 0.13 mm. Paper text heights are 3.5 mm for room names, 2.5 mm for dimensions and areas, 1.8 mm for small notes, and 5 mm for titles. Model-space text heights are 50 times their paper heights.
+
+Layers such as `D-STR-WALL` and `D-STR-DIM` follow the responsibility / drawing-object / drafting-element naming structure. The meanings of added residential elements are recorded. Native DIMENSION entities and text remain editable.
+
+The frame and title block are in the DXF’s **`JP_A3_1_50` paper-space layout**, with a locked 1:50 viewport. The PDF shows the complete sheet. The text-to-cad browser viewer displays model space, so it does not show the paper-space frame. Legacy-name DXFs and the DXFs using the adapted naming rules have identical content, and existing viewer links remain usable.
+
+SXF(P21/P2Z), DRAWING.XML, and electronic-delivery folders have not been produced. Existing 3D STEP and GLB files are unchanged. STEP and the SXF(P21) format used for 2D electronic delivery are different formats.
+
+## Explicit assumptions and unresolved items
+
+1. The 7,280 × 7,280 mm outline and 2,800 mm storey height are user-specified **demonstration assumptions**.
+2. External walls at 180 mm and internal walls at 100 mm are placeholders, not a designed timber structure or building assembly.
+3. Room annotations use clear dimensions inside walls. Areas include furniture footprints. Stair areas describe the reserved stairwell, including the second-floor opening. The rounded 53.00 m² per floor and 106.00 m² total describe only the geometric outline area and cannot be used directly as statutory building or floor areas.
+4. Door widths represent drawn openings before deducting frames. Bedroom doors swing into the rooms. Sliding doors are shown as placeholders that retract into wall pockets; actual pockets, hardware, and clear opening widths require further detailing.
+5. The approved toilet layout is compact at 900 × 1,700 mm. The pantry has a 350 mm shelf placeholder on one side, leaving a 730 mm passage. It is not treated as a main circulation route.
+6. The bathroom and wash/changing room are each 4.95 m², retaining the approved allocation.
+7. Furniture, kitchen units, bathtub, sanitary fixtures, and windows are dimensional placeholders, not selected products. Storey height is not clear room height.
+8. Additional 3D assumptions: slabs 200 mm thick; door openings 2,100 mm high; large windows with a 900 mm sill and 1,300 mm height; small windows with a 1,500 mm sill and 600 mm height; gable roof pitch 30°, eaves projection 450 mm, and vertical roof thickness 150 mm. These are not finalized construction assemblies.
+9. Structure, site constraints, building services, statutory areas, and building-code compliance are unverified. Actual stair headroom must be checked after slabs, beams, and finishes are determined.
+
+The 3D finished-floor datums are Z=0 and 2,800 mm, with slabs below those datums and a provisional clear wall height of 2,600 mm. An additional 200 mm conceptual top slab below the roof has its upper surface at Z=5,600 mm. The intermediate landing is 200 mm thick. Each half-flight has seven complete 260 mm treads; the landing and second-floor surface form the respective eighth risers. Stairs use conceptual stepped solids. Handrails, stair beams, and structural connections require further design.
+
+Walls retain the material above doors and below and above windows. Openings reuse the approved plan positions. 3D door leaves are shown closed, while plan doors show their opening direction. Shoe storage and other cabinets are named dimensional placeholder solids.
+
+## Regenerate and view
+
+```bash
+uv venv --python 3.13 .venv
+uv pip install --python .venv/bin/python -r requirements.txt
+.venv/bin/python src/generate_plans.py
+.venv/bin/python checks/validate_plans.py
+.venv/bin/python checks/validate_jp_drafting.py
+.venv/bin/python src/house_3d.py
+.venv/bin/python checks/validate_3d.py
+.venv/bin/python -m playwright install chromium
+CADGEN_DAEMON=0 .venv/bin/cadgen dxf snapshot DXF/house_1f_plan.dxf output/review/house_1f_cad.png --appearance light
+CADGEN_DAEMON=0 .venv/bin/cadgen dxf snapshot DXF/house_2f_plan.dxf output/review/house_2f_cad.png --appearance light
+.venv/bin/cadgen viewer --host 127.0.0.1 --json --detach
+```
+
+The last command returns the actual viewer URL. Open `URL?file=DXF%2Fhouse_1f_plan.dxf`, `URL?file=DXF%2Fhouse_2f_plan.dxf`, `URL?file=STEP%2Fhouse_3d.step`, or `URL?file=GLB%2Fhouse_3d.glb`. The viewer is read-only. After changing plan or 3D parameters, rerun the corresponding generator and checks. The STEP component tree can show or hide individual floors, walls, slabs, doors, windows, stairs, and the roof.
+
+A background snapshot worker was observed to omit repeated text. The transient-worker commands above generated complete text. Original PDF and DXF TEXT entities have also been checked independently.
+
+PDF generation uses macOS’s `Arial Unicode.ttf`. Update the generator’s font path when moving to another operating system. DXF text and dimensions are editable, but the CAD application still needs fonts that support Japanese and Chinese.
+
+## text-to-cad workflow
+
+The project follows the official [CAD](https://github.com/earthtojake/text-to-cad/blob/main/skills/cad/SKILL.md) and [DXF](https://github.com/earthtojake/text-to-cad/blob/main/skills/dxf/SKILL.md) guidance, with the runtime pinned to `cadgen[snapshot]==0.7.11`. The referenced upstream source revision is `8d795f56343edce7ef6b9413e02f7a92318f8229`; local reference material is in `.tools/text-to-cad/`.
+
+The official `@dxf` output contract targets manufacturing geometry and converts text to outlines. As authorized by the user, this concept therefore uses ezdxf directly for editable architectural plan text, dimensions, and door/window layers, followed by cadgen checks and viewer review.
+
+## Further design work
+
+These files form a parametric concept model. The actual site, structural system, wall and roof assemblies, door and window products, sliding-door pockets, stair handrails, and building services require further design. The model cannot be used as construction drawings until the relevant professional checks are complete.

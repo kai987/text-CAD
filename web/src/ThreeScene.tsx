@@ -5,6 +5,7 @@ import type { ModelSettings } from './model-state';
 import { activePreset } from './model-state';
 import { asset } from './data';
 import type { ModelSelection } from './model-scene';
+import { useLanguage } from './LanguageContext';
 
 interface Props {
   settings: ModelSettings;
@@ -14,6 +15,7 @@ interface Props {
   onSelection: (selection: ModelSelection | null) => void;
 }
 export default function ThreeScene({ settings, cameraRequest, onReady, selection, onSelection }: Props) {
+  const { copy } = useLanguage();
   const host = useRef<HTMLDivElement>(null);
   const viewer = useRef<HouseViewer | null>(null);
   const latest = useRef({ settings, cameraRequest, selection });
@@ -34,16 +36,19 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
     }
     return () => { alive = false; viewer.current?.dispose(); viewer.current = null; };
   }, [onReady, onSelection]);
+  useEffect(() => {
+    host.current?.querySelector('canvas')?.setAttribute('aria-label', copy.model.canvas);
+  }, [copy, status]);
   // Visibility and selection must update together when isolation hides the previous selection.
   useEffect(() => { viewer.current?.apply(settings, selection?.name ?? null); }, [settings, selection]);
   useEffect(() => { viewer.current?.camera(cameraRequest.mode); }, [cameraRequest]);
   const preset = activePreset(settings);
   const fallback = preset === 'first' ? 'house_3d_1f_interior.png' : preset === 'second' ? 'house_3d_2f_interior.png' : 'house_3d_iso.png';
   return <div className="scene-host" ref={host}>
-    {status === 'loading' ? <p className="canvas-message" role="status">正在加载房屋模型…</p> : null}
+    {status === 'loading' ? <p className="canvas-message" role="status">{copy.model.loadingModel}</p> : null}
     {status === 'error' ? <div className="viewer-fallback" role="alert">
-      <img src={asset(`output/review/${fallback}`)} alt="房屋模型静态预览" />
-      <p>当前浏览器无法显示交互模型。你仍可查看平面图或下载 GLB、STEP 文件。</p>
+      <img src={asset(`output/review/${fallback}`)} alt={copy.model.fallback} />
+      <p>{copy.model.error}</p>
     </div> : null}
   </div>;
 }

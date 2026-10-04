@@ -79,8 +79,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     camera.top = halfHeight; camera.bottom = -halfHeight;
     camera.updateProjectionMatrix(); requestRender();
   }
-  // Refit when the layout changes, so the full model remains visible on a narrow screen.
-  const observer = new ResizeObserver(() => { if (root) fit(); else resize(); }); observer.observe(host);
+  // Text reflow can resize the canvas during a language change. Adjust its framing
+  // without resetting the user's orbit, pan or zoom.
+  const observer = new ResizeObserver(() => { if (root) updateFrustum(); else resize(); }); observer.observe(host);
   function clearHighlight() {
     for (const [mesh, original] of originalMaterials) {
       (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).forEach(material => material.dispose());
@@ -140,6 +141,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       camera.up.set(0, 1, 0); camera.position.copy(center).add(new Vector3(18, 16, 18));
     }
     camera.lookAt(center); camera.zoom = 1; camera.updateMatrixWorld(true);
+    controls.update(); updateFrustum();
+  }
+  function updateFrustum() {
+    if (!root) return;
+    camera.updateMatrixWorld(true);
     const point = new Vector3();
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     root.traverse(o => {
@@ -151,9 +157,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         minY = Math.min(minY, point.y); maxY = Math.max(maxY, point.y);
       }
     });
+    if (![minX, minY, maxX, maxY].every(Number.isFinite)) { resize(); return; }
     const aspect = Math.max(host.clientWidth / Math.max(host.clientHeight, 1), 0.1);
     halfHeight = Math.max((maxY - minY) / 2, (maxX - minX) / (2 * aspect)) * 1.3;
-    controls.update(); resize();
+    resize();
   }
   function apply(next: ModelSettings, selectionName = selectedName) {
     // Return temporary highlight materials before replacing any section geometry.

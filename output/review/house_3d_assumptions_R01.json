@@ -1,0 +1,67 @@
+{
+  "revision": "R01-3D",
+  "stage": "approved_floor_plan_concept_model",
+  "source_plan": "src/lib/house_plan.py",
+  "units": "mm",
+  "plan_parameters": {
+    "width": 7280,
+    "depth": 7280,
+    "storey_height": 2800,
+    "external_wall": 180,
+    "internal_wall": 100,
+    "stair_width": 900,
+    "stair_landing": 900,
+    "risers": 16,
+    "tread": 260,
+    "bath_width": 1820,
+    "wash_width": 1820,
+    "master_width": 3370,
+    "toilet_depth": 1700,
+    "roof_type": "gable / 切妻屋根 - stage 2"
+  },
+  "geometry_parameters": {
+    "slab_thickness": 200,
+    "door_height": 2100,
+    "door_leaf_thickness": 36,
+    "large_window_sill": 900,
+    "large_window_height": 1300,
+    "small_window_sill": 1500,
+    "small_window_height": 600,
+    "window_frame_width": 45,
+    "window_frame_depth": 70,
+    "glass_thickness": 10,
+    "roof_overhang": 450,
+    "roof_pitch_degrees": 30,
+    "roof_vertical_thickness": 150,
+    "landing_thickness": 200
+  },
+  "floor_datums_mm": [
+    0,
+    2800
+  ],
+  "roof_base_mm": 5600,
+  "axis_convention": "X east, Y north, Z up; GLB is metre-scaled Y-up",
+  "assumptions": [
+    "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
+    "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
+    "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
+    "二层楼板为整个1900 × 2720 mm 梯间净边界开洞，未覆盖楼梯；屋顶下另设200 mm概念顶板。",
+    "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
+    "大窗宽大于1000 mm：窗台900/窗高1300 mm；其他窗：窗台1500/窗高600 mm。",
+    "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；门窗尚未选型，洞口为毛洞尺寸。",
+    "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
+    "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
+    "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
+    "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；未表达设备或家具产品构造。",
+    "移门门袋、楼梯扶手、结构连接、屋面/墙体层次及设备系统留待深化。",
+    "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。"
+  ],
+  "outputs": [
+    "STEP/house_3d.step",
+    "GLB/house_3d.glb"
+  ],
+  "glb_export": {
+    "named_mesh_nodes": 126,
+    "all_nodes": 173
+  }
+}

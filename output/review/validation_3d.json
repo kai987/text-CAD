@@ -1,0 +1,3287 @@
+{
+  "revision": "R01-3D",
+  "units": "STEP mm; GLB metres / Y-up",
+  "summary": {
+    "checks": 541,
+    "passed": 541,
+    "failed": 0,
+    "STEP_leaf_occurrences": 126,
+    "native_solids": 126,
+    "GLB_mesh_nodes": 126,
+    "GLB_all_nodes": 173
+  },
+  "artifacts": {
+    "house_3d.step": {
+      "bytes": 1829101,
+      "sha256": "9a73d4c0af2cca1eae45db22e25837fe6647eb91d35df1db14b3af0cbca0fe98"
+    },
+    "house_3d.glb": {
+      "bytes": 242216,
+      "sha256": "a68d82e1fbbfa4f0148d7f09666786218e6a23f3c34cdf945ea891f06b433bfb"
+    }
+  },
+  "thresholds": {
+    "length_mm": 0.01,
+    "opening_overlap_mm3": 0.01,
+    "GLB_bound_metres": 1e-05
+  },
+  "not_verified": [
+    "Structure or building regulations",
+    "Actual stair headroom and handrail design",
+    "Door pockets and selected products",
+    "Site conditions and permit drawings"
+  ],
+  "checks": [
+    {
+      "check": "saved_STEP_is_nonempty",
+      "pass": true,
+      "actual": 1829101,
+      "expected": null
+    },
+    {
+      "check": "saved_GLB_is_nonempty",
+      "pass": true,
+      "actual": 242216,
+      "expected": null
+    },
+    {
+      "check": "all_STEP_leaf_labels_unique",
+      "pass": true,
+      "actual": 126,
+      "expected": null
+    },
+    {
+      "check": "F1:floor_slab:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:floor_slab:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:floor_slab:solid_1_positive_volume",
+      "pass": true,
+      "actual": 10599680000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2575440000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3212640000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_west:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_west:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_west:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2817360000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_east:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_east:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_external_east:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3125160000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3810300000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 815000000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D01_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D01_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D01_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 65894400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D02_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D02_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D02_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 65894400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D03_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D03_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D03_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D04_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D04_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D04_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 54662400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D05_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D05_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D05_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D06_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D06_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D06_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 50918400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6615000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6615000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W01:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 24321000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W02:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 20691000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W03:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W04:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W05:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1417500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1417500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W06:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1836000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:W07:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 648000000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:storage_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1153950000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:floor_slab:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:floor_slab:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:floor_slab:solid_1_positive_volume",
+      "pass": true,
+      "actual": 9566080000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2564640000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2944440000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_west:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_west:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_west:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2676960000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_east:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_east:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_external_east:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3125160000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2824200000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:wall_partition_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2383600000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:D21_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:D21_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:D21_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:D22_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:D22_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:D22_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:D23_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:D23_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:D23_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:D24_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:D24_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:D24_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 58406400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:D25_door_slide:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:D25_door_slide:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:D25_door_slide:solid_1_positive_volume",
+      "pass": true,
+      "actual": 50918400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W01:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 20691000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5670000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W02:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 20691000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3780000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3780000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W03:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 13431000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3780000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3780000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W04:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 13431000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5355000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5355000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3811500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W05:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 19481000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W06:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1417500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1417500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W07:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1836000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:frame_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1606500.0,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:glass:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:glass:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:W08:glass:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2601000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2394000000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1260000000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1890000000.0,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:storage_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1341900000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 40950000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 81900000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 122850000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 163800000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 204750000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 245700000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:lower_tread_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 286650000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:mid_landing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:mid_landing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:mid_landing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 342000000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 87750000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 128700000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 169650000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 210600000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 251550000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 292500000.0,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:upper_tread_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 333450000.0,
+      "expected": null
+    },
+    {
+      "check": "roof:west_plane:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:west_plane:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:west_plane:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5018429999.965,
+      "expected": null
+    },
+    {
+      "check": "roof:east_plane:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:east_plane:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:east_plane:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5018430000.034,
+      "expected": null
+    },
+    {
+      "check": "roof:south_gable_wall:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:south_gable_wall:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:south_gable_wall:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1376938822.798,
+      "expected": null
+    },
+    {
+      "check": "roof:north_gable_wall:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:north_gable_wall:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:north_gable_wall:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1376938822.798,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:solid_1_positive_volume",
+      "pass": true,
+      "actual": 10599680000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:external_wall_bound_0",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:external_wall_bound_1",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:external_wall_bound_2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:external_wall_bound_3",
+      "pass": true,
+      "actual": 7280.0,
+      "expected": 7280
+    },
+    {
+      "check": "F1:external_wall_bound_4",
+      "pass": true,
+      "actual": 7280.0,
+      "expected": 7280
+    },
+    {
+      "check": "F1:external_wall_bound_5",
+      "pass": true,
+      "actual": 2600.0,
+      "expected": 2600
+    },
+    {
+      "check": "F1:floor_datum_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:slab_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
+      "check": "F1:D01:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D01:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 80676000.0,
+      "expected": 80676000.0
+    },
+    {
+      "check": "F1:D02:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D02:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 44820000.0,
+      "expected": 44820000.0
+    },
+    {
+      "check": "F1:D03:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D03:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F1:D04:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D04:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 37350000.0,
+      "expected": 37350000.0
+    },
+    {
+      "check": "F1:D05:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D05:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F1:D06:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D06:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 34860000.0,
+      "expected": 34860000.0
+    },
+    {
+      "check": "F1:W01:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W01:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 339444000.0,
+      "expected": 339444000.0
+    },
+    {
+      "check": "F1:W01:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 150444000.0,
+      "expected": 150444000.0
+    },
+    {
+      "check": "F1:W02:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W02:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 290952000.0,
+      "expected": 290952000.0
+    },
+    {
+      "check": "F1:W02:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 128952000.0,
+      "expected": 128952000.0
+    },
+    {
+      "check": "F1:W03:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W03:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F1:W03:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F1:W04:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W04:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F1:W04:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F1:W05:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W05:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F1:W05:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F1:W06:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W06:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 121338000.0,
+      "expected": 121338000.0
+    },
+    {
+      "check": "F1:W06:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 40338000.0,
+      "expected": 40338000.0
+    },
+    {
+      "check": "F1:W07:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:W07:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F1:W07:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F2:external_wall_bound_0",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:external_wall_bound_1",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:external_wall_bound_2",
+      "pass": true,
+      "actual": 2800.0,
+      "expected": 2800
+    },
+    {
+      "check": "F2:external_wall_bound_3",
+      "pass": true,
+      "actual": 7280.0,
+      "expected": 7280
+    },
+    {
+      "check": "F2:external_wall_bound_4",
+      "pass": true,
+      "actual": 7280.0,
+      "expected": 7280
+    },
+    {
+      "check": "F2:external_wall_bound_5",
+      "pass": true,
+      "actual": 5400.0,
+      "expected": 5400
+    },
+    {
+      "check": "F2:floor_datum_mm",
+      "pass": true,
+      "actual": 2800.0,
+      "expected": 2800
+    },
+    {
+      "check": "F2:slab_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
+      "check": "F2:D21:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D21:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F2:D22:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D22:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F2:D23:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D23:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F2:D24:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D24:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 39840000.0,
+      "expected": 39840000.0
+    },
+    {
+      "check": "F2:D25:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D25:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 34860000.0,
+      "expected": 34860000.0
+    },
+    {
+      "check": "F2:W01:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W01:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 290952000.0,
+      "expected": 290952000.0
+    },
+    {
+      "check": "F2:W01:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 128952000.0,
+      "expected": 128952000.0
+    },
+    {
+      "check": "F2:W02:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W02:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 290952000.0,
+      "expected": 290952000.0
+    },
+    {
+      "check": "F2:W02:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 128952000.0,
+      "expected": 128952000.0
+    },
+    {
+      "check": "F2:W03:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W03:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 193968000.0,
+      "expected": 193968000.0
+    },
+    {
+      "check": "F2:W03:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 85968000.0,
+      "expected": 85968000.0
+    },
+    {
+      "check": "F2:W04:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W04:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 193968000.0,
+      "expected": 193968000.0
+    },
+    {
+      "check": "F2:W04:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 85968000.0,
+      "expected": 85968000.0
+    },
+    {
+      "check": "F2:W05:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W05:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 274788000.0,
+      "expected": 274788000.0
+    },
+    {
+      "check": "F2:W05:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 121788000.0,
+      "expected": 121788000.0
+    },
+    {
+      "check": "F2:W06:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W06:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F2:W06:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F2:W07:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W07:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 121338000.0,
+      "expected": 121338000.0
+    },
+    {
+      "check": "F2:W07:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 40338000.0,
+      "expected": 40338000.0
+    },
+    {
+      "check": "F2:W08:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W08:wall_below_preserved_mm3",
+      "pass": true,
+      "actual": 161784000.0,
+      "expected": 161784000.0
+    },
+    {
+      "check": "F2:W08:wall_above_preserved_mm3",
+      "pass": true,
+      "actual": 53784000.0,
+      "expected": 53784000.0
+    },
+    {
+      "check": "F2:complete_stairwell_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:slab_net_volume_mm3",
+      "pass": true,
+      "actual": 9566080000.0,
+      "expected": 9566080000.0
+    },
+    {
+      "check": "stairs:no_F2_slab_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "stairs:no_final_riser_consuming_tread",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "stairs:specified_rise_mm",
+      "pass": true,
+      "actual": 175.0,
+      "expected": 175
+    },
+    {
+      "check": "stairs:mid_landing_top_mm",
+      "pass": true,
+      "actual": 1400.0,
+      "expected": 1400.0
+    },
+    {
+      "check": "stairs:mid_landing_depth_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:mid_landing_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
+      "check": "stairs:lower_tread_01:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_01:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_01:top_elevation_mm",
+      "pass": true,
+      "actual": 175.0,
+      "expected": 175.0
+    },
+    {
+      "check": "stairs:lower_tread_02:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_02:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_02:top_elevation_mm",
+      "pass": true,
+      "actual": 350.0,
+      "expected": 350.0
+    },
+    {
+      "check": "stairs:lower_tread_03:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_03:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_03:top_elevation_mm",
+      "pass": true,
+      "actual": 525.0,
+      "expected": 525.0
+    },
+    {
+      "check": "stairs:lower_tread_04:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_04:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_04:top_elevation_mm",
+      "pass": true,
+      "actual": 700.0,
+      "expected": 700.0
+    },
+    {
+      "check": "stairs:lower_tread_05:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_05:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_05:top_elevation_mm",
+      "pass": true,
+      "actual": 875.0,
+      "expected": 875.0
+    },
+    {
+      "check": "stairs:lower_tread_06:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_06:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_06:top_elevation_mm",
+      "pass": true,
+      "actual": 1050.0,
+      "expected": 1050.0
+    },
+    {
+      "check": "stairs:lower_tread_07:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:lower_tread_07:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:lower_tread_07:top_elevation_mm",
+      "pass": true,
+      "actual": 1225.0,
+      "expected": 1225.0
+    },
+    {
+      "check": "stairs:upper_tread_01:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_01:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_01:top_elevation_mm",
+      "pass": true,
+      "actual": 1575.0,
+      "expected": 1575.0
+    },
+    {
+      "check": "stairs:upper_tread_02:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_02:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_02:top_elevation_mm",
+      "pass": true,
+      "actual": 1750.0,
+      "expected": 1750.0
+    },
+    {
+      "check": "stairs:upper_tread_03:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_03:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_03:top_elevation_mm",
+      "pass": true,
+      "actual": 1925.0,
+      "expected": 1925.0
+    },
+    {
+      "check": "stairs:upper_tread_04:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_04:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_04:top_elevation_mm",
+      "pass": true,
+      "actual": 2100.0,
+      "expected": 2100.0
+    },
+    {
+      "check": "stairs:upper_tread_05:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_05:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_05:top_elevation_mm",
+      "pass": true,
+      "actual": 2275.0,
+      "expected": 2275.0
+    },
+    {
+      "check": "stairs:upper_tread_06:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_06:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_06:top_elevation_mm",
+      "pass": true,
+      "actual": 2450.0,
+      "expected": 2450.0
+    },
+    {
+      "check": "stairs:upper_tread_07:width_mm",
+      "pass": true,
+      "actual": 900.0,
+      "expected": 900
+    },
+    {
+      "check": "stairs:upper_tread_07:tread_depth_mm",
+      "pass": true,
+      "actual": 260.0,
+      "expected": 260
+    },
+    {
+      "check": "stairs:upper_tread_07:top_elevation_mm",
+      "pass": true,
+      "actual": 2625.0,
+      "expected": 2625.0
+    },
+    {
+      "check": "stairs:final_floor_rise_mm",
+      "pass": true,
+      "actual": 175.0,
+      "expected": 175.0
+    },
+    {
+      "check": "stairs:lower_landing_connection_distance_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "stairs:upper_landing_connection_distance_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "WC:upper_lower_footprints_aligned",
+      "pass": true,
+      "actual": [
+        6200.0,
+        1580.0,
+        7100.0,
+        3280.0
+      ],
+      "expected": null
+    },
+    {
+      "check": "roof:west_eave_x_mm",
+      "pass": true,
+      "actual": -450.0,
+      "expected": -450
+    },
+    {
+      "check": "roof:ridge_x_mm",
+      "pass": true,
+      "actual": 3640.0,
+      "expected": 3640.0
+    },
+    {
+      "check": "roof:south_overhang_mm",
+      "pass": true,
+      "actual": -450.0,
+      "expected": -450
+    },
+    {
+      "check": "roof:north_edge_mm",
+      "pass": true,
+      "actual": 7730.0,
+      "expected": 7730
+    },
+    {
+      "check": "roof:pitch_degrees",
+      "pass": true,
+      "actual": 30.0,
+      "expected": 30
+    },
+    {
+      "check": "roof:south_gable_base_mm",
+      "pass": true,
+      "actual": 5600.0,
+      "expected": 5600
+    },
+    {
+      "check": "roof:south_gable_ridge_mm",
+      "pass": true,
+      "actual": 7701.55498,
+      "expected": 7701.554979850237
+    },
+    {
+      "check": "roof:north_gable_base_mm",
+      "pass": true,
+      "actual": 5600.0,
+      "expected": 5600
+    },
+    {
+      "check": "roof:north_gable_ridge_mm",
+      "pass": true,
+      "actual": 7701.55498,
+      "expected": 7701.554979850237
+    },
+    {
+      "check": "GLB:valid_container",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:all_STEP_leaf_names_retained",
+      "pass": true,
+      "actual": 126,
+      "expected": 126
+    },
+    {
+      "check": "GLB:named_groups_retained",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:all_nodes_metres_Y_up",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:static_mesh_has_no_animation",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:identity_groups_world_meshes",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_0",
+      "pass": true,
+      "actual": -0.45,
+      "expected": -0.45
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_1",
+      "pass": true,
+      "actual": -0.2,
+      "expected": -0.2
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_2",
+      "pass": true,
+      "actual": -7.73,
+      "expected": -7.73
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_3",
+      "pass": true,
+      "actual": 7.73,
+      "expected": 7.73
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_4",
+      "pass": true,
+      "actual": 7.851555,
+      "expected": 7.851554979851324
+    },
+    {
+      "check": "GLB:metre_Y_up_bound_5",
+      "pass": true,
+      "actual": 0.45,
+      "expected": 0.45
+    },
+    {
+      "check": "GLB:glazing_transparency_retained",
+      "pass": true,
+      "actual": 15,
+      "expected": null
+    },
+    {
+      "check": "GLB:each_node_has_single_parent_or_scene_root",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    }
+  ]
+}

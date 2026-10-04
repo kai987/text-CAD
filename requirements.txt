@@ -1,0 +1,5 @@
+cadgen[snapshot]==0.7.11
+ezdxf==1.4.4
+shapely==2.1.2
+reportlab==5.0.1
+pypdf==6.19.0

@@ -1,0 +1,21 @@
+.venv/
+.tools/
+tmp/
+__pycache__/
+.DS_Store
+*.py[cod]
+*.log
+.env
+.env.*
+!.env.example
+
+# Downloaded drafting-standard input stays local; keep its provenance.
+references/*.pdf
+references/*.txt
+
+# Publish the current drawings and model previews, not old plan snapshots.
+output/review/*.png
+!output/review/jp_floor_plan-*.png
+!output/review/house_1f_cad_dark.png
+!output/review/house_2f_cad.png
+!output/review/house_3d_*.png

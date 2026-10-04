@@ -1,0 +1,9 @@
+# Keep generated CAD/media files byte-for-byte, including exporter formatting.
+*.dxf binary
+*.DXF binary
+*.step binary
+*.stp binary
+*.glb binary
+*.pdf binary
+*.png binary
+*.jpg binary

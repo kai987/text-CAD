@@ -1,0 +1,24 @@
+{
+  "jobs": [
+    {
+      "input": "STEP/house_3d.step",
+      "mode": "view",
+      "outputs": [{"path": "output/review/house_3d_iso.png", "camera": "iso"}],
+      "output": {"sizeProfile": "assembly", "padding": 0.1}
+    },
+    {
+      "input": "STEP/house_3d.step",
+      "mode": "view",
+      "selection": {"hide": ["#roof", "#F1"]},
+      "outputs": [{"path": "output/review/house_3d_2f_open.png", "camera": "top"}],
+      "output": {"sizeProfile": "diagnostic", "padding": 0.1}
+    },
+    {
+      "input": "STEP/house_3d.step",
+      "mode": "view",
+      "selection": {"hide": ["#roof", "#F2"]},
+      "outputs": [{"path": "output/review/house_3d_1f_open.png", "camera": "iso"}],
+      "output": {"sizeProfile": "assembly", "padding": 0.1}
+    }
+  ]
+}

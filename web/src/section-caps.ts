@@ -135,10 +135,20 @@ export function createHorizontalCap(mesh: Mesh, worldHeight: number): BufferGeom
       const [a, b, c] = triangle.map(index => flat[index]);
       const signed = (b.x - a.x) * (c.z - a.z) - (b.z - a.z) * (c.x - a.x);
       if (Math.abs(signed) <= WELD * WELD) continue;
-      const ordered = signed > 0 ? [a, c, b] : [a, b, c];
+      // Validate the actual GPU coordinates, not just the double-precision
+      // contour: rounding a thin ear to Float32 can collapse or reverse it.
+      const local = [a, b, c].map(point => {
+        const value = new Vector3(point.x, worldHeight, point.z).applyMatrix4(inverse);
+        return new Vector3(Math.fround(value.x), Math.fround(value.y), Math.fround(value.z));
+      });
+      if (local.some(point => ![point.x, point.y, point.z].every(Number.isFinite))) return null;
+      const [pa, pb, pc] = local.map(point => point.clone().applyMatrix4(mesh.matrixWorld));
+      const crossY = (pb.z - pa.z) * (pc.x - pa.x) - (pb.x - pa.x) * (pc.z - pa.z);
+      if (!Number.isFinite(crossY)) return null;
+      if (crossY === 0) continue;
+      const ordered = crossY < 0 ? [local[0], local[2], local[1]] : local;
       for (const point of ordered) {
-        const local = new Vector3(point.x, worldHeight, point.z).applyMatrix4(inverse);
-        output.push(local.x, local.y, local.z); normals.push(normal.x, normal.y, normal.z);
+        output.push(point.x, point.y, point.z); normals.push(normal.x, normal.y, normal.z);
       }
     }
   }

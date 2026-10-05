@@ -105,11 +105,13 @@ def apartment_plan(p=P):
 
 
 def manifest(p=P):
+    from .furniture_geometry import furniture_manifest
     floor,_=apartment_plan(p)
     d=dimensions(p)
     interior=sum(r.area for r in floor.rooms if r.id!='balcony')
     return {'id':'apartment','title':'日本の集合住宅 / 2LDK','revision':'A01',
-            'drawingRevision':'A01','modelRevision':'A01-3D','units':'mm',
+            'drawingRevision':'A01','modelRevision':'A02-3D','units':'mm',
+            'interior_reference':'references/interior-furnishings.md','furnishings':[furniture_manifest(floor,'apartment',p)],
             'stage':'concept_proposal','parameters':asdict(p),
             'areas':{'outline':p.width*p.depth/1e6,'interior':round(interior,4),
                      'balcony':p.width*p.balcony_depth/1e6},
@@ -125,7 +127,7 @@ def manifest(p=P):
                 '玄关高差用分界线示意；模型完成面统一Z=0，未生成防水、排水坡度或门槛构造。',
                 '室内门洞700/750/800 mm；移门使用外挂轨道概念并留出墙边空间，门洞为毛洞尺寸。',
                 f'浴室{p.bath_width:g} × {d["wt"]-d["wb"]:g} mm、洗面脱衣{d["west"]-d["br"]-p.internal_wall:g} × {d["wt"]-d["wb"]:g} mm、厕所{p.toilet_width:g} × {d["wt"]-d["wb"]:g} mm为方案预留。',
-                '顶板及阳台栏板仅表达外形；门窗、柜体、卫生设备均为概念占位，未选实际产品。',
+                '顶板及阳台栏板仅表达外形；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。',
                 f'顶板为Z={p.clear_height:g}至{p.clear_height+p.slab_thickness:g} mm；至{p.storey_height:g} mm楼层基准面余{p.storey_height-p.clear_height-p.slab_thickness:g} mm层间构造未建模。',
                 '未验证结构、采光通风、消防疏散、设备管井、阳台隔板或日本建筑确认申报要求。'],
             'floors':[{'floor':1,'rooms':[{'id':r.id,'name':r.name,

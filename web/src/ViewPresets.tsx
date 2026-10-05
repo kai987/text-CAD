@@ -17,7 +17,7 @@ export default function ViewPresets({ settings, setSettings, ready, onPreset }: 
     {layout.presets.map(p => <button key={p.id} type="button" disabled={!ready}
       className={active === p.id ? 'preset selected' : 'preset'}
       aria-pressed={active === p.id} onClick={() => {
-        setSettings(settingsForPreset(p.id, layout)); onPreset(p.id);
+        setSettings(previous => settingsForPreset(p.id, layout, previous)); onPreset(p.id);
       }}>{copy.presets[p.id]}</button>)}
   </div>;
 }

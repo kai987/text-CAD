@@ -3,8 +3,162 @@
   "title": "日本の集合住宅 / 2LDK",
   "revision": "A01",
   "drawingRevision": "A01",
-  "modelRevision": "A01-3D",
+  "modelRevision": "A02-3D",
   "units": "mm",
+  "interior_reference": "references/interior-furnishings.md",
+  "furnishings": [
+    {
+      "model": "apartment",
+      "floor": 1,
+      "units": "mm",
+      "layer": "F1:furniture",
+      "coordinate_convention": "X east, Y north, Z up; x/y is the rotated footprint minimum; furniture front is local -Y",
+      "assumptions": [
+        "Original conceptual furniture, not branded-product geometry or a procurement specification.",
+        "Wardrobe/door approach target 650 mm, kitchen working strip 900 mm; project layout assumptions, not compliance certification.",
+        "Apartment master uses a custom 1200 mm frame to retain 650 mm side access. House bedroom 2 uses a single bed.",
+        "Chairs are shown pulled clear of the table; paths and door sweeps are checked in this displayed position."
+      ],
+      "objects": [
+        {
+          "id": "sofa",
+          "room": "ldk",
+          "kind": "sofa",
+          "x": 6700.0,
+          "y": 1000.0,
+          "width": 1500,
+          "depth": 850,
+          "rotation": 270,
+          "height": 0,
+          "footprint_mm": [
+            6700.0,
+            1000.0,
+            7550.0,
+            2500.0
+          ]
+        },
+        {
+          "id": "coffee_table",
+          "room": "ldk",
+          "kind": "table",
+          "x": 5700.0,
+          "y": 1250.0,
+          "width": 900,
+          "depth": 450,
+          "rotation": 90,
+          "height": 380,
+          "footprint_mm": [
+            5700.0,
+            1250.0,
+            6150.0,
+            2150.0
+          ]
+        },
+        {
+          "id": "television",
+          "room": "ldk",
+          "kind": "television",
+          "x": 4900.0,
+          "y": 1150.0,
+          "width": 1200,
+          "depth": 350,
+          "rotation": 90,
+          "height": 0,
+          "footprint_mm": [
+            4900.0,
+            1150.0,
+            5250.0,
+            2350.0
+          ]
+        },
+        {
+          "id": "dining_table",
+          "room": "ldk",
+          "kind": "table",
+          "x": 1050.0,
+          "y": 1000.0,
+          "width": 1200,
+          "depth": 650,
+          "rotation": 0,
+          "height": 730,
+          "footprint_mm": [
+            1050.0,
+            1000.0,
+            2250.0,
+            1650.0
+          ]
+        },
+        {
+          "id": "dining_chair_west",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 580.0,
+          "y": 1050.0,
+          "width": 450,
+          "depth": 420,
+          "rotation": 90,
+          "height": 0,
+          "footprint_mm": [
+            580.0,
+            1050.0,
+            1000.0,
+            1500.0
+          ]
+        },
+        {
+          "id": "dining_chair_east",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 2300.0,
+          "y": 1050.0,
+          "width": 450,
+          "depth": 420,
+          "rotation": 270,
+          "height": 0,
+          "footprint_mm": [
+            2300.0,
+            1050.0,
+            2720.0,
+            1500.0
+          ]
+        },
+        {
+          "id": "bed",
+          "room": "master",
+          "kind": "bed",
+          "x": 1450.0,
+          "y": 6040.0,
+          "width": 1200,
+          "depth": 2020,
+          "rotation": 0,
+          "height": 0,
+          "footprint_mm": [
+            1450.0,
+            6040.0,
+            2650.0,
+            8060.0
+          ]
+        },
+        {
+          "id": "bed",
+          "room": "bed2",
+          "kind": "bed",
+          "x": 5200.0,
+          "y": 7120.0,
+          "width": 1030,
+          "depth": 2020,
+          "rotation": 270,
+          "height": 0,
+          "footprint_mm": [
+            5200.0,
+            7120.0,
+            7220.0,
+            8150.0
+          ]
+        }
+      ]
+    }
+  ],
   "stage": "concept_proposal",
   "parameters": {
     "width": 7800,
@@ -44,7 +198,7 @@
     "玄关高差用分界线示意；模型完成面统一Z=0，未生成防水、排水坡度或门槛构造。",
     "室内门洞700/750/800 mm；移门使用外挂轨道概念并留出墙边空间，门洞为毛洞尺寸。",
     "浴室1400 × 1800 mm、洗面脱衣1600 × 1800 mm、厕所1000 × 1800 mm为方案预留。",
-    "顶板及阳台栏板仅表达外形；门窗、柜体、卫生设备均为概念占位，未选实际产品。",
+    "顶板及阳台栏板仅表达外形；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "顶板为Z=2500至2700 mm；至2800 mm楼层基准面余100 mm层间构造未建模。",
     "未验证结构、采光通风、消防疏散、设备管井、阳台隔板或日本建筑确认申报要求。"
   ],
@@ -255,8 +409,8 @@
   ],
   "axis_convention": "X east, Y north, Z up; GLB metres and Y up",
   "glb_export": {
-    "named_mesh_nodes": 55,
-    "all_nodes": 69
+    "named_mesh_nodes": 183,
+    "all_nodes": 211
   },
   "drafting_standard": {
     "name": "東京都建設局 CAD製図基準 令和6年4月",

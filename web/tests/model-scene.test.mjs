@@ -12,7 +12,7 @@ async function loadHouse() {
 test('loaded CAD names and picked window classification survive GLTF name sanitization', async () => {
   const gltf = await loadHouse();
   const nodes = bindCadNodes(gltf);
-  assert.equal(nodes.size, 173);
+  assert.equal(nodes.size, gltf.parser.json.nodes.length, 'every named CAD node is bound');
   const window = nodes.get('F1:W01:glass');
   assert.ok(window?.isMesh);
   assert.notEqual(window.name, 'F1:W01:glass');

@@ -261,3 +261,42 @@ fn repeated_execution_is_deterministic() {
         );
     }
 }
+
+fn precision_prism(points: &[[f64; 2]]) -> (Vec<f64>, Vec<u32>) {
+    let vertices = [-1.0, 1.0]
+        .into_iter()
+        .flat_map(|y| points.iter().flat_map(move |point| [point[0], y, point[1]]))
+        .collect();
+    let count = points.len() as u32;
+    let mut indices = Vec::new();
+    for i in 0..count {
+        let j = (i + 1) % count;
+        indices.extend([i, j, j + count, i, j + count, i + count]);
+    }
+    for i in 1..count - 1 {
+        indices.extend([0, i + 1, i, count, count + i, count + i + 1]);
+    }
+    (vertices, indices)
+}
+
+#[test]
+fn float32_output_discards_collapsed_triangles_and_repairs_reversed_winding() {
+    let mut matrix = IDENTITY;
+    matrix[14] = -1e6;
+    let collapsed = precision_prism(&[
+        [0.0, 1e6],
+        [1.0, 1e6],
+        [1.0, 1e6 + 0.0002],
+        [0.0, 1e6 + 0.0002],
+    ]);
+    assert!(section_cap(&collapsed.0, &collapsed.1, &matrix, 0.0).is_empty());
+    matrix[14] = -1000.0;
+    let reversed = precision_prism(&[
+        [0.0, 1000.0],
+        [1.0, 1000.0 + 0.00004],
+        [0.5, 1000.0 + 0.00002001],
+    ]);
+    let cap = section_cap(&reversed.0, &reversed.1, &matrix, 0.0);
+    assert!(!cap.is_empty());
+    assert!(inspect(&cap, &matrix, 0.0).0 > 0.0);
+}

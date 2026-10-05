@@ -427,10 +427,30 @@ fn create_section_cap(
             if signed.abs() <= AREA_EPSILON {
                 continue;
             }
-            let ordered = if signed > 0.0 { [a, c, b] } else { [a, b, c] };
-            for point in ordered {
-                output.extend_from_slice(&transform.local(point, world_height)?);
+            // The renderer uses f32 local positions. A thin f64 ear can
+            // collapse or reverse after this conversion, so its final winding
+            // must be measured from those actual positions in world space.
+            let mut local = [
+                transform.local(a, world_height)?,
+                transform.local(b, world_height)?,
+                transform.local(c, world_height)?,
+            ];
+            let [pa, pb, pc] = [
+                transform.world(&local[0].map(f64::from))?,
+                transform.world(&local[1].map(f64::from))?,
+                transform.world(&local[2].map(f64::from))?,
+            ];
+            let cross_y = (pb.z - pa.z) * (pc.x - pa.x) - (pb.x - pa.x) * (pc.z - pa.z);
+            if !cross_y.is_finite() {
+                return None;
             }
+            if cross_y == 0.0 {
+                continue;
+            }
+            if cross_y < 0.0 {
+                local.swap(1, 2);
+            }
+            output.extend(local.into_iter().flatten());
         }
     }
     if output.is_empty() {

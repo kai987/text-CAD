@@ -1,5 +1,5 @@
 {
-  "revision": "R01-3D",
+  "revision": "R02-3D",
   "stage": "approved_floor_plan_concept_model",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -52,16 +52,203 @@
     "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
     "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
     "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
-    "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；未表达设备或家具产品构造。",
+    "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "移门门袋、楼梯扶手、结构连接、屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。"
+  ],
+  "interior_reference": "references/interior-furnishings.md",
+  "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
+  "furnishings": [
+    {
+      "model": "house",
+      "floor": 1,
+      "units": "mm",
+      "layer": "F1:furniture",
+      "coordinate_convention": "X east, Y north, Z up; x/y is the rotated footprint minimum; furniture front is local -Y",
+      "assumptions": [
+        "Original conceptual furniture, not branded-product geometry or a procurement specification.",
+        "Wardrobe/door approach target 650 mm, kitchen working strip 900 mm; project layout assumptions, not compliance certification.",
+        "Apartment master uses a custom 1200 mm frame to retain 650 mm side access. House bedroom 2 uses a single bed.",
+        "Chairs are shown pulled clear of the table; paths and door sweeps are checked in this displayed position."
+      ],
+      "objects": [
+        {
+          "id": "sofa",
+          "room": "ldk",
+          "kind": "sofa",
+          "x": 1870.0,
+          "y": 380.0,
+          "width": 1600,
+          "depth": 850,
+          "rotation": 270,
+          "height": 0,
+          "footprint_mm": [
+            1870.0,
+            380.0,
+            2720.0,
+            1980.0
+          ]
+        },
+        {
+          "id": "coffee_table",
+          "room": "ldk",
+          "kind": "table",
+          "x": 900.0,
+          "y": 730.0,
+          "width": 900,
+          "depth": 500,
+          "rotation": 90,
+          "height": 380,
+          "footprint_mm": [
+            900.0,
+            730.0,
+            1400.0,
+            1630.0
+          ]
+        },
+        {
+          "id": "television",
+          "room": "ldk",
+          "kind": "television",
+          "x": 220.0,
+          "y": 300.0,
+          "width": 1200,
+          "depth": 350,
+          "rotation": 90,
+          "height": 0,
+          "footprint_mm": [
+            220.0,
+            300.0,
+            570.0,
+            1500.0
+          ]
+        },
+        {
+          "id": "dining_table",
+          "room": "ldk",
+          "kind": "table",
+          "x": 3560.0,
+          "y": 2800.0,
+          "width": 1000,
+          "depth": 700,
+          "rotation": 0,
+          "height": 730,
+          "footprint_mm": [
+            3560.0,
+            2800.0,
+            4560.0,
+            3500.0
+          ]
+        },
+        {
+          "id": "dining_chair_west",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 3090.0,
+          "y": 2910.0,
+          "width": 450,
+          "depth": 420,
+          "rotation": 90,
+          "height": 0,
+          "footprint_mm": [
+            3090.0,
+            2910.0,
+            3510.0,
+            3360.0
+          ]
+        },
+        {
+          "id": "dining_chair_east",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 4610.0,
+          "y": 2910.0,
+          "width": 450,
+          "depth": 420,
+          "rotation": 270,
+          "height": 0,
+          "footprint_mm": [
+            4610.0,
+            2910.0,
+            5030.0,
+            3360.0
+          ]
+        }
+      ]
+    },
+    {
+      "model": "house",
+      "floor": 2,
+      "units": "mm",
+      "layer": "F2:furniture",
+      "coordinate_convention": "X east, Y north, Z up; x/y is the rotated footprint minimum; furniture front is local -Y",
+      "assumptions": [
+        "Original conceptual furniture, not branded-product geometry or a procurement specification.",
+        "Wardrobe/door approach target 650 mm, kitchen working strip 900 mm; project layout assumptions, not compliance certification.",
+        "Apartment master uses a custom 1200 mm frame to retain 650 mm side access. House bedroom 2 uses a single bed.",
+        "Chairs are shown pulled clear of the table; paths and door sweeps are checked in this displayed position."
+      ],
+      "objects": [
+        {
+          "id": "bed",
+          "room": "master",
+          "kind": "bed",
+          "x": 450.0,
+          "y": 550.0,
+          "width": 1470,
+          "depth": 2020,
+          "rotation": 90,
+          "height": 0,
+          "footprint_mm": [
+            450.0,
+            550.0,
+            2470.0,
+            2020.0
+          ]
+        },
+        {
+          "id": "bed",
+          "room": "bed2",
+          "kind": "bed",
+          "x": 4380.0,
+          "y": 400.0,
+          "width": 1030,
+          "depth": 2020,
+          "rotation": 0,
+          "height": 0,
+          "footprint_mm": [
+            4380.0,
+            400.0,
+            5410.0,
+            2420.0
+          ]
+        },
+        {
+          "id": "bed",
+          "room": "bed3",
+          "kind": "bed",
+          "x": 430.0,
+          "y": 4520.0,
+          "width": 1030,
+          "depth": 2020,
+          "rotation": 0,
+          "height": 0,
+          "footprint_mm": [
+            430.0,
+            4520.0,
+            1460.0,
+            6540.0
+          ]
+        }
+      ]
+    }
   ],
   "outputs": [
     "STEP/house_3d.step",
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 126,
-    "all_nodes": 173
+    "named_mesh_nodes": 274,
+    "all_nodes": 340
   }
 }

@@ -1,0 +1,38 @@
+# Interior furniture and residential fixture references
+
+Accessed: **2026-10-05, Asia/Tokyo**. All dimensions below are millimetres. Unless otherwise stated, dimensions are **width × depth × height**.
+
+These are primary manufacturer references for scale and common residential object features. The project creates **original parametric CAD solids**; it does not import manufacturer CAD/BIM, product meshes, images, textures or logos. The generated furniture and fixtures are generic concept objects, not branded replicas, manufacturer-approved models or verified procurement/installation specifications. STEP preserves the project's own editable solid geometry.
+
+## Published dimensions
+
+| Object / primary source | Published dimensions or scope | Use in this project |
+| --- | --- | --- |
+| [MUJI wooden bed-frame assembly manual](https://www.muji.com/public/media/jp/doc/item/01_4550512892144_00001.pdf) | Single **1030 × 2020 × 55**; semi-double **1230 × 2020 × 55**; double **1470 × 2020 × 55**. The 55 mm frame thickness excludes legs. | Reference frame widths and length. Our legs, headboard, mattress, pillows and duvet are separate original solids with assumed heights. |
+| [IKEA GLOSTAD two-seat sofa](https://www.ikea.com/jp/ja/p/glostad-2-seat-sofa-knisa-dark-grey-10489009/) | **1210 × 780 × 680**; seat height **410**, seat depth **540**. | Compact seating scale and separate legs, arms, seat and back cushions. Project sofas are larger original concepts, **1600 × 850** in the house and **1500 × 850** in the apartment. |
+| [IKEA LISABO table](https://www.ikea.com/jp/en/p/lisabo-table-ash-veneer-80365717/) | **1400 × 780 × 740**. | Dining height and a simple top with four legs. Project dining tables use assumed footprints **1000 × 700** and **1200 × 650**, with height **730**. |
+| [IKEA LISABO chair](https://www.ikea.com/jp/ja/p/lisabo-chair-black-10457230/) | **460 × 510 × 800**; seat height **450**. | Separate legs, seat and back. The original project chair is **450 × 420** before placement rotation; its full rotated footprint is used for collision checks. |
+| [IKEA LACK TV bench](https://www.ikea.com/jp/ja/p/lack-tv-bench-black-30353566/) | **900 × 260 × 450**. | Low console scale. Project TV console **1200 × 350** and the screen/stand dimensions are original assumptions. |
+| [TOTO WY apartment unit bath](https://jp.toto.com/products/bath/mansionremodel/) and [size comparison](https://jp.toto.com/products/bath/mansionremodel/comparison/?typeL=6) | **1418J** denotes unit-bath **inside dimensions 1400 × 1800**. | Reference compact Japanese bathing-room scale. This is not the outside installation envelope or a bathtub's own dimensions; the apartment's matching room dimensions do not establish that this branded unit can be installed. |
+| [LIXIL standalone bathtub range](https://www.lixil.co.jp/lineup/bathroom/simple/) | Grasty N lists length classes **1000–1400**, including **1200**. Other series have different size classes. | Reference tub-length scale. Project tub dimensions come from the approved plan footprints; rounded rims, tapered inner recess, drain and shower fittings are original geometry. No width is inferred from a length-class label. |
+| [TOTO Saqua washbasin](https://jp.toto.com/products/groom/saqua/) | Width options **600 / 750**, cabinet depth **560**, bowl depth **210**. | Reference basin/cabinet scale and a real inner recess. The generated cabinet, counter, basin, tap and mirror stay within the existing plan footprint and use project-specific dimensions. |
+| [TOTO compact toilet comparison, dated 2022](https://qa.toto.jp/togo/qa/qadoc/016/Q1403_20221209_113605_A001.pdf) | Examples include Neorest AS2 **386 × 692** and RS **386 × 690** in plan. These are dimensions of the stated historical models. | Reference scale only. Project toilet has an original oval bowl, tapered base, open lid, seat ring and cistern; it is not a Neorest product model. |
+| [AQUA AQW-F8N front-loading washer](https://aqua-has.com/product/f8n/) | Overall dimensions including drain hose **595 × 611 × 866**. | Reference compact front-loading form: round door, seal, drum, dial and display. The original washer stays within the approved **600 × 600** plan footprint. The real reference's 611 mm depth exceeds that footprint, so fit is not asserted. |
+| [Panasonic NA-F6B5 top-loading washer specifications](https://panasonic.jp/wash/products/NA-F6B5/spec.html) | Overall dimensions including inlet/drain hoses **556 × 566 × 880**. | An alternative compact size reference; the current front-loading project geometry does not represent this top-loading product. |
+| [Hitachi R-V38Y S refrigerator](https://store.kadenfan.hitachi.co.jp/store/g/g193354/?ismodesmartphone=on) | **600 × 665 × 1810**, **375 L**. | Reference for possible generic refrigerator geometry: flat cabinet, divided door fronts and recessed handles. Product dimensions alone do not establish door-opening, ventilation or delivery clearances. |
+
+## Project placement and modeling assumptions
+
+The approved walls, door openings, storage cabinets and wet-area footprints remain the placement inputs. Furniture is an optional, named assembly for each floor, with individual named solid parts for editing, visibility and sectioning.
+
+The apartment master bed is an **original custom 1200 × 2020 frame**, rather than MUJI's 1230 mm semi-double. Its selected placement leaves 650 mm between the frame and the existing wardrobe side, and 650 mm toward the bedroom entrance. This deliberate concept dimension is recorded as an assumption; it is not an off-the-shelf product claim. The house uses a 1470 mm frame in the master bedroom and 1030 mm frames in the two other bedrooms.
+
+Layout checks use **650 mm** as the project's main-route, door-approach and wardrobe-front target, **900 mm** for the kitchen working strip, and **800 mm** in front of the apartment balcony sliders. These are concept-layout targets, not asserted Japanese regulatory minima. Chairs are checked in their displayed position. Smaller seat/coffee-table gaps are not classified as main through-routes. Device doors, drawer travel, hose connections, waterproof pans and construction installation tolerances are not represented as validated opening or installation envelopes.
+
+Baths and basins use actual subtractive inner cavities in closed CAD solids. Toilets include a shaped bowl and seat opening; washers show a front door, seal and recessed drum; kitchens include a sink, faucet, cabinet fronts and hob. These details and a restrained wood/neutral palette improve recognizability without claiming a specific manufacturer's construction or performance.
+
+## Manufacturer CAD/BIM and reuse scope
+
+[TOTO COM-ET CAD/BIM](https://www.com-et.com/jp/page/cad/) and [LIXIL CAD/BIM](https://cad.biz-lixil.com/) offer design data, but download availability is not a general redistribution license. TOTO's [website conditions](https://jp.toto.com/sp/) retain rights in drawings/software/data and describe restrictions on broader reuse; individual service terms also apply. LIXIL's [CAD notice](https://cad.biz-lixil.com/notice) describes use for evaluation of purchasing/using published products and sales promotion, while retaining rights in the content. The [general LIXIL website terms](https://www.lixil.co.jp/termsofuse/) also address copying and other reuse.
+
+No vendor files were downloaded into or redistributed with this project. Only factual dimension summaries and source links are recorded here. If manufacturer data is imported in future, its specific license and intended distribution must be reviewed separately.

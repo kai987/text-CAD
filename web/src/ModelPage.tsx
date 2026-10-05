@@ -6,6 +6,7 @@ import { useModel } from './ModelContext';
 import { selectionLabel } from './localization';
 import type { ModelSettings } from './model-state';
 import ModelControls from './ModelControls';
+import FurnitureToggle from './FurnitureToggle';
 import ViewPresets from './ViewPresets';
 import { anyVisible, groupVisibilityState, setGroupVisible, setPartVisible } from './model-state';
 import type { GroupId, ModelPartId, PartId } from './model-state';
@@ -34,6 +35,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
       <div className="viewer-toolbar">
         <h1>{copy.model.title}</h1>
         <div className="toolbar-actions">
+          <FurnitureToggle settings={settings} setSettings={setSettings} ready={ready} />
           <button type="button" className="outline-button" disabled={!ready} onClick={() =>
             setCameraRequest(s => ({ mode: 'top', seq: s.seq + 1 }))}><View size={16} aria-hidden="true" />{copy.model.top}</button>
           <button type="button" className="outline-button" disabled={!ready} onClick={() =>

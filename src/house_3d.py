@@ -6,6 +6,7 @@ import struct
 from cadgen import glb, read_scene, step
 
 from lib.house_geometry import geometry_manifest, house_assembly
+from lib.interior_materials import apply_interior_materials
 
 
 MATERIALS = {
@@ -76,6 +77,7 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
                                     "source": "Named CADgen STEP assembly; approved R01 plan"}
+    apply_interior_materials(document)
     encoded = json.dumps(document, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     encoded += b" "*((-len(encoded)) % 4)
     remaining_chunks = data[20+json_size:]

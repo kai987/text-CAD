@@ -1,7 +1,7 @@
 export type ModelId = 'house' | 'apartment';
 export type GroupId = 'F1' | 'F2' | 'stairs' | 'roof' | 'ceiling' | 'balcony';
 export type FloorId = 'F1' | 'F2';
-export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures';
+export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures' | 'furniture';
 export type PartId = `${FloorId}:${PartKind}`;
 export type ModelPartId = PartId | GroupId;
 export type PresetId = 'exterior' | 'first' | 'second' | 'interior';
@@ -34,6 +34,7 @@ const partKinds: { id: PartKind; label: string }[] = [
   { id: 'floor_slab', label: '楼板' }, { id: 'external_walls', label: '外墙' },
   { id: 'partition_walls', label: '内隔墙' }, { id: 'doors', label: '门' },
   { id: 'windows', label: '窗' }, { id: 'storage_fixtures', label: '收纳柜' },
+  { id: 'fixtures', label: '厨卫设备' }, { id: 'furniture', label: '家具' },
 ];
 export const parts: ModelPart[] = (['F1', 'F2'] as const)
   .flatMap(group => partKinds.map(kind => ({ id: `${group}:${kind.id}` as PartId, group, label: kind.label })));
@@ -47,7 +48,7 @@ export const modelLayouts: Record<ModelId, ModelLayout> = {
   apartment: {
     id: 'apartment',
     groups: [{ id: 'F1', label: '公寓室内' }, { id: 'ceiling', label: '顶板' }, { id: 'balcony', label: '阳台' }],
-    parts: [...parts.filter(part => part.group === 'F1'), { id: 'F1:fixtures', group: 'F1', label: '厨卫设备' }],
+    parts: parts.filter(part => part.group === 'F1'),
     presets: [
       { id: 'exterior', label: '完整户型', visibility: { F1: true, ceiling: true, balcony: true } },
       { id: 'interior', label: '室内剖视', visibility: { F1: true, ceiling: false, balcony: true }, cutaway: true },
@@ -98,13 +99,28 @@ export function isolatePart(s: ModelSettings, id: ModelPartId, layout = modelLay
 export function anyVisible(s: ModelSettings, layout = modelLayouts.house): boolean {
   return layout.groups.some(group => groupVisibilityState(s, group.id, layout) !== 'none');
 }
-export function settingsForPreset(id: PresetId, layout = modelLayouts.house): ModelSettings {
+export function furnitureVisibilityState(s: ModelSettings, layout = modelLayouts.house): 'all' | 'some' | 'none' {
+  const furniture = layout.parts.filter(part => part.id.endsWith(':furniture'));
+  const count = furniture.filter(part => s.partVisibility[part.id]).length;
+  return count === 0 ? 'none' : count === furniture.length ? 'all' : 'some';
+}
+export function setFurnitureVisible(s: ModelSettings, visible: boolean, layout = modelLayouts.house): ModelSettings {
+  const partVisibility = { ...s.partVisibility };
+  for (const part of layout.parts) if (part.id.endsWith(':furniture')) partVisibility[part.id] = visible;
+  // Do not reveal a hidden storey, change the cut plane or move the camera.
+  return { ...s, partVisibility };
+}
+export function settingsForPreset(id: PresetId, layout = modelLayouts.house, previous?: ModelSettings): ModelSettings {
   const preset = layout.presets.find(x => x.id === id);
   if (!preset) throw new Error(`Unknown view preset: ${id}`);
-  return { visibility: { ...preset.visibility }, partVisibility: allPartVisibility(true, layout), cutaway: preset.cutaway ?? false, heightMm: layout.defaultCutHeight };
+  const partVisibility = allPartVisibility(true, layout);
+  if (previous) for (const part of layout.parts) {
+    if (part.id.endsWith(':furniture')) partVisibility[part.id] = previous.partVisibility[part.id] ?? true;
+  }
+  return { visibility: { ...preset.visibility }, partVisibility, cutaway: preset.cutaway ?? false, heightMm: layout.defaultCutHeight };
 }
 export function activePreset(s: ModelSettings, layout = modelLayouts.house): PresetId | undefined {
-  if (layout.parts.some(part => !s.partVisibility[part.id])) return undefined;
+  if (layout.parts.some(part => !part.id.endsWith(':furniture') && !s.partVisibility[part.id])) return undefined;
   return layout.presets.find(p => (p.cutaway ?? false) === s.cutaway &&
     layout.groups.every(g => p.visibility[g.id] === s.visibility[g.id]))?.id;
 }

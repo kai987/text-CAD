@@ -1,9 +1,10 @@
 import {
   Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
-  LineSegments, Mesh, Object3D, OrthographicCamera, Plane, Raycaster, Scene, Vector2, Vector3, WebGLRenderer,
+  LineSegments, Mesh, Object3D, OrthographicCamera, Plane, PMREMGenerator, Raycaster, Scene, Vector2, Vector3, WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Material, MeshStandardMaterial } from 'three';
 import { asset } from './data';
 import { modelLayouts, settingsForPreset } from './model-state';
@@ -38,9 +39,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb'): HouseViewer {
   let theme = initialTheme;
   const outlineMaterials = new Set<LineBasicMaterial>();
-  function createOutlineMaterial() {
+  function createOutlineMaterial(opacity = 0.55) {
     const material = new LineBasicMaterial({
-      color: new Color(themePalette[theme].outline), transparent: true, opacity: 0.55,
+      color: new Color(themePalette[theme].outline), transparent: true, opacity,
     });
     outlineMaterials.add(material);
     return material;
@@ -54,8 +55,15 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.dataset.sectionBackend = 'typescript';
   host.prepend(renderer.domElement);
   const scene = new Scene();
-  scene.add(new HemisphereLight(0xffffff, 0xbac2cc, 2.2));
-  const sun = new DirectionalLight(0xffffff, 2.2);
+  // Local studio lighting gives ceramic, glass and metal highlights without a remote HDR asset.
+  const studio = new RoomEnvironment();
+  const pmrem = new PMREMGenerator(renderer);
+  const environment = pmrem.fromScene(studio, 0.04);
+  scene.environment = environment.texture;
+  scene.environmentIntensity = 0.12;
+  studio.dispose(); pmrem.dispose();
+  scene.add(new HemisphereLight(0xffffff, 0xbac2cc, 1.8));
+  const sun = new DirectionalLight(0xffffff, 2.0);
   sun.position.set(-8, 16, 12); scene.add(sun);
   const camera = new OrthographicCamera(-8, 8, 8, -8, 0.1, 100);
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -261,7 +269,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         // Pull outline lines forward through a fill offset; back-face culling prevents shared-face fighting.
         m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
       });
-      const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial());
+      const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
+      const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial(interiorDetail ? 0.16 : 0.55));
       o.add(edges);
     });
     for (const group of [...layout.groups, ...layout.parts]) {
@@ -307,6 +316,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       clearHighlight();
       if (root) disposeObject(root);
       outlineMaterials.clear();
+      environment.dispose();
       renderer.dispose(); renderer.domElement.remove();
     },
   };

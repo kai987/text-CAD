@@ -1,6 +1,8 @@
 """Named conceptual solids for a single Japanese 2LDK dwelling."""
 from cadgen import build123d as bd
 from shapely.geometry import box
+from .furniture_geometry import furniture_group
+from .fixture_geometry import fixture_group
 from .apartment_plan import P, apartment_plan, window_specs
 from .house_geometry import cuboid, named, extruded_polygon, polygons, opening_box
 
@@ -40,24 +42,18 @@ def assembly(p=P):
             parts.append(named(cuboid((a,y-5,z+frame,b,y+5,z+height-frame)),
                                f'{label}:glass_{pane}','glass',.45))
         windows.append(bd.Compound(children=parts,label=label))
-    storage,fixtures=[],[]
+    storage=[]
     for i,(name,bounds) in enumerate(floor.fixtures,1):
         x1,y1,x2,y2=bounds
         if name in ('靴収納','収納','収納棚'):
             storage.append(cuboid((x1,y1,0,x2,y2,1800 if name=='靴収納' else p.cabinet_height),
                                    f'F1:storage_{i:02d}','storage'))
-        else:
-            h={'キッチン':850,'浴槽':550,'洗面':800,'洗濯':900,'WC':450}[name]
-            shape=cuboid((x1,y1,0,x2,y2,h))
-            if name in ('浴槽','洗面'):
-                shape=shape.cut(cuboid((x1+80,y1+80,h-200,x2-80,y2-80,h+1)))
-            fixtures.append(named(shape,f'F1:fixture_{i:02d}','internal' if name!='キッチン' else 'door'))
     groups=[cuboid((0,0,-p.slab_thickness,p.width,p.depth,0),'F1:floor_slab','slab'),
             bd.Compound(children=exterior,label='F1:external_walls'),
             bd.Compound(children=partitions,label='F1:partition_walls'),
             bd.Compound(children=doors,label='F1:doors'),bd.Compound(children=windows,label='F1:windows'),
             bd.Compound(children=storage,label='F1:storage_fixtures'),
-            bd.Compound(children=fixtures,label='F1:fixtures')]
+            fixture_group(floor,p,'apartment'), furniture_group(floor,'apartment',p)]
     balcony=[cuboid((0,-p.balcony_depth,-p.slab_thickness,p.width,0,0),'balcony:slab','slab'),
              cuboid((0,-p.balcony_depth,0,p.width,-p.balcony_depth+100,p.balcony_guard_height),
                     'balcony:south_guard','external'),

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import {
-  Box3, BoxGeometry, BufferGeometry, ExtrudeGeometry, Float32BufferAttribute,
+  Box3, BoxGeometry, BufferAttribute, BufferGeometry, ExtrudeGeometry, Float32BufferAttribute,
   InterleavedBuffer, InterleavedBufferAttribute, Matrix3, Mesh, Path, PlaneGeometry, Shape, Vector3,
 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -250,4 +250,34 @@ test('WASM rejects malformed indices before integer coercion can hide an invalid
       assert.equal(createWasmHorizontalCap(mesh, 0), null, `invalid index ${value} must be rejected`);
     }
   } finally { geometry.dispose(); }
+});
+
+// Double-precision source coordinates exercise the conversion boundary itself,
+// independently of the current exported house geometry and tessellation.
+function precisionPrism(points) {
+  const geometry = new BufferGeometry();
+  geometry.setAttribute('position', new BufferAttribute(new Float64Array(
+    [-1, 1].flatMap(y => points.flatMap(([x, z]) => [x, y, z])),
+  ), 3));
+  const count = points.length, indices = [];
+  for (let i = 0; i < count; i++) {
+    const j = (i + 1) % count;
+    indices.push(i, j, j + count, i, j + count, i + count);
+  }
+  for (let i = 1; i + 1 < count; i++) indices.push(0, i + 1, i, count, count + i, count + i + 1);
+  geometry.setIndex(indices);
+  const mesh = new Mesh(geometry);
+  mesh.position.z = -points[0][1];
+  return mesh;
+}
+
+test('Float32 output removes collapsed ears and repairs winding after local-coordinate rounding', () => {
+  const collapsed = precisionPrism([[0, 1e6], [1, 1e6], [1, 1e6 + .0002], [0, 1e6 + .0002]]);
+  const reversed = precisionPrism([[0, 1000], [1, 1000 + .00004], [.5, 1000 + .00002001]]);
+  try {
+    assert.equal(checkParity(collapsed, 0, 'Float32-collapsed prism'), null,
+      'a drawable cap must not contain zero-area Float32 triangles');
+    assert.ok(checkParity(reversed, 0, 'Float32-reversed thin ear'),
+      'remaining drawable triangles must keep upward winding after quantization');
+  } finally { collapsed.geometry.dispose(); reversed.geometry.dispose(); }
 });

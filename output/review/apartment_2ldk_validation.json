@@ -1,9 +1,9 @@
 {
   "summary": {
-    "checks": 258,
-    "passed": 258,
+    "checks": 514,
+    "passed": 514,
     "failed": 0,
-    "STEP_leaf_occurrences": 55,
+    "STEP_leaf_occurrences": 183,
     "areas": {
       "outline": 65.52,
       "interior": 56.54,
@@ -927,52 +927,1332 @@
       "actual": null
     },
     {
-      "check": "F1:fixture_05:solid_present",
+      "check": "F1:fixture_05_kitchen:cabinet_wood:solid_present",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_05:0:valid_positive_solid",
+      "check": "F1:fixture_05_kitchen:cabinet_wood:0:valid_positive_solid",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_06:solid_present",
+      "check": "F1:fixture_05_kitchen:toe_plinth_dark:solid_present",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_06:0:valid_positive_solid",
+      "check": "F1:fixture_05_kitchen:toe_plinth_dark:0:valid_positive_solid",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_07:solid_present",
+      "check": "F1:fixture_05_kitchen:front_1_wood:solid_present",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_07:0:valid_positive_solid",
+      "check": "F1:fixture_05_kitchen:front_1_wood:0:valid_positive_solid",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_08:solid_present",
+      "check": "F1:fixture_05_kitchen:handle_1_chrome:solid_present",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_08:0:valid_positive_solid",
+      "check": "F1:fixture_05_kitchen:handle_1_chrome:0:valid_positive_solid",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_09:solid_present",
+      "check": "F1:fixture_05_kitchen:front_2_wood:solid_present",
       "pass": true,
       "actual": null
     },
     {
-      "check": "F1:fixture_09:0:valid_positive_solid",
+      "check": "F1:fixture_05_kitchen:front_2_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_2_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_2_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_3_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_3_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_3_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_3_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_4_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_4_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_4_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_4_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_5_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:front_5_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_5_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:handle_5_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:counter_stone:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:counter_stone:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:sink_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:sink_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:sink_rim_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:sink_rim_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:drain_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:drain_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:faucet_base_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:faucet_base_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:faucet_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:faucet_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:mixer_lever_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:mixer_lever_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_dark:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_dark:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_1_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_1_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_2_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_2_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_3_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05_kitchen:hob_ring_3_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:tub_shell_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:tub_shell_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:tub_rim_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:tub_rim_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:drain_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:drain_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:faucet_base_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:faucet_base_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:faucet_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:faucet_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:mixer_lever_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:mixer_lever_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_rail_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_rail_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_head_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_head_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_face_dark:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06_bath:shower_face_dark:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:body_white:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:body_white:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:porthole_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:porthole_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:porthole_seal_rubber:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:porthole_seal_rubber:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:washer_glass:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:washer_glass:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:drum_steel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:drum_steel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:dial_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:dial_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:control_screen:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:control_screen:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:detergent_drawer_white:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:detergent_drawer_white:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:lower_service_panel_white:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07_washer:lower_service_panel_white:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:cabinet_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:cabinet_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:toe_plinth_dark:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:toe_plinth_dark:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:door_1_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:door_1_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:handle_1_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:handle_1_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:door_2_wood:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:door_2_wood:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:handle_2_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:handle_2_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:counter_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:counter_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:basin_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:basin_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:drain_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:drain_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:faucet_base_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:faucet_base_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:faucet_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:faucet_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mixer_lever_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mixer_lever_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mirror_frame_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mirror_frame_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mirror:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08_vanity:mirror:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:bowl_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:bowl_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:seat_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:seat_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:bowl_trap_dark:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:bowl_trap_dark:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:cistern_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:cistern_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:cistern_lid_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:cistern_lid_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:flush_chrome:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:flush_chrome:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:open_lid_ceramic:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09_toilet:open_lid_ceramic:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:base:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:base:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:arm_left:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:arm_left:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:arm_right:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:arm_right:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:top:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:coffee_table:top:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:console:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:console:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:drawer_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:drawer_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:pull_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:pull_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:drawer_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:drawer_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:pull_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:pull_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_foot:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_foot:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_stem:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_stem:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_bezel:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_bezel:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_screen:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:television:tv_screen:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:top:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_table:top:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:seat_frame:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:seat_frame:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:seat_cushion:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:seat_cushion:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:back_post_left:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:back_post_left:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:back_post_right:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:back_post_right:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:backrest:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west:backrest:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:seat_frame:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:seat_frame:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:seat_cushion:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:seat_cushion:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:back_post_left:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:back_post_left:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:back_post_right:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:back_post_right:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:backrest:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east:backrest:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:frame:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:frame:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:headboard:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:headboard:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:mattress:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:mattress:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:blanket:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:blanket:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:pillow_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:master:bed:pillow_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:leg_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:frame:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:frame:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:headboard:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:headboard:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:mattress:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:mattress:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:blanket:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:blanket:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:pillow_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:furniture:bed2:bed:pillow_1:0:valid_positive_solid",
       "pass": true,
       "actual": null
     },
@@ -1104,7 +2384,7 @@
     {
       "check": "GLB:STEP_names_retained",
       "pass": true,
-      "actual": 55
+      "actual": 183
     },
     {
       "check": "GLB:semantic_groups",

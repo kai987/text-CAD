@@ -255,13 +255,16 @@ def storage_group(floor, p=P):
 
 
 def house_assembly(p=P, g=G, include_roof=True):
+    from .furniture_geometry import furniture_group
+    from .fixture_geometry import fixture_group
     floors = []
     for number in (1, 2):
         plan = floor_plan(number, p)
         external, internal = wall_groups(plan, p, g)
         floors.append(bd.Compound(children=[slab_for_floor(number, p, g), external, internal,
                                             door_group(plan, p, g), window_group(plan, p, g),
-                                            storage_group(plan, p)], label=f"F{number}"))
+                                            storage_group(plan, p), fixture_group(plan, p, "house"),
+                                            furniture_group(plan, "house", p)], label=f"F{number}"))
     children = floors+[stair_group(p, g)]
     if include_roof:
         children.append(roof_group(p, g))
@@ -269,8 +272,9 @@ def house_assembly(p=P, g=G, include_roof=True):
 
 
 def geometry_manifest(p=P, g=G):
+    from .furniture_geometry import furniture_manifest
     return {
-        "revision": "R01-3D", "stage": "approved_floor_plan_concept_model",
+        "revision": "R02-3D", "stage": "approved_floor_plan_concept_model",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -286,9 +290,12 @@ def geometry_manifest(p=P, g=G):
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
             "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
             "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
-            "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；未表达设备或家具产品构造。",
+            "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
         ],
+        "interior_reference": "references/interior-furnishings.md",
+        "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
+        "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],
         "outputs": ["STEP/house_3d.step", "GLB/house_3d.glb"],
     }

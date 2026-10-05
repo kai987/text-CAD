@@ -75,6 +75,7 @@ h1, h2, p { margin: 0; }
 h1 { font-size: 20px; font-weight: 650; line-height: 1.4; }
 h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; }
 .app-shell { min-height: 100svh; }
+.model-page-cache[hidden] { display: none; }
 .app-header { height: 64px; display: grid; grid-template-columns: clamp(160px, 22vw, 280px) minmax(0,1fr) auto; align-items: center; border-bottom: 1px solid var(--line); background: var(--surface); }
 .wordmark { padding-left: 28px; font-size: 24px; letter-spacing: -.7px; font-weight: 750; color: var(--text); text-decoration: none; }
 .app-header nav { display: flex; height: 100%; gap: clamp(4px, 2vw, 34px); justify-content: center; align-items: stretch; }

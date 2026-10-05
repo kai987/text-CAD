@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { modelLayouts } from './model-state';
 import type { ModelId, ModelLayout } from './model-state';
@@ -9,6 +9,7 @@ import { house, downloadFiles } from './data';
 import apartment from './apartment-data.json';
 import housePreview from './plan-preview-metadata.json';
 import apartmentPreview from './apartment-preview-metadata.json';
+import { loadPlanVectors } from './plan-vectors';
 
 interface ModelManifest {
   parameters: { width: number; depth: number; storey_height: number; clear_height?: number };
@@ -54,6 +55,10 @@ const ModelContext = createContext<(ModelConfig & { copy: Messages }) | null>(nu
 export function ModelProvider({ id, children }: { id: ModelId; children: ReactNode }) {
   const { locale, copy } = useLanguage();
   const value = useMemo(() => ({ ...models[id], copy: modelCopy(copy, locale, id) }), [id, copy, locale]);
+  useEffect(() => {
+    // A missing floor must not prevent the other plans or the model from loading.
+    void Promise.allSettled(models[id].previews.map(preview => loadPlanVectors(preview.path)));
+  }, [id]);
   return <ModelContext.Provider value={value}>{children}</ModelContext.Provider>;
 }
 export function useModel() {

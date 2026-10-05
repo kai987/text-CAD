@@ -83,8 +83,12 @@ export default function App() {
       <span>{copy.models.note}</span>
     </div>
     <main id="main-content">
-      {page === '3d' ? <ModelPage key={model} settings={settings} setSettings={setSettings} /> :
-        page === '1f' || page === '2f' ? <PlanPage key={`${model}-${page}`} floor={page === '1f' ? 1 : 2} /> : <DownloadPage />}
+      {/* Prepare the selected model even on a plan entry, and retain its camera on tab changes. */}
+      <div className="model-page-cache" hidden={page !== '3d'}>
+        <ModelPage key={model} settings={settings} setSettings={setSettings} />
+      </div>
+      {page === '1f' || page === '2f' ? <PlanPage key={`${model}-${page}`} floor={page === '1f' ? 1 : 2} /> :
+        page === 'files' ? <DownloadPage /> : null}
     </main>
   </div></ModelProvider>;
 }

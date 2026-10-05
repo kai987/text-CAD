@@ -89,7 +89,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let mode: 'iso' | 'top' = 'iso';
   function draw() {
     frame = 0;
-    if (disposed) return;
+    if (disposed || !host.clientWidth || !host.clientHeight) return;
     controls.update(); renderer.render(scene, camera);
   }
   function requestRender() { if (!disposed && !frame) frame = requestAnimationFrame(draw); }
@@ -181,7 +181,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     controls.update(); updateFrustum();
   }
   function updateFrustum() {
-    if (!root) return;
+    // The retained viewer has no layout while a plan is active. Reframe on reveal.
+    if (!root || !host.clientWidth || !host.clientHeight) return;
     camera.updateMatrixWorld(true);
     const point = new Vector3();
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;

@@ -6,43 +6,26 @@ import { fittedPlanWidth } from './plan-preview';
 import type { PlanView } from './plan-preview';
 import { useModel } from './ModelContext';
 import { format, roomLabel } from './localization';
-
-// The approved PDF conversion is static; retain parsed vectors when switching floors.
-const svgCache = new Map<string, Promise<string>>();
-function loadPlanVectors(path: string) {
-  let pending = svgCache.get(path);
-  if (!pending) {
-    pending = fetch(asset(path)).then(async response => {
-      if (!response.ok) throw new Error('The vector plan could not be loaded.');
-      const document = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
-      if (document.querySelector('parsererror') || document.documentElement.localName !== 'svg' ||
-          document.querySelector('script, foreignObject, image, text')) {
-        throw new Error('Invalid vector plan.');
-      }
-      return document.documentElement.innerHTML;
-    });
-    svgCache.set(path, pending);
-    pending.catch(() => svgCache.delete(path));
-  }
-  return pending;
-}
+import { getCachedPlanVectors, loadPlanVectors } from './plan-vectors';
 
 export default function PlanPage({ floor }: { floor: 1 | 2 }) {
   const { copy, data, previews, plans, pdf } = useModel();
+  const preview = previews.find(item => item.floor === floor)!;
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<PlanView>('plan');
-  const [vectors, setVectors] = useState<string | null>(null);
+  const [vectors, setVectors] = useState<string | null>(() => getCachedPlanVectors(preview.path) ?? null);
   const [failed, setFailed] = useState(false);
   const [available, setAvailable] = useState({ width: 1, height: 1 });
   const scroll = useRef<HTMLDivElement>(null);
   const rooms = data.floors.find(f => f.floor === floor)!.rooms;
   const dxf = plans[floor]!;
-  const preview = previews.find(item => item.floor === floor)!;
   const viewBox = view === 'plan' ? preview.planViewBox : preview.fullViewBox;
   const width = fittedPlanWidth(viewBox, available.width, available.height) * zoom;
 
   useEffect(() => {
     let current = true;
+    setFailed(false);
+    setVectors(getCachedPlanVectors(preview.path) ?? null);
     loadPlanVectors(preview.path).then(markup => {
       if (current) setVectors(markup);
     }).catch(() => { if (current) setFailed(true); });

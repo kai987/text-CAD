@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { repository } from './data';
-import { initialPage, settingsForPreset } from './model-state';
-import type { PageId } from './model-state';
+import { initialModel, initialPage, initialPreset, modelLayouts, modelUrl, settingsForPreset } from './model-state';
+import type { ModelId, PageId } from './model-state';
 import ModelPage from './ModelPage';
 import PlanPage from './PlanPage';
 import DownloadPage from './DownloadPage';
@@ -10,30 +10,42 @@ import { isLocale, languageNames, locales } from './localization';
 import { useTheme } from './ThemeContext';
 import { isThemePreference } from './theme-preferences';
 
-const tabs: PageId[] = ['3d', '1f', '2f', 'files'];
+import { ModelProvider } from './ModelContext';
+import { modelCopy } from './model-copy';
 
 export default function App() {
-  const { locale, setLocale, copy } = useLanguage();
+  const { locale, setLocale, copy: baseCopy } = useLanguage();
   const { preference, setPreference } = useTheme();
-  const [page, setPage] = useState(() => initialPage(location.search));
+  const [model, setModel] = useState<ModelId>(() => initialModel(location.search));
+  const layout = modelLayouts[model];
+  const copy = modelCopy(baseCopy, locale, model);
+  const [page, setPage] = useState(() => initialPage(location.search, modelLayouts[initialModel(location.search)]));
   const [settings, setSettings] = useState(() => {
-    const mode = new URLSearchParams(location.search).get('mode');
-    return settingsForPreset(mode === 'first' || mode === 'second' ? mode : 'exterior');
+    const initial = modelLayouts[initialModel(location.search)];
+    return settingsForPreset(initialPreset(location.search, initial), initial);
   });
+  useEffect(() => {
+    document.title = `${copy.app.title} · text-CAD`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', copy.app.description);
+  }, [copy.app.title, copy.app.description]);
+  function updateUrl(next: PageId, id: ModelId) {
+    history.replaceState(null, '', modelUrl(location.href, next, id));
+  }
+  function changeModel(id: ModelId) {
+    const next = modelLayouts[id];
+    setModel(id); setSettings(settingsForPreset(next.defaultPreset, next));
+    setPage('3d'); updateUrl('3d', id);
+  }
   function navigate(next: PageId) {
     setPage(next);
-    const url = new URL(location.href);
-    const section = url.searchParams.get('section');
-    url.search = ''; url.searchParams.set('view', next);
-    if (section === 'wasm') url.searchParams.set('section', section);
-    history.replaceState(null, '', url);
+    updateUrl(next, model);
   }
-  return <div className="app-shell">
+  return <ModelProvider id={model}><div className="app-shell">
     <a className="skip-link" href="#main-content">{copy.app.skip}</a>
     <header className="app-header">
       <a className="wordmark" href={import.meta.env.BASE_URL} aria-label={copy.app.home}>text-CAD</a>
       <nav aria-label={copy.app.nav}>
-        {tabs.map(id => <button key={id} type="button" className={page === id ? 'nav-tab active' : 'nav-tab'}
+        {layout.pages.map(id => <button key={id} type="button" className={page === id ? 'nav-tab active' : 'nav-tab'}
           aria-current={page === id ? 'page' : undefined} onClick={() => navigate(id)}>{copy.app.tabs[id]}</button>)}
       </nav>
       <div className="header-actions">
@@ -60,9 +72,19 @@ export default function App() {
         </a>
       </div>
     </header>
+    <div className="model-switcher">
+      <label htmlFor="model-choice">{copy.models.label}</label>
+      <select id="model-choice" value={model} onChange={event => {
+        if (event.target.value === 'house' || event.target.value === 'apartment') changeModel(event.target.value);
+      }}>
+        <option value="house">{copy.models.house}</option>
+        <option value="apartment">{copy.models.apartment}</option>
+      </select>
+      <span>{copy.models.note}</span>
+    </div>
     <main id="main-content">
-      {page === '3d' ? <ModelPage settings={settings} setSettings={setSettings} /> :
-        page === '1f' || page === '2f' ? <PlanPage key={page} floor={page === '1f' ? 1 : 2} /> : <DownloadPage />}
+      {page === '3d' ? <ModelPage key={model} settings={settings} setSettings={setSettings} /> :
+        page === '1f' || page === '2f' ? <PlanPage key={`${model}-${page}`} floor={page === '1f' ? 1 : 2} /> : <DownloadPage />}
     </main>
-  </div>;
+  </div></ModelProvider>;
 }

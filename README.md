@@ -1,8 +1,8 @@
-# 日本两层一户建参数化方案
+# 日本住宅参数化方案：一户建与 2LDK 公寓
 
 **简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
-当前图纸版本：R02（日本制图基准准用版）。**用户已确认的 R01 平面布局保持不变**，三维模型继续使用该布局。房间名、面积、尺寸、门编号及家具文字采用高对比显示。
+一户建当前图纸版本：R02（日本制图基准准用版）。**用户已确认的 R01 平面布局保持不变**，三维模型继续使用该布局。房间名、面积、尺寸、门编号及家具文字采用高对比显示。
 
 ## 在线查看
 
@@ -41,7 +41,7 @@ npm run build
 
 `build:wasm` 执行原生 Rust 测试并生成 WASM／JS绑定及源码和产物哈希。普通测试和构建拒绝过期产物；独立 Rust 工作流执行原生测试、Clippy 和 WASM 编译。基准脚本支持 `--output /绝对路径/result.json` 保存结果。
 
-开发和构建时从仓库复制 15 个 CAD、图纸及说明文件（含两层矢量预览），并生成 SHA-256 清单；生产构建再次核对副本。矢量元数据还记录来源 PDF 的哈希、SVG 哈希和裁切内的标注边界；源 PDF 变化或 SVG 不匹配时拒绝构建，要求先重新转换。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
+开发和构建时从仓库复制 23 个 CAD、图纸及说明文件（含两层矢量预览），并生成 SHA-256 清单；生产构建再次核对副本。矢量元数据还记录来源 PDF 的哈希、SVG 哈希和裁切内的标注边界；源 PDF 变化或 SVG 不匹配时拒绝构建，要求先重新转换。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
 
 修改方案后先重建 CAD、PDF 并完成对应检查，再更新矢量预览；转换工具在本地使用 Python，GitHub Pages 构建直接读取已提交的 SVG：
 
@@ -53,6 +53,29 @@ uv pip install --python .venv/bin/python PyMuPDF==1.26.7
 提交 `output/vector/house_1f_plan.svg`、`house_2f_plan.svg` 与 `web/src/plan-preview-metadata.json` 后重新构建。当前裁切范围及必需标签对应已批准的7280毫米演示方案；若平面尺寸或纸面排版改变，需要重新核对裁切和标注。
 
 `.github/workflows/pages.yml` 在 `main` 推送时执行安装、模型控制测试、TypeScript 检查、构建和文件哈希检查，然后发布到 GitHub Pages。在线尺寸仍是演示假设，现有结构和管线待定项见下文。
+
+## 新增日本 2LDK 公寓（A01）
+
+[直接打开公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d)。页头可在原两层一户建与公寓之间切换；公寓默认显示室内剖视，提供完整户型、天花、阳台及厨卫设备的独立显示控制。单层平面、下载文件、房间面积和说明均随户型切换；语言与明暗偏好保留。加上 `&section=wasm` 可对公寓使用 Rust 剖切试点。
+
+公寓外轮廓 **7800 × 8400 mm（65.52㎡）**、层高 **2800 mm**、净高 **2500 mm**均为演示假设。65.52㎡是外轮廓矩形面积，**不是室内净面积或法定专有面积**。房间净边界合计 **56.54㎡**（含家具占地），南侧阳台板投影 **11.70㎡**（7800 × 1500 mm）单独列出。公寓为单个住户的方案，不包含整栋楼、公共走廊或邻户。
+
+北侧玄关经厅廊到两间卧室、厕所、洗面脱衣室和南侧 LDK；浴室经洗面脱衣室进入，LDK 通向收纳和南阳台。图纸记录门窗尺寸、开启方向、房间净尺寸及面积，DXF 保留可编辑文字和原生尺寸。所有朝向、墙厚、家具设备和门窗尺寸均为方案假设，结构、设备管线及建筑法规仍待专业核查。
+
+- 参数化入口：`src/apartment_2ldk.py`；平面与几何参数：`src/lib/apartment_plan.py`、`src/lib/apartment_geometry.py`。
+- 三维：`GLB/apartment_2ldk.glb`、`STEP/apartment_2ldk.step`；节点为 `F1`（单元室内）、`ceiling`、`balcony`，厨卫占位为 `F1:fixtures`。
+- 平面：`DXF/apartment_2ldk_plan.dxf`、`output/pdf/apartment_2ldk_plan.pdf`、`output/vector/apartment_2ldk_plan.svg`。
+- 参数及图面追踪：`output/review/apartment_2ldk_manifest.json`、`output/review/apartment_2ldk_preview.json`。
+
+```bash
+.venv/bin/python src/apartment_2ldk.py
+.venv/bin/python checks/validate_apartment.py
+cd web
+npm test
+npm run build
+```
+
+公寓独立生成与检查，不需重新生成一户建。生成器需要 `requirements.txt` 中的 Python 依赖；网页发布只读取已提交的 CAD、PDF 与矢量资产。
 
 ## 文件
 

@@ -6,12 +6,14 @@ const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const contained = (bounds, [x, y, width, height]) =>
   bounds[0] >= x && bounds[1] >= y && bounds[2] <= x + width && bounds[3] <= y + height;
 
-export function validatePlanMetadata(metadata, pdfBytes, svgByFloor) {
+export function validatePlanMetadata(metadata, pdfBytes, svgByFloor,
+  { floors = [1, 2], dimensions = ['7280', '7280'] } = {}) {
   if (metadata.version !== 1 || metadata.source.sha256 !== sha(pdfBytes)) {
     throw new Error('Vector plans are stale: regenerate SVG from the current approved PDF.');
   }
-  if (metadata.source.pages !== 2 || metadata.floors.length !== 2 || !metadata.generator.textAsPath) {
-    throw new Error('Expected two outlined floor-plan SVGs.');
+  if (metadata.source.pages !== floors.length || metadata.floors.length !== floors.length ||
+      metadata.floors.some((floor, index) => floor.floor !== floors[index]) || !metadata.generator.textAsPath) {
+    throw new Error(`Expected ${floors.length} outlined floor-plan SVGs in floor order.`);
   }
   for (const floor of metadata.floors) {
     const svg = svgByFloor.get(floor.floor);
@@ -32,7 +34,10 @@ export function validatePlanMetadata(metadata, pdfBytes, svgByFloor) {
     if (floor.annotations.some(annotation => !contained(annotation.bounds, floor.planViewBox))) {
       throw new Error(`Vector floor ${floor.floor} crop clips a recorded annotation.`);
     }
-    if (floor.annotations.filter(annotation => annotation.text === '7280').length !== 2 ||
+    const missingDimension = [...new Set(dimensions)].some(dimension =>
+      floor.annotations.filter(annotation => annotation.text === dimension).length <
+      dimensions.filter(value => value === dimension).length);
+    if (missingDimension ||
         floor.requiredLabels.some(label => !floor.annotations.some(annotation => annotation.text.includes(label)))) {
       throw new Error(`Vector floor ${floor.floor} crop omits a room or overall dimension.`);
     }
@@ -47,4 +52,15 @@ export async function validatePlanPreviews(root) {
     floor.floor, await readFile(resolve(root, floor.path)),
   ])));
   return validatePlanMetadata(metadata, pdf, svgByFloor);
+}
+
+export const apartmentPlanRequirements = { floors: [1], dimensions: ['7800', '8400'] };
+
+export async function validateApartmentPreviews(root) {
+  const metadata = JSON.parse(await readFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), 'utf8'));
+  const pdf = await readFile(resolve(root, metadata.source.path));
+  const svgByFloor = new Map(await Promise.all(metadata.floors.map(async floor => [
+    floor.floor, await readFile(resolve(root, floor.path)),
+  ])));
+  return validatePlanMetadata(metadata, pdf, svgByFloor, apartmentPlanRequirements);
 }

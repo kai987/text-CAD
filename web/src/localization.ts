@@ -1,6 +1,6 @@
 import plan from '../../output/review/design_manifest.json' with { type: 'json' };
 import model from '../../output/review/house_3d_assumptions_R01.json' with { type: 'json' };
-import type { ModelPartId, PartKind } from './model-state';
+import type { GroupId, ModelPartId, PartKind } from './model-state';
 
 export type Locale = 'zh' | 'ja' | 'en';
 export const locales = ['zh', 'ja', 'en'] as const;
@@ -16,6 +16,7 @@ export function format(template: string, values: Record<string, string | number>
 }
 
 const zh = {
+  models: { label: '户型方案', house: '日本两层一户建', apartment: '日本公寓 2LDK · 约 65㎡', note: '所有方案尺寸均为演示假设' },
   theme: { label: '颜色模式', system: '系统', light: '浅色', dark: '深色', help: '选择系统可跟随设备的明暗设置。' },
   app: { skip: '跳到查看区域', home: 'text-CAD 首页', nav: '房屋模型与图纸', language: '界面语言',
     title: '日本两层一户建', description: '查看日本两层一户建的参数化方案模型、平面图和可下载 CAD 文件。',
@@ -26,16 +27,16 @@ const zh = {
     downloadGlb: '下载 GLB', canvas: '可旋转和缩放的房屋三维模型', fallback: '房屋模型静态预览',
     error: '当前浏览器无法显示交互模型。你仍可查看平面图或下载 GLB、STEP 文件。' },
   controls: { region: '模型控制', parts: '部件显示', cut: '剖切', enableCut: '启用剖切', height: '剖切高度' },
-  parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高',
+  parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高', clearHeight: '净高', outlineArea: '外轮廓面积', interiorArea: '室内净面积合计', balconyArea: '阳台面积',
     note: '尺寸为演示假设。结构与管线尚未建模。' },
-  groups: { F1: '一层', F2: '二层', stairs: '楼梯', roof: '屋顶' },
-  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜' },
+  groups: { F1: '一层', F2: '二层', stairs: '楼梯', roof: '屋顶', ceiling: '顶板', balcony: '阳台' },
+  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备' },
   tree: { show: '显示{label}', collapse: '收起{label}部件', expand: '展开{label}部件', highlight: '高亮{label}',
     isolate: '单独查看{label}', alone: '单独', region: '{label}部件',
     help: '展开楼层可查看分类；点击名称高亮，使用“单独”查看部件。顶部视图按钮可恢复显示。' },
-  presets: { region: '模型视图', exterior: '完整外观', first: '一层内部', second: '二层内部' },
+  presets: { region: '模型视图', exterior: '完整外观', first: '一层内部', second: '二层内部', interior: '室内剖视' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品储藏室', foyer: '玄关', wc: '厕所',
-    hall: '走廊', stairs: '楼梯', master: '主卧', bed2: '卧室 2', bed3: '卧室 3', storage: '储藏室' },
+    hall: '走廊', stairs: '楼梯', master: '主卧', bed2: '卧室 2', bed3: '卧室 3', storage: '储藏室', balcony: '阳台' },
   plan: { sidebar: '{floor}层图纸资料', viewer: '{floor}层平面图查看区域', title: '{floor}层平面图',
     details: 'A3 横向 · 1:50 · 单位 mm', downloadDxf: '下载 DXF', openPdf: '打开两层 PDF 图纸',
     originalNote: '原始 CAD、PDF 和矢量图纸保留日文标注；下方房间表随界面语言切换。',
@@ -64,6 +65,7 @@ type Strings<T> = T extends string ? string : T extends readonly string[] ? read
 export type Messages = Strings<typeof zh>;
 
 const ja: Messages = {
+  models: { label: '間取りプラン', house: '日本の2階建て戸建住宅', apartment: '日本のマンション 2LDK · 約65㎡', note: 'すべての寸法はデモ用の仮定です' },
   theme: { label: '表示モード', system: '自動', light: 'ライト', dark: 'ダーク', help: '自動を選ぶと端末の明暗設定に連動します。' },
   app: { skip: '閲覧エリアへ移動', home: 'text-CAD ホーム', nav: '住宅モデルと図面', language: '表示言語',
     title: '日本の2階建て戸建住宅', description: '日本の2階建て戸建住宅のパラメトリックな計画モデル、平面図、CADファイルを閲覧できます。',
@@ -74,16 +76,16 @@ const ja: Messages = {
     downloadGlb: 'GLBをダウンロード', canvas: '回転・拡大・縮小できる住宅の3Dモデル', fallback: '住宅モデルの静止画プレビュー',
     error: 'このブラウザでは3Dモデルを表示できません。平面図の閲覧やGLB・STEPファイルのダウンロードは可能です。' },
   controls: { region: 'モデル操作', parts: '部材の表示', cut: '水平断面', enableCut: '水平断面を有効にする', height: '切断高さ' },
-  parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高',
+  parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高', clearHeight: '天井高', outlineArea: '外形面積', interiorArea: '室内有効面積の合計', balconyArea: 'バルコニー面積',
     note: '寸法はデモ用の仮定です。構造・設備配管は未モデル化です。' },
-  groups: { F1: '1階', F2: '2階', stairs: '階段', roof: '屋根' },
-  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具' },
+  groups: { F1: '1階', F2: '2階', stairs: '階段', roof: '屋根', ceiling: '天井スラブ', balcony: 'バルコニー' },
+  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備' },
   tree: { show: '{label}を表示', collapse: '{label}の部材を折りたたむ', expand: '{label}の部材を展開', highlight: '{label}を強調表示',
     isolate: '{label}のみ表示', alone: '単独', region: '{label}の部材',
     help: '階を展開すると分類を表示します。名称を選択して強調表示、「単独」でその部材だけを表示できます。上部の表示切替で全体表示に戻せます。' },
-  presets: { region: 'モデルの表示切替', exterior: '建物全体', first: '1階内部', second: '2階内部' },
+  presets: { region: 'モデルの表示切替', exterior: '建物全体', first: '1階内部', second: '2階内部', interior: '室内断面' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品庫', foyer: '玄関', wc: 'トイレ',
-    hall: '廊下', stairs: '階段', master: '主寝室', bed2: '洋室 2', bed3: '洋室 3', storage: '納戸' },
+    hall: '廊下', stairs: '階段', master: '主寝室', bed2: '洋室 2', bed3: '洋室 3', storage: '納戸', balcony: 'バルコニー' },
   plan: { sidebar: '{floor}階の図面情報', viewer: '{floor}階平面図の閲覧エリア', title: '{floor}階平面図',
     details: 'A3 横 · 1:50 · 単位 mm', downloadDxf: 'DXFをダウンロード', openPdf: '2階分のPDF図面を開く',
     originalNote: '元のCAD・PDF・ベクトル図面は日本語表記のままです。下の室名一覧は表示言語に連動します。',
@@ -135,6 +137,7 @@ const ja: Messages = {
 };
 
 const en: Messages = {
+  models: { label: 'Layout', house: 'Japanese two-storey house', apartment: 'Japanese apartment 2LDK · approx. 65 m²', note: 'All plan dimensions are demonstration assumptions' },
   theme: { label: 'Color mode', system: 'Auto', light: 'Light', dark: 'Dark', help: 'Auto follows your device’s light or dark appearance.' },
   app: { skip: 'Skip to viewer', home: 'text-CAD home', nav: 'House model and drawings', language: 'Interface language',
     title: 'Japanese two-storey house', description: 'Explore a parametric concept model, floor plans and downloadable CAD files for a Japanese two-storey house.',
@@ -145,16 +148,16 @@ const en: Messages = {
     downloadGlb: 'Download GLB', canvas: 'House 3D model with rotation and zoom controls', fallback: 'Static house model preview',
     error: 'This browser cannot display the interactive model. You can still view the floor plans or download the GLB and STEP files.' },
   controls: { region: 'Model controls', parts: 'Component visibility', cut: 'Cutaway', enableCut: 'Enable cutaway', height: 'Cut height' },
-  parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height',
+  parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height', clearHeight: 'Clear height', outlineArea: 'Outline area', interiorArea: 'Total net interior area', balconyArea: 'Balcony area',
     note: 'Dimensions are demonstration assumptions. Structure and services have not been modelled.' },
-  groups: { F1: 'First floor', F2: 'Second floor', stairs: 'Stairs', roof: 'Roof' },
-  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets' },
+  groups: { F1: 'First floor', F2: 'Second floor', stairs: 'Stairs', roof: 'Roof', ceiling: 'Ceiling slab', balcony: 'Balcony' },
+  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures' },
   tree: { show: 'Show {label}', collapse: 'Collapse {label} components', expand: 'Expand {label} components', highlight: 'Highlight {label}',
     isolate: 'View only {label}', alone: 'Only', region: '{label} components',
     help: 'Expand a floor to see its categories. Select a name to highlight it, or use “Only” to isolate it. The view presets above restore the display.' },
-  presets: { region: 'Model views', exterior: 'Whole house', first: 'First-floor interior', second: 'Second-floor interior' },
+  presets: { region: 'Model views', exterior: 'Whole house', first: 'First-floor interior', second: 'Second-floor interior', interior: 'Interior cutaway' },
   rooms: { ldk: 'Living / dining / kitchen', bath: 'Bathroom', wash: 'Washroom / changing room', pantry: 'Pantry', foyer: 'Entrance', wc: 'Toilet',
-    hall: 'Hallway', stairs: 'Stairs', master: 'Main bedroom', bed2: 'Bedroom 2', bed3: 'Bedroom 3', storage: 'Storeroom' },
+    hall: 'Hallway', stairs: 'Stairs', master: 'Main bedroom', bed2: 'Bedroom 2', bed3: 'Bedroom 3', storage: 'Storeroom', balcony: 'Balcony' },
   plan: { sidebar: 'Floor {floor} drawing information', viewer: 'Floor {floor} plan viewer', title: 'Floor {floor} plan',
     details: 'A3 landscape · 1:50 · Units mm', downloadDxf: 'Download DXF', openPdf: 'Open both floors as PDF',
     originalNote: 'The original CAD, PDF and vector drawings retain Japanese annotations. The room table below follows the interface language.',
@@ -208,7 +211,7 @@ const en: Messages = {
 export const messages: Record<Locale, Messages> = { zh, ja, en };
 
 export function selectionLabel(copy: Messages, id: ModelPartId): string {
-  if (id === 'F1' || id === 'F2' || id === 'stairs' || id === 'roof') return copy.groups[id];
+  if (!id.includes(':')) return copy.groups[id as GroupId];
   const [floor, kind] = id.split(':') as ['F1' | 'F2', PartKind];
   return `${copy.groups[floor]} · ${copy.partKinds[kind]}`;
 }

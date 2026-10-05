@@ -1,0 +1,268 @@
+{
+  "id": "apartment",
+  "title": "日本の集合住宅 / 2LDK",
+  "revision": "A01",
+  "drawingRevision": "A01",
+  "modelRevision": "A01-3D",
+  "units": "mm",
+  "stage": "concept_proposal",
+  "parameters": {
+    "width": 7800,
+    "depth": 8400,
+    "storey_height": 2800,
+    "external_wall": 200,
+    "internal_wall": 100,
+    "clear_height": 2500,
+    "slab_thickness": 200,
+    "balcony_depth": 1500,
+    "balcony_guard_height": 1100,
+    "west_room_width": 3100,
+    "hall_width": 1400,
+    "ldk_depth": 3000,
+    "bedroom_depth": 3000,
+    "bath_width": 1400,
+    "toilet_width": 1000,
+    "foyer_depth": 1300,
+    "door_height": 2100,
+    "cabinet_height": 2100,
+    "roof_type": "flat ceiling / 単一住戸の天井"
+  },
+  "areas": {
+    "outline": 65.52,
+    "interior": 56.54,
+    "balcony": 11.7
+  },
+  "assumptions": [
+    "7800 × 8400 mm 外轮廓、2800 mm 层高、2500 mm 室内净高及全部细部尺寸均为演示假设。",
+    "65.52㎡是本示例外轮廓投影面积，包含外墙与隔墙，不代表房产登记面积、专有面积或法定建筑面积。",
+    "56.54㎡是房间净边界面积之和，包含柜体和设备占地，排除所有墙体和阳台。",
+    "11.70㎡阳台为7800 × 1500 mm示意板面投影，单独计算，包含栏板投影。",
+    "北侧公共走廊入户、南侧阳台及北向均为展示假设，未提供地块或整栋建筑资料。",
+    "外墙/户间墙200 mm、室内隔墙100 mm，楼板200 mm；模型为单一住户，无内部楼梯和坡屋顶。",
+    "中部走廊宽1400 mm；玄关鞋柜深350 mm后剩余通行宽1050 mm。",
+    "两卧室北侧设高窗，LDK南侧设两组落地移门通向阳台；户间墙无侧窗。",
+    "玄关高差用分界线示意；模型完成面统一Z=0，未生成防水、排水坡度或门槛构造。",
+    "室内门洞700/750/800 mm；移门使用外挂轨道概念并留出墙边空间，门洞为毛洞尺寸。",
+    "浴室1400 × 1800 mm、洗面脱衣1600 × 1800 mm、厕所1000 × 1800 mm为方案预留。",
+    "顶板及阳台栏板仅表达外形；门窗、柜体、卫生设备均为概念占位，未选实际产品。",
+    "顶板为Z=2500至2700 mm；至2800 mm楼层基准面余100 mm层间构造未建模。",
+    "未验证结构、采光通风、消防疏散、设备管井、阳台隔板或日本建筑确认申报要求。"
+  ],
+  "floors": [
+    {
+      "floor": 1,
+      "rooms": [
+        {
+          "id": "ldk",
+          "name": "LDK",
+          "area": 22.2,
+          "size": "7400 × 3000"
+        },
+        {
+          "id": "master",
+          "name": "洋室 1",
+          "area": 9.3,
+          "size": "3100 × 3000"
+        },
+        {
+          "id": "bed2",
+          "name": "洋室 2",
+          "area": 8.1,
+          "size": "2700 × 3000"
+        },
+        {
+          "id": "bath",
+          "name": "浴室",
+          "area": 2.52,
+          "size": "1400 × 1800"
+        },
+        {
+          "id": "wash",
+          "name": "洗面・脱衣",
+          "area": 2.88,
+          "size": "1600 × 1800"
+        },
+        {
+          "id": "wc",
+          "name": "トイレ",
+          "area": 1.8,
+          "size": "1000 × 1800"
+        },
+        {
+          "id": "storage",
+          "name": "納戸",
+          "area": 2.88,
+          "size": "1600 × 1800"
+        },
+        {
+          "id": "foyer",
+          "name": "玄関",
+          "area": 1.82,
+          "size": "1400 × 1300"
+        },
+        {
+          "id": "hall",
+          "name": "廊下",
+          "area": 5.04,
+          "size": "1400 × 3600"
+        },
+        {
+          "id": "balcony",
+          "name": "バルコニー",
+          "area": 11.7,
+          "size": "7800 × 1500"
+        }
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "D01",
+      "a": "outside",
+      "b": "foyer",
+      "axis": "h",
+      "at": 8300.0,
+      "start": 3800,
+      "width": 900,
+      "kind": "swing",
+      "direction": 1
+    },
+    {
+      "id": "D02",
+      "a": "hall",
+      "b": "ldk",
+      "axis": "h",
+      "at": 3250.0,
+      "start": 3400,
+      "width": 1400,
+      "kind": "open",
+      "direction": 1
+    },
+    {
+      "id": "D03",
+      "a": "hall",
+      "b": "master",
+      "axis": "v",
+      "at": 3350.0,
+      "start": 5550,
+      "width": 800,
+      "kind": "slide",
+      "direction": 1
+    },
+    {
+      "id": "D04",
+      "a": "hall",
+      "b": "bed2",
+      "axis": "v",
+      "at": 4850.0,
+      "start": 5550,
+      "width": 800,
+      "kind": "slide",
+      "direction": 1
+    },
+    {
+      "id": "D05",
+      "a": "hall",
+      "b": "wash",
+      "axis": "v",
+      "at": 3350.0,
+      "start": 3500,
+      "width": 800,
+      "kind": "slide",
+      "direction": 1
+    },
+    {
+      "id": "D06",
+      "a": "wash",
+      "b": "bath",
+      "axis": "v",
+      "at": 1650.0,
+      "start": 3400,
+      "width": 750,
+      "kind": "slide",
+      "direction": 1
+    },
+    {
+      "id": "D07",
+      "a": "hall",
+      "b": "wc",
+      "axis": "v",
+      "at": 4850.0,
+      "start": 3500,
+      "width": 700,
+      "kind": "slide",
+      "direction": 1
+    },
+    {
+      "id": "D08",
+      "a": "ldk",
+      "b": "storage",
+      "axis": "h",
+      "at": 3250.0,
+      "start": 6300,
+      "width": 800,
+      "kind": "slide",
+      "direction": -1
+    }
+  ],
+  "connections": [
+    [
+      "foyer",
+      "hall"
+    ],
+    [
+      "ldk",
+      "balcony"
+    ]
+  ],
+  "windows": [
+    {
+      "id": "W01",
+      "axis": "h",
+      "at": 100.0,
+      "start": 900,
+      "width": 2100,
+      "sill": 0,
+      "height": 2100
+    },
+    {
+      "id": "W02",
+      "axis": "h",
+      "at": 100.0,
+      "start": 4800,
+      "width": 2100,
+      "sill": 0,
+      "height": 2100
+    },
+    {
+      "id": "W03",
+      "axis": "h",
+      "at": 8300.0,
+      "start": 800,
+      "width": 1800,
+      "sill": 1100,
+      "height": 1100
+    },
+    {
+      "id": "W04",
+      "axis": "h",
+      "at": 8300.0,
+      "start": 5250,
+      "width": 1800,
+      "sill": 1100,
+      "height": 1100
+    }
+  ],
+  "axis_convention": "X east, Y north, Z up; GLB metres and Y up",
+  "glb_export": {
+    "named_mesh_nodes": 55,
+    "all_nodes": 69
+  },
+  "drafting_standard": {
+    "name": "東京都建設局 CAD製図基準 令和6年4月",
+    "url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
+    "scale": "1:50",
+    "paper": "A3 landscape",
+    "scope": "Common civil CAD drawing conventions adapted to a residential concept; not SXF delivery."
+  }
+}

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { locales, messages, resolveLocale, htmlLanguages } from '../src/localization.ts';
 import { languageStorageKey, readLanguage, saveLanguage } from '../src/language-preferences.ts';
+import { modelCopy } from '../src/model-copy.ts';
 
 function leaves(value, prefix = '') {
   return Object.entries(value).flatMap(([key, item]) => {
@@ -49,5 +50,23 @@ test('original plan rooms and every recorded assumption have translations', asyn
   for (const locale of locales) {
     for (const id of ids) assert.ok(messages[locale].rooms[id], `${locale}.${id}`);
     assert.equal(messages[locale].assumptions.length, plan.assumptions.length + model.assumptions.length, locale);
+  }
+});
+
+test('apartment copy covers its own rooms and every recorded assumption in all three languages', async () => {
+  const apartment = JSON.parse(await readFile(new URL('../../output/review/apartment_2ldk_manifest.json', import.meta.url), 'utf8'));
+  const reference = new Map(leaves(modelCopy(messages.zh, 'zh', 'apartment')));
+  for (const locale of locales) {
+    const copy = modelCopy(messages[locale], locale, 'apartment');
+    const translated = new Map(leaves(copy));
+    assert.deepEqual([...translated.keys()].sort(), [...reference.keys()].sort());
+    for (const [key, text] of translated) {
+      assert.ok(text.trim(), `${locale}.${key}`);
+      assert.deepEqual(placeholders(text), placeholders(reference.get(key)), `${locale}.${key}`);
+    }
+    for (const room of apartment.floors[0].rooms) assert.ok(copy.rooms[room.id], `${locale}.${room.id}`);
+    assert.equal(copy.assumptions.length, apartment.assumptions.length, locale);
+    assert.match(copy.app.title, /2LDK/);
+    assert.notEqual(copy.plan.title, messages[locale].plan.title);
   }
 });

@@ -6,8 +6,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import type { Material, MeshStandardMaterial } from 'three';
 import { asset } from './data';
-import { groups, parts, settingsForPreset } from './model-state';
-import type { ModelPartId, ModelSettings } from './model-state';
+import { modelLayouts, settingsForPreset } from './model-state';
+import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
 import { createHorizontalCap } from './section-caps';
@@ -34,7 +34,8 @@ function disposeObject(root: Object3D) {
 }
 
 export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: () => void,
-  onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light'): HouseViewer {
+  onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light',
+  layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb'): HouseViewer {
   let theme = initialTheme;
   const outlineMaterials = new Set<LineBasicMaterial>();
   function createOutlineMaterial() {
@@ -67,7 +68,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let frame = 0;
   let root: Object3D | undefined;
   let floorOffset = 0;
-  let settings = settingsForPreset('exterior');
+  let settings = settingsForPreset(layout.defaultPreset, layout);
   const groupObjects = new Map<ModelPartId, Object3D>();
   let cadObjects = new Map<string, Object3D>();
   const originalMaterials = new Map<Mesh, Material | Material[]>();
@@ -194,8 +195,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     // Return temporary highlight materials before replacing any section geometry.
     clearHighlight();
     settings = next;
-    groups.forEach(g => { const part = groupObjects.get(g.id); if (part) part.visible = next.visibility[g.id]; });
-    parts.forEach(p => { const part = groupObjects.get(p.id); if (part) part.visible = next.partVisibility[p.id]; });
+    layout.groups.forEach(g => { const part = groupObjects.get(g.id); if (part) part.visible = !!next.visibility[g.id]; });
+    layout.parts.forEach(p => { const part = groupObjects.get(p.id); if (part) part.visible = !!next.partVisibility[p.id]; });
     // GLB is Y-up/metres; display the cut height relative to the original F1 datum.
     const height = next.cutaway ? next.heightMm / 1000 + floorOffset : null;
     renderer.clippingPlanes = height === null ? [] : [new Plane(new Vector3(0, -1, 0), height)];
@@ -230,7 +231,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     root.updateWorldMatrix(true, true);
     const hits = raycaster.intersectObjects(visibleMeshes(root), false);
     const hit = hits.find(item => renderer.clippingPlanes.every(plane => plane.distanceToPoint(item.point) >= 0));
-    const selection = hit ? selectionFor(hit.object) : null;
+    const selection = hit ? selectionFor(hit.object, layout) : null;
     select(selection?.name ?? null); onSelection(selection);
   }
   function pointerCancel(event: PointerEvent) { activePointers.delete(event.pointerId); clickStart = undefined; }
@@ -242,7 +243,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.addEventListener('keydown', keyDown);
   function contextLost(event: Event) { event.preventDefault(); onError(); }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
-  new GLTFLoader().load(asset('GLB/house_3d.glb'), gltf => {
+  new GLTFLoader().load(asset(glbPath), gltf => {
     if (disposed) { disposeObject(gltf.scene); return; }
     root = gltf.scene;
     cadObjects = bindCadNodes(gltf);
@@ -263,7 +264,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial());
       o.add(edges);
     });
-    for (const group of [...groups, ...parts]) {
+    for (const group of [...layout.groups, ...layout.parts]) {
       const object = cadObjects.get(group.id);
       if (!object) { disposeObject(root); root = undefined; onError(); return; }
       groupObjects.set(group.id, object);

@@ -20,8 +20,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const copy = messages[locale];
   useEffect(() => {
     document.documentElement.lang = htmlLanguages[locale];
-    document.title = `${copy.app.title} · text-CAD`;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', copy.app.description);
     try { saveLanguage(window.localStorage, locale); }
     catch { /* Accessing localStorage itself can also throw. */ }
   }, [locale, copy]);

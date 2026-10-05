@@ -85,8 +85,8 @@ function checkParity(mesh, height, name) {
   }
 }
 
-async function house() {
-  const bytes = await readFile(new URL('../../GLB/house_3d.glb', import.meta.url));
+async function house(filename = 'house_3d.glb') {
+  const bytes = await readFile(new URL(`../../GLB/${filename}`, import.meta.url));
   const gltf = await new GLTFLoader().parseAsync(
     bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '',
   );
@@ -130,6 +130,25 @@ test('WASM cabinet caps and slab stair opening retain their actual areas and hol
   const cap = checkParity(mesh, height, 'F2:floor_slab');
   assert.ok(cap);
   near(cap.area, 7.28 * 7.28 - 1.9 * 2.72, 5e-5, 'slab minus stair opening');
+});
+
+test('apartment walls, cabinets, equipment and balcony preserve TS/WASM section parity', async () => {
+  const { nodes, offset } = await house('apartment_2ldk.glb');
+  const meshes = [...nodes].filter(([, object]) => object.isMesh);
+  assert.ok(meshes.length > 20, 'use the furnished apartment model');
+  for (const name of ['F1', 'F1:fixtures', 'F1:storage_fixtures', 'ceiling', 'balcony']) {
+    assert.ok(nodes.has(name), `missing apartment group ${name}`);
+  }
+  let caps = 0;
+  for (const [name, mesh] of meshes) {
+    const heights = new Set([0.6, 1.2, 1.8, 2.1, 2.5].map(height => height + offset));
+    const positions = mesh.geometry.getAttribute('position');
+    for (let i = 0; i < positions.count; i++) {
+      heights.add(new Vector3().fromBufferAttribute(positions, i).applyMatrix4(mesh.matrixWorld).y);
+    }
+    for (const height of heights) if (checkParity(mesh, height, name)) caps++;
+  }
+  assert.ok(caps > 30, 'actual apartment sections must be exercised');
 });
 
 test('WASM preserves nested holes and disconnected solid islands', () => {

@@ -19,9 +19,12 @@ output/review/*.png
 !output/review/house_1f_cad_dark.png
 !output/review/house_2f_cad.png
 !output/review/house_3d_*.png
+!output/review/apartment_2ldk_*.png
 
 # Static viewer dependencies and generated copies.
 web/node_modules/
 web/dist/
 web/public/artifacts/
 web/src/house-data.json
+web/src/apartment-data.json
+web/src/apartment-preview-metadata.json

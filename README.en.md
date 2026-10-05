@@ -1,8 +1,8 @@
-# Parametric concept for a Japanese two-storey house
+# Parametric Japanese homes: detached house and 2LDK apartment
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-The current drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
+The house drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
 
 ## Online viewer
 
@@ -41,7 +41,7 @@ npm run build
 
 `build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
 
-Development and builds copy 15 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
+Development and builds copy 23 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
 After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:
 
@@ -53,6 +53,29 @@ uv pip install --python .venv/bin/python PyMuPDF==1.26.7
 Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the approved 7,280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
 
 On pushes to `main`, `.github/workflows/pages.yml` installs dependencies, runs model-control tests, checks TypeScript, builds the app, verifies file hashes, and publishes to GitHub Pages. Online dimensions remain demonstration assumptions. Outstanding structural and service-design items are listed below.
+
+## Added 2LDK apartment concept (A01)
+
+[Open the apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d). The header selector switches between the existing two-storey house and the apartment. The apartment opens with an interior section view and offers whole-unit, ceiling, balcony and fixture controls. Its single-floor plan, downloads, room areas and notes follow the selected model; language and appearance preferences are retained. Append `&section=wasm` to try Rust section processing for the apartment.
+
+The **7800 × 8400 mm outline (65.52 m²)**, **2800 mm storey height** and **2500 mm clear height** are demonstration assumptions. The 65.52 m² figure is the outer rectangular footprint, **not net internal area or legally defined exclusive area**. Clear room polygons total **56.54 m²**, including furniture footprints. The south balcony slab has a separate **11.70 m²** projected area (7800 × 1500 mm). This is one apartment unit; the complete building, shared corridor and neighbouring units are outside the model.
+
+The north entrance connects through a hallway to two bedrooms, the toilet, wash/changing room and south-facing LDK. The bathroom is accessed through the washroom; storage and the south balcony are accessed from the LDK. Plans include opening dimensions, door directions, clear room dimensions and areas. DXF text and native dimensions remain editable. Orientation, wall thicknesses, furniture, fixtures and opening sizes are assumptions; structure, services and regulatory compliance require further professional review.
+
+- Generator: `src/apartment_2ldk.py`; plan and geometry parameters: `src/lib/apartment_plan.py`, `src/lib/apartment_geometry.py`.
+- 3D: `GLB/apartment_2ldk.glb`, `STEP/apartment_2ldk.step`; groups: `F1` (unit interior), `ceiling`, `balcony`, with equipment under `F1:fixtures`.
+- Plans: `DXF/apartment_2ldk_plan.dxf`, `output/pdf/apartment_2ldk_plan.pdf`, `output/vector/apartment_2ldk_plan.svg`.
+- Parameters and drawing provenance: `output/review/apartment_2ldk_manifest.json`, `output/review/apartment_2ldk_preview.json`.
+
+```bash
+.venv/bin/python src/apartment_2ldk.py
+.venv/bin/python checks/validate_apartment.py
+cd web
+npm test
+npm run build
+```
+
+The apartment is generated and checked independently of the house. Generation requires the Python dependencies in `requirements.txt`; web publication consumes committed CAD, PDF and vector assets.
 
 ## Files
 

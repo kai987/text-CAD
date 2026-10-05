@@ -2,28 +2,28 @@ import { lazy, Suspense, useCallback, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { RotateCcw, View, X } from 'lucide-react';
 import { asset } from './data';
-import { useLanguage } from './LanguageContext';
+import { useModel } from './ModelContext';
 import { selectionLabel } from './localization';
 import type { ModelSettings } from './model-state';
 import ModelControls from './ModelControls';
 import ViewPresets from './ViewPresets';
-import { anyVisible, groupVisibilityState, parts, setGroupVisible, setPartVisible } from './model-state';
+import { anyVisible, groupVisibilityState, setGroupVisible, setPartVisible } from './model-state';
 import type { GroupId, ModelPartId, PartId } from './model-state';
 import type { ModelSelection } from './model-scene';
 
 const ThreeScene = lazy(() => import('./ThreeScene'));
 interface Props { settings: ModelSettings; setSettings: Dispatch<SetStateAction<ModelSettings>> }
 export default function ModelPage({ settings, setSettings }: Props) {
-  const { copy } = useLanguage();
+  const { copy, layout, glb } = useModel();
   const [ready, setReady] = useState(false);
   const [selection, setSelection] = useState<ModelSelection | null>(null);
   const [cameraRequest, setCameraRequest] = useState({ mode: 'iso' as 'iso' | 'top', seq: 0 });
   const onReady = useCallback((value: boolean) => { setReady(value); if (!value) setSelection(null); }, []);
-  const hasVisible = anyVisible(settings);
+  const hasVisible = anyVisible(settings, layout);
   function selectPart(id: ModelPartId, fit = false) {
-    const part = parts.find(p => p.id === id);
-    setSettings(s => part ? setPartVisible(s, id as PartId, true)
-      : groupVisibilityState(s, id as GroupId) === 'none' ? setGroupVisible(s, id as GroupId, true) : s);
+    const part = layout.parts.find(p => p.id === id);
+    setSettings(s => part ? setPartVisible(s, id as PartId, true, layout)
+      : groupVisibilityState(s, id as GroupId, layout) === 'none' ? setGroupVisible(s, id as GroupId, true, layout) : s);
     setSelection({ id, name: id, label: selectionLabel(copy, id) });
     if (fit) setCameraRequest(s => ({ mode: s.mode, seq: s.seq + 1 }));
   }
@@ -54,7 +54,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
         </div> : null}
         {ready && !hasVisible ? <p className="canvas-message" role="status">{copy.model.empty}</p> : null}
         <div className="canvas-footer"><span>{copy.model.gesture} <span className="desktop-gesture">{copy.model.wheel}</span><span className="mobile-gesture">{copy.model.touch}</span></span>
-          <a href={asset('GLB/house_3d.glb')} download>{copy.model.downloadGlb}</a></div>
+          <a href={asset(glb)} download>{copy.model.downloadGlb}</a></div>
       </div>
     </section>
   </div>;

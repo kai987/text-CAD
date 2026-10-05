@@ -3,7 +3,7 @@ import { clampCutHeight } from './model-state';
 import type { ModelPartId, ModelSettings } from './model-state';
 import Parameters from './Parameters';
 import PartTree from './PartTree';
-import { useLanguage } from './LanguageContext';
+import { useModel } from './ModelContext';
 
 interface Props {
   settings: ModelSettings;
@@ -13,7 +13,7 @@ interface Props {
   onSelectPart?: (id: ModelPartId, fit?: boolean) => void;
 }
 export default function ModelControls({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
-  const { copy } = useLanguage();
+  const { copy, layout } = useModel();
   return <aside className="sidebar" aria-label={copy.controls.region}>
     <section>
       <h2>{copy.controls.parts}</h2>
@@ -30,9 +30,9 @@ export default function ModelControls({ settings, setSettings, ready, selectedPa
       <div className={settings.cutaway ? 'cut-controls' : 'cut-controls inactive'}>
         <label htmlFor="cut-height">{copy.controls.height}</label>
         <div className="range-row">
-          <input id="cut-height" type="range" min="0" max="8000" step="100" value={settings.heightMm}
+          <input id="cut-height" type="range" min="0" max={layout.maxCutHeight} step="100" value={settings.heightMm}
             disabled={!ready || !settings.cutaway}
-            onChange={e => setSettings(s => ({ ...s, heightMm: clampCutHeight(Number(e.target.value)) }))} />
+            onChange={e => setSettings(s => ({ ...s, heightMm: clampCutHeight(Number(e.target.value), layout) }))} />
           <output htmlFor="cut-height">{settings.heightMm} mm</output>
         </div>
       </div>

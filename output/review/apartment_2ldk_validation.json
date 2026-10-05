@@ -1,0 +1,1340 @@
+{
+  "summary": {
+    "checks": 258,
+    "passed": 258,
+    "failed": 0,
+    "STEP_leaf_occurrences": 55,
+    "areas": {
+      "outline": 65.52,
+      "interior": 56.54,
+      "balcony": 11.7
+    }
+  },
+  "checks": [
+    {
+      "check": "rooms:all_valid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "rooms:ldk:master:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:bed2:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:bath:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:wash:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:wc:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:ldk:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:bed2:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:bath:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:wash:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:wc:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:master:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:bath:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:wash:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:wc:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bed2:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bath:wash:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bath:wc:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bath:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bath:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:bath:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wash:wc:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wash:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wash:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wash:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wc:storage:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wc:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:wc:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:storage:foyer:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:storage:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "rooms:foyer:hall:no_overlap",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "area:rooms_plus_raw_walls_fill_envelope",
+      "pass": true,
+      "actual": 65520000.0
+    },
+    {
+      "check": "area:inside_net_excludes_balcony",
+      "pass": true,
+      "actual": 56.54
+    },
+    {
+      "check": "fixture:靴収納:(3400, 7200, 3750, 8100):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:靴収納:(3400, 7200, 3750, 8100):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:収納:(200, 5500, 800, 7000):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:収納:(200, 5500, 800, 7000):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:収納:(7000, 5500, 7600, 7000):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:収納:(7000, 5500, 7600, 7000):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:収納棚:(7200, 3450, 7500, 4950):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:収納棚:(7200, 3450, 7500, 4950):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:キッチン:(300, 2550, 2600, 3150):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:キッチン:(300, 2550, 2600, 3150):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:浴槽:(300, 4250, 1500, 5000):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:浴槽:(300, 4250, 1500, 5000):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:洗濯:(1800, 4400, 2400, 5000):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:洗濯:(1800, 4400, 2400, 5000):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:洗面:(2550, 4450, 3200, 5000):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:洗面:(2550, 4450, 3200, 5000):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "fixture:WC:(5150, 4300, 5650, 4950):within_one_room",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "fixture:WC:(5150, 4300, 5650, 4950):clear_of_walls",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "entry:clear_width_beyond_shoe_cabinet",
+      "pass": true,
+      "actual": 1050
+    },
+    {
+      "check": "D01:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D01:room_adjacency",
+      "pass": true,
+      "actual": [
+        "foyer"
+      ]
+    },
+    {
+      "check": "D01:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D02:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D02:room_adjacency",
+      "pass": true,
+      "actual": [
+        "hall",
+        "ldk"
+      ]
+    },
+    {
+      "check": "D02:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D03:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D03:room_adjacency",
+      "pass": true,
+      "actual": [
+        "hall",
+        "master"
+      ]
+    },
+    {
+      "check": "D03:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D04:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D04:room_adjacency",
+      "pass": true,
+      "actual": [
+        "bed2",
+        "hall"
+      ]
+    },
+    {
+      "check": "D04:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D05:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D05:room_adjacency",
+      "pass": true,
+      "actual": [
+        "hall",
+        "wash"
+      ]
+    },
+    {
+      "check": "D05:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D06:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D06:room_adjacency",
+      "pass": true,
+      "actual": [
+        "bath",
+        "wash"
+      ]
+    },
+    {
+      "check": "D06:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D07:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D07:room_adjacency",
+      "pass": true,
+      "actual": [
+        "hall",
+        "wc"
+      ]
+    },
+    {
+      "check": "D07:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D08:clear_2d_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D08:room_adjacency",
+      "pass": true,
+      "actual": [
+        "ldk",
+        "storage"
+      ]
+    },
+    {
+      "check": "D08:opening_clear_of_fixtures",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "circulation:every_room_reachable_from_entrance",
+      "pass": true,
+      "actual": [
+        "balcony",
+        "bath",
+        "bed2",
+        "foyer",
+        "hall",
+        "ldk",
+        "master",
+        "outside",
+        "storage",
+        "wash",
+        "wc"
+      ]
+    },
+    {
+      "check": "W01:level_balcony_access",
+      "pass": true,
+      "actual": 0
+    },
+    {
+      "check": "W02:level_balcony_access",
+      "pass": true,
+      "actual": 0
+    },
+    {
+      "check": "F1:floor_slab:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:floor_slab:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_south:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_south:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_north:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_north:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_west:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_west:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_east:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_external_east:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_partition_01:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_partition_01:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:wall_partition_01:1:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D01_door_swing:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D01_door_swing:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D03_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D03_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D04_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D04_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D05_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D05_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D06_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D06_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D07_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D07_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D08_door_slide:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:D08_door_slide:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_5:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:frame_5:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:glass_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:glass_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:glass_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W01:glass_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_5:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:frame_5:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:glass_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:glass_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:glass_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W02:glass_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_5:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:frame_5:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:glass_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:glass_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:glass_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W03:glass_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_3:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_3:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_4:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_4:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_5:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:frame_5:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:glass_1:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:glass_1:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:glass_2:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:W04:glass_2:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_01:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_01:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_02:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_02:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_03:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_03:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_04:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:storage_04:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_05:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_06:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_07:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_08:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "F1:fixture_09:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:slab:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:slab:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:south_guard:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:south_guard:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:west_guard:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:west_guard:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:east_guard:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "balcony:east_guard:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "ceiling:slab:solid_present",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "ceiling:slab:0:valid_positive_solid",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "D01:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D02:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D03:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D04:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D05:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D06:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D07:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "D08:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "W01:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "W02:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "W03:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "W04:saved_STEP_wall_opening",
+      "pass": true,
+      "actual": 0.0
+    },
+    {
+      "check": "STEP:ceiling_top",
+      "pass": true,
+      "actual": 2700.0
+    },
+    {
+      "check": "STEP:balcony_area",
+      "pass": true,
+      "actual": 11.7
+    },
+    {
+      "check": "GLB:container",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:STEP_names_retained",
+      "pass": true,
+      "actual": 55
+    },
+    {
+      "check": "GLB:semantic_groups",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:metres_Y_up",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:static_scene",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:metre_bound_0",
+      "pass": true,
+      "actual": 0
+    },
+    {
+      "check": "GLB:metre_bound_1",
+      "pass": true,
+      "actual": -0.20000000298023224
+    },
+    {
+      "check": "GLB:metre_bound_2",
+      "pass": true,
+      "actual": -8.399999618530273
+    },
+    {
+      "check": "GLB:metre_bound_3",
+      "pass": true,
+      "actual": 7.800000190734863
+    },
+    {
+      "check": "GLB:metre_bound_4",
+      "pass": true,
+      "actual": 2.700000047683716
+    },
+    {
+      "check": "GLB:metre_bound_5",
+      "pass": true,
+      "actual": 1.5
+    },
+    {
+      "check": "GLB:8_glass_panes",
+      "pass": true,
+      "actual": 8
+    },
+    {
+      "check": "GLB:transparent_glazing",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "DXF:millimetres",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "DXF:clean_audit",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "DXF:editable_dimensions",
+      "pass": true,
+      "actual": 6
+    },
+    {
+      "check": "DXF:editable_room_labels",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "DXF:A3_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "DXF:adaptive_black_white_text",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "manifest:parameters:matches_current_parameters",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "manifest:areas:matches_current_parameters",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "manifest:floors:matches_current_parameters",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "manifest:assumptions:matches_current_parameters",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:PDF_hash",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "PDF:one_A3_landscape_page",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:SVG_hash",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:outlined_vector_only",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:7800",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:8400",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:1500",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:LDK",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:洋室 1",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:洋室 2",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:浴室",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:洗面",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:トイレ",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:納戸",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:玄関",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:廊下",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:バルコニー",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D01",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D02",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D03",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D04",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D05",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D06",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D07",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "preview:label:D08",
+      "pass": true,
+      "actual": null
+    }
+  ]
+}

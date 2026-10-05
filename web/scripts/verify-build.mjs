@@ -2,7 +2,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { validatePlanMetadata } from './plan-preview-validation.mjs';
+import { validatePlanMetadata, apartmentPlanRequirements } from './plan-preview-validation.mjs';
 import { verifySectionWasmArtifacts } from './section-wasm-artifacts.mjs';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -13,6 +13,12 @@ validatePlanMetadata(vectorMetadata,
   new Map(await Promise.all(vectorMetadata.floors.map(async floor => [
     floor.floor, await readFile(resolve(dist, 'artifacts', floor.path)),
   ]))));
+const apartmentMetadata = JSON.parse(await readFile(resolve(dist, 'artifacts/output/review/apartment_2ldk_preview.json'), 'utf8'));
+validatePlanMetadata(apartmentMetadata,
+  await readFile(resolve(dist, 'artifacts', apartmentMetadata.source.path)),
+  new Map(await Promise.all(apartmentMetadata.floors.map(async floor => [
+    floor.floor, await readFile(resolve(dist, 'artifacts', floor.path)),
+  ]))), apartmentPlanRequirements);
 const manifest = JSON.parse(await readFile(resolve(dist, 'artifacts/manifest.json'), 'utf8'));
 for (const [name, expected] of Object.entries(manifest)) {
   const bytes = await readFile(resolve(dist, 'artifacts', name));

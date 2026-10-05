@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { ChevronDown, ChevronRight, Scan } from 'lucide-react';
-import { groups, groupVisibilityState, isolatePart, isPartVisible, parts, setGroupVisible, setPartVisible } from './model-state';
+import { groupVisibilityState, isolatePart, isPartVisible, setGroupVisible, setPartVisible } from './model-state';
 import type { FloorId, GroupId, ModelPartId, ModelSettings, PartKind } from './model-state';
-import { useLanguage } from './LanguageContext';
+import { useModel } from './ModelContext';
 import { format } from './localization';
 
 interface Props {
@@ -23,30 +23,30 @@ interface GroupCheckboxProps {
 }
 
 function GroupCheckbox({ settings, id, label, ready, onChange }: GroupCheckboxProps) {
-  const { copy } = useLanguage();
+  const { copy, layout } = useModel();
   const ref = useRef<HTMLInputElement>(null);
-  const state = groupVisibilityState(settings, id);
+  const state = groupVisibilityState(settings, id, layout);
   useEffect(() => { if (ref.current) ref.current.indeterminate = state === 'some'; }, [state]);
   return <input ref={ref} className="tree-checkbox" type="checkbox" aria-label={format(copy.tree.show, { label })}
     checked={state === 'all'} disabled={!ready} onChange={event => onChange(event.target.checked)} />;
 }
 
 export default function PartTree({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
-  const { copy } = useLanguage();
+  const { copy, layout } = useModel();
   const [expanded, setExpanded] = useState<Record<FloorId, boolean>>({ F1: true, F2: false });
   useEffect(() => {
-    const group = parts.find(part => part.id === selectedPart)?.group
+    const group = layout.parts.find(part => part.id === selectedPart)?.group
       ?? (selectedPart === 'F1' || selectedPart === 'F2' ? selectedPart : undefined);
     if (group) setExpanded(s => s[group] ? s : { ...s, [group]: true });
-  }, [selectedPart]);
+  }, [selectedPart, layout]);
   const isolate = (id: ModelPartId) => {
-    setSettings(s => isolatePart(s, id));
+    setSettings(s => isolatePart(s, id, layout));
     onSelectPart?.(id, true);
   };
   return <div className="part-tree">
-    {groups.map(group => {
+    {layout.groups.map(group => {
       const label = copy.groups[group.id];
-      const children = parts.filter(part => part.group === group.id);
+      const children = layout.parts.filter(part => part.group === group.id);
       const floorId = group.id as FloorId;
       return <div key={group.id} className="part-group">
         <div className="part-group-row">
@@ -57,7 +57,7 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
             {expanded[floorId] ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
           </button> : <span className="part-expand" aria-hidden="true" />}
           <GroupCheckbox settings={settings} id={group.id} label={label} ready={ready}
-            onChange={checked => setSettings(s => setGroupVisible(s, group.id, checked))} />
+            onChange={checked => setSettings(s => setGroupVisible(s, group.id, checked, layout))} />
           <button type="button" className={selectedPart === group.id ? 'part-select selected' : 'part-select'}
             disabled={!ready} aria-label={format(copy.tree.highlight, { label })} aria-pressed={selectedPart === group.id}
             onClick={() => onSelectPart?.(group.id)}><span>{label}</span><Scan size={13} aria-hidden="true" /></button>
@@ -71,8 +71,8 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
             const fullLabel = `${label} · ${partLabel}`;
             return <div key={part.id} className="part-child-row">
             <input className="tree-checkbox" type="checkbox" aria-label={format(copy.tree.show, { label: fullLabel })}
-              checked={isPartVisible(settings, part.id)} disabled={!ready}
-              onChange={event => setSettings(s => setPartVisible(s, part.id, event.target.checked))} />
+              checked={isPartVisible(settings, part.id, layout)} disabled={!ready}
+              onChange={event => setSettings(s => setPartVisible(s, part.id, event.target.checked, layout))} />
             <button type="button" className={selectedPart === part.id ? 'part-select selected' : 'part-select'}
               disabled={!ready} aria-label={format(copy.tree.highlight, { label: fullLabel })} aria-pressed={selectedPart === part.id}
               onClick={() => onSelectPart?.(part.id)}><span>{partLabel}</span><Scan size={13} aria-hidden="true" /></button>

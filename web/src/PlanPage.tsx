@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Download, Minus, Plus, Scan } from 'lucide-react';
-import { asset, house } from './data';
+import { asset } from './data';
 import Parameters from './Parameters';
-import { fittedPlanWidth, planPreviews, planViewBox } from './plan-preview';
+import { fittedPlanWidth } from './plan-preview';
 import type { PlanView } from './plan-preview';
-import { useLanguage } from './LanguageContext';
+import { useModel } from './ModelContext';
 import { format, roomLabel } from './localization';
 
 // The approved PDF conversion is static; retain parsed vectors when switching floors.
@@ -28,17 +28,17 @@ function loadPlanVectors(path: string) {
 }
 
 export default function PlanPage({ floor }: { floor: 1 | 2 }) {
-  const { copy } = useLanguage();
+  const { copy, data, previews, plans, pdf } = useModel();
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<PlanView>('plan');
   const [vectors, setVectors] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   const [available, setAvailable] = useState({ width: 1, height: 1 });
   const scroll = useRef<HTMLDivElement>(null);
-  const rooms = house.floors.find(f => f.floor === floor)!.rooms;
-  const dxf = floor === 1 ? '001D0PL2-1FPLAN.DXF' : '002D0PL2-2FPLAN.DXF';
-  const preview = planPreviews.find(item => item.floor === floor)!;
-  const viewBox = planViewBox(floor, view);
+  const rooms = data.floors.find(f => f.floor === floor)!.rooms;
+  const dxf = plans[floor]!;
+  const preview = previews.find(item => item.floor === floor)!;
+  const viewBox = view === 'plan' ? preview.planViewBox : preview.fullViewBox;
   const width = fittedPlanWidth(viewBox, available.width, available.height) * zoom;
 
   useEffect(() => {
@@ -78,8 +78,8 @@ export default function PlanPage({ floor }: { floor: 1 | 2 }) {
     <aside className="sidebar plan-sidebar" aria-label={format(copy.plan.sidebar, { floor })}>
       <section><h2>{copy.app.tabs[floor === 1 ? '1f' : '2f']}</h2>
         <p className="drawing-details">{copy.plan.details}</p>
-        <a className="outline-button download-action" href={asset(`DXF/${dxf}`)} download><Download size={16} />{copy.plan.downloadDxf}</a>
-        <a className="text-link" href={asset('output/pdf/house_floor_plans_R02_JP.pdf')} target="_blank" rel="noreferrer">{copy.plan.openPdf}</a>
+        <a className="outline-button download-action" href={asset(dxf)} download><Download size={16} />{copy.plan.downloadDxf}</a>
+        <a className="text-link" href={asset(pdf)} target="_blank" rel="noreferrer">{copy.plan.openPdf}</a>
         <p className="muted-note">{copy.plan.originalNote}</p>
       </section>
       <section><h2>{copy.plan.areaTitle}</h2>

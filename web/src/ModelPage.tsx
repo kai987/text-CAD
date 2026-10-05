@@ -3,6 +3,8 @@ import type { Dispatch, SetStateAction } from 'react';
 import { RotateCcw, View, X } from 'lucide-react';
 import { asset } from './data';
 import { useModel } from './ModelContext';
+import { useLanguage } from './LanguageContext';
+import { cadComponentLabel } from './cad-component-labels';
 import { selectionLabel } from './localization';
 import type { ModelSettings } from './model-state';
 import ModelControls from './ModelControls';
@@ -16,11 +18,13 @@ const ThreeScene = lazy(() => import('./ThreeScene'));
 interface Props { settings: ModelSettings; setSettings: Dispatch<SetStateAction<ModelSettings>> }
 export default function ModelPage({ settings, setSettings }: Props) {
   const { copy, layout, glb } = useModel();
+  const { locale } = useLanguage();
   const [ready, setReady] = useState(false);
   const [selection, setSelection] = useState<ModelSelection | null>(null);
   const [cameraRequest, setCameraRequest] = useState({ mode: 'iso' as 'iso' | 'top', seq: 0 });
   const onReady = useCallback((value: boolean) => { setReady(value); if (!value) setSelection(null); }, []);
   const hasVisible = anyVisible(settings, layout);
+  const componentName = selection ? cadComponentLabel(locale, selection.name, layout.id) : null;
   function selectPart(id: ModelPartId, fit = false) {
     const part = layout.parts.find(p => p.id === id);
     setSettings(s => part ? setPartVisible(s, id as PartId, true, layout)
@@ -51,7 +55,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
             selection={selection} onSelection={setSelection} />
         </Suspense>
         {ready && selection ? <div className="selection-details" role="status" aria-label={copy.model.selected}>
-          <div><strong>{selectionLabel(copy, selection.id)}</strong><span>{selection.name}</span></div>
+          <div><strong>{selectionLabel(copy, selection.id)}</strong>{componentName ? <span>{componentName}</span> : null}</div>
           <button type="button" className="selection-clear" aria-label={copy.model.clear} onClick={() => setSelection(null)}><X size={16} /></button>
         </div> : null}
         {ready && !hasVisible ? <p className="canvas-message" role="status">{copy.model.empty}</p> : null}

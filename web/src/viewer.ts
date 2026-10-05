@@ -12,6 +12,7 @@ import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
 import { createHorizontalCap } from './section-caps';
+import { createCadOutlineGeometry } from './cad-outlines';
 import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
 
@@ -271,7 +272,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
       });
       const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
-      const edges = new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial(interiorDetail ? 0.16 : 0.55));
+      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$/.test(String(o.userData.cadName));
+      // Architectural CAD faces may have collinear triangle edges with different endpoints.
+      const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
+      const edges = new LineSegments(outline, createOutlineMaterial(interiorDetail ? 0.16 : 0.55));
       o.add(edges);
     });
     for (const group of [...layout.groups, ...layout.parts]) {

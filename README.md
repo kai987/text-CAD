@@ -26,6 +26,21 @@ npm run build
 npm run preview
 ```
 
+Rust/WASM 剖切试点位于 `rust/section-caps/`。默认继续使用 TypeScript；[启用 Rust 试验](https://kai987.github.io/text-CAD/?view=3d&mode=second&section=wasm)会按需加载 WASM，下载或初始化失败时回退到 TypeScript。切换页面保留试验参数，剖切计算不改动原始 CAD。Rust 使用 `f64` 计算、`f32` 输出，并与现有实现对照检查孔洞、收纳柜封口、楼梯开口、法线和坐标变换。Rust/WASM 暂未使用 Worker，仍在界面线程计算。
+
+本机 Apple M1 Pro、Node 24.18.0 的150次预热后测量：每批处理111个不透明网格、四个高度（1200／2700／4200／5600 mm），包含几何适配、轮廓线和释放，中位数 TypeScript 3.360 ms、Rust/WASM 2.379 ms。79,235字节的 WASM 冷编译及初始化为15.199 ms；此数据不包含网络、浏览器帧或GPU渲染，不能推断页面帧率。以下命令在 `web/` 运行；普通测试和发布使用已提交的 WASM，不要求安装 Rust。
+
+```bash
+npm run bench:sections -- --edges
+# 修改 Rust 核心后重建；工具链固定为 Rust 1.93.0
+cargo install wasm-bindgen-cli --version 0.2.114 --locked
+npm run build:wasm
+npm test
+npm run build
+```
+
+`build:wasm` 执行原生 Rust 测试并生成 WASM／JS绑定及源码和产物哈希。普通测试和构建拒绝过期产物；独立 Rust 工作流执行原生测试、Clippy 和 WASM 编译。基准脚本支持 `--output /绝对路径/result.json` 保存结果。
+
 开发和构建时从仓库复制 15 个 CAD、图纸及说明文件（含两层矢量预览），并生成 SHA-256 清单；生产构建再次核对副本。矢量元数据还记录来源 PDF 的哈希、SVG 哈希和裁切内的标注边界；源 PDF 变化或 SVG 不匹配时拒绝构建，要求先重新转换。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
 
 修改方案后先重建 CAD、PDF 并完成对应检查，再更新矢量预览；转换工具在本地使用 Python，GitHub Pages 构建直接读取已提交的 SVG：

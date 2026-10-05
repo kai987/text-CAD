@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "prepare:artifacts": "node scripts/copy-artifacts.mjs",
+    "build:wasm": "node scripts/build-section-wasm.mjs",
+    "bench:sections": "node scripts/benchmark-section-caps.mjs",
     "dev": "npm run prepare:artifacts && vite --host 127.0.0.1",
     "build": "npm run prepare:artifacts && tsc --noEmit && vite build && node scripts/verify-build.mjs",
     "preview": "vite preview --host 127.0.0.1",

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "rustc": "rustc 1.93.0 (254b59607 2026-01-19)",
+  "target": "wasm32-unknown-unknown",
+  "wasmBindgenVersion": "0.2.114",
+  "sources": {
+    "rust/section-caps/Cargo.lock": "16e6c0bd0096d01ea8dfb75e5a8eef26a9ac48176e7d58898a2c3f9ebd1e186e",
+    "rust/section-caps/Cargo.toml": "99a0e764364ff0ab219c7ab8dedbb89442715db291ce5f70580c2010aa07a62e",
+    "rust/section-caps/rust-toolchain.toml": "331596e085aca72144022a71ef6a655df7a5751ef47b9cd44d282fafebedc680",
+    "rust/section-caps/src/lib.rs": "de73fcf14d5620b10baba5985b9c7ece44973ce3803dfb9001c4b0edb28665f2"
+  },
+  "outputs": {
+    "section_caps.js": "b978a03d64065f6467b858c0d3c412d4a7ac2d746be9efebf2f2cd9974c22f97",
+    "section_caps.d.ts": "01fb132ae2a37c583fcc3c11fbc149384d9738a45a8d34739f03e92c91ff5fae",
+    "section_caps_bg.wasm": "d6e4da38627f3d39e5c57fb98e88d397a0e3bb0748f5fa971b2706b98221fc3e",
+    "section_caps_bg.wasm.d.ts": "7be503f19cc354f457e63950e2bd239791375862077c7f7931cf7485150ae62e"
+  }
+}

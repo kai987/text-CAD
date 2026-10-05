@@ -50,6 +50,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', '可旋转和缩放的房屋三维模型');
   renderer.domElement.setAttribute('role', 'img');
+  renderer.domElement.dataset.sectionBackend = 'typescript';
   host.prepend(renderer.domElement);
   const scene = new Scene();
   scene.add(new HemisphereLight(0xffffff, 0xbac2cc, 2.2));
@@ -73,6 +74,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const sourceMeshes: Mesh[] = [];
   const sectionCaps = new Map<Mesh, Mesh>();
   let capHeight: number | null = null;
+  let createCap = createHorizontalCap;
   let selectedName: string | null = null;
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
@@ -143,7 +145,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
       if (material.transparent || material.opacity < 1) continue;
       // Place the display-only cap 0.05 mm below the plane to avoid GPU clip round-off.
-      const geometry = createHorizontalCap(mesh, height - 0.00005);
+      const geometry = createCap(mesh, height - 0.00005);
       if (!geometry) continue;
       const cap = new Mesh(geometry, material.clone());
       cap.name = `${mesh.name}_section_cap`;
@@ -268,6 +270,25 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     }
     scene.add(root); apply(settings); fit(); onReady();
   }, undefined, () => { if (!disposed) onError(); });
+  // Opt-in prototype: keep the model usable while the optional engine initializes.
+  if (new URLSearchParams(location.search).get('section') === 'wasm') {
+    renderer.domElement.dataset.sectionBackend = 'loading-wasm';
+    void import('./section-caps-wasm').then(async module => {
+      await module.initializeSectionCapsWasm();
+      if (disposed) return;
+      createCap = module.createWasmHorizontalCap;
+      renderer.domElement.dataset.sectionBackend = 'rust-wasm';
+      // Rebuild an already visible section without resetting camera or selection.
+      capHeight = null;
+      apply(settings, selectedName);
+    }).catch(() => {
+      if (disposed) return;
+      createCap = createHorizontalCap;
+      renderer.domElement.dataset.sectionBackend = 'typescript-fallback';
+      capHeight = null;
+      apply(settings, selectedName);
+    });
+  }
   resize();
   return {
     apply,

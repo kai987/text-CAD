@@ -26,6 +26,21 @@ npm run build
 npm run preview
 ```
 
+The Rust/WASM section prototype is in `rust/section-caps/`. TypeScript remains the default. [Enable the Rust trial](https://kai987.github.io/text-CAD/?view=3d&mode=second&section=wasm) to load WASM on demand; download or initialization failure falls back to TypeScript. Navigation retains the trial parameter, and section calculations do not change the original CAD. Rust computes in `f64` and returns `f32`, with parity checks for holes, cabinet caps, the stair opening, normals, and world transforms. The prototype does not yet use a Worker and still computes on the UI thread.
+
+On an Apple M1 Pro with Node 24.18.0, 150 trials after warmup measured a batch of 111 opaque meshes at four heights (1200/2700/4200/5600 mm), including adapter work, outlines, and disposal. Median times were TypeScript 3.360 ms and Rust/WASM 2.379 ms. Cold compilation and initialization of the 79,235-byte WASM took 15.199 ms. These timings exclude network transfer, browser frames, and GPU rendering, so they do not establish a frame-rate improvement. Run the following in `web/`; ordinary tests and publishing use committed WASM and do not require Rust.
+
+```bash
+npm run bench:sections -- --edges
+# Regenerate after changing the Rust core; uses pinned Rust 1.93.0
+cargo install wasm-bindgen-cli --version 0.2.114 --locked
+npm run build:wasm
+npm test
+npm run build
+```
+
+`build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
+
 Development and builds copy 15 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
 After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:

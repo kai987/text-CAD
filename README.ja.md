@@ -26,6 +26,21 @@ npm run build
 npm run preview
 ```
 
+Rust/WASM の断面試作は `rust/section-caps/` にあります。標準では TypeScript を使い、[Rust 試作を有効にする](https://kai987.github.io/text-CAD/?view=3d&mode=second&section=wasm)と必要時に WASM を読み込みます。ダウンロードや初期化が失敗した場合は TypeScript に戻ります。ページ切り替えでも試作パラメータを維持し、元の CAD は変更しません。Rust は `f64` で計算し `f32` を出力します。孔、収納の断面、階段の開口、法線、座標変換を既存実装と比較しています。まだ Worker は使わず、画面のメインスレッドで計算します。
+
+Apple M1 Pro、Node 24.18.0 でウォームアップ後に150回測定しました。1バッチは111個の不透明メッシュと4高さ（1200／2700／4200／5600 mm）を処理し、データ変換、輪郭線、解放を含みます。中央値は TypeScript 3.360 ms、Rust/WASM 2.379 ms でした。79,235バイトの WASM の初回コンパイルと初期化は15.199 msでした。ネットワーク、ブラウザのフレーム、GPU描画は含まれず、画面のフレームレート向上を示す値ではありません。以下は `web/` で実行します。通常のテストと公開では保存済み WASM を使用し、Rust のインストールは不要です。
+
+```bash
+npm run bench:sections -- --edges
+# Rust コアを変更した後に再生成。Rust 1.93.0 を使用
+cargo install wasm-bindgen-cli --version 0.2.114 --locked
+npm run build:wasm
+npm test
+npm run build
+```
+
+`build:wasm` は Rust のネイティブテストを実行し、WASM／JS バインディングとソース・生成物のハッシュを作成します。通常のテストとビルドは古い生成物を拒否します。独立した Rust ワークフローはネイティブテスト、Clippy、WASM コンパイルを実行します。ベンチマークは `--output /absolute/path/result.json` で結果を保存できます。
+
 開発とビルドでは、二つの階のベクタープレビューを含む15個のCAD・図面・説明ファイルをリポジトリからコピーし、SHA-256一覧を生成します。本番用ビルドではコピーを再確認します。ベクターメタデータには元PDFのハッシュ、SVGのハッシュ、切り抜き内の注記範囲も記録しています。元PDFが変わった場合やSVGが一致しない場合はビルドを停止し、再変換を求めます。`web/public/artifacts/`、派生データ、`web/dist/`はGitへコミットしません。
 
 計画を変更した場合は、まずCADとPDFを再生成し、対応する検証を完了してからベクタープレビューを更新してください。変換ツールはローカルでPythonを使用します。GitHub Pagesのビルドはコミット済みSVGを直接読み込みます。

@@ -1,0 +1,20 @@
+[package]
+name = "text-cad-section-caps"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Horizontal closed-mesh section caps for the text-CAD house viewer"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+earcutr = "=0.5.0"
+wasm-bindgen = "=0.2.114"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"

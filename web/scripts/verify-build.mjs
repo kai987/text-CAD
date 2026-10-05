@@ -3,8 +3,10 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { validatePlanMetadata } from './plan-preview-validation.mjs';
+import { verifySectionWasmArtifacts } from './section-wasm-artifacts.mjs';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+await verifySectionWasmArtifacts(dist);
 const vectorMetadata = JSON.parse(await readFile(new URL('../src/plan-preview-metadata.json', import.meta.url), 'utf8'));
 validatePlanMetadata(vectorMetadata,
   await readFile(resolve(dist, 'artifacts', vectorMetadata.source.path)),

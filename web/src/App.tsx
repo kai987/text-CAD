@@ -23,7 +23,9 @@ export default function App() {
   function navigate(next: PageId) {
     setPage(next);
     const url = new URL(location.href);
+    const section = url.searchParams.get('section');
     url.search = ''; url.searchParams.set('view', next);
+    if (section === 'wasm') url.searchParams.set('section', section);
     history.replaceState(null, '', url);
   }
   return <div className="app-shell">

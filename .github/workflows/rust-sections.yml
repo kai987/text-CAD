@@ -1,0 +1,37 @@
+name: Validate Rust section kernel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'rust/section-caps/**'
+      - 'web/src/section-caps-wasm.ts'
+      - 'web/src/wasm/**'
+      - 'web/scripts/*section*wasm*.mjs'
+      - 'web/tests/*wasm*.test.mjs'
+      - '.github/workflows/rust-sections.yml'
+  pull_request:
+    paths:
+      - 'rust/section-caps/**'
+      - 'web/src/section-caps-wasm.ts'
+      - 'web/src/wasm/**'
+      - 'web/scripts/*section*wasm*.mjs'
+      - 'web/tests/*wasm*.test.mjs'
+      - '.github/workflows/rust-sections.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rust/section-caps
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install 1.93.0 --profile minimal --component clippy --target wasm32-unknown-unknown
+      - run: cargo test --locked
+      - run: cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo build --locked --release --target wasm32-unknown-unknown

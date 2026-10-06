@@ -13,6 +13,7 @@ from shapely.geometry import box
 from shapely.ops import unary_union
 
 from .house_plan import P, Parameters, dimensions, floor_plan
+from .exterior_geometry import E, exterior_window_center, wall_setback
 
 
 @dataclass(frozen=True)
@@ -35,9 +36,11 @@ class GeometryParameters:
 
 G = GeometryParameters()
 COLORS = {
-    "external": "#DDD8CC", "internal": "#ECE6DC", "slab": "#BFA47F",
-    "roof": "#485666", "door": "#9A7959", "frame": "#515B65",
+    "external": "#EEEAE2", "internal": "#ECE6DC", "slab": "#BFA47F",
+    "roof": "#353B40", "door": "#9A7959", "frame": "#272D31",
     "glass": "#A0D6E0", "stairs": "#BA9265", "storage": "#B7A38C",
+    "exterior": "#F3F0E8", "entrywood": "#B58B5A", "charcoal": "#30363B",
+    "concrete": "#A7A8A3", "soffit": "#E7E5DE",
 }
 
 
@@ -103,16 +106,18 @@ def opening_box(axis, at, start, width, thickness, z1, z2):
 
 
 def wall_groups(floor, p=P, g=G):
+    from .exterior_geometry import facade_parts
     prefix, z = f"F{floor.number}", (floor.number-1)*p.storey_height
     h = p.storey_height-g.slab_thickness
     e = p.external_wall
+    setback = wall_setback()
     outer = box(0, 0, p.width, p.depth).difference(box(e, e, p.width-e, p.depth-e))
     partitions = raw_wall_footprint(floor, p).difference(outer)
     wall_profiles = [
-        ("south", box(0, 0, p.width, e)),
-        ("north", box(0, p.depth-e, p.width, p.depth)),
-        ("west", box(0, e, e, p.depth-e)),
-        ("east", box(p.width-e, e, p.width, p.depth-e)),
+        ("south", box(setback, setback, p.width-setback, e)),
+        ("north", box(setback, p.depth-e, p.width-setback, p.depth-setback)),
+        ("west", box(setback, e, e, p.depth-e)),
+        ("east", box(p.width-e, e, p.width-setback, p.depth-e)),
     ]
     cuts = [opening_box(d.axis, d.at, d.start, d.width,
                          p.external_wall if d.a == "outside" else p.internal_wall,
@@ -125,6 +130,7 @@ def wall_groups(floor, p=P, g=G):
         wall = extruded_polygon(profile, z, h)
         wall = wall.cut(*cuts)
         exterior.append(named(wall, f"{prefix}:wall_external_{direction}", "external"))
+    exterior.extend(facade_parts(floor, p, g))
     interior = []
     for i, profile in enumerate(polygons(partitions), 1):
         wall = extruded_polygon(profile, z, h).cut(*cuts)
@@ -134,21 +140,30 @@ def wall_groups(floor, p=P, g=G):
 
 
 def door_group(floor, p=P, g=G):
+    from .exterior_geometry import entrance_parts
     z = (floor.number-1)*p.storey_height
     leaves = []
     for door in floor.doors:
         leaf = opening_box(door.axis, door.at, door.start+10, door.width-20,
                            g.door_leaf_thickness-2, z+10, z+g.door_height-10)
-        leaves.append(named(leaf, f"F{floor.number}:{door.id}_door_{door.kind}", "door"))
+        if door.a == "outside":
+            # The original opening stays fixed; the closed leaf is flush with its outer face.
+            offset = g.door_leaf_thickness/2-door.at
+            leaf = leaf.moved(bd.Location((0, offset, 0) if door.axis == "h" else (offset, 0, 0)))
+        leaves.append(named(leaf, f"F{floor.number}:{door.id}_door_{door.kind}",
+                            "entrywood" if door.a == "outside" else "door"))
+    leaves.extend(entrance_parts(floor, p, g))
     return bd.Compound(children=leaves, label=f"F{floor.number}:doors")
 
 
 def window_group(floor, p=P, g=G):
+    from .exterior_geometry import exterior_window_parts
     z = (floor.number-1)*p.storey_height
     windows = []
     fw = g.window_frame_width
     for i, window in enumerate(floor.windows, 1):
         axis, at, start, width = window
+        at = exterior_window_center(axis, at, p, g)
         sill, height = window_vertical_range(window, g)
         bottom = z+sill
         label = f"F{floor.number}:W{i:02d}"
@@ -174,7 +189,8 @@ def window_group(floor, p=P, g=G):
                                       for j, b in enumerate(frame_bounds, 1)],
                             label=f"{label}:frame")
         glass = named(cuboid(glass_bounds), f"{label}:glass", "glass", 0.45)
-        windows.append(bd.Compound(children=[frame, glass], label=label))
+        windows.append(bd.Compound(children=[frame, glass,
+                                             *exterior_window_parts(window, floor.number, i, p, g)], label=label))
     return bd.Compound(children=windows, label=f"F{floor.number}:windows")
 
 
@@ -204,7 +220,9 @@ def stair_group(p=P, g=G):
 
 def slab_for_floor(number, p=P, g=G):
     z = (number-1)*p.storey_height
-    slab = cuboid((0, 0, z-g.slab_thickness, p.width, p.depth, z))
+    setback = wall_setback()
+    slab = cuboid((setback, setback, z-g.slab_thickness,
+                    p.width-setback, p.depth-setback, z))
     if number == 2:
         stair_room = next(r for r in floor_plan(2, p).rooms if r.id == "stairs")
         x1, y1, x2, y2 = stair_room.shape.bounds
@@ -218,6 +236,7 @@ def section_extrusion(points_xz, y, depth):
 
 
 def roof_group(p=P, g=G):
+    from .exterior_geometry import roof_detail_parts
     slope = tan(radians(g.roof_pitch_degrees))
     zbase, ridge_x = 2*p.storey_height, p.width/2
     peak = zbase+ridge_x*slope
@@ -230,14 +249,17 @@ def roof_group(p=P, g=G):
                               (p.width+overhang, eave_z+thick), (ridge_x, peak+thick)],
                              -overhang, p.depth+2*overhang)
     gable_section = [(0, zbase), (p.width, zbase), (ridge_x, peak)]
-    south = section_extrusion(gable_section, 0, p.external_wall)
-    north = section_extrusion(gable_section, p.depth-p.external_wall, p.external_wall)
-    ceiling = cuboid((0, 0, zbase-g.slab_thickness, p.width, p.depth, zbase),
+    setback = wall_setback()
+    south = section_extrusion(gable_section, setback, p.external_wall-setback)
+    north = section_extrusion(gable_section, p.depth-p.external_wall, p.external_wall-setback)
+    ceiling = cuboid((setback, setback, zbase-g.slab_thickness,
+                       p.width-setback, p.depth-setback, zbase),
                      "roof:attic_ceiling_slab", "slab")
     return bd.Compound(children=[named(west, "roof:west_plane", "roof"),
                                   named(east, "roof:east_plane", "roof"),
                                   named(south, "roof:south_gable_wall", "external"),
-                                  named(north, "roof:north_gable_wall", "external"), ceiling],
+                                  named(north, "roof:north_gable_wall", "external"), ceiling,
+                                  *roof_detail_parts(p, g)],
                        label="roof")
 
 
@@ -273,12 +295,15 @@ def house_assembly(p=P, g=G, include_roof=True):
 
 def geometry_manifest(p=P, g=G):
     from .furniture_geometry import furniture_manifest
+    from .exterior_geometry import exterior_manifest
+    exterior = exterior_manifest()
     return {
-        "revision": "R02-3D", "stage": "approved_floor_plan_concept_model",
+        "revision": "R03-3D", "stage": "approved_floor_plan_concept_model",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
         "axis_convention": "X east, Y north, Z up; GLB is metre-scaled Y-up",
+        "exterior": exterior,
         "assumptions": [
             "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
             "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
@@ -286,14 +311,14 @@ def geometry_manifest(p=P, g=G):
             "二层楼板为整个1900 × 2720 mm 梯间净边界开洞，未覆盖楼梯；屋顶下另设200 mm概念顶板。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
             "大窗宽大于1000 mm：窗台900/窗高1300 mm；其他窗：窗台1500/窗高600 mm。",
-            "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；门窗尚未选型，洞口为毛洞尺寸。",
+            "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
             "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
             "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
             "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
-            "移门门袋、楼梯扶手、结构连接、屋面/墙体层次及设备系统留待深化。",
+            "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-        ],
+        ] + exterior["assumptions"],
         "interior_reference": "references/interior-furnishings.md",
         "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
         "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],

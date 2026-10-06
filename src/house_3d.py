@@ -7,6 +7,7 @@ from cadgen import glb, read_scene, step
 
 from lib.house_geometry import geometry_manifest, house_assembly
 from lib.interior_materials import apply_interior_materials
+from lib.exterior_materials import apply_exterior_materials
 
 
 MATERIALS = {
@@ -40,7 +41,8 @@ def restore_glb_hierarchy(step_path, glb_path):
     """Restore exact STEP labels/groups without changing CADgen's mesh bytes.
 
     Mesh coordinates are already world-space metres and Y-up. All inserted
-    grouping nodes have identity transforms; only the GLB JSON chunk changes.
+    grouping nodes have identity transforms. Original mesh bytes remain intact;
+    UVs and embedded finish images are appended to the BIN chunk.
     """
     data = glb_path.read_bytes()
     magic, version, total = struct.unpack_from("<4sII", data)
@@ -78,9 +80,14 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
                                     "source": "Named CADgen STEP assembly; approved R01 plan"}
     apply_interior_materials(document)
+    bin_offset = 20+json_size
+    bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)
+    if bin_kind != 0x004E4942:
+        raise ValueError("CADgen GLB second chunk is not BIN")
+    binary = apply_exterior_materials(document, data[bin_offset+8:bin_offset+8+bin_size])
     encoded = json.dumps(document, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     encoded += b" "*((-len(encoded)) % 4)
-    remaining_chunks = data[20+json_size:]
+    remaining_chunks = struct.pack("<II", len(binary), bin_kind)+binary
     body = struct.pack("<II", len(encoded), json_kind)+encoded+remaining_chunks
     destination = glb_path.with_suffix(".glb.tmp")
     destination.write_bytes(struct.pack("<4sII", b"glTF", 2, 12+len(body))+body)

@@ -5,7 +5,7 @@ import {
   Box3, BoxGeometry, BufferAttribute, BufferGeometry, ExtrudeGeometry, Float32BufferAttribute,
   InterleavedBuffer, InterleavedBufferAttribute, Matrix3, Mesh, Path, PlaneGeometry, Shape, Vector3,
 } from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { bindCadNodes } from '../src/model-scene.ts';
 import { createHorizontalCap } from '../src/section-caps.ts';
 import { createWasmHorizontalCap, initializeSectionCapsWasm } from '../src/section-caps-wasm.ts';
@@ -86,10 +86,7 @@ function checkParity(mesh, height, name) {
 }
 
 async function house(filename = 'house_3d.glb') {
-  const bytes = await readFile(new URL(`../../GLB/${filename}`, import.meta.url));
-  const gltf = await new GLTFLoader().parseAsync(
-    bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '',
-  );
+  const gltf = await loadGlbGeometry(new URL(`../../GLB/${filename}`, import.meta.url));
   const bounds = new Box3().setFromObject(gltf.scene), center = bounds.getCenter(new Vector3());
   const offset = -bounds.min.y;
   gltf.scene.position.set(-center.x, offset, -center.z); gltf.scene.updateMatrixWorld(true);
@@ -129,7 +126,9 @@ test('WASM cabinet caps and slab stair opening retain their actual areas and hol
   const mesh = nodes.get('F2:floor_slab'), height = 2.7 + offset;
   const cap = checkParity(mesh, height, 'F2:floor_slab');
   assert.ok(cap);
-  near(cap.area, 7.28 * 7.28 - 1.9 * 2.72, 5e-5, 'slab minus stair opening');
+  // Finished outline 7280 mm minus the two 22 mm siding/gap setbacks.
+  // The approved 1900 x 2720 mm stair opening remains the same.
+  near(cap.area, 7.236 * 7.236 - 1.9 * 2.72, 5e-5, 'recessed slab minus stair opening');
 });
 
 test('apartment walls, cabinets, equipment and balcony preserve TS/WASM section parity', async () => {

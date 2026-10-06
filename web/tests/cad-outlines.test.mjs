@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { BufferGeometry, Float32BufferAttribute, Vector3 } from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Box3, BufferGeometry, Float32BufferAttribute, Vector3 } from 'three';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { createCadOutlineGeometry } from '../src/cad-outlines.ts';
 
 function geometry(triangles, indexed = false) {
@@ -104,27 +103,29 @@ test('outline intervals do not depend on triangle processing order', () => {
   assert.deepEqual(canonical(geometry([upper, ...splitLower])), canonical(geometry([...splitLower].reverse().concat([upper]))));
 });
 
-test('actual house windows retain heads, jambs and outer corners while both floor seams disappear', async () => {
-  const bytes = await readFile(new URL('../../GLB/house_3d.glb', import.meta.url));
-  const gltf = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+test('actual house wall cores and exterior cladding keep window edges without false window-to-window seams', async () => {
+  const gltf = await loadGlbGeometry(new URL('../../GLB/house_3d.glb', import.meta.url));
   gltf.scene.updateMatrixWorld(true);
   const walls = new Map();
   gltf.scene.traverse(object => {
     const node = gltf.parser.associations.get(object)?.nodes;
     const name = gltf.parser.json.nodes[node]?.name;
-    if (name === 'F1:wall_external_east' || name === 'F2:wall_external_east') walls.set(name, object);
+    if (/^F[12]:(?:wall_external_east|exterior:cladding:east)$/.test(name)) walls.set(name, object);
   });
-  assert.equal(walls.size, 2);
+  assert.equal(walls.size, 4, 'both floors have a recessed wall core and separate exterior cladding');
   for (const [name, wall] of walls) {
     const base = name.startsWith('F2:') ? 2.8 : 0;
+    const bounds = new Box3().setFromObject(wall);
     const lines = segments(createCadOutlineGeometry(wall.geometry), wall.matrixWorld);
-    for (const x of [7.28, 7.10]) {
+    // The skin stays on the facade footprint while its core is recessed. Read
+    // each actual face from its own bounds instead of assuming it is at 7280.
+    for (const x of [bounds.min.x, bounds.max.x]) {
       assert.equal(covers(lines, [x, base + 2.1, -4.0]), false, `${name}: no window-to-window seam`);
       assert.equal(covers(lines, [x, base + 2.1, -2.355]), true, `${name}: small window head retained`);
       assert.equal(covers(lines, [x, base + 2.1, -6.5]), true, `${name}: larger window head retained`);
       assert.equal(covers(lines, [x, base + 1.8, -2.13]), true, `${name}: window jamb retained`);
-      assert.equal(covers(lines, [x, base + 1.2, -0.18]), true, `${name}: outer corner retained`);
-      assert.equal(covers(lines, [x, base + 1.2, -7.10]), true, `${name}: opposite corner retained`);
+      assert.equal(covers(lines, [x, base + 1.2, bounds.max.z]), true, `${name}: outer corner retained`);
+      assert.equal(covers(lines, [x, base + 1.2, bounds.min.z]), true, `${name}: opposite corner retained`);
     }
   }
 });

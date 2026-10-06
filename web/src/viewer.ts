@@ -1,6 +1,6 @@
 import {
   Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
-  LineSegments, Mesh, Object3D, OrthographicCamera, Plane, PMREMGenerator, Raycaster, Scene, Vector2, Vector3, WebGLRenderer,
+  LineSegments, Mesh, Object3D, OrthographicCamera, Plane, PMREMGenerator, Raycaster, Scene, Texture, Vector2, Vector3, WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -11,7 +11,7 @@ import { modelLayouts, settingsForPreset } from './model-state';
 import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
-import { createHorizontalCap } from './section-caps';
+import { createHorizontalCap, createSectionMaterial } from './section-caps';
 import { createCadOutlineGeometry } from './cad-outlines';
 import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
@@ -24,7 +24,7 @@ export interface HouseViewer {
   dispose: () => void;
 }
 
-function disposeObject(root: Object3D) {
+function disposeObject(root: Object3D, disposeTextures = false) {
   const materials = new Set<Material>();
   root.traverse(o => {
     if (o instanceof Mesh || o instanceof LineSegments) {
@@ -32,6 +32,11 @@ function disposeObject(root: Object3D) {
       (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => materials.add(m));
     }
   });
+  if (disposeTextures) {
+    const textures = new Set<Texture>();
+    materials.forEach(m => Object.values(m).forEach(value => { if (value instanceof Texture) textures.add(value); }));
+    textures.forEach(texture => texture.dispose());
+  }
   materials.forEach(m => m.dispose());
 }
 
@@ -157,7 +162,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       // Place the display-only cap 0.05 mm below the plane to avoid GPU clip round-off.
       const geometry = createCap(mesh, height - 0.00005);
       if (!geometry) continue;
-      const cap = new Mesh(geometry, material.clone());
+      const cap = new Mesh(geometry, createSectionMaterial(material));
       cap.name = `${mesh.name}_section_cap`;
       cap.userData.cadName = mesh.userData.cadName;
       cap.userData.sectionCap = true;
@@ -254,7 +259,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   function contextLost(event: Event) { event.preventDefault(); onError(); }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   new GLTFLoader().load(asset(glbPath), gltf => {
-    if (disposed) { disposeObject(gltf.scene); return; }
+    if (disposed) { disposeObject(gltf.scene, true); return; }
     root = gltf.scene;
     cadObjects = bindCadNodes(gltf);
     const bounds = new Box3().setFromObject(root);
@@ -272,7 +277,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
       });
       const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
-      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$/.test(String(o.userData.cadName));
+      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
       // Architectural CAD faces may have collinear triangle edges with different endpoints.
       const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
       const edges = new LineSegments(outline, createOutlineMaterial(interiorDetail ? 0.16 : 0.55));
@@ -280,7 +285,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     });
     for (const group of [...layout.groups, ...layout.parts]) {
       const object = cadObjects.get(group.id);
-      if (!object) { disposeObject(root); root = undefined; onError(); return; }
+      if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
       groupObjects.set(group.id, object);
     }
     scene.add(root); apply(settings); fit(); onReady();
@@ -319,7 +324,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       renderer.domElement.removeEventListener('pointercancel', pointerCancel);
       renderer.domElement.removeEventListener('keydown', keyDown);
       clearHighlight();
-      if (root) disposeObject(root);
+      if (root) disposeObject(root, true);
       outlineMaterials.clear();
       environment.dispose();
       renderer.dispose(); renderer.domElement.remove();

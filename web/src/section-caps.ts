@@ -1,5 +1,15 @@
-import { BufferGeometry, Float32BufferAttribute, Matrix3, Matrix4, ShapeUtils, Vector2, Vector3 } from 'three';
-import type { Mesh } from 'three';
+import { BufferGeometry, Float32BufferAttribute, Matrix3, Matrix4, ShapeUtils, Texture, Vector2, Vector3 } from 'three';
+import type { Material, Mesh } from 'three';
+
+// Section triangles have no surface UVs. Keep their PBR colour and render
+// settings, but do not sample or dispose the source material's shared textures.
+export function createSectionMaterial<T extends Material>(material: T): T {
+  const copy = material.clone();
+  for (const [key, value] of Object.entries(copy)) {
+    if (value instanceof Texture) Object.assign(copy, { [key]: null });
+  }
+  return copy;
+}
 
 // GLB coordinates are metres. Weld tessellation seams within two micrometres.
 const WELD = 2e-6;

@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import { Box3, BoxGeometry, ExtrudeGeometry, Matrix3, Mesh, Path, PlaneGeometry, Shape, Vector3 } from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { bindCadNodes } from '../src/model-scene.ts';
 import { createHorizontalCap } from '../src/section-caps.ts';
 
@@ -27,8 +26,7 @@ function inspectCap(mesh, geometry, height) {
   return { area, triangles };
 }
 async function house() {
-  const bytes = await readFile(new URL('../../GLB/house_3d.glb', import.meta.url));
-  const gltf = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  const gltf = await loadGlbGeometry(new URL('../../GLB/house_3d.glb', import.meta.url));
   const bounds = new Box3().setFromObject(gltf.scene), center = bounds.getCenter(new Vector3());
   const offset = -bounds.min.y;
   gltf.scene.position.set(-center.x, offset, -center.z); gltf.scene.updateMatrixWorld(true);
@@ -55,7 +53,9 @@ test('actual second-floor slab retains the stair opening in its section', async 
   const mesh = nodes.get('F2:floor_slab'), height = 2.7 + offset;
   const cap = createHorizontalCap(mesh, height);
   assert.ok(cap);
-  near(inspectCap(mesh, cap, height).area, 7.28 * 7.28 - 1.9 * 2.72);
+  // Finished outline 7280 mm minus a 22 mm siding/gap setback on each side;
+  // the approved 1900 x 2720 mm stair opening and room boundaries are unchanged.
+  near(inspectCap(mesh, cap, height).area, 7.236 * 7.236 - 1.9 * 2.72);
   cap.dispose();
 });
 test('nested contours preserve holes and disconnected solid islands', () => {

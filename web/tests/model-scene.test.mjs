@@ -1,12 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { bindCadNodes, selectionFor, visibleMeshes } from '../src/model-scene.ts';
 
 async function loadHouse() {
-  const bytes = await readFile(new URL('../../GLB/house_3d.glb', import.meta.url));
-  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  return loadGlbGeometry(new URL('../../GLB/house_3d.glb', import.meta.url));
 }
 
 test('loaded CAD names and picked window classification survive GLTF name sanitization', async () => {

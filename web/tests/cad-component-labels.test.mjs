@@ -1,7 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { cadComponentLabel } from '../src/cad-component-labels.ts';
 import { locales, messages } from '../src/localization.ts';
 import { modelCopy } from '../src/model-copy.ts';
@@ -11,9 +10,7 @@ import { bindCadNodes, selectionFor } from '../src/model-scene.ts';
 const models = [['house', 'house_3d.glb'], ['apartment', 'apartment_2ldk.glb']];
 
 async function loadModel(filename) {
-  const bytes = await readFile(new URL(`../../GLB/${filename}`, import.meta.url));
-  const gltf = await new GLTFLoader().parseAsync(
-    bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  const gltf = await loadGlbGeometry(new URL(`../../GLB/${filename}`, import.meta.url));
   return { gltf, objects: bindCadNodes(gltf) };
 }
 
@@ -24,8 +21,10 @@ function originalCategory(name) {
   if (!floor) return name.split(':')[0];
   if (/^F[12]:floor_slab$/.test(name)) return name;
   if (/^F[12]:wall_external_/.test(name)) return `${floor}:external_walls`;
+  if (/^F[12]:exterior:(?:cladding|foundation|entry_panel|downpipe):/.test(name)) return `${floor}:external_walls`;
   if (/^F[12]:wall_partition_/.test(name)) return `${floor}:partition_walls`;
   if (/^F[12]:D\d+_door_/.test(name)) return `${floor}:doors`;
+  if (/^F[12]:D\d+:(?:canopy|porch|porch_step|frame|handle|threshold)$/.test(name)) return `${floor}:doors`;
   if (/^F[12]:W\d+:/.test(name)) return `${floor}:windows`;
   if (/^F[12]:storage_/.test(name)) return `${floor}:storage_fixtures`;
   if (/^F[12]:fixture_/.test(name)) return `${floor}:fixtures`;
@@ -130,6 +129,42 @@ test('doors and window details retain their IDs and distinguish physical parts',
     }
     assert.match(cadComponentLabel(locale, 'F1:W01:glass_2', 'apartment'), /2/, 'pane number is retained');
     assert.notEqual(cadComponentLabel(locale, 'F1:W01:frame_3'), cadComponentLabel(locale, 'F1:W01:frame_4'), 'side frame pieces remain distinguishable');
+  }
+});
+
+test('new detached-house facade details have precise three-language component names', () => {
+  const terms = {
+    zh: { cladding: /(?:外墙|饰面|挂板)/, foundation: /(?:基础|基座)/, wood: /(?:木|玄关)/,
+      drain: /(?:排水|落水|雨水)/, canopy: /(?:雨棚|门廊)/, porch: /(?:玄关|门廊|平台)/,
+      handle: /(?:把手|拉手)/, sill: /(?:窗台|下沿)/, seam: /(?:屋面|屋顶).*(?:接缝|立边|立缝)|(?:接缝|立边|立缝).*(?:屋面|屋顶)/,
+      ridge: /屋脊/, fascia: /(?:檐口|封檐|檐板|破风)/, soffit: /(?:檐底|檐下)/, gutter: /(?:天沟|雨槽|檐沟)/ },
+    ja: { cladding: /(?:外壁|サイディング)/, foundation: /(?:基礎|巾木)/, wood: /(?:木|玄関)/,
+      drain: /(?:竪樋|縦樋|排水|たてとい)/, canopy: /(?:庇|ひさし)/, porch: /(?:玄関|ポーチ)/,
+      handle: /(?:取手|ハンドル|把手)/, sill: /(?:水切り|窓台)/, seam: /(?:立平|立ハゼ|立ちはぜ|継ぎ目|縦葺|屋根面).*/,
+      ridge: /棟/, fascia: /(?:破風|鼻隠し|軒先)/, soffit: /軒天/, gutter: /(?:軒樋|雨樋|軒とい)/ },
+    en: { cladding: /(?:cladding|siding)/i, foundation: /(?:foundation|plinth)/i, wood: /(?:wood|entrance|entry)/i,
+      drain: /(?:downpipe|downspout)/i, canopy: /canopy/i, porch: /(?:porch|entrance|entry)/i,
+      handle: /handle/i, sill: /sill/i, seam: /(?:standing.?seam|seam)/i,
+      ridge: /ridge/i, fascia: /(?:fascia|bargeboard)/i, soffit: /soffit/i, gutter: /gutter/i },
+  };
+  const checks = [
+    ['F1:exterior:cladding:east', 'cladding'], ['F1:exterior:foundation:east', 'foundation'],
+    ['F1:exterior:entry_panel:south', 'wood'], ['F1:exterior:downpipe:east', 'drain'],
+    ['F1:D01:canopy', 'canopy'], ['F1:D01:porch', 'porch'], ['F1:D01:handle', 'handle'],
+    ['F1:W01:sill', 'sill'], ['roof:standing_seam:west_01', 'seam'],
+    ['roof:ridge_cap', 'ridge'], ['roof:fascia:south_west', 'fascia'],
+    ['roof:soffit:west', 'soffit'], ['roof:gutter:west', 'gutter'],
+  ];
+  for (const locale of locales) {
+    for (const [name, key] of checks) {
+      const label = cadComponentLabel(locale, name, 'house');
+      assert.equal(typeof label, 'string', `${locale}: ${name} is localized`);
+      assert.match(label, terms[locale][key], `${locale}: ${name} describes its physical component`);
+    }
+    assert.notEqual(cadComponentLabel(locale, 'roof:standing_seam:west_01'),
+      cadComponentLabel(locale, 'roof:standing_seam:east_01'), 'east/west seams remain distinguishable');
+    assert.notEqual(cadComponentLabel(locale, 'roof:standing_seam:west_01'),
+      cadComponentLabel(locale, 'roof:standing_seam:west_02'), 'seam number is retained');
   }
 });
 

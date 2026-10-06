@@ -133,6 +133,13 @@ const ja: Messages = {
     '下駄箱高さ1800 mm、その他の収納家具2100 mm。配置は確認済み平面に従い、家具・住宅設備は公開寸法を参考にした独自のパラメトリック形状です。実製品は未選定です。',
     '引き戸の戸袋・階段手すり・構造接合・屋根と壁の層構成・設備システムは今後の詳細検討事項です。',
     '構造・防火・建築法規・階段の実際の頭上空間・建築確認申請要件は未検証です。',
+    '暖白色外壁、玄関の木目アクセント、濃灰色の立ちはぜ金属切妻屋根と黒い窓枠は意匠の参考表現であり、製品は未選定です。',
+    '外装厚20 mmと背後の仮の隙間2 mmは既存180 mm壁厚内に組み込み、本体の仕上げ外形7280 × 7280 mmを保持しています。',
+    '連続外装で200 mm床・天井スラブ端を覆い、外側22 mmの壁厚帯のみを後退させています。承認済み有効境界と階段開口は変わりません。',
+    '窓枠を外側70 mmの壁厚帯へ移動し、平面の下地開口・窓幅・窓台・窓高さを保持しています。外側額縁と窓台水切りは個別の編集可能なソリッドです。',
+    '木目の玄関扉・ハンドル・枠・庇・ポーチと1段の踏み段はデモ用付属部品です。玄関の開口幅・高さと平面位置を保持しています。',
+    '屋根の勾配30度・軒450 mm・鉛直厚150 mmを保持し、立ちはぜ・棟包み・破風・軒天・軒とい・階別のたてといを追加しています。',
+    '外装・雨とい・玄関付属部品の寸法はすべてデモ用仮定です。実際の層構成・排水・構造・防火・地盤高さ・申請要件は未検証です。',
   ],
 };
 
@@ -205,6 +212,13 @@ const en: Messages = {
     'The shoe cabinet is 1800 mm high and other storage cabinets are 2100 mm high. Positions follow the approved plan; furniture and fixtures are original parametric shapes informed by public dimensions, not selected manufacturer products.',
     'Sliding-door pockets, stair handrails, structural joints, roof/wall layers and service systems need further design.',
     'Structure, fire safety, building regulations, actual stair headroom and building-confirmation application requirements have not been verified.',
+    'Warm-white walls, timber entry accents, a charcoal standing-seam metal gable roof and black window frames are an illustrative style; no products have been selected.',
+    'The 20 mm exterior finish and illustrative 2 mm backing gap replace the outer part of the existing 180 mm wall, retaining the 7280 × 7280 mm finished building body.',
+    'Continuous siding wraps the 200 mm floor and ceiling slab edges, setting back only the outer 22 mm wall-depth strip. Approved clear room boundaries and the stair opening are retained.',
+    'Window frames move into the outer 70 mm wall-depth strip; rough-opening positions, widths, sills and heights remain unchanged. Exterior trims and sill flashings are separate editable solids.',
+    'The timber entry leaf, handle, frame, canopy, porch and single step are demonstration accessories. Entry opening width, height and plan position remain unchanged.',
+    'The original 30-degree roof pitch, 450 mm eaves and 150 mm vertical thickness are retained, with added standing seams, ridge cap, bargeboards, soffits, gutters and floor-specific downpipes.',
+    'All siding, rainwater and entry-accessory dimensions are demonstration assumptions. Actual layers, drainage, structure, fire safety, ground levels and application requirements have not been verified.',
   ],
 };
 

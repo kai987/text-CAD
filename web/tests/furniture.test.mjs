@@ -1,7 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { bindCadNodes, selectionFor, visibleMeshes } from '../src/model-scene.ts';
 import { modelLayouts, settingsForPreset, activePreset, setFurnitureVisible,
   furnitureVisibilityState, setPartVisible, isolatePart } from '../src/model-state.ts';
@@ -42,8 +41,7 @@ test('per-floor furniture supports partial checkbox state and category isolation
 
 test('both downloadable GLBs contain real, independently selectable furniture and fixture groups', async () => {
   for (const [id, filename] of [['house', 'house_3d.glb'], ['apartment', 'apartment_2ldk.glb']]) {
-    const bytes = await readFile(new URL(`../../GLB/${filename}`, import.meta.url));
-    const gltf = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+    const gltf = await loadGlbGeometry(new URL(`../../GLB/${filename}`, import.meta.url));
     const nodes = bindCadNodes(gltf), layout = modelLayouts[id];
     for (const part of layout.parts.filter(p => /:(furniture|fixtures)$/.test(p.id))) {
       const group = nodes.get(part.id);

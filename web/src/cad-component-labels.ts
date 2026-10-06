@@ -15,12 +15,42 @@ const componentLabels = {
   'roof:south_gable_wall': label('南侧山墙', '南側の妻壁', 'South gable wall'),
   'roof:north_gable_wall': label('北侧山墙', '北側の妻壁', 'North gable wall'),
   'roof:attic_ceiling_slab': label('屋顶下方顶板', '屋根下の天井スラブ', 'Ceiling slab beneath roof'),
+  'roof:ridge_cap': label('屋脊盖板', '棟包み', 'Ridge cap'),
   'stairs:mid_landing': label('楼梯中间平台', '階段の中間踊り場', 'Intermediate stair landing'),
   'balcony:slab': label('阳台楼板', 'バルコニー床スラブ', 'Balcony floor slab'),
   'balcony:south_guard': label('阳台南侧栏板', 'バルコニー南側の腰壁', 'South balcony parapet'),
   'balcony:west_guard': label('阳台西侧栏板', 'バルコニー西側の腰壁', 'West balcony parapet'),
   'balcony:east_guard': label('阳台东侧栏板', 'バルコニー東側の腰壁', 'East balcony parapet'),
   'ceiling:slab': label('室内顶板', '室内の天井スラブ', 'Interior ceiling slab'),
+} satisfies Catalog;
+
+const directions = {
+  south: label('南侧', '南側', 'South'), north: label('北侧', '北側', 'North'),
+  west: label('西侧', '西側', 'West'), east: label('东侧', '東側', 'East'),
+  south_west: label('南侧西坡', '南側・西面', 'South, west slope'),
+  south_east: label('南侧东坡', '南側・東面', 'South, east slope'),
+  north_west: label('北侧西坡', '北側・西面', 'North, west slope'),
+  north_east: label('北侧东坡', '北側・東面', 'North, east slope'),
+  south_gable: label('南侧山墙', '南側の妻壁', 'South gable'),
+  north_gable: label('北侧山墙', '北側の妻壁', 'North gable'),
+} satisfies Catalog;
+const exteriorDetails = {
+  cladding: label('外墙挂板饰面', '外壁サイディング', 'Exterior siding'),
+  foundation: label('混凝土基座', 'コンクリート基礎立上り', 'Concrete plinth'),
+  entry_panel: label('玄关木色饰面', '玄関の木目アクセント', 'Timber entry accent'),
+  downpipe: label('落水管', 'たてとい', 'Downpipe'),
+  standing_seam: label('屋面立缝', '屋根の立ちはぜ', 'Roof standing seam'),
+  fascia: label('破风板', '破風板', 'Bargeboard'),
+  soffit: label('檐底板', '軒天', 'Soffit'),
+  gutter: label('檐沟', '軒とい', 'Eaves gutter'),
+} satisfies Catalog;
+const entryDetails = {
+  canopy: label('玄关雨棚', '玄関庇', 'Entry canopy'),
+  porch: label('玄关平台', '玄関ポーチ', 'Entry porch'),
+  porch_step: label('玄关踏步', '玄関ポーチの段', 'Porch step'),
+  frame: label('玄关门框', '玄関ドア枠', 'Entry door frame'),
+  handle: label('玄关门拉手', '玄関ドアハンドル', 'Entry door handle'),
+  threshold: label('玄关门槛', '玄関ドアの下枠', 'Entry threshold'),
 } satisfies Catalog;
 
 const externalWalls = {
@@ -54,6 +84,8 @@ const windowDetails = {
   glass: label('玻璃', 'ガラス', 'Glass pane'),
   glass_1: label('玻璃 1', 'ガラス 1', 'Glass pane 1'),
   glass_2: label('玻璃 2', 'ガラス 2', 'Glass pane 2'),
+  exterior_trim: label('外侧窗套', '外側の窓額縁', 'Exterior window trim'),
+  sill: label('窗台水切', '窓台水切り', 'Sill flashing'),
 } satisfies Catalog;
 
 const roomLabels = {
@@ -243,6 +275,16 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
 
+  const exterior = /^(?:F[12]:exterior|roof):(cladding|foundation|entry_panel|downpipe|standing_seam|fascia|soffit|gutter):([^:]+)$/.exec(name);
+  if (exterior) {
+    const seam = /^(west|east)_(\d{2})$/.exec(exterior[2]);
+    const direction = lookup(directions, seam ? seam[1] : exterior[2], locale);
+    const detail = lookup(exteriorDetails, exterior[1], locale);
+    return direction && detail ? `${direction} · ${detail}${seam ? ` ${Number(seam[2])}` : ''}` : null;
+  }
+  const entry = /^F1:(D01):(canopy|porch|porch_step|frame|handle|threshold)$/.exec(name);
+  if (entry) return `${entry[1]} · ${entryDetails[entry[2] as keyof typeof entryDetails][locale]}`;
+
   const wall = /^F[12]:wall_external_(south|north|west|east)$/.exec(name);
   if (wall) return externalWalls[wall[1] as keyof typeof externalWalls][locale];
   const numbered = /^F[12]:(wall_partition|storage)_(\d{2})$/.exec(name);
@@ -250,7 +292,7 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
 
   const door = /^F[12]:(D\d{2})_door_(swing|slide)$/.exec(name);
   if (door) return `${doorKinds[door[2] as keyof typeof doorKinds][locale]} ${door[1]} · ${doorLeaf[locale]}`;
-  const window = /^F[12]:(W\d{2}):(frame_[1-5]|glass(?:_[12])?)$/.exec(name);
+  const window = /^F[12]:(W\d{2}):(frame_[1-5]|glass(?:_[12])?|exterior_trim|sill)$/.exec(name);
   if (window) return `${windowName[locale]} ${window[1]} · ${windowDetails[window[2] as keyof typeof windowDetails][locale]}`;
   const stair = /^stairs:(lower|upper)_tread_(0[1-7])$/.exec(name);
   if (stair) return `${numberedComponents[stair[1] === 'lower' ? 'lowerTread' : 'upperTread'][locale]} ${Number(stair[2])}`;

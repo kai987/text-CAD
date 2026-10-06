@@ -258,7 +258,9 @@ ad = attic_dimensions(P, G)
 attic_record = json.loads((ROOT/"output/review"/"house_3d_assumptions_R01.json").read_text())["attic"]
 attic_leaves = {label: shape for label, shape in native.items() if label.startswith("attic:")}
 access_leaves = {label: shape for label, shape in native.items() if label.startswith("attic_access:")}
-old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)
+site_leaves = {label: shape for label, shape in native.items()
+               if label.startswith(("foundation:", "yard:", "fence:"))}
+old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)
 check("attic:R03_original_leaf_count_retained", len(old_leaf_names) == 378, len(old_leaf_names), 378)
 check("attic:new_named_leaf_contract", len(attic_leaves) == 30, len(attic_leaves), 30)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
@@ -391,7 +393,7 @@ document = json.loads(data[20:20+json_size])
 nodes = document["nodes"]
 mesh_nodes = [node for node in nodes if "mesh" in node]
 check("GLB:all_STEP_leaf_names_retained", {node["name"] for node in mesh_nodes} == set(native), len(mesh_nodes), len(native))
-check("GLB:named_groups_retained", {"house_3d", "F1", "F2", "stairs", "roof", "attic", "attic_access"}.issubset({n["name"] for n in nodes}))
+check("GLB:named_groups_retained", {"house_3d", "F1", "F2", "stairs", "roof", "attic", "attic_access", "foundation", "yard", "fence"}.issubset({n["name"] for n in nodes}))
 attic_floor_node = next(n for n in nodes if n["name"] == "attic:floor_slab")
 check("GLB:attic_ceiling_and_finish_parent_retained",
       {nodes[i]["name"] for i in attic_floor_node.get("children", [])} == {"roof:attic_ceiling_slab", "attic:deck_finish"})
@@ -419,7 +421,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R04-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R05-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { ChevronDown, ChevronRight, Scan } from 'lucide-react';
 import { groupVisibilityState, isolatePart, isPartVisible, setGroupVisible, setPartVisible } from './model-state';
-import type { FloorId, GroupId, ModelPartId, ModelSettings, PartKind } from './model-state';
+import type { GroupId, ModelPartId, ModelSettings, PartKind } from './model-state';
 import { useModel } from './ModelContext';
 import { format } from './localization';
 
@@ -33,10 +33,10 @@ function GroupCheckbox({ settings, id, label, ready, onChange }: GroupCheckboxPr
 
 export default function PartTree({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
   const { copy, layout } = useModel();
-  const [expanded, setExpanded] = useState<Record<FloorId, boolean>>({ F1: true, F2: false, attic: false });
+  const [expanded, setExpanded] = useState<Partial<Record<GroupId, boolean>>>({ F1: true });
   useEffect(() => {
     const group = layout.parts.find(part => part.id === selectedPart)?.group
-      ?? (selectedPart === 'F1' || selectedPart === 'F2' || selectedPart === 'attic' ? selectedPart : undefined);
+      ?? layout.groups.find(group => group.id === selectedPart && layout.parts.some(part => part.group === group.id))?.id;
     if (group) setExpanded(s => s[group] ? s : { ...s, [group]: true });
   }, [selectedPart, layout]);
   const isolate = (id: ModelPartId) => {
@@ -47,14 +47,13 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
     {layout.groups.map(group => {
       const label = copy.groups[group.id];
       const children = layout.parts.filter(part => part.group === group.id);
-      const floorId = group.id as FloorId;
       return <div key={group.id} className="part-group">
         <div className="part-group-row">
           {children.length > 0 ? <button type="button" className="part-expand"
-            aria-label={format(expanded[floorId] ? copy.tree.collapse : copy.tree.expand, { label })}
-            aria-expanded={expanded[floorId]} aria-controls={`parts-${group.id}`}
-            onClick={() => setExpanded(s => ({ ...s, [floorId]: !s[floorId] }))}>
-            {expanded[floorId] ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
+            aria-label={format(expanded[group.id] ? copy.tree.collapse : copy.tree.expand, { label })}
+            aria-expanded={expanded[group.id] ?? false} aria-controls={`parts-${group.id}`}
+            onClick={() => setExpanded(s => ({ ...s, [group.id]: !s[group.id] }))}>
+            {expanded[group.id] ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
           </button> : <span className="part-expand" aria-hidden="true" />}
           <GroupCheckbox settings={settings} id={group.id} label={label} ready={ready}
             onChange={checked => setSettings(s => setGroupVisible(s, group.id, checked, layout))} />
@@ -64,7 +63,7 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
           <button type="button" className="part-isolate" disabled={!ready}
             aria-label={format(copy.tree.isolate, { label })} onClick={() => isolate(group.id)}>{copy.tree.alone}</button>
         </div>
-        {children.length > 0 && expanded[floorId] ? <div id={`parts-${group.id}`} className="part-children"
+        {children.length > 0 && expanded[group.id] ? <div id={`parts-${group.id}`} className="part-children"
           role="group" aria-label={format(copy.tree.region, { label })}>
           {children.map(part => {
             const partLabel = copy.partKinds[part.id.split(':')[1] as PartKind];

@@ -42,6 +42,9 @@ COLORS = {
     "exterior": "#F3F0E8", "entrywood": "#B58B5A", "charcoal": "#30363B",
     "concrete": "#A7A8A3", "soffit": "#E7E5DE",
     "attic_wood": "#C5AD8C", "attic_lining": "#EEE9DF",
+    "site_concrete": "#A7A8A3", "site_soil": "#806951", "site_gravel": "#C2BDB2",
+    "site_paving": "#B8B9B5", "site_lawn": "#79925C", "site_shrub": "#607F48",
+    "site_metal": "#30363B", "site_paint": "#F4F3EB",
 }
 
 
@@ -278,6 +281,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     from .furniture_geometry import furniture_group
     from .fixture_geometry import fixture_group
     from .attic_geometry import attic_access_group, attic_group
+    from .site_geometry import foundation_group, yard_group, fence_group
     floors = []
     for number in (1, 2):
         plan = floor_plan(number, p)
@@ -290,6 +294,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     if include_roof:
         children.append(roof_group(p, g))
     children += [attic_group(p, g), attic_access_group(p, g)]
+    children += [foundation_group(p, g), yard_group(p, g), fence_group()]
     return bd.Compound(children=children, label="house_3d")
 
 
@@ -297,16 +302,19 @@ def geometry_manifest(p=P, g=G):
     from .furniture_geometry import furniture_manifest
     from .exterior_geometry import exterior_manifest
     from .attic_geometry import attic_manifest
+    from .site_geometry import site_manifest
     exterior = exterior_manifest()
     attic = attic_manifest(p, g)
+    site = site_manifest(p, g)
     return {
-        "revision": "R04-3D", "stage": "approved_floor_plan_concept_model",
+        "revision": "R05-3D", "stage": "approved_floor_plan_concept_model",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
         "axis_convention": "X east, Y north, Z up; GLB is metre-scaled Y-up",
         "exterior": exterior,
         "attic": attic,
+        "site": site,
         "assumptions": [
             "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
             "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
@@ -321,7 +329,7 @@ def geometry_manifest(p=P, g=G):
             "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-        ] + exterior["assumptions"] + attic["assumptions"],
+        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"],
         "interior_reference": "references/interior-furnishings.md",
         "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
         "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],

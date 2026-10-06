@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { Box3, Matrix3, Vector3 } from 'three';
 import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
-import { bindCadNodes } from '../src/model-scene.ts';
+import { bindCadNodes, centerModelAtFloorDatum } from '../src/model-scene.ts';
 import { createHorizontalCap } from '../src/section-caps.ts';
 import { createWasmHorizontalCap, initializeSectionCapsWasm } from '../src/section-caps-wasm.ts';
 
@@ -32,7 +32,9 @@ test('the real GLB retains the 378 original leaves and stores the new attic insi
   const { gltf, nodes } = await loadHouse();
   const meshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));
-  assert.equal(meshes.length - added.length, 378, 'all R03 leaves, including the original ceiling label, remain');
+  const site = meshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
+  assert.equal(meshes.length - added.length - site.length, 378,
+    'all R03 leaves, including the original ceiling label, remain');
   assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 30);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);
   const floor = nodes.get('attic:floor_slab');
@@ -131,12 +133,11 @@ function covered(triangles, point) {
 
 test('TS and Rust/WASM floor sections preserve the actual through-hatch after viewer centering', async () => {
   const { gltf, nodes } = await loadHouse();
-  const bounds = new Box3().setFromObject(gltf.scene), center = bounds.getCenter(new Vector3());
-  const floorOffset = -bounds.min.y;
-  gltf.scene.position.set(-center.x, floorOffset, -center.z);
-  gltf.scene.updateMatrixWorld(true);
+  assert.equal(centerModelAtFloorDatum(gltf.scene, nodes), true);
+  const floorOffset = gltf.scene.position.y;
   const hatch = attic.hatch_bounds_mm;
-  const point = (x, y, height) => new Vector3(x / 1000 - center.x, height, -y / 1000 - center.z);
+  const point = (x, y, height) => new Vector3(x / 1000 + gltf.scene.position.x,
+    height, -y / 1000 + gltf.scene.position.z);
   for (const [name, planeMm, expectedArea] of [
     ['roof:attic_ceiling_slab', (attic.slab_bounds_mm[2] + attic.slab_bounds_mm[5]) / 2,
       ((attic.slab_bounds_mm[3] - attic.slab_bounds_mm[0]) * (attic.slab_bounds_mm[4] - attic.slab_bounds_mm[1])

@@ -4,6 +4,21 @@
 
 The house drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
 
+## Foundation, fence and yard (R05-3D)
+
+Independent `foundation`, `yard` and `fence` groups add a conceptual raft foundation with perimeter stem walls, entrance supports and a lower step, gravel, parking paving and wheel stops, four lawns, three simplified shrubs, and fences with actual gaps between slats. The exterior preset shows the site; interior presets hide it. Each category can be hidden or viewed alone. Section heights remain measured from the first-floor finished datum, Z=0.
+
+All added dimensions are **demonstration assumptions**: a **11280 × 14780 mm lot (166.7184 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and a **2800 × 5000 mm parking bay**. The 1200 mm-high fence has 28 open panels, 30 posts and 30 footings, with clear southern vehicle/pedestrian openings of 3000/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
+
+STEP / GLB now contain 537 named bodies, preserving all 424 existing house and attic bodies. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor and attic drawings are preserved. [Parameters and scope](docs/site_R05.md).
+
+```bash
+.venv/bin/python src/generate_site_plan.py
+CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
+.venv/bin/python checks/validate_3d.py
+.venv/bin/python checks/validate_site.py
+```
+
 ## Storage attic (R04-3D)
 
 A storage attic now fits within the existing gable roof. The approved first- and second-floor room boundaries and R03 roof envelope are retained. The viewer adds an attic interior preset and separate floor, lining/knee-wall, storage and opening-guardrail categories. A separately visible access assembly has named hatch lid, stringers and ten treads. It shows a deployed concept ladder; hiding it does not simulate mechanical folding. Deployment occupies the second-floor hall.
@@ -71,7 +86,7 @@ npm run build
 
 `build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
 
-Development and builds copy 26 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
+Development and builds copy 28 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
 After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:
 

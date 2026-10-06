@@ -1,6 +1,6 @@
 import plan from '../../output/review/design_manifest.json' with { type: 'json' };
 import model from '../../output/review/house_3d_assumptions_R01.json' with { type: 'json' };
-import type { FloorId, GroupId, ModelPartId, PartKind } from './model-state';
+import type { GroupId, ModelPartId, PartGroupId, PartKind } from './model-state';
 
 export type Locale = 'zh' | 'ja' | 'en';
 export const locales = ['zh', 'ja', 'en'] as const;
@@ -30,11 +30,12 @@ const zh = {
   controls: { region: '模型控制', parts: '部件显示', cut: '剖切', enableCut: '启用剖切', height: '剖切高度', showFurniture: '显示家具', furnitureHelp: '床、沙发、桌椅与电视；不改变当前楼层和剖切高度。' },
   parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高', clearHeight: '净高', outlineArea: '外轮廓面积', interiorArea: '室内净面积合计', balconyArea: '阳台面积',
     note: '尺寸为演示假设。结构与管线尚未建模。' },
-  groups: { F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', ceiling: '顶板', balcony: '阳台' },
-  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏' },
+  groups: { F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', foundation: '建筑基础', yard: '院子', fence: '围栏', ceiling: '顶板', balcony: '阳台' },
+  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏',
+    raft: '基础底板', stem_walls: '基础立上墙', entrance_supports: '玄关支承', soil: '场地土层', ground_surfaces: '砾石地面', entrance_path: '入户步道', parking: '停车位', planting: '绿化', posts: '围栏立柱', panels: '围栏面板', footings: '围栏独立基础' },
   tree: { show: '显示{label}', collapse: '收起{label}部件', expand: '展开{label}部件', highlight: '高亮{label}',
     isolate: '单独查看{label}', alone: '单独', region: '{label}部件',
-    help: '展开楼层可查看分类；点击名称高亮，使用“单独”查看部件。顶部视图按钮可恢复显示。' },
+    help: '展开楼层或外构可查看分类；点击名称高亮，使用“单独”查看部件。顶部视图按钮可恢复显示。' },
   presets: { region: '模型视图', exterior: '完整外观', first: '一层内部', second: '二层内部', attic: '阁楼内部', interior: '室内剖视' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品储藏室', foyer: '玄关', wc: '厕所',
     hall: '走廊', stairs: '楼梯', master: '主卧', bed2: '卧室 2', bed3: '卧室 3', storage: '储藏室', balcony: '阳台' },
@@ -58,6 +59,8 @@ const zh = {
       second: { title: '二层平面', detail: '日文房间名与原生尺寸可编辑，包含 A3 纸空间。' },
       attic: { title: '阁楼可编辑平面图', detail: '日文标注的储物阁楼、检修口、收纳和净高；尺寸均为演示假设。' },
       atticPdf: { title: '阁楼补充平面 PDF', detail: '独立 A3 日文补充图，包含阁楼净高与检修梯展开说明。' },
+      site: { title: '院子与基础可编辑配置图', detail: '日文标注的用地、围栏、入户步道、停车位、基础与标高；尺寸均为演示假设。' },
+      sitePdf: { title: '外构与基础补充 PDF', detail: '独立 A3 日文补充图，包含场地配置、基础及入口标高说明。' },
       pdf: { title: '两层 A3 图纸', detail: '日文图纸，1:50、A3 横向；打印选择实际尺寸。' },
       manifest: { title: '方案参数与假设', detail: '记录演示尺寸、房间净面积和待定项。' },
     } },
@@ -82,11 +85,12 @@ const ja: Messages = {
   controls: { region: 'モデル操作', parts: '部材の表示', cut: '水平断面', enableCut: '水平断面を有効にする', height: '切断高さ', showFurniture: '家具を表示', furnitureHelp: 'ベッド・ソファ・テーブル・椅子・テレビ。表示階と断面高さは維持します。' },
   parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高', clearHeight: '天井高', outlineArea: '外形面積', interiorArea: '室内有効面積の合計', balconyArea: 'バルコニー面積',
     note: '寸法はデモ用の仮定です。構造・設備配管は未モデル化です。' },
-  groups: { F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', ceiling: '天井スラブ', balcony: 'バルコニー' },
-  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり' },
+  groups: { F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', foundation: '建物基礎', yard: '庭', fence: 'フェンス', ceiling: '天井スラブ', balcony: 'バルコニー' },
+  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり',
+    raft: '基礎底盤', stem_walls: '基礎立上り', entrance_supports: '玄関支持部', soil: '地盤層', ground_surfaces: '砂利敷き', entrance_path: '玄関アプローチ', parking: '駐車スペース', planting: '植栽', posts: 'フェンス支柱', panels: 'フェンスパネル', footings: 'フェンス独立基礎' },
   tree: { show: '{label}を表示', collapse: '{label}の部材を折りたたむ', expand: '{label}の部材を展開', highlight: '{label}を強調表示',
     isolate: '{label}のみ表示', alone: '単独', region: '{label}の部材',
-    help: '階を展開すると分類を表示します。名称を選択して強調表示、「単独」でその部材だけを表示できます。上部の表示切替で全体表示に戻せます。' },
+    help: '階や外構を展開すると分類を表示します。名称を選択して強調表示、「単独」でその部材だけを表示できます。上部の表示切替で全体表示に戻せます。' },
   presets: { region: 'モデルの表示切替', exterior: '建物全体', first: '1階内部', second: '2階内部', attic: '小屋裏内部', interior: '室内断面' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品庫', foyer: '玄関', wc: 'トイレ',
     hall: '廊下', stairs: '階段', master: '主寝室', bed2: '洋室 2', bed3: '洋室 3', storage: '納戸', balcony: 'バルコニー' },
@@ -110,6 +114,8 @@ const ja: Messages = {
       second: { title: '2階平面図', detail: '日本語の室名・ネイティブ寸法を編集可能。A3ペーパー空間を含みます。' },
       attic: { title: '編集可能な小屋裏平面図', detail: '小屋裏収納・点検開口・収納・内法高さを日本語で表示。寸法はデモ用の仮定です。' },
       atticPdf: { title: '小屋裏補足平面図 PDF', detail: '独立したA3日本語補足図。内法高さと点検はしごの展開説明を含みます。' },
+      site: { title: '編集可能な外構・基礎配置図', detail: '敷地・フェンス・玄関アプローチ・駐車場・基礎・高さを日本語で表示。寸法はデモ用の仮定です。' },
+      sitePdf: { title: '外構・基礎補足図 PDF', detail: '独立したA3日本語補足図。敷地配置、基礎と入口の高さを説明します。' },
       pdf: { title: '2階分のA3図面', detail: '日本語図面、縮尺1:50・A3横。印刷時は実際のサイズを選択してください。' },
       manifest: { title: '計画パラメータと仮定条件', detail: 'デモ寸法、室内有効面積、未確定事項を記録しています。' },
     } },
@@ -154,6 +160,14 @@ const ja: Messages = {
     '点検はしごは展開状態を表します。幅600 mm、角度65度、高低差2818 mmで、11等分の蹴上げは約256.18 mm、踏み板は10枚です。小屋裏の床を最後の段とし、点検開口を塞ぐ追加の踏み板は設けません。',
     '点検はしごの展開範囲と奥行600 mmの足元立ち位置は2階廊下にあり、展開中は通路を占有します。点検口のふたとはしごは個別に命名し、点検入口の部材一式を独立して非表示にできます。折りたたみ機構や同時通行は検証していません。',
     '小屋裏の梁柱、スラブの耐荷重、接合、断熱・換気、防火、点検はしご使用時の実際の頭上空間、法規上の定義は未設計です。追加寸法はすべてデモ用の仮定です。',
+    '新しい敷地は11280 × 14780 mm（約166.72㎡）と仮定します。建物配置と南側出入口はデモ用で、実測や道路資料に基づいていません。',
+    '庭の仕上げ面はZ=-500 mmと仮定します。その下に厚さ50 mmの表示用面層と100 mmの概念的な地盤層を設けます。砂利・舗装・芝生の材質と厚さは変更可能です。',
+    '追加するベタ基礎は厚さ150 mmの底盤と幅140 mmの外周立上りのみを表現します。元の4つの基礎巾木は保持します。配筋・地中梁・地盤改良は未設計で、耐荷力・耐震性・排水は未検証です。',
+    '元の玄関ポーチと上段を保持し、支持部と下段を追加します。入口の高さは-500、-330、-160、-25、0 mm、段差は170、170、135、25 mmの仮定です。バリアフリーや通行に関する法規は未検証です。',
+    '南側の駐車区画線範囲は2800 × 5000 mm、車両出入口は3000 mm、歩行者出入口は1800 mmと仮定します。実車の旋回、道路への接続、駐車許可は未検証です。',
+    '金属フェンスは地上高さ1200 mm、支柱幅50 mmと仮定します。28枚のパネルは各9段の幅80 mm横格子と40 mmの隙間を備え、30か所の柱脚は概念表示です。接合・構造は未設計です。',
+    'フェンス柱脚は300 × 300 mm、Z=-950〜-550 mmと仮定し、支柱の埋込み用に開口を設けます。地盤層と面層も対応箇所をくり抜き、各ソリッドは境界でのみ接します。実際の施工構成は未設定です。',
+    '4か所の芝生と3本の丸い樹冠の低木は独自の簡略化した植栽です。基礎・庭・玄関アプローチ・フェンスを分類して個別に表示でき、元の建物・小屋裏・確認済みの2階分の平面図を保持します。',
   ],
 };
 
@@ -172,11 +186,12 @@ const en: Messages = {
   controls: { region: 'Model controls', parts: 'Component visibility', cut: 'Cutaway', enableCut: 'Enable cutaway', height: 'Cut height', showFurniture: 'Furniture', furnitureHelp: 'Beds, sofas, tables, chairs and TVs. Keeps the current floor and cut height.' },
   parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height', clearHeight: 'Clear height', outlineArea: 'Outline area', interiorArea: 'Total net interior area', balconyArea: 'Balcony area',
     note: 'Dimensions are demonstration assumptions. Structure and services have not been modelled.' },
-  groups: { F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', ceiling: 'Ceiling slab', balcony: 'Balcony' },
-  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails' },
+  groups: { F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', foundation: 'Building foundation', yard: 'Yard', fence: 'Fence', ceiling: 'Ceiling slab', balcony: 'Balcony' },
+  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails',
+    raft: 'Foundation slabs', stem_walls: 'Stem walls', entrance_supports: 'Entrance supports', soil: 'Soil layer', ground_surfaces: 'Gravel surface', entrance_path: 'Entrance path', parking: 'Parking space', planting: 'Planting', posts: 'Fence posts', panels: 'Fence panels', footings: 'Fence footings' },
   tree: { show: 'Show {label}', collapse: 'Collapse {label} components', expand: 'Expand {label} components', highlight: 'Highlight {label}',
     isolate: 'View only {label}', alone: 'Only', region: '{label} components',
-    help: 'Expand a floor to see its categories. Select a name to highlight it, or use “Only” to isolate it. The view presets above restore the display.' },
+    help: 'Expand a floor or site group to see its categories. Select a name to highlight it, or use “Only” to isolate it. The view presets above restore the display.' },
   presets: { region: 'Model views', exterior: 'Whole house', first: 'First-floor interior', second: 'Second-floor interior', attic: 'Attic interior', interior: 'Interior cutaway' },
   rooms: { ldk: 'Living / dining / kitchen', bath: 'Bathroom', wash: 'Washroom / changing room', pantry: 'Pantry', foyer: 'Entrance', wc: 'Toilet',
     hall: 'Hallway', stairs: 'Stairs', master: 'Main bedroom', bed2: 'Bedroom 2', bed3: 'Bedroom 3', storage: 'Storeroom', balcony: 'Balcony' },
@@ -200,6 +215,8 @@ const en: Messages = {
       second: { title: 'Second-floor plan', detail: 'Editable Japanese room names and native dimensions, with A3 paper space.' },
       attic: { title: 'Editable attic plan', detail: 'Japanese annotations for attic storage, hatch, cabinets and clear heights; dimensions are demonstration assumptions.' },
       atticPdf: { title: 'Supplementary attic plan PDF', detail: 'A separate A3 Japanese drawing with attic clear heights and the deployed access-ladder note.' },
+      site: { title: 'Editable yard and foundation layout', detail: 'Japanese annotations for the plot, fence, entrance path, parking, foundation and levels; all dimensions are demonstration assumptions.' },
+      sitePdf: { title: 'Supplementary site and foundation PDF', detail: 'A separate A3 Japanese drawing showing the site layout, foundation and entrance levels.' },
       pdf: { title: 'Both floors on A3 sheets', detail: 'Japanese drawings, 1:50, A3 landscape. Print at actual size.' },
       manifest: { title: 'Parameters and assumptions', detail: 'Records demonstration dimensions, net room areas and unresolved details.' },
     } },
@@ -244,6 +261,14 @@ const en: Messages = {
     'The access ladder is shown deployed, with a 600 mm width, 65-degree angle and 2818 mm rise. Eleven equal rises of approximately 256.18 mm use ten treads; the attic floor provides the final step without an extra panel obstructing the hatch.',
     'The deployed ladder envelope and 600 mm-deep foot standing area lie in the second-floor hall and occupy its passage during deployment. The hatch lid and ladder are named individually, and the access assembly can be hidden independently. Folding mechanisms and simultaneous passage have not been verified.',
     'Attic beams and posts, slab load capacity, connections, insulation and ventilation, fire safety, actual access-ladder headroom and statutory classification have not been designed. All additional dimensions are demonstration assumptions.',
+    'The new plot is assumed to be 11280 × 14780 mm (approximately 166.72 m²). The building placement and south entrances are demonstration assumptions without actual survey or road information.',
+    'The yard finished level is assumed to be Z=-500 mm, with a 50 mm display surface layer and a 100 mm concept soil layer below. Gravel, paving and lawn materials and thicknesses are adjustable.',
+    'The added raft foundation represents only a 150 mm slab and 140 mm-wide perimeter stem walls. The four existing plinths are retained. Reinforcement, ground beams and ground improvement are not designed; bearing capacity, seismic performance and drainage have not been verified.',
+    'The existing porch and upper step are retained, with added supports and a lower step. Entrance levels are -500, -330, -160, -25 and 0 mm; rises of 170, 170, 135 and 25 mm are demonstration values. Accessibility and passage regulations have not been verified.',
+    'The south parking boundary lines enclose an assumed 2800 × 5000 mm space, with a 3000 mm vehicle opening and an 1800 mm pedestrian opening. Actual vehicle turning, road access and parking permissions have not been verified.',
+    'The metal fence is assumed to be 1200 mm above ground with 50 mm-wide posts. Each of 28 panels contains nine 80 mm horizontal slats with 40 mm gaps; 30 post bases are concept representations. Connections and structural performance have not been designed.',
+    'Fence footings are assumed to be 300 × 300 mm at Z=-950 to -550 mm, with openings for embedded posts. Corresponding openings are cut in the soil and surface layers so solids meet only at boundaries. Actual construction details are not specified.',
+    'Four lawn patches and three shrubs with rounded crowns are original simplified planting shapes. Foundation, yard, entrance path and fence categories can be viewed separately, while the existing house, attic and approved two-floor plans are retained.',
   ],
 };
 
@@ -251,8 +276,8 @@ export const messages: Record<Locale, Messages> = { zh, ja, en };
 
 export function selectionLabel(copy: Messages, id: ModelPartId): string {
   if (!id.includes(':')) return copy.groups[id as GroupId];
-  const [floor, kind] = id.split(':') as [FloorId, PartKind];
-  return `${copy.groups[floor]} · ${copy.partKinds[kind]}`;
+  const [group, kind] = id.split(':') as [PartGroupId, PartKind];
+  return `${copy.groups[group]} · ${copy.partKinds[kind]}`;
 }
 export function roomLabel(copy: Messages, id: string): string {
   return copy.rooms[id as keyof Messages['rooms']] ?? id;

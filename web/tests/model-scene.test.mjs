@@ -1,11 +1,37 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { Box3, BoxGeometry, Group, Mesh } from 'three';
 import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
-import { bindCadNodes, selectionFor, visibleMeshes } from '../src/model-scene.ts';
+import { bindCadNodes, centerModelAtFloorDatum, selectionFor, visibleMeshes } from '../src/model-scene.ts';
 
 async function loadHouse() {
   return loadGlbGeometry(new URL('../../GLB/house_3d.glb', import.meta.url));
 }
+
+test('the architectural datum comes from the first-floor slab and is independent of site depth', () => {
+  for (const depth of [0.5, 0.8, 3.6]) {
+    const root = new Group();
+    const slab = new Mesh(new BoxGeometry(7.236, 0.2, 7.236));
+    slab.position.set(3.64, -0.1, -3.64);
+    const site = new Mesh(new BoxGeometry(13, depth, 14));
+    site.position.set(3, -depth / 2, -3);
+    root.add(slab, site);
+    assert.equal(centerModelAtFloorDatum(root, new Map([['F1:floor_slab', slab]])), true);
+    assert.ok(Math.abs(new Box3().setFromObject(slab).max.y) < 1e-8, `floor top remains at zero above ${depth} m site depth`);
+    assert.ok(Math.abs(new Box3().setFromObject(root).min.y + depth) < 3e-7, 'the foundation remains underground');
+    slab.geometry.dispose(); site.geometry.dispose();
+  }
+  assert.equal(centerModelAtFloorDatum(new Group(), new Map()), false, 'missing datum must not silently fall back to the site bottom');
+});
+
+test('saved house and apartment slabs retain their finished-floor datum after placement', async () => {
+  for (const filename of ['house_3d.glb', 'apartment_2ldk.glb']) {
+    const gltf = await loadGlbGeometry(new URL(`../../GLB/${filename}`, import.meta.url));
+    const nodes = bindCadNodes(gltf);
+    assert.equal(centerModelAtFloorDatum(gltf.scene, nodes), true, filename);
+    assert.ok(Math.abs(new Box3().setFromObject(nodes.get('F1:floor_slab')).max.y) < 1e-8, `${filename}: finished floor at Y=0`);
+  }
+});
 
 test('loaded CAD names and picked window classification survive GLTF name sanitization', async () => {
   const gltf = await loadHouse();
@@ -49,4 +75,26 @@ test('attic floor and access ladder are selectable independently of the roof and
   assert.ok(visibleMeshes(gltf.scene).includes(finish));
   nodes.get('attic').visible = false;
   assert.ok(!visibleMeshes(gltf.scene).includes(slab));
+});
+
+test('site meshes select their real categories and support independent yard and fence visibility', async () => {
+  const gltf = await loadHouse();
+  const nodes = bindCadNodes(gltf);
+  const foundation = nodes.get('foundation:raft:slab');
+  const lawn = nodes.get('yard:planting:lawn_front');
+  const fence = nodes.get('fence:panels:north_01');
+  assert.ok(foundation?.isMesh && lawn?.isMesh && fence?.isMesh);
+  assert.equal(selectionFor(foundation).id, 'foundation:raft');
+  assert.equal(selectionFor(nodes.get('foundation:stem_walls:west')).id, 'foundation:stem_walls');
+  assert.equal(selectionFor(lawn).id, 'yard:planting');
+  assert.equal(selectionFor(nodes.get('yard:entrance_path:lower_step')).id, 'yard:entrance_path');
+  assert.equal(selectionFor(fence).id, 'fence:panels');
+  assert.equal(selectionFor(nodes.get('fence:footings:north_01')).id, 'fence:footings');
+  nodes.get('yard').visible = false;
+  assert.ok(!visibleMeshes(gltf.scene).includes(lawn));
+  assert.ok(visibleMeshes(gltf.scene).includes(foundation));
+  assert.ok(visibleMeshes(gltf.scene).includes(fence));
+  nodes.get('fence').visible = false;
+  assert.ok(!visibleMeshes(gltf.scene).includes(fence));
+  assert.ok(visibleMeshes(gltf.scene).includes(foundation));
 });

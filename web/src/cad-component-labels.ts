@@ -10,6 +10,28 @@ function lookup(catalog: Catalog, key: string, locale: Locale): string | null {
 }
 
 const componentLabels = {
+  'foundation:raft:slab': label('建筑筏板基础', '建物のベタ基礎底盤', 'Building raft foundation slab'),
+  'foundation:raft:entrance_footing': label('玄关基础底板', '玄関ポーチの基礎底盤', 'Entrance foundation slab'),
+  'foundation:stem_walls:south': label('南侧基础立上墙', '南側の基礎立上り', 'South foundation stem wall'),
+  'foundation:stem_walls:north': label('北侧基础立上墙', '北側の基礎立上り', 'North foundation stem wall'),
+  'foundation:stem_walls:west': label('西侧基础立上墙', '西側の基礎立上り', 'West foundation stem wall'),
+  'foundation:stem_walls:east': label('东侧基础立上墙', '東側の基礎立上り', 'East foundation stem wall'),
+  'foundation:entrance_supports:porch': label('玄关平台支承', '玄関ポーチの支持部', 'Entrance porch support'),
+  'foundation:entrance_supports:upper_step': label('玄关上踏步支承', '玄関上段の支持部', 'Upper entrance step support'),
+  'yard:soil:base': label('院子土层', '庭の地盤層', 'Yard soil layer'),
+  'yard:ground_surfaces:gravel': label('院子砾石地面', '庭の砂利敷き', 'Yard gravel surface'),
+  'yard:entrance_path:paving': label('入户步道铺装', '玄関アプローチの舗装', 'Entrance path paving'),
+  'yard:entrance_path:lower_step': label('入户步道下踏步', '玄関アプローチの下段', 'Lower entrance path step'),
+  'yard:parking:paving': label('停车位铺装', '駐車スペースの舗装', 'Parking space paving'),
+  'yard:parking:line_left': label('停车位左侧标线', '駐車スペースの左区画線', 'Left parking boundary line'),
+  'yard:parking:line_right': label('停车位右侧标线', '駐車スペースの右区画線', 'Right parking boundary line'),
+  'yard:parking:line_back': label('停车位后侧标线', '駐車スペースの奥側区画線', 'Rear parking boundary line'),
+  'yard:parking:wheel_stop_left': label('停车位左侧车挡', '駐車スペースの左車止め', 'Left parking wheel stop'),
+  'yard:parking:wheel_stop_right': label('停车位右侧车挡', '駐車スペースの右車止め', 'Right parking wheel stop'),
+  'yard:planting:lawn_front': label('前院草坪', '前庭の芝生', 'Front yard lawn'),
+  'yard:planting:lawn_north': label('北侧草坪', '北側の芝生', 'North yard lawn'),
+  'yard:planting:lawn_east': label('东侧草坪', '東側の芝生', 'East yard lawn'),
+  'yard:planting:lawn_west': label('西侧草坪', '西側の芝生', 'West yard lawn'),
   'roof:west_plane': label('西侧屋面', '西側の屋根面', 'West roof plane'),
   'roof:east_plane': label('东侧屋面', '東側の屋根面', 'East roof plane'),
   'roof:south_gable_wall': label('南侧山墙', '南側の妻壁', 'South gable wall'),
@@ -62,6 +84,19 @@ const atticBoxPanels = {
   body: label('箱体', '箱本体', 'Box body'), lid: label('箱盖', 'ふた', 'Lid'),
 } satisfies Catalog;
 const atticLadderTread = label('阁楼检修梯踏步', '小屋裏点検はしごの踏み板', 'Attic access ladder tread');
+
+const fenceSegments = {
+  north: label('北侧', '北側', 'North'), west: label('西侧', '西側', 'West'), east: label('东侧', '東側', 'East'),
+  south_west: label('南侧西段', '南側西区間', 'Southwest segment'),
+  south_middle: label('南侧中段', '南側中央区間', 'South middle segment'),
+  south_east: label('南侧东段', '南側東区間', 'Southeast segment'),
+} satisfies Catalog;
+const fenceDetails = {
+  posts: label('围栏立柱', 'フェンス支柱', 'Fence post'),
+  panels: label('围栏面板', 'フェンスパネル', 'Fence panel'),
+  footings: label('围栏独立基础', 'フェンスの独立基礎', 'Fence footing'),
+} satisfies Catalog;
+const yardShrub = label('院子灌木', '庭の低木', 'Yard shrub');
 
 const directions = {
   south: label('南侧', '南側', 'South'), north: label('北侧', '北側', 'North'),
@@ -313,6 +348,11 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
+
+  const fence = /^fence:(posts|panels|footings):(north|west|east|south_west|south_middle|south_east)_(\d{2})$/.exec(name);
+  if (fence) return `${fenceSegments[fence[2] as keyof typeof fenceSegments][locale]} · ${fenceDetails[fence[1] as keyof typeof fenceDetails][locale]} ${Number(fence[3])}`;
+  const shrub = /^yard:planting:shrub_(\d{2})$/.exec(name);
+  if (shrub) return `${yardShrub[locale]} ${Number(shrub[1])}`;
 
   const atticShelf = /^attic:storage:(west_shelf|east_shelf):(back|side_south|side_north|bottom|middle|top)$/.exec(name);
   if (atticShelf) return `${atticStorage[atticShelf[1] as keyof typeof atticStorage][locale]} · ${atticShelfPanels[atticShelf[2] as keyof typeof atticShelfPanels][locale]}`;

@@ -1,4 +1,4 @@
-import { Mesh } from 'three';
+import { Box3, Mesh, Vector3 } from 'three';
 import type { Object3D } from 'three';
 import type { GLTF } from 'three/addons/loaders/GLTFLoader.js';
 import { modelLayouts } from './model-state.ts';
@@ -25,6 +25,22 @@ export function bindCadNodes(gltf: GLTF): Map<string, Object3D> {
     }
   });
   return objects;
+}
+
+/** Keep architectural heights relative to the original first-floor finished datum.
+ * Site solids can extend below the floor and must not redefine the cut-plane origin.
+ */
+export function centerModelAtFloorDatum(root: Object3D, objects: ReadonlyMap<string, Object3D>): boolean {
+  const floor = objects.get('F1:floor_slab');
+  if (!(floor instanceof Mesh)) return false;
+  root.updateWorldMatrix(true, true);
+  const datum = new Box3().setFromObject(floor).max.y;
+  const bounds = new Box3().setFromObject(root);
+  if (bounds.isEmpty() || !Number.isFinite(datum)) return false;
+  const center = bounds.getCenter(new Vector3());
+  root.position.add(new Vector3(-center.x, -datum, -center.z));
+  root.updateWorldMatrix(true, true);
+  return true;
 }
 
 export function selectionFor(object: Object3D, layout: ModelLayout = modelLayouts.house): ModelSelection | null {

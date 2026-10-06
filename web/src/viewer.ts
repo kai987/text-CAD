@@ -9,7 +9,7 @@ import type { Material, MeshStandardMaterial } from 'three';
 import { asset } from './data';
 import { modelLayouts, settingsForPreset } from './model-state';
 import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
-import { bindCadNodes, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
+import { bindCadNodes, centerModelAtFloorDatum, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
 import type { ModelSelection } from './model-scene';
 import { createHorizontalCap, createSectionMaterial } from './section-caps';
 import { createCadOutlineGeometry } from './cad-outlines';
@@ -81,7 +81,6 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let disposed = false;
   let frame = 0;
   let root: Object3D | undefined;
-  let floorOffset = 0;
   let settings = settingsForPreset(layout.defaultPreset, layout);
   const groupObjects = new Map<ModelPartId, Object3D>();
   let cadObjects = new Map<string, Object3D>();
@@ -213,7 +212,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     layout.groups.forEach(g => { const part = groupObjects.get(g.id); if (part) part.visible = !!next.visibility[g.id]; });
     layout.parts.forEach(p => { const part = groupObjects.get(p.id); if (part) part.visible = !!next.partVisibility[p.id]; });
     // GLB is Y-up/metres; display the cut height relative to the original F1 datum.
-    const height = next.cutaway ? next.heightMm / 1000 + floorOffset : null;
+    const height = next.cutaway ? next.heightMm / 1000 : null;
     renderer.clippingPlanes = height === null ? [] : [new Plane(new Vector3(0, -1, 0), height)];
     updateSectionCaps(height);
     if (selectionName) {
@@ -262,10 +261,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     if (disposed) { disposeObject(gltf.scene, true); return; }
     root = gltf.scene;
     cadObjects = bindCadNodes(gltf);
-    const bounds = new Box3().setFromObject(root);
-    const center = bounds.getCenter(new Vector3());
-    floorOffset = -bounds.min.y;
-    root.position.set(-center.x, floorOffset, -center.z);
+    if (!centerModelAtFloorDatum(root, cadObjects)) {
+      disposeObject(root, true); root = undefined; onError(); return;
+    }
     root.traverse(o => {
       if (!(o instanceof Mesh)) return;
       sourceMeshes.push(o);

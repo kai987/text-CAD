@@ -1,23 +1,23 @@
 {
-  "revision": "R04-3D",
+  "revision": "R05-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 1803,
-    "passed": 1803,
+    "checks": 2142,
+    "passed": 2142,
     "failed": 0,
-    "STEP_leaf_occurrences": 424,
-    "native_solids": 424,
-    "GLB_mesh_nodes": 424,
-    "GLB_all_nodes": 500
+    "STEP_leaf_occurrences": 537,
+    "native_solids": 537,
+    "GLB_mesh_nodes": 537,
+    "GLB_all_nodes": 627
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 9500875,
-      "sha256": "5522ad32f3a85b2f841f1cb650f8557d73cf2c2a1f7f65d454d63dfd368757eb"
+      "bytes": 16227691,
+      "sha256": "6feb3d45623e5851498dd8855490b9b6e05d719a57b48d59ceda2661eb4d648d"
     },
     "house_3d.glb": {
-      "bytes": 6633444,
-      "sha256": "c8482b9cdb7116ade6b7b34bf751294f3db1c71f7c320e0204638638ad77ce94"
+      "bytes": 7260644,
+      "sha256": "de732459642f03763f54da6ae5523129693c1a1cf48a76a6cd7c14b41836675b"
     }
   },
   "thresholds": {
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 9500875,
+      "actual": 16227691,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 6633444,
+      "actual": 7260644,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 424,
+      "actual": 537,
       "expected": null
     },
     {
@@ -7705,6 +7705,2040 @@
       "expected": null
     },
     {
+      "check": "foundation:raft:slab:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:raft:slab:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:raft:slab:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7949760000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:raft:entrance_footing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:raft:entrance_footing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:raft:entrance_footing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 427500000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 152880000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 152880000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:west:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:west:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:west:solid_1_positive_volume",
+      "pass": true,
+      "actual": 147000000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:east:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:east:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:east:solid_1_positive_volume",
+      "pass": true,
+      "actual": 147000000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:porch:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:porch:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:porch:solid_1_positive_volume",
+      "pass": true,
+      "actual": 877500000.0,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:upper_step:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:upper_step:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:entrance_supports:upper_step:solid_1_positive_volume",
+      "pass": true,
+      "actual": 157500000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:soil:base:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:soil:base:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:soil:base:solid_1_positive_volume",
+      "pass": true,
+      "actual": 10817000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:ground_surfaces:gravel:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:ground_surfaces:gravel:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:ground_surfaces:gravel:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3283680000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:paving:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:paving:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:paving:solid_1_positive_volume",
+      "pass": true,
+      "actual": 270000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:lower_step:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:lower_step:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:entrance_path:lower_step:solid_1_positive_volume",
+      "pass": true,
+      "actual": 144000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:paving:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:paving:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:paving:solid_1_positive_volume",
+      "pass": true,
+      "actual": 742000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_left:solid_1_positive_volume",
+      "pass": true,
+      "actual": 500000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 500000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_back:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_back:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_back:solid_1_positive_volume",
+      "pass": true,
+      "actual": 270000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_left:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:wheel_stop_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_front:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_front:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_front:solid_1_positive_volume",
+      "pass": true,
+      "actual": 368000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 333720000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_east:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_east:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_east:solid_1_positive_volume",
+      "pass": true,
+      "actual": 295850000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_west:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_west:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:lawn_west:solid_1_positive_volume",
+      "pass": true,
+      "actual": 246500000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 268082573.106,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 378300115.37,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:planting:shrub_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 508938009.882,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:north_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:east_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_west_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_west_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_west_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_middle_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:south_east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3625000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:north_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21917714.286,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:east_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 25420000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_west_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_west_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_west_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 9256000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 20992000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_middle_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 20992000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 16276000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:south_east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 16276000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:north_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:east_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_west_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_west_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_west_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_middle_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:south_east_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": null
+    },
+    {
       "check": "F1:four_external_backing_walls",
       "pass": true,
       "actual": 4,
@@ -10796,8 +12830,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 424,
-      "expected": 424
+      "actual": 537,
+      "expected": 537
     },
     {
       "check": "GLB:named_groups_retained",
@@ -10832,26 +12866,26 @@
     {
       "check": "GLB:metre_Y_up_bound_0",
       "pass": true,
-      "actual": -0.54,
-      "expected": -0.54
+      "actual": -2,
+      "expected": -2.0
     },
     {
       "check": "GLB:metre_Y_up_bound_1",
       "pass": true,
-      "actual": -0.5,
-      "expected": -0.5
+      "actual": -0.95,
+      "expected": -0.95
     },
     {
       "check": "GLB:metre_Y_up_bound_2",
       "pass": true,
-      "actual": -7.755,
-      "expected": -7.755
+      "actual": -9.28,
+      "expected": -9.28
     },
     {
       "check": "GLB:metre_Y_up_bound_3",
       "pass": true,
-      "actual": 7.82,
-      "expected": 7.82
+      "actual": 9.28,
+      "expected": 9.28
     },
     {
       "check": "GLB:metre_Y_up_bound_4",
@@ -10862,8 +12896,8 @@
     {
       "check": "GLB:metre_Y_up_bound_5",
       "pass": true,
-      "actual": 1.6,
-      "expected": 1.6
+      "actual": 5.5,
+      "expected": 5.5
     },
     {
       "check": "GLB:glazing_transparency_retained",

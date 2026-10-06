@@ -87,3 +87,19 @@ test('attic controls translate groups, parts, preset and the deployed ladder lim
   assert.match(messages.ja.model.atticNote, /展開状態のみ.*2階廊下/);
   assert.match(messages.en.model.atticNote, /deployed state.*second-floor hall/);
 });
+
+test('site controls and supplementary downloads have distinct names in all three languages', () => {
+  for (const locale of locales) {
+    const copy = messages[locale];
+    for (const group of ['foundation', 'yard', 'fence']) {
+      assert.ok(selectionLabel(copy, group)?.trim(), `${locale}: ${group}`);
+      const categories = modelLayouts.house.parts.filter(part => part.group === group);
+      const labels = categories.map(part => selectionLabel(copy, part.id));
+      assert.ok(labels.every(label => label?.trim()), `${locale}: site category labels are present`);
+      assert.equal(new Set(labels).size, categories.length, `${locale}: site categories are distinct`);
+    }
+    assert.ok(copy.downloads.files.site.title.trim() && copy.downloads.files.site.detail.trim());
+    assert.ok(copy.downloads.files.sitePdf.title.trim() && copy.downloads.files.sitePdf.detail.trim());
+    assert.notEqual(copy.downloads.files.site.title, copy.downloads.files.sitePdf.title);
+  }
+});

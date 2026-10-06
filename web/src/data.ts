@@ -9,6 +9,8 @@ export const downloadFiles = [
   { id: 'second', path: 'DXF/002D0PL2-2FPLAN.DXF', type: 'DXF' },
   { id: 'attic', path: 'DXF/house_attic_plan.dxf', type: 'DXF' },
   { id: 'atticPdf', path: 'output/pdf/house_attic_plan_R04_JP.pdf', type: 'PDF' },
+  { id: 'site', path: 'DXF/house_site_plan.dxf', type: 'DXF' },
+  { id: 'sitePdf', path: 'output/pdf/house_site_plan_R05_JP.pdf', type: 'PDF' },
   { id: 'pdf', path: 'output/pdf/house_floor_plans_R02_JP.pdf', type: 'PDF' },
   { id: 'manifest', path: 'output/review/design_manifest.json', type: 'JSON' },
 ] as const;

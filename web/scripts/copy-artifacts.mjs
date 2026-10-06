@@ -13,6 +13,7 @@ export const artifacts = [
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
   'DXF/001D0PL2-1FPLAN.DXF', 'DXF/002D0PL2-2FPLAN.DXF',
   'DXF/house_attic_plan.dxf', 'output/pdf/house_attic_plan_R04_JP.pdf',
+  'DXF/house_site_plan.dxf', 'output/pdf/house_site_plan_R05_JP.pdf',
   'output/pdf/house_floor_plans_R02_JP.pdf',
   'output/review/jp_floor_plan-1.png', 'output/review/jp_floor_plan-2.png',
   'output/review/house_3d_iso.png',

@@ -1,8 +1,10 @@
 export type ModelId = 'house' | 'apartment';
-export type GroupId = 'F1' | 'F2' | 'attic' | 'attic_access' | 'stairs' | 'roof' | 'ceiling' | 'balcony';
+export type GroupId = 'F1' | 'F2' | 'attic' | 'attic_access' | 'stairs' | 'roof' | 'foundation' | 'yard' | 'fence' | 'ceiling' | 'balcony';
 export type FloorId = 'F1' | 'F2' | 'attic';
-export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures' | 'furniture' | 'guardrails';
-export type PartId = `${FloorId}:${PartKind}`;
+export type PartGroupId = FloorId | 'foundation' | 'yard' | 'fence';
+export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures' | 'furniture' | 'guardrails'
+  | 'raft' | 'stem_walls' | 'entrance_supports' | 'soil' | 'ground_surfaces' | 'entrance_path' | 'parking' | 'planting' | 'posts' | 'panels' | 'footings';
+export type PartId = `${PartGroupId}:${PartKind}`;
 export type ModelPartId = PartId | GroupId;
 export type PresetId = 'exterior' | 'first' | 'second' | 'attic' | 'interior';
 export type PageId = '3d' | '1f' | '2f' | 'files';
@@ -13,7 +15,7 @@ export interface ModelSettings {
   heightMm: number;
 }
 interface ModelGroup { id: GroupId; label: string }
-interface ModelPart { id: PartId; group: FloorId; label: string }
+interface ModelPart { id: PartId; group: PartGroupId; label: string }
 interface ViewPreset { id: PresetId; label: string; visibility: ModelSettings['visibility']; cutaway?: boolean; heightMm?: number }
 export interface ModelLayout {
   id: ModelId;
@@ -30,6 +32,7 @@ export const groups: ModelGroup[] = [
   { id: 'F1', label: '一层' }, { id: 'F2', label: '二层' },
   { id: 'attic', label: '储物阁楼' }, { id: 'attic_access', label: '阁楼检修梯（展开）' },
   { id: 'stairs', label: '楼梯' }, { id: 'roof', label: '屋顶' },
+  { id: 'foundation', label: '建筑基础' }, { id: 'yard', label: '院子' }, { id: 'fence', label: '围栏' },
 ];
 const partKinds: { id: PartKind; label: string }[] = [
   { id: 'floor_slab', label: '楼板' }, { id: 'external_walls', label: '外墙' },
@@ -44,12 +47,23 @@ export const parts: ModelPart[] = [
   { id: 'attic:partition_walls', group: 'attic', label: '内隔墙' },
   { id: 'attic:storage_fixtures', group: 'attic', label: '收纳柜' },
   { id: 'attic:guardrails', group: 'attic', label: '防护栏' },
+  { id: 'foundation:raft', group: 'foundation', label: '基础底板' },
+  { id: 'foundation:stem_walls', group: 'foundation', label: '基础立上墙' },
+  { id: 'foundation:entrance_supports', group: 'foundation', label: '玄关支承' },
+  { id: 'yard:soil', group: 'yard', label: '场地土层' },
+  { id: 'yard:ground_surfaces', group: 'yard', label: '砾石地面' },
+  { id: 'yard:entrance_path', group: 'yard', label: '入户步道' },
+  { id: 'yard:parking', group: 'yard', label: '停车位' },
+  { id: 'yard:planting', group: 'yard', label: '绿化' },
+  { id: 'fence:posts', group: 'fence', label: '围栏立柱' },
+  { id: 'fence:panels', group: 'fence', label: '围栏面板' },
+  { id: 'fence:footings', group: 'fence', label: '围栏独立基础' },
 ];
 export const presets: ViewPreset[] = [
-  { id: 'exterior', label: '完整外观', visibility: { F1: true, F2: true, attic: true, attic_access: false, stairs: true, roof: true } },
-  { id: 'first', label: '一层内部', visibility: { F1: true, F2: false, attic: false, attic_access: false, stairs: true, roof: false } },
-  { id: 'second', label: '二层内部', visibility: { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false } },
-  { id: 'attic', label: '阁楼内部', visibility: { F1: false, F2: false, attic: true, attic_access: true, stairs: false, roof: false }, cutaway: true, heightMm: 6900 },
+  { id: 'exterior', label: '完整外观', visibility: { F1: true, F2: true, attic: true, attic_access: false, stairs: true, roof: true, foundation: true, yard: true, fence: true } },
+  { id: 'first', label: '一层内部', visibility: { F1: true, F2: false, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false } },
+  { id: 'second', label: '二层内部', visibility: { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false } },
+  { id: 'attic', label: '阁楼内部', visibility: { F1: false, F2: false, attic: true, attic_access: true, stairs: false, roof: false, foundation: false, yard: false, fence: false }, cutaway: true, heightMm: 6900 },
 ];
 export const modelLayouts: Record<ModelId, ModelLayout> = {
   house: { id: 'house', groups, parts, presets, defaultPreset: 'exterior', maxCutHeight: 8000, defaultCutHeight: 4200, pages: ['3d', '1f', '2f', 'files'] },

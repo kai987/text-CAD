@@ -1,5 +1,5 @@
 {
-  "revision": "R04-3D",
+  "revision": "R05-3D",
   "stage": "approved_floor_plan_concept_model",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -228,6 +228,601 @@
       "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。"
     ]
   },
+  "site": {
+    "parameters": {
+      "lot_west": -2000,
+      "lot_east": 9280,
+      "lot_south": -5500,
+      "lot_north": 9280,
+      "ground_z": -500,
+      "soil_thickness": 100,
+      "finish_thickness": 50,
+      "raft_bottom_z": -800,
+      "raft_thickness": 150,
+      "entrance_lower_step_depth": 300,
+      "entrance_lower_step_top_z": -330,
+      "parking_west": -1000,
+      "parking_east": 1800,
+      "parking_south": -5500,
+      "parking_north": -200,
+      "parking_mark_south": -5200,
+      "parking_line_width": 50,
+      "parking_line_thickness": 2,
+      "wheel_stop_width": 500,
+      "wheel_stop_depth": 100,
+      "wheel_stop_height": 100,
+      "fence_west": -1800,
+      "fence_east": 9080,
+      "fence_south": -5300,
+      "fence_north": 9080,
+      "fence_height": 1200,
+      "fence_post_width": 50,
+      "fence_post_embedment": 250,
+      "fence_max_span": 1800,
+      "fence_panel_thickness": 20,
+      "fence_panel_frame_width": 20,
+      "fence_panel_bottom_above_grade": 80,
+      "fence_slats": 9,
+      "fence_slat_height": 80,
+      "fence_slat_gap": 40,
+      "fence_footing_width": 300,
+      "fence_footing_bottom_z": -950,
+      "fence_footing_top_z": -550,
+      "car_opening_west": -1100,
+      "car_opening_east": 1900,
+      "pedestrian_opening_west": 4930,
+      "pedestrian_opening_east": 6730,
+      "shrub_center_z": -100
+    },
+    "lot_bounds_mm": [
+      -2000,
+      -5500,
+      9280,
+      9280
+    ],
+    "lot_dimensions_mm": [
+      11280,
+      14780
+    ],
+    "lot_area_mm2": 166718400.0,
+    "grade_z_mm": -500,
+    "foundation": {
+      "type": "concept raft and perimeter stem continuation; no internal reinforcement design",
+      "raft_bounds_mm": [
+        0,
+        0,
+        -800,
+        7280,
+        7280,
+        -650
+      ],
+      "raft_thickness_mm": 150,
+      "stem_width_mm": 140,
+      "stem_bottom_top_mm": [
+        -650,
+        -500
+      ],
+      "existing_plinth_preserved": true
+    },
+    "entrance": {
+      "footprint_mm": [
+        5080,
+        -1900,
+        6580,
+        0
+      ],
+      "path_bounds_mm": [
+        5080,
+        -5500,
+        6580,
+        -1900
+      ],
+      "path_width_mm": 1500,
+      "levels_mm": [
+        -500,
+        -330,
+        -160,
+        -25,
+        0
+      ],
+      "rises_mm": [
+        170,
+        170,
+        135,
+        25
+      ],
+      "old_porch_and_step_preserved": true
+    },
+    "parking": {
+      "surface_bounds_mm": [
+        -1000,
+        -5500,
+        1800,
+        -200
+      ],
+      "bay_bounds_mm": [
+        -1000,
+        -5200,
+        1800,
+        -200
+      ],
+      "bay_dimensions_mm": [
+        2800,
+        5000
+      ]
+    },
+    "fence": {
+      "post_count": 30,
+      "panel_count": 28,
+      "height_above_grade_mm": 1200,
+      "panel_bottom_top_mm": [
+        -420,
+        620
+      ],
+      "slat_gap_mm": 40,
+      "car_clear_opening_mm": [
+        -1100,
+        1900
+      ],
+      "pedestrian_clear_opening_mm": [
+        4930,
+        6730
+      ],
+      "posts": [
+        {
+          "id": "north_01",
+          "x": -1800.0,
+          "y": 9080
+        },
+        {
+          "id": "north_02",
+          "x": -245.71428571428578,
+          "y": 9080
+        },
+        {
+          "id": "north_03",
+          "x": 1308.5714285714284,
+          "y": 9080
+        },
+        {
+          "id": "north_04",
+          "x": 2862.857142857143,
+          "y": 9080
+        },
+        {
+          "id": "north_05",
+          "x": 4417.142857142857,
+          "y": 9080
+        },
+        {
+          "id": "north_06",
+          "x": 5971.428571428572,
+          "y": 9080
+        },
+        {
+          "id": "north_07",
+          "x": 7525.714285714286,
+          "y": 9080
+        },
+        {
+          "id": "north_08",
+          "x": 9080.0,
+          "y": 9080
+        },
+        {
+          "id": "west_01",
+          "x": -1800,
+          "y": -5300.0
+        },
+        {
+          "id": "west_02",
+          "x": -1800,
+          "y": -3502.5
+        },
+        {
+          "id": "west_03",
+          "x": -1800,
+          "y": -1705.0
+        },
+        {
+          "id": "west_04",
+          "x": -1800,
+          "y": 92.5
+        },
+        {
+          "id": "west_05",
+          "x": -1800,
+          "y": 1890.0
+        },
+        {
+          "id": "west_06",
+          "x": -1800,
+          "y": 3687.5
+        },
+        {
+          "id": "west_07",
+          "x": -1800,
+          "y": 5485.0
+        },
+        {
+          "id": "west_08",
+          "x": -1800,
+          "y": 7282.5
+        },
+        {
+          "id": "east_01",
+          "x": 9080,
+          "y": -5300.0
+        },
+        {
+          "id": "east_02",
+          "x": 9080,
+          "y": -3502.5
+        },
+        {
+          "id": "east_03",
+          "x": 9080,
+          "y": -1705.0
+        },
+        {
+          "id": "east_04",
+          "x": 9080,
+          "y": 92.5
+        },
+        {
+          "id": "east_05",
+          "x": 9080,
+          "y": 1890.0
+        },
+        {
+          "id": "east_06",
+          "x": 9080,
+          "y": 3687.5
+        },
+        {
+          "id": "east_07",
+          "x": 9080,
+          "y": 5485.0
+        },
+        {
+          "id": "east_08",
+          "x": 9080,
+          "y": 7282.5
+        },
+        {
+          "id": "south_west_02",
+          "x": -1125.0,
+          "y": -5300
+        },
+        {
+          "id": "south_middle_01",
+          "x": 1925.0,
+          "y": -5300
+        },
+        {
+          "id": "south_middle_02",
+          "x": 3415.0,
+          "y": -5300
+        },
+        {
+          "id": "south_middle_03",
+          "x": 4905.0,
+          "y": -5300
+        },
+        {
+          "id": "south_east_01",
+          "x": 6755.0,
+          "y": -5300
+        },
+        {
+          "id": "south_east_02",
+          "x": 7917.5,
+          "y": -5300
+        }
+      ],
+      "panels": [
+        {
+          "id": "north_01",
+          "axis": "h",
+          "at": 9080,
+          "start": -1775.0,
+          "end": -270.7142857142858,
+          "post_center_span": 1554.2857142857142
+        },
+        {
+          "id": "north_02",
+          "axis": "h",
+          "at": 9080,
+          "start": -220.71428571428578,
+          "end": 1283.5714285714284,
+          "post_center_span": 1554.2857142857142
+        },
+        {
+          "id": "north_03",
+          "axis": "h",
+          "at": 9080,
+          "start": 1333.5714285714284,
+          "end": 2837.857142857143,
+          "post_center_span": 1554.2857142857147
+        },
+        {
+          "id": "north_04",
+          "axis": "h",
+          "at": 9080,
+          "start": 2887.857142857143,
+          "end": 4392.142857142857,
+          "post_center_span": 1554.2857142857138
+        },
+        {
+          "id": "north_05",
+          "axis": "h",
+          "at": 9080,
+          "start": 4442.142857142857,
+          "end": 5946.428571428572,
+          "post_center_span": 1554.2857142857147
+        },
+        {
+          "id": "north_06",
+          "axis": "h",
+          "at": 9080,
+          "start": 5996.428571428572,
+          "end": 7500.714285714286,
+          "post_center_span": 1554.2857142857147
+        },
+        {
+          "id": "north_07",
+          "axis": "h",
+          "at": 9080,
+          "start": 7550.714285714286,
+          "end": 9055.0,
+          "post_center_span": 1554.2857142857138
+        },
+        {
+          "id": "west_01",
+          "axis": "v",
+          "at": -1800,
+          "start": -5275.0,
+          "end": -3527.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_02",
+          "axis": "v",
+          "at": -1800,
+          "start": -3477.5,
+          "end": -1730.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_03",
+          "axis": "v",
+          "at": -1800,
+          "start": -1680.0,
+          "end": 67.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_04",
+          "axis": "v",
+          "at": -1800,
+          "start": 117.5,
+          "end": 1865.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_05",
+          "axis": "v",
+          "at": -1800,
+          "start": 1915.0,
+          "end": 3662.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_06",
+          "axis": "v",
+          "at": -1800,
+          "start": 3712.5,
+          "end": 5460.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_07",
+          "axis": "v",
+          "at": -1800,
+          "start": 5510.0,
+          "end": 7257.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "west_08",
+          "axis": "v",
+          "at": -1800,
+          "start": 7307.5,
+          "end": 9055.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_01",
+          "axis": "v",
+          "at": 9080,
+          "start": -5275.0,
+          "end": -3527.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_02",
+          "axis": "v",
+          "at": 9080,
+          "start": -3477.5,
+          "end": -1730.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_03",
+          "axis": "v",
+          "at": 9080,
+          "start": -1680.0,
+          "end": 67.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_04",
+          "axis": "v",
+          "at": 9080,
+          "start": 117.5,
+          "end": 1865.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_05",
+          "axis": "v",
+          "at": 9080,
+          "start": 1915.0,
+          "end": 3662.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_06",
+          "axis": "v",
+          "at": 9080,
+          "start": 3712.5,
+          "end": 5460.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_07",
+          "axis": "v",
+          "at": 9080,
+          "start": 5510.0,
+          "end": 7257.5,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "east_08",
+          "axis": "v",
+          "at": 9080,
+          "start": 7307.5,
+          "end": 9055.0,
+          "post_center_span": 1797.5
+        },
+        {
+          "id": "south_west_01",
+          "axis": "h",
+          "at": -5300,
+          "start": -1775.0,
+          "end": -1150.0,
+          "post_center_span": 675.0
+        },
+        {
+          "id": "south_middle_01",
+          "axis": "h",
+          "at": -5300,
+          "start": 1950.0,
+          "end": 3390.0,
+          "post_center_span": 1490.0
+        },
+        {
+          "id": "south_middle_02",
+          "axis": "h",
+          "at": -5300,
+          "start": 3440.0,
+          "end": 4880.0,
+          "post_center_span": 1490.0
+        },
+        {
+          "id": "south_east_01",
+          "axis": "h",
+          "at": -5300,
+          "start": 6780.0,
+          "end": 7892.5,
+          "post_center_span": 1162.5
+        },
+        {
+          "id": "south_east_02",
+          "axis": "h",
+          "at": -5300,
+          "start": 7942.5,
+          "end": 9055.0,
+          "post_center_span": 1162.5
+        }
+      ]
+    },
+    "surfaces": {
+      "soil_area_mm2": 108170000.0,
+      "finish_total_area_mm2": 110795000.0,
+      "gravel_area_mm2": 65673600.0,
+      "entrance_paving_area_mm2": 5400000.0,
+      "parking_paving_area_mm2": 14840000.0,
+      "lawns_area_mm2": {
+        "front": 7360000.0,
+        "north": 6674400.0,
+        "east": 5917000.0,
+        "west": 4930000.0
+      },
+      "lawn_bounds_mm": {
+        "front": [
+          2300,
+          -4700,
+          4600,
+          -1500
+        ],
+        "north": [
+          400,
+          7750,
+          6880,
+          8780
+        ],
+        "east": [
+          7780,
+          500,
+          8750,
+          6600
+        ],
+        "west": [
+          -1450,
+          700,
+          -600,
+          6500
+        ]
+      },
+      "shrubs": [
+        {
+          "center_mm": [
+            2850,
+            -3800,
+            -100
+          ],
+          "radius_mm": 400
+        },
+        {
+          "center_mm": [
+            3950,
+            -3650,
+            -100
+          ],
+          "radius_mm": 450
+        },
+        {
+          "center_mm": [
+            3450,
+            -2250,
+            -100
+          ],
+          "radius_mm": 500
+        }
+      ]
+    },
+    "assumptions": [
+      "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+      "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
+      "新增贝塔基础仅以150 mm底板和140 mm周圈立上り表达；保留原四个基座，未设计配筋、地梁、地盘处理或验证承载、抗震和排水。",
+      "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
+      "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
+      "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
+      "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
+      "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，旧房屋、阁楼和已确认两层平面保持不变。"
+    ]
+  },
   "assumptions": [
     "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
     "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
@@ -256,7 +851,15 @@
     "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
     "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
     "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
-    "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。"
+    "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。",
+    "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+    "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
+    "新增贝塔基础仅以150 mm底板和140 mm周圈立上り表达；保留原四个基座，未设计配筋、地梁、地盘处理或验证承载、抗震和排水。",
+    "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
+    "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
+    "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
+    "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
+    "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，旧房屋、阁楼和已确认两层平面保持不变。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -450,7 +1053,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 424,
-    "all_nodes": 500
+    "named_mesh_nodes": 537,
+    "all_nodes": 627
   }
 }

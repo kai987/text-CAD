@@ -17,6 +17,8 @@ async function loadModel(filename) {
 // These are the categories the original CAD naming convention assigns to meshes.
 // They are also the IDs used to highlight, isolate, and toggle the picked part.
 function originalCategory(name) {
+  const siteCategory = /^(foundation|yard|fence):([^:]+):/.exec(name);
+  if (siteCategory) return `${siteCategory[1]}:${siteCategory[2]}`;
   if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
   if (/^attic:(?:lining|knee_wall|gable_lining):/.test(name)) return 'attic:partition_walls';
   if (/^attic:storage:/.test(name)) return 'attic:storage_fixtures';
@@ -135,6 +137,30 @@ test('attic storage, hatch and ladder details have distinct labels in all three 
     assert.match(cadComponentLabel(locale, 'attic_access:tread_10'), /10$/);
     assert.notEqual(cadComponentLabel(locale, 'attic:storage:west_shelf:middle'),
       cadComponentLabel(locale, 'attic:storage:east_shelf:middle'));
+  }
+});
+
+test('foundation, yard and fence labels distinguish directions and physical details in all languages', () => {
+  const categories = [
+    ['foundation:raft:slab', 'foundation:raft:entrance_footing'],
+    ['south', 'north', 'west', 'east'].map(side => `foundation:stem_walls:${side}`),
+    ['foundation:entrance_supports:porch', 'foundation:entrance_supports:upper_step'],
+    ['yard:entrance_path:paving', 'yard:entrance_path:lower_step'],
+    ['paving', 'line_left', 'line_right', 'line_back', 'wheel_stop_left', 'wheel_stop_right'].map(part => `yard:parking:${part}`),
+    ['lawn_front', 'lawn_north', 'lawn_east', 'lawn_west', 'shrub_01', 'shrub_02', 'shrub_03'].map(part => `yard:planting:${part}`),
+    ...['posts', 'panels', 'footings'].map(kind => ['north_01', 'west_01', 'east_01', 'south_west_01', 'south_middle_01', 'south_east_01', 'north_02']
+      .map(part => `fence:${kind}:${part}`)),
+  ];
+  for (const locale of locales) {
+    for (const name of ['yard:soil:base', 'yard:ground_surfaces:gravel']) assert.ok(cadComponentLabel(locale, name)?.trim());
+    for (const names of categories) {
+      const labels = names.map(name => cadComponentLabel(locale, name));
+      assert.ok(labels.every(label => label?.trim()), `${locale}: all physical site details are translated`);
+      assert.equal(new Set(labels).size, names.length, `${locale}: left/right and directions remain distinguishable`);
+    }
+    for (const name of ['foundation', 'yard', 'fence', 'foundation:raft', 'yard:parking', 'fence:posts']) {
+      assert.equal(cadComponentLabel(locale, name), null, `${locale}: group names use the localized selection title`);
+    }
   }
 });
 

@@ -43,7 +43,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## Contemporary Japanese house exterior (R03-3D)
 
-The house uses warm-white siding, grey and timber entry accents, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
+The house uses warm-white siding, a timber-tone entry door, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
 
 Parametric sources are `src/lib/exterior_geometry.py` and `src/lib/exterior_materials.py`. New components belong to the existing external-wall, door, window and roof categories, with Chinese, Japanese and English names, selection, visibility and section support. STEP contains solids and colours; GLB also embeds original siding and timber textures. [Official Nichiha, KMEW and YKK AP references](references/japanese-house-exterior.md) informed the design; no manufacturer photographs, textures or CAD models are redistributed.
 

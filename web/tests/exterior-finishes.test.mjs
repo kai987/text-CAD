@@ -53,7 +53,7 @@ test('exterior PNG finishes are valid, self-contained and original procedural as
 test('every exterior siding/timber primitive has correctly scaled metre-space UVs', () => {
   const textured = document.nodes.filter(node => node.mesh !== undefined &&
     (node.name.includes(':cladding:') || node.name.includes(':entry_panel:') || node.name === 'F1:D01_door_swing'));
-  assert.equal(textured.length, 12, '8 floor siding, 2 gables, entry accent and entry door');
+  assert.equal(textured.length, 11, '8 floor siding, 2 gables and entry door');
   for (const node of textured) for (const primitive of document.meshes[node.mesh].primitives) {
     const wood = node.name.includes(':entry_panel:') || node.name === 'F1:D01_door_swing';
     const position = document.accessors[primitive.attributes.POSITION];

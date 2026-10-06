@@ -263,7 +263,7 @@ site_leaves = {label: shape for label, shape in native.items()
                if label.startswith(("foundation:", "yard:", "fence:"))}
 structure_leaves = {label: shape for label, shape in native.items() if label.startswith("structure:")}
 old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)-set(structure_leaves)
-check("attic:R03_original_leaf_count_retained", len(old_leaf_names) == 378, len(old_leaf_names), 378)
+check("attic:R03_leaves_after_requested_entry_accent_removal", len(old_leaf_names) == 377, len(old_leaf_names), 377)
 check("attic:new_named_leaf_contract", len(attic_leaves) == 31, len(attic_leaves), 31)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
@@ -440,7 +440,8 @@ report = {
                                  "backing_thickness_mm": P.external_wall-setback,
                                  "approved_room_net_boundaries": "Unchanged; tested as exact native clear-room volumes",
                                  "finished_footprint_mm": [P.width, P.depth]},
-    "attic_test_basis": {"original_R03_leaf_count": 378, "new_attic_leaf_count": len(attic_leaves),
+    "attic_test_basis": {"original_R03_leaf_count": 378, "retained_after_entry_accent_removal": 377,
+                         "new_attic_leaf_count": len(attic_leaves),
                          "new_access_leaf_count": len(access_leaves), "purpose": "storage attic concept",
                          "deck_storage_projection_area_m2": deck_area/1e6,
                          "upper_landing_min_clear_height_mm": minimum_upper_height,

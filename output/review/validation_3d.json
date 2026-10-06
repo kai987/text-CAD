@@ -2,22 +2,22 @@
   "revision": "R06-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 2758,
-    "passed": 2758,
+    "checks": 2755,
+    "passed": 2755,
     "failed": 0,
-    "STEP_leaf_occurrences": 730,
-    "native_solids": 746,
-    "GLB_mesh_nodes": 730,
-    "GLB_all_nodes": 830
+    "STEP_leaf_occurrences": 729,
+    "native_solids": 745,
+    "GLB_mesh_nodes": 729,
+    "GLB_all_nodes": 829
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 19223544,
-      "sha256": "833ef0491cc983360f50f28688fb53a5dd9168640445b07004d892dc89356ec4"
+      "bytes": 19204977,
+      "sha256": "bc88ae0cc2279b75fa58d2eb00620d891e6e385af63a9001ea01d329ddf2c37e"
     },
     "house_3d.glb": {
-      "bytes": 7620012,
-      "sha256": "ed03fa72d45aab0c92da1fc83e0b9cb0263fc706b5fe16705e8c495530a29ddb"
+      "bytes": 7617704,
+      "sha256": "adf9e79889346711a4fc7c0fd52ed92d52452f2e4a0050194b70005c265e815e"
     }
   },
   "thresholds": {
@@ -38,6 +38,7 @@
   },
   "attic_test_basis": {
     "original_R03_leaf_count": 378,
+    "retained_after_entry_accent_removal": 377,
     "new_attic_leaf_count": 31,
     "new_access_leaf_count": 16,
     "purpose": "storage attic concept",
@@ -57,19 +58,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 19223544,
+      "actual": 19204977,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 7620012,
+      "actual": 7617704,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 730,
+      "actual": 729,
       "expected": null
     },
     {
@@ -232,24 +233,6 @@
       "check": "F1:exterior:cladding:east:solid_1_positive_volume",
       "pass": true,
       "actual": 392840000.0,
-      "expected": null
-    },
-    {
-      "check": "F1:exterior:entry_panel:south:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F1:exterior:entry_panel:south:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:exterior:entry_panel:south:solid_1_positive_volume",
-      "pass": true,
-      "actual": 23688000.0,
       "expected": null
     },
     {
@@ -15264,10 +15247,10 @@
       "expected": 5600
     },
     {
-      "check": "attic:R03_original_leaf_count_retained",
+      "check": "attic:R03_leaves_after_requested_entry_accent_removal",
       "pass": true,
-      "actual": 378,
-      "expected": 378
+      "actual": 377,
+      "expected": 377
     },
     {
       "check": "attic:new_named_leaf_contract",
@@ -16526,8 +16509,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 730,
-      "expected": 730
+      "actual": 729,
+      "expected": 729
     },
     {
       "check": "GLB:named_groups_retained",

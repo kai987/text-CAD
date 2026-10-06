@@ -24,10 +24,6 @@ class ExteriorParameters:
     window_trim_projection: float = 12
     window_sill_drop: float = 48
     window_sill_projection: float = 35
-    entry_panel_thickness: float = 16
-    entry_panel_height: float = 2350
-    entry_panel_right_inset: float = 300
-    entry_panel_door_clearance: float = 70
     door_frame_width: float = 45
     door_frame_projection: float = 18
     entrance_canopy_margin: float = 300
@@ -113,14 +109,6 @@ def facade_parts(floor, p, g, e=E, include_plinth=True):
     if floor.number == 1:
         if include_plinth:
             leaves += plinth_parts(p, g, e)
-        entrance = next(d for d in floor.doors if d.a == "outside")
-        # A narrow timber accent beside the entry keeps the entire door aperture clear.
-        x1 = entrance.start + entrance.width + e.entry_panel_door_clearance
-        x2 = p.width - e.entry_panel_right_inset
-        if x2 > x1:
-            leaves.append(cuboid((x1, -e.entry_panel_thickness, 0,
-                                  x2, 0, e.entry_panel_height),
-                                 "F1:exterior:entry_panel:south", "entrywood"))
     leaves += downpipe_parts(floor.number, p, g, e)
     return leaves
 
@@ -289,13 +277,13 @@ def roof_detail_parts(p, g, e=E):
 def exterior_manifest(e=E):
     return {
         "reference": "references/japanese-house-exterior.md",
-        "design": "Contemporary Japanese new-build detached house; warm-white siding, timber entry accent, dark standing-seam gable roof",
+        "design": "Contemporary Japanese new-build detached house; continuous warm-white siding, timber-tone entry door, dark standing-seam gable roof",
         "parameters_mm": asdict(e),
         "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
         "finished_wall_footprint": "7280 x 7280 mm remains the approved demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
-        "projecting_attachments": "12 mm window trims, 35 mm sills, 16 mm entry accent, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
+        "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
         "assumptions": [
-            "暖白外壁、局部木色玄关、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
+            "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
             "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
             "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
             "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",

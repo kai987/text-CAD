@@ -110,7 +110,7 @@ check("site:saved_metadata_matches_current_parameters", record == site_manifest(
 check("revision:foundation_and_site_R06", saved["revision"] == "R06-3D", saved["revision"], "R06-3D")
 legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
           and label != "attic:lining:flat_ceiling"}
-check("site:existing_house_labels_retained", len(legacy) == 424, len(legacy), 424)
+check("site:house_labels_after_requested_entry_accent_removal", len(legacy) == 423, len(legacy), 423)
 check("site:three_nonempty_top_groups", all(any(label.startswith(prefix) for label in site) for prefix in SITE_PREFIXES))
 new_supports = {label: shape for label, shape in site.items() if label.startswith("foundation:internal_supports:")}
 check("site:original_R05_leaf_contract", len(site)-len(new_supports) == 113, len(site)-len(new_supports), 113)

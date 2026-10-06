@@ -5,7 +5,7 @@
     "checks": 788,
     "passed": 788,
     "failed": 0,
-    "saved_native_leaves": 730,
+    "saved_native_leaves": 729,
     "new_site_leaves": 118
   },
   "baseline": null,
@@ -30,10 +30,10 @@
       "expected": "R06-3D"
     },
     {
-      "check": "site:existing_house_labels_retained",
+      "check": "site:house_labels_after_requested_entry_accent_removal",
       "pass": true,
-      "actual": 424,
-      "expected": 424
+      "actual": 423,
+      "expected": 423
     },
     {
       "check": "site:three_nonempty_top_groups",

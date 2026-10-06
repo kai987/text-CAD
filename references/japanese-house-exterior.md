@@ -13,11 +13,11 @@ photographs, textures and proprietary CAD models are not redistributed.
 
 ## 采用方案 / 採用案 / Selected concept
 
-暖白挂板为主，南侧玄关区域使用灰色与木色；深灰切妻屋面增加立缝、棟包み、檐底与破风；黑色窗框配独立窗台水切，檐沟与落水管统一深灰。外装替换原墙厚内的外侧薄层并包住楼板边缘，主体完成外轮廓仍为7280 × 7280 mm。玄关雨棚、平台与水切等附件的外挑另行记录。原平面、室内净边界、门窗毛洞与楼梯参数沿用确认方案。
+暖白挂板为主，玄关旁保持连续暖白外墙，入户门保留木色；深灰切妻屋面增加立缝、棟包み、檐底与破风；黑色窗框配独立窗台水切，檐沟与落水管统一深灰。外装替换原墙厚内的外侧薄层并包住楼板边缘，主体完成外轮廓仍为7280 × 7280 mm。玄关雨棚、平台与水切等附件的外挑另行记录。原平面、室内净边界、门窗毛洞与楼梯参数沿用确认方案。
 
-暖白色サイディングを基調に、南側玄関へグレーと木目を配置します。濃灰色の切妻屋根に立ちはぜ・棟包み・軒天・破風を追加し、黒い窓枠と個別の窓台水切り、同色の雨といを組み合わせます。外装を既存壁厚の外側に組み込み、床スラブ端を覆います。建物本体の仕上げ外形7280 × 7280 mmと、承認済み間取り・有効境界・開口・階段パラメータを保持します。庇・ポーチ・水切りなどの張り出しは別記します。
+暖白色サイディングを基調に、玄関脇も連続した暖白色の外壁とし、玄関扉に木目を残します。濃灰色の切妻屋根に立ちはぜ・棟包み・軒天・破風を追加し、黒い窓枠と個別の窓台水切り、同色の雨といを組み合わせます。外装を既存壁厚の外側に組み込み、床スラブ端を覆います。建物本体の仕上げ外形7280 × 7280 mmと、承認済み間取り・有効境界・開口・階段パラメータを保持します。庇・ポーチ・水切りなどの張り出しは別記します。
 
-Warm-white siding is combined with grey and timber accents at the south entry.
+Continuous warm-white siding surrounds the south entry, with a timber-tone door.
 The charcoal gable roof has standing seams, a ridge cap, soffits and bargeboards;
 black window frames have individual sill flashings, with matching rain gutters.
 The finish replaces the outer layer within the existing wall depth and wraps the

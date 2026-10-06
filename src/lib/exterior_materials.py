@@ -95,7 +95,7 @@ def apply_exterior_materials(document, binary):
         name = node.get("name", "")
         if "mesh" not in node:
             continue
-        kind = "siding" if ":cladding:" in name else "wood" if ":entry_panel:" in name or name == "F1:D01_door_swing" else None
+        kind = "siding" if ":cladding:" in name else "wood" if name == "F1:D01_door_swing" else None
         if not (kind or ":exterior:" in name or name.startswith("roof:") or ":W" in name or name.startswith("F1:D01:")):
             continue
         if ":glass" in name:

@@ -28,14 +28,14 @@ function boxInCadMillimetres(mesh) {
     b.max.x * 1000, -b.min.z * 1000, b.max.y * 1000];
 }
 
-test('the real GLB retains the 378 original leaves and stores the new attic inside the existing roof', async () => {
+test('the real GLB retains 377 original leaves after entry-accent removal and stores the attic inside the existing roof', async () => {
   const { gltf, nodes } = await loadHouse();
   const meshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));
   const site = meshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
   const structure = meshes.filter(node => node.name.startsWith('structure:'));
-  assert.equal(meshes.length - added.length - site.length - structure.length, 378,
-    'all R03 leaves remain, including the plinths regrouped into the foundation');
+  assert.equal(meshes.length - added.length - site.length - structure.length, 377,
+    'R03 leaves remain except the removed entry accent, including regrouped foundation plinths');
   assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 31);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);
   const floor = nodes.get('attic:floor_slab');

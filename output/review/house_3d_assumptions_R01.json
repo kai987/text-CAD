@@ -43,7 +43,7 @@
   "axis_convention": "X east, Y north, Z up; GLB is metre-scaled Y-up",
   "exterior": {
     "reference": "references/japanese-house-exterior.md",
-    "design": "Contemporary Japanese new-build detached house; warm-white siding, timber entry accent, dark standing-seam gable roof",
+    "design": "Contemporary Japanese new-build detached house; continuous warm-white siding, timber-tone entry door, dark standing-seam gable roof",
     "parameters_mm": {
       "cladding_thickness": 20,
       "backing_gap": 2,
@@ -53,10 +53,6 @@
       "window_trim_projection": 12,
       "window_sill_drop": 48,
       "window_sill_projection": 35,
-      "entry_panel_thickness": 16,
-      "entry_panel_height": 2350,
-      "entry_panel_right_inset": 300,
-      "entry_panel_door_clearance": 70,
       "door_frame_width": 45,
       "door_frame_projection": 18,
       "entrance_canopy_margin": 300,
@@ -88,9 +84,9 @@
     },
     "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
     "finished_wall_footprint": "7280 x 7280 mm remains the approved demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
-    "projecting_attachments": "12 mm window trims, 35 mm sills, 16 mm entry accent, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
+    "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
     "assumptions": [
-      "暖白外壁、局部木色玄关、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
+      "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
       "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
       "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
       "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
@@ -1779,7 +1775,7 @@
     "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-    "暖白外壁、局部木色玄关、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
+    "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
     "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
     "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
     "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
@@ -2005,7 +2001,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 730,
-    "all_nodes": 830
+    "named_mesh_nodes": 729,
+    "all_nodes": 829
   }
 }

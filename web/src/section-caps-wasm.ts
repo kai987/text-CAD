@@ -1,6 +1,6 @@
 import { BufferAttribute, BufferGeometry, InterleavedBufferAttribute } from 'three';
 import type { Mesh } from 'three';
-import init, { section_cap } from './wasm/section_caps.js';
+import init, { cad_outline, section_cap } from './wasm/section_caps.js';
 
 let initialization: Promise<void> | undefined;
 
@@ -30,34 +30,55 @@ interface MeshInput {
   indexVersion: number;
   positions: Float64Array;
   indices: Uint32Array;
+  invalidIndices: boolean;
 }
 const inputs = new WeakMap<BufferGeometry, MeshInput>();
 
-function inputFor(geometry: BufferGeometry): MeshInput | null {
+function inputFor(geometry: BufferGeometry, allowInvalidTriangles = false): MeshInput | null {
   const position = geometry.getAttribute('position');
-  if (!position || position.itemSize < 3 || !Number.isInteger(position.count)) return null;
+  if (!position || position.itemSize < 3 || !Number.isFinite(position.count) || position.count < 0 ||
+      (!allowInvalidTriangles && !Number.isInteger(position.count))) return null;
   const index = geometry.getIndex();
+  if (index && (!Number.isFinite(index.count) || index.count < 0 ||
+      (!allowInvalidTriangles && !Number.isInteger(index.count)))) return null;
   const positionVersion = position instanceof InterleavedBufferAttribute ? position.data.version : position.version;
   const indexVersion = index?.version ?? 0;
   const previous = inputs.get(geometry);
   if (previous?.position === position && previous.positionVersion === positionVersion &&
-      previous.index === index && previous.indexVersion === indexVersion) return previous;
+      previous.index === index && previous.indexVersion === indexVersion) {
+    return previous.invalidIndices && !allowInvalidTriangles ? null : previous;
+  }
   // Copy, rather than transfer or detach the arrays Three.js is still rendering.
-  const positions = new Float64Array(position.count * 3);
+  const positions = new Float64Array(Math.ceil(position.count) * 3);
   for (let i = 0; i < position.count; i++) {
     positions.set([position.getX(i), position.getY(i), position.getZ(i)], i * 3);
   }
-  if (index && !Number.isInteger(index.count)) return null;
-  const indices = new Uint32Array(index?.count ?? 0);
+  const indices = new Uint32Array(Math.ceil(index?.count ?? 0));
+  let invalidIndices = false;
   for (let i = 0; i < indices.length; i++) {
     const value = index!.getX(i);
-    if (!Number.isInteger(value) || value < 0 || value > 0xffffffff || value >= position.count) return null;
-    indices[i] = value;
+    if (!Number.isInteger(value) || value < 0 || value > 0xffffffff || value >= position.count) {
+      invalidIndices = true;
+      indices[i] = 0xffffffff;
+    } else indices[i] = value;
   }
-  const input = { position, positionVersion, index, indexVersion, positions, indices };
+  const input = { position, positionVersion, index, indexVersion, positions, indices, invalidIndices };
   inputs.set(geometry, input);
-  return input;
+  return invalidIndices && !allowInvalidTriangles ? null : input;
 }
+
+/** Same endpoint order and crease/seam rules as the TypeScript CAD outline. */
+export function createWasmCadOutlineGeometry(geometry: BufferGeometry, thresholdAngle = 28): BufferGeometry {
+  const result = new BufferGeometry();
+  const input = inputFor(geometry, true);
+  // An explicitly empty index means zero triangles; the raw numeric API uses
+  // empty indices to represent the usual non-indexed geometry instead.
+  const output = input && geometry.getIndex()?.count !== 0
+    ? cad_outline(input.positions, input.indices, thresholdAngle) : new Float32Array();
+  return result.setAttribute('position', new BufferAttribute(output, 3));
+}
+
+export const createWasmCadOutline = createWasmCadOutlineGeometry;
 
 /** Same synchronous contract as the TypeScript implementation, after initialization. */
 export function createWasmHorizontalCap(mesh: Mesh, worldHeight: number): BufferGeometry | null {

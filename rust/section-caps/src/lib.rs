@@ -8,6 +8,9 @@
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
+mod cad_outlines;
+pub use cad_outlines::cad_outline;
+
 const WELD: f64 = 2e-6;
 const AREA_EPSILON: f64 = WELD * WELD;
 

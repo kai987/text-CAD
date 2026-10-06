@@ -7,12 +7,13 @@
     "rust/section-caps/Cargo.lock": "16e6c0bd0096d01ea8dfb75e5a8eef26a9ac48176e7d58898a2c3f9ebd1e186e",
     "rust/section-caps/Cargo.toml": "99a0e764364ff0ab219c7ab8dedbb89442715db291ce5f70580c2010aa07a62e",
     "rust/section-caps/rust-toolchain.toml": "331596e085aca72144022a71ef6a655df7a5751ef47b9cd44d282fafebedc680",
-    "rust/section-caps/src/lib.rs": "5d5dcab93a90782bd6efec8c262036137f5316dbeac481e7abb9e32c5525815d"
+    "rust/section-caps/src/cad_outlines.rs": "9049dfe2e4f4570ec766b64bedff3857a528288f4071e1fc10b18ad7a38fcc48",
+    "rust/section-caps/src/lib.rs": "3d4215e40d866ef056058e3380ab2f8e3c27fabddc50d9546f73425233b438a8"
   },
   "outputs": {
-    "section_caps.js": "b978a03d64065f6467b858c0d3c412d4a7ac2d746be9efebf2f2cd9974c22f97",
-    "section_caps.d.ts": "01fb132ae2a37c583fcc3c11fbc149384d9738a45a8d34739f03e92c91ff5fae",
-    "section_caps_bg.wasm": "088b64a6b1d21b17c4cd74f6dee0b01eee4c0de206d885099f27f0026236f161",
-    "section_caps_bg.wasm.d.ts": "7be503f19cc354f457e63950e2bd239791375862077c7f7931cf7485150ae62e"
+    "section_caps.js": "39a77439d81e080a527cf70c3dd1710faac6b7c3ab0fe2029350b2f3fd52dba8",
+    "section_caps.d.ts": "ea8d6ab6e8ce06dbca5e08451d131433aa063fd48722a699b3337b0083b8a06f",
+    "section_caps_bg.wasm": "469200b96deba09edaffa22b3fb06035499a30b2ad3e9ce7cc1eff28b935c97e",
+    "section_caps_bg.wasm.d.ts": "280dd7c44de933c4ece6a2726fd05c57f0c93e787e99aab2779e1008f2ca15da"
   }
 }

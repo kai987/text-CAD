@@ -1,7 +1,7 @@
 import {
-  ACESFilmicToneMapping, Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
+  ACESFilmicToneMapping, Box3, BufferAttribute, BufferGeometry, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
   LineSegments, Mesh, Object3D, OrthographicCamera, Plane, PMREMGenerator, Raycaster, Scene, Texture, Vector2, Vector3, WebGLRenderer,
-  NoToneMapping, PCFSoftShadowMap,
+  NoToneMapping, PCFShadowMap,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -19,6 +19,7 @@ import type { ResolvedTheme } from './theme-preferences';
 import { structuralObjectVisible } from './structural-design';
 import type { StructuralOverlayState, StructuralSystem } from './structural-design';
 import { createOutdoorLighting, nightScenePalette } from './scene-lighting';
+import { createGeometryWorkerClient } from './geometry-worker-client';
 
 export interface HouseViewer {
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
@@ -66,7 +67,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', '可旋转和缩放的房屋三维模型');
   renderer.domElement.setAttribute('role', 'img');
-  renderer.domElement.dataset.sectionBackend = 'typescript';
+  const useTypeScript = new URLSearchParams(location.search).get('section') === 'typescript';
+  renderer.domElement.dataset.sectionBackend = useTypeScript ? 'typescript' : 'loading-rust-worker';
+  renderer.domElement.dataset.outlineBackend = useTypeScript ? 'typescript' : 'loading-rust-worker';
   host.prepend(renderer.domElement);
   const scene = new Scene();
   // Local studio lighting gives ceramic, glass and metal highlights without a remote HDR asset.
@@ -80,7 +83,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const sun = new DirectionalLight(0xffffff, 2.0);
   sun.position.set(-8, 16, 12); scene.add(sun);
   const outdoorLighting = createOutdoorLighting(scene);
-  renderer.shadowMap.type = PCFSoftShadowMap;
+  renderer.shadowMap.type = PCFShadowMap;
   renderer.shadowMap.autoUpdate = false;
   const camera = new OrthographicCamera(-8, 8, 8, -8, 0.1, 100);
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -103,7 +106,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const sourceMeshes: Mesh[] = [];
   const sectionCaps = new Map<Mesh, Mesh>();
   let capHeight: number | null = null;
-  let createCap = createHorizontalCap;
+  let geometryWorker: ReturnType<typeof createGeometryWorkerClient> | null = null;
+  let workerReady = false;
+  let capGeneration = 0;
+  const wallOutlines = new Map<Mesh, LineSegments | null>();
+  const pendingOutlines = new Set<Mesh>();
   let selectedName: string | null = null;
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
@@ -180,9 +187,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     }
     requestRender();
   }
-  function updateSectionCaps(height: number | null) {
-    if (!root || height === capHeight) return;
-    capHeight = height;
+  function clearSectionCaps() {
     for (const [mesh, cap] of sectionCaps) {
       cap.traverse(object => {
         if (!(object instanceof LineSegments)) return;
@@ -194,21 +199,76 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       mesh.remove(cap); disposeObject(cap);
     }
     sectionCaps.clear();
+    renderer.domElement.dataset.sectionCapCount = '0';
+  }
+  function addSectionCap(mesh: Mesh, geometry: BufferGeometry) {
+    const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+    const cap = new Mesh(geometry, createSectionMaterial(material));
+    cap.name = `${mesh.name}_section_cap`;
+    cap.userData.cadName = mesh.userData.cadName;
+    cap.userData.sectionCap = true;
+    cap.add(new LineSegments(new EdgesGeometry(geometry, 28), createOutlineMaterial()));
+    mesh.add(cap); sectionCaps.set(mesh, cap);
+  }
+  function updateSectionCaps(height: number | null) {
+    if (!root || height === capHeight) return;
+    capHeight = height;
+    const generation = ++capGeneration;
+    geometryWorker?.cancelSections();
+    clearSectionCaps();
+    renderer.domElement.dataset.sectionPending = String(height !== null && !useTypeScript && !geometryWorker?.failed);
+    renderer.domElement.dataset.sectionHeightMm = height === null ? '' : String(Math.round(height * 1000));
     if (height === null) return;
     root.updateWorldMatrix(true, true);
-    for (const mesh of sourceMeshes) {
+    const meshes = sourceMeshes.filter(mesh => {
       const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
-      if (material.transparent || material.opacity < 1) continue;
-      // Place the display-only cap 0.05 mm below the plane to avoid GPU clip round-off.
-      const geometry = createCap(mesh, height - 0.00005);
-      if (!geometry) continue;
-      const cap = new Mesh(geometry, createSectionMaterial(material));
-      cap.name = `${mesh.name}_section_cap`;
-      cap.userData.cadName = mesh.userData.cadName;
-      cap.userData.sectionCap = true;
-      cap.add(new LineSegments(new EdgesGeometry(geometry, 28), createOutlineMaterial()));
-      mesh.add(cap); sectionCaps.set(mesh, cap);
+      return !material.transparent && material.opacity >= 1;
+    });
+    if (!useTypeScript && geometryWorker && !geometryWorker.failed) {
+      // Initialization runs alongside the GLB download. A ready/failure callback
+      // rebuilds the current height; no geometry work runs on the UI thread here.
+      if (!workerReady) return;
+      const byId = new Map(meshes.map(mesh => [mesh.uuid, mesh]));
+      const jobs = meshes.flatMap(mesh => {
+        if (disposed || generation !== capGeneration) return [];
+        const geometryId = geometryWorker!.registerGeometry(mesh.geometry);
+        // A failed upload can synchronously invoke onFailure and rebuild all
+        // caps via TypeScript. Do not append duplicates from this old batch.
+        if (disposed || generation !== capGeneration) return [];
+        if (!geometryId) {
+          const geometry = createHorizontalCap(mesh, height - 0.00005);
+          if (geometry) addSectionCap(mesh, geometry);
+          return [];
+        }
+        return [{ id: mesh.uuid, geometryId, matrix: [...mesh.matrixWorld.elements], height: height - 0.00005 }];
+      });
+      if (disposed || generation !== capGeneration) return;
+      void geometryWorker.sectionCaps(jobs).then(results => {
+        // Height changes, structure changes and disposal all invalidate results.
+        if (disposed || generation !== capGeneration || height !== capHeight || !results) return;
+        clearHighlight();
+        for (const result of results) {
+          const mesh = byId.get(result.id);
+          if (!mesh || !result.positions.length) continue;
+          const geometry = new BufferGeometry();
+          geometry.setAttribute('position', new BufferAttribute(result.positions, 3));
+          geometry.setAttribute('normal', new BufferAttribute(result.normals, 3));
+          geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+          addSectionCap(mesh, geometry);
+        }
+        renderer.domElement.dataset.sectionPending = 'false';
+        renderer.domElement.dataset.sectionCapCount = String(sectionCaps.size);
+        select(selectedName); requestRender();
+      });
+      return;
     }
+    for (const mesh of meshes) {
+      // Place the display-only cap 0.05 mm below the plane to avoid GPU clip round-off.
+      const geometry = createHorizontalCap(mesh, height - 0.00005);
+      if (geometry) addSectionCap(mesh, geometry);
+    }
+    renderer.domElement.dataset.sectionPending = 'false';
+    renderer.domElement.dataset.sectionCapCount = String(sectionCaps.size);
   }
   function fit() {
     if (!root) return;
@@ -296,9 +356,47 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       o.receiveShadow = !String(o.userData.cadName).startsWith('lighting:');
       const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
       const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
-      const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
-      o.add(new LineSegments(outline, createOutlineMaterial(interiorDetail ? 0.16 : 0.55)));
+      if (wall) wallOutlines.set(o, null);
+      else o.add(new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial(interiorDetail ? 0.16 : 0.55)));
     });
+    updateWallOutlines();
+  }
+  function attachWallOutline(mesh: Mesh, geometry: BufferGeometry) {
+    if (disposed || wallOutlines.get(mesh)) { geometry.dispose(); return; }
+    const outline = new LineSegments(geometry, createOutlineMaterial());
+    mesh.add(outline); wallOutlines.set(mesh, outline);
+    renderer.domElement.dataset.wallOutlineCount = String([...wallOutlines.values()].filter(Boolean).length);
+  }
+  function updateWallOutlines() {
+    const meshes = [...wallOutlines].filter(([mesh, outline]) => !outline && !pendingOutlines.has(mesh)).map(([mesh]) => mesh);
+    if (!meshes.length) return;
+    if (!useTypeScript && geometryWorker && !geometryWorker.failed) {
+      if (!workerReady) return;
+      const byId = new Map(meshes.map(mesh => [mesh.uuid, mesh]));
+      const jobs = meshes.flatMap(mesh => {
+        const geometryId = geometryWorker!.registerGeometry(mesh.geometry);
+        if (disposed || geometryWorker!.failed) return [];
+        if (!geometryId) { attachWallOutline(mesh, createCadOutlineGeometry(mesh.geometry, 28)); return []; }
+        pendingOutlines.add(mesh);
+        return [{ id: mesh.uuid, geometryId, thresholdAngle: 28 }];
+      });
+      if (disposed || geometryWorker.failed) return;
+      void geometryWorker.outlines(jobs).then(results => {
+        meshes.forEach(mesh => pendingOutlines.delete(mesh));
+        if (disposed || !results) return;
+        for (const result of results) {
+          const mesh = byId.get(result.id);
+          if (!mesh) continue;
+          const geometry = new BufferGeometry();
+          geometry.setAttribute('position', new BufferAttribute(result.positions, 3));
+          attachWallOutline(mesh, geometry);
+        }
+        requestRender();
+      });
+      return;
+    }
+    for (const mesh of meshes) attachWallOutline(mesh, createCadOutlineGeometry(mesh.geometry, 28));
+    requestRender();
   }
   function reportOverlay(status: StructuralOverlayState['status'], system: StructuralSystem | null) {
     const overlay = system ? overlays.get(system) : undefined;
@@ -381,6 +479,24 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.addEventListener('keydown', keyDown);
   function contextLost(event: Event) { event.preventDefault(); onError(); }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
+  if (!useTypeScript) {
+    geometryWorker = createGeometryWorkerClient({ onFailure: () => {
+      if (disposed) return;
+      workerReady = false;
+      renderer.domElement.dataset.sectionBackend = 'typescript-fallback';
+      renderer.domElement.dataset.outlineBackend = 'typescript-fallback';
+      pendingOutlines.clear(); updateWallOutlines();
+      capHeight = null; apply(settings, selectedName);
+    } });
+    void geometryWorker.ready.then(() => {
+      if (disposed) return;
+      workerReady = true;
+      renderer.domElement.dataset.sectionBackend = 'rust-wasm-worker';
+      renderer.domElement.dataset.outlineBackend = 'rust-wasm-worker';
+      updateWallOutlines();
+      capHeight = null; apply(settings, selectedName);
+    }).catch(() => { /* onFailure installs the TypeScript fallback. */ });
+  }
   new GLTFLoader().load(asset(glbPath), gltf => {
     if (disposed) { disposeObject(gltf.scene, true); return; }
     root = gltf.scene;
@@ -397,25 +513,6 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     }
     scene.add(root); outdoorLighting.register(root); apply(settings); fit(); onReady();
   }, undefined, () => { if (!disposed) onError(); });
-  // Opt-in prototype: keep the model usable while the optional engine initializes.
-  if (new URLSearchParams(location.search).get('section') === 'wasm') {
-    renderer.domElement.dataset.sectionBackend = 'loading-wasm';
-    void import('./section-caps-wasm').then(async module => {
-      await module.initializeSectionCapsWasm();
-      if (disposed) return;
-      createCap = module.createWasmHorizontalCap;
-      renderer.domElement.dataset.sectionBackend = 'rust-wasm';
-      // Rebuild an already visible section without resetting camera or selection.
-      capHeight = null;
-      apply(settings, selectedName);
-    }).catch(() => {
-      if (disposed) return;
-      createCap = createHorizontalCap;
-      renderer.domElement.dataset.sectionBackend = 'typescript-fallback';
-      capHeight = null;
-      apply(settings, selectedName);
-    });
-  }
   resize();
   return {
     apply,
@@ -425,6 +522,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     camera(next) { mode = next; fit(); },
     dispose() {
       disposed = true; cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();
+      capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); wallOutlines.clear();
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', pointerMove);

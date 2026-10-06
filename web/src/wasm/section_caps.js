@@ -1,6 +1,27 @@
 /* @ts-self-types="./section_caps.d.ts" */
 
 /**
+ * Flattened mesh-local XYZ positions, optional triangle indices (empty means
+ * non-indexed), and crease threshold in degrees. Returns flattened XYZ line
+ * endpoints in input traversal order. Incomplete or invalid triangles are
+ * skipped, preserving valid borders elsewhere in the mesh.
+ * @param {Float64Array} positions
+ * @param {Uint32Array} indices
+ * @param {number} threshold_angle
+ * @returns {Float32Array}
+ */
+export function cad_outline(positions, indices, threshold_angle) {
+    const ptr0 = passArrayF64ToWasm0(positions, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(indices, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ret = wasm.cad_outline(ptr0, len0, ptr1, len1, threshold_angle);
+    var v3 = getArrayF32FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 4, 4);
+    return v3;
+}
+
+/**
  * The WASM/native entry point. `positions` are flattened mesh-local XYZ;
  * `indices` are triangle indices (empty means non-indexed triangles), and
  * `matrix` is a nonsingular, column-major affine world transform.

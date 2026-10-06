@@ -1,0 +1,31 @@
+[package]
+name = "text-cad-spatial-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.93"
+publish = false
+description = "Indexed AABB candidate queries for text-CAD"
+license = "MIT"
+build = "src/build.rs"
+
+[lib]
+name = "text_cad_spatial_core"
+crate-type = ["rlib", "cdylib"]
+
+[features]
+default = []
+python = ["dep:pyo3", "pyo3/extension-module", "dep:pyo3-build-config"]
+
+[dependencies]
+pyo3 = { version = "=0.29.3", optional = true }
+
+[build-dependencies]
+pyo3-build-config = { version = "=0.29.3", optional = true }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+# Rust 1.93's Mach-O debuginfo stripping can misalign LINKEDIT on macOS 27.
+# Preserve the valid linker layout; https://github.com/rust-lang/rust/issues/157750
+strip = "none"

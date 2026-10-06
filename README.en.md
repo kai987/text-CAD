@@ -91,9 +91,11 @@ npm run build
 npm run preview
 ```
 
-The Rust/WASM section prototype is in `rust/section-caps/`. TypeScript remains the default. [Enable the Rust trial](https://kai987.github.io/text-CAD/?view=3d&mode=second&section=wasm) to load WASM on demand; download or initialization failure falls back to TypeScript. Navigation retains the trial parameter, and section calculations do not change the original CAD. Rust computes in `f64` and returns `f32`, with parity checks for holes, cabinet caps, the stair opening, normals, and world transforms. The prototype does not yet use a Worker and still computes on the UI thread.
+The Rust/WASM geometry core is in `rust/section-caps/`. Section caps and CAD outlines for walls, cladding and gables run in a dedicated Worker by default. Three.js rendering buffers stay on the UI thread; the Worker receives independently copied geometry registered once. Rapid section-height changes retain one running batch and only the latest pending height; stale results are discarded. Switching models terminates the previous Worker. WASM or Worker initialization, communication and calculation failures or timeouts fall back to TypeScript. Existing `section=wasm` links remain compatible; `section=typescript` explicitly selects the original algorithm for comparison and persists across model and plan navigation. Changing the engine does not alter the CAD, plans, camera or component names.
 
-For the model before furniture was added, an Apple M1 Pro with Node 24.18.0 and 150 trials after warmup measured a batch of 111 opaque meshes at four heights (1200/2700/4200/5600 mm), including adapter work, outlines, and disposal. Median times were TypeScript 3.360 ms and Rust/WASM 2.379 ms. Cold compilation and initialization of the 79,235-byte WASM took 15.199 ms. These timings exclude network transfer, browser frames, and GPU rendering, so they do not establish a frame-rate improvement. Run the following in `web/`; ordinary tests and publishing use committed WASM and do not require Rust.
+Rust computes in `f64` and returns `f32`. Parity checks cover holes, cabinet caps, stair openings, normals, world transforms and coplanar wall seams. The benchmark uses the current house GLB and its first-floor finished datum, measuring direct TypeScript/WASM section and CAD-outline work separately. Node timings exclude Worker transfer and queueing, network, image decoding and GPU rendering, so they do not establish a browser frame-rate improvement. Run the following in `web/`; ordinary tests and publishing use committed WASM and do not require Rust.
+
+The current model was measured locally with Node 23.7.0 on macOS arm64 after 30 warmup batches and across 150 trials. Each section batch processes 745 opaque meshes at four heights; median time including cap edges was 32.259 ms for TypeScript and 30.781 ms for Rust/WASM. A batch of 24 wall outlines took 2.500 ms and 0.886 ms respectively. These measure direct algorithm calls; UI-thread load also depends on Worker scheduling and rendering.
 
 ```bash
 npm run bench:sections -- --edges
@@ -105,6 +107,49 @@ npm run build
 ```
 
 `build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
+
+### Native Rust spatial checks for Python
+
+`rust/spatial-core/` connects to Python through PyO3. A Rust BVH batches bounding-box candidate filtering for furniture footprints, door swings, wardrobe approaches, kitchen working areas, paths and rooms. Shapely/GEOS still evaluates actual overlap areas and room coverage, preserving the existing semantics for boundaries, holes and tiny area thresholds. Structural components likewise use Rust candidate filtering followed by exact BRep intersections in the CAD kernel. Rust does not directly calculate polygon areas or coverage. Parametric modeling, STEP exports and DXF annotations retain the existing Python workflow. Dimensions, clearances and engineering conditions remain demonstration assumptions; switching computation engines does not certify structural or regulatory compliance.
+
+Support checks for beams, columns, foundations and attic components now also use Rust contact candidate filtering, including touching faces and candidates within a 0.001 mm tolerance. The CAD kernel still computes final distances and shared face areas. Each check run caches immutable shapes' bounds and faces and preserves component order. This round compared the complete original reports: all 910 checks for the timber source model and all 2,987 checks for the saved W/S/RC models were identical.
+
+GLB checks now read binary positions, normals and triangle indices directly. Rust validates finite values, index ranges, buffer spans and decoded bounds, which are compared with declared POSITION bounds. The supported profile covers the project's dense float32 triangle exports, interleaved buffers and all three unsigned index widths; sparse, compressed or other primitives produce explicit errors. Zero-area triangles are diagnostic entries. The audit does not assess manifold topology, normal direction or structural safety. The five existing GLBs contain 1,568 meshes, 373,811 vertices and 587,954 triangles; full Rust and independent Python decoder reports match exactly.
+
+Build and verify from the repository root:
+
+```bash
+.venv/bin/python src/build_spatial_native.py
+.venv/bin/python -m unittest checks/test_native_spatial.py checks/test_furniture_native.py checks/test_structural_native.py checks/test_contact_native.py checks/test_glb_native.py -v
+cargo +1.93.0 test --manifest-path rust/spatial-core/Cargo.toml --locked
+.venv/bin/python checks/validate_glb_native.py --backend rust --report /tmp/glb-audit.json
+.venv/bin/python checks/benchmark_native_spatial.py --output /tmp/spatial.json
+.venv/bin/python checks/benchmark_mesh_native.py --output /tmp/mesh-audit.json
+```
+
+`TEXT_CAD_SPATIAL_BACKEND` selects the candidate-filtering and GLB numeric-audit backend: `auto` (default; fall back to Python if the native extension is unavailable or cannot process the input), `python` (require Python), or `rust` (require native computation and raise an error on failure without fallback). For example: `TEXT_CAD_SPATIAL_BACKEND=rust .venv/bin/python checks/validate_furniture.py`. The GLB CLI also accepts `--backend`; by default it reads the five models and only writes a report when `--report` is specified. The extension binary is specific to the local platform, architecture and Python version. Local binaries and their source/output hash manifest are ignored by Git. Rebuild after changing the sources or bindings; an extension with a mismatched API, Python version or hashes is not loaded. The loader caches per process, so restart Python after rebuilding.
+
+Local measurements on macOS arm64 with Python 3.13.14 used five warmups and 30 trials. Median times for complete furniture clearance reports include geometry preparation and binding overhead:
+
+| Layout | Original Shapely (ms) | Batched Python (ms) | Rust-filtered GEOS (ms) |
+|---|---:|---:|---:|
+| House first floor | 3.6260 | 1.1742 | 1.1290 |
+| House second floor | 2.2451 | 1.0251 | 1.1511 |
+| Apartment | 6.8717 | 2.1705 | 1.7361 |
+
+Small cases are not universally faster: the second-floor hybrid is slightly slower than batched Python. A synthetic test with seed 41007, 10,000 bounding boxes and 100 queries measured medians of 296.1490 ms for Python and 13.4709 ms for Rust, approximately 22 times faster including binding, BVH construction and query overhead. This does not establish a whole-CAD or browser speedup. The [native CI workflow](.github/workflows/rust-spatial.yml) builds the extension, rejects skipped mandatory native checks, then compares complete reports. Consult GitHub Actions for remote run results.
+
+A separate GLB numeric-audit benchmark on the same platform used three warmups and ten trials. Files were read before timing. Median times below include JSON parsing, layout validation, numeric scanning and declared-bound checks; they exclude file reads, CAD generation and GPU rendering:
+
+| GLB file | Python (ms) | Rust (ms) |
+|---|---:|---:|
+| house_3d.glb | 695.7725 | 32.4407 |
+| apartment_2ldk.glb | 507.5495 | 11.0522 |
+| structure_W.glb | 15.1299 | 6.3503 |
+| structure_S.glb | 37.0454 | 11.6927 |
+| structure_RC.glb | 3.5962 | 1.2933 |
+
+This round passed 53 local Python tests, 15 Rust tests, fmt and Clippy under both feature configurations. Contact-filtering report parity is verified; a separate controlled performance benchmark has not been established for that path. CAD, drawings and existing acceptance reports were not regenerated for this migration.
 
 Development and builds copy the current manifest of CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
@@ -121,7 +166,7 @@ On pushes to `main`, `.github/workflows/pages.yml` installs dependencies, runs m
 
 ## Added 2LDK apartment concept (A01)
 
-[Open the apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d). The header selector switches between the existing two-storey house and the apartment. The apartment opens with an interior section view and offers whole-unit, ceiling, balcony and fixture controls. Its single-floor plan, downloads, room areas and notes follow the selected model; language and appearance preferences are retained. Append `&section=wasm` to try Rust section processing for the apartment.
+[Open the apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d). The header selector switches between the existing two-storey house and the apartment. The apartment opens with an interior section view and offers whole-unit, ceiling, balcony and fixture controls. Its single-floor plan, downloads, room areas and notes follow the selected model; language and appearance preferences are retained. The apartment also uses the Rust/WASM Worker by default; append `&section=typescript` to compare the original algorithm.
 
 The **7800 × 8400 mm outline (65.52 m²)**, **2800 mm storey height** and **2500 mm clear height** are demonstration assumptions. The 65.52 m² figure is the outer rectangular footprint, **not net internal area or legally defined exclusive area**. Clear room polygons total **56.54 m²**, including furniture footprints. The south balcony slab has a separate **11.70 m²** projected area (7800 × 1500 mm). This is one apartment unit; the complete building, shared corridor and neighbouring units are outside the model.
 

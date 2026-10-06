@@ -28,3 +28,11 @@ web/public/artifacts/
 web/src/house-data.json
 web/src/apartment-data.json
 web/src/apartment-preview-metadata.json
+
+# Optional native Rust geometry checks are built for the local Python ABI.
+/rust/spatial-core/target/
+/src/lib/_spatial_native*.so
+/src/lib/_spatial_native*.pyd
+/src/lib/_spatial_native*.dylib
+/src/lib/_spatial_native.manifest.json
+/src/lib/_spatial_native*.tmp

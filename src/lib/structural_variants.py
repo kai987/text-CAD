@@ -20,6 +20,7 @@ from shapely.ops import unary_union
 from .attic_geometry import A
 from .house_geometry import G, extruded_polygon, opening_box, polygons, window_vertical_range
 from .house_plan import P, floor_plan
+from .native_spatial import aabb_candidates
 from .site_geometry import foundation_group
 from .structure_geometry import (T, _beam_segments, _bounds, _positions,
     bearing_wall_candidates, column_layout, foundation_support_segments,
@@ -357,38 +358,52 @@ def _overlap(a,b):
     return sum(overlap_volume(sa,sb) for sa in a.solids() for sb in b.solids())
 
 
-def geometry_coordination(assembly,system,p=P,g=G):
+def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
     members=list(leaves(assembly));collisions=[];apertures=[];intrusions=[]
+    member_bounds=[shape_bounds(member) for member in members]
+    floors={n:floor_plan(n,p) for n in (1,2)}
+    opening_queries=[]
     for n in (1,2):
-        floor=floor_plan(n,p);z=(n-1)*p.storey_height
+        floor=floors[n];z=(n-1)*p.storey_height
         for door in floor.doors:
             tool=opening_box(door.axis,door.at,door.start+.1,door.width-.2,
                 p.external_wall if door.a=='outside' else p.internal_wall,z+.1,z+g.door_height-.1)
-            hit=[{"member":m.label,"volume_mm3":round(v,4)} for m in members if (v:=_overlap(m,tool))>.1]
-            apertures.append({"id":f"F{n}:{door.id}","kind":"door","overlaps":hit})
-            collisions.extend(dict(item,aperture=f"F{n}:{door.id}") for item in hit)
+            opening_queries.append((n,f"F{n}:{door.id}",'door',tool))
         for index,window in enumerate(floor.windows,1):
             sill,height=window_vertical_range(window,g)
             tool=opening_box(*window,p.external_wall,z+sill+.1,z+sill+height-.1)
-            hit=[{"member":m.label,"volume_mm3":round(v,4)} for m in members if (v:=_overlap(m,tool))>.1]
-            apertures.append({"id":f"F{n}:W{index:02d}","kind":"window","overlaps":hit})
-            collisions.extend(dict(item,aperture=f"F{n}:W{index:02d}") for item in hit)
-        for m in members:
+            opening_queries.append((n,f"F{n}:W{index:02d}",'window',tool))
+    stair=next(r.shape for r in floors[2].rooms if r.id=='stairs')
+    stair_tool=extruded_polygon(stair.buffer(-.1),.1,p.storey_height+200)
+    hatch_tool=solid_box((A.hatch_x+.1,A.hatch_y+.1,2*p.storey_height-450,
+                 A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,2*p.storey_height-.1),"hatch","#FFFFFF")
+    # Broad-phase candidates are ordered by the original member index. Exact
+    # native solid intersections still decide every reported collision.
+    tools=[query[3] for query in opening_queries]+[stair_tool,hatch_tool]
+    candidates=aabb_candidates(member_bounds,[shape_bounds(tool) for tool in tools],backend=backend)
+    def hits(tool,indices):
+        return [{"member":members[index].label,"volume_mm3":round(v,4)} for index in indices
+                if (v:=_overlap(members[index],tool))>.1]
+    for n in (1,2):
+        floor=floors[n]
+        for query,indices in zip(opening_queries,candidates):
+            query_floor,identifier,kind,tool=query
+            if query_floor!=n:continue
+            hit=hits(tool,indices)
+            apertures.append({"id":identifier,"kind":kind,"overlaps":hit})
+            collisions.extend(dict(item,aperture=identifier) for item in hit)
+        for m,b in zip(members,member_bounds):
             if not m.label.startswith(f"structure:F{n}:") or not any(kind in m.label for kind in (':column_',':shear_wall_',':strap_brace_',':gusset_')):continue
-            b=shape_bounds(m);profile=box(b[0],b[1],b[3],b[4])
+            profile=box(b[0],b[1],b[3],b[4])
             for room in floor.rooms:
                 area=profile.intersection(room.shape).area
                 if area>.01:intrusions.append({"member":m.label,"floor":n,"room_id":room.id,"footprint_mm2":round(area,4)})
-    stair=next(r.shape for r in floor_plan(2,p).rooms if r.id=='stairs')
-    tool=extruded_polygon(stair.buffer(-.1),.1,p.storey_height+200)
-    stair_hits=[{"member":m.label,"volume_mm3":round(v,4)} for m in members if (v:=_overlap(m,tool))>.1]
-    hatch_tool=solid_box((A.hatch_x+.1,A.hatch_y+.1,2*p.storey_height-450,
-                 A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,2*p.storey_height-.1),"hatch","#FFFFFF")
-    hatch_hits=[{"member":m.label,"volume_mm3":round(v,4)} for m in members if (v:=_overlap(m,hatch_tool))>.1]
+    stair_hits=hits(stair_tool,candidates[-2])
+    hatch_hits=hits(hatch_tool,candidates[-1])
     envelope=[]
-    for m in members:
+    for m,b in zip(members,member_bounds):
         if not m.label.startswith('structure:F') or ':slab_' in m.label:continue
-        b=shape_bounds(m);profile=box(b[0],b[1],b[3],b[4])
+        profile=box(b[0],b[1],b[3],b[4])
         area=profile.difference(box(0,0,p.width,p.depth)).area
         if area>.01:envelope.append({"member":m.label,"outside_original_outline_mm2":round(area,4),"bounds_mm":b})
     summary={

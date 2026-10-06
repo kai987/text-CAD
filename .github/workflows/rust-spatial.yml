@@ -1,0 +1,67 @@
+name: Validate Rust spatial checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'rust/spatial-core/**'
+      - 'src/build_spatial_native.py'
+      - 'src/lib/**'
+      - 'checks/test_*native*.py'
+      - 'checks/validate_glb_native.py'
+      - 'checks/validate_structure.py'
+      - 'checks/validate_structural_variants.py'
+      - 'GLB/*.glb'
+      - 'checks/benchmark_native_spatial.py'
+      - 'checks/benchmark_mesh_native.py'
+      - 'output/review/structural_variants_R07.json'
+      - '.github/workflows/rust-spatial.yml'
+  pull_request:
+    paths:
+      - 'rust/spatial-core/**'
+      - 'src/build_spatial_native.py'
+      - 'src/lib/**'
+      - 'checks/test_*native*.py'
+      - 'checks/validate_glb_native.py'
+      - 'checks/validate_structure.py'
+      - 'checks/validate_structural_variants.py'
+      - 'GLB/*.glb'
+      - 'checks/benchmark_native_spatial.py'
+      - 'checks/benchmark_mesh_native.py'
+      - 'output/review/structural_variants_R07.json'
+      - '.github/workflows/rust-spatial.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      TEXT_CAD_SPATIAL_BACKEND: auto
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - run: rustup toolchain install 1.93.0 --profile minimal --component clippy --component rustfmt
+      - run: cargo fmt --check && cargo test --locked && cargo clippy --locked --all-targets -- -D warnings
+        working-directory: rust/spatial-core
+      - name: Install CAD geometry dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install cadgen==0.7.11 shapely==2.1.2
+      - name: Build and require the native extension
+        run: |
+          .venv/bin/python src/build_spatial_native.py
+          PYTHONPATH=src .venv/bin/python -c 'from lib.native_spatial import backend_status; status=backend_status(); assert status["available"] and status["selected"] == "rust", status'
+      - name: Check Python bindings
+        run: cargo clippy --locked --all-targets --features python -- -D warnings
+        working-directory: rust/spatial-core
+        env:
+          PYO3_PYTHON: ${{ github.workspace }}/.venv/bin/python
+      - name: Validate exact reports and fallback behavior
+        run: .venv/bin/python -m unittest checks/test_native_spatial.py checks/test_furniture_native.py checks/test_structural_native.py checks/test_contact_native.py checks/test_glb_native.py -v
+      - name: Audit actual CAD mesh bytes
+        run: TEXT_CAD_SPATIAL_BACKEND=rust .venv/bin/python checks/validate_glb_native.py

@@ -195,7 +195,7 @@ export function modelUrl(current: string, page: PageId, model: ModelId): string 
   url.search = '';
   url.searchParams.set('view', modelLayouts[model].pages.includes(page) ? page : '1f');
   if (model === 'apartment') url.searchParams.set('model', model);
-  if (section === 'wasm') url.searchParams.set('section', section);
+  if (section === 'wasm' || section === 'typescript') url.searchParams.set('section', section);
   const currentParams = new URL(current).searchParams;
   for (const key of ['environment', 'lights']) {
     const value = currentParams.get(key);

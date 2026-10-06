@@ -21,6 +21,8 @@ from shapely import affinity
 from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
 
+from .native_spatial import polygon_metrics
+
 
 COLORS={
     'oak':'#BA9470','oak_light':'#D5B797','oak_dark':'#8B7058',
@@ -252,21 +254,40 @@ def clearance_zones(floor,model_id,p):
     return zones
 
 
-def clearance_report(floor,model_id,p):
+def clearance_report(floor,model_id,p,*,backend='auto'):
     placements=furniture_placements(floor,model_id,p)
-    rooms={r.id:r for r in floor.rooms};checks=[]
-    def add(name,ok,evidence=None):checks.append({'check':name,'pass':bool(ok),'evidence':evidence})
+    furnished={item.room for item in placements}
+    rooms={r.id:r.shape.buffer(.001) for r in floor.rooms if r.id in furnished}
+    footprints=[item.footprint() for item in placements]
+    fixtures=[(name,bounds,box(*bounds)) for name,bounds in floor.fixtures if name!='ベッド']
+    zones=clearance_zones(floor,model_id,p)
+    checks=[];geometries=[];geometry_indices={};area_pairs=[];cover_pairs=[];evaluations=[]
+    def geometry_index(shape):
+        # Shared room, wall, fixture and path polygons are uploaded once. Retain
+        # the objects in geometries so their identity cannot be recycled.
+        key=id(shape)
+        if key not in geometry_indices:
+            geometry_indices[key]=len(geometries);geometries.append(shape)
+        return geometry_indices[key]
+    def add(name,a,b,*,covers=False,evidence=None):
+        checks.append({'check':name,'pass':False,'evidence':evidence})
+        pairs=cover_pairs if covers else area_pairs
+        evaluations.append((covers,len(pairs)))
+        pairs.append((geometry_index(a),geometry_index(b)))
     for index,item in enumerate(placements):
-        shape=item.footprint()
-        add(f'{item.room}:{item.id}:inside_room',rooms[item.room].shape.buffer(.001).covers(shape),list(shape.bounds))
-        add(f'{item.room}:{item.id}:clear_walls',floor.walls.intersection(shape).area<.001)
-        for name,bounds in floor.fixtures:
-            if name=='ベッド':continue  # These old flat bed symbols are replaced by this furniture layer.
-            add(f'{item.room}:{item.id}:clear_fixture:{name}:{bounds}',shape.intersection(box(*bounds)).area<.001)
-        for name,zone in clearance_zones(floor,model_id,p):
-            add(f'{item.room}:{item.id}:clear_zone:{name}',shape.intersection(zone).area<.001)
-        for other in placements[index+1:]:
-            add(f'{item.room}:{item.id}:separate_from:{other.room}:{other.id}',shape.intersection(other.footprint()).area<.001)
+        shape=footprints[index]
+        add(f'{item.room}:{item.id}:inside_room',rooms[item.room],shape,covers=True,evidence=list(shape.bounds))
+        add(f'{item.room}:{item.id}:clear_walls',floor.walls,shape)
+        for name,bounds,fixture in fixtures:
+            add(f'{item.room}:{item.id}:clear_fixture:{name}:{bounds}',shape,fixture)
+        for name,zone in zones:
+            add(f'{item.room}:{item.id}:clear_zone:{name}',shape,zone)
+        for other_index in range(index+1,len(placements)):
+            other=placements[other_index]
+            add(f'{item.room}:{item.id}:separate_from:{other.room}:{other.id}',shape,footprints[other_index])
+    areas,covered=polygon_metrics(geometries,area_pairs,cover_pairs,backend=backend)
+    for row,(covers,index) in zip(checks,evaluations):
+        row['pass']=bool(covered[index] if covers else areas[index]<.001)
     return checks
 
 

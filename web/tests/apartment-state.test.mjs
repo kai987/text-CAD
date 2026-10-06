@@ -66,6 +66,10 @@ test('apartment and legacy house links resolve valid pages and keep the opt-in W
   const house = new URL(modelUrl(plan.href, '3d', 'house'));
   assert.deepEqual(Object.fromEntries(house.searchParams), { view: '3d', section: 'wasm' });
   assert.equal(new URL(modelUrl(current, '2f', 'apartment')).searchParams.get('view'), '1f');
+  const diagnostic = current.replace('section=wasm', 'section=typescript');
+  const diagnosticPlan = modelUrl(diagnostic, '1f', 'apartment');
+  assert.equal(new URL(diagnosticPlan).searchParams.get('section'), 'typescript');
+  assert.equal(new URL(modelUrl(diagnosticPlan, '3d', 'house')).searchParams.get('section'), 'typescript');
 });
 
 test('apartment labels and all recorded assumptions exist in Chinese, Japanese and English', async () => {

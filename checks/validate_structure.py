@@ -25,11 +25,14 @@ from lib.house_plan import P,floor_plan
 from lib.house_geometry import G,cuboid,opening_box,window_vertical_range,extruded_polygon
 from lib.structure_geometry import T,structure_group,structure_manifest,structure_dimensions
 from lib.engineering_inputs import engineering_inputs
+from lib.contact_geometry import ContactGeometry
 
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',action='store_true',help='Validate a lightweight frame before whole-house export')
+parser.add_argument('--report',type=Path,help='Write acceptance JSON to this path instead of the default review report')
 args=parser.parse_args()
 results=[]
+contacts=ContactGeometry()
 
 
 def check(name,condition,actual=None,expected=None):
@@ -54,19 +57,7 @@ def overlap(a,b):
 
 def shared_face_area(a,b):
     """Actual common planar face area, not mere bounding-box coincidence."""
-    total=0.
-    # OCC solids' intersection omits zero-thickness contact. Intersect faces
-    # individually, using their tiny broad-phase boxes including equality.
-    for fa in a.faces():
-        aa=bounds(fa)
-        for fb in b.faces():
-            bb=bounds(fb)
-            if any(aa[i]>bb[i+3]+.001 or bb[i]>aa[i+3]+.001 for i in range(3)):continue
-            common=fa.intersect(fb)
-            if common is not None:
-                if isinstance(common,list):total+=sum(part.area for part in common)
-                else:total+=common.area
-    return total
+    return contacts.shared_face_area(a,b)
 
 
 record=structure_manifest(P,G)
@@ -107,10 +98,10 @@ for c in record['columns']:
         close(f'{label}:inside_approved_closed_wall_mm2',profile.difference(floor_plan(n).walls).area,0,.01)
         close(f'{label}:column_top_reaches_beam_bottom_mm',b[5],d[f'F{n}_beam_bottom_z'])
         beams=[s for name,s in native.items() if name.startswith(f'structure:F{n}:beam_')]
-        actual_contacts=sum(shared_face_area(shape,beam) for beam in beams if abs(shape.distance_to(beam))<.001)
+        actual_contacts=sum(shared_face_area(shape,beam) for beam in contacts.candidates(shape,beams) if abs(shape.distance_to(beam))<.001)
         check(f'{label}:positive_face_to_upper_beam',actual_contacts>1,round(actual_contacts,3))
         supports=[s for name,s in native.items() if name.startswith('structure:F1:sill_' if n==1 else 'structure:F1:beam_')]
-        actual_contacts=sum(shared_face_area(shape,support) for support in supports if abs(shape.distance_to(support))<.001)
+        actual_contacts=sum(shared_face_area(shape,support) for support in contacts.candidates(shape,supports) if abs(shape.distance_to(support))<.001)
         check(f'{label}:positive_face_to_lower_support',actual_contacts>1,round(actual_contacts,3))
     if c['floors']==[1,2]:
         a,b=bounds(native[f"structure:F1:column_{c['id']}"]),bounds(native[f"structure:F2:column_{c['id']}"])
@@ -152,13 +143,14 @@ for label,shape in native.items():
     if ':joist_' in label or ':trimmer_' in label:
         b=bounds(shape);close(f'{label}:top_matches_real_subfloor_bottom_mm',b[5],d['attic_subfloor_bottom_z'])
         beams=[s for name,s in native.items() if name.startswith('structure:F2:beam_')]
-        area=sum(shared_face_area(shape,beam) for beam in beams if shape.distance_to(beam)<.001)
+        area=sum(shared_face_area(shape,beam) for beam in contacts.candidates(shape,beams) if shape.distance_to(beam)<.001)
         check(f'{label}:positive_face_to_attic_support_beam',area>1,round(area,3))
     if ':roof:post_' in label:
-        area=sum(shared_face_area(shape,s) for name,s in native.items() if name.startswith('structure:F2:beam_') and shape.distance_to(s)<.001)
+        beams=[s for name,s in native.items() if name.startswith('structure:F2:beam_')]
+        area=sum(shared_face_area(shape,s) for s in contacts.candidates(shape,beams) if shape.distance_to(s)<.001)
         check(f'{label}:positive_face_to_lower_beam',area>1,round(area,3))
         roof_members=[s for name,s in native.items() if ':roof:purlin_' in name or name=='structure:roof:ridge_beam']
-        area=sum(shared_face_area(shape,s) for s in roof_members if shape.distance_to(s)<.001)
+        area=sum(shared_face_area(shape,s) for s in contacts.candidates(shape,roof_members) if shape.distance_to(s)<.001)
         check(f'{label}:positive_face_to_roof_beam',area>1,round(area,3))
 
 items=sorted(native.items())
@@ -172,7 +164,7 @@ if not args.source:
     for label,sill in native.items():
         if ':sill_' not in label:continue
         close(f'{label}:bottom_at_foundation_top_mm',bounds(sill)[2],-200)
-        area=sum(shared_face_area(sill,s) for s in foundation if sill.distance_to(s)<.001)
+        area=sum(shared_face_area(sill,s) for s in contacts.candidates(sill,foundation) if sill.distance_to(s)<.001)
         check(f'{label}:positive_face_to_actual_foundation',area>1,round(area,3))
     inputs=json.loads((ROOT/'output/review/engineering_inputs_R06.json').read_text())
     check('engineering_inputs:saved_record_matches_unfilled_brief',inputs==engineering_inputs(P,G))
@@ -216,7 +208,7 @@ for number,page in enumerate(pdf,1):
     spans=[span for block in page.get_text('dict')['blocks'] if 'lines' in block for line in block['lines'] for span in line['spans']]
     check(f'PDF:page{number}:all_text_inside_paper',all(span['bbox'][0]>=0 and span['bbox'][1]>=0 and span['bbox'][2]<=page.rect.width+.01 and span['bbox'][3]<=page.rect.height+.01 for span in spans))
 
-out=ROOT/'output/review'/('structure_source_validation_R06.json' if args.source else 'structure_validation_R06.json')
+out=args.report if args.report is not None else ROOT/'output/review'/('structure_source_validation_R06.json' if args.source else 'structure_validation_R06.json')
 out.write_text(json.dumps({'scope':'Geometry and record acceptance only; no structural calculations or legal determination','pass':all(r['pass'] for r in results),'checks':results},ensure_ascii=False,indent=2)+'\n')
 failures=[r for r in results if not r['pass']]
 print(json.dumps({'mode':'source' if args.source else 'saved','checks':len(results),'failures':failures,'report':str(out)},ensure_ascii=False,indent=2))

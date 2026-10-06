@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 /**
+ * Flattened mesh-local XYZ positions, optional triangle indices (empty means
+ * non-indexed), and crease threshold in degrees. Returns flattened XYZ line
+ * endpoints in input traversal order. Incomplete or invalid triangles are
+ * skipped, preserving valid borders elsewhere in the mesh.
+ */
+export function cad_outline(positions: Float64Array, indices: Uint32Array, threshold_angle: number): Float32Array;
+
+/**
  * The WASM/native entry point. `positions` are flattened mesh-local XYZ;
  * `indices` are triangle indices (empty means non-indexed triangles), and
  * `matrix` is a nonsingular, column-major affine world transform.
@@ -17,6 +25,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
+    readonly cad_outline: (a: number, b: number, c: number, d: number, e: number) => [number, number];
     readonly section_cap: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => [number, number];
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_malloc: (a: number, b: number) => number;

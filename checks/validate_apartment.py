@@ -20,6 +20,7 @@ from cadgen import read_scene
 from cadgen.geometry import overlap_volume
 from lib.apartment_plan import P,apartment_plan,dimensions,manifest,window_specs
 from lib.house_geometry import opening_box
+from lib.native_glb import audit_glb_bytes
 
 results=[]
 def check(name,condition,actual=None):
@@ -87,8 +88,9 @@ check('GLB:STEP_names_retained',{n['name'] for n in mesh_nodes}==set(native),len
 check('GLB:semantic_groups',{'apartment_2ldk','F1','ceiling','balcony','F1:fixtures','F1:storage_fixtures'}<={n['name'] for n in nodes})
 check('GLB:metres_Y_up',all(n.get('extras',{}).get('cadUnits')=='m' and n.get('extras',{}).get('cadUpAxis')=='y' for n in nodes))
 check('GLB:static_scene',not document.get('animations') and document['scenes'][0]['name']=='apartment_2ldk')
-positions=[document['accessors'][p['attributes']['POSITION']] for m in document['meshes'] for p in m['primitives']]
-extent=[min(a['min'][i] for a in positions) for i in range(3)]+[max(a['max'][i] for a in positions) for i in range(3)]
+numeric_audit=audit_glb_bytes(data)
+check('GLB:numeric_mesh_audit',True,{key:numeric_audit[key] for key in ('vertex_count','triangle_count','degenerate_count')})
+extent=numeric_audit['bounds']
 for i,(actual,expected) in enumerate(zip(extent,[0,-.2,-8.4,7.8,2.7,1.5])):close(f'GLB:metre_bound_{i}',actual,expected,1e-5)
 glass_nodes=[n for n in mesh_nodes if ':glass_' in n['name']]
 check('GLB:8_glass_panes',len(glass_nodes)==8,len(glass_nodes))

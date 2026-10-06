@@ -18,6 +18,7 @@ from lib.house_plan import P, dimensions, floor_plan
 from lib.house_geometry import G, cuboid, extruded_polygon, opening_box, section_extrusion, window_vertical_range
 from lib.exterior_geometry import E
 from lib.attic_geometry import A, attic_dimensions, attic_clear_height
+from lib.native_glb import audit_glb_bytes
 
 
 results = []
@@ -407,10 +408,10 @@ check("GLB:all_nodes_metres_Y_up", all(n.get("extras", {}).get("cadUnits") == "m
                                      n.get("extras", {}).get("cadUpAxis") == "y" for n in nodes))
 check("GLB:static_mesh_has_no_animation", not document.get("animations"))
 check("GLB:identity_groups_world_meshes", all(not any(k in n for k in ("matrix", "translation", "rotation", "scale")) for n in nodes))
-positions = [document["accessors"][primitive["attributes"]["POSITION"]]
-             for mesh in document["meshes"] for primitive in mesh["primitives"]]
-glb_bounds = [min(a["min"][i] for a in positions) for i in range(3)] + \
-             [max(a["max"][i] for a in positions) for i in range(3)]
+numeric_audit = audit_glb_bytes(data)
+check("GLB:numeric_mesh_audit", True, {key: numeric_audit[key] for key in
+      ("vertex_count", "triangle_count", "degenerate_count")})
+glb_bounds = numeric_audit["bounds"]
 house_bounds = bounds(scene.resolve("#house_3d").shape())
 expected_glb = [house_bounds[0]/1000, house_bounds[2]/1000, -house_bounds[4]/1000,
                 house_bounds[3]/1000, house_bounds[5]/1000, -house_bounds[1]/1000]

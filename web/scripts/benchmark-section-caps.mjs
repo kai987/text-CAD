@@ -5,9 +5,11 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { isAbsolute } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { Box3, EdgesGeometry, Vector3 } from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadGlbGeometry } from '../tests/helpers/load-glb-geometry.mjs';
+import { bindCadNodes, centerModelAtFloorDatum } from '../src/model-scene.ts';
+import { createCadOutlineGeometry } from '../src/cad-outlines.ts';
 import { createHorizontalCap } from '../src/section-caps.ts';
-import { createWasmHorizontalCap, initializeSectionCapsWasm } from '../src/section-caps-wasm.ts';
+import { createWasmHorizontalCap, createWasmCadOutlineGeometry, initializeSectionCapsWasm } from '../src/section-caps-wasm.ts';
 
 const args = process.argv.slice(2);
 let output, includeEdges = false, trials = 150;
@@ -28,12 +30,10 @@ const initStart = performance.now();
 await initializeSectionCapsWasm(wasmBytes);
 const coldInitMs = performance.now() - initStart;
 const modelBytes = await readFile(new URL('../../GLB/house_3d.glb', import.meta.url));
-const gltf = await new GLTFLoader().parseAsync(
-  modelBytes.buffer.slice(modelBytes.byteOffset, modelBytes.byteOffset + modelBytes.byteLength), '',
-);
-const bounds = new Box3().setFromObject(gltf.scene), center = bounds.getCenter(new Vector3());
-const offset = -bounds.min.y;
-gltf.scene.position.set(-center.x, offset, -center.z); gltf.scene.updateMatrixWorld(true);
+const gltf = await loadGlbGeometry(new URL('../../GLB/house_3d.glb', import.meta.url));
+const nodes = bindCadNodes(gltf);
+assert.ok(centerModelAtFloorDatum(gltf.scene, nodes), 'use the viewer first-floor datum');
+const offset = gltf.scene.position.y;
 const meshes = [];
 gltf.scene.traverse(object => {
   if (!object.isMesh) return;
@@ -43,7 +43,7 @@ gltf.scene.traverse(object => {
 });
 assert.ok(meshes.length > 0, 'benchmark must load opaque house meshes');
 const drawingHeightsMm = [1200, 2700, 4200, 5600];
-const heights = drawingHeightsMm.map(height => height / 1000 + offset - 0.00005);
+const heights = drawingHeightsMm.map(height => height / 1000 - 0.00005);
 
 function describe(mesh, geometry) {
   if (!geometry) return null;
@@ -117,17 +117,49 @@ for (const [phase, edges] of phases) {
   assert.equal(outputCounts.typescript.capCount, outputCounts.rustWasm.capCount, 'identical number of caps');
 }
 
+const walls = [...nodes].filter(([name, mesh]) => mesh.isMesh &&
+  /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(name)).map(([, mesh]) => mesh);
+for (const mesh of walls) {
+  const expected = createCadOutlineGeometry(mesh.geometry, 28);
+  const actual = createWasmCadOutlineGeometry(mesh.geometry, 28);
+  try {
+    const a = expected.getAttribute('position').array, b = actual.getAttribute('position').array;
+    assert.equal(a.length, b.length, 'outline endpoint count parity');
+    for (let i = 0; i < a.length; i++) assert.ok(Math.abs(a[i] - b[i]) <= 2e-6, 'outline endpoint parity');
+  } finally { expected.dispose(); actual.dispose(); }
+}
+const outlineEngines = { typescript: createCadOutlineGeometry, rustWasm: createWasmCadOutlineGeometry };
+function outlineBatch(engine) {
+  let segments = 0;
+  for (const mesh of walls) {
+    const geometry = engine(mesh.geometry, 28);
+    segments += geometry.getAttribute('position').count / 2; geometry.dispose();
+  }
+  return segments;
+}
+for (let i = 0; i < 30; i++) for (const engine of Object.values(outlineEngines)) outlineBatch(engine);
+const outlineSamples = { typescript: [], rustWasm: [] };
+for (let i = 0; i < trials; i++) for (const name of i % 2 ? ['rustWasm', 'typescript'] : ['typescript', 'rustWasm']) {
+  const start = performance.now(); outlineBatch(outlineEngines[name]); outlineSamples[name].push(performance.now() - start);
+}
+results.cadOutlines = Object.fromEntries(Object.entries(outlineSamples).map(([name, values]) => {
+  values.sort((a, b) => a - b);
+  return [name, { medianBatchMs: (values[Math.floor((values.length - 1) / 2)] + values[Math.floor(values.length / 2)]) / 2,
+    p95BatchMs: values[Math.ceil(values.length * 0.95) - 1], minBatchMs: values[0] }];
+}));
+
 const report = {
   runtime: { node: process.version, platform: process.platform, arch: process.arch },
   workload: {
     model: 'GLB/house_3d.glb', modelSha256: createHash('sha256').update(modelBytes).digest('hex'),
     opaqueMeshes: meshes.length,
+    cadOutlineMeshes: walls.length,
     inputTriangles: meshes.reduce((sum, mesh) => sum + (mesh.geometry.index?.count ?? mesh.geometry.getAttribute('position').count) / 3, 0),
     drawingHeightsMm, worldYZeroOffsetMetres: offset, displayCapOffsetMm: -0.05,
     meshHeightCallsPerBatch: meshes.length * heights.length,
     warmupBatchesPerEngine: 30, trialsPerEngine: trials, wasmBytes: wasmBytes.byteLength,
   },
-  correctness: { passed: true, comparisons, nonempty },
+  correctness: { passed: true, comparisons, nonempty, outlineComparisons: walls.length },
   coldWasmCompileAndInstantiateMs: coldInitMs,
   results,
   scope: [
@@ -135,6 +167,8 @@ const report = {
     'Timings include coordinate marshalling, mesh world-transform updates, cap triangulation, BufferGeometry creation, bounds, and disposal.',
     'With --edges, a separate phase also includes the same EdgesGeometry(geometry, 28) creation and disposal used by the viewer.',
     'Cold initialization excludes file reading and JavaScript module imports; measurements use Node, not browser frames or GPU rendering.',
+    'CAD outline timings cover all viewer wall/cladding/gable meshes; embedded image decoding is excluded from this geometry benchmark.',
+    'Direct WASM timings exclude Worker registration, transfers, queueing and main-thread result application.',
     'These measurements describe this small house mesh only; they do not establish a speedup for larger CAD models.',
   ],
 };

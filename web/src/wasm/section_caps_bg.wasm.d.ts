@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export const cad_outline: (a: number, b: number, c: number, d: number, e: number) => [number, number];
 export const section_cap: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => [number, number];
 export const __wbindgen_externrefs: WebAssembly.Table;
 export const __wbindgen_malloc: (a: number, b: number) => number;

@@ -1,6 +1,7 @@
 """Accept R07 saved geometry only; never certify structure or local compliance."""
 from __future__ import annotations
 
+import argparse
 import json
 from math import isfinite
 from pathlib import Path
@@ -14,8 +15,10 @@ from cadgen import build123d as bd, read_scene
 from lib.house_geometry import G
 from lib.house_plan import P
 from lib.structural_variants import _overlap, geometry_coordination, shape_bounds, solid_box
+from lib.contact_geometry import ContactGeometry
 
 results=[]
+contacts=ContactGeometry()
 
 
 def check(name,condition,actual=None,expected=None):
@@ -28,18 +31,13 @@ def close(name,actual,expected,tolerance=.01):
 
 def shared_face_area(a,b):
     """Native planar contact area, as opposed to a bounding-box touching test."""
-    total=0.
-    for fa in a.faces():
-        aa=shape_bounds(fa)
-        for fb in b.faces():
-            bb=shape_bounds(fb)
-            if any(aa[i]>bb[i+3]+.001 or bb[i]>aa[i+3]+.001 for i in range(3)):continue
-            common=fa.intersect(fb)
-            if common is not None:total+=sum(part.area for part in common) if isinstance(common,list) else common.area
-    return total
+    return contacts.shared_face_area(a,b)
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--report',type=Path,help='Write acceptance JSON to this path instead of the default review report')
+    args=parser.parse_args()
     manifest=json.loads((ROOT/'output/review/structural_variants_R07.json').read_text())
     check('manifest:three_distinct_material_systems',set(manifest['variants'])=={'W','S','RC'})
     check('manifest:city_selection_does_not_invent_member_sizes',manifest['source_same_city_geometry'] is True and manifest['city_specific_member_sizing'] is False)
@@ -85,19 +83,19 @@ def main():
         base=[(name,shape) for name,shape in native.items() if ':sill_' in name and system=='W' or ':base_plate_' in name and system=='S' or name.startswith('structure:F1:column_') and system=='RC']
         for name,shape in base:
             close(f'{system}:{name}:bottom_at_foundation_top_mm',shape_bounds(shape)[2],-200)
-            area=sum(shared_face_area(shape,support) for support in foundation if shape.distance_to(support)<.001)
+            area=sum(shared_face_area(shape,support) for support in contacts.candidates(shape,foundation) if shape.distance_to(support)<.001)
             check(f'{system}:{name}:positive_native_face_to_foundation',area>1,round(area,4))
         for name,post in native.items():
             if ':column_' not in name:continue
             floor=1 if name.startswith('structure:F1:') else 2
             upper=[shape for label,shape in native.items() if label.startswith(f'structure:F{floor}:beam_')]
-            upper_area=sum(shared_face_area(post,beam) for beam in upper if post.distance_to(beam)<.001)
+            upper_area=sum(shared_face_area(post,beam) for beam in contacts.candidates(post,upper) if post.distance_to(beam)<.001)
             check(f'{system}:{name}:positive_native_face_to_upper_beam',upper_area>1,round(upper_area,4))
             if floor==2:
                 lower=[shape for label,shape in native.items() if label.startswith('structure:F1:beam_')]
             elif system=='RC':lower=foundation
             else:lower=[shape for label,shape in native.items() if label.startswith('structure:F1:sill_')]
-            lower_area=sum(shared_face_area(post,support) for support in lower if post.distance_to(support)<.001)
+            lower_area=sum(shared_face_area(post,support) for support in contacts.candidates(post,lower) if post.distance_to(support)<.001)
             check(f'{system}:{name}:positive_native_face_to_lower_support',lower_area>1,round(lower_area,4))
         if system=='S':
             post=native['structure:F1:column_C01'];p=record['parameters'];b=shape_bounds(post)
@@ -126,7 +124,7 @@ def main():
     failures=[result for result in results if not result['pass']]
     report={'scope':'Native geometry, shared coordinates and uncalculated status only; no safety or compliance conclusion',
         'pass':not failures,'member_counts':counts,'checks':results}
-    destination=ROOT/'output/review/structural_variants_validation_R07.json'
+    destination=args.report if args.report is not None else ROOT/'output/review/structural_variants_validation_R07.json'
     destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'checks':len(results),'member_counts':counts,'failures':failures,'report':str(destination)},ensure_ascii=False,indent=2))
     raise SystemExit(bool(failures))

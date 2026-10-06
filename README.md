@@ -91,9 +91,11 @@ npm run build
 npm run preview
 ```
 
-Rust/WASM 剖切试点位于 `rust/section-caps/`。默认继续使用 TypeScript；[启用 Rust 试验](https://kai987.github.io/text-CAD/?view=3d&mode=second&section=wasm)会按需加载 WASM，下载或初始化失败时回退到 TypeScript。切换页面保留试验参数，剖切计算不改动原始 CAD。Rust 使用 `f64` 计算、`f32` 输出，并与现有实现对照检查孔洞、收纳柜封口、楼梯开口、法线和坐标变换。Rust/WASM 暂未使用 Worker，仍在界面线程计算。
+Rust/WASM 几何核心位于 `rust/section-caps/`。剖切封口和墙体／挂板／山墙的 CAD 轮廓线默认在专用 Worker 中计算；原始 Three.js 顶点缓冲区保持在界面线程，Worker 使用独立副本，几何只注册一次。快速拖动剖切滑块时只保留一个计算批次和最新待处理高度，过期结果不会应用；切换户型会终止旧 Worker。WASM、Worker 初始化、通信或计算超时失败时自动回退到 TypeScript。`section=wasm` 链接仍兼容；`section=typescript` 可显式使用原算法做诊断比较，切换户型与图纸页时保留该参数。原始 CAD、平面、视角和构件命名不因计算后端变化而改变。
 
-新增家具前模型的基准（Apple M1 Pro、Node 24.18.0，150次预热后测量）：每批处理111个不透明网格、四个高度（1200／2700／4200／5600 mm），包含几何适配、轮廓线和释放，中位数 TypeScript 3.360 ms、Rust/WASM 2.379 ms。79,235字节的 WASM 冷编译及初始化为15.199 ms；此数据不包含网络、浏览器帧或GPU渲染，不能推断页面帧率。以下命令在 `web/` 运行；普通测试和发布使用已提交的 WASM，不要求安装 Rust。
+Rust 使用 `f64` 计算、`f32` 输出，并与原算法对照检查孔洞、收纳柜封口、楼梯开口、法线、坐标变换及墙体共面接缝。基准使用当前房屋 GLB，并以一层完成面为剖切基准；分别测量直接 TypeScript／WASM 剖切和 CAD 轮廓线。Node 测量不包含 Worker 传输、排队、网络、图片解码或 GPU 渲染，不能推断页面帧率。以下命令在 `web/` 运行；普通测试和发布使用已提交的 WASM，不要求安装 Rust。
+
+当前模型的本地 Node 23.7.0／macOS arm64 基准（30次预热、150次测量）：每个剖切批次处理745个不透明网格和4个高度，含封口边线的中位耗时 TypeScript 32.259 ms、Rust/WASM 30.781 ms；24个墙体轮廓线的中位耗时为2.500 ms和0.886 ms。此结果测量直接算法调用；界面线程负担的变化还取决于 Worker 调度和绘制。
 
 ```bash
 npm run bench:sections -- --edges
@@ -105,6 +107,49 @@ npm run build
 ```
 
 `build:wasm` 执行原生 Rust 测试并生成 WASM／JS绑定及源码和产物哈希。普通测试和构建拒绝过期产物；独立 Rust 工作流执行原生测试、Clippy 和 WASM 编译。基准脚本支持 `--output /绝对路径/result.json` 保存结果。
+
+### Python 原生 Rust 空间检查
+
+`rust/spatial-core/` 通过 PyO3 接入 Python，以 Rust BVH 批量筛选家具占地与门扇、柜前、厨房、通道及房间的包围盒候选；实际重叠面积和房间覆盖关系继续由 Shapely／GEOS 判断，以保持已有的边界、孔洞和微小面积阈值语义。结构构件也先由 Rust 筛选候选，再交给 CAD 内核做精确 BRep 相交检查。Rust 不直接计算多边形面积或覆盖关系；参数化建模、STEP 导出和 DXF 标注继续使用现有 Python 流程。尺寸、净距和工程条件仍是演示假设，计算后端不构成结构或法规认证。
+
+梁柱、基础及阁楼构件的支承检查现也使用 Rust 接触候选筛选，包含恰好贴合的面和 0.001 mm 容差内的候选；最终距离与共同面面积仍由 CAD 内核计算。每次检查缓存不可变形体的边界和面，并保持原构件顺序。本轮对比中，木结构源码的 910 项检查和保存的 W／S／RC 模型的 2,987 项检查与原版完整报告逐项一致。
+
+GLB 检查现直接读取二进制顶点、法线与三角形索引，由 Rust 验证有限数值、索引范围、缓冲区跨度及真实边界，并与声明的 POSITION 边界核对。支持项目当前导出的稠密 float32 三角网格、交错缓冲区及三种无符号索引宽度；稀疏、压缩或其他图元会明确报错。零面积三角形作为诊断记录；该检查不判断流形性、法线方向或结构安全。五个现有 GLB 共 1,568 个网格、373,811 个顶点、587,954 个三角形，Rust 与独立 Python 解码报告完全一致。
+
+在仓库根目录构建和验证：
+
+```bash
+.venv/bin/python src/build_spatial_native.py
+.venv/bin/python -m unittest checks/test_native_spatial.py checks/test_furniture_native.py checks/test_structural_native.py checks/test_contact_native.py checks/test_glb_native.py -v
+cargo +1.93.0 test --manifest-path rust/spatial-core/Cargo.toml --locked
+.venv/bin/python checks/validate_glb_native.py --backend rust --report /tmp/glb-audit.json
+.venv/bin/python checks/benchmark_native_spatial.py --output /tmp/spatial.json
+.venv/bin/python checks/benchmark_mesh_native.py --output /tmp/mesh-audit.json
+```
+
+候选筛选和 GLB 数值检查的后端由 `TEXT_CAD_SPATIAL_BACKEND` 指定：`auto`（默认，原生扩展不可用或无法处理输入时回退 Python）、`python`（强制 Python）和 `rust`（严格使用原生计算，失败时报告错误，不回退）。例如：`TEXT_CAD_SPATIAL_BACKEND=rust .venv/bin/python checks/validate_furniture.py`。GLB CLI 也支持 `--backend`，默认只读检查五个模型；只有显式指定 `--report` 才写报告。扩展二进制与当前平台、架构和 Python 版本绑定；本地二进制及记录源码、产物哈希的清单均由 Git 忽略。源码或绑定发生变化后必须重新构建；API、Python 版本或哈希不匹配的扩展不会加载。加载器按进程缓存，因此重建后还需重启 Python 进程。
+
+本地 macOS arm64／Python 3.13.14 基准预热5次、测量30次；完整家具净距报告的中位耗时如下，包含几何准备与绑定开销：
+
+| 户型 | 原版 Shapely（ms） | 批处理 Python（ms） | Rust 筛选＋GEOS（ms） |
+|---|---:|---:|---:|
+| 一户建一层 | 3.6260 | 1.1742 | 1.1290 |
+| 一户建二层 | 2.2451 | 1.0251 | 1.1511 |
+| 公寓 | 6.8717 | 2.1705 | 1.7361 |
+
+小场景并非普遍提速：二层的 Rust 混合方案比批处理 Python 稍慢。固定种子41007的合成测试包含10,000个包围盒和100次查询，Python 中位耗时296.1490 ms，Rust 13.4709 ms（约22倍），包含绑定、BVH构建与查询；该结果不代表完整 CAD 流程或浏览器提速。[原生 CI 工作流](.github/workflows/rust-spatial.yml)构建扩展，要求原生验证门槛不得跳过，再执行完整报告对照测试；远程运行结果请查看 GitHub Actions。
+
+GLB 数值检查另在同一平台预热3次、测量10次。输入文件在计时前读取；以下中位耗时包括 JSON 解析、布局验证、数值扫描及声明边界核对，不含文件读取、CAD 建模或 GPU 绘制：
+
+| GLB 文件 | Python（ms） | Rust（ms） |
+|---|---:|---:|
+| house_3d.glb | 695.7725 | 32.4407 |
+| apartment_2ldk.glb | 507.5495 | 11.0522 |
+| structure_W.glb | 15.1299 | 6.3503 |
+| structure_S.glb | 37.0454 | 11.6927 |
+| structure_RC.glb | 3.5962 | 1.2933 |
+
+本轮本地验证通过53项 Python 测试、15项 Rust 测试、fmt 和两种功能配置的 Clippy。接触筛选的报告一致性已确认，尚未单独建立受控性能基准。CAD、图纸和既有验收报告未因本轮迁移而重新生成。
 
 开发和构建时从仓库复制资产清单中的 CAD、图纸及说明文件（含两层矢量预览），并生成 SHA-256 清单；生产构建再次核对副本。矢量元数据还记录来源 PDF 的哈希、SVG 哈希和裁切内的标注边界；源 PDF 变化或 SVG 不匹配时拒绝构建，要求先重新转换。`web/public/artifacts/`、派生数据和 `web/dist/` 不提交到 Git。
 
@@ -121,7 +166,7 @@ uv pip install --python .venv/bin/python PyMuPDF==1.26.7
 
 ## 新增日本 2LDK 公寓（A01）
 
-[直接打开公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d)。页头可在原两层一户建与公寓之间切换；公寓默认显示室内剖视，提供完整户型、天花、阳台及厨卫设备的独立显示控制。单层平面、下载文件、房间面积和说明均随户型切换；语言与明暗偏好保留。加上 `&section=wasm` 可对公寓使用 Rust 剖切试点。
+[直接打开公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d)。页头可在原两层一户建与公寓之间切换；公寓默认显示室内剖视，提供完整户型、天花、阳台及厨卫设备的独立显示控制。单层平面、下载文件、房间面积和说明均随户型切换；语言与明暗偏好保留。公寓同样默认使用 Rust/WASM Worker；`&section=typescript` 可切换原算法进行比较。
 
 公寓外轮廓 **7800 × 8400 mm（65.52㎡）**、层高 **2800 mm**、净高 **2500 mm**均为演示假设。65.52㎡是外轮廓矩形面积，**不是室内净面积或法定专有面积**。房间净边界合计 **56.54㎡**（含家具占地），南侧阳台板投影 **11.70㎡**（7800 × 1500 mm）单独列出。公寓为单个住户的方案，不包含整栋楼、公共走廊或邻户。
 

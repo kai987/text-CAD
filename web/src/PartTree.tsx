@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { ChevronDown, ChevronRight, Scan } from 'lucide-react';
 import { groupVisibilityState, isolatePart, isPartVisible, setGroupVisible, setPartVisible } from './model-state';
-import type { GroupId, ModelPartId, ModelSettings, PartKind } from './model-state';
+import type { GroupId, ModelLayout, ModelPartId, ModelSettings, PartKind } from './model-state';
 import { useModel } from './ModelContext';
 import { format } from './localization';
 
@@ -12,6 +12,7 @@ interface Props {
   ready: boolean;
   selectedPart?: ModelPartId | null;
   onSelectPart?: (id: ModelPartId, fit?: boolean) => void;
+  structuralParts?: readonly ModelPartId[];
 }
 
 interface GroupCheckboxProps {
@@ -20,10 +21,11 @@ interface GroupCheckboxProps {
   label: string;
   ready: boolean;
   onChange: (checked: boolean) => void;
+  layout: ModelLayout;
 }
 
-function GroupCheckbox({ settings, id, label, ready, onChange }: GroupCheckboxProps) {
-  const { copy, layout } = useModel();
+function GroupCheckbox({ settings, id, label, ready, onChange, layout }: GroupCheckboxProps) {
+  const { copy } = useModel();
   const ref = useRef<HTMLInputElement>(null);
   const state = groupVisibilityState(settings, id, layout);
   useEffect(() => { if (ref.current) ref.current.indeterminate = state === 'some'; }, [state]);
@@ -31,8 +33,11 @@ function GroupCheckbox({ settings, id, label, ready, onChange }: GroupCheckboxPr
     checked={state === 'all'} disabled={!ready} onChange={event => onChange(event.target.checked)} />;
 }
 
-export default function PartTree({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
-  const { copy, layout } = useModel();
+export default function PartTree({ settings, setSettings, ready, selectedPart, onSelectPart, structuralParts }: Props) {
+  const { copy, layout: baseLayout } = useModel();
+  const layout = useMemo(() => structuralParts ? { ...baseLayout, parts: baseLayout.parts.filter(part =>
+    !['structure', 'foundation'].includes(part.group) || structuralParts.includes(part.id)) } : baseLayout,
+  [baseLayout, structuralParts]);
   const [expanded, setExpanded] = useState<Partial<Record<GroupId, boolean>>>({ F1: true });
   useEffect(() => {
     const group = layout.parts.find(part => part.id === selectedPart)?.group
@@ -55,7 +60,7 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
             onClick={() => setExpanded(s => ({ ...s, [group.id]: !s[group.id] }))}>
             {expanded[group.id] ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
           </button> : <span className="part-expand" aria-hidden="true" />}
-          <GroupCheckbox settings={settings} id={group.id} label={label} ready={ready}
+          <GroupCheckbox settings={settings} id={group.id} label={label} ready={ready} layout={layout}
             onChange={checked => setSettings(s => setGroupVisible(s, group.id, checked, layout))} />
           <button type="button" className={selectedPart === group.id ? 'part-select selected' : 'part-select'}
             disabled={!ready} aria-label={format(copy.tree.highlight, { label })} aria-pressed={selectedPart === group.id}

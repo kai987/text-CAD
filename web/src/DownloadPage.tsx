@@ -2,11 +2,13 @@ import { ArrowUpRight, Download } from 'lucide-react';
 import { asset, repository } from './data';
 import { useModel } from './ModelContext';
 import { format } from './localization';
+import StructuralOptions from './StructuralOptions';
 
 export default function DownloadPage() {
   const { copy, data, downloads, source, layout } = useModel();
   return <div className="downloads-page">
     <header><h1>{copy.downloads.title}</h1><p>{format(copy.downloads.revision, { drawing: data.drawingRevision, model: data.modelRevision })}</p></header>
+    {layout.id === 'house' ? <StructuralOptions /> : null}
     <div className="download-list">
       {downloads.map(f => <a className="download-row" key={f.path} href={asset(f.path)} download>
         <span className="file-type">{f.type}</span><span className="file-description"><strong>{copy.downloads.files[f.id].title}</strong><span>{copy.downloads.files[f.id].detail}</span></span>

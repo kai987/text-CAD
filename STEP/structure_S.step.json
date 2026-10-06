@@ -1,0 +1,1 @@
+{"animation": {"language": "javascript", "source": "export const clips = {named_parts: {label: \"Named structural alternative\", duration: 1, loop: false, update(t, m) {}}};"}, "documentHash": "22cb8120cdace48c1fe77ea70b6e84373abf922233c0ea8d7ce8ffa61dd3e659", "schemaVersion": 9}

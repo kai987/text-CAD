@@ -2,6 +2,8 @@
 
 [简体中文](../README.md) | [日本語](../README.ja.md) | [English](../README.en.md)
 
+R07 adds twelve city/system reference cases and three independent W / lightweight S / RC structural overlays. All capacities and permit results remain unfilled. / R07新增四地×三体系条件方案，全部承载和许可结论待核定。 / R07は4都市×3構造の条件付き案で、耐力・認定は未確定です。
+
 R06 is a demonstration structural layout with a storage-only attic, maximum finished clear height 1350 mm. Member sizes and foundations are uncalculated; site and statutory recognition remain pending.
 
 R06为纯储物阁楼与结构布置演示，最高完成净高1350 mm。构件截面与基础未计算，所在地和法定用途认定待核定。
@@ -18,7 +20,9 @@ R06は収納専用小屋裏・構造配置のデモで、最高仕上げ内法�
 | `lib/attic_geometry.py` | current attic model and metadata | R06 subfloor, hatch, flat ceiling, storage and deployed ladder / 阁楼参数 / 小屋裏パラメータ |
 | `lib/structure_geometry.py` | named structural proposal | Columns, beams, sills, joists, headers, roof framing and candidate bearing walls / 结构布置 / 構造案 |
 | `lib/engineering_inputs.py` | `output/review/engineering_inputs_R06.json` | Demonstration values and pending inputs / 演示与待定输入 / 仮定と未確定入力 |
-| `generate_structural_scheme.py` | `DXF/house_structural_scheme.dxf`, `output/pdf/house_structural_scheme_R06_JP.pdf` | Editable structural layout supplement / 可编辑结构方案图 / 編集可能な構造案 |
+| `generate_structure_plan.py` | `DXF/house_structural_scheme.dxf`, `output/pdf/house_structural_scheme_R06_JP.pdf` | Editable R06 timber layout supplement / R06木造补充图 / R06木造補足図 |
+| `lib/structural_variants.py`, `generate_structural_variants.py` | `STEP/structure_W.step`, `structure_S.step`, `structure_RC.step` and corresponding GLB | Independent uncalculated material-system overlays / 三体系独立结构草案 / 3構造の独立デモ |
+| `generate_structural_cases.py` | `output/review/cases/*_R07.json`, `structural_cases_R07.json` | 12 city/system cases with official references and pending project inputs / 四地条件方案 / 都市別条件付き案 |
 | `lib/house_geometry.py` | shared geometry, no standalone output | Slabs, wall apertures, roof, doors/windows, storage and stairs |
 
 Run `.venv/bin/python src/generate_plans.py` from the project root.

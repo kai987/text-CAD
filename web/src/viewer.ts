@@ -15,12 +15,15 @@ import { createHorizontalCap, createSectionMaterial } from './section-caps';
 import { createCadOutlineGeometry } from './cad-outlines';
 import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
+import { structuralObjectVisible } from './structural-design';
+import type { StructuralOverlayState, StructuralSystem } from './structural-design';
 
 export interface HouseViewer {
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
   camera: (mode: 'iso' | 'top') => void;
   select: (name: string | null) => void;
   setTheme: (theme: ResolvedTheme) => void;
+  setStructure: (system: StructuralSystem | null) => void;
   dispose: () => void;
 }
 
@@ -42,7 +45,8 @@ function disposeObject(root: Object3D, disposeTextures = false) {
 
 export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: () => void,
   onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light',
-  layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb'): HouseViewer {
+  layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb',
+  onOverlayState: (state: StructuralOverlayState) => void = () => {}): HouseViewer {
   let theme = initialTheme;
   const outlineMaterials = new Set<LineBasicMaterial>();
   function createOutlineMaterial(opacity = 0.55) {
@@ -84,6 +88,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let settings = settingsForPreset(layout.defaultPreset, layout);
   const groupObjects = new Map<ModelPartId, Object3D>();
   let cadObjects = new Map<string, Object3D>();
+  let baselineCadObjects = new Map<string, Object3D>();
+  const overlays = new Map<StructuralSystem, { root: Object3D; objects: Map<string, Object3D> }>();
+  const overlayLoads = new Map<StructuralSystem, Promise<void>>();
+  let structuralSystem: StructuralSystem | null = null;
   const originalMaterials = new Map<Mesh, Material | Material[]>();
   const sourceMeshes: Mesh[] = [];
   const sectionCaps = new Map<Mesh, Mesh>();
@@ -92,10 +100,12 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let selectedName: string | null = null;
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
+  let cameraInitialized = false;
   function draw() {
     frame = 0;
     if (disposed || !host.clientWidth || !host.clientHeight) return;
     controls.update(); renderer.render(scene, camera);
+    renderer.domElement.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
   }
   function requestRender() { if (!disposed && !frame) frame = requestAnimationFrame(draw); }
   function setTheme(next: ResolvedTheme) {
@@ -175,6 +185,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     const bounds = new Box3();
     root.traverse(o => { if (o instanceof Mesh && isObjectVisible(o)) bounds.expandByObject(o); });
     if (bounds.isEmpty()) return;
+    cameraInitialized = true;
     const center = bounds.getCenter(new Vector3());
     controls.target.copy(center);
     if (mode === 'top') {
@@ -211,6 +222,24 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     settings = next;
     layout.groups.forEach(g => { const part = groupObjects.get(g.id); if (part) part.visible = !!next.visibility[g.id]; });
     layout.parts.forEach(p => { const part = groupObjects.get(p.id); if (part) part.visible = !!next.partVisibility[p.id]; });
+    // The independent frame and its foundation replace both original proposal groups.
+    // Keep this intent when cutaway and individual-category controls make a custom view.
+    if (structuralSystem) {
+      for (const id of ['structure', 'foundation'] as const) {
+        const original = groupObjects.get(id); if (original) original.visible = false;
+      }
+    }
+    for (const [system, overlay] of overlays) {
+      overlay.root.visible = system === structuralSystem;
+      for (const part of [...layout.groups, ...layout.parts]) {
+        if (!part.id.startsWith('structure') && !part.id.startsWith('foundation')) continue;
+        const object = overlay.objects.get(part.id);
+        if (object) object.visible = structuralObjectVisible(part.id, next);
+      }
+    }
+    const currentOverlay = structuralSystem ? overlays.get(structuralSystem) : undefined;
+    renderer.domElement.dataset.structureMeshes = String(currentOverlay ? visibleMeshes(currentOverlay.root).length : 0);
+    renderer.domElement.dataset.baseFoundationHidden = String(structuralSystem !== null && groupObjects.get('foundation')?.visible === false);
     // GLB is Y-up/metres; display the cut height relative to the original F1 datum.
     const height = next.cutaway ? next.heightMm / 1000 : null;
     renderer.clippingPlanes = height === null ? [] : [new Plane(new Vector3(0, -1, 0), height)];
@@ -221,6 +250,67 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       else select(selectionName);
     } else select(null);
     requestRender();
+  }
+  function prepareMeshes(object: Object3D) {
+    object.traverse(o => {
+      if (!(o instanceof Mesh)) return;
+      sourceMeshes.push(o);
+      const materials = Array.isArray(o.material) ? o.material : [o.material];
+      materials.forEach(m => {
+        m.side = m.transparent ? DoubleSide : FrontSide;
+        m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
+      });
+      const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
+      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
+      const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
+      o.add(new LineSegments(outline, createOutlineMaterial(interiorDetail ? 0.16 : 0.55)));
+    });
+  }
+  function reportOverlay(status: StructuralOverlayState['status'], system: StructuralSystem | null) {
+    const overlay = system ? overlays.get(system) : undefined;
+    renderer.domElement.dataset.structureSystem = system ?? '';
+    renderer.domElement.dataset.structureStatus = status;
+    renderer.domElement.dataset.baseFoundationHidden = String(system !== null);
+    renderer.domElement.dataset.structureMeshes = String(overlay ? visibleMeshes(overlay.root).length : 0);
+    onOverlayState({ status, system, parts: overlay
+      ? layout.parts.filter(part => overlay.objects.has(part.id)).map(part => part.id) : [] });
+  }
+  function activateOverlay() {
+    cadObjects = new Map(baselineCadObjects);
+    const overlay = structuralSystem ? overlays.get(structuralSystem) : undefined;
+    if (overlay) for (const [name, object] of overlay.objects) cadObjects.set(name, object);
+    // A newly loaded solid needs its section cap even if the cut height did not change.
+    if (settings.cutaway) capHeight = null;
+    apply(settings, null);
+    // Recompute only the frustum: changing materials/city keeps orbit, pan and zoom.
+    if (cameraInitialized) updateFrustum(); else fit();
+  }
+  function setStructure(system: StructuralSystem | null) {
+    if (disposed || layout.id !== 'house') return;
+    const changed = structuralSystem !== system;
+    structuralSystem = system;
+    if (changed) { clearHighlight(); selectedName = null; onSelection(null); }
+    activateOverlay();
+    if (system === null) { reportOverlay('idle', null); return; }
+    if (overlays.has(system)) { reportOverlay('ready', system); return; }
+    reportOverlay('loading', system);
+    if (overlayLoads.has(system) || !root) return;
+    const loading = new GLTFLoader().loadAsync(asset(`GLB/structure_${system}.glb`)).then(gltf => {
+      if (disposed) { disposeObject(gltf.scene, true); return; }
+      const objects = bindCadNodes(gltf);
+      if (!objects.has('structure') || !objects.has('foundation')) {
+        disposeObject(gltf.scene, true); throw new Error('Structural variant is missing its frame or foundation group.');
+      }
+      gltf.scene.visible = false;
+      prepareMeshes(gltf.scene);
+      // Exported variants use the exact original CAD origin. Parent to the already
+      // centred architectural root so neither site bounds nor footing depth shift them.
+      root!.add(gltf.scene); overlays.set(system, { root: gltf.scene, objects });
+      if (structuralSystem === system) { activateOverlay(); reportOverlay('ready', system); }
+    }).catch(() => {
+      if (!disposed && structuralSystem === system) reportOverlay('error', system);
+    }).finally(() => { overlayLoads.delete(system); });
+    overlayLoads.set(system, loading);
   }
   const raycaster = new Raycaster();
   const activePointers = new Set<number>();
@@ -261,26 +351,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     if (disposed) { disposeObject(gltf.scene, true); return; }
     root = gltf.scene;
     cadObjects = bindCadNodes(gltf);
+    baselineCadObjects = cadObjects;
     if (!centerModelAtFloorDatum(root, cadObjects)) {
       disposeObject(root, true); root = undefined; onError(); return;
     }
-    root.traverse(o => {
-      if (!(o instanceof Mesh)) return;
-      sourceMeshes.push(o);
-      const materials = Array.isArray(o.material) ? o.material : [o.material];
-      materials.forEach(m => {
-        // Closed solids need outward faces only: cabinet backs touch walls with opposite normals.
-        m.side = m.transparent ? DoubleSide : FrontSide;
-        // Pull outline lines forward through a fill offset; back-face culling prevents shared-face fighting.
-        m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
-      });
-      const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
-      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
-      // Architectural CAD faces may have collinear triangle edges with different endpoints.
-      const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
-      const edges = new LineSegments(outline, createOutlineMaterial(interiorDetail ? 0.16 : 0.55));
-      o.add(edges);
-    });
+    prepareMeshes(root);
     for (const group of [...layout.groups, ...layout.parts]) {
       const object = cadObjects.get(group.id);
       if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
@@ -312,6 +387,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     apply,
     select,
     setTheme,
+    setStructure,
     camera(next) { mode = next; fit(); },
     dispose() {
       disposed = true; cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();

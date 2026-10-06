@@ -21,6 +21,11 @@ export const artifacts = [
   'output/review/house_3d_1f_interior.png', 'output/review/house_3d_2f_interior.png',
   'output/review/house_3d_attic_interior.png', 'output/review/house_3d_structure.png',
   'output/review/engineering_inputs_R06.json', 'src/lib/engineering_inputs.py',
+  ...['W', 'S', 'RC'].flatMap(system => [`GLB/structure_${system}.glb`, `STEP/structure_${system}.step`]),
+  'output/review/regulatory_profiles_R07.json', 'output/review/structural_variants_R07.json',
+  'output/review/structural_cases_R07.json',
+  ...['tokyo', 'osaka', 'kyoto', 'nagoya'].flatMap(city =>
+    ['W', 'S', 'RC'].map(system => `output/review/cases/${city}_${system}_R07.json`)),
   'output/review/design_manifest.json', 'output/review/house_3d_assumptions_R01.json',
   ...vectorPlans.floors.map(floor => floor.path),
   'GLB/apartment_2ldk.glb', 'STEP/apartment_2ldk.step',

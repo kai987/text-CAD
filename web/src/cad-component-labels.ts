@@ -16,6 +16,11 @@ const componentLabels = {
   'foundation:stem_walls:north': label('北侧基础立上墙', '北側の基礎立上り', 'North foundation stem wall'),
   'foundation:stem_walls:west': label('西侧基础立上墙', '西側の基礎立上り', 'West foundation stem wall'),
   'foundation:stem_walls:east': label('东侧基础立上墙', '東側の基礎立上り', 'East foundation stem wall'),
+  'foundation:stem_walls:perimeter': label('周圈基础立上墙', '外周の基礎立上り', 'Perimeter foundation stem wall'),
+  'foundation:existing_plinth:south': label('南侧周圈基座', '南側の外周基台', 'South perimeter plinth'),
+  'foundation:existing_plinth:north': label('北侧周圈基座', '北側の外周基台', 'North perimeter plinth'),
+  'foundation:existing_plinth:west': label('西侧周圈基座', '西側の外周基台', 'West perimeter plinth'),
+  'foundation:existing_plinth:east': label('东侧周圈基座', '東側の外周基台', 'East perimeter plinth'),
   'foundation:entrance_supports:porch': label('玄关平台支承', '玄関ポーチの支持部', 'Entrance porch support'),
   'foundation:entrance_supports:upper_step': label('玄关上踏步支承', '玄関上段の支持部', 'Upper entrance step support'),
   'yard:soil:base': label('院子土层', '庭の地盤層', 'Yard soil layer'),
@@ -34,6 +39,13 @@ const componentLabels = {
   'yard:planting:lawn_west': label('西侧草坪', '西側の芝生', 'West yard lawn'),
   'roof:west_plane': label('西侧屋面', '西側の屋根面', 'West roof plane'),
   'roof:east_plane': label('东侧屋面', '東側の屋根面', 'East roof plane'),
+  'structure:roof:slab_west': label('西侧 RC 屋面板示意', '西側RC屋根スラブ参考形状', 'Concept west RC roof slab'),
+  'structure:roof:slab_east': label('东侧 RC 屋面板示意', '東側RC屋根スラブ参考形状', 'Concept east RC roof slab'),
+  'structure:roof:gable_shear_south': label('南侧 RC 山墙候选', '南側RC妻壁候補', 'Candidate south RC gable wall'),
+  'structure:roof:gable_shear_north': label('北侧 RC 山墙候选', '北側RC妻壁候補', 'Candidate north RC gable wall'),
+  'structure:F1:slab_ground': label('一层地面结构板示意', '1階の構造床スラブ参考形状', 'Concept first-floor ground slab'),
+  'structure:F2:slab_floor': label('二层结构楼板示意', '2階の構造床スラブ参考形状', 'Concept second-floor structural slab'),
+  'structure:attic:slab_storage': label('储物阁楼结构板示意', '収納用小屋裏の構造床スラブ参考形状', 'Concept storage-attic structural slab'),
   'roof:south_gable_wall': label('南侧山墙', '南側の妻壁', 'South gable wall'),
   'roof:north_gable_wall': label('北侧山墙', '北側の妻壁', 'North gable wall'),
   'roof:attic_ceiling_slab': label('阁楼下地板（厚 24 mm）', '小屋裏の下地床（厚24 mm）', 'Attic subfloor (24 mm thick)'),
@@ -77,10 +89,21 @@ const structuralDetails = {
   rafter: label('椽', '垂木', 'Rafter'), ridge: label('脊梁', '棟木', 'Ridge beam'),
   purlin: label('檩条', '母屋', 'Purlin'), post: label('屋架支柱', '小屋束', 'Roof post'),
   bearing_wall: label('候选承重墙', '耐力壁候補', 'Candidate bearing wall'),
+  strap_brace: label('钢带支撑候选', '帯鋼ブレース候補', 'Candidate steel strap brace'),
+  gusset: label('节点板示意', 'ガセットプレート参考形状', 'Concept gusset plate'),
+  base_plate: label('柱脚板示意', '柱脚プレート参考形状', 'Concept base plate'),
+  shear_wall: label('RC 抗震墙候选', 'RC耐震壁候補', 'Candidate RC shear wall'),
+  slab: label('结构楼板示意', '構造床スラブ参考形状', 'Concept structural slab'),
 } satisfies Catalog;
 const atticTrimmer = label('检修口侧边梁', '点検口の側面補強梁', 'Hatch trimmer');
 const ridgeLocation = label('屋脊处', '棟部', 'At the ridge');
 const foundationSupport = label('内部基础支承', '内部基礎支持部', 'Internal foundation support');
+const connectionCorners = {
+  SW: label('左下节点', '左下の接合部', 'Lower-left joint'),
+  SE: label('右下节点', '右下の接合部', 'Lower-right joint'),
+  NW: label('左上节点', '左上の接合部', 'Upper-left joint'),
+  NE: label('右上节点', '右上の接合部', 'Upper-right joint'),
+} satisfies Catalog;
 
 const atticStorage = {
   west_shelf: label('阁楼西侧置物架', '小屋裏西側の収納棚', 'West attic shelf'),
@@ -364,6 +387,13 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
+
+  const variantMember = /^structure:(F1|F2|attic):(base_plate|shear_wall)_([A-Z]+\d{2})$/.exec(name);
+  if (variantMember) return `${structuralLevels[variantMember[1] as keyof typeof structuralLevels][locale]} · ${structuralDetails[variantMember[2] as keyof typeof structuralDetails][locale]} ${variantMember[3]}`;
+  const strap = /^structure:(F1|F2):strap_brace_(BW\d{2})_([AB])$/.exec(name);
+  if (strap) return `${structuralLevels[strap[1] as keyof typeof structuralLevels][locale]} · ${structuralDetails.strap_brace[locale]} ${strap[2]} · ${strap[3]}`;
+  const gusset = /^structure:(F1|F2):gusset_(BW\d{2})_(SW|SE|NW|NE)$/.exec(name);
+  if (gusset) return `${structuralLevels[gusset[1] as keyof typeof structuralLevels][locale]} · ${structuralDetails.gusset[locale]} ${gusset[2]} · ${connectionCorners[gusset[3] as keyof typeof connectionCorners][locale]}`;
 
   const structural = /^structure:(F1|F2|attic):(column|beam|sill|joist|bearing_wall)_([A-Z]+\d{2})(?:_(south|north))?$/.exec(name);
   if (structural) {

@@ -4,6 +4,12 @@
 
 The house drawing revision is R02, which adapts Japanese drafting rules. **The user-confirmed R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
 
+## Four cities and three structural systems (R07)
+
+Added 12 conditional cases: Tokyo / Osaka City / Kyoto City / Nagoya City × timber W / lightweight steel S / reinforced concrete RC. In “Structural scheme”, choose the city and system to inspect distinct named structural geometry, local review references, and download the corresponding STEP, GLB and case JSON. Official references include applicability, sources and verification dates. [Concepts and regeneration](docs/structural_comparison_R07.md) · [Official regulatory references](docs/regulations_R07.md).
+
+Three independent overlays retain the existing building and user-confirmed plans. City selection changes references; it does not fabricate site-dependent member sizing. All sections are demonstration assumptions. Timber wall/connection checks, thin-wall steel buckling/bracing, RC reinforcement/self-weight, foundations and architectural coordination require further design. Capacity, statutory compliance and approval remain undetermined for all 12 cases. This is not construction-ready structural design.
+
 ## Structural layout and storage-use demonstration (R06-3D)
 
 The current 3D model is an **R06 demonstration concept**, with no actual building location specified. The 7280 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.

@@ -1,0 +1,1611 @@
+{
+  "scope": "saved case integrity and official-source provenance; no engineering verification",
+  "checks": 401,
+  "passed": 401,
+  "results": [
+    {
+      "check": "all_12_cases_exactly_once",
+      "pass": true
+    },
+    {
+      "check": "four_jurisdictions",
+      "pass": true
+    },
+    {
+      "check": "source_verification_date_recorded",
+      "pass": true
+    },
+    {
+      "check": "unique_official_source_ids",
+      "pass": true
+    },
+    {
+      "check": "official_source:mlit-confirmation-2025",
+      "pass": true
+    },
+    {
+      "check": "official_source:mlit-timber-current",
+      "pass": true
+    },
+    {
+      "check": "official_source:mlit-timber-transition-2026",
+      "pass": true
+    },
+    {
+      "check": "official_source:mlit-energy-2025",
+      "pass": true
+    },
+    {
+      "check": "official_source:egov-building-law",
+      "pass": true
+    },
+    {
+      "check": "official_source:egov-building-order",
+      "pass": true
+    },
+    {
+      "check": "official_source:tokyo-jurisdiction",
+      "pass": true
+    },
+    {
+      "check": "official_source:tokyo-snow-rule",
+      "pass": true
+    },
+    {
+      "check": "official_source:shinjuku-structure-reference",
+      "pass": true
+    },
+    {
+      "check": "official_source:tokyo-additional-fire",
+      "pass": true
+    },
+    {
+      "check": "official_source:edogawa-attic-reference",
+      "pass": true
+    },
+    {
+      "check": "official_source:osaka-city-snow-rule",
+      "pass": true
+    },
+    {
+      "check": "official_source:osaka-city-handling-current",
+      "pass": true
+    },
+    {
+      "check": "official_source:osaka-city-attic",
+      "pass": true
+    },
+    {
+      "check": "official_source:osaka-city-fire",
+      "pass": true
+    },
+    {
+      "check": "official_source:kyoto-city-structure",
+      "pass": true
+    },
+    {
+      "check": "official_source:kyoto-city-attic",
+      "pass": true
+    },
+    {
+      "check": "official_source:kyoto-city-handbook-current",
+      "pass": true
+    },
+    {
+      "check": "official_source:kyoto-city-landscape",
+      "pass": true
+    },
+    {
+      "check": "official_source:kyoto-city-scenic",
+      "pass": true
+    },
+    {
+      "check": "official_source:nagoya-city-structure",
+      "pass": true
+    },
+    {
+      "check": "official_source:nagoya-city-seismic-z",
+      "pass": true
+    },
+    {
+      "check": "official_source:nagoya-city-handbook",
+      "pass": true
+    },
+    {
+      "check": "official_source:nagoya-city-zoning",
+      "pass": true
+    },
+    {
+      "check": "official_source:nagoya-city-coastal",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:saved_id",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:review_profile",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:step_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:saved_id",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:review_profile",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:step_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:saved_id",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:review_profile",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:step_hash",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:saved_id",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:review_profile",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:step_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:saved_id",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:review_profile",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:step_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:saved_id",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:review_profile",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:step_hash",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:saved_id",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:review_profile",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:step_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:saved_id",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:review_profile",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:step_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:saved_id",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:review_profile",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:step_hash",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:saved_id",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:review_profile",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:step_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:saved_id",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:review_profile",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:step_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:saved_id",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:review_profile",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:national_design_basis",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:structural_scheme",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:unknown_project_inputs",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:not_calculated_or_approved",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:no_arbitrary_city_sizing",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:system_specific_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:foundation_design_tasks",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:glb_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:step_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    }
+  ]
+}

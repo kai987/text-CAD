@@ -7,6 +7,7 @@ import { asset } from './data';
 import type { ModelSelection } from './model-scene';
 import { useModel } from './ModelContext';
 import { useTheme } from './ThemeContext';
+import type { StructuralOverlayState, StructuralSystem } from './structural-design';
 
 interface Props {
   settings: ModelSettings;
@@ -14,14 +15,17 @@ interface Props {
   onReady: (ready: boolean) => void;
   selection: ModelSelection | null;
   onSelection: (selection: ModelSelection | null) => void;
+  structuralSystem: StructuralSystem | null;
+  overlayAttempt: number;
+  onOverlayState: (state: StructuralOverlayState) => void;
 }
-export default function ThreeScene({ settings, cameraRequest, onReady, selection, onSelection }: Props) {
+export default function ThreeScene({ settings, cameraRequest, onReady, selection, onSelection, structuralSystem, overlayAttempt, onOverlayState }: Props) {
   const { copy, layout, glb, fallback: modelFallback } = useModel();
   const { theme } = useTheme();
   const host = useRef<HTMLDivElement>(null);
   const viewer = useRef<HouseViewer | null>(null);
-  const latest = useRef({ settings, cameraRequest, selection, theme });
-  latest.current = { settings, cameraRequest, selection, theme };
+  const latest = useRef({ settings, cameraRequest, selection, theme, structuralSystem });
+  latest.current = { settings, cameraRequest, selection, theme, structuralSystem };
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   useEffect(() => {
     let alive = true;
@@ -29,15 +33,17 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
       const controller = createHouseViewer(host.current!, () => {
         if (!alive) return;
         controller.apply(latest.current.settings, latest.current.selection?.name ?? null);
+        controller.setStructure(latest.current.structuralSystem);
         controller.camera(latest.current.cameraRequest.mode);
         setStatus('ready'); onReady(true);
-      }, () => { if (alive) { setStatus('error'); onReady(false); } }, onSelection, latest.current.theme, layout, glb);
+      }, () => { if (alive) { setStatus('error'); onReady(false); } }, onSelection, latest.current.theme, layout, glb,
+        state => { if (alive) onOverlayState(state); });
       viewer.current = controller;
     } catch {
       setStatus('error'); onReady(false);
     }
     return () => { alive = false; viewer.current?.dispose(); viewer.current = null; };
-  }, [onReady, onSelection, layout, glb]);
+  }, [onReady, onSelection, onOverlayState, layout, glb]);
   useEffect(() => {
     host.current?.querySelector('canvas')?.setAttribute('aria-label', copy.model.canvas);
   }, [copy, status]);
@@ -46,6 +52,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
   // Visibility and selection must update together when isolation hides the previous selection.
   useEffect(() => { viewer.current?.apply(settings, selection?.name ?? null); }, [settings, selection]);
   useEffect(() => { viewer.current?.camera(cameraRequest.mode); }, [cameraRequest]);
+  useEffect(() => { viewer.current?.setStructure(structuralSystem); }, [structuralSystem, overlayAttempt, status]);
   const preset = activePreset(settings, layout);
   const fallback = layout.id === 'house' && preset === 'first' ? 'output/review/house_3d_1f_interior.png'
     : layout.id === 'house' && preset === 'second' ? 'output/review/house_3d_2f_interior.png'
@@ -54,7 +61,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
   return <div className="scene-host" ref={host}>
     {status === 'loading' ? <p className="canvas-message" role="status">{copy.model.loadingModel}</p> : null}
     {status === 'error' ? <div className="viewer-fallback" role="alert">
-      <img src={asset(fallback)} alt={copy.model.fallback} />
+      {structuralSystem === null ? <img src={asset(fallback)} alt={copy.model.fallback} /> : null}
       <p>{copy.model.error}</p>
     </div> : null}
   </div>;

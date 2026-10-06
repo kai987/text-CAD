@@ -4,6 +4,7 @@ import type { ModelPartId, ModelSettings } from './model-state';
 import Parameters from './Parameters';
 import PartTree from './PartTree';
 import { useModel } from './ModelContext';
+import StructuralOptions from './StructuralOptions';
 
 interface Props {
   settings: ModelSettings;
@@ -11,14 +12,15 @@ interface Props {
   ready: boolean;
   selectedPart?: ModelPartId | null;
   onSelectPart?: (id: ModelPartId, fit?: boolean) => void;
+  structuralParts?: readonly ModelPartId[];
 }
-export default function ModelControls({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
+export default function ModelControls({ settings, setSettings, ready, selectedPart, onSelectPart, structuralParts }: Props) {
   const { copy, layout } = useModel();
   return <aside className="sidebar" aria-label={copy.controls.region}>
     <section>
       <h2>{copy.controls.parts}</h2>
       <PartTree settings={settings} setSettings={setSettings} ready={ready}
-        selectedPart={selectedPart} onSelectPart={onSelectPart} />
+        selectedPart={selectedPart} onSelectPart={onSelectPart} structuralParts={structuralParts} />
     </section>
     <section>
       <h2>{copy.controls.cut}</h2>
@@ -37,6 +39,7 @@ export default function ModelControls({ settings, setSettings, ready, selectedPa
         </div>
       </div>
     </section>
+    {layout.id === 'house' ? <StructuralOptions showSelectors={false} /> : null}
     <Parameters />
   </aside>;
 }

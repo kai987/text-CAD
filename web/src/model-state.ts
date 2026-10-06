@@ -186,5 +186,14 @@ export function modelUrl(current: string, page: PageId, model: ModelId): string 
   url.searchParams.set('view', modelLayouts[model].pages.includes(page) ? page : '1f');
   if (model === 'apartment') url.searchParams.set('model', model);
   if (section === 'wasm') url.searchParams.set('section', section);
+  if (model === 'house') {
+    const currentParams = new URL(current).searchParams;
+    for (const key of ['city', 'system']) {
+      const value = currentParams.get(key);
+      if (value) url.searchParams.set(key, value);
+    }
+    const mode = currentParams.get('mode');
+    if (mode && modelLayouts.house.presets.some(preset => preset.id === mode)) url.searchParams.set('mode', mode);
+  }
   return url.href;
 }

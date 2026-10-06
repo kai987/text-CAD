@@ -1,0 +1,3196 @@
+{
+  "revision": "R07",
+  "case_id": "nagoya_W",
+  "city_id": "nagoya",
+  "city_name": {
+    "zh": "名古屋市",
+    "ja": "名古屋市",
+    "en": "Nagoya city"
+  },
+  "system": "W",
+  "status": "conditional_demonstration_not_engineered",
+  "purpose": "Compare candidate load paths and jurisdiction review inputs",
+  "model_paths": {
+    "glb": "GLB/structure_W.glb",
+    "step": "STEP/structure_W.step"
+  },
+  "model_hashes_sha256": {
+    "glb": "8838bb15d078071198db4bf30fd7ae5e6f1679a2e950f8d5c8ff88e56f6717fc",
+    "step": "56e5a982b34298d18aefa7037013e184006ba4969b9530bb831f2b7c79d70514"
+  },
+  "regulatory_reference": "output/review/regulatory_profiles_R07.json",
+  "structural_reference": "output/review/structural_variants_R07.json",
+  "regulatory_profile": {
+    "id": "nagoya",
+    "name": {
+      "zh": "名古屋市",
+      "ja": "名古屋市",
+      "en": "Nagoya city"
+    },
+    "authority": {
+      "zh": "名古屋市住宅都市局建筑审查课",
+      "ja": "名古屋市住宅都市局建築審査課",
+      "en": "Nagoya Housing and Urban Development Bureau, Building Review Division"
+    },
+    "jurisdiction_scope": {
+      "zh": "名古屋市；另查临海部防灾区域，不能把爱知县直管区域规定自动用于市审批。",
+      "ja": "名古屋市。臨海部防災区域も確認。県直管区域の規定を市の判断に自動適用しない。",
+      "en": "Nagoya city; coastal disaster districts need separate review. Prefecture-administered-area guidance is not automatically a city determination."
+    },
+    "environmental_parameters": {
+      "basic_wind_speed": {
+        "value": 34,
+        "unit": "m/s",
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市官方结构FAQ",
+          "ja": "名古屋市公式構造FAQ",
+          "en": "Nagoya city's official structural FAQ"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null
+      },
+      "snow_depth": {
+        "value": 300,
+        "unit": "mm",
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市细则第29条之2；市说明未指定多雪区域",
+          "ja": "名古屋市細則第29条の2。市説明では多雪区域指定なし",
+          "en": "Nagoya Article 29-2; city states no designated heavy-snow area"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null
+      },
+      "roughness": {
+        "value": null,
+        "unit": null,
+        "status": "pending_site_review",
+        "scope": {
+          "zh": "市未指定I或IV；须按告示确认II或III，尚未选定实际地址",
+          "ja": "市はI・IVを指定せず。告示によるII・III判定が必要。実住所未定",
+          "en": "City has no I/IV designation; determine II or III under the notification for the actual address"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null,
+        "possible_categories": [
+          "II",
+          "III"
+        ]
+      },
+      "seismic_z": {
+        "value": 1,
+        "unit": null,
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市官方FAQ；不是地盘系数或耐震等级",
+          "ja": "名古屋市公式FAQ。地盤係数や耐震等級ではない",
+          "en": "Nagoya's official FAQ; not a soil coefficient or seismic grade"
+        },
+        "source_ids": [
+          "nagoya-city-seismic-z"
+        ],
+        "adopted_project_value": null
+      }
+    },
+    "review_items": [
+      {
+        "id": "nagoya_zoning",
+        "text": {
+          "zh": "按地块核查用途地域、面积率、防火及高度指定。",
+          "ja": "敷地ごとに用途地域・面積率・防火・高度指定を確認する。",
+          "en": "Check parcel-specific zoning, area ratios, fire and height designations."
+        },
+        "source_ids": [
+          "nagoya-city-zoning"
+        ]
+      },
+      {
+        "id": "nagoya_coastal",
+        "text": {
+          "zh": "临海部防灾区域可能规定结构种类及住宅床标高，部分区域限制木造；模型Z=0尚未对应N.P.测量基准。",
+          "ja": "臨海部防災区域では構造や居住室の床高さの規定があり、一部区域は木造を制限。モデルZ=0はN.P.基準に未対応。",
+          "en": "Coastal disaster districts can regulate structure type and residential floor elevation, with timber restrictions in some areas. Model Z=0 is not tied to the N.P. survey datum."
+        },
+        "source_ids": [
+          "nagoya-city-coastal"
+        ]
+      },
+      {
+        "id": "nagoya_attic",
+        "text": {
+          "zh": "阁楼净高、余剰空间、投影面积、固定天花与检修梯的市取扱待咨询；未取得完整市条件，不能自动套用爱知县例规或宣布免计面积。",
+          "ja": "小屋裏の内法、余剰空間、投影面積、固定天井・点検梯子の市取扱いは相談待ち。市の全条件を未確認のため県例規の自動適用や不算入判定はしない。",
+          "en": "Consult the city about attic height, residual space, projected area, fixed ceiling and access ladder. Complete city conditions remain unconfirmed; no automatic prefectural-rule application or floor-area exemption determination."
+        },
+        "source_ids": [
+          "nagoya-city-handbook"
+        ]
+      }
+    ],
+    "pending_site_inputs": [
+      {
+        "id": "exact_address",
+        "text": {
+          "zh": "实际地块地址及所管行政庁",
+          "ja": "実際の敷地住所と所管行政庁",
+          "en": "Actual parcel address and responsible building authority"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "survey_and_roads",
+        "text": {
+          "zh": "测量、境界、道路性质与宽度、接道及退界",
+          "ja": "測量・境界・道路種別と幅員・接道・後退",
+          "en": "Survey, boundaries, road classification and width, access and setbacks"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "zoning_and_fire",
+        "text": {
+          "zh": "用途地域、面积率、高度／景观及防火指定",
+          "ja": "用途地域・面積率・高度／景観・防火指定",
+          "en": "Zoning, area ratios, height/landscape and fire designations"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "elevation_and_hazards",
+        "text": {
+          "zh": "地块标高、沿海／山地位置及灾害指定",
+          "ja": "敷地標高・海岸／山地条件と災害区域",
+          "en": "Parcel elevation, coastal/mountain conditions and hazard designations"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "ground_and_foundation",
+        "text": {
+          "zh": "地盘调查、容许支持力、沉降及基础形式",
+          "ja": "地盤調査・許容支持力・沈下・基礎形式",
+          "en": "Ground investigation, bearing capacity, settlement and foundation scheme"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "materials_and_connections",
+        "text": {
+          "zh": "材料等级、连接产品能力、耐火及耐久构造",
+          "ja": "材料等級・接合部の能力・耐火と耐久仕様",
+          "en": "Material grades, connection capacities, fire and durability details"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "loads_and_performance",
+        "text": {
+          "zh": "恒载、住宅及储物荷载、风雪地震作用与性能目标",
+          "ja": "固定・住宅／収納荷重・風雪地震作用・性能目標",
+          "en": "Dead, residential and storage loads, wind/snow/seismic actions and performance target"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "attic_determination",
+        "text": {
+          "zh": "阁楼真实余剰空间、面积、天花、检修梯及用途认定",
+          "ja": "小屋裏の余剰空間・面積・天井・点検梯子・用途判断",
+          "en": "Attic residual-space origin, area, ceiling, ladder and use determination"
+        },
+        "source_ids": []
+      }
+    ],
+    "capacity_results": null,
+    "statutory_compliance_result": null,
+    "source_ids": [
+      "nagoya-city-structure",
+      "nagoya-city-seismic-z",
+      "nagoya-city-handbook",
+      "nagoya-city-zoning",
+      "nagoya-city-coastal"
+    ]
+  },
+  "national_regulatory_requirements": [
+    {
+      "id": "new_confirmation_scope",
+      "text": {
+        "zh": "2025-04-01起，结构无关的两层以上或延床面积>200㎡建筑原则上须建筑确认；本两层住宅需结构审查资料。",
+        "ja": "2025年4月1日から構造にかかわらず階数2以上又は延べ200㎡超は原則確認対象。本2階住宅は構造審査資料が必要。",
+        "en": "From 2025-04-01, buildings with two or more storeys or over 200m² generally require confirmation regardless of structure; this two-storey house needs structural review documentation."
+      },
+      "source_ids": [
+        "mlit-confirmation-2025"
+      ]
+    },
+    {
+      "id": "current_timber_rules",
+      "text": {
+        "zh": "木造壁量与柱小径按实际建筑重量等核定；旧基准过渡措施2026-03结束，2026-04-01以后开工不能直接沿用。",
+        "ja": "木造の壁量・柱小径は建物の重量等で確認。旧基準の経過措置は2026年3月に終了し、4月1日以降着工にそのまま適用できない。",
+        "en": "Timber wall quantity and column size require actual building-weight inputs. Old-rule transition ended in March 2026 and cannot simply be applied to starts from 2026-04-01."
+      },
+      "source_ids": [
+        "mlit-timber-current",
+        "mlit-timber-transition-2026"
+      ]
+    },
+    {
+      "id": "energy_obligation",
+      "text": {
+        "zh": "2025年4月起原則全部新建住宅须省能源基准适合；结构恒载应包含实际围护及设备。",
+        "ja": "2025年4月から原則全ての新築住宅に省エネ基準適合が必要。実際の外皮・設備を構造固定荷重に含める。",
+        "en": "New homes generally require energy-standard compliance from April 2025; structural dead loads must include the actual envelope and equipment."
+      },
+      "source_ids": [
+        "mlit-energy-2025"
+      ]
+    },
+    {
+      "id": "structural_design_basis",
+      "text": {
+        "zh": "结构、基础、材料、荷载组合与计算路线须按实际项目和现行法令告示设计；几何检查不等于承载结果。",
+        "ja": "構造・基礎・材料・荷重組合せと計算ルートは実計画と現行法令告示で設計する。幾何チェックは耐力結果ではない。",
+        "en": "Design structure, foundation, materials, load combinations and calculation route for the actual project under current legislation; geometry checks do not establish capacity."
+      },
+      "source_ids": [
+        "egov-building-law",
+        "egov-building-order"
+      ]
+    }
+  ],
+  "structural_scheme": {
+    "id": "W",
+    "system": "W",
+    "name": {
+      "zh": "木结构（W造）",
+      "ja": "木造（W造）",
+      "en": "Timber (W)"
+    },
+    "status": "demonstration_candidate_not_engineered",
+    "step_path": "STEP/structure_W.step",
+    "glb_path": "GLB/structure_W.glb",
+    "units": "mm",
+    "glb_units": "m",
+    "glb_up_axis": "Y",
+    "native_up_axis": "Z",
+    "parameters": {
+      "external_column_width": 120,
+      "internal_column_width": 90,
+      "perimeter_beam_width": 120,
+      "internal_beam_width": 90,
+      "transfer_beam_width": 180,
+      "storey_beam_depth": 300,
+      "sill_base_z": -200,
+      "sill_depth": 120,
+      "floor_board_allowance": 24,
+      "attic_joist_width": 60,
+      "attic_joist_depth": 180,
+      "attic_joist_max_spacing": 455,
+      "hatch_trimmer_width": 120,
+      "hatch_header_width": 60,
+      "bearing_panel_thickness": 9,
+      "internal_bearing_panel_display_thickness": 5,
+      "minimum_bearing_panel_length": 300,
+      "roof_post_width": 90,
+      "roof_purlin_width": 120,
+      "roof_purlin_vertical_depth": 60,
+      "roof_rafter_width": 60,
+      "roof_rafter_vertical_depth": 90,
+      "roof_rafter_max_spacing": 455,
+      "ridge_beam_width": 120,
+      "ridge_beam_depth": 60
+    },
+    "members": [
+      {
+        "name": "structure:F1:column_C01",
+        "bounds_mm": [
+          30.0,
+          30.0,
+          -80.0,
+          150.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C02",
+        "bounds_mm": [
+          7130.0,
+          30.0,
+          -80.0,
+          7250.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C03",
+        "bounds_mm": [
+          30.0,
+          7130.0,
+          -80.0,
+          150.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C04",
+        "bounds_mm": [
+          7130.0,
+          7130.0,
+          -80.0,
+          7250.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C05",
+        "bounds_mm": [
+          530.0,
+          30.0,
+          -80.0,
+          650.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C06",
+        "bounds_mm": [
+          3000.0,
+          30.0,
+          -80.0,
+          3120.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C07",
+        "bounds_mm": [
+          3580.0,
+          30.0,
+          -80.0,
+          3700.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C08",
+        "bounds_mm": [
+          6280.0,
+          30.0,
+          -80.0,
+          6400.0,
+          150.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C09",
+        "bounds_mm": [
+          530.0,
+          7130.0,
+          -80.0,
+          650.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C10",
+        "bounds_mm": [
+          3260.0,
+          7130.0,
+          -80.0,
+          3380.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C11",
+        "bounds_mm": [
+          3580.0,
+          7130.0,
+          -80.0,
+          3700.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C12",
+        "bounds_mm": [
+          4810.0,
+          7130.0,
+          -80.0,
+          4930.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C13",
+        "bounds_mm": [
+          5090.0,
+          7130.0,
+          -80.0,
+          5210.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C14",
+        "bounds_mm": [
+          30.0,
+          780.0,
+          -80.0,
+          150.0,
+          900.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C15",
+        "bounds_mm": [
+          30.0,
+          3300.0,
+          -80.0,
+          150.0,
+          3420.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C16",
+        "bounds_mm": [
+          30.0,
+          4270.0,
+          -80.0,
+          150.0,
+          4390.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C17",
+        "bounds_mm": [
+          30.0,
+          6200.0,
+          -80.0,
+          150.0,
+          6320.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C18",
+        "bounds_mm": [
+          7130.0,
+          1470.0,
+          -80.0,
+          7250.0,
+          1590.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C19",
+        "bounds_mm": [
+          7130.0,
+          2580.0,
+          -80.0,
+          7250.0,
+          2700.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C20",
+        "bounds_mm": [
+          7130.0,
+          3270.0,
+          -80.0,
+          7250.0,
+          3390.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C21",
+        "bounds_mm": [
+          7130.0,
+          4270.0,
+          -80.0,
+          7250.0,
+          4390.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C22",
+        "bounds_mm": [
+          7130.0,
+          6080.0,
+          -80.0,
+          7250.0,
+          6200.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C23",
+        "bounds_mm": [
+          7130.0,
+          6800.0,
+          -80.0,
+          7250.0,
+          6920.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C24",
+        "bounds_mm": [
+          2410.0,
+          4285.0,
+          -80.0,
+          2500.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C25",
+        "bounds_mm": [
+          3400.0,
+          4285.0,
+          -80.0,
+          3490.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C26",
+        "bounds_mm": [
+          3595.0,
+          4285.0,
+          -80.0,
+          3685.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C27",
+        "bounds_mm": [
+          3710.0,
+          4285.0,
+          -80.0,
+          3800.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C28",
+        "bounds_mm": [
+          4960.0,
+          4285.0,
+          -80.0,
+          5050.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C29",
+        "bounds_mm": [
+          5105.0,
+          4285.0,
+          -80.0,
+          5195.0,
+          4375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C30",
+        "bounds_mm": [
+          6105.0,
+          1485.0,
+          -80.0,
+          6195.0,
+          1575.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C31",
+        "bounds_mm": [
+          6105.0,
+          2110.0,
+          -80.0,
+          6195.0,
+          2200.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C32",
+        "bounds_mm": [
+          6105.0,
+          2900.0,
+          -80.0,
+          6195.0,
+          2990.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C33",
+        "bounds_mm": [
+          6105.0,
+          3285.0,
+          -80.0,
+          6195.0,
+          3375.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C34",
+        "bounds_mm": [
+          5105.0,
+          3315.0,
+          -80.0,
+          5195.0,
+          3405.0,
+          2476.0
+        ],
+        "volume_mm3": 20703600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C01",
+        "bounds_mm": [
+          30.0,
+          30.0,
+          2776.0,
+          150.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C02",
+        "bounds_mm": [
+          7130.0,
+          30.0,
+          2776.0,
+          7250.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C03",
+        "bounds_mm": [
+          30.0,
+          7130.0,
+          2776.0,
+          150.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C04",
+        "bounds_mm": [
+          7130.0,
+          7130.0,
+          2776.0,
+          7250.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C05",
+        "bounds_mm": [
+          530.0,
+          30.0,
+          2776.0,
+          650.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C06",
+        "bounds_mm": [
+          3000.0,
+          30.0,
+          2776.0,
+          3120.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C07",
+        "bounds_mm": [
+          3580.0,
+          30.0,
+          2776.0,
+          3700.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C08",
+        "bounds_mm": [
+          6280.0,
+          30.0,
+          2776.0,
+          6400.0,
+          150.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C09",
+        "bounds_mm": [
+          530.0,
+          7130.0,
+          2776.0,
+          650.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C10",
+        "bounds_mm": [
+          3260.0,
+          7130.0,
+          2776.0,
+          3380.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C11",
+        "bounds_mm": [
+          3580.0,
+          7130.0,
+          2776.0,
+          3700.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C12",
+        "bounds_mm": [
+          4810.0,
+          7130.0,
+          2776.0,
+          4930.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C13",
+        "bounds_mm": [
+          5090.0,
+          7130.0,
+          2776.0,
+          5210.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C14",
+        "bounds_mm": [
+          30.0,
+          780.0,
+          2776.0,
+          150.0,
+          900.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C15",
+        "bounds_mm": [
+          30.0,
+          3300.0,
+          2776.0,
+          150.0,
+          3420.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C16",
+        "bounds_mm": [
+          30.0,
+          4270.0,
+          2776.0,
+          150.0,
+          4390.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C17",
+        "bounds_mm": [
+          30.0,
+          6200.0,
+          2776.0,
+          150.0,
+          6320.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C18",
+        "bounds_mm": [
+          7130.0,
+          1470.0,
+          2776.0,
+          7250.0,
+          1590.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C19",
+        "bounds_mm": [
+          7130.0,
+          2580.0,
+          2776.0,
+          7250.0,
+          2700.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C20",
+        "bounds_mm": [
+          7130.0,
+          3270.0,
+          2776.0,
+          7250.0,
+          3390.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C21",
+        "bounds_mm": [
+          7130.0,
+          4270.0,
+          2776.0,
+          7250.0,
+          4390.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C22",
+        "bounds_mm": [
+          7130.0,
+          6080.0,
+          2776.0,
+          7250.0,
+          6200.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C23",
+        "bounds_mm": [
+          7130.0,
+          6800.0,
+          2776.0,
+          7250.0,
+          6920.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C24",
+        "bounds_mm": [
+          2410.0,
+          4285.0,
+          2776.0,
+          2500.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C25",
+        "bounds_mm": [
+          3400.0,
+          4285.0,
+          2776.0,
+          3490.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C26",
+        "bounds_mm": [
+          3595.0,
+          4285.0,
+          2776.0,
+          3685.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C27",
+        "bounds_mm": [
+          3710.0,
+          4285.0,
+          2776.0,
+          3800.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C28",
+        "bounds_mm": [
+          4960.0,
+          4285.0,
+          2776.0,
+          5050.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C29",
+        "bounds_mm": [
+          5105.0,
+          4285.0,
+          2776.0,
+          5195.0,
+          4375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C30",
+        "bounds_mm": [
+          6105.0,
+          1485.0,
+          2776.0,
+          6195.0,
+          1575.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C31",
+        "bounds_mm": [
+          6105.0,
+          2110.0,
+          2776.0,
+          6195.0,
+          2200.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C32",
+        "bounds_mm": [
+          6105.0,
+          2900.0,
+          2776.0,
+          6195.0,
+          2990.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C33",
+        "bounds_mm": [
+          6105.0,
+          3285.0,
+          2776.0,
+          6195.0,
+          3375.0,
+          5096.0
+        ],
+        "volume_mm3": 18792000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B01",
+        "bounds_mm": [
+          30.0,
+          30.0,
+          2476.0,
+          7250.0,
+          150.0,
+          2776.0
+        ],
+        "volume_mm3": 259920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B02",
+        "bounds_mm": [
+          30.0,
+          7130.0,
+          2476.0,
+          7250.0,
+          7250.0,
+          2776.0
+        ],
+        "volume_mm3": 259920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B03",
+        "bounds_mm": [
+          30.0,
+          150.0,
+          2476.0,
+          150.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 251280000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B04",
+        "bounds_mm": [
+          7130.0,
+          150.0,
+          2476.0,
+          7250.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 251280000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B05",
+        "bounds_mm": [
+          150.0,
+          3270.0,
+          2476.0,
+          7130.0,
+          3450.0,
+          2776.0
+        ],
+        "volume_mm3": 376920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B06",
+        "bounds_mm": [
+          150.0,
+          4285.0,
+          2476.0,
+          7130.0,
+          4375.0,
+          2776.0
+        ],
+        "volume_mm3": 188460000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B07",
+        "bounds_mm": [
+          5105.0,
+          150.0,
+          2476.0,
+          5195.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 181170000.0,
+        "solid_count": 3
+      },
+      {
+        "name": "structure:F1:beam_B08",
+        "bounds_mm": [
+          6150.0,
+          1485.0,
+          2476.0,
+          7130.0,
+          1575.0,
+          2776.0
+        ],
+        "volume_mm3": 26460000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B09",
+        "bounds_mm": [
+          6105.0,
+          1530.0,
+          2476.0,
+          6195.0,
+          3270.0,
+          2776.0
+        ],
+        "volume_mm3": 46372500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B01",
+        "bounds_mm": [
+          30.0,
+          30.0,
+          5096.0,
+          7250.0,
+          150.0,
+          5396.0
+        ],
+        "volume_mm3": 259920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B02",
+        "bounds_mm": [
+          30.0,
+          7130.0,
+          5096.0,
+          7250.0,
+          7250.0,
+          5396.0
+        ],
+        "volume_mm3": 259920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B03",
+        "bounds_mm": [
+          30.0,
+          150.0,
+          5096.0,
+          150.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 251280000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B04",
+        "bounds_mm": [
+          7130.0,
+          150.0,
+          5096.0,
+          7250.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 251280000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B05",
+        "bounds_mm": [
+          150.0,
+          3270.0,
+          5096.0,
+          7130.0,
+          3450.0,
+          5396.0
+        ],
+        "volume_mm3": 376920000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B06",
+        "bounds_mm": [
+          150.0,
+          4285.0,
+          5096.0,
+          7130.0,
+          4375.0,
+          5396.0
+        ],
+        "volume_mm3": 188460000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B07",
+        "bounds_mm": [
+          5105.0,
+          150.0,
+          5096.0,
+          5195.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 181170000.0,
+        "solid_count": 3
+      },
+      {
+        "name": "structure:F2:beam_B08",
+        "bounds_mm": [
+          6150.0,
+          1485.0,
+          5096.0,
+          7130.0,
+          1575.0,
+          5396.0
+        ],
+        "volume_mm3": 26460000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B09",
+        "bounds_mm": [
+          6105.0,
+          1530.0,
+          5096.0,
+          6195.0,
+          3270.0,
+          5396.0
+        ],
+        "volume_mm3": 46372500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B01",
+        "bounds_mm": [
+          30.0,
+          30.0,
+          -200.0,
+          7250.0,
+          150.0,
+          -80.0
+        ],
+        "volume_mm3": 103968000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B02",
+        "bounds_mm": [
+          30.0,
+          7130.0,
+          -200.0,
+          7250.0,
+          7250.0,
+          -80.0
+        ],
+        "volume_mm3": 103968000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B03",
+        "bounds_mm": [
+          30.0,
+          150.0,
+          -200.0,
+          150.0,
+          7130.0,
+          -80.0
+        ],
+        "volume_mm3": 100512000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B04",
+        "bounds_mm": [
+          7130.0,
+          150.0,
+          -200.0,
+          7250.0,
+          7130.0,
+          -80.0
+        ],
+        "volume_mm3": 100512000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B05",
+        "bounds_mm": [
+          150.0,
+          3270.0,
+          -200.0,
+          7130.0,
+          3450.0,
+          -80.0
+        ],
+        "volume_mm3": 150768000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B06",
+        "bounds_mm": [
+          150.0,
+          4285.0,
+          -200.0,
+          7130.0,
+          4375.0,
+          -80.0
+        ],
+        "volume_mm3": 75384000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B07",
+        "bounds_mm": [
+          5105.0,
+          150.0,
+          -200.0,
+          5195.0,
+          7130.0,
+          -80.0
+        ],
+        "volume_mm3": 72468000.0,
+        "solid_count": 3
+      },
+      {
+        "name": "structure:F1:sill_B08",
+        "bounds_mm": [
+          6150.0,
+          1485.0,
+          -200.0,
+          7130.0,
+          1575.0,
+          -80.0
+        ],
+        "volume_mm3": 10584000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:sill_B09",
+        "bounds_mm": [
+          6105.0,
+          1530.0,
+          -200.0,
+          6195.0,
+          3270.0,
+          -80.0
+        ],
+        "volume_mm3": 18549000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J01",
+        "bounds_mm": [
+          1800.0,
+          90.0,
+          5396.0,
+          1860.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J02",
+        "bounds_mm": [
+          2255.0,
+          90.0,
+          5396.0,
+          2315.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J04_south",
+        "bounds_mm": [
+          3150.0,
+          90.0,
+          5396.0,
+          3210.0,
+          3445.0,
+          5576.0
+        ],
+        "volume_mm3": 36234000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J04_north",
+        "bounds_mm": [
+          3150.0,
+          4215.0,
+          5396.0,
+          3210.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 32130000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J05_south",
+        "bounds_mm": [
+          3590.0,
+          90.0,
+          5396.0,
+          3650.0,
+          3445.0,
+          5576.0
+        ],
+        "volume_mm3": 35788500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J05_north",
+        "bounds_mm": [
+          3590.0,
+          4215.0,
+          5396.0,
+          3650.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 31684500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J07",
+        "bounds_mm": [
+          4377.5,
+          90.0,
+          5396.0,
+          4437.5,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J08",
+        "bounds_mm": [
+          4725.0,
+          90.0,
+          5396.0,
+          4785.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J09",
+        "bounds_mm": [
+          5072.5,
+          90.0,
+          5396.0,
+          5132.5,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:joist_J10",
+        "bounds_mm": [
+          5420.0,
+          90.0,
+          5396.0,
+          5480.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 76680000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:trimmer_west",
+        "bounds_mm": [
+          2680.0,
+          90.0,
+          5396.0,
+          2800.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 153360000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:trimmer_east",
+        "bounds_mm": [
+          4000.0,
+          90.0,
+          5396.0,
+          4120.0,
+          7190.0,
+          5576.0
+        ],
+        "volume_mm3": 153360000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:header_south",
+        "bounds_mm": [
+          2800.0,
+          3445.0,
+          5396.0,
+          4000.0,
+          3505.0,
+          5576.0
+        ],
+        "volume_mm3": 12960000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:header_north",
+        "bounds_mm": [
+          2800.0,
+          4155.0,
+          5396.0,
+          4000.0,
+          4215.0,
+          5576.0
+        ],
+        "volume_mm3": 12960000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:purlin_west",
+        "bounds_mm": [
+          1680.0,
+          -450.0,
+          6569.948452238571,
+          1800.0,
+          7730.0,
+          6699.230484541326
+        ],
+        "volume_mm3": 58896000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:purlin_east",
+        "bounds_mm": [
+          5480.0,
+          -450.0,
+          6569.948452238571,
+          5600.0,
+          7730.0,
+          6699.230484541326
+        ],
+        "volume_mm3": 58896000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:ridge_beam",
+        "bounds_mm": [
+          3580.0,
+          -450.0,
+          7701.554979850237,
+          3700.0,
+          7730.0,
+          7761.554979850237
+        ],
+        "volume_mm3": 58896000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_west_P01",
+        "bounds_mm": [
+          1695.0,
+          45.0,
+          5396.0,
+          1785.0,
+          135.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_west_P02",
+        "bounds_mm": [
+          1695.0,
+          4285.0,
+          5396.0,
+          1785.0,
+          4375.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_west_P03",
+        "bounds_mm": [
+          1695.0,
+          7145.0,
+          5396.0,
+          1785.0,
+          7235.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_east_P01",
+        "bounds_mm": [
+          5495.0,
+          45.0,
+          5396.0,
+          5585.0,
+          135.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_east_P02",
+        "bounds_mm": [
+          5495.0,
+          4285.0,
+          5396.0,
+          5585.0,
+          4375.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_east_P03",
+        "bounds_mm": [
+          5495.0,
+          7145.0,
+          5396.0,
+          5585.0,
+          7235.0,
+          6630.570230503482
+        ],
+        "volume_mm3": 9789574.693959,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_ridge_P01",
+        "bounds_mm": [
+          3595.0,
+          45.0,
+          5396.0,
+          3685.0,
+          135.0,
+          7701.554979850237
+        ],
+        "volume_mm3": 18674995.336787,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_ridge_P02",
+        "bounds_mm": [
+          3595.0,
+          7145.0,
+          5396.0,
+          3685.0,
+          7235.0,
+          7701.554979850237
+        ],
+        "volume_mm3": 18674995.336787,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R01",
+        "bounds_mm": [
+          -450.00000000000017,
+          -450.0,
+          5400.192378864668,
+          3580.0,
+          -390.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R01",
+        "bounds_mm": [
+          3700.0,
+          -450.0,
+          5400.192378864668,
+          7730.0,
+          -390.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R02",
+        "bounds_mm": [
+          -450.00000000000017,
+          1.1111111111110858,
+          5400.192378864668,
+          3580.0,
+          61.111111111111086,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R02",
+        "bounds_mm": [
+          3700.0,
+          1.1111111111110858,
+          5400.192378864668,
+          7730.0,
+          61.111111111111086,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R03",
+        "bounds_mm": [
+          -450.00000000000017,
+          452.2222222222222,
+          5400.192378864668,
+          3580.0,
+          512.2222222222222,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R03",
+        "bounds_mm": [
+          3700.0,
+          452.2222222222222,
+          5400.192378864668,
+          7730.0,
+          512.2222222222222,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R04",
+        "bounds_mm": [
+          -450.00000000000017,
+          903.3333333333333,
+          5400.192378864668,
+          3580.0,
+          963.3333333333333,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R04",
+        "bounds_mm": [
+          3700.0,
+          903.3333333333333,
+          5400.192378864668,
+          7730.0,
+          963.3333333333333,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R05",
+        "bounds_mm": [
+          -450.00000000000017,
+          1354.4444444444443,
+          5400.192378864668,
+          3580.0,
+          1414.4444444444443,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R05",
+        "bounds_mm": [
+          3700.0,
+          1354.4444444444443,
+          5400.192378864668,
+          7730.0,
+          1414.4444444444443,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R06",
+        "bounds_mm": [
+          -450.00000000000017,
+          1805.5555555555557,
+          5400.192378864668,
+          3580.0,
+          1865.5555555555557,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R06",
+        "bounds_mm": [
+          3700.0,
+          1805.5555555555557,
+          5400.192378864668,
+          7730.0,
+          1865.5555555555557,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R07",
+        "bounds_mm": [
+          -450.00000000000017,
+          2256.6666666666665,
+          5400.192378864668,
+          3580.0,
+          2316.6666666666665,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R07",
+        "bounds_mm": [
+          3700.0,
+          2256.6666666666665,
+          5400.192378864668,
+          7730.0,
+          2316.6666666666665,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R08",
+        "bounds_mm": [
+          -450.00000000000017,
+          2707.777777777778,
+          5400.192378864668,
+          3580.0,
+          2767.777777777778,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R08",
+        "bounds_mm": [
+          3700.0,
+          2707.777777777778,
+          5400.192378864668,
+          7730.0,
+          2767.777777777778,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R09",
+        "bounds_mm": [
+          -450.00000000000017,
+          3158.8888888888887,
+          5400.192378864668,
+          3580.0,
+          3218.8888888888887,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R09",
+        "bounds_mm": [
+          3700.0,
+          3158.8888888888887,
+          5400.192378864668,
+          7730.0,
+          3218.8888888888887,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R10",
+        "bounds_mm": [
+          -450.00000000000017,
+          3610.0,
+          5400.192378864668,
+          3580.0,
+          3670.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R10",
+        "bounds_mm": [
+          3700.0,
+          3610.0,
+          5400.192378864668,
+          7730.0,
+          3670.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R11",
+        "bounds_mm": [
+          -450.00000000000017,
+          4061.1111111111113,
+          5400.192378864668,
+          3580.0,
+          4121.111111111111,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R11",
+        "bounds_mm": [
+          3700.0,
+          4061.1111111111113,
+          5400.192378864668,
+          7730.0,
+          4121.111111111111,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R12",
+        "bounds_mm": [
+          -450.00000000000017,
+          4512.222222222223,
+          5400.192378864668,
+          3580.0,
+          4572.222222222223,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R12",
+        "bounds_mm": [
+          3700.0,
+          4512.222222222223,
+          5400.192378864668,
+          7730.0,
+          4572.222222222223,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R13",
+        "bounds_mm": [
+          -450.00000000000017,
+          4963.333333333333,
+          5400.192378864668,
+          3580.0,
+          5023.333333333333,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R13",
+        "bounds_mm": [
+          3700.0,
+          4963.333333333333,
+          5400.192378864668,
+          7730.0,
+          5023.333333333333,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R14",
+        "bounds_mm": [
+          -450.00000000000017,
+          5414.444444444444,
+          5400.192378864668,
+          3580.0,
+          5474.444444444444,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R14",
+        "bounds_mm": [
+          3700.0,
+          5414.444444444444,
+          5400.192378864668,
+          7730.0,
+          5474.444444444444,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R15",
+        "bounds_mm": [
+          -450.00000000000017,
+          5865.555555555556,
+          5400.192378864668,
+          3580.0,
+          5925.555555555556,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R15",
+        "bounds_mm": [
+          3700.0,
+          5865.555555555556,
+          5400.192378864668,
+          7730.0,
+          5925.555555555556,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R16",
+        "bounds_mm": [
+          -450.00000000000017,
+          6316.666666666667,
+          5400.192378864668,
+          3580.0,
+          6376.666666666667,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R16",
+        "bounds_mm": [
+          3700.0,
+          6316.666666666667,
+          5400.192378864668,
+          7730.0,
+          6376.666666666667,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R17",
+        "bounds_mm": [
+          -450.00000000000017,
+          6767.777777777777,
+          5400.192378864668,
+          3580.0,
+          6827.777777777777,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R17",
+        "bounds_mm": [
+          3700.0,
+          6767.777777777777,
+          5400.192378864668,
+          7730.0,
+          6827.777777777777,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R18",
+        "bounds_mm": [
+          -450.00000000000017,
+          7218.888888888889,
+          5400.192378864668,
+          3580.0,
+          7278.888888888889,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R18",
+        "bounds_mm": [
+          3700.0,
+          7218.888888888889,
+          5400.192378864668,
+          7730.0,
+          7278.888888888889,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_west_R19",
+        "bounds_mm": [
+          -450.00000000000017,
+          7670.0,
+          5400.192378864668,
+          3580.0,
+          7730.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:rafter_east_R19",
+        "bounds_mm": [
+          3700.0,
+          7670.0,
+          5400.192378864668,
+          7730.0,
+          7730.0,
+          7816.91396369886
+        ],
+        "volume_mm3": 21762000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW13",
+        "bounds_mm": [
+          150.0,
+          4375.0,
+          -80.0,
+          2455.0,
+          4380.0,
+          2776.0
+        ],
+        "volume_mm3": 32915400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW14",
+        "bounds_mm": [
+          5195.0,
+          4330.0,
+          -80.0,
+          5200.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 39916500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW15",
+        "bounds_mm": [
+          6195.0,
+          1530.0,
+          -80.0,
+          6200.0,
+          2155.0,
+          2776.0
+        ],
+        "volume_mm3": 8857500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW01",
+        "bounds_mm": [
+          90.0,
+          150.0,
+          -80.0,
+          590.0,
+          159.0,
+          2776.0
+        ],
+        "volume_mm3": 12690000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW02",
+        "bounds_mm": [
+          3060.0,
+          150.0,
+          -80.0,
+          3640.0,
+          159.0,
+          2776.0
+        ],
+        "volume_mm3": 14908320.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW03",
+        "bounds_mm": [
+          6340.0,
+          150.0,
+          -80.0,
+          7190.0,
+          159.0,
+          2776.0
+        ],
+        "volume_mm3": 21686400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW04",
+        "bounds_mm": [
+          90.0,
+          7121.0,
+          -80.0,
+          590.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 12690000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW05",
+        "bounds_mm": [
+          5150.0,
+          7121.0,
+          -80.0,
+          7190.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 52024140.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW06",
+        "bounds_mm": [
+          150.0,
+          90.0,
+          -80.0,
+          159.0,
+          840.0,
+          2776.0
+        ],
+        "volume_mm3": 18884664.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW07",
+        "bounds_mm": [
+          150.0,
+          3360.0,
+          -80.0,
+          159.0,
+          4330.0,
+          2776.0
+        ],
+        "volume_mm3": 24568380.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW08",
+        "bounds_mm": [
+          150.0,
+          6260.0,
+          -80.0,
+          159.0,
+          7190.0,
+          2776.0
+        ],
+        "volume_mm3": 23511384.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW09",
+        "bounds_mm": [
+          7121.0,
+          90.0,
+          -80.0,
+          7130.0,
+          1530.0,
+          2776.0
+        ],
+        "volume_mm3": 36498924.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW10",
+        "bounds_mm": [
+          7121.0,
+          2640.0,
+          -80.0,
+          7130.0,
+          3330.0,
+          2776.0
+        ],
+        "volume_mm3": 17573760.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW11",
+        "bounds_mm": [
+          7121.0,
+          3330.0,
+          -80.0,
+          7130.0,
+          4330.0,
+          2776.0
+        ],
+        "volume_mm3": 25258500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW12",
+        "bounds_mm": [
+          7121.0,
+          4330.0,
+          -80.0,
+          7130.0,
+          6140.0,
+          2776.0
+        ],
+        "volume_mm3": 46402740.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW13",
+        "bounds_mm": [
+          150.0,
+          4375.0,
+          2776.0,
+          2455.0,
+          4380.0,
+          5396.0
+        ],
+        "volume_mm3": 30195500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW14",
+        "bounds_mm": [
+          5195.0,
+          4330.0,
+          2776.0,
+          5200.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 36612500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW15",
+        "bounds_mm": [
+          6195.0,
+          1530.0,
+          2776.0,
+          6200.0,
+          2155.0,
+          5396.0
+        ],
+        "volume_mm3": 8120000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW01",
+        "bounds_mm": [
+          90.0,
+          150.0,
+          2776.0,
+          590.0,
+          159.0,
+          5396.0
+        ],
+        "volume_mm3": 11628000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW02",
+        "bounds_mm": [
+          3060.0,
+          150.0,
+          2776.0,
+          3640.0,
+          159.0,
+          5396.0
+        ],
+        "volume_mm3": 13676400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW03",
+        "bounds_mm": [
+          6340.0,
+          150.0,
+          2776.0,
+          7190.0,
+          159.0,
+          5396.0
+        ],
+        "volume_mm3": 19881000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW04",
+        "bounds_mm": [
+          90.0,
+          7121.0,
+          2776.0,
+          590.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 11628000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW05",
+        "bounds_mm": [
+          5150.0,
+          7121.0,
+          2776.0,
+          7190.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 47701800.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW06",
+        "bounds_mm": [
+          150.0,
+          90.0,
+          2776.0,
+          159.0,
+          840.0,
+          5396.0
+        ],
+        "volume_mm3": 17310780.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW07",
+        "bounds_mm": [
+          150.0,
+          3360.0,
+          2776.0,
+          159.0,
+          4330.0,
+          5396.0
+        ],
+        "volume_mm3": 22508100.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW08",
+        "bounds_mm": [
+          150.0,
+          6260.0,
+          2776.0,
+          159.0,
+          7190.0,
+          5396.0
+        ],
+        "volume_mm3": 21555180.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW09",
+        "bounds_mm": [
+          7121.0,
+          90.0,
+          2776.0,
+          7130.0,
+          1530.0,
+          5396.0
+        ],
+        "volume_mm3": 33459480.0,
+        "solid_count": 2
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW10",
+        "bounds_mm": [
+          7121.0,
+          2640.0,
+          2776.0,
+          7130.0,
+          3330.0,
+          5396.0
+        ],
+        "volume_mm3": 16108200.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW11",
+        "bounds_mm": [
+          7121.0,
+          3330.0,
+          2776.0,
+          7130.0,
+          4330.0,
+          5396.0
+        ],
+        "volume_mm3": 23134500.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW12",
+        "bounds_mm": [
+          7121.0,
+          4330.0,
+          2776.0,
+          7130.0,
+          6140.0,
+          5396.0
+        ],
+        "volume_mm3": 42558300.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:raft:slab",
+        "bounds_mm": [
+          0.0,
+          0.0,
+          -800.0,
+          7280.0,
+          7280.0,
+          -650.0
+        ],
+        "volume_mm3": 7949760000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:raft:entrance_footing",
+        "bounds_mm": [
+          5080.0,
+          -1900.0,
+          -800.0,
+          6580.0,
+          0.0,
+          -650.0
+        ],
+        "volume_mm3": 427500000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:stem_walls:south",
+        "bounds_mm": [
+          0.0,
+          0.0,
+          -650.0,
+          7280.0,
+          140.0,
+          -500.0
+        ],
+        "volume_mm3": 152880000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:stem_walls:north",
+        "bounds_mm": [
+          0.0,
+          7140.0,
+          -650.0,
+          7280.0,
+          7280.0,
+          -500.0
+        ],
+        "volume_mm3": 152880000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:stem_walls:west",
+        "bounds_mm": [
+          0.0,
+          140.0,
+          -650.0,
+          140.0,
+          7140.0,
+          -500.0
+        ],
+        "volume_mm3": 147000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:stem_walls:east",
+        "bounds_mm": [
+          7140.0,
+          140.0,
+          -650.0,
+          7280.0,
+          7140.0,
+          -500.0
+        ],
+        "volume_mm3": 147000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:existing_plinth:south",
+        "bounds_mm": [
+          0.0,
+          0.0,
+          -500.0,
+          7280.0,
+          140.0,
+          -200.0
+        ],
+        "volume_mm3": 305760000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:existing_plinth:north",
+        "bounds_mm": [
+          0.0,
+          7140.0,
+          -500.0,
+          7280.0,
+          7280.0,
+          -200.0
+        ],
+        "volume_mm3": 305760000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:existing_plinth:west",
+        "bounds_mm": [
+          0.0,
+          140.0,
+          -500.0,
+          140.0,
+          7140.0,
+          -200.0
+        ],
+        "volume_mm3": 294000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:existing_plinth:east",
+        "bounds_mm": [
+          7140.0,
+          140.0,
+          -500.0,
+          7280.0,
+          7140.0,
+          -200.0
+        ],
+        "volume_mm3": 294000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I01",
+        "bounds_mm": [
+          140.0,
+          3290.0,
+          -650.0,
+          7140.0,
+          3430.0,
+          -200.0
+        ],
+        "volume_mm3": 441000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I02",
+        "bounds_mm": [
+          140.0,
+          4260.0,
+          -650.0,
+          7140.0,
+          4400.0,
+          -200.0
+        ],
+        "volume_mm3": 441000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I03",
+        "bounds_mm": [
+          5080.0,
+          140.0,
+          -650.0,
+          5220.0,
+          7140.0,
+          -200.0
+        ],
+        "volume_mm3": 423360000.0,
+        "solid_count": 3
+      },
+      {
+        "name": "foundation:internal_supports:I04",
+        "bounds_mm": [
+          6150.0,
+          1460.0,
+          -650.0,
+          7140.0,
+          1600.0,
+          -200.0
+        ],
+        "volume_mm3": 62370000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I05",
+        "bounds_mm": [
+          6080.0,
+          1530.0,
+          -650.0,
+          6220.0,
+          3290.0,
+          -200.0
+        ],
+        "volume_mm3": 108675000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:entrance_supports:porch",
+        "bounds_mm": [
+          5080.0,
+          -1300.0,
+          -650.0,
+          6580.0,
+          0.0,
+          -200.0
+        ],
+        "volume_mm3": 877500000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:entrance_supports:upper_step",
+        "bounds_mm": [
+          5080.0,
+          -1600.0,
+          -650.0,
+          6580.0,
+          -1300.0,
+          -300.0
+        ],
+        "volume_mm3": 157500000.0,
+        "solid_count": 1
+      }
+    ],
+    "member_count": 204,
+    "source_same_city_geometry": true,
+    "city_specific_member_sizing": false,
+    "material_grade": null,
+    "manufacturing_specification": null,
+    "reinforcement_schedule": null,
+    "capacity_results": null,
+    "statutory_compliance_result": null,
+    "foundation_engineering_result": null,
+    "self_weight_design_result": null,
+    "assumptions": [
+      "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
+      "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
+      "The 7280 x 7280 mm original architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
+      "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
+      "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
+      "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
+      "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
+      "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
+      "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+      "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
+      "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
+      "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。"
+    ],
+    "coordination": {
+      "scope": "native solid aperture checks and column/pier footprints only; no strength or statutory assessment",
+      "status": "geometry_checks_passed_engineering_pending",
+      "summary": {
+        "zh": "沿用 R06 木结构草案；截面、节点与基础均未验算。",
+        "ja": "R06 の木造概念架構を継承。断面・接合部・基礎は未計算。",
+        "en": "Retains the R06 timber concept; sections, connections and foundations are uncalculated."
+      },
+      "apertures": [
+        {
+          "id": "F1:D01",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D02",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D03",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D04",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D05",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D06",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W01",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W02",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W03",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W04",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W05",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W06",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W07",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D21",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D22",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D23",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D24",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D25",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W01",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W02",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W03",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W04",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W05",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W06",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W07",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W08",
+          "kind": "window",
+          "overlaps": []
+        }
+      ],
+      "aperture_collisions": [],
+      "main_stair_collisions": [],
+      "attic_hatch_collisions": [],
+      "room_intrusions": [],
+      "exterior_outline_projections": [],
+      "original_building_outline_mm": [
+        0,
+        0,
+        7280,
+        7280
+      ],
+      "actual_exterior_frame_outline_mm": [
+        0,
+        0,
+        7280,
+        7280
+      ],
+      "room_net_clearance_certification": null,
+      "all_interior_fixtures_checked": false
+    },
+    "required_calculations": [
+      "site_actions_and_material_specific_self_weight",
+      "floor_attic_roof_and_storage_loads",
+      "seismic_wind_strength_and_torsion",
+      "member_bending_shear_axial_buckling_and_deflection",
+      "diaphragms_connections_anchors_and_opening_load_transfer",
+      "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
+    ],
+    "glb_export": {
+      "named_mesh_nodes": 204,
+      "all_nodes": 219
+    }
+  },
+  "project_inputs": {
+    "street_address_and_confirming_authority": null,
+    "surveyed_site_and_road_access": null,
+    "use_zoning_floor_area_ratio_building_coverage_height_and_setbacks": null,
+    "fire_and_quasi_fire_district_and_local_designation": null,
+    "ground_investigation_and_liquefaction": null,
+    "soil_bearing_settlement_and_foundation_level": null,
+    "site_elevation_snow_zone_terrain_and_wind_exposure": null,
+    "actual_dead_live_snow_wind_and_earthquake_loads": null,
+    "attic_use_area_access_and_authority_interpretation": null,
+    "material_grades_design_strengths_and_connections": null,
+    "selected_structural_calculation_route_and_designer": null
+  },
+  "required_system_checks": [
+    "Actual building weight and current required wall quantity/column-size rules",
+    "Wall distribution, torsion, diaphragm stiffness and storey drift",
+    "Beam/joist bending, shear, deflection and column stability",
+    "Sheathing specification, hold-down forces and certified joint capacities",
+    "Attic storage and concentrated loads; hatch headers and low-clearance access"
+  ],
+  "required_foundation_checks": [
+    "Recalculate gravity, lateral and uplift reactions for the selected system",
+    "Bearing, differential settlement, sliding, overturning and liquefaction",
+    "Foundation bending/shear, punching, reinforcement and anchor development",
+    "Drainage, waterproofing, frost/site conditions and adjacent foundations"
+  ],
+  "city_driven_member_sizing": false,
+  "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
+  "architectural_geometry_baseline": "R06-3D; user-confirmed R02 floor drawings are unchanged",
+  "architectural_coordination_result": null,
+  "capacity_results": null,
+  "statutory_compliance_result": null,
+  "building_confirmation_result": null
+}

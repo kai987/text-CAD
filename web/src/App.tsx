@@ -12,6 +12,7 @@ import { isThemePreference } from './theme-preferences';
 
 import { ModelProvider } from './ModelContext';
 import { modelCopy } from './model-copy';
+import { StructuralDesignProvider } from './StructuralDesignContext';
 
 export default function App() {
   const { locale, setLocale, copy: baseCopy } = useLanguage();
@@ -40,7 +41,7 @@ export default function App() {
     setPage(next);
     updateUrl(next, model);
   }
-  return <ModelProvider id={model}><div className="app-shell">
+  return <StructuralDesignProvider><ModelProvider id={model}><div className="app-shell">
     <a className="skip-link" href="#main-content">{copy.app.skip}</a>
     <header className="app-header">
       <a className="wordmark" href={import.meta.env.BASE_URL} aria-label={copy.app.home}>text-CAD</a>
@@ -90,5 +91,5 @@ export default function App() {
       {page === '1f' || page === '2f' ? <PlanPage key={`${model}-${page}`} floor={page === '1f' ? 1 : 2} /> :
         page === 'files' ? <DownloadPage /> : null}
     </main>
-  </div></ModelProvider>;
+  </div></ModelProvider></StructuralDesignProvider>;
 }

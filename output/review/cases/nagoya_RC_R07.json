@@ -1,0 +1,1413 @@
+{
+  "revision": "R07",
+  "case_id": "nagoya_RC",
+  "city_id": "nagoya",
+  "city_name": {
+    "zh": "名古屋市",
+    "ja": "名古屋市",
+    "en": "Nagoya city"
+  },
+  "system": "RC",
+  "status": "conditional_demonstration_not_engineered",
+  "purpose": "Compare candidate load paths and jurisdiction review inputs",
+  "model_paths": {
+    "glb": "GLB/structure_RC.glb",
+    "step": "STEP/structure_RC.step"
+  },
+  "model_hashes_sha256": {
+    "glb": "8bf68b3b717b33db1132cff37947fc88a17bd3bd5c31fc91275dc4ec7eeec272",
+    "step": "47aa323f0d8658806ab5007961b1c32ea576e782567b8f5d69e82b57d9298856"
+  },
+  "regulatory_reference": "output/review/regulatory_profiles_R07.json",
+  "structural_reference": "output/review/structural_variants_R07.json",
+  "regulatory_profile": {
+    "id": "nagoya",
+    "name": {
+      "zh": "名古屋市",
+      "ja": "名古屋市",
+      "en": "Nagoya city"
+    },
+    "authority": {
+      "zh": "名古屋市住宅都市局建筑审查课",
+      "ja": "名古屋市住宅都市局建築審査課",
+      "en": "Nagoya Housing and Urban Development Bureau, Building Review Division"
+    },
+    "jurisdiction_scope": {
+      "zh": "名古屋市；另查临海部防灾区域，不能把爱知县直管区域规定自动用于市审批。",
+      "ja": "名古屋市。臨海部防災区域も確認。県直管区域の規定を市の判断に自動適用しない。",
+      "en": "Nagoya city; coastal disaster districts need separate review. Prefecture-administered-area guidance is not automatically a city determination."
+    },
+    "environmental_parameters": {
+      "basic_wind_speed": {
+        "value": 34,
+        "unit": "m/s",
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市官方结构FAQ",
+          "ja": "名古屋市公式構造FAQ",
+          "en": "Nagoya city's official structural FAQ"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null
+      },
+      "snow_depth": {
+        "value": 300,
+        "unit": "mm",
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市细则第29条之2；市说明未指定多雪区域",
+          "ja": "名古屋市細則第29条の2。市説明では多雪区域指定なし",
+          "en": "Nagoya Article 29-2; city states no designated heavy-snow area"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null
+      },
+      "roughness": {
+        "value": null,
+        "unit": null,
+        "status": "pending_site_review",
+        "scope": {
+          "zh": "市未指定I或IV；须按告示确认II或III，尚未选定实际地址",
+          "ja": "市はI・IVを指定せず。告示によるII・III判定が必要。実住所未定",
+          "en": "City has no I/IV designation; determine II or III under the notification for the actual address"
+        },
+        "source_ids": [
+          "nagoya-city-structure"
+        ],
+        "adopted_project_value": null,
+        "possible_categories": [
+          "II",
+          "III"
+        ]
+      },
+      "seismic_z": {
+        "value": 1,
+        "unit": null,
+        "status": "verified_jurisdiction_reference",
+        "scope": {
+          "zh": "名古屋市官方FAQ；不是地盘系数或耐震等级",
+          "ja": "名古屋市公式FAQ。地盤係数や耐震等級ではない",
+          "en": "Nagoya's official FAQ; not a soil coefficient or seismic grade"
+        },
+        "source_ids": [
+          "nagoya-city-seismic-z"
+        ],
+        "adopted_project_value": null
+      }
+    },
+    "review_items": [
+      {
+        "id": "nagoya_zoning",
+        "text": {
+          "zh": "按地块核查用途地域、面积率、防火及高度指定。",
+          "ja": "敷地ごとに用途地域・面積率・防火・高度指定を確認する。",
+          "en": "Check parcel-specific zoning, area ratios, fire and height designations."
+        },
+        "source_ids": [
+          "nagoya-city-zoning"
+        ]
+      },
+      {
+        "id": "nagoya_coastal",
+        "text": {
+          "zh": "临海部防灾区域可能规定结构种类及住宅床标高，部分区域限制木造；模型Z=0尚未对应N.P.测量基准。",
+          "ja": "臨海部防災区域では構造や居住室の床高さの規定があり、一部区域は木造を制限。モデルZ=0はN.P.基準に未対応。",
+          "en": "Coastal disaster districts can regulate structure type and residential floor elevation, with timber restrictions in some areas. Model Z=0 is not tied to the N.P. survey datum."
+        },
+        "source_ids": [
+          "nagoya-city-coastal"
+        ]
+      },
+      {
+        "id": "nagoya_attic",
+        "text": {
+          "zh": "阁楼净高、余剰空间、投影面积、固定天花与检修梯的市取扱待咨询；未取得完整市条件，不能自动套用爱知县例规或宣布免计面积。",
+          "ja": "小屋裏の内法、余剰空間、投影面積、固定天井・点検梯子の市取扱いは相談待ち。市の全条件を未確認のため県例規の自動適用や不算入判定はしない。",
+          "en": "Consult the city about attic height, residual space, projected area, fixed ceiling and access ladder. Complete city conditions remain unconfirmed; no automatic prefectural-rule application or floor-area exemption determination."
+        },
+        "source_ids": [
+          "nagoya-city-handbook"
+        ]
+      }
+    ],
+    "pending_site_inputs": [
+      {
+        "id": "exact_address",
+        "text": {
+          "zh": "实际地块地址及所管行政庁",
+          "ja": "実際の敷地住所と所管行政庁",
+          "en": "Actual parcel address and responsible building authority"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "survey_and_roads",
+        "text": {
+          "zh": "测量、境界、道路性质与宽度、接道及退界",
+          "ja": "測量・境界・道路種別と幅員・接道・後退",
+          "en": "Survey, boundaries, road classification and width, access and setbacks"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "zoning_and_fire",
+        "text": {
+          "zh": "用途地域、面积率、高度／景观及防火指定",
+          "ja": "用途地域・面積率・高度／景観・防火指定",
+          "en": "Zoning, area ratios, height/landscape and fire designations"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "elevation_and_hazards",
+        "text": {
+          "zh": "地块标高、沿海／山地位置及灾害指定",
+          "ja": "敷地標高・海岸／山地条件と災害区域",
+          "en": "Parcel elevation, coastal/mountain conditions and hazard designations"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "ground_and_foundation",
+        "text": {
+          "zh": "地盘调查、容许支持力、沉降及基础形式",
+          "ja": "地盤調査・許容支持力・沈下・基礎形式",
+          "en": "Ground investigation, bearing capacity, settlement and foundation scheme"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "materials_and_connections",
+        "text": {
+          "zh": "材料等级、连接产品能力、耐火及耐久构造",
+          "ja": "材料等級・接合部の能力・耐火と耐久仕様",
+          "en": "Material grades, connection capacities, fire and durability details"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "loads_and_performance",
+        "text": {
+          "zh": "恒载、住宅及储物荷载、风雪地震作用与性能目标",
+          "ja": "固定・住宅／収納荷重・風雪地震作用・性能目標",
+          "en": "Dead, residential and storage loads, wind/snow/seismic actions and performance target"
+        },
+        "source_ids": []
+      },
+      {
+        "id": "attic_determination",
+        "text": {
+          "zh": "阁楼真实余剰空间、面积、天花、检修梯及用途认定",
+          "ja": "小屋裏の余剰空間・面積・天井・点検梯子・用途判断",
+          "en": "Attic residual-space origin, area, ceiling, ladder and use determination"
+        },
+        "source_ids": []
+      }
+    ],
+    "capacity_results": null,
+    "statutory_compliance_result": null,
+    "source_ids": [
+      "nagoya-city-structure",
+      "nagoya-city-seismic-z",
+      "nagoya-city-handbook",
+      "nagoya-city-zoning",
+      "nagoya-city-coastal"
+    ]
+  },
+  "national_regulatory_requirements": [
+    {
+      "id": "new_confirmation_scope",
+      "text": {
+        "zh": "2025-04-01起，结构无关的两层以上或延床面积>200㎡建筑原则上须建筑确认；本两层住宅需结构审查资料。",
+        "ja": "2025年4月1日から構造にかかわらず階数2以上又は延べ200㎡超は原則確認対象。本2階住宅は構造審査資料が必要。",
+        "en": "From 2025-04-01, buildings with two or more storeys or over 200m² generally require confirmation regardless of structure; this two-storey house needs structural review documentation."
+      },
+      "source_ids": [
+        "mlit-confirmation-2025"
+      ]
+    },
+    {
+      "id": "current_timber_rules",
+      "text": {
+        "zh": "木造壁量与柱小径按实际建筑重量等核定；旧基准过渡措施2026-03结束，2026-04-01以后开工不能直接沿用。",
+        "ja": "木造の壁量・柱小径は建物の重量等で確認。旧基準の経過措置は2026年3月に終了し、4月1日以降着工にそのまま適用できない。",
+        "en": "Timber wall quantity and column size require actual building-weight inputs. Old-rule transition ended in March 2026 and cannot simply be applied to starts from 2026-04-01."
+      },
+      "source_ids": [
+        "mlit-timber-current",
+        "mlit-timber-transition-2026"
+      ]
+    },
+    {
+      "id": "energy_obligation",
+      "text": {
+        "zh": "2025年4月起原則全部新建住宅须省能源基准适合；结构恒载应包含实际围护及设备。",
+        "ja": "2025年4月から原則全ての新築住宅に省エネ基準適合が必要。実際の外皮・設備を構造固定荷重に含める。",
+        "en": "New homes generally require energy-standard compliance from April 2025; structural dead loads must include the actual envelope and equipment."
+      },
+      "source_ids": [
+        "mlit-energy-2025"
+      ]
+    },
+    {
+      "id": "structural_design_basis",
+      "text": {
+        "zh": "结构、基础、材料、荷载组合与计算路线须按实际项目和现行法令告示设计；几何检查不等于承载结果。",
+        "ja": "構造・基礎・材料・荷重組合せと計算ルートは実計画と現行法令告示で設計する。幾何チェックは耐力結果ではない。",
+        "en": "Design structure, foundation, materials, load combinations and calculation route for the actual project under current legislation; geometry checks do not establish capacity."
+      },
+      "source_ids": [
+        "egov-building-law",
+        "egov-building-order"
+      ]
+    }
+  ],
+  "structural_scheme": {
+    "id": "RC",
+    "system": "RC",
+    "name": {
+      "zh": "钢筋混凝土结构（RC造）",
+      "ja": "鉄筋コンクリート造（RC造）",
+      "en": "Reinforced concrete (RC)"
+    },
+    "status": "demonstration_candidate_not_engineered",
+    "step_path": "STEP/structure_RC.step",
+    "glb_path": "GLB/structure_RC.glb",
+    "units": "mm",
+    "glb_units": "m",
+    "glb_up_axis": "Y",
+    "native_up_axis": "Z",
+    "parameters": {
+      "column_width": 300,
+      "beam_width": 300,
+      "beam_depth": 400,
+      "floor_slab_thickness": 180,
+      "attic_slab_thickness": 180,
+      "roof_slab_vertical_thickness": 120,
+      "shear_wall_thickness": 300,
+      "foundation_raft_thickness": 300,
+      "foundation_raft_top_z": -900,
+      "foundation_stem_width": 300,
+      "foundation_top_z": -200
+    },
+    "members": [
+      {
+        "name": "structure:F1:column_C01",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          -200.0,
+          180.0,
+          180.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C02",
+        "bounds_mm": [
+          7100.0,
+          -120.0,
+          -200.0,
+          7400.0,
+          180.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C03",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          -200.0,
+          180.0,
+          7400.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C04",
+        "bounds_mm": [
+          7100.0,
+          7100.0,
+          -200.0,
+          7400.0,
+          7400.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C05",
+        "bounds_mm": [
+          3490.0,
+          -120.0,
+          -200.0,
+          3790.0,
+          180.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C06",
+        "bounds_mm": [
+          3490.0,
+          7100.0,
+          -200.0,
+          3790.0,
+          7400.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C07",
+        "bounds_mm": [
+          -120.0,
+          3450.0,
+          -200.0,
+          180.0,
+          3750.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C08",
+        "bounds_mm": [
+          7100.0,
+          3450.0,
+          -200.0,
+          7400.0,
+          3750.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C01",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          2620.0,
+          180.0,
+          180.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C02",
+        "bounds_mm": [
+          7100.0,
+          -120.0,
+          2620.0,
+          7400.0,
+          180.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C03",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          2620.0,
+          180.0,
+          7400.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C04",
+        "bounds_mm": [
+          7100.0,
+          7100.0,
+          2620.0,
+          7400.0,
+          7400.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C05",
+        "bounds_mm": [
+          3490.0,
+          -120.0,
+          2620.0,
+          3790.0,
+          180.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C06",
+        "bounds_mm": [
+          3490.0,
+          7100.0,
+          2620.0,
+          3790.0,
+          7400.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C07",
+        "bounds_mm": [
+          -120.0,
+          3450.0,
+          2620.0,
+          180.0,
+          3750.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C08",
+        "bounds_mm": [
+          7100.0,
+          3450.0,
+          2620.0,
+          7400.0,
+          3750.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B01",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          2220.0,
+          7400.0,
+          180.0,
+          2620.0
+        ],
+        "volume_mm3": 902400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B02",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          2220.0,
+          7400.0,
+          7400.0,
+          2620.0
+        ],
+        "volume_mm3": 902400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B03",
+        "bounds_mm": [
+          -120.0,
+          180.0,
+          2220.0,
+          180.0,
+          7100.0,
+          2620.0
+        ],
+        "volume_mm3": 830400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:beam_B04",
+        "bounds_mm": [
+          7100.0,
+          180.0,
+          2220.0,
+          7400.0,
+          7100.0,
+          2620.0
+        ],
+        "volume_mm3": 830400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B01",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          5020.0,
+          7400.0,
+          180.0,
+          5420.0
+        ],
+        "volume_mm3": 902400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B02",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          5020.0,
+          7400.0,
+          7400.0,
+          5420.0
+        ],
+        "volume_mm3": 902400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B03",
+        "bounds_mm": [
+          -120.0,
+          180.0,
+          5020.0,
+          180.0,
+          7100.0,
+          5420.0
+        ],
+        "volume_mm3": 830400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:beam_B04",
+        "bounds_mm": [
+          7100.0,
+          180.0,
+          5020.0,
+          7400.0,
+          7100.0,
+          5420.0
+        ],
+        "volume_mm3": 830400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:slab_ground",
+        "bounds_mm": [
+          0.0,
+          0.0,
+          -180.0,
+          7280.0,
+          7280.0,
+          0.0
+        ],
+        "volume_mm3": 9477504000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:slab_floor",
+        "bounds_mm": [
+          0.0,
+          0.0,
+          2620.0,
+          7280.0,
+          7280.0,
+          2800.0
+        ],
+        "volume_mm3": 8397575999.999999,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:attic:slab_storage",
+        "bounds_mm": [
+          1800.0,
+          180.0,
+          5420.0,
+          5480.0,
+          7100.0,
+          5600.0
+        ],
+        "volume_mm3": 4443408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:shear_wall_SW01",
+        "bounds_mm": [
+          5000.0,
+          7100.0,
+          -200.0,
+          7100.0,
+          7400.0,
+          2220.0
+        ],
+        "volume_mm3": 1524600000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:shear_wall_SW02",
+        "bounds_mm": [
+          7100.0,
+          180.0,
+          -200.0,
+          7400.0,
+          1400.0,
+          2220.0
+        ],
+        "volume_mm3": 885720000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:shear_wall_SW01",
+        "bounds_mm": [
+          5000.0,
+          7100.0,
+          2620.0,
+          7100.0,
+          7400.0,
+          5020.0
+        ],
+        "volume_mm3": 1512000000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:shear_wall_SW02",
+        "bounds_mm": [
+          7100.0,
+          180.0,
+          2620.0,
+          7400.0,
+          1400.0,
+          5020.0
+        ],
+        "volume_mm3": 878400000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:slab_west",
+        "bounds_mm": [
+          -450.00000000000017,
+          -450.0,
+          5340.192378864668,
+          3640.0,
+          7730.0,
+          7821.554979850237
+        ],
+        "volume_mm3": 4014744000.000003,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:slab_east",
+        "bounds_mm": [
+          3640.0,
+          -450.0,
+          5340.192378864668,
+          7730.0,
+          7730.0,
+          7821.554979850237
+        ],
+        "volume_mm3": 4014744000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:gable_shear_south",
+        "bounds_mm": [
+          -2.0997171684211655e-13,
+          -120.0,
+          5420.0,
+          7280.0,
+          180.0,
+          7701.554979850237
+        ],
+        "volume_mm3": 2688018037.996459,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:gable_shear_north",
+        "bounds_mm": [
+          -2.0997171684211655e-13,
+          7100.0,
+          5420.0,
+          7280.0,
+          7400.0,
+          7701.554979850237
+        ],
+        "volume_mm3": 2688018037.996459,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:raft:slab",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          -1200.0,
+          7400.0,
+          7400.0,
+          -900.0
+        ],
+        "volume_mm3": 16965120000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:stem_walls:perimeter",
+        "bounds_mm": [
+          -120.0,
+          -120.0,
+          -900.0,
+          7400.0,
+          7400.0,
+          -200.0
+        ],
+        "volume_mm3": 6064800000.000005,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I01",
+        "bounds_mm": [
+          180.0,
+          3210.0,
+          -900.0,
+          7100.0,
+          3510.0,
+          -200.0
+        ],
+        "volume_mm3": 1453200000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I02",
+        "bounds_mm": [
+          180.0,
+          4180.0,
+          -900.0,
+          7100.0,
+          4480.0,
+          -200.0
+        ],
+        "volume_mm3": 1453200000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I03",
+        "bounds_mm": [
+          5000.0,
+          180.0,
+          -900.0,
+          5300.0,
+          7100.0,
+          -200.0
+        ],
+        "volume_mm3": 1327200000.0,
+        "solid_count": 3
+      },
+      {
+        "name": "foundation:internal_supports:I04",
+        "bounds_mm": [
+          6150.0,
+          1380.0,
+          -900.0,
+          7100.0,
+          1680.0,
+          -200.0
+        ],
+        "volume_mm3": 199500000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I05",
+        "bounds_mm": [
+          6000.0,
+          1530.0,
+          -900.0,
+          6300.0,
+          3210.0,
+          -200.0
+        ],
+        "volume_mm3": 337050000.0,
+        "solid_count": 1
+      }
+    ],
+    "member_count": 42,
+    "source_same_city_geometry": true,
+    "city_specific_member_sizing": false,
+    "material_grade": null,
+    "manufacturing_specification": null,
+    "reinforcement_schedule": null,
+    "capacity_results": null,
+    "statutory_compliance_result": null,
+    "foundation_engineering_result": null,
+    "self_weight_design_result": null,
+    "assumptions": [
+      "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
+      "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
+      "The 7280 x 7280 mm original architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
+      "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
+      "300 mm perimeter columns/beam bands extend 120 mm outside each original 7280 mm face; structural perimeter is 7520 x 7520 mm and exterior/site/area coordination remains pending.",
+      "180 mm floor and attic slabs, 120 mm vertical roof slabs, 300 mm columns and 300 x 400 mm beams are assumed drawing sizes only; beam depth was reduced from 450 to 400 mm solely to clear existing 2200 mm window tops, not as a strength calculation.",
+      "RC self-weight, attic/storage loading, concrete/rebar strengths, reinforcing layout, punching shear, deflection and seismic detailing require an independent RC calculation, not timber load inheritance.",
+      "The two shear piers are spatial candidates only; their quantity, distribution, ductility, diaphragm anchorage and torsional performance are unresolved.",
+      "The sloped concrete roof/cantilever eaves and storage-attic slab require dedicated checks; hatch depth differs from the timber hatch hardware and product coordination is pending.",
+      "The north-east stair slab void extends through the outer wall band to the separate perimeter beams, avoiding an invalid point-contact slab corner. The approved stair travel footprint remains clear; slab edges and beam/slab anchorage are unengineered.",
+      "No reinforcing bars are rendered, avoiding an appearance of a designed reinforcing cage."
+    ],
+    "coordination": {
+      "scope": "native solid aperture checks and column/pier footprints only; no strength or statutory assessment",
+      "status": "architectural_coordination_pending",
+      "summary": {
+        "zh": "300×300 mm 混凝土柱及300×400 mm梁保持原有室内边界，向原外轮廓各侧伸出 120 mm；外墙及建筑面积需重新协调。未绘制或验算配筋。",
+        "ja": "300×300 mmのRC柱と300×400 mmの梁は室内境界を保持し、元の外形から各面 120 mm 突出。外壁・建築面積の再調整が必要。配筋図・配筋計算は未実施。",
+        "en": "300×300 mm RC columns and 300×400 mm beams retain the interior perimeter faces but project 120 mm outside each original face; façade and building area need coordination. Reinforcement is neither drawn nor calculated."
+      },
+      "apertures": [
+        {
+          "id": "F1:D01",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D02",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D03",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D04",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D05",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D06",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W01",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W02",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W03",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W04",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W05",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W06",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F1:W07",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D21",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D22",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D23",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D24",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D25",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W01",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W02",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W03",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W04",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W05",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W06",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W07",
+          "kind": "window",
+          "overlaps": []
+        },
+        {
+          "id": "F2:W08",
+          "kind": "window",
+          "overlaps": []
+        }
+      ],
+      "aperture_collisions": [],
+      "main_stair_collisions": [],
+      "attic_hatch_collisions": [],
+      "room_intrusions": [],
+      "exterior_outline_projections": [
+        {
+          "member": "structure:F1:column_C01",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            -120.0,
+            -200.0,
+            180.0,
+            180.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C02",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            7100.0,
+            -120.0,
+            -200.0,
+            7400.0,
+            180.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C03",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            -200.0,
+            180.0,
+            7400.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C04",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            7100.0,
+            7100.0,
+            -200.0,
+            7400.0,
+            7400.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C05",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            3490.0,
+            -120.0,
+            -200.0,
+            3790.0,
+            180.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C06",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            3490.0,
+            7100.0,
+            -200.0,
+            3790.0,
+            7400.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C07",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            -120.0,
+            3450.0,
+            -200.0,
+            180.0,
+            3750.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:column_C08",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            7100.0,
+            3450.0,
+            -200.0,
+            7400.0,
+            3750.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C01",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            -120.0,
+            2620.0,
+            180.0,
+            180.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C02",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            7100.0,
+            -120.0,
+            2620.0,
+            7400.0,
+            180.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C03",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            2620.0,
+            180.0,
+            7400.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C04",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            7100.0,
+            7100.0,
+            2620.0,
+            7400.0,
+            7400.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C05",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            3490.0,
+            -120.0,
+            2620.0,
+            3790.0,
+            180.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C06",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            3490.0,
+            7100.0,
+            2620.0,
+            3790.0,
+            7400.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C07",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            -120.0,
+            3450.0,
+            2620.0,
+            180.0,
+            3750.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:column_C08",
+          "outside_original_outline_mm2": 36000.0,
+          "bounds_mm": [
+            7100.0,
+            3450.0,
+            2620.0,
+            7400.0,
+            3750.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F1:beam_B01",
+          "outside_original_outline_mm2": 945600.0,
+          "bounds_mm": [
+            -120.0,
+            -120.0,
+            2220.0,
+            7400.0,
+            180.0,
+            2620.0
+          ]
+        },
+        {
+          "member": "structure:F1:beam_B02",
+          "outside_original_outline_mm2": 945600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            2220.0,
+            7400.0,
+            7400.0,
+            2620.0
+          ]
+        },
+        {
+          "member": "structure:F1:beam_B03",
+          "outside_original_outline_mm2": 830400.0,
+          "bounds_mm": [
+            -120.0,
+            180.0,
+            2220.0,
+            180.0,
+            7100.0,
+            2620.0
+          ]
+        },
+        {
+          "member": "structure:F1:beam_B04",
+          "outside_original_outline_mm2": 830400.0,
+          "bounds_mm": [
+            7100.0,
+            180.0,
+            2220.0,
+            7400.0,
+            7100.0,
+            2620.0
+          ]
+        },
+        {
+          "member": "structure:F2:beam_B01",
+          "outside_original_outline_mm2": 945600.0,
+          "bounds_mm": [
+            -120.0,
+            -120.0,
+            5020.0,
+            7400.0,
+            180.0,
+            5420.0
+          ]
+        },
+        {
+          "member": "structure:F2:beam_B02",
+          "outside_original_outline_mm2": 945600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            5020.0,
+            7400.0,
+            7400.0,
+            5420.0
+          ]
+        },
+        {
+          "member": "structure:F2:beam_B03",
+          "outside_original_outline_mm2": 830400.0,
+          "bounds_mm": [
+            -120.0,
+            180.0,
+            5020.0,
+            180.0,
+            7100.0,
+            5420.0
+          ]
+        },
+        {
+          "member": "structure:F2:beam_B04",
+          "outside_original_outline_mm2": 830400.0,
+          "bounds_mm": [
+            7100.0,
+            180.0,
+            5020.0,
+            7400.0,
+            7100.0,
+            5420.0
+          ]
+        },
+        {
+          "member": "structure:F1:shear_wall_SW01",
+          "outside_original_outline_mm2": 252000.0,
+          "bounds_mm": [
+            5000.0,
+            7100.0,
+            -200.0,
+            7100.0,
+            7400.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F1:shear_wall_SW02",
+          "outside_original_outline_mm2": 146400.0,
+          "bounds_mm": [
+            7100.0,
+            180.0,
+            -200.0,
+            7400.0,
+            1400.0,
+            2220.0
+          ]
+        },
+        {
+          "member": "structure:F2:shear_wall_SW01",
+          "outside_original_outline_mm2": 252000.0,
+          "bounds_mm": [
+            5000.0,
+            7100.0,
+            2620.0,
+            7100.0,
+            7400.0,
+            5020.0
+          ]
+        },
+        {
+          "member": "structure:F2:shear_wall_SW02",
+          "outside_original_outline_mm2": 146400.0,
+          "bounds_mm": [
+            7100.0,
+            180.0,
+            2620.0,
+            7400.0,
+            1400.0,
+            5020.0
+          ]
+        }
+      ],
+      "original_building_outline_mm": [
+        0,
+        0,
+        7280,
+        7280
+      ],
+      "actual_exterior_frame_outline_mm": [
+        -120,
+        -120,
+        7400,
+        7400
+      ],
+      "room_net_clearance_certification": null,
+      "all_interior_fixtures_checked": false
+    },
+    "required_calculations": [
+      "site_actions_and_material_specific_self_weight",
+      "floor_attic_roof_and_storage_loads",
+      "seismic_wind_strength_and_torsion",
+      "member_bending_shear_axial_buckling_and_deflection",
+      "diaphragms_connections_anchors_and_opening_load_transfer",
+      "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
+    ],
+    "glb_export": {
+      "named_mesh_nodes": 42,
+      "all_nodes": 52
+    }
+  },
+  "project_inputs": {
+    "street_address_and_confirming_authority": null,
+    "surveyed_site_and_road_access": null,
+    "use_zoning_floor_area_ratio_building_coverage_height_and_setbacks": null,
+    "fire_and_quasi_fire_district_and_local_designation": null,
+    "ground_investigation_and_liquefaction": null,
+    "soil_bearing_settlement_and_foundation_level": null,
+    "site_elevation_snow_zone_terrain_and_wind_exposure": null,
+    "actual_dead_live_snow_wind_and_earthquake_loads": null,
+    "attic_use_area_access_and_authority_interpretation": null,
+    "material_grades_design_strengths_and_connections": null,
+    "selected_structural_calculation_route_and_designer": null
+  },
+  "required_system_checks": [
+    "Concrete and reinforcement grades; actual self-weight and mass model",
+    "Column/beam axial-bending interaction, shear, joint forces and ductility",
+    "Slab/hatch reinforcement, deflection, cracking and diaphragm transfer",
+    "Shear-wall arrangement, torsion, drift and applicable structural calculation route",
+    "Rebar layout, anchorage, splices, cover, durability and construction joints",
+    "Architectural coordination of thick members with rooms, openings and attic clearance"
+  ],
+  "required_foundation_checks": [
+    "Recalculate gravity, lateral and uplift reactions for the selected system",
+    "Bearing, differential settlement, sliding, overturning and liquefaction",
+    "Foundation bending/shear, punching, reinforcement and anchor development",
+    "Drainage, waterproofing, frost/site conditions and adjacent foundations"
+  ],
+  "city_driven_member_sizing": false,
+  "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
+  "architectural_geometry_baseline": "R06-3D; user-confirmed R02 floor drawings are unchanged",
+  "architectural_coordination_result": null,
+  "capacity_results": null,
+  "statutory_compliance_result": null,
+  "building_confirmation_result": null
+}

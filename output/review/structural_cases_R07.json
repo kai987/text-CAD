@@ -1,0 +1,141 @@
+{
+  "revision": "R07",
+  "case_count": 12,
+  "cases": [
+    {
+      "id": "tokyo_W",
+      "city_id": "tokyo",
+      "system": "W",
+      "path": "output/review/cases/tokyo_W_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_W.glb",
+        "step": "STEP/structure_W.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "tokyo_S",
+      "city_id": "tokyo",
+      "system": "S",
+      "path": "output/review/cases/tokyo_S_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_S.glb",
+        "step": "STEP/structure_S.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "tokyo_RC",
+      "city_id": "tokyo",
+      "system": "RC",
+      "path": "output/review/cases/tokyo_RC_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_RC.glb",
+        "step": "STEP/structure_RC.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "osaka_W",
+      "city_id": "osaka",
+      "system": "W",
+      "path": "output/review/cases/osaka_W_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_W.glb",
+        "step": "STEP/structure_W.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "osaka_S",
+      "city_id": "osaka",
+      "system": "S",
+      "path": "output/review/cases/osaka_S_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_S.glb",
+        "step": "STEP/structure_S.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "osaka_RC",
+      "city_id": "osaka",
+      "system": "RC",
+      "path": "output/review/cases/osaka_RC_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_RC.glb",
+        "step": "STEP/structure_RC.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "kyoto_W",
+      "city_id": "kyoto",
+      "system": "W",
+      "path": "output/review/cases/kyoto_W_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_W.glb",
+        "step": "STEP/structure_W.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "kyoto_S",
+      "city_id": "kyoto",
+      "system": "S",
+      "path": "output/review/cases/kyoto_S_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_S.glb",
+        "step": "STEP/structure_S.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "kyoto_RC",
+      "city_id": "kyoto",
+      "system": "RC",
+      "path": "output/review/cases/kyoto_RC_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_RC.glb",
+        "step": "STEP/structure_RC.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "nagoya_W",
+      "city_id": "nagoya",
+      "system": "W",
+      "path": "output/review/cases/nagoya_W_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_W.glb",
+        "step": "STEP/structure_W.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "nagoya_S",
+      "city_id": "nagoya",
+      "system": "S",
+      "path": "output/review/cases/nagoya_S_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_S.glb",
+        "step": "STEP/structure_S.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    },
+    {
+      "id": "nagoya_RC",
+      "city_id": "nagoya",
+      "system": "RC",
+      "path": "output/review/cases/nagoya_RC_R07.json",
+      "model_paths": {
+        "glb": "GLB/structure_RC.glb",
+        "step": "STEP/structure_RC.step"
+      },
+      "status": "conditional_demonstration_not_engineered"
+    }
+  ],
+  "status": "conditional_demonstration_not_engineered",
+  "capacity_results": null,
+  "statutory_compliance_result": null
+}

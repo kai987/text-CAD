@@ -34,7 +34,8 @@ def original_report(floor,model_id,p):
         add(f'{item.room}:{item.id}:inside_room',rooms[item.room].shape.buffer(.001).covers(shape),list(shape.bounds))
         add(f'{item.room}:{item.id}:clear_walls',floor.walls.intersection(shape).area<.001)
         for name,bounds in floor.fixtures:
-            if name=='ベッド':continue
+            # R09 plan furniture symbols represent these same physical objects.
+            if name in ({'ベッド','ソファ','TV','ダイニング','ベッド 1400','ベッド 1000'} if model_id=='house' else {'ベッド'}):continue
             add(f'{item.room}:{item.id}:clear_fixture:{name}:{bounds}',shape.intersection(box(*bounds)).area<.001)
         for name,zone in furniture.clearance_zones(floor,model_id,p):
             add(f'{item.room}:{item.id}:clear_zone:{name}',shape.intersection(zone).area<.001)
@@ -67,7 +68,7 @@ class FurnitureClearanceTests(unittest.TestCase):
         return expected
 
     def test_all_actual_layouts_keep_every_original_row_name_order_evidence_and_decision(self):
-        layouts=[('house',floor_plan(1),HOUSE,111),('house',floor_plan(2),HOUSE,54),
+        layouts=[('house',floor_plan(1),HOUSE,141),('house',floor_plan(2),HOUSE,51),
                  ('apartment',apartment_plan()[0],APARTMENT,228)]
         for model,floor,p,count in layouts:
             rows=self.assert_reports_equal(floor,model,p)
@@ -80,8 +81,8 @@ class FurnitureClearanceTests(unittest.TestCase):
         self.assert_reports_equal(floor_plan(2),'house',HOUSE)
 
     def test_blocking_a_hinged_door_and_its_entry_approach_is_rejected(self):
-        for zone_name in ('D21:door_sweep','D21:master:650mm_approach'):
-            floor=floor_plan(2)
+        for zone_name in ('D02:door_sweep','D02:ldk:650mm_approach'):
+            floor=floor_plan(1)
             zone=dict(furniture.clearance_zones(floor,'house',HOUSE))[zone_name]
             point=zone.representative_point()
             placements=furniture.furniture_placements(floor,'house',HOUSE)
@@ -90,7 +91,7 @@ class FurnitureClearanceTests(unittest.TestCase):
                 self.assert_reports_equal(floor,'house',HOUSE,expect_fail=f'clear_zone:{zone_name}')
 
     def test_wardrobe_kitchen_routes_and_balcony_landings_reject_obstructions(self):
-        scenarios=[('house',2,HOUSE,'wardrobe_0:650mm_front','master'),
+        scenarios=[('house',2,HOUSE,'wardrobe_1:650mm_front','master'),
                    ('house',1,HOUSE,'kitchen:900mm_working_front','ldk'),
                    ('house',1,HOUSE,'ldk:route_1:650mm','ldk'),
                    ('apartment',1,APARTMENT,'balcony_slider_900:800mm_landing','ldk'),

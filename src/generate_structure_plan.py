@@ -1,4 +1,4 @@
-"""R06 editable A3 structural demonstration supplement (two sheets).
+"""R09 editable A3 structural demonstration supplement (two sheets).
 
 Approved architectural floor plans stay unchanged. Every section is a drawing
 input; this supplement contains no strength result or construction detail.
@@ -21,6 +21,7 @@ from lib.house_geometry import G
 from lib.attic_geometry import A, attic_dimensions, roof_underside_z
 from lib.structure_geometry import T, structure_manifest, structure_dimensions
 from lib.jp_drafting import LAYERS
+from shapely.geometry import box
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -63,10 +64,10 @@ def generate():
     path.parent.mkdir(parents=True,exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     pdf=canvas.Canvas(str(path),pagesize=(420*mm,297*mm),invariant=1)
-    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R06 / Demonstration only')
+    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R09 / Demonstration only')
     pdf.setAuthor('text-CAD')
     d=StructureDrawing(pdf)
-    d.doc.ezdxf_metadata()['REVISION']='R06-STRUCTURE'
+    d.doc.ezdxf_metadata()['REVISION']='R09-STRUCTURE'
     d.doc.ezdxf_metadata()['SCOPE']='構造候補の説明図。断面はデモ入力。構造計算・施工図・法規判定ではない。'
     d.doc.ezdxf_metadata()['SCALE']='Sheet 01 1:50; Sheet 02 1:75; labelled foundation section 1:25'
     d.doc.header['$PSLTSCALE']=0
@@ -122,11 +123,14 @@ def generate():
         walls=list(f.walls.geoms) if hasattr(f.walls,'geoms') else [f.walls]
         for wall in walls:
             d.poly([(x+xoff,y) for x,y in wall.exterior.coords],'FURNITURE')
-        for b in manifest['beam_axes']:
-            d.rect(shifted(axis_bounds(b),xoff),'DOOR')
+        for b in manifest['floor_beam_axes'][f'F{floor}']:
+            footprint=box(*axis_bounds(b))
+            if floor==2:footprint=footprint.difference(box(A.hatch_x,A.hatch_y,A.hatch_x+A.hatch_length,A.hatch_y+A.hatch_width))
+            for piece in ([footprint] if footprint.geom_type=='Polygon' else footprint.geoms):
+                if not piece.is_empty:d.poly([(x+xoff,y) for x,y in piece.exterior.coords],'DOOR')
             along=(b['start']+b['end'])/2
             at=(along,b['at']) if b['axis']=='h' else (b['at'],along)
-            if b['id'] in ('B01','B02','B05','B06','B07'):
+            if b['id'] in ('B01','B02','B05','B06','B07','B12','B13','B14'):
                 label_x,label_y=at[0],at[1]+250
                 if b['id']=='B01':label_x=4000;label_y=500
                 if b['id']=='B02':label_x=4000;label_y=P.depth-300
@@ -155,12 +159,12 @@ def generate():
         d.dim((xoff,0),(xoff,P.depth),(xoff-700,0),90)
         d.text(f'柱: 外周120角 / 内部90角 / 梁: 120・90・180 × H300',(xoff+3640,-650),100)
         d.text('断面寸法はデモ入力。材種・等級・壁倍率・接合耐力は未設定。',(xoff+3640,-950),100)
-    d.text('木造軸組 候補構造図 / R06',(0,10800),250,align='left')
-    d.text('単位 mm / A3 / 確認済み平面を保持 / 演示方案・構造計算未実施 / 2026-10-06',(0,10300),125,align='left')
+    d.text('木造軸組 候補構造図 / R09',(0,10800),250,align='left')
+    d.text('単位 mm / A3 / 確認済み平面を保持 / 演示方案・構造計算未実施 / 2026-10-07',(0,10300),125,align='left')
     for i,text in enumerate([
         'C：柱 / B：梁 / BW：耐力壁候補（倍率未設定）。必要壁量・偏心・耐震等級を示さない。',
         'B05：LDK上部の長スパン梁候補。2階壁荷重・たわみ・接合部を含め再設計が必要。',
-        '柱位置は両階の閉じた壁内。1階のみのC34は梁支持候補。開口・階段・室内動線は維持。',
+        '柱位置は両階の閉じた壁内。検修口下はB12〜B14で幾何調整。部材・接合耐力は未計算。',
     ]):d.text(text,(0,-1400-i*240),105,align='left')
     frame('STRUCTURE_01_A3_1_50',50,(38,55))
     pdf.showPage()
@@ -171,7 +175,7 @@ def generate():
     def line(a,b,layer='FURNITURE'):d.line((a[0],a[1]+offset),(b[0],b[1]+offset),layer)
     def rect(bounds,layer='FURNITURE'):d.rect(shifted(bounds,0,offset),layer)
     def dim(a,b,base,angle=0):d.dim((a[0],a[1]+offset),(b[0],b[1]+offset),(base[0],base[1]+offset),angle)
-    text('基礎支持線・小屋裏床組 候補図 / R06',(0,10800),375,align='left')
+    text('基礎支持線・小屋裏床組 候補図 / R09',(0,10800),375,align='left')
     text('単位 mm / A3 / 平面・断面1:75 / 基礎参考断面のみ1:25 / 全寸法はデモ入力',(0,10000),187.5,align='left')
     text('01 基礎支持線候補 / 1:75',(3640,8500),262.5)
     text('02 小屋裏床組・検修口 / 1:75',(14140,8500),262.5)
@@ -187,7 +191,7 @@ def generate():
     for c in manifest['columns']:
         h=c['width']/2;rect((c['x']-h,c['y']-h,c['x']+h,c['y']+h),'WALL')
     dim((0,P.depth),(P.width,P.depth),(0,7800))
-    text('I01～I05：内側支持肋 / 幅140 / 上端Z=-200（仮定）',(3640,-500),180)
+    text('I01～I07：内側支持肋 / 幅140 / 上端Z=-200（仮定）',(3640,-500),180)
     text('地盤・反力・配筋・沈下を計算して断面を決める。',(3640,-850),165)
     sx=10500;ad=attic_dimensions(P,G)
     rect((sx+sd['deck_left'],A.deck_end_inset,sx+sd['deck_right'],P.depth-A.deck_end_inset),'WALL')

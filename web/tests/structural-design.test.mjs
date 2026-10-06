@@ -103,8 +103,8 @@ test('real S and RC sections preserve the steel core, stairwell and attic hatch 
   const steelNodes = bindCadNodes(steel), rcNodes = bindCadNodes(concrete);
   const examples = [
     { name: 'structure:F1:column_C01', mesh: steelNodes.get('structure:F1:column_C01'), height: 1.4, empty: { x: .09, z: -.09 }, area: .12 ** 2 - (.12 - 2 * .0023) ** 2 },
-    { name: 'structure:F2:slab_floor', mesh: rcNodes.get('structure:F2:slab_floor'), height: 2.7, empty: { x: 6.15, z: -5.74 } },
-    { name: 'structure:attic:slab_storage', mesh: rcNodes.get('structure:attic:slab_storage'), height: 5.5, empty: { x: 3.4, z: -3.83 } },
+    { name: 'structure:F2:slab_floor', mesh: rcNodes.get('structure:F2:slab_floor'), height: 2.7, empty: { x: 7.06, z: -5.74 } },
+    { name: 'structure:attic:slab_storage', mesh: rcNodes.get('structure:attic:slab_storage'), height: 5.5, empty: { x: 4.7, z: -3.83 } },
   ];
   function inspect(mesh, geometry, point) {
     const positions = geometry.getAttribute('position');

@@ -55,25 +55,16 @@ def _attic():
 
 
 def foundation_support_segments(p):
-    """Candidate internal foundation axes; endpoints are mm, not clear spans.
-
-    Root site integration unions/intersects these ribs with its perimeter and
-    raft. Width, reinforcement, bearing pressure and founding depth remain
-    uncalculated. All lines lie below unchanged approved wall/beam positions.
-    """
-    d = dimensions(p)
-    e = p.external_wall / 2
-    xcore = d["sx"] + p.stair_width + p.internal_wall / 2
-    xspine = d["ldk_right"] + p.internal_wall / 2
-    ytransfer = d["south_top"] + p.internal_wall / 2 + 30
-    yspine = d["sy"] - p.internal_wall / 2
-    ycore = d["wc_bottom"] - p.internal_wall / 2
+    """R09 load-path axes, all uncalculated; no obsolete LDK pillar retained."""
+    d=dimensions(p);e=p.external_wall/2;t=p.internal_wall
     return [
-        {"id": "I01", "axis": "h", "at": ytransfer, "start": e, "end": p.width-e},
-        {"id": "I02", "axis": "h", "at": yspine, "start": e, "end": p.width-e},
-        {"id": "I03", "axis": "v", "at": xspine, "start": e, "end": p.depth-e},
-        {"id": "I04", "axis": "h", "at": ycore, "start": xcore, "end": p.width-e},
-        {"id": "I05", "axis": "v", "at": xcore, "start": ycore, "end": ytransfer},
+        {"id":"I01","axis":"h","at":d["south_top"]+t/2,"start":e,"end":p.width-e},
+        {"id":"I02","axis":"h","at":d["sy"]-t/2,"start":e,"end":p.width-e},
+        {"id":"I03","axis":"v","at":d["wcl"]-t/2,"start":d["sy"]-t/2,"end":p.depth-e},
+        {"id":"I04","axis":"v","at":d["wcr"]+t/2,"start":d["sy"]-t/2,"end":p.depth-e},
+        {"id":"I05","axis":"h","at":d["wetbottom"]-t/2,"start":d["wcl"]-t/2,"end":d["wcr"]+t/2},
+        {"id":"I06","axis":"v","at":p.access_left-t/2,"start":e,"end":d["sy"]-t/2},
+        {"id":"I07","axis":"v","at":d["ar"]+t/2,"start":e,"end":d["sy"]-t/2},
     ]
 
 
@@ -97,47 +88,61 @@ def _beam_segments(p, t=T):
     return segments
 
 
-def column_layout(p, t=T):
-    """Pillars inside the common closed wall portions on both approved floors.
+def floor_beam_segments(number,p,t=T):
+    """R09 attic opening transfer perimeter, with assumed connection details."""
+    segments=_beam_segments(p,t)
+    if number==2:
+        a=_attic();d=dimensions(p);right=a.hatch_x+a.hatch_length
+        width=t.internal_column_width
+        left=p.access_left-p.internal_wall/2+width/2  # butt to western partition beam
+        for key,y in [('B12',a.hatch_y-width/2),('B13',a.hatch_y+a.hatch_width+width/2)]:
+            segments.append({'id':key,'axis':'h','at':y,'start':left,'end':right+width,'width':width})
+        segments.append({'id':'B14','axis':'v','at':right+width/2,'start':a.hatch_y,
+                         'end':a.hatch_y+a.hatch_width,'width':width})
+    return segments
 
-    The one F1-only spine pillar carries a transfer beam; upstairs bedroom
-    partitions are not silently turned into bearing walls or new room pillars.
+
+def attic_beam_opening(p,z1,z2):
+    a=_attic()
+    return _box((a.hatch_x,a.hatch_y,z1-1,a.hatch_x+a.hatch_length,
+                 a.hatch_y+a.hatch_width,z2+1),'attic_beam_opening','#FFFFFF')
+
+
+def column_layout(p,t=T):
+    """Posts in shared closed wall segments, avoiding every R09 aperture.
+
+    Grid candidates and door/window jamb candidates are filtered by complete
+    footprint containment on BOTH floors. No free-standing F1 transfer pillar.
+    Long spans still require engineering; filtering is geometry only.
     """
-    d = dimensions(p)
-    e, xm, ym = p.external_wall/2, p.width-p.external_wall/2, p.depth-p.external_wall/2
-    ys = d["sy"]-p.internal_wall/2
-    xt = d["ldk_right"]+p.internal_wall/2
-    xc = d["sx"]+p.stair_width+p.internal_wall/2
-    yc = d["wc_bottom"]-p.internal_wall/2
-    yb = d["south_top"]+p.internal_wall/2
-    # Additional wall posts flank openings shared across both floors. Locations
-    # are derived from their exact aperture extents rather than nominal grids.
-    floors = [floor_plan(n,p) for n in (1,2)]
-    north_doors = [door for f in floors for door in f.doors if door.axis=="h" and abs(door.at-ys)<.01]
-    south_end = max(door.start+door.width for door in north_doors if door.start<3500)
-    entry_start = min(door.start for door in north_doors if door.start<3500)
-    middle_start = min(door.start for door in north_doors if door.start>=3500)
-    middle_end = max(door.start+door.width for door in north_doors if door.start>=3500)
-    h = t.internal_column_width/2
-    common = [
-        (e,e,True),(xm,e,True),(e,ym,True),(xm,ym,True),
-        (590,e,True),(3060,e,True),(p.width/2,e,True),(6340,e,True),
-        (590,ym,True),(3320,ym,True),(p.width/2,ym,True),(4870,ym,True),(xt,ym,True),
-        (e,840,True),(e,yb+30,True),(e,ys,True),(e,6260,True),
-        (xm,yc,True),(xm,2640,True),(xm,yb,True),(xm,ys,True),(xm,6140,True),(xm,6860,True),
-        (entry_start-h,ys,False),(south_end+h,ys,False),(p.width/2,ys,False),
-        (middle_start-h,ys,False),(middle_end+h,ys,False),(xt,ys,False),
-        (xc,yc,False),(xc,2155,False),(xc,2945,False),(xc,yb,False),
-    ]
+    from math import hypot
+    d=dimensions(p);e=p.external_wall/2
+    floors=[floor_plan(n,p) for n in (1,2)]
+    common=floors[0].walls.intersection(floors[1].walls)
     records=[]
-    for index,(x,y,external) in enumerate(common,1):
+    axes=[('h',e,e,p.width-e,True),('h',p.depth-e,e,p.width-e,True),
+          ('v',e,e,p.depth-e,True),('v',p.width-e,e,p.depth-e,True),
+          ('v',d['wcl']-p.internal_wall/2,d['sy']+80,p.depth-e,False),
+          ('v',d['wcr']+p.internal_wall/2,d['sy']+80,p.depth-e,False),
+          ('h',d['sy']-p.internal_wall/2,d['sx']+p.stair_width+p.internal_wall/2,
+               d['sx']+p.stair_width+p.internal_wall/2,False)]
+    for axis,at,start,end,external in axes:
         width=t.external_column_width if external else t.internal_column_width
-        footprint=box(x-width/2,y-width/2,x+width/2,y+width/2)
-        if not all(footprint.difference(f.walls).area<.001 for f in floors):
-            raise ValueError(f"Candidate C{index:02d} at {x,y} leaves approved walls or intersects an aperture; revise frame for changed plan parameters.")
-        records.append({"id":f"C{index:02d}","x":x,"y":y,"width":width,"floors":[1,2],"support":"aligned_column_or_beam"})
-    index=len(records)+1
-    records.append({"id":f"C{index:02d}","x":xt,"y":yb+30,"width":t.internal_column_width,"floors":[1],"support":"F1_transfer_beam_pillar"})
+        positions=[start,end]+_positions(start,end,910)
+        for floor in floors:
+            apertures=[(door.axis,door.at,door.start,door.width) for door in floor.doors]+floor.windows
+            for ax,pos,lo,span in apertures:
+                if ax==axis and abs(at-pos)<1:
+                    positions.extend([lo-width/2-5,lo+span+width/2+5])
+        for pos in sorted(set(positions)):
+            if pos<start or pos>end:continue
+            x,y=(pos,at) if axis=='h' else (at,pos)
+            width=t.external_column_width if min(abs(x-e),abs(x-(p.width-e)),abs(y-e),abs(y-(p.depth-e)))<.01 else t.internal_column_width
+            footprint=box(x-width/2,y-width/2,x+width/2,y+width/2)
+            if not common.covers(footprint):continue
+            if any(hypot(x-c['x'],y-c['y'])<(width+c['width'])/2+10 for c in records):continue
+            records.append({'id':f'C{len(records)+1:02d}','x':x,'y':y,'width':width,
+                            'floors':[1,2],'support':'aligned_column_or_beam'})
     return records
 
 
@@ -147,7 +152,7 @@ def bearing_wall_candidates(p, t=T):
     columns=column_layout(p,t)
     ys=d["sy"]-p.internal_wall/2
     xt=d["ldk_right"]+p.internal_wall/2
-    xc=d["sx"]+p.stair_width+p.internal_wall/2
+    xc=d["wcl"]-p.internal_wall/2
     axes=[("h",e,True),("h",p.depth-e,True),("v",e,True),("v",p.width-e,True),
           ("h",ys,False),("v",xt,False),("v",xc,False)]
     candidates=[]
@@ -200,10 +205,11 @@ def _overlapping(a,b):
     return all(lo<hi-1e-7 and olo<ahi-1e-7 for lo,hi,olo,ahi in zip(tuple(aa.min),tuple(bb.max),tuple(bb.min),tuple(aa.max)))
 
 
-def _butt_members(segments,z1,z2,prefix,kind,color):
+def _butt_members(segments,z1,z2,prefix,kind,color,opening=None):
     shapes=[]
     for segment in segments:
         shape=_box(_bounds(segment,z1,z2),f"{prefix}:{kind}_{segment['id']}",color)
+        if opening is not None and _overlapping(shape,opening):shape=_label(shape.cut(opening),shape.label,color)
         cutters=[prior for prior in shapes if _overlapping(shape,prior)]
         if cutters:shape=_label(shape.cut(*cutters),shape.label,color)
         shapes.append(shape)
@@ -290,7 +296,11 @@ def _attic_members(p,g,d,roof_posts,t=T):
             joists.append(shape)
     for side,x1,x2 in (("west",a.hatch_x-t.hatch_trimmer_width,a.hatch_x),
                        ("east",hatch[2],hatch[2]+t.hatch_trimmer_width)):
-        headers.append(_box((x1,y1,z1,x2,y2,z2),f"structure:attic:trimmer_{side}","#AC7545"))
+        label=f"structure:attic:trimmer_{side}"
+        shape=_box((x1,y1,z1,x2,y2,z2),label,"#AC7545")
+        cutters=[post for post in roof_posts if _overlapping(shape,post)]
+        if cutters:shape=_label(shape.cut(*cutters),label,"#AC7545")
+        headers.append(shape)
     for side,ya,yb in (("south",a.hatch_y-t.hatch_header_width,a.hatch_y),
                        ("north",hatch[3],hatch[3]+t.hatch_header_width)):
         headers.append(_box((a.hatch_x,ya,z1,hatch[2],yb,z2),f"structure:attic:header_{side}","#AC7545"))
@@ -308,7 +318,8 @@ def structure_group(p,g,t=T):
             h=c["width"]/2
             columns.append(_box((c["x"]-h,c["y"]-h,bottom,c["x"]+h,c["y"]+h,top),
                                 f"structure:F{n}:column_{c['id']}","#B98A55"))
-        beams.extend(_butt_members(segments,d[f"F{n}_beam_bottom_z"],d[f"F{n}_beam_top_z"],f"structure:F{n}","beam","#B98A55"))
+        beams.extend(_butt_members(floor_beam_segments(n,p,t),d[f"F{n}_beam_bottom_z"],d[f"F{n}_beam_top_z"],f"structure:F{n}","beam","#B98A55",
+                     attic_beam_opening(p,d[f"F{n}_beam_bottom_z"],d[f"F{n}_beam_top_z"]) if n==2 else None))
         # Internal/end panels own corner contact with larger perimeter posts;
         # outer markers butt around them, so neither marker stops short of its
         # declared end post behind a perpendicular marker.
@@ -334,9 +345,10 @@ def structure_group(p,g,t=T):
 
 def structure_manifest(p,g,t=T):
     d=structure_dimensions(p,g,t)
-    return {"revision":"R06-STRUCTURE","units":"mm","status":"demonstration_candidate_not_engineered",
+    return {"revision":"R09-STRUCTURE","units":"mm","status":"demonstration_candidate_not_engineered",
             "scheme":"timber_post_and_beam_candidate","parameters":asdict(t),"dimensions":d,
             "columns":column_layout(p,t),"beam_axes":_beam_segments(p,t),
+            "floor_beam_axes":{f"F{n}":floor_beam_segments(n,p,t) for n in (1,2)},
             "bearing_wall_candidates":bearing_wall_candidates(p,t),"foundation_support_axes":foundation_support_segments(p),
             "roof_posts":{"gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
                           "purlin_x":[d["deck_left"]-t.roof_purlin_width/2,d["deck_right"]+t.roof_purlin_width/2],
@@ -347,7 +359,7 @@ def structure_manifest(p,g,t=T):
                 "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
                 "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
                 "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
-                "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+                "检修口下的梁通过周边示意边梁换向支承；对接和避让切口仅用于几何协调，紧固件、抗拔件、节点及承载未计算。",
                 "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
                 "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
                 "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。",
@@ -357,7 +369,7 @@ def structure_manifest(p,g,t=T):
                 "beam_bending_shear_deflection_and_transfer_reactions","column_axial_and_buckling",
                 "ridge_purlin_and_rafter_spans_and_uplift","hatch_trimmer_and_header_reactions",
                 "joints_anchors_and_hold_downs","foundation_soil_bearing_settlement_and_reinforcement"],
-            "critical_unresolved_items":["7280 mm envelope creates long LDK/roof spans; no section adequacy is established.",
+            "critical_unresolved_items":["8190 x 7280 mm outline creates long open-LDK/roof spans; no section adequacy is established.",
                 "The hatch requires designed load transfer, connections and a coordinated attic ladder product.",
                 "First-floor floor build-up, foundations, ventilation and moisture protection require engineering.",
                 "Bearing panels have no certified wall multiplier; geometry does not prove seismic or wind resistance."]}

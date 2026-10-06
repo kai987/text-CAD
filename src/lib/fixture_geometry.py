@@ -11,7 +11,7 @@ from math import sqrt
 from cadgen import build123d as bd, srgb
 
 FIXTURE_KINDS = {'浴槽': 'bath', '洗面': 'vanity', 'WC': 'toilet',
-                 '洗濯': 'washer', 'キッチン': 'kitchen'}
+                 '洗濯': 'washer', '洗濯機': 'washer', 'キッチン': 'kitchen'}
 COLORS = {'ceramic': '#F6F3EA', 'chrome': '#ADB7BD', 'wood': '#B69876',
           'counter': '#E4E0D7', 'dark': '#333D43', 'rubber': '#313A40',
           'glass': '#9DBAC7', 'mirror': '#BCD2D8', 'steel': '#929DA2',
@@ -89,7 +89,9 @@ def _bath(w, d, prefix, model_id):
     cx, cy = w/2, d/2
     # A deep soaking tub with tapered inner walls and a generous rounded rim.
     outer = _round_sections([(w-44, d-38, 70, 12), (w-12, d-12, 100, 515)], cx, cy)
-    cavity = _round_sections([(w-190, d-180, 80, 130), (w-110, d-112, 110, 560)], cx, cy)
+    # A rounded cavity prism avoids a STEP round-trip tolerance defect in
+    # the long tapered inner loft at R09's new bath dimensions.
+    cavity = _round(w-130,d-135,450,100,cx,cy,130)
     parts.append(_named(outer.cut(cavity), prefix+':tub_shell_ceramic', 'ceramic'))
     rim = _round(w-8, d-8, 32, 102, cx, cy, 518).cut(cavity)
     parts.append(_named(rim, prefix+':tub_rim_ceramic', 'ceramic'))

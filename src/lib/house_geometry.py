@@ -87,10 +87,10 @@ def raw_wall_footprint(floor, p=P):
     # Refill precisely their wall footprints before cutting the 3D height range.
     filled = [floor.walls]
     filled += [aperture_footprint(d.axis, d.at, d.start, d.width,
-                                  p.external_wall if d.a == "outside" else p.internal_wall)
+                                  p.external_wall if {'outside','balcony'} & {d.a,d.b} else p.internal_wall)
                for d in floor.doors]
     filled += [aperture_footprint(*window, p.external_wall) for window in floor.windows]
-    return unary_union(filled)
+    return unary_union(filled).intersection(box(0,0,p.width,p.depth))
 
 
 def window_vertical_range(window, g=G):
@@ -124,7 +124,7 @@ def wall_groups(floor, p=P, g=G):
         ("east", box(p.width-e, e, p.width-setback, p.depth-e)),
     ]
     cuts = [opening_box(d.axis, d.at, d.start, d.width,
-                         p.external_wall if d.a == "outside" else p.internal_wall,
+                         p.external_wall if {'outside','balcony'} & {d.a,d.b} else p.internal_wall,
                          z, z+g.door_height) for d in floor.doors]
     for window in floor.windows:
         sill, wh = window_vertical_range(window, g)
@@ -148,14 +148,23 @@ def door_group(floor, p=P, g=G):
     z = (floor.number-1)*p.storey_height
     leaves = []
     for door in floor.doors:
+        if door.kind == 'open':
+            continue
         leaf = opening_box(door.axis, door.at, door.start+10, door.width-20,
                            g.door_leaf_thickness-2, z+10, z+g.door_height-10)
+        if 'balcony' in (door.a,door.b):
+            glazing=opening_box(door.axis,door.at,door.start+55,door.width-110,
+                                g.door_leaf_thickness,z+450,z+g.door_height-55)
+            leaf=leaf.cut(glazing)
+            glass=opening_box(door.axis,door.at,door.start+55,door.width-110,
+                              g.glass_thickness-2,z+450,z+g.door_height-55)
+            leaves.append(named(glass,f'F{floor.number}:{door.id}_door_glass','glass',.45))
         if door.a == "outside":
             # The original opening stays fixed; the closed leaf is flush with its outer face.
             offset = g.door_leaf_thickness/2-door.at
             leaf = leaf.moved(bd.Location((0, offset, 0) if door.axis == "h" else (offset, 0, 0)))
         leaves.append(named(leaf, f"F{floor.number}:{door.id}_door_{door.kind}",
-                            "entrywood" if door.a == "outside" else "door"))
+                            "entrywood" if door.a == "outside" else 'frame' if 'balcony' in (door.a,door.b) else "door"))
     leaves.extend(entrance_parts(floor, p, g))
     return bd.Compound(children=leaves, label=f"F{floor.number}:doors")
 
@@ -268,10 +277,10 @@ def storage_group(floor, p=P):
     z = (floor.number-1)*p.storey_height
     storage = []
     for i, (name, bounds) in enumerate(floor.fixtures, 1):
-        if name not in ("靴収納", "収納", "食品棚", "収納棚"):
+        if name not in ("靴収納", "収納", "食品棚", "収納棚", "食品収納", "衣類棚", "CL", "リネン"):
             continue
         x1, y1, x2, y2 = bounds
-        height = 1800 if name == "靴収納" else 2100
+        height = 1800 if name == "靴収納" else 2000
         storage.append(cuboid((x1, y1, z, x2, y2, z+height),
                                 f"F{floor.number}:storage_{i:02d}", "storage"))
     return bd.Compound(children=storage, label=f"F{floor.number}:storage_fixtures")
@@ -284,6 +293,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     from .site_geometry import foundation_group, yard_group, fence_group
     from .structure_geometry import structure_group
     from .outdoor_lighting import outdoor_lighting_group
+    from .balcony_geometry import balcony_group
     floors = []
     for number in (1, 2):
         plan = floor_plan(number, p)
@@ -292,7 +302,7 @@ def house_assembly(p=P, g=G, include_roof=True):
                                             door_group(plan, p, g), window_group(plan, p, g),
                                             storage_group(plan, p), fixture_group(plan, p, "house"),
                                             furniture_group(plan, "house", p)], label=f"F{number}"))
-    children = floors+[stair_group(p, g)]
+    children = floors+[stair_group(p, g),balcony_group(p,g)]
     if include_roof:
         children.append(roof_group(p, g))
     children += [attic_group(p, g), attic_access_group(p, g)]
@@ -315,7 +325,7 @@ def geometry_manifest(p=P, g=G):
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R08-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R09-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -333,8 +343,9 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
-            "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
+            "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
+            "用户于2026-10-07确认R09平面；一、二层厕所和楼梯上下对齐。",
+            "南侧阳台外形3640 × 1500 mm，净几何面积4.816㎡；公共通道可达，支柱/基础/栏杆/排水均为未计算的演示输入。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
@@ -343,7 +354,7 @@ def geometry_manifest(p=P, g=G):
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
             "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
             "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
-            "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
+            "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
         ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"] + lighting["assumptions"],

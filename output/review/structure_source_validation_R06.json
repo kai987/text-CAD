@@ -3,10 +3,10 @@
   "pass": true,
   "checks": [
     {
-      "check": "structure:67_expected_named_columns",
+      "check": "structure:all_recorded_named_columns",
       "pass": true,
-      "actual": 67,
-      "expected": 67
+      "actual": 86,
+      "expected": 86
     },
     {
       "check": "structure:all_leaf_names_unique",
@@ -219,6 +219,60 @@
       "expected": null
     },
     {
+      "check": "structure:F1:column_C35:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C36:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C37:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C38:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C39:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C40:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C41:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C42:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C43:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:F2:column_C01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -417,6 +471,66 @@
       "expected": null
     },
     {
+      "check": "structure:F2:column_C34:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C35:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C36:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C37:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C38:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C39:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C40:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C41:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C42:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C43:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:F1:beam_B01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -466,6 +580,18 @@
     },
     {
       "check": "structure:F1:beam_B09:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:beam_B10:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:beam_B11:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -525,6 +651,36 @@
       "expected": null
     },
     {
+      "check": "structure:F2:beam_B10:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:beam_B11:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:beam_B12:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:beam_B13:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:beam_B14:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:F1:sill_B01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -579,6 +735,18 @@
       "expected": null
     },
     {
+      "check": "structure:F1:sill_B10:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:sill_B11:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:attic:joist_J01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -591,37 +759,37 @@
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J04_south:valid_positive_solid",
+      "check": "structure:attic:joist_J03:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J04_north:valid_positive_solid",
+      "check": "structure:attic:joist_J04:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J05_south:valid_positive_solid",
+      "check": "structure:attic:joist_J06_south:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J05_north:valid_positive_solid",
+      "check": "structure:attic:joist_J06_north:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J07:valid_positive_solid",
+      "check": "structure:attic:joist_J07_south:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J08:valid_positive_solid",
+      "check": "structure:attic:joist_J07_north:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -957,19 +1125,37 @@
       "expected": null
     },
     {
-      "check": "structure:F1:bearing_wall_BW13:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW22:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:F1:bearing_wall_BW14:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW23:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:F1:bearing_wall_BW15:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW24:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW25:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW26:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW27:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1047,19 +1233,91 @@
       "expected": null
     },
     {
-      "check": "structure:F2:bearing_wall_BW13:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW13:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:F2:bearing_wall_BW14:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW14:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:F2:bearing_wall_BW15:valid_positive_solid",
+      "check": "structure:F1:bearing_wall_BW15:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW16:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW17:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW18:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW19:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW20:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW21:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW22:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW23:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW24:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW25:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW26:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW27:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1132,6 +1390,60 @@
     },
     {
       "check": "structure:F2:bearing_wall_BW12:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW13:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW14:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW15:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW16:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW17:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW18:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW19:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW20:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:bearing_wall_BW21:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -2393,13 +2705,13 @@
     {
       "check": "structure:F1:column_C24:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C24:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2417,13 +2729,13 @@
     {
       "check": "structure:F2:column_C24:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C24:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2447,13 +2759,13 @@
     {
       "check": "structure:F1:column_C25:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C25:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2471,13 +2783,13 @@
     {
       "check": "structure:F2:column_C25:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C25:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2501,13 +2813,13 @@
     {
       "check": "structure:F1:column_C26:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C26:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2525,13 +2837,13 @@
     {
       "check": "structure:F2:column_C26:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C26:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2555,13 +2867,13 @@
     {
       "check": "structure:F1:column_C27:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C27:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2579,13 +2891,13 @@
     {
       "check": "structure:F2:column_C27:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C27:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2609,13 +2921,13 @@
     {
       "check": "structure:F1:column_C28:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C28:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2633,13 +2945,13 @@
     {
       "check": "structure:F2:column_C28:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C28:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2663,13 +2975,13 @@
     {
       "check": "structure:F1:column_C29:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C29:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2687,13 +2999,13 @@
     {
       "check": "structure:F2:column_C29:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C29:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2717,13 +3029,13 @@
     {
       "check": "structure:F1:column_C30:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 6075.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C30:positive_face_to_lower_support",
       "pass": true,
-      "actual": 6075.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2741,13 +3053,13 @@
     {
       "check": "structure:F2:column_C30:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 6075.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C30:positive_face_to_lower_support",
       "pass": true,
-      "actual": 6075.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2771,13 +3083,13 @@
     {
       "check": "structure:F1:column_C31:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C31:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2795,13 +3107,13 @@
     {
       "check": "structure:F2:column_C31:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C31:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2825,13 +3137,13 @@
     {
       "check": "structure:F1:column_C32:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C32:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2849,13 +3161,13 @@
     {
       "check": "structure:F2:column_C32:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C32:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2879,13 +3191,13 @@
     {
       "check": "structure:F1:column_C33:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C33:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2903,13 +3215,13 @@
     {
       "check": "structure:F2:column_C33:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F2:column_C33:positive_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
@@ -2933,13 +3245,529 @@
     {
       "check": "structure:F1:column_C34:positive_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "structure:F1:column_C34:positive_face_to_lower_support",
       "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C34:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C34:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C34:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C34:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "C34:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C35:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C35:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C35:positive_face_to_upper_beam",
+      "pass": true,
       "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C35:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C35:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C35:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C35:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C35:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C35:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C36:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C36:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C36:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C36:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C36:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C36:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C36:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C36:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C36:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C37:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C37:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C37:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C37:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C37:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C37:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C37:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C37:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C37:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C38:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C38:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C38:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C38:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C38:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C38:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C38:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C38:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "C38:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C39:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C39:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C39:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C39:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C39:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C39:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C39:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C39:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C39:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C40:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C40:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C40:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C40:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C40:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C40:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C40:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C40:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C40:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C41:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C41:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C41:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C41:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C41:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C41:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C41:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C41:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C41:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C42:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C42:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C42:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C42:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C42:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C42:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C42:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C42:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 14400.0,
+      "expected": null
+    },
+    {
+      "check": "C42:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C43:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F1:column_C43:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 2476.0,
+      "expected": 2476
+    },
+    {
+      "check": "structure:F1:column_C43:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:column_C43:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C43:inside_approved_closed_wall_mm2",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:F2:column_C43:column_top_reaches_beam_bottom_mm",
+      "pass": true,
+      "actual": 5096.0,
+      "expected": 5096
+    },
+    {
+      "check": "structure:F2:column_C43:positive_face_to_upper_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:F2:column_C43:positive_face_to_lower_support",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "C43:upper_lower_column_plan_alignment",
+      "pass": true,
+      "actual": null,
       "expected": null
     },
     {
@@ -2967,13 +3795,19 @@
       "expected": 0
     },
     {
+      "check": "F1:O01:structure_keeps_actual_door_opening_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
       "check": "F1:D05:structure_keeps_actual_door_opening_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "F1:D06:structure_keeps_actual_door_opening_clear_mm3",
+      "check": "F1:O02:structure_keeps_actual_door_opening_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -3015,19 +3849,13 @@
       "expected": 0
     },
     {
-      "check": "F1:W07:structure_keeps_actual_window_opening_clear_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "F1:BW01:C01:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW01:C05:actual_positive_panel_post_face",
+      "check": "F1:BW01:C02:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3039,13 +3867,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW02:C06:actual_positive_panel_post_face",
+      "check": "F1:BW02:C03:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW02:C07:actual_positive_panel_post_face",
+      "check": "F1:BW02:C04:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3057,13 +3885,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW03:C08:actual_positive_panel_post_face",
+      "check": "F1:BW03:C06:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW03:C02:actual_positive_panel_post_face",
+      "check": "F1:BW03:C07:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3075,7 +3903,7 @@
       "expected": null
     },
     {
-      "check": "F1:BW04:C03:actual_positive_panel_post_face",
+      "check": "F1:BW04:C08:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3093,13 +3921,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW05:C13:actual_positive_panel_post_face",
+      "check": "F1:BW05:C10:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 140580.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW05:C04:actual_positive_panel_post_face",
+      "check": "F1:BW05:C11:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3111,13 +3939,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW06:C01:actual_positive_panel_post_face",
+      "check": "F1:BW06:C15:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW06:C14:actual_positive_panel_post_face",
+      "check": "F1:BW06:C16:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3129,13 +3957,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW07:C15:actual_positive_panel_post_face",
+      "check": "F1:BW07:C16:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW07:C16:actual_positive_panel_post_face",
+      "check": "F1:BW07:C38:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3147,13 +3975,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW08:C17:actual_positive_panel_post_face",
+      "check": "F1:BW08:C19:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW08:C03:actual_positive_panel_post_face",
+      "check": "F1:BW08:C20:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3165,13 +3993,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW09:C02:actual_positive_panel_post_face",
+      "check": "F1:BW09:C20:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW09:C18:actual_positive_panel_post_face",
+      "check": "F1:BW09:C21:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3183,13 +4011,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW10:C19:actual_positive_panel_post_face",
+      "check": "F1:BW10:C01:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW10:C20:actual_positive_panel_post_face",
+      "check": "F1:BW10:C22:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3201,13 +4029,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW11:C20:actual_positive_panel_post_face",
+      "check": "F1:BW11:C23:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW11:C21:actual_positive_panel_post_face",
+      "check": "F1:BW11:C24:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3219,13 +4047,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW12:C21:actual_positive_panel_post_face",
+      "check": "F1:BW12:C24:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW12:C22:actual_positive_panel_post_face",
+      "check": "F1:BW12:C25:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -3237,15 +4065,15 @@
       "expected": null
     },
     {
-      "check": "F1:BW13:C16:actual_positive_panel_post_face",
+      "check": "F1:BW13:C25:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 12780.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW13:C24:actual_positive_panel_post_face",
+      "check": "F1:BW13:C26:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 115020.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
@@ -3255,15 +4083,15 @@
       "expected": null
     },
     {
-      "check": "F1:BW14:C29:actual_positive_panel_post_face",
+      "check": "F1:BW14:C26:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 115020.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW14:C13:actual_positive_panel_post_face",
+      "check": "F1:BW14:C10:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 12780.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
@@ -3273,19 +4101,235 @@
       "expected": null
     },
     {
-      "check": "F1:BW15:C30:actual_positive_panel_post_face",
+      "check": "F1:BW15:C09:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 115020.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW15:C31:actual_positive_panel_post_face",
+      "check": "F1:BW15:C27:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 115020.0,
+      "actual": 153360.0,
       "expected": null
     },
     {
       "check": "F1:BW15:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW16:C27:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW16:C28:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW16:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW17:C28:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW17:C29:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW17:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW18:C29:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW18:C30:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW18:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW19:C30:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW19:C31:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW19:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW20:C31:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW20:C32:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW20:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW21:C32:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW21:C33:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 153360.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW21:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW22:C39:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW22:C40:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW22:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW23:C40:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW23:C41:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW23:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW24:C41:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW24:C42:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 12780.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW24:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW25:C35:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW25:C36:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW25:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW26:C36:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW26:C37:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW26:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:BW27:C37:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 115020.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW27:C38:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 12780.0,
+      "expected": null
+    },
+    {
+      "check": "F1:BW27:wall_multiplier_and_connection_capacity_unassigned",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3315,7 +4359,25 @@
       "expected": 0
     },
     {
+      "check": "F2:O21:structure_keeps_actual_door_opening_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
       "check": "F2:D25:structure_keeps_actual_door_opening_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:O22:structure_keeps_actual_door_opening_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:D26:structure_keeps_actual_door_opening_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -3357,25 +4419,13 @@
       "expected": 0
     },
     {
-      "check": "F2:W07:structure_keeps_actual_window_opening_clear_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "F2:W08:structure_keeps_actual_window_opening_clear_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "F2:BW01:C01:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW01:C05:actual_positive_panel_post_face",
+      "check": "F2:BW01:C02:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3387,13 +4437,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW02:C06:actual_positive_panel_post_face",
+      "check": "F2:BW02:C03:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW02:C07:actual_positive_panel_post_face",
+      "check": "F2:BW02:C04:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3405,13 +4455,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW03:C08:actual_positive_panel_post_face",
+      "check": "F2:BW03:C06:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW03:C02:actual_positive_panel_post_face",
+      "check": "F2:BW03:C07:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3423,7 +4473,7 @@
       "expected": null
     },
     {
-      "check": "F2:BW04:C03:actual_positive_panel_post_face",
+      "check": "F2:BW04:C08:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3441,13 +4491,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW05:C13:actual_positive_panel_post_face",
+      "check": "F2:BW05:C10:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 127600.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW05:C04:actual_positive_panel_post_face",
+      "check": "F2:BW05:C11:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3459,13 +4509,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW06:C01:actual_positive_panel_post_face",
+      "check": "F2:BW06:C15:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW06:C14:actual_positive_panel_post_face",
+      "check": "F2:BW06:C16:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3477,13 +4527,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW07:C15:actual_positive_panel_post_face",
+      "check": "F2:BW07:C16:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW07:C16:actual_positive_panel_post_face",
+      "check": "F2:BW07:C38:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3495,13 +4545,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW08:C17:actual_positive_panel_post_face",
+      "check": "F2:BW08:C19:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW08:C03:actual_positive_panel_post_face",
+      "check": "F2:BW08:C20:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3513,13 +4563,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW09:C02:actual_positive_panel_post_face",
+      "check": "F2:BW09:C20:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW09:C18:actual_positive_panel_post_face",
+      "check": "F2:BW09:C21:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3531,13 +4581,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW10:C19:actual_positive_panel_post_face",
+      "check": "F2:BW10:C01:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW10:C20:actual_positive_panel_post_face",
+      "check": "F2:BW10:C22:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3549,13 +4599,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW11:C20:actual_positive_panel_post_face",
+      "check": "F2:BW11:C23:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW11:C21:actual_positive_panel_post_face",
+      "check": "F2:BW11:C24:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3567,13 +4617,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW12:C21:actual_positive_panel_post_face",
+      "check": "F2:BW12:C24:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW12:C22:actual_positive_panel_post_face",
+      "check": "F2:BW12:C25:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -3585,15 +4635,15 @@
       "expected": null
     },
     {
-      "check": "F2:BW13:C16:actual_positive_panel_post_face",
+      "check": "F2:BW13:C25:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 11600.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW13:C24:actual_positive_panel_post_face",
+      "check": "F2:BW13:C26:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 104400.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
@@ -3603,15 +4653,15 @@
       "expected": null
     },
     {
-      "check": "F2:BW14:C29:actual_positive_panel_post_face",
+      "check": "F2:BW14:C26:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 104400.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW14:C13:actual_positive_panel_post_face",
+      "check": "F2:BW14:C10:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 11600.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
@@ -3621,19 +4671,235 @@
       "expected": null
     },
     {
-      "check": "F2:BW15:C30:actual_positive_panel_post_face",
+      "check": "F2:BW15:C09:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 104400.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW15:C31:actual_positive_panel_post_face",
+      "check": "F2:BW15:C27:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 104400.0,
+      "actual": 139200.0,
       "expected": null
     },
     {
       "check": "F2:BW15:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW16:C27:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW16:C28:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW16:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW17:C28:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW17:C29:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW17:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW18:C29:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW18:C30:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW18:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW19:C30:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW19:C31:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW19:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW20:C31:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW20:C32:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW20:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW21:C32:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW21:C33:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 139200.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW21:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW22:C39:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW22:C40:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW22:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW23:C40:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW23:C41:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW23:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW24:C41:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW24:C42:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 11600.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW24:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW25:C35:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW25:C36:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW25:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW26:C36:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW26:C37:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW26:wall_multiplier_and_connection_capacity_unassigned",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F2:BW27:C37:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 104400.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW27:C38:actual_positive_panel_post_face",
+      "pass": true,
+      "actual": 11600.0,
+      "expected": null
+    },
+    {
+      "check": "F2:BW27:wall_multiplier_and_connection_capacity_unassigned",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3711,75 +4977,75 @@
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J04_south:top_matches_real_subfloor_bottom_mm",
+      "check": "structure:attic:joist_J03:top_matches_real_subfloor_bottom_mm",
       "pass": true,
       "actual": 5576.0,
       "expected": 5576
     },
     {
-      "check": "structure:attic:joist_J04_south:positive_face_to_attic_support_beam",
-      "pass": true,
-      "actual": 14100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:attic:joist_J04_north:top_matches_real_subfloor_bottom_mm",
-      "pass": true,
-      "actual": 5576.0,
-      "expected": 5576
-    },
-    {
-      "check": "structure:attic:joist_J04_north:positive_face_to_attic_support_beam",
-      "pass": true,
-      "actual": 9000.0,
-      "expected": null
-    },
-    {
-      "check": "structure:attic:joist_J05_south:top_matches_real_subfloor_bottom_mm",
-      "pass": true,
-      "actual": 5576.0,
-      "expected": 5576
-    },
-    {
-      "check": "structure:attic:joist_J05_south:positive_face_to_attic_support_beam",
-      "pass": true,
-      "actual": 11625.0,
-      "expected": null
-    },
-    {
-      "check": "structure:attic:joist_J05_north:top_matches_real_subfloor_bottom_mm",
-      "pass": true,
-      "actual": 5576.0,
-      "expected": 5576
-    },
-    {
-      "check": "structure:attic:joist_J05_north:positive_face_to_attic_support_beam",
-      "pass": true,
-      "actual": 6525.0,
-      "expected": null
-    },
-    {
-      "check": "structure:attic:joist_J07:top_matches_real_subfloor_bottom_mm",
-      "pass": true,
-      "actual": 5576.0,
-      "expected": 5576
-    },
-    {
-      "check": "structure:attic:joist_J07:positive_face_to_attic_support_beam",
+      "check": "structure:attic:joist_J03:positive_face_to_attic_support_beam",
       "pass": true,
       "actual": 23400.0,
       "expected": null
     },
     {
-      "check": "structure:attic:joist_J08:top_matches_real_subfloor_bottom_mm",
+      "check": "structure:attic:joist_J04:top_matches_real_subfloor_bottom_mm",
       "pass": true,
       "actual": 5576.0,
       "expected": 5576
     },
     {
-      "check": "structure:attic:joist_J08:positive_face_to_attic_support_beam",
+      "check": "structure:attic:joist_J04:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 23400.0,
+      "actual": 33900.0,
+      "expected": null
+    },
+    {
+      "check": "structure:attic:joist_J06_south:top_matches_real_subfloor_bottom_mm",
+      "pass": true,
+      "actual": 5576.0,
+      "expected": 5576
+    },
+    {
+      "check": "structure:attic:joist_J06_south:positive_face_to_attic_support_beam",
+      "pass": true,
+      "actual": 15900.0,
+      "expected": null
+    },
+    {
+      "check": "structure:attic:joist_J06_north:top_matches_real_subfloor_bottom_mm",
+      "pass": true,
+      "actual": 5576.0,
+      "expected": 5576
+    },
+    {
+      "check": "structure:attic:joist_J06_north:positive_face_to_attic_support_beam",
+      "pass": true,
+      "actual": 10800.0,
+      "expected": null
+    },
+    {
+      "check": "structure:attic:joist_J07_south:top_matches_real_subfloor_bottom_mm",
+      "pass": true,
+      "actual": 5576.0,
+      "expected": 5576
+    },
+    {
+      "check": "structure:attic:joist_J07_south:positive_face_to_attic_support_beam",
+      "pass": true,
+      "actual": 15900.0,
+      "expected": null
+    },
+    {
+      "check": "structure:attic:joist_J07_north:top_matches_real_subfloor_bottom_mm",
+      "pass": true,
+      "actual": 5576.0,
+      "expected": 5576
+    },
+    {
+      "check": "structure:attic:joist_J07_north:positive_face_to_attic_support_beam",
+      "pass": true,
+      "actual": 10800.0,
       "expected": null
     },
     {
@@ -3791,7 +5057,7 @@
     {
       "check": "structure:attic:joist_J09:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 207925.0,
+      "actual": 28800.0,
       "expected": null
     },
     {
@@ -3803,7 +5069,7 @@
     {
       "check": "structure:attic:joist_J10:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 23400.0,
+      "actual": 28800.0,
       "expected": null
     },
     {
@@ -3815,7 +5081,7 @@
     {
       "check": "structure:attic:trimmer_west:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 46800.0,
+      "actual": 63300.0,
       "expected": null
     },
     {
@@ -3827,7 +5093,7 @@
     {
       "check": "structure:attic:trimmer_east:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 46800.0,
+      "actual": 131850.0,
       "expected": null
     },
     {
@@ -3927,19 +5193,19 @@
       "expected": null
     },
     {
-      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW06:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B02:structure:F1:bearing_wall_BW08:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B02:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -3951,55 +5217,37 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B03:structure:F1:bearing_wall_BW04:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B03:structure:F1:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B04:structure:F1:bearing_wall_BW03:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B04:structure:F1:bearing_wall_BW04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B04:structure:F1:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B04:structure:F1:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B05:structure:F1:beam_B07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B05:structure:F1:beam_B10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B05:structure:F1:beam_B11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW11:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:beam_B06:structure:F1:beam_B07:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4011,55 +5259,37 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW12:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW19:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B07:structure:F1:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B07:structure:F1:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B09:structure:F1:bearing_wall_BW25:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B08:structure:F1:beam_B09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B10:structure:F1:bearing_wall_BW02:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B08:structure:F1:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:bearing_wall_BW01:structure:F1:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B08:structure:F1:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW01:structure:F1:bearing_wall_BW06:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW03:structure:F1:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW04:structure:F1:bearing_wall_BW08:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:bearing_wall_BW04:structure:F1:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4071,37 +5301,31 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:sill_B05:structure:F1:sill_B07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:sill_B05:structure:F1:sill_B10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:sill_B06:structure:F1:sill_B07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:sill_B05:structure:F1:sill_B11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:sill_B08:structure:F1:sill_B09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW06:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F2:beam_B02:structure:F2:bearing_wall_BW08:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B02:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4113,55 +5337,37 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B03:structure:F2:bearing_wall_BW04:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B03:structure:F2:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B04:structure:F2:bearing_wall_BW03:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B04:structure:F2:bearing_wall_BW04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B04:structure:F2:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B04:structure:F2:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B05:structure:F2:beam_B07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B05:structure:F2:beam_B10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B05:structure:F2:beam_B11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW11:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F2:beam_B06:structure:F2:beam_B07:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4173,55 +5379,49 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW12:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW19:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B07:structure:F2:bearing_wall_BW07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B07:structure:F2:bearing_wall_BW05:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B09:structure:F2:bearing_wall_BW25:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B08:structure:F2:beam_B09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B10:structure:F2:bearing_wall_BW02:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B08:structure:F2:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B11:structure:F2:beam_B12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B08:structure:F2:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B11:structure:F2:beam_B13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:bearing_wall_BW01:structure:F2:bearing_wall_BW06:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:bearing_wall_BW01:structure:F2:bearing_wall_BW10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:bearing_wall_BW03:structure:F2:bearing_wall_BW09:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW04:structure:F2:bearing_wall_BW08:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:bearing_wall_BW04:structure:F2:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4413,271 +5613,337 @@
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_north:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04_south:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J05_north:structure:roof:post_ridge_P02:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J05_south:structure:roof:post_ridge_P01:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J08:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4948,6 +6214,18 @@
     },
     {
       "check": "structure:attic:trimmer_east:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:trimmer_west:structure:roof:post_ridge_P01:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:trimmer_west:structure:roof:post_ridge_P02:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5412,14 +6690,29 @@
       "check": "DXF:house_hatch_and_deck_measurements_present",
       "pass": true,
       "actual": [
+        8190,
         7280,
+        8190,
         7280,
-        7280,
-        7280,
-        7280,
+        8190,
         1200,
         650,
         3680
+      ],
+      "expected": null
+    },
+    {
+      "check": "DXF:dimension_char_height2_5mm_on_each_scale",
+      "pass": true,
+      "actual": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5
       ],
       "expected": null
     },

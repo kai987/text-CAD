@@ -1,10 +1,10 @@
 {
-  "revision": "R08-3D",
+  "revision": "R09-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
   "plan_parameters": {
-    "width": 7280,
+    "width": 8190,
     "depth": 7280,
     "storey_height": 2800,
     "external_wall": 180,
@@ -14,10 +14,16 @@
     "risers": 16,
     "tread": 260,
     "bath_width": 1820,
-    "wash_width": 1820,
-    "master_width": 3370,
+    "bath_depth": 1820,
+    "toilet_width": 900,
     "toilet_depth": 1700,
-    "roof_type": "gable / 切妻屋根 - stage 2"
+    "foyer_depth": 1600,
+    "south_room_depth": 3100,
+    "hall_width": 900,
+    "access_left": 3380,
+    "balcony_width": 3640,
+    "balcony_depth": 1500,
+    "balcony_rail_thickness": 100
   },
   "geometry_parameters": {
     "slab_thickness": 200,
@@ -83,11 +89,11 @@
       "downpipe_ground_clearance": 50
     },
     "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
-    "finished_wall_footprint": "7280 x 7280 mm remains the approved demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
+    "finished_wall_footprint": "8190 x 7280 mm approved R09 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
     "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
     "assumptions": [
       "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-      "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
+      "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
       "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
       "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
       "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
@@ -97,7 +103,7 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R06",
+    "revision": "R09",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
@@ -110,7 +116,7 @@
       "lining_vertical_allowance": 50,
       "knee_wall_thickness": 50,
       "gable_lining_thickness": 20,
-      "hatch_x": 2800,
+      "hatch_x": 4100,
       "hatch_y": 3505,
       "hatch_length": 1200,
       "hatch_width": 650,
@@ -145,8 +151,8 @@
       "ladder_bottom_landing_depth": 600
     },
     "unchanged": [
-      "approved R01 F1/F2 room boundaries",
-      "R03 roof geometry and exterior silhouette"
+      "approved R09 F1/F2 room boundaries",
+      "R09 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
     "floor_group": "attic:floor_slab",
@@ -154,23 +160,23 @@
       22,
       22,
       5576,
-      7258,
+      8168,
       7258,
       5600
     ],
     "deck_bounds_mm": [
-      1800.0,
+      2255.0,
       200,
       5600,
-      5480.0,
+      5935.0,
       7080,
       5618
     ],
     "hatch_bounds_mm": [
-      2800,
+      4100,
       3505,
       5576,
-      4000,
+      5300,
       4155,
       5618
     ],
@@ -179,43 +185,43 @@
       2456.0480451326684,
       180,
       6968,
-      4823.951954867332,
+      5733.951954867332,
       7100,
       7018
     ],
     "finished_ceiling_profile_xz_mm": [
       [
-        1800.0,
-        6589.230484541326
+        2255.0,
+        6851.9248570226055
       ],
       [
         2456.0480451326684,
         6968
       ],
       [
-        4823.951954867332,
+        5733.951954867332,
         6968
       ],
       [
-        5480.0,
-        6589.230484541326
+        5935.0,
+        6851.9248570226055
       ]
     ],
     "clear_height_mm": {
       "maximum": 1350,
       "ridge": 1350,
-      "deck_edge": 971.2304845413264,
+      "deck_edge": 1233.9248570226055,
       "formula": "min(tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness, maximum_finished_clear_height)"
     },
     "ladder": {
       "state": "deployed concept, independently hideable",
       "top_mm": [
-        4000,
+        5300,
         3830.0,
         5618
       ],
       "foot_mm": [
-        2685.945019319214,
+        3985.945019319214,
         3830.0,
         2800
       ],
@@ -226,38 +232,38 @@
       "tread_count": 10,
       "riser_mm": 256.1818181818182,
       "deployed_plan_bounds_mm": [
-        2685.945019319214,
+        3985.945019319214,
         3530.0,
-        4000,
+        5300,
         4130.0
       ],
       "bottom_landing_bounds_mm": [
-        2085.945019319214,
+        3385.945019319214,
         3505,
-        2685.945019319214,
+        3985.945019319214,
         4155
       ],
       "upper_landing_bounds_mm": [
-        4000,
+        5300,
         3505,
-        4600,
+        5900,
         4155
       ],
-      "upper_landing_min_clear_height_mm": 1350,
+      "upper_landing_min_clear_height_mm": 1254.1321164442425,
       "lid_hinge_z_mm": 5465.774653974522,
       "lid_hinge_drop_below_panel_mm": 110.22534602547793,
       "lid_to_stringer_gap_mm": 22.071384956093993,
       "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "R06阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "R09阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R09 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
       "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
-      "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约971.23 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
+      "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
       "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
       "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
       "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-      "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位净高为1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+      "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
       "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
       "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。"
     ]
@@ -265,7 +271,7 @@
   "site": {
     "parameters": {
       "lot_west": -2000,
-      "lot_east": 9280,
+      "lot_east": 10190,
       "lot_south": -5500,
       "lot_north": 9280,
       "ground_z": -500,
@@ -286,7 +292,7 @@
       "wheel_stop_depth": 100,
       "wheel_stop_height": 100,
       "fence_west": -1800,
-      "fence_east": 9080,
+      "fence_east": 9990,
       "fence_south": -5300,
       "fence_north": 9080,
       "fence_height": 1200,
@@ -304,21 +310,21 @@
       "fence_footing_top_z": -550,
       "car_opening_west": -1100,
       "car_opening_east": 1900,
-      "pedestrian_opening_west": 4930,
-      "pedestrian_opening_east": 6730,
+      "pedestrian_opening_west": 5860,
+      "pedestrian_opening_east": 7660,
       "shrub_center_z": -100
     },
     "lot_bounds_mm": [
       -2000,
       -5500,
-      9280,
+      10190,
       9280
     ],
     "lot_dimensions_mm": [
-      11280,
+      12190,
       14780
     ],
-    "lot_area_mm2": 166718400.0,
+    "lot_area_mm2": 180168200.0,
     "grade_z_mm": -500,
     "foundation": {
       "type": "demonstration raft, perimeter stems and candidate internal support ribs; no reinforcement design",
@@ -326,7 +332,7 @@
         0,
         0,
         -800,
-        7280,
+        8190,
         7280,
         -650
       ],
@@ -348,66 +354,86 @@
           "id": "I01",
           "plan_bounds_mm": [
             140.0,
-            3290.0,
-            7140.0,
-            3430.0
+            3260.0,
+            8050.0,
+            3400.0
           ],
-          "plan_area_mm2": 980000.0
+          "plan_area_mm2": 1107400.0
         },
         {
           "id": "I02",
           "plan_bounds_mm": [
             140.0,
             4260.0,
-            7140.0,
+            8050.0,
             4400.0
           ],
-          "plan_area_mm2": 980000.0
+          "plan_area_mm2": 1107400.0
         },
         {
           "id": "I03",
           "plan_bounds_mm": [
-            5080.0,
-            140.0,
-            5220.0,
+            4990.0,
+            4400.0,
+            5130.0,
             7140.0
           ],
-          "plan_area_mm2": 940800.0
+          "plan_area_mm2": 383600.0
         },
         {
           "id": "I04",
           "plan_bounds_mm": [
-            6150.0,
-            1460.0,
-            7140.0,
-            1600.0
+            5990.0,
+            4400.0,
+            6130.0,
+            7140.0
           ],
-          "plan_area_mm2": 138600.0
+          "plan_area_mm2": 383600.0
         },
         {
           "id": "I05",
           "plan_bounds_mm": [
-            6080.0,
-            1530.0,
-            6220.0,
-            3290.0
+            5130.0,
+            5160.0,
+            5990.0,
+            5300.0
           ],
-          "plan_area_mm2": 241500.0
+          "plan_area_mm2": 120400.0
+        },
+        {
+          "id": "I06",
+          "plan_bounds_mm": [
+            3260.0,
+            140.0,
+            3400.0,
+            4260.0
+          ],
+          "plan_area_mm2": 557200.0
+        },
+        {
+          "id": "I07",
+          "plan_bounds_mm": [
+            4260.0,
+            140.0,
+            4400.0,
+            4260.0
+          ],
+          "plan_area_mm2": 557200.0
         }
       ],
       "design_status": "sizes are assumptions; reactions, ground bearing and reinforcement pending"
     },
     "entrance": {
       "footprint_mm": [
-        5080,
+        6010,
         -1900,
-        6580,
+        7510,
         0
       ],
       "path_bounds_mm": [
-        5080,
+        6010,
         -5500,
-        6580,
+        7510,
         -1900
       ],
       "path_width_mm": 1500,
@@ -445,8 +471,8 @@
       ]
     },
     "fence": {
-      "post_count": 30,
-      "panel_count": 28,
+      "post_count": 31,
+      "panel_count": 29,
       "height_above_grade_mm": 1200,
       "panel_bottom_top_mm": [
         -420,
@@ -458,8 +484,8 @@
         1900
       ],
       "pedestrian_clear_opening_mm": [
-        4930,
-        6730
+        5860,
+        7660
       ],
       "posts": [
         {
@@ -469,37 +495,37 @@
         },
         {
           "id": "north_02",
-          "x": -245.71428571428578,
+          "x": -115.71428571428578,
           "y": 9080
         },
         {
           "id": "north_03",
-          "x": 1308.5714285714284,
+          "x": 1568.5714285714284,
           "y": 9080
         },
         {
           "id": "north_04",
-          "x": 2862.857142857143,
+          "x": 3252.857142857143,
           "y": 9080
         },
         {
           "id": "north_05",
-          "x": 4417.142857142857,
+          "x": 4937.142857142857,
           "y": 9080
         },
         {
           "id": "north_06",
-          "x": 5971.428571428572,
+          "x": 6621.428571428571,
           "y": 9080
         },
         {
           "id": "north_07",
-          "x": 7525.714285714286,
+          "x": 8305.714285714286,
           "y": 9080
         },
         {
           "id": "north_08",
-          "x": 9080.0,
+          "x": 9990.0,
           "y": 9080
         },
         {
@@ -544,42 +570,42 @@
         },
         {
           "id": "east_01",
-          "x": 9080,
+          "x": 9990,
           "y": -5300.0
         },
         {
           "id": "east_02",
-          "x": 9080,
+          "x": 9990,
           "y": -3502.5
         },
         {
           "id": "east_03",
-          "x": 9080,
+          "x": 9990,
           "y": -1705.0
         },
         {
           "id": "east_04",
-          "x": 9080,
+          "x": 9990,
           "y": 92.5
         },
         {
           "id": "east_05",
-          "x": 9080,
+          "x": 9990,
           "y": 1890.0
         },
         {
           "id": "east_06",
-          "x": 9080,
+          "x": 9990,
           "y": 3687.5
         },
         {
           "id": "east_07",
-          "x": 9080,
+          "x": 9990,
           "y": 5485.0
         },
         {
           "id": "east_08",
-          "x": 9080,
+          "x": 9990,
           "y": 7282.5
         },
         {
@@ -594,22 +620,27 @@
         },
         {
           "id": "south_middle_02",
-          "x": 3415.0,
+          "x": 3228.333333333333,
           "y": -5300
         },
         {
           "id": "south_middle_03",
-          "x": 4905.0,
+          "x": 4531.666666666666,
+          "y": -5300
+        },
+        {
+          "id": "south_middle_04",
+          "x": 5835.0,
           "y": -5300
         },
         {
           "id": "south_east_01",
-          "x": 6755.0,
+          "x": 7685.0,
           "y": -5300
         },
         {
           "id": "south_east_02",
-          "x": 7917.5,
+          "x": 8837.5,
           "y": -5300
         }
       ],
@@ -619,56 +650,56 @@
           "axis": "h",
           "at": 9080,
           "start": -1775.0,
-          "end": -270.7142857142858,
-          "post_center_span": 1554.2857142857142
+          "end": -140.71428571428578,
+          "post_center_span": 1684.2857142857142
         },
         {
           "id": "north_02",
           "axis": "h",
           "at": 9080,
-          "start": -220.71428571428578,
-          "end": 1283.5714285714284,
-          "post_center_span": 1554.2857142857142
+          "start": -90.71428571428578,
+          "end": 1543.5714285714284,
+          "post_center_span": 1684.2857142857142
         },
         {
           "id": "north_03",
           "axis": "h",
           "at": 9080,
-          "start": 1333.5714285714284,
-          "end": 2837.857142857143,
-          "post_center_span": 1554.2857142857147
+          "start": 1593.5714285714284,
+          "end": 3227.857142857143,
+          "post_center_span": 1684.2857142857147
         },
         {
           "id": "north_04",
           "axis": "h",
           "at": 9080,
-          "start": 2887.857142857143,
-          "end": 4392.142857142857,
-          "post_center_span": 1554.2857142857138
+          "start": 3277.857142857143,
+          "end": 4912.142857142857,
+          "post_center_span": 1684.2857142857138
         },
         {
           "id": "north_05",
           "axis": "h",
           "at": 9080,
-          "start": 4442.142857142857,
-          "end": 5946.428571428572,
-          "post_center_span": 1554.2857142857147
+          "start": 4962.142857142857,
+          "end": 6596.428571428571,
+          "post_center_span": 1684.2857142857138
         },
         {
           "id": "north_06",
           "axis": "h",
           "at": 9080,
-          "start": 5996.428571428572,
-          "end": 7500.714285714286,
-          "post_center_span": 1554.2857142857147
+          "start": 6646.428571428571,
+          "end": 8280.714285714286,
+          "post_center_span": 1684.2857142857156
         },
         {
           "id": "north_07",
           "axis": "h",
           "at": 9080,
-          "start": 7550.714285714286,
-          "end": 9055.0,
-          "post_center_span": 1554.2857142857138
+          "start": 8330.714285714286,
+          "end": 9965.0,
+          "post_center_span": 1684.2857142857138
         },
         {
           "id": "west_01",
@@ -737,7 +768,7 @@
         {
           "id": "east_01",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": -5275.0,
           "end": -3527.5,
           "post_center_span": 1797.5
@@ -745,7 +776,7 @@
         {
           "id": "east_02",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": -3477.5,
           "end": -1730.0,
           "post_center_span": 1797.5
@@ -753,7 +784,7 @@
         {
           "id": "east_03",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": -1680.0,
           "end": 67.5,
           "post_center_span": 1797.5
@@ -761,7 +792,7 @@
         {
           "id": "east_04",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": 117.5,
           "end": 1865.0,
           "post_center_span": 1797.5
@@ -769,7 +800,7 @@
         {
           "id": "east_05",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": 1915.0,
           "end": 3662.5,
           "post_center_span": 1797.5
@@ -777,7 +808,7 @@
         {
           "id": "east_06",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": 3712.5,
           "end": 5460.0,
           "post_center_span": 1797.5
@@ -785,7 +816,7 @@
         {
           "id": "east_07",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": 5510.0,
           "end": 7257.5,
           "post_center_span": 1797.5
@@ -793,7 +824,7 @@
         {
           "id": "east_08",
           "axis": "v",
-          "at": 9080,
+          "at": 9990,
           "start": 7307.5,
           "end": 9055.0,
           "post_center_span": 1797.5
@@ -811,44 +842,52 @@
           "axis": "h",
           "at": -5300,
           "start": 1950.0,
-          "end": 3390.0,
-          "post_center_span": 1490.0
+          "end": 3203.333333333333,
+          "post_center_span": 1303.333333333333
         },
         {
           "id": "south_middle_02",
           "axis": "h",
           "at": -5300,
-          "start": 3440.0,
-          "end": 4880.0,
-          "post_center_span": 1490.0
+          "start": 3253.333333333333,
+          "end": 4506.666666666666,
+          "post_center_span": 1303.333333333333
+        },
+        {
+          "id": "south_middle_03",
+          "axis": "h",
+          "at": -5300,
+          "start": 4556.666666666666,
+          "end": 5810.0,
+          "post_center_span": 1303.333333333334
         },
         {
           "id": "south_east_01",
           "axis": "h",
           "at": -5300,
-          "start": 6780.0,
-          "end": 7892.5,
-          "post_center_span": 1162.5
+          "start": 7710.0,
+          "end": 8812.5,
+          "post_center_span": 1152.5
         },
         {
           "id": "south_east_02",
           "axis": "h",
           "at": -5300,
-          "start": 7942.5,
-          "end": 9055.0,
-          "post_center_span": 1162.5
+          "start": 8862.5,
+          "end": 9965.0,
+          "post_center_span": 1152.5
         }
       ]
     },
     "surfaces": {
-      "soil_area_mm2": 108170000.0,
-      "finish_total_area_mm2": 110795000.0,
-      "gravel_area_mm2": 65673600.0,
+      "soil_area_mm2": 114500000.0,
+      "finish_total_area_mm2": 117212500.0,
+      "gravel_area_mm2": 71153800.0,
       "entrance_paving_area_mm2": 5400000.0,
       "parking_paving_area_mm2": 14840000.0,
       "lawns_area_mm2": {
         "front": 7360000.0,
-        "north": 6674400.0,
+        "north": 7611700.0,
         "east": 5917000.0,
         "west": 4930000.0
       },
@@ -862,13 +901,13 @@
         "north": [
           400,
           7750,
-          6880,
+          7790,
           8780
         ],
         "east": [
-          7780,
+          8690,
           500,
-          8750,
+          9660,
           6600
         ],
         "west": [
@@ -906,18 +945,18 @@
       ]
     },
     "assumptions": [
-      "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+      "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
       "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-      "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R06增加与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+      "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R09重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
       "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
       "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
-      "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
+      "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",
       "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
       "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。"
     ]
   },
   "structure": {
-    "revision": "R06-STRUCTURE",
+    "revision": "R09-STRUCTURE",
     "units": "mm",
     "status": "demonstration_candidate_not_engineered",
     "scheme": "timber_post_and_beam_candidate",
@@ -959,12 +998,12 @@
       "attic_joist_top_z": 5576,
       "attic_subfloor_bottom_z": 5576,
       "attic_subfloor_top_z": 5600,
-      "deck_left": 1800.0,
-      "deck_right": 5480.0,
+      "deck_left": 2255.0,
+      "deck_right": 5935.0,
       "hatch": [
-        2800,
+        4100,
         3505,
-        4000,
+        5300,
         4155
       ]
     },
@@ -982,7 +1021,7 @@
       },
       {
         "id": "C02",
-        "x": 7190.0,
+        "x": 585.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -993,8 +1032,8 @@
       },
       {
         "id": "C03",
-        "x": 90.0,
-        "y": 7190.0,
+        "x": 2815.0,
+        "y": 90.0,
         "width": 120,
         "floors": [
           1,
@@ -1004,8 +1043,8 @@
       },
       {
         "id": "C04",
-        "x": 7190.0,
-        "y": 7190.0,
+        "x": 3365.0,
+        "y": 90.0,
         "width": 120,
         "floors": [
           1,
@@ -1015,7 +1054,7 @@
       },
       {
         "id": "C05",
-        "x": 590,
+        "x": 4295.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1026,7 +1065,7 @@
       },
       {
         "id": "C06",
-        "x": 3060,
+        "x": 4540.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1037,7 +1076,7 @@
       },
       {
         "id": "C07",
-        "x": 3640.0,
+        "x": 5135.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1048,7 +1087,7 @@
       },
       {
         "id": "C08",
-        "x": 6340,
+        "x": 7275.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1059,8 +1098,8 @@
       },
       {
         "id": "C09",
-        "x": 590,
-        "y": 7190.0,
+        "x": 8100.0,
+        "y": 90.0,
         "width": 120,
         "floors": [
           1,
@@ -1070,7 +1109,7 @@
       },
       {
         "id": "C10",
-        "x": 3320,
+        "x": 90.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1081,7 +1120,7 @@
       },
       {
         "id": "C11",
-        "x": 3640.0,
+        "x": 585.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1092,7 +1131,7 @@
       },
       {
         "id": "C12",
-        "x": 4870,
+        "x": 2515.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1103,7 +1142,7 @@
       },
       {
         "id": "C13",
-        "x": 5150.0,
+        "x": 2760.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1114,8 +1153,8 @@
       },
       {
         "id": "C14",
-        "x": 90.0,
-        "y": 840,
+        "x": 2935.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1125,8 +1164,8 @@
       },
       {
         "id": "C15",
-        "x": 90.0,
-        "y": 3360.0,
+        "x": 3965.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1136,8 +1175,8 @@
       },
       {
         "id": "C16",
-        "x": 90.0,
-        "y": 4330.0,
+        "x": 4540.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1147,8 +1186,8 @@
       },
       {
         "id": "C17",
-        "x": 90.0,
-        "y": 6260,
+        "x": 5265.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1158,8 +1197,8 @@
       },
       {
         "id": "C18",
-        "x": 7190.0,
-        "y": 1530.0,
+        "x": 5845.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1169,8 +1208,8 @@
       },
       {
         "id": "C19",
-        "x": 7190.0,
-        "y": 2640,
+        "x": 6320.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1180,8 +1219,8 @@
       },
       {
         "id": "C20",
-        "x": 7190.0,
-        "y": 3330.0,
+        "x": 7210.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1191,8 +1230,8 @@
       },
       {
         "id": "C21",
-        "x": 7190.0,
-        "y": 4330.0,
+        "x": 8100.0,
+        "y": 7190.0,
         "width": 120,
         "floors": [
           1,
@@ -1202,8 +1241,8 @@
       },
       {
         "id": "C22",
-        "x": 7190.0,
-        "y": 6140,
+        "x": 90.0,
+        "y": 635.0,
         "width": 120,
         "floors": [
           1,
@@ -1213,8 +1252,8 @@
       },
       {
         "id": "C23",
-        "x": 7190.0,
-        "y": 6860,
+        "x": 90.0,
+        "y": 3565.0,
         "width": 120,
         "floors": [
           1,
@@ -1224,9 +1263,9 @@
       },
       {
         "id": "C24",
-        "x": 2455.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 90.0,
+        "y": 4527.5,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1235,9 +1274,9 @@
       },
       {
         "id": "C25",
-        "x": 3445.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 90.0,
+        "y": 5415.0,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1246,9 +1285,9 @@
       },
       {
         "id": "C26",
-        "x": 3640.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 90.0,
+        "y": 6302.5,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1257,9 +1296,9 @@
       },
       {
         "id": "C27",
-        "x": 3755.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 8100.0,
+        "y": 977.5,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1268,9 +1307,9 @@
       },
       {
         "id": "C28",
-        "x": 5005.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 8100.0,
+        "y": 1865.0,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1279,9 +1318,9 @@
       },
       {
         "id": "C29",
-        "x": 5150.0,
-        "y": 4330.0,
-        "width": 90,
+        "x": 8100.0,
+        "y": 2752.5,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1290,9 +1329,9 @@
       },
       {
         "id": "C30",
-        "x": 6150.0,
-        "y": 1530.0,
-        "width": 90,
+        "x": 8100.0,
+        "y": 3640.0,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1301,9 +1340,9 @@
       },
       {
         "id": "C31",
-        "x": 6150.0,
-        "y": 2155,
-        "width": 90,
+        "x": 8100.0,
+        "y": 4527.5,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1312,9 +1351,9 @@
       },
       {
         "id": "C32",
-        "x": 6150.0,
-        "y": 2945,
-        "width": 90,
+        "x": 8100.0,
+        "y": 5415.0,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1323,9 +1362,9 @@
       },
       {
         "id": "C33",
-        "x": 6150.0,
-        "y": 3330.0,
-        "width": 90,
+        "x": 8100.0,
+        "y": 6135.0,
+        "width": 120,
         "floors": [
           1,
           2
@@ -1334,13 +1373,113 @@
       },
       {
         "id": "C34",
-        "x": 5150.0,
-        "y": 3360.0,
+        "x": 8100.0,
+        "y": 6865.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C35",
+        "x": 5060.0,
+        "y": 4460,
         "width": 90,
         "floors": [
-          1
+          1,
+          2
         ],
-        "support": "F1_transfer_beam_pillar"
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C36",
+        "x": 5060.0,
+        "y": 5370.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C37",
+        "x": 5060.0,
+        "y": 6280.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C38",
+        "x": 5060.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C39",
+        "x": 6060.0,
+        "y": 4460,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C40",
+        "x": 6060.0,
+        "y": 5370.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C41",
+        "x": 6060.0,
+        "y": 6280.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C42",
+        "x": 6060.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C43",
+        "x": 7060.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
       }
     ],
     "beam_axes": [
@@ -1349,7 +1488,7 @@
         "axis": "h",
         "at": 90.0,
         "start": 30.0,
-        "end": 7250.0,
+        "end": 8160.0,
         "width": 120.0
       },
       {
@@ -1357,7 +1496,7 @@
         "axis": "h",
         "at": 7190.0,
         "start": 30.0,
-        "end": 7250.0,
+        "end": 8160.0,
         "width": 120.0
       },
       {
@@ -1371,7 +1510,7 @@
       {
         "id": "B04",
         "axis": "v",
-        "at": 7190.0,
+        "at": 8100.0,
         "start": 150.0,
         "end": 7130.0,
         "width": 120.0
@@ -1379,9 +1518,9 @@
       {
         "id": "B05",
         "axis": "h",
-        "at": 3360.0,
+        "at": 3330.0,
         "start": 150.0,
-        "end": 7130.0,
+        "end": 8040.0,
         "width": 180
       },
       {
@@ -1389,31 +1528,47 @@
         "axis": "h",
         "at": 4330.0,
         "start": 150.0,
-        "end": 7130.0,
+        "end": 8040.0,
         "width": 90
       },
       {
         "id": "B07",
         "axis": "v",
-        "at": 5150.0,
-        "start": 150.0,
+        "at": 5060.0,
+        "start": 4330.0,
         "end": 7130.0,
         "width": 90
       },
       {
         "id": "B08",
-        "axis": "h",
-        "at": 1530.0,
-        "start": 6150.0,
+        "axis": "v",
+        "at": 6060.0,
+        "start": 4330.0,
         "end": 7130.0,
         "width": 90
       },
       {
         "id": "B09",
+        "axis": "h",
+        "at": 5230.0,
+        "start": 5060.0,
+        "end": 6060.0,
+        "width": 90
+      },
+      {
+        "id": "B10",
         "axis": "v",
-        "at": 6150.0,
-        "start": 1530.0,
-        "end": 3360.0,
+        "at": 3330.0,
+        "start": 150.0,
+        "end": 4330.0,
+        "width": 90
+      },
+      {
+        "id": "B11",
+        "axis": "v",
+        "at": 4330.0,
+        "start": 150.0,
+        "end": 4330.0,
         "width": 90
       }
     ],
@@ -1423,14 +1578,14 @@
         "axis": "h",
         "at": 90.0,
         "start": 90.0,
-        "end": 590,
+        "end": 585.0,
         "normal_start": 150.0,
         "thickness": 9,
-        "clear_span": 380.0,
+        "clear_span": 375.0,
         "external": true,
         "end_columns": [
           "C01",
-          "C05"
+          "C02"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -1439,11 +1594,28 @@
         "id": "BW02",
         "axis": "h",
         "at": 90.0,
-        "start": 3060,
-        "end": 3640.0,
+        "start": 2815.0,
+        "end": 3365.0,
         "normal_start": 150.0,
         "thickness": 9,
-        "clear_span": 460.0,
+        "clear_span": 430.0,
+        "external": true,
+        "end_columns": [
+          "C03",
+          "C04"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW03",
+        "axis": "h",
+        "at": 90.0,
+        "start": 4540.0,
+        "end": 5135.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 475.0,
         "external": true,
         "end_columns": [
           "C06",
@@ -1453,34 +1625,17 @@
         "connection_capacity": null
       },
       {
-        "id": "BW03",
+        "id": "BW04",
         "axis": "h",
         "at": 90.0,
-        "start": 6340,
-        "end": 7190.0,
+        "start": 7275.0,
+        "end": 8100.0,
         "normal_start": 150.0,
         "thickness": 9,
-        "clear_span": 730.0,
+        "clear_span": 705.0,
         "external": true,
         "end_columns": [
           "C08",
-          "C02"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW04",
-        "axis": "h",
-        "at": 7190.0,
-        "start": 90.0,
-        "end": 590,
-        "normal_start": 7121.0,
-        "thickness": 9,
-        "clear_span": 380.0,
-        "external": true,
-        "end_columns": [
-          "C03",
           "C09"
         ],
         "wall_multiplier": null,
@@ -1490,45 +1645,28 @@
         "id": "BW05",
         "axis": "h",
         "at": 7190.0,
-        "start": 5150.0,
-        "end": 7190.0,
+        "start": 90.0,
+        "end": 585.0,
         "normal_start": 7121.0,
         "thickness": 9,
-        "clear_span": 1920.0,
+        "clear_span": 375.0,
         "external": true,
         "end_columns": [
-          "C13",
-          "C04"
+          "C10",
+          "C11"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
         "id": "BW06",
-        "axis": "v",
-        "at": 90.0,
-        "start": 90.0,
-        "end": 840,
-        "normal_start": 150.0,
+        "axis": "h",
+        "at": 7190.0,
+        "start": 3965.0,
+        "end": 4540.0,
+        "normal_start": 7121.0,
         "thickness": 9,
-        "clear_span": 630.0,
-        "external": true,
-        "end_columns": [
-          "C01",
-          "C14"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW07",
-        "axis": "v",
-        "at": 90.0,
-        "start": 3360.0,
-        "end": 4330.0,
-        "normal_start": 150.0,
-        "thickness": 9,
-        "clear_span": 850.0,
+        "clear_span": 455.0,
         "external": true,
         "end_columns": [
           "C15",
@@ -1538,48 +1676,31 @@
         "connection_capacity": null
       },
       {
+        "id": "BW07",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 4540.0,
+        "end": 5060.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 400.0,
+        "external": true,
+        "end_columns": [
+          "C16",
+          "C38"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
         "id": "BW08",
-        "axis": "v",
-        "at": 90.0,
-        "start": 6260,
-        "end": 7190.0,
-        "normal_start": 150.0,
-        "thickness": 9,
-        "clear_span": 810.0,
-        "external": true,
-        "end_columns": [
-          "C17",
-          "C03"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW09",
-        "axis": "v",
+        "axis": "h",
         "at": 7190.0,
-        "start": 90.0,
-        "end": 1530.0,
+        "start": 6320.0,
+        "end": 7210.0,
         "normal_start": 7121.0,
         "thickness": 9,
-        "clear_span": 1320.0,
-        "external": true,
-        "end_columns": [
-          "C02",
-          "C18"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW10",
-        "axis": "v",
-        "at": 7190.0,
-        "start": 2640,
-        "end": 3330.0,
-        "normal_start": 7121.0,
-        "thickness": 9,
-        "clear_span": 570.0,
+        "clear_span": 770.0,
         "external": true,
         "end_columns": [
           "C19",
@@ -1589,14 +1710,14 @@
         "connection_capacity": null
       },
       {
-        "id": "BW11",
-        "axis": "v",
+        "id": "BW09",
+        "axis": "h",
         "at": 7190.0,
-        "start": 3330.0,
-        "end": 4330.0,
+        "start": 7210.0,
+        "end": 8100.0,
         "normal_start": 7121.0,
         "thickness": 9,
-        "clear_span": 880.0,
+        "clear_span": 770.0,
         "external": true,
         "end_columns": [
           "C20",
@@ -1606,35 +1727,69 @@
         "connection_capacity": null
       },
       {
-        "id": "BW12",
+        "id": "BW10",
         "axis": "v",
-        "at": 7190.0,
-        "start": 4330.0,
-        "end": 6140,
-        "normal_start": 7121.0,
+        "at": 90.0,
+        "start": 90.0,
+        "end": 635.0,
+        "normal_start": 150.0,
         "thickness": 9,
-        "clear_span": 1690.0,
+        "clear_span": 425.0,
         "external": true,
         "end_columns": [
-          "C21",
+          "C01",
           "C22"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
-        "id": "BW13",
-        "axis": "h",
-        "at": 4330.0,
-        "start": 90.0,
-        "end": 2455.0,
-        "normal_start": 4375.0,
-        "thickness": 5,
-        "clear_span": 2260.0,
-        "external": false,
+        "id": "BW11",
+        "axis": "v",
+        "at": 90.0,
+        "start": 3565.0,
+        "end": 4527.5,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 842.5,
+        "external": true,
         "end_columns": [
-          "C16",
+          "C23",
           "C24"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW12",
+        "axis": "v",
+        "at": 90.0,
+        "start": 4527.5,
+        "end": 5415.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C24",
+          "C25"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW13",
+        "axis": "v",
+        "at": 90.0,
+        "start": 5415.0,
+        "end": 6302.5,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C25",
+          "C26"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -1642,16 +1797,16 @@
       {
         "id": "BW14",
         "axis": "v",
-        "at": 5150.0,
-        "start": 4330.0,
+        "at": 90.0,
+        "start": 6302.5,
         "end": 7190.0,
-        "normal_start": 5195.0,
-        "thickness": 5,
-        "clear_span": 2755.0,
-        "external": false,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
         "end_columns": [
-          "C29",
-          "C13"
+          "C26",
+          "C10"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -1659,16 +1814,220 @@
       {
         "id": "BW15",
         "axis": "v",
-        "at": 6150.0,
-        "start": 1530.0,
-        "end": 2155,
-        "normal_start": 6195.0,
-        "thickness": 5,
-        "clear_span": 535.0,
-        "external": false,
+        "at": 8100.0,
+        "start": 90.0,
+        "end": 977.5,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C09",
+          "C27"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW16",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 977.5,
+        "end": 1865.0,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C27",
+          "C28"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW17",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 1865.0,
+        "end": 2752.5,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C28",
+          "C29"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW18",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 2752.5,
+        "end": 3640.0,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C29",
+          "C30"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW19",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 3640.0,
+        "end": 4527.5,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
         "end_columns": [
           "C30",
           "C31"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW20",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 4527.5,
+        "end": 5415.0,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 767.5,
+        "external": true,
+        "end_columns": [
+          "C31",
+          "C32"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW21",
+        "axis": "v",
+        "at": 8100.0,
+        "start": 5415.0,
+        "end": 6135.0,
+        "normal_start": 8031.0,
+        "thickness": 9,
+        "clear_span": 600.0,
+        "external": true,
+        "end_columns": [
+          "C32",
+          "C33"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW22",
+        "axis": "v",
+        "at": 6060.0,
+        "start": 4460,
+        "end": 5370.0,
+        "normal_start": 6105.0,
+        "thickness": 5,
+        "clear_span": 820.0,
+        "external": false,
+        "end_columns": [
+          "C39",
+          "C40"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW23",
+        "axis": "v",
+        "at": 6060.0,
+        "start": 5370.0,
+        "end": 6280.0,
+        "normal_start": 6105.0,
+        "thickness": 5,
+        "clear_span": 820.0,
+        "external": false,
+        "end_columns": [
+          "C40",
+          "C41"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW24",
+        "axis": "v",
+        "at": 6060.0,
+        "start": 6280.0,
+        "end": 7190.0,
+        "normal_start": 6105.0,
+        "thickness": 5,
+        "clear_span": 805.0,
+        "external": false,
+        "end_columns": [
+          "C41",
+          "C42"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW25",
+        "axis": "v",
+        "at": 5060.0,
+        "start": 4460,
+        "end": 5370.0,
+        "normal_start": 5105.0,
+        "thickness": 5,
+        "clear_span": 820.0,
+        "external": false,
+        "end_columns": [
+          "C35",
+          "C36"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW26",
+        "axis": "v",
+        "at": 5060.0,
+        "start": 5370.0,
+        "end": 6280.0,
+        "normal_start": 5105.0,
+        "thickness": 5,
+        "clear_span": 820.0,
+        "external": false,
+        "end_columns": [
+          "C36",
+          "C37"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW27",
+        "axis": "v",
+        "at": 5060.0,
+        "start": 6280.0,
+        "end": 7190.0,
+        "normal_start": 5105.0,
+        "thickness": 5,
+        "clear_span": 805.0,
+        "external": false,
+        "end_columns": [
+          "C37",
+          "C38"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -1678,37 +2037,51 @@
       {
         "id": "I01",
         "axis": "h",
-        "at": 3360.0,
+        "at": 3330.0,
         "start": 90.0,
-        "end": 7190.0
+        "end": 8100.0
       },
       {
         "id": "I02",
         "axis": "h",
         "at": 4330.0,
         "start": 90.0,
-        "end": 7190.0
+        "end": 8100.0
       },
       {
         "id": "I03",
         "axis": "v",
-        "at": 5150.0,
-        "start": 90.0,
+        "at": 5060.0,
+        "start": 4330.0,
         "end": 7190.0
       },
       {
         "id": "I04",
-        "axis": "h",
-        "at": 1530.0,
-        "start": 6150.0,
+        "axis": "v",
+        "at": 6060.0,
+        "start": 4330.0,
         "end": 7190.0
       },
       {
         "id": "I05",
+        "axis": "h",
+        "at": 5230.0,
+        "start": 5060.0,
+        "end": 6060.0
+      },
+      {
+        "id": "I06",
         "axis": "v",
-        "at": 6150.0,
-        "start": 1530.0,
-        "end": 3360.0
+        "at": 3330.0,
+        "start": 90.0,
+        "end": 4330.0
+      },
+      {
+        "id": "I07",
+        "axis": "v",
+        "at": 4330.0,
+        "start": 90.0,
+        "end": 4330.0
       }
     ],
     "roof_posts": {
@@ -1717,8 +2090,8 @@
         7190.0
       ],
       "purlin_x": [
-        1740.0,
-        5540.0
+        2195.0,
+        5995.0
       ],
       "middle_y": 4330.0
     },
@@ -1730,7 +2103,7 @@
       "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
       "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
       "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
-      "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+      "检修口下的梁通过周边示意边梁换向支承；对接和避让切口仅用于几何协调，紧固件、抗拔件、节点及承载未计算。",
       "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
       "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
       "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。"
@@ -1748,11 +2121,217 @@
       "foundation_soil_bearing_settlement_and_reinforcement"
     ],
     "critical_unresolved_items": [
-      "7280 mm envelope creates long LDK/roof spans; no section adequacy is established.",
+      "8190 x 7280 mm outline creates long open-LDK/roof spans; no section adequacy is established.",
       "The hatch requires designed load transfer, connections and a coordinated attic ladder product.",
       "First-floor floor build-up, foundations, ventilation and moisture protection require engineering.",
       "Bearing panels have no certified wall multiplier; geometry does not prove seismic or wind resistance."
-    ]
+    ],
+    "floor_beam_axes": {
+      "F1": [
+        {
+          "id": "B01",
+          "axis": "h",
+          "at": 90.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B02",
+          "axis": "h",
+          "at": 7190.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B03",
+          "axis": "v",
+          "at": 90.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B04",
+          "axis": "v",
+          "at": 8100.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B05",
+          "axis": "h",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 180
+        },
+        {
+          "id": "B06",
+          "axis": "h",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 90
+        },
+        {
+          "id": "B07",
+          "axis": "v",
+          "at": 5060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B08",
+          "axis": "v",
+          "at": 6060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B09",
+          "axis": "h",
+          "at": 5230.0,
+          "start": 5060.0,
+          "end": 6060.0,
+          "width": 90
+        },
+        {
+          "id": "B10",
+          "axis": "v",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B11",
+          "axis": "v",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        }
+      ],
+      "F2": [
+        {
+          "id": "B01",
+          "axis": "h",
+          "at": 90.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B02",
+          "axis": "h",
+          "at": 7190.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B03",
+          "axis": "v",
+          "at": 90.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B04",
+          "axis": "v",
+          "at": 8100.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B05",
+          "axis": "h",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 180
+        },
+        {
+          "id": "B06",
+          "axis": "h",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 90
+        },
+        {
+          "id": "B07",
+          "axis": "v",
+          "at": 5060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B08",
+          "axis": "v",
+          "at": 6060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B09",
+          "axis": "h",
+          "at": 5230.0,
+          "start": 5060.0,
+          "end": 6060.0,
+          "width": 90
+        },
+        {
+          "id": "B10",
+          "axis": "v",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B11",
+          "axis": "v",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B12",
+          "axis": "h",
+          "at": 3460.0,
+          "start": 3375.0,
+          "end": 5390,
+          "width": 90
+        },
+        {
+          "id": "B13",
+          "axis": "h",
+          "at": 4200.0,
+          "start": 3375.0,
+          "end": 5390,
+          "width": 90
+        },
+        {
+          "id": "B14",
+          "axis": "v",
+          "at": 5345.0,
+          "start": 3505,
+          "end": 4155,
+          "width": 90
+        }
+      ]
+    }
   },
   "outdoor_lighting": {
     "revision": "R08",
@@ -1784,17 +2363,17 @@
         "category": "wall",
         "id": "entrance_01",
         "mount_center_mm": [
-          6490,
+          7420,
           0,
           1520
         ],
         "light_position_mm": [
-          6490,
+          7420,
           -88,
           1500
         ],
         "target_mm": [
-          5830.0,
+          6760.0,
           -1000,
           -25
         ],
@@ -1810,12 +2389,12 @@
           -0.8045316033966207
         ],
         "light_position_glb_m": [
-          6.49,
+          7.42,
           1.5,
           0.088
         ],
         "target_glb_m": [
-          5.83,
+          6.76,
           -0.025,
           1.0
         ],
@@ -1831,17 +2410,17 @@
         "category": "path",
         "id": "path_01",
         "mount_center_mm": [
-          4800,
+          5730,
           -4050,
           -500
         ],
         "light_position_mm": [
-          4856,
+          5786,
           -4050,
           230
         ],
         "target_mm": [
-          5830.0,
+          6760.0,
           -4050,
           -500
         ],
@@ -1857,12 +2436,12 @@
           -0.5997370691607902
         ],
         "light_position_glb_m": [
-          4.856,
+          5.786,
           0.23,
           4.05
         ],
         "target_glb_m": [
-          5.83,
+          6.76,
           -0.5,
           4.05
         ],
@@ -1878,17 +2457,17 @@
         "category": "path",
         "id": "path_02",
         "mount_center_mm": [
-          4800,
+          5730,
           -2550,
           -500
         ],
         "light_position_mm": [
-          4856,
+          5786,
           -2550,
           230
         ],
         "target_mm": [
-          5830.0,
+          6760.0,
           -2550,
           -500
         ],
@@ -1904,12 +2483,12 @@
           -0.5997370691607902
         ],
         "light_position_glb_m": [
-          4.856,
+          5.786,
           0.23,
           2.55
         ],
         "target_glb_m": [
-          5.83,
+          6.76,
           -0.5,
           2.55
         ],
@@ -2029,24 +2608,24 @@
         "category": "gate",
         "id": "gate_01",
         "mount_center_mm": [
-          4905.0,
+          5835.0,
           -5325.0,
           550
         ],
         "light_position_mm": [
-          4905.0,
+          5835.0,
           -5384.0,
           550
         ],
         "target_mm": [
-          4905.0,
+          5835.0,
           -5500,
           -500
         ],
         "beam_angle_degrees": 80,
         "visual_intensity": 0.8,
         "visual_range_m": 2.5,
-        "mount_to": "fence:posts:south_middle_03",
+        "mount_to": "fence:posts:south_middle_04",
         "group": "lighting:gate:gate_01",
         "diffuser_label": "lighting:gate:gate_01:diffuser",
         "direction_cad": [
@@ -2055,12 +2634,12 @@
           -0.9939528041771938
         ],
         "light_position_glb_m": [
-          4.905,
+          5.835,
           0.55,
           5.384
         ],
         "target_glb_m": [
-          4.905,
+          5.835,
           -0.5,
           5.5
         ],
@@ -2076,17 +2655,17 @@
         "category": "gate",
         "id": "gate_02",
         "mount_center_mm": [
-          6755.0,
+          7685.0,
           -5325.0,
           550
         ],
         "light_position_mm": [
-          6755.0,
+          7685.0,
           -5384.0,
           550
         ],
         "target_mm": [
-          6755.0,
+          7685.0,
           -5500,
           -500
         ],
@@ -2102,12 +2681,12 @@
           -0.9939528041771938
         ],
         "light_position_glb_m": [
-          6.755,
+          7.685,
           0.55,
           5.384
         ],
         "target_glb_m": [
-          6.755,
+          7.685,
           -0.5,
           5.5
         ],
@@ -2149,8 +2728,9 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
-    "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
+    "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
+    "用户于2026-10-07确认R09平面；一、二层厕所和楼梯上下对齐。",
+    "南侧阳台外形3640 × 1500 mm，净几何面积4.816㎡；公共通道可达，支柱/基础/栏杆/排水均为未计算的演示输入。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
     "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
@@ -2159,39 +2739,39 @@
     "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
     "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
     "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
-    "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
+    "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
     "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-    "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
+    "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
     "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
     "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
     "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R06阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R09阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R09 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
-    "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约971.23 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
+    "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
     "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
     "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
     "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-    "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位净高为1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+    "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
     "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
     "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
-    "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+    "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
     "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R06增加与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R09重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
     "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
     "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
-    "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
+    "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",
     "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
     "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。",
     "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
     "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
     "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
     "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
-    "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+    "检修口下的梁通过周边示意边梁换向支承；对接和避让切口仅用于几何协调，紧固件、抗拔件、节点及承载未计算。",
     "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
     "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
     "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。",
@@ -2220,67 +2800,67 @@
           "id": "sofa",
           "room": "ldk",
           "kind": "sofa",
-          "x": 1870.0,
-          "y": 380.0,
-          "width": 1600,
+          "x": 650,
+          "y": 850,
+          "width": 1800,
           "depth": 850,
-          "rotation": 270,
+          "rotation": 0,
           "height": 0,
           "footprint_mm": [
-            1870.0,
-            380.0,
-            2720.0,
-            1980.0
+            650.0,
+            850.0,
+            2450.0,
+            1700.0
           ]
         },
         {
           "id": "coffee_table",
           "room": "ldk",
           "kind": "table",
-          "x": 900.0,
-          "y": 730.0,
+          "x": 1100,
+          "y": 2000,
           "width": 900,
           "depth": 500,
-          "rotation": 90,
+          "rotation": 0,
           "height": 380,
           "footprint_mm": [
-            900.0,
-            730.0,
-            1400.0,
-            1630.0
+            1100.0,
+            2000.0,
+            2000.0,
+            2500.0
           ]
         },
         {
           "id": "television",
           "room": "ldk",
           "kind": "television",
-          "x": 220.0,
-          "y": 300.0,
+          "x": 180,
+          "y": 2300,
           "width": 1200,
-          "depth": 350,
+          "depth": 400,
           "rotation": 90,
           "height": 0,
           "footprint_mm": [
-            220.0,
-            300.0,
-            570.0,
-            1500.0
+            180.0,
+            2300.0,
+            580.0,
+            3500.0
           ]
         },
         {
           "id": "dining_table",
           "room": "ldk",
           "kind": "table",
-          "x": 3560.0,
-          "y": 2800.0,
-          "width": 1000,
-          "depth": 700,
+          "x": 3500,
+          "y": 2700,
+          "width": 1400,
+          "depth": 800,
           "rotation": 0,
           "height": 730,
           "footprint_mm": [
-            3560.0,
-            2800.0,
-            4560.0,
+            3500.0,
+            2700.0,
+            4900.0,
             3500.0
           ]
         },
@@ -2288,34 +2868,34 @@
           "id": "dining_chair_west",
           "room": "ldk",
           "kind": "chair",
-          "x": 3090.0,
-          "y": 2910.0,
+          "x": 2980,
+          "y": 2700,
           "width": 450,
           "depth": 420,
           "rotation": 90,
           "height": 0,
           "footprint_mm": [
-            3090.0,
-            2910.0,
-            3510.0,
-            3360.0
+            2980.0,
+            2700.0,
+            3400.0,
+            3150.0
           ]
         },
         {
           "id": "dining_chair_east",
           "room": "ldk",
           "kind": "chair",
-          "x": 4610.0,
-          "y": 2910.0,
+          "x": 5000,
+          "y": 2700,
           "width": 450,
           "depth": 420,
           "rotation": 270,
           "height": 0,
           "footprint_mm": [
-            4610.0,
-            2910.0,
-            5030.0,
-            3360.0
+            5000.0,
+            2700.0,
+            5420.0,
+            3150.0
           ]
         }
       ]
@@ -2337,51 +2917,51 @@
           "id": "bed",
           "room": "master",
           "kind": "bed",
-          "x": 450.0,
-          "y": 550.0,
-          "width": 1470,
-          "depth": 2020,
-          "rotation": 90,
+          "x": 430,
+          "y": 500,
+          "width": 1400,
+          "depth": 2000,
+          "rotation": 0,
           "height": 0,
           "footprint_mm": [
-            450.0,
-            550.0,
-            2470.0,
-            2020.0
+            430.0,
+            500.0,
+            1830.0,
+            2500.0
           ]
         },
         {
           "id": "bed",
           "room": "bed2",
           "kind": "bed",
-          "x": 4380.0,
-          "y": 400.0,
-          "width": 1030,
-          "depth": 2020,
+          "x": 5500,
+          "y": 450,
+          "width": 1000,
+          "depth": 2000,
           "rotation": 0,
           "height": 0,
           "footprint_mm": [
-            4380.0,
-            400.0,
-            5410.0,
-            2420.0
+            5500.0,
+            450.0,
+            6500.0,
+            2450.0
           ]
         },
         {
           "id": "bed",
           "room": "bed3",
           "kind": "bed",
-          "x": 430.0,
-          "y": 4520.0,
-          "width": 1030,
-          "depth": 2020,
+          "x": 500,
+          "y": 4680,
+          "width": 1000,
+          "depth": 2000,
           "rotation": 0,
           "height": 0,
           "footprint_mm": [
-            430.0,
-            4520.0,
-            1460.0,
-            6540.0
+            500.0,
+            4680.0,
+            1500.0,
+            6680.0
           ]
         }
       ]
@@ -2392,7 +2972,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 761,
-    "all_nodes": 873
+    "named_mesh_nodes": 879,
+    "all_nodes": 986
   }
 }

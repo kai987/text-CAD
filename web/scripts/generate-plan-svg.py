@@ -15,14 +15,14 @@ from pathlib import Path
 import fitz
 
 ROOT = Path(__file__).resolve().parents[2]
-PDF = "output/pdf/house_floor_plans_R02_JP.pdf"
+PDF = "output/pdf/house_floor_plans_R09_JP.pdf"
 POINTS_PER_MM = 72 / 25.4
 # Paper coordinates measured from the top-left of the existing A3 sheet.
 # Includes both overall dimensions, door arcs, room labels and north arrow.
-CROP_MM = (18.0, 65.0, 191.0, 196.0)
+CROP_MM = (18.0, 50.0, 207.0, 225.0)
 REQUIRED_LABELS = {
-    1: ["7280", "LDK", "浴室", "洗面", "食品庫", "玄関", "トイレ", "階段"],
-    2: ["7280", "主寝室", "洋室 2", "洋室 3", "納戸", "トイレ", "階段"],
+    1: ["7280", "LDK", "浴室", "洗面", "玄関", "トイレ", "階段"],
+    2: ["7280", "主寝室", "洋室 2", "洋室 3", "収納", "トイレ", "階段"],
 }
 
 
@@ -63,8 +63,8 @@ def main() -> None:
         for required in REQUIRED_LABELS[floor]:
             if not any(required in text for text in labels):
                 raise ValueError(f"Floor {floor} crop omits required label {required!r}.")
-        if labels.count("7280") != 2:
-            raise ValueError("Both overall 7280 dimensions must be retained.")
+        if labels.count("7280") < 1 or labels.count("8190") < 1:
+            raise ValueError("Both overall R09 dimensions must be retained.")
         svg = page.get_svg_image(text_as_path=True).encode("utf-8")
         if b"<text" in svg or b"<image" in svg:
             raise ValueError("Expected vector-only shapes and outlined text.")

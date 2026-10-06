@@ -1,0 +1,1248 @@
+{
+  "revision": "R09",
+  "status": "pass",
+  "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
+  "checks": [
+    {
+      "name": "1F/unique_ids",
+      "passed": true,
+      "evidence": [
+        "ldk",
+        "foyer",
+        "bath",
+        "wash",
+        "wc",
+        "wc_hall",
+        "stairs"
+      ]
+    },
+    {
+      "name": "1F/ldk/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 33.05,
+        "label": [
+          3500,
+          2250
+        ]
+      }
+    },
+    {
+      "name": "1F/ldk/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/foyer/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 3.04,
+        "label": [
+          6910,
+          850
+        ]
+      }
+    },
+    {
+      "name": "1F/foyer/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/bath/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 3.3124,
+        "label": [
+          1200,
+          5880
+        ]
+      }
+    },
+    {
+      "name": "1F/bath/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/wash/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 5.2962,
+        "label": [
+          3555.0,
+          6030
+        ]
+      }
+    },
+    {
+      "name": "1F/wash/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/wc/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 1.53,
+        "label": [
+          5560.0,
+          6050
+        ]
+      }
+    },
+    {
+      "name": "1F/wc/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/wc_hall/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 0.828,
+        "label": [
+          5560.0,
+          4840.0
+        ]
+      }
+    },
+    {
+      "name": "1F/wc_hall/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/stairs/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 5.168,
+        "label": [
+          7060.0,
+          5740.0
+        ]
+      }
+    },
+    {
+      "name": "1F/stairs/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/rooms_nonoverlapping",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "1F/fixture/靴収納",
+      "passed": true,
+      "evidence": [
+        "foyer"
+      ]
+    },
+    {
+      "name": "1F/fixture/キッチン",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/ダイニング",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/ソファ",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/TV",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/食品収納",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/浴槽",
+      "passed": true,
+      "evidence": [
+        "bath"
+      ]
+    },
+    {
+      "name": "1F/fixture/洗面",
+      "passed": true,
+      "evidence": [
+        "wash"
+      ]
+    },
+    {
+      "name": "1F/fixture/洗濯機",
+      "passed": true,
+      "evidence": [
+        "wash"
+      ]
+    },
+    {
+      "name": "1F/fixture/リネン",
+      "passed": true,
+      "evidence": [
+        "wash"
+      ]
+    },
+    {
+      "name": "1F/fixture/WC",
+      "passed": true,
+      "evidence": [
+        "wc"
+      ]
+    },
+    {
+      "name": "1F/fixtures_nonoverlapping",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "1F/D01/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "outside",
+          "foyer"
+        ],
+        "owners": [
+          [
+            "outside"
+          ],
+          [
+            "foyer"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D01/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D01/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D01/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D02/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "foyer",
+          "ldk"
+        ],
+        "owners": [
+          [
+            "foyer"
+          ],
+          [
+            "ldk"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D02/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D02/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D02/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D03/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "ldk",
+          "wash"
+        ],
+        "owners": [
+          [
+            "ldk"
+          ],
+          [
+            "wash"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D03/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D03/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D03/interior_pocket_reservation",
+      "passed": true,
+      "evidence": {
+        "outside_partition_mm2": 0.0,
+        "construction": "unverified wall pocket"
+      }
+    },
+    {
+      "name": "1F/D04/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "wash",
+          "bath"
+        ],
+        "owners": [
+          [
+            "bath"
+          ],
+          [
+            "wash"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D04/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D04/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D04/interior_pocket_reservation",
+      "passed": true,
+      "evidence": {
+        "outside_partition_mm2": 0.0,
+        "construction": "unverified wall pocket"
+      }
+    },
+    {
+      "name": "1F/O01/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "ldk",
+          "wc_hall"
+        ],
+        "owners": [
+          [
+            "ldk"
+          ],
+          [
+            "wc_hall"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/O01/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D05/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "wc_hall",
+          "wc"
+        ],
+        "owners": [
+          [
+            "wc_hall"
+          ],
+          [
+            "wc"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D05/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D05/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D05/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/O02/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "ldk",
+          "stairs"
+        ],
+        "owners": [
+          [
+            "ldk"
+          ],
+          [
+            "stairs"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/O02/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/0/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/1/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/2/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/3/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/4/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/window/5/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/whole_outline_assigned",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/all_rooms_reachable",
+      "passed": true,
+      "evidence": {
+        "reachable": [
+          "bath",
+          "foyer",
+          "ldk",
+          "outside",
+          "stairs",
+          "wash",
+          "wc",
+          "wc_hall"
+        ]
+      }
+    },
+    {
+      "name": "1F/route/entry_stairs",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "1F/route/entry_wc",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "1F/route/ldk_wash",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "1F/DXF/audit",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "1F/DXF/units_revision",
+      "passed": true,
+      "evidence": {
+        "units": 4,
+        "revision": "R09"
+      }
+    },
+    {
+      "name": "1F/DXF/room_labels",
+      "passed": true,
+      "evidence": [
+        "靴収納",
+        "キッチン",
+        "ダイニング",
+        "ソファ",
+        "TV",
+        "食品収納",
+        "浴槽",
+        "洗面",
+        "洗濯機",
+        "リネン",
+        "WC",
+        "D01 / 900",
+        "D02 / 900",
+        "D03 / 800",
+        "D04 / 750",
+        "D05 / 700",
+        "LDK",
+        "33.05 m2",
+        "玄関",
+        "3.04 m2",
+        "1900 × 1600",
+        "浴室",
+        "3.31 m2",
+        "1820 × 1820",
+        "洗面・脱衣 / 洗濯",
+        "5.30 m2",
+        "2910 × 1820",
+        "トイレ",
+        "1.53 m2",
+        "900 × 1700",
+        "ホール",
+        "0.83 m2",
+        "階段 UP",
+        "16R x 175 / T260",
+        "W900 / 踊場900",
+        "北 N (仮定)",
+        "南 / 入口方向は仮定"
+      ]
+    },
+    {
+      "name": "1F/DXF/native_editable_dimensions",
+      "passed": true,
+      "evidence": 5
+    },
+    {
+      "name": "1F/DXF/high_contrast",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "1F/DXF/viewport_scale",
+      "passed": true,
+      "evidence": 50
+    },
+    {
+      "name": "2F/unique_ids",
+      "passed": true,
+      "evidence": [
+        "master",
+        "closet",
+        "bed2",
+        "bed3",
+        "hall",
+        "wc",
+        "wc_hall",
+        "stairs",
+        "balcony"
+      ]
+    },
+    {
+      "name": "2F/master/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 9.61,
+        "label": [
+          2530,
+          1300
+        ]
+      }
+    },
+    {
+      "name": "2F/master/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/closet/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 2.79,
+        "label": [
+          1700,
+          3530
+        ]
+      }
+    },
+    {
+      "name": "2F/closet/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/bed2/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 11.253,
+        "label": [
+          7350,
+          1450
+        ]
+      }
+    },
+    {
+      "name": "2F/bed2/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/bed3/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 13.1376,
+        "label": [
+          3000,
+          5500
+        ]
+      }
+    },
+    {
+      "name": "2F/bed3/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/hall/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 7.047,
+        "label": [
+          5400,
+          3820
+        ]
+      }
+    },
+    {
+      "name": "2F/hall/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/wc/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 1.53,
+        "label": [
+          5560.0,
+          6050
+        ]
+      }
+    },
+    {
+      "name": "2F/wc/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/wc_hall/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 0.828,
+        "label": [
+          5560.0,
+          4840.0
+        ]
+      }
+    },
+    {
+      "name": "2F/wc_hall/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/stairs/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 5.168,
+        "label": [
+          7060.0,
+          5740.0
+        ]
+      }
+    },
+    {
+      "name": "2F/stairs/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/balcony/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 4.816,
+        "label": [
+          4800.0,
+          -450
+        ]
+      }
+    },
+    {
+      "name": "2F/balcony/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/rooms_nonoverlapping",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "2F/fixture/ベッド 1400",
+      "passed": true,
+      "evidence": [
+        "master"
+      ]
+    },
+    {
+      "name": "2F/fixture/衣類棚",
+      "passed": true,
+      "evidence": [
+        "closet"
+      ]
+    },
+    {
+      "name": "2F/fixture/ベッド 1000",
+      "passed": true,
+      "evidence": [
+        "bed2"
+      ]
+    },
+    {
+      "name": "2F/fixture/CL",
+      "passed": true,
+      "evidence": [
+        "bed2"
+      ]
+    },
+    {
+      "name": "2F/fixture/ベッド 1000",
+      "passed": true,
+      "evidence": [
+        "bed3"
+      ]
+    },
+    {
+      "name": "2F/fixture/CL",
+      "passed": true,
+      "evidence": [
+        "bed3"
+      ]
+    },
+    {
+      "name": "2F/fixture/WC",
+      "passed": true,
+      "evidence": [
+        "wc"
+      ]
+    },
+    {
+      "name": "2F/fixture/物干し",
+      "passed": true,
+      "evidence": [
+        "balcony"
+      ]
+    },
+    {
+      "name": "2F/fixtures_nonoverlapping",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "2F/D21/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "master"
+        ],
+        "owners": [
+          [
+            "master"
+          ],
+          [
+            "hall"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D21/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D21/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D21/interior_pocket_reservation",
+      "passed": true,
+      "evidence": {
+        "outside_partition_mm2": 0.0,
+        "construction": "unverified wall pocket"
+      }
+    },
+    {
+      "name": "2F/D22/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "bed2"
+        ],
+        "owners": [
+          [
+            "hall"
+          ],
+          [
+            "bed2"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D22/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D22/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D22/interior_pocket_reservation",
+      "passed": true,
+      "evidence": {
+        "outside_partition_mm2": 0.0,
+        "construction": "unverified wall pocket"
+      }
+    },
+    {
+      "name": "2F/D23/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "bed3"
+        ],
+        "owners": [
+          [
+            "hall"
+          ],
+          [
+            "bed3"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D23/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D23/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D23/interior_pocket_reservation",
+      "passed": true,
+      "evidence": {
+        "outside_partition_mm2": 0.0,
+        "construction": "unverified wall pocket"
+      }
+    },
+    {
+      "name": "2F/D24/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "master",
+          "closet"
+        ],
+        "owners": [
+          [
+            "master"
+          ],
+          [
+            "closet"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D24/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D24/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D24/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/O21/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "wc_hall"
+        ],
+        "owners": [
+          [
+            "hall"
+          ],
+          [
+            "wc_hall"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/O21/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D25/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "wc_hall",
+          "wc"
+        ],
+        "owners": [
+          [
+            "wc_hall"
+          ],
+          [
+            "wc"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D25/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D25/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D25/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/O22/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "stairs"
+        ],
+        "owners": [
+          [
+            "hall"
+          ],
+          [
+            "stairs"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/O22/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D26/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "hall",
+          "balcony"
+        ],
+        "owners": [
+          [
+            "balcony"
+          ],
+          [
+            "hall"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "2F/D26/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D26/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/D26/leaf_clear_of_walls",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/0/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/1/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/2/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/3/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/4/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/window/5/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/whole_outline_assigned",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "2F/all_rooms_reachable",
+      "passed": true,
+      "evidence": {
+        "reachable": [
+          "balcony",
+          "bed2",
+          "bed3",
+          "closet",
+          "hall",
+          "master",
+          "stairs",
+          "wc",
+          "wc_hall"
+        ]
+      }
+    },
+    {
+      "name": "2F/balcony_without_bedroom_transit",
+      "passed": true,
+      "evidence": [
+        "balcony",
+        "hall",
+        "stairs",
+        "wc_hall"
+      ]
+    },
+    {
+      "name": "2F/route/stairs_balcony",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "2F/route/stairs_wc",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "2F/DXF/audit",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "2F/DXF/units_revision",
+      "passed": true,
+      "evidence": {
+        "units": 4,
+        "revision": "R09"
+      }
+    },
+    {
+      "name": "2F/DXF/room_labels",
+      "passed": true,
+      "evidence": [
+        "ベッド 1400",
+        "衣類棚",
+        "ベッド 1000",
+        "CL",
+        "ベッド 1000",
+        "CL",
+        "WC",
+        "物干し",
+        "D21 / 800",
+        "D22 / 800",
+        "D23 / 800",
+        "D24 / 2600 折戸",
+        "D25 / 700",
+        "D26 / 800",
+        "主寝室",
+        "9.61 m2",
+        "3100 × 3100",
+        "収納",
+        "2.79 m2",
+        "3100 × 900",
+        "洋室 2",
+        "11.25 m2",
+        "3630 × 3100",
+        "洋室 3",
+        "13.14 m2",
+        "4830 × 2720",
+        "ホール / 物干し通路",
+        "7.05 m2",
+        "トイレ",
+        "1.53 m2",
+        "900 × 1700",
+        "ホール",
+        "0.83 m2",
+        "バルコニー",
+        "4.82 m2",
+        "3440 × 1400",
+        "階段 DOWN",
+        "16R x 175 / T260",
+        "W900 / 踊場900",
+        "北 N (仮定)",
+        "南 / 入口方向は仮定"
+      ]
+    },
+    {
+      "name": "2F/DXF/native_editable_dimensions",
+      "passed": true,
+      "evidence": 7
+    },
+    {
+      "name": "2F/DXF/high_contrast",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "2F/DXF/viewport_scale",
+      "passed": true,
+      "evidence": 50
+    },
+    {
+      "name": "vertical_alignment/stairs",
+      "passed": true,
+      "evidence": [
+        6110.0,
+        4380.0,
+        8010.0,
+        7100.0
+      ]
+    },
+    {
+      "name": "vertical_alignment/wc",
+      "passed": true,
+      "evidence": [
+        5110.0,
+        5400.0,
+        6010.0,
+        7100.0
+      ]
+    },
+    {
+      "name": "PDF/2_A3_sheets",
+      "passed": true,
+      "evidence": 2
+    },
+    {
+      "name": "PDF/approval_and_assumptions",
+      "passed": true,
+      "evidence": true
+    }
+  ],
+  "sha256": {
+    "output/pdf/house_floor_plans_R09_JP.pdf": "dc3d6bdab707a7ebbffe11704972877d4c06632245251100932efae482291871",
+    "DXF/house_redesign_R09_1f.dxf": "cbe7bf65caac011120aad80b62c63ddd4f19feac4e23fdd8f61188fd64fdfcbc",
+    "DXF/house_redesign_R09_2f.dxf": "e0e84c0c8789d6b288fb368549ff44d479d7a4e7dae65c135e0db5a7e99a5525"
+  }
+}

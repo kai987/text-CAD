@@ -10,7 +10,7 @@ from lib.interior_materials import apply_interior_materials
 from lib.exterior_materials import apply_exterior_materials
 from lib.outdoor_lighting import apply_outdoor_lighting_materials
 from lib.engineering_inputs import engineering_inputs
-from lib.house_plan import P
+from lib.house_plan import P, floor_plan
 from lib.house_geometry import G
 
 
@@ -25,7 +25,7 @@ MATERIALS = {
         {"targets": ["#F1:external_walls", "#F1:partition_walls", "#F2:external_walls", "#F2:partition_walls"], "material": "wall_finish"},
         {"targets": ["#F1:doors", "#F2:doors", "#stairs", "#F1:floor_slab", "#F2:floor_slab"], "material": "wood"},
         {"targets": ["#roof:west_plane", "#roof:east_plane"], "material": "roof_finish"},
-        {"targets": [f"#F{n}:W{i:02d}:glass" for n, count in [(1, 7), (2, 8)] for i in range(1, count+1)], "material": "glass"},
+        {"targets": [f"#F{n}:W{i:02d}:glass" for n in (1,2) for i in range(1,len(floor_plan(n).windows)+1)], "material": "glass"},
     ],
 }
 
@@ -82,7 +82,7 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["scenes"] = [{"name": "house_3d", "nodes": [insert(root) for root in scene.roots]}]
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
-                                    "source": "Named CADgen STEP assembly; user-confirmed plan; R08 exterior lighting"}
+                                    "source": "Named CADgen STEP assembly; approved R09 three-bedroom/drying-balcony layout"}
     apply_interior_materials(document)
     bin_offset = 20+json_size
     bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)

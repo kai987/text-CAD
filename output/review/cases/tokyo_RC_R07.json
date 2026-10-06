@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "8bf68b3b717b33db1132cff37947fc88a17bd3bd5c31fc91275dc4ec7eeec272",
-    "step": "47aa323f0d8658806ab5007961b1c32ea576e782567b8f5d69e82b57d9298856"
+    "glb": "c85dd6ce673a030f5dc7c37dd81e555b1c6a1f6f3785742650a9600f9d671b35",
+    "step": "894d32b00a7235d84e9371b401fde70f4ee666893ef12f9d8d7f4219c8e86c7a"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -309,10 +309,10 @@
       {
         "name": "structure:F1:column_C02",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           -120.0,
           -200.0,
-          7400.0,
+          8310.0,
           180.0,
           2220.0
         ],
@@ -335,10 +335,10 @@
       {
         "name": "structure:F1:column_C04",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           7100.0,
           -200.0,
-          7400.0,
+          8310.0,
           7400.0,
           2220.0
         ],
@@ -348,10 +348,10 @@
       {
         "name": "structure:F1:column_C05",
         "bounds_mm": [
-          3490.0,
+          2970.0,
           -120.0,
           -200.0,
-          3790.0,
+          3270.0,
           180.0,
           2220.0
         ],
@@ -361,10 +361,10 @@
       {
         "name": "structure:F1:column_C06",
         "bounds_mm": [
-          3490.0,
+          3945.0,
           7100.0,
           -200.0,
-          3790.0,
+          4245.0,
           7400.0,
           2220.0
         ],
@@ -375,10 +375,10 @@
         "name": "structure:F1:column_C07",
         "bounds_mm": [
           -120.0,
-          3450.0,
+          3850.0,
           -200.0,
           180.0,
-          3750.0,
+          4150.0,
           2220.0
         ],
         "volume_mm3": 217800000.0,
@@ -387,11 +387,11 @@
       {
         "name": "structure:F1:column_C08",
         "bounds_mm": [
-          7100.0,
-          3450.0,
+          8010.0,
+          3850.0,
           -200.0,
-          7400.0,
-          3750.0,
+          8310.0,
+          4150.0,
           2220.0
         ],
         "volume_mm3": 217800000.0,
@@ -413,10 +413,10 @@
       {
         "name": "structure:F2:column_C02",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           -120.0,
           2620.0,
-          7400.0,
+          8310.0,
           180.0,
           5020.0
         ],
@@ -439,10 +439,10 @@
       {
         "name": "structure:F2:column_C04",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           7100.0,
           2620.0,
-          7400.0,
+          8310.0,
           7400.0,
           5020.0
         ],
@@ -452,10 +452,10 @@
       {
         "name": "structure:F2:column_C05",
         "bounds_mm": [
-          3490.0,
+          2970.0,
           -120.0,
           2620.0,
-          3790.0,
+          3270.0,
           180.0,
           5020.0
         ],
@@ -465,10 +465,10 @@
       {
         "name": "structure:F2:column_C06",
         "bounds_mm": [
-          3490.0,
+          3945.0,
           7100.0,
           2620.0,
-          3790.0,
+          4245.0,
           7400.0,
           5020.0
         ],
@@ -479,10 +479,10 @@
         "name": "structure:F2:column_C07",
         "bounds_mm": [
           -120.0,
-          3450.0,
+          3850.0,
           2620.0,
           180.0,
-          3750.0,
+          4150.0,
           5020.0
         ],
         "volume_mm3": 216000000.0,
@@ -491,11 +491,11 @@
       {
         "name": "structure:F2:column_C08",
         "bounds_mm": [
-          7100.0,
-          3450.0,
+          8010.0,
+          3850.0,
           2620.0,
-          7400.0,
-          3750.0,
+          8310.0,
+          4150.0,
           5020.0
         ],
         "volume_mm3": 216000000.0,
@@ -507,11 +507,11 @@
           -120.0,
           -120.0,
           2220.0,
-          7400.0,
+          8310.0,
           180.0,
           2620.0
         ],
-        "volume_mm3": 902400000.0,
+        "volume_mm3": 1011600000.0,
         "solid_count": 1
       },
       {
@@ -520,11 +520,11 @@
           -120.0,
           7100.0,
           2220.0,
-          7400.0,
+          8310.0,
           7400.0,
           2620.0
         ],
-        "volume_mm3": 902400000.0,
+        "volume_mm3": 1011600000.0,
         "solid_count": 1
       },
       {
@@ -543,10 +543,10 @@
       {
         "name": "structure:F1:beam_B04",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           180.0,
           2220.0,
-          7400.0,
+          8310.0,
           7100.0,
           2620.0
         ],
@@ -559,11 +559,11 @@
           -120.0,
           -120.0,
           5020.0,
-          7400.0,
+          8310.0,
           180.0,
           5420.0
         ],
-        "volume_mm3": 902400000.0,
+        "volume_mm3": 1011600000.0,
         "solid_count": 1
       },
       {
@@ -572,11 +572,11 @@
           -120.0,
           7100.0,
           5020.0,
-          7400.0,
+          8310.0,
           7400.0,
           5420.0
         ],
-        "volume_mm3": 902400000.0,
+        "volume_mm3": 1011600000.0,
         "solid_count": 1
       },
       {
@@ -595,10 +595,10 @@
       {
         "name": "structure:F2:beam_B04",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           180.0,
           5020.0,
-          7400.0,
+          8310.0,
           7100.0,
           5420.0
         ],
@@ -611,11 +611,11 @@
           0.0,
           0.0,
           -180.0,
-          7280.0,
+          8190.0,
           7280.0,
           0.0
         ],
-        "volume_mm3": 9477504000.0,
+        "volume_mm3": 10669968000.0,
         "solid_count": 1
       },
       {
@@ -624,20 +624,20 @@
           0.0,
           0.0,
           2620.0,
-          7280.0,
+          8190.0,
           7280.0,
           2800.0
         ],
-        "volume_mm3": 8397575999.999999,
+        "volume_mm3": 9590040000.0,
         "solid_count": 1
       },
       {
         "name": "structure:attic:slab_storage",
         "bounds_mm": [
-          1800.0,
+          2255.0,
           180.0,
           5420.0,
-          5480.0,
+          5935.0,
           7100.0,
           5600.0
         ],
@@ -650,20 +650,20 @@
           5000.0,
           7100.0,
           -200.0,
-          7100.0,
+          8010.0,
           7400.0,
           2220.0
         ],
-        "volume_mm3": 1524600000.0,
-        "solid_count": 1
+        "volume_mm3": 1858560000.0,
+        "solid_count": 2
       },
       {
         "name": "structure:F1:shear_wall_SW02",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           180.0,
           -200.0,
-          7400.0,
+          8310.0,
           1400.0,
           2220.0
         ],
@@ -676,20 +676,20 @@
           5000.0,
           7100.0,
           2620.0,
-          7100.0,
+          8010.0,
           7400.0,
           5020.0
         ],
-        "volume_mm3": 1512000000.0,
-        "solid_count": 1
+        "volume_mm3": 1843200000.0,
+        "solid_count": 2
       },
       {
         "name": "structure:F2:shear_wall_SW02",
         "bounds_mm": [
-          7100.0,
+          8010.0,
           180.0,
           2620.0,
-          7400.0,
+          8310.0,
           1400.0,
           5020.0
         ],
@@ -699,53 +699,53 @@
       {
         "name": "structure:roof:slab_west",
         "bounds_mm": [
-          -450.00000000000017,
+          -450.00000000000006,
           -450.0,
           5340.192378864668,
-          3640.0,
+          4095.0,
           7730.0,
-          7821.554979850237
+          8084.249352331517
         ],
-        "volume_mm3": 4014744000.000003,
+        "volume_mm3": 4461372000.000004,
         "solid_count": 1
       },
       {
         "name": "structure:roof:slab_east",
         "bounds_mm": [
-          3640.0,
+          4095.0,
           -450.0,
           5340.192378864668,
+          8640.0,
           7730.0,
-          7730.0,
-          7821.554979850237
+          8084.249352331517
         ],
-        "volume_mm3": 4014744000.0,
+        "volume_mm3": 4461371999.999994,
         "solid_count": 1
       },
       {
         "name": "structure:roof:gable_shear_south",
         "bounds_mm": [
-          -2.0997171684211655e-13,
+          -2.0352781577886064e-13,
           -120.0,
           5420.0,
-          7280.0,
+          8190.0,
           180.0,
-          7701.554979850237
+          7964.249352331517
         ],
-        "volume_mm3": 2688018037.996459,
+        "volume_mm3": 3346740329.339269,
         "solid_count": 1
       },
       {
         "name": "structure:roof:gable_shear_north",
         "bounds_mm": [
-          -2.0997171684211655e-13,
+          -2.0352781577886064e-13,
           7100.0,
           5420.0,
-          7280.0,
+          8190.0,
           7400.0,
-          7701.554979850237
+          7964.249352331517
         ],
-        "volume_mm3": 2688018037.996459,
+        "volume_mm3": 3346740329.339268,
         "solid_count": 1
       },
       {
@@ -754,11 +754,11 @@
           -120.0,
           -120.0,
           -1200.0,
-          7400.0,
+          8310.0,
           7400.0,
           -900.0
         ],
-        "volume_mm3": 16965120000.0,
+        "volume_mm3": 19018080000.0,
         "solid_count": 1
       },
       {
@@ -767,24 +767,24 @@
           -120.0,
           -120.0,
           -900.0,
-          7400.0,
+          8310.0,
           7400.0,
           -200.0
         ],
-        "volume_mm3": 6064800000.000005,
+        "volume_mm3": 6447000000.000004,
         "solid_count": 1
       },
       {
         "name": "foundation:internal_supports:I01",
         "bounds_mm": [
           180.0,
-          3210.0,
+          3180.0,
           -900.0,
-          7100.0,
-          3510.0,
+          8010.0,
+          3480.0,
           -200.0
         ],
-        "volume_mm3": 1453200000.0,
+        "volume_mm3": 1644300000.0,
         "solid_count": 1
       },
       {
@@ -793,54 +793,80 @@
           180.0,
           4180.0,
           -900.0,
-          7100.0,
+          8010.0,
           4480.0,
           -200.0
         ],
-        "volume_mm3": 1453200000.0,
+        "volume_mm3": 1644300000.0,
         "solid_count": 1
       },
       {
         "name": "foundation:internal_supports:I03",
         "bounds_mm": [
-          5000.0,
-          180.0,
+          4910.0,
+          4480.0,
           -900.0,
-          5300.0,
+          5210.0,
           7100.0,
           -200.0
         ],
-        "volume_mm3": 1327200000.0,
-        "solid_count": 3
+        "volume_mm3": 550200000.0,
+        "solid_count": 1
       },
       {
         "name": "foundation:internal_supports:I04",
         "bounds_mm": [
-          6150.0,
-          1380.0,
+          5910.0,
+          4480.0,
           -900.0,
+          6210.0,
           7100.0,
-          1680.0,
           -200.0
         ],
-        "volume_mm3": 199500000.0,
+        "volume_mm3": 550200000.0,
         "solid_count": 1
       },
       {
         "name": "foundation:internal_supports:I05",
         "bounds_mm": [
-          6000.0,
-          1530.0,
+          5210.0,
+          5080.0,
           -900.0,
-          6300.0,
-          3210.0,
+          5910.0,
+          5380.0,
           -200.0
         ],
-        "volume_mm3": 337050000.0,
+        "volume_mm3": 147000000.0,
         "solid_count": 1
+      },
+      {
+        "name": "foundation:internal_supports:I06",
+        "bounds_mm": [
+          3180.0,
+          180.0,
+          -900.0,
+          3480.0,
+          4180.0,
+          -200.0
+        ],
+        "volume_mm3": 777000000.0,
+        "solid_count": 2
+      },
+      {
+        "name": "foundation:internal_supports:I07",
+        "bounds_mm": [
+          4180.0,
+          180.0,
+          -900.0,
+          4480.0,
+          4180.0,
+          -200.0
+        ],
+        "volume_mm3": 777000000.0,
+        "solid_count": 2
       }
     ],
-    "member_count": 42,
+    "member_count": 44,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -853,10 +879,10 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 7280 x 7280 mm original architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm approved R09 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
-      "300 mm perimeter columns/beam bands extend 120 mm outside each original 7280 mm face; structural perimeter is 7520 x 7520 mm and exterior/site/area coordination remains pending.",
+      "300 mm perimeter columns/beam bands extend 120 mm outside each architectural face; structural perimeter is 8430 x 7520 mm and exterior/site/area coordination remains pending.",
       "180 mm floor and attic slabs, 120 mm vertical roof slabs, 300 mm columns and 300 x 400 mm beams are assumed drawing sizes only; beam depth was reduced from 450 to 400 mm solely to clear existing 2200 mm window tops, not as a strength calculation.",
       "RC self-weight, attic/storage loading, concrete/rebar strengths, reinforcing layout, punching shear, deflection and seismic detailing require an independent RC calculation, not timber load inheritance.",
       "The two shear piers are spatial candidates only; their quantity, distribution, ductility, diaphragm anchorage and torsional performance are unresolved.",
@@ -894,12 +920,17 @@
           "overlaps": []
         },
         {
+          "id": "F1:O01",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
           "id": "F1:D05",
           "kind": "door",
           "overlaps": []
         },
         {
-          "id": "F1:D06",
+          "id": "F1:O02",
           "kind": "door",
           "overlaps": []
         },
@@ -934,11 +965,6 @@
           "overlaps": []
         },
         {
-          "id": "F1:W07",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
           "id": "F2:D21",
           "kind": "door",
           "overlaps": []
@@ -959,7 +985,22 @@
           "overlaps": []
         },
         {
+          "id": "F2:O21",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
           "id": "F2:D25",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:O22",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D26",
           "kind": "door",
           "overlaps": []
         },
@@ -992,22 +1033,19 @@
           "id": "F2:W06",
           "kind": "window",
           "overlaps": []
-        },
-        {
-          "id": "F2:W07",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W08",
-          "kind": "window",
-          "overlaps": []
         }
       ],
       "aperture_collisions": [],
       "main_stair_collisions": [],
       "attic_hatch_collisions": [],
-      "room_intrusions": [],
+      "room_intrusions": [
+        {
+          "member": "structure:F2:column_C05",
+          "floor": 2,
+          "room_id": "balcony",
+          "footprint_mm2": 36000.0
+        }
+      ],
       "exterior_outline_projections": [
         {
           "member": "structure:F1:column_C01",
@@ -1025,10 +1063,10 @@
           "member": "structure:F1:column_C02",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             -120.0,
             -200.0,
-            7400.0,
+            8310.0,
             180.0,
             2220.0
           ]
@@ -1049,10 +1087,10 @@
           "member": "structure:F1:column_C04",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             7100.0,
             -200.0,
-            7400.0,
+            8310.0,
             7400.0,
             2220.0
           ]
@@ -1061,10 +1099,10 @@
           "member": "structure:F1:column_C05",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            3490.0,
+            2970.0,
             -120.0,
             -200.0,
-            3790.0,
+            3270.0,
             180.0,
             2220.0
           ]
@@ -1073,10 +1111,10 @@
           "member": "structure:F1:column_C06",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            3490.0,
+            3945.0,
             7100.0,
             -200.0,
-            3790.0,
+            4245.0,
             7400.0,
             2220.0
           ]
@@ -1086,10 +1124,10 @@
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
             -120.0,
-            3450.0,
+            3850.0,
             -200.0,
             180.0,
-            3750.0,
+            4150.0,
             2220.0
           ]
         },
@@ -1097,11 +1135,11 @@
           "member": "structure:F1:column_C08",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            7100.0,
-            3450.0,
+            8010.0,
+            3850.0,
             -200.0,
-            7400.0,
-            3750.0,
+            8310.0,
+            4150.0,
             2220.0
           ]
         },
@@ -1121,10 +1159,10 @@
           "member": "structure:F2:column_C02",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             -120.0,
             2620.0,
-            7400.0,
+            8310.0,
             180.0,
             5020.0
           ]
@@ -1145,10 +1183,10 @@
           "member": "structure:F2:column_C04",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             7100.0,
             2620.0,
-            7400.0,
+            8310.0,
             7400.0,
             5020.0
           ]
@@ -1157,10 +1195,10 @@
           "member": "structure:F2:column_C05",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            3490.0,
+            2970.0,
             -120.0,
             2620.0,
-            3790.0,
+            3270.0,
             180.0,
             5020.0
           ]
@@ -1169,10 +1207,10 @@
           "member": "structure:F2:column_C06",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            3490.0,
+            3945.0,
             7100.0,
             2620.0,
-            3790.0,
+            4245.0,
             7400.0,
             5020.0
           ]
@@ -1182,10 +1220,10 @@
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
             -120.0,
-            3450.0,
+            3850.0,
             2620.0,
             180.0,
-            3750.0,
+            4150.0,
             5020.0
           ]
         },
@@ -1193,34 +1231,34 @@
           "member": "structure:F2:column_C08",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            7100.0,
-            3450.0,
+            8010.0,
+            3850.0,
             2620.0,
-            7400.0,
-            3750.0,
+            8310.0,
+            4150.0,
             5020.0
           ]
         },
         {
           "member": "structure:F1:beam_B01",
-          "outside_original_outline_mm2": 945600.0,
+          "outside_original_outline_mm2": 1054800.0,
           "bounds_mm": [
             -120.0,
             -120.0,
             2220.0,
-            7400.0,
+            8310.0,
             180.0,
             2620.0
           ]
         },
         {
           "member": "structure:F1:beam_B02",
-          "outside_original_outline_mm2": 945600.0,
+          "outside_original_outline_mm2": 1054800.0,
           "bounds_mm": [
             -120.0,
             7100.0,
             2220.0,
-            7400.0,
+            8310.0,
             7400.0,
             2620.0
           ]
@@ -1241,34 +1279,34 @@
           "member": "structure:F1:beam_B04",
           "outside_original_outline_mm2": 830400.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             180.0,
             2220.0,
-            7400.0,
+            8310.0,
             7100.0,
             2620.0
           ]
         },
         {
           "member": "structure:F2:beam_B01",
-          "outside_original_outline_mm2": 945600.0,
+          "outside_original_outline_mm2": 1054800.0,
           "bounds_mm": [
             -120.0,
             -120.0,
             5020.0,
-            7400.0,
+            8310.0,
             180.0,
             5420.0
           ]
         },
         {
           "member": "structure:F2:beam_B02",
-          "outside_original_outline_mm2": 945600.0,
+          "outside_original_outline_mm2": 1054800.0,
           "bounds_mm": [
             -120.0,
             7100.0,
             5020.0,
-            7400.0,
+            8310.0,
             7400.0,
             5420.0
           ]
@@ -1289,22 +1327,22 @@
           "member": "structure:F2:beam_B04",
           "outside_original_outline_mm2": 830400.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             180.0,
             5020.0,
-            7400.0,
+            8310.0,
             7100.0,
             5420.0
           ]
         },
         {
           "member": "structure:F1:shear_wall_SW01",
-          "outside_original_outline_mm2": 252000.0,
+          "outside_original_outline_mm2": 361200.0,
           "bounds_mm": [
             5000.0,
             7100.0,
             -200.0,
-            7100.0,
+            8010.0,
             7400.0,
             2220.0
           ]
@@ -1313,22 +1351,22 @@
           "member": "structure:F1:shear_wall_SW02",
           "outside_original_outline_mm2": 146400.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             180.0,
             -200.0,
-            7400.0,
+            8310.0,
             1400.0,
             2220.0
           ]
         },
         {
           "member": "structure:F2:shear_wall_SW01",
-          "outside_original_outline_mm2": 252000.0,
+          "outside_original_outline_mm2": 361200.0,
           "bounds_mm": [
             5000.0,
             7100.0,
             2620.0,
-            7100.0,
+            8010.0,
             7400.0,
             5020.0
           ]
@@ -1337,10 +1375,10 @@
           "member": "structure:F2:shear_wall_SW02",
           "outside_original_outline_mm2": 146400.0,
           "bounds_mm": [
-            7100.0,
+            8010.0,
             180.0,
             2620.0,
-            7400.0,
+            8310.0,
             1400.0,
             5020.0
           ]
@@ -1349,13 +1387,13 @@
       "original_building_outline_mm": [
         0,
         0,
-        7280,
+        8190,
         7280
       ],
       "actual_exterior_frame_outline_mm": [
         -120,
         -120,
-        7400,
+        8310,
         7400
       ],
       "room_net_clearance_certification": null,
@@ -1370,8 +1408,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 42,
-      "all_nodes": 52
+      "named_mesh_nodes": 44,
+      "all_nodes": 54
     }
   },
   "project_inputs": {

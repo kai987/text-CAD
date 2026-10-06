@@ -22,7 +22,7 @@ from .house_geometry import G, extruded_polygon, opening_box, polygons, window_v
 from .house_plan import P, floor_plan
 from .native_spatial import aabb_candidates
 from .site_geometry import foundation_group
-from .structure_geometry import (T, _beam_segments, _bounds, _positions,
+from .structure_geometry import (floor_beam_segments,attic_beam_opening,T, _beam_segments, _bounds, _positions,
     bearing_wall_candidates, column_layout, foundation_support_segments,
     structure_dimensions, structure_group, structure_manifest)
 
@@ -207,9 +207,12 @@ def steel_variant(p=P,g=G,s=S):
             columns.append(_axis_tube((c["x"]-h,c["y"]-h,bottom,c["x"]+h,c["y"]+h,top),
                                       "z",s.column_wall_thickness,f"structure:F{n}:column_{c['id']}"))
         current=[]
-        for segment in _beam_segments(p):
+        for segment in floor_beam_segments(n,p):
             shape=_axis_tube(_bounds(segment,d[f"F{n}_beam_bottom_z"],d[f"F{n}_beam_top_z"]),
                              segment["axis"],s.beam_wall_thickness,f"structure:F{n}:beam_{segment['id']}")
+            if n==2:
+                opening=attic_beam_opening(p,d[f"F{n}_beam_bottom_z"],d[f"F{n}_beam_top_z"])
+                if _overlap(shape,opening)>.01:shape=named(shape.cut(opening),shape.label,"#8C9CA7")
             cutters=[prior for prior in current if all(shape_bounds(shape)[i]<shape_bounds(prior)[i+3] and shape_bounds(prior)[i]<shape_bounds(shape)[i+3] for i in range(3))]
             if cutters:shape=named(shape.cut(*cutters),shape.label,"#8C9CA7")
             current.append(shape)
@@ -232,7 +235,7 @@ def steel_variant(p=P,g=G,s=S):
         if ':attic:joist_' in label:
             joists.append(named(_axis_tube(b,"v",s.joist_wall_thickness,label).intersect(item),label,"#8C9CA7"))
         elif ':attic:trimmer_' in label:
-            headers.append(_axis_tube(b,"v",s.joist_wall_thickness,label))
+            headers.append(named(_axis_tube(b,"v",s.joist_wall_thickness,label).intersect(item),label,"#8C9CA7"))
         elif ':attic:header_' in label:
             headers.append(_axis_tube(b,"h",s.joist_wall_thickness,label))
         elif ':roof:' in label:roof_source.append(item)
@@ -287,7 +290,8 @@ def concrete_column_layout(p=P,c=RC):
     near=p.external_wall-c.column_width/2;far=p.width-near;back=p.depth-near
     return [{"id":f"C{i:02d}","x":x,"y":y,"width":c.column_width,"floors":[1,2]}
         for i,(x,y) in enumerate(((near,near),(far,near),(near,back),(far,back),
-            (p.width/2,near),(p.width/2,back),(near,3600),(far,3600)),1)]
+            (p.access_left-p.internal_wall-c.column_width/2-10,near),
+            (p.width/2,back),(near,4000),(far,4000)),1)]
 
 
 def concrete_variant(p=P,g=G,c=RC):
@@ -312,6 +316,16 @@ def concrete_variant(p=P,g=G,c=RC):
         # exterior portions. Torsion/distribution and strength are unverified.
         for label,footprint in (("SW01",box(5000,p.depth-p.external_wall,p.width-p.external_wall,p.depth+projection)),
                                 ("SW02",box(p.width-p.external_wall,p.external_wall,p.width+projection,1400))):
+            # Carve the union of both floors' apertures from the candidate pier,
+            # including its outward RC projection, before any native extrusion.
+            holes=[]
+            for floor in (floor_plan(1,p),floor_plan(2,p)):
+                for axis,at,start,span in floor.windows:
+                    if label=='SW01' and axis=='h' and at>p.depth/2:
+                        holes.append(box(start,p.depth-p.external_wall-1,start+span,p.depth+projection+1))
+                    elif label=='SW02' and axis=='v' and at>p.width/2:
+                        holes.append(box(p.width-p.external_wall-1,start,p.width+projection+1,start+span))
+            footprint=footprint.difference(unary_union(holes))
             shears.append(_profile_parts(footprint,bottom,top,f"structure:F{n}:shear_wall_{label}","#C0C4BE"))
     column_cuts=unary_union([box(post['x']-h,post['y']-h,post['x']+h,post['y']+h) for post in columns_plan])
     full=box(0,0,p.width,p.depth).difference(column_cuts)
@@ -367,7 +381,7 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
         floor=floors[n];z=(n-1)*p.storey_height
         for door in floor.doors:
             tool=opening_box(door.axis,door.at,door.start+.1,door.width-.2,
-                p.external_wall if door.a=='outside' else p.internal_wall,z+.1,z+g.door_height-.1)
+                p.external_wall if {'outside','balcony'} & {door.a,door.b} else p.internal_wall,z+.1,z+g.door_height-.1)
             opening_queries.append((n,f"F{n}:{door.id}",'door',tool))
         for index,window in enumerate(floor.windows,1):
             sill,height=window_vertical_range(window,g)
@@ -407,7 +421,7 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
         area=profile.difference(box(0,0,p.width,p.depth)).area
         if area>.01:envelope.append({"member":m.label,"outside_original_outline_mm2":round(area,4),"bounds_mm":b})
     summary={
-        "W":{"zh":"沿用 R06 木结构草案；截面、节点与基础均未验算。","ja":"R06 の木造概念架構を継承。断面・接合部・基礎は未計算。","en":"Retains the R06 timber concept; sections, connections and foundations are uncalculated."},
+        "W":{"zh":"按 R09 平面重排木结构演示架构；截面、节点与基础均未验算。","ja":"R09の間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。","en":"Timber concept rearranged for the R09 layout; sections, connections and foundations are uncalculated."},
         "S":{"zh":"薄壁空心钢构件、交叉钢带及节点板为示意；制造等级、板厚适用性与连接承载力待核定。","ja":"薄肉中空鋼材・交差ストラップ・ガセットの概念案。製造等級、板厚適用性、接合耐力は未確定。","en":"Thin-wall hollow steel, crossed straps and gussets are conceptual; manufacturing grade, thickness suitability and connection capacities are pending."},
         "RC":{"zh":"300×300 mm 混凝土柱及300×400 mm梁保持原有室内边界，向原外轮廓各侧伸出 120 mm；外墙及建筑面积需重新协调。未绘制或验算配筋。","ja":"300×300 mmのRC柱と300×400 mmの梁は室内境界を保持し、元の外形から各面 120 mm 突出。外壁・建築面積の再調整が必要。配筋図・配筋計算は未実施。","en":"300×300 mm RC columns and 300×400 mm beams retain the interior perimeter faces but project 120 mm outside each original face; façade and building area need coordination. Reinforcement is neither drawn nor calculated."},
     }[system]
@@ -428,15 +442,15 @@ def variant_manifest(system,assembly,p=P,g=G):
         "RC":{"zh":"钢筋混凝土结构（RC造）","ja":"鉄筋コンクリート造（RC造）","en":"Reinforced concrete (RC)"}}
     assumptions=["Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
         "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-        "The 7280 x 7280 mm original architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+        "The 8190 x 7280 mm approved R09 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
         "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
         "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction."]
     if system=='S':assumptions.extend([
         "RHS members are genuinely hollow with assumed 2.3 mm column/joist and 3.2 mm beam walls; no manufacturing/product standard or approved light-steel system is selected.",
-        "Large 7280 mm overall spans and fabricated 180 x 300 x 3.2 mm transfer tubes require complete design; geometry alone does not establish light-gauge feasibility.",
+        "Large 8190/7280 mm overall spans and fabricated 180 x 300 x 3.2 mm transfer tubes require complete design; geometry alone does not establish light-gauge feasibility.",
         "Straps and gussets intentionally overlap to depict connections; bolts, screw layout, anchors and tested connection capacities are not specified."])
     if system=='RC':assumptions.extend([
-        "300 mm perimeter columns/beam bands extend 120 mm outside each original 7280 mm face; structural perimeter is 7520 x 7520 mm and exterior/site/area coordination remains pending.",
+        "300 mm perimeter columns/beam bands extend 120 mm outside each architectural face; structural perimeter is 8430 x 7520 mm and exterior/site/area coordination remains pending.",
         "180 mm floor and attic slabs, 120 mm vertical roof slabs, 300 mm columns and 300 x 400 mm beams are assumed drawing sizes only; beam depth was reduced from 450 to 400 mm solely to clear existing 2200 mm window tops, not as a strength calculation.",
         "RC self-weight, attic/storage loading, concrete/rebar strengths, reinforcing layout, punching shear, deflection and seismic detailing require an independent RC calculation, not timber load inheritance.",
         "The two shear piers are spatial candidates only; their quantity, distribution, ductility, diaphragm anchorage and torsional performance are unresolved.",

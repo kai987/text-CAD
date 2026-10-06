@@ -73,6 +73,15 @@ const componentLabels = {
   'roof:ridge_cap': label('屋脊盖板', '棟包み', 'Ridge cap'),
   'stairs:mid_landing': label('楼梯中间平台', '階段の中間踊り場', 'Intermediate stair landing'),
   'balcony:slab': label('阳台楼板', 'バルコニー床スラブ', 'Balcony floor slab'),
+  'balcony:finish': label('阳台地面饰面', 'バルコニー床仕上げ', 'Balcony floor finish'),
+  'balcony:support_post_1': label('阳台西侧示意支柱', 'バルコニー西側の支持柱案', 'Concept west balcony support'),
+  'balcony:support_post_2': label('阳台东侧示意支柱', 'バルコニー東側の支持柱案', 'Concept east balcony support'),
+  'balcony:footing_1': label('阳台西侧示意基础', 'バルコニー西側の基礎案', 'Concept west balcony footing'),
+  'balcony:footing_2': label('阳台东侧示意基础', 'バルコニー東側の基礎案', 'Concept east balcony footing'),
+  'balcony:drying_post_1': label('晾衣架西侧立杆', '物干し西側の支柱', 'West drying rack post'),
+  'balcony:drying_post_2': label('晾衣架东侧立杆', '物干し東側の支柱', 'East drying rack post'),
+  'balcony:drying_rail': label('阳台晾衣杆', 'バルコニー物干し竿', 'Balcony drying rail'),
+  'balcony:drain_outlet': label('阳台示意排水口', 'バルコニー排水口の参考形状', 'Concept balcony drain outlet'),
   'balcony:south_guard': label('阳台南侧栏板', 'バルコニー南側の腰壁', 'South balcony parapet'),
   'balcony:west_guard': label('阳台西侧栏板', 'バルコニー西側の腰壁', 'West balcony parapet'),
   'balcony:east_guard': label('阳台东侧栏板', 'バルコニー東側の腰壁', 'East balcony parapet'),
@@ -405,6 +414,14 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
  * allowing the caller to use its localized category title or component fallback.
  */
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
+  const balcony = /^balcony:(south|west|east)_(rail_lower|rail_top|bar_\d+)$/.exec(name);
+  if (balcony) {
+    const side = directions[balcony[1] as keyof typeof directions][locale];
+    const kind = balcony[2].startsWith('bar_') ? label('栏杆立条', '手すりの縦格子', 'Guard baluster') : label('栏杆横梁', '手すりの横桟', 'Guard rail');
+    return `${side} · ${kind[locale]}${balcony[2].startsWith('bar_') ? ` ${Number(balcony[2].slice(4))}` : ''}`;
+  }
+  if (name === 'F2:D26_door_glass') return label('阳台门玻璃', 'バルコニー扉のガラス', 'Balcony door glazing')[locale];
+  if (name === 'F2:D24_door_bifold') return label('衣柜折门 D24', '収納折戸 D24', 'Closet bifold door D24')[locale];
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
   const outdoor = /^lighting:(?:wall|path|garden|gate):([^:]+):([^:]+)$/.exec(name);

@@ -13,7 +13,7 @@ export const downloadFiles = [
   { id: 'structurePdf', path: 'output/pdf/house_structural_scheme_R06_JP.pdf', type: 'PDF' },
   { id: 'site', path: 'DXF/house_site_plan.dxf', type: 'DXF' },
   { id: 'sitePdf', path: 'output/pdf/house_site_plan_R05_JP.pdf', type: 'PDF' },
-  { id: 'pdf', path: 'output/pdf/house_floor_plans_R02_JP.pdf', type: 'PDF' },
+  { id: 'pdf', path: 'output/pdf/house_floor_plans_R09_JP.pdf', type: 'PDF' },
   { id: 'engineeringSource', path: 'src/lib/engineering_inputs.py', type: 'PY' },
   { id: 'engineering', path: 'output/review/engineering_inputs_R06.json', type: 'JSON' },
   { id: 'manifest', path: 'output/review/design_manifest.json', type: 'JSON' },

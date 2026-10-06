@@ -21,7 +21,7 @@ sys.path.insert(0,str(ROOT/'src'))
 from cadgen import build123d as bd
 from lib.attic_geometry import A
 from lib.house_geometry import G, opening_box
-from lib.house_plan import P, floor_plan
+from lib.house_plan import P, floor_plan, dimensions
 from lib.native_spatial import aabb_candidates
 from lib import structural_variants as variants
 
@@ -125,7 +125,7 @@ class ActualStructuralReportTests(unittest.TestCase):
         members={item.label:item for item in variants.leaves(self.assemblies['RC'])}
         slab=members['structure:F2:slab_floor']
         attic=members['structure:attic:slab_storage']
-        stair_tool=variants.solid_box((5200.1,4380.1,2620.1,7099.9,7099.9,2799.9),
+        stair_tool=variants.solid_box((dimensions(P)['sx']+.1,dimensions(P)['sy']+.1,2620.1,dimensions(P)['xmax']-.1,dimensions(P)['ymax']-.1,2799.9),
                                      'test:stair','#FFFFFF')
         hatch_tool=variants.solid_box((A.hatch_x+.1,A.hatch_y+.1,5420.1,
             A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9),'test:hatch','#FFFFFF')

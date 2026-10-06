@@ -116,7 +116,7 @@ test('WASM matches all actual CAD meshes at practical heights and exact vertex l
 test('WASM cabinet caps and slab stair opening retain their actual areas and hole coverage', async () => {
   const { nodes, offset } = await house();
   const cabinets = [...nodes].filter(([name, object]) => /^F2:storage_\d+$/.test(name) && object.isMesh);
-  assert.equal(cabinets.length, 4);
+  assert.equal(cabinets.length, 3);
   for (const [name, mesh] of cabinets) {
     const cap = checkParity(mesh, 4.2 + offset, name);
     assert.ok(cap);
@@ -126,9 +126,9 @@ test('WASM cabinet caps and slab stair opening retain their actual areas and hol
   const mesh = nodes.get('F2:floor_slab'), height = 2.7 + offset;
   const cap = checkParity(mesh, height, 'F2:floor_slab');
   assert.ok(cap);
-  // Finished outline 7280 mm minus the two 22 mm siding/gap setbacks.
+  // Finished outline 8190 × 7280 mm minus the two 22 mm siding/gap setbacks.
   // The approved 1900 x 2720 mm stair opening remains the same.
-  near(cap.area, 7.236 * 7.236 - 1.9 * 2.72, 5e-5, 'recessed slab minus stair opening');
+  near(cap.area, 8.146 * 7.236 - 1.9 * 2.72, 5e-5, 'recessed slab minus stair opening');
 });
 
 test('apartment walls, cabinets, equipment and balcony preserve TS/WASM section parity', async () => {

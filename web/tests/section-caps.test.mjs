@@ -35,7 +35,7 @@ async function house() {
 test('all actual second-floor cabinet sections at 4200 mm are closed and upward', async () => {
   const { nodes, offset } = await house();
   const cabinets = [...nodes].filter(([name, object]) => /^F2:storage_\d+$/.test(name) && object.isMesh);
-  assert.equal(cabinets.length, 4);
+  assert.equal(cabinets.length, 3);
   for (const [name, mesh] of cabinets) {
     const height = 4.2 + offset, cap = createHorizontalCap(mesh, height);
     assert.ok(cap, `${name} must have a cap`);
@@ -53,9 +53,9 @@ test('actual second-floor slab retains the stair opening in its section', async 
   const mesh = nodes.get('F2:floor_slab'), height = 2.7 + offset;
   const cap = createHorizontalCap(mesh, height);
   assert.ok(cap);
-  // Finished outline 7280 mm minus a 22 mm siding/gap setback on each side;
+  // R09 outline 8190 x 7280 mm minus a 22 mm siding/gap setback on each side;
   // the approved 1900 x 2720 mm stair opening and room boundaries are unchanged.
-  near(inspectCap(mesh, cap, height).area, 7.236 * 7.236 - 1.9 * 2.72);
+  near(inspectCap(mesh, cap, height).area, 8.146 * 7.236 - 1.9 * 2.72);
   cap.dispose();
 });
 test('nested contours preserve holes and disconnected solid islands', () => {

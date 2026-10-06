@@ -71,7 +71,7 @@ else:
     native={label:shape for label,shape in all_native.items() if label.startswith('structure:')}
     saved=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())
     check('saved:structure_manifest_matches_parameters',saved['structure']==record)
-    check('saved:revision_R06',saved['revision']=='R06-3D',saved['revision'],'R06-3D')
+    check('saved:revision_R06',saved['revision']=='R09-3D',saved['revision'],'R09-3D')
     raw=(ROOT/'GLB/house_3d.glb').read_bytes()
     magic,version,size=struct.unpack_from('<4sII',raw)
     check('GLB:valid_container',magic==b'glTF' and version==2 and size==len(raw))
@@ -86,7 +86,7 @@ else:
         'structure:attic_headers','structure:roof_framing','structure:bearing_walls')))
 
 expected_columns={f"structure:F{n}:column_{c['id']}" for c in record['columns'] for n in c['floors']}
-check('structure:67_expected_named_columns',expected_columns=={name for name in native if ':column_' in name},len(expected_columns),67)
+check('structure:all_recorded_named_columns',expected_columns=={name for name in native if ':column_' in name},len(expected_columns),len(expected_columns))
 check('structure:all_leaf_names_unique',len(native)==len(set(native)))
 for label,shape in native.items():
     check(f'{label}:valid_positive_solid',shape.is_valid and all(s.volume>0 for s in shape.solids()) and bool(shape.solids()))
@@ -111,7 +111,7 @@ for n in (1,2):
     f=floor_plan(n);z=(n-1)*P.storey_height
     members=[shape for name,shape in native.items() if name.startswith(f'structure:F{n}:')]
     for door in f.doors:
-        thickness=P.external_wall if door.a=='outside' else P.internal_wall
+        thickness=P.external_wall if {'outside','balcony'} & {door.a,door.b} else P.internal_wall
         tool=opening_box(door.axis,door.at,door.start+.1,door.width-.2,thickness,z+.1,z+G.door_height-.1)
         close(f'F{n}:{door.id}:structure_keeps_actual_door_opening_clear_mm3',sum(overlap(s,tool) for s in members),0,.1)
     for index,window in enumerate(f.windows,1):
@@ -188,7 +188,7 @@ check('DXF:mm_units_and_clean_audit',dxf.units==4 and not dxf.audit().has_errors
 dims=list(dxf.modelspace().query('DIMENSION'))
 check('DXF:editable_structural_dimensions',len(dims)>=8,len(dims))
 measurements=[round(dim.get_measurement()) for dim in dims]
-check('DXF:house_hatch_and_deck_measurements_present',all(value in measurements for value in (7280,1200,650,3680)),measurements)
+check('DXF:house_hatch_and_deck_measurements_present',all(value in measurements for value in (P.width,1200,650,3680)),measurements)
 dimension_paper_heights=[]
 for dimension in dims:
     scale=75 if dimension.dxf.defpoint.y>=18000 else 50

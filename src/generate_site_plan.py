@@ -1,4 +1,4 @@
-"""Editable R05 site supplement, sharing the native model's millimetre parameters.
+"""Editable R09 site supplement, sharing the native model's millimetre parameters.
 
 The approved R02 floor plans and R04 attic plan are not regenerated. Main plan
 is A3 / 1:100. The explicitly labelled conceptual section is enlarged to 1:25.
@@ -15,7 +15,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from generate_plans import Drawing, FONT
 from lib.jp_drafting import LAYERS, PENS_MM
-from lib.house_plan import P
+from lib.house_plan import P, floor_plan
 from lib.house_geometry import G
 from lib.exterior_geometry import E
 from lib.site_geometry import S, site_dimensions, fence_layout
@@ -29,7 +29,7 @@ class SiteDrawing(Drawing):
         self.scale = mm / 100
         self.ox, self.oy = 70 * mm, 105 * mm
         metadata = self.doc.ezdxf_metadata()
-        metadata['REVISION'] = 'R05-SITE'
+        metadata['REVISION'] = 'R09-SITE'
         metadata['SCALE'] = '1:100; labelled conceptual foundation section 1:25'
         metadata['SCOPE'] = '外構・基礎のデモ補足計画。敷地測量・構造設計・施工図ではない。'
         self.doc.header['$PSLTSCALE'] = 0
@@ -79,26 +79,39 @@ def generate():
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420 * mm, 297 * mm), invariant=1)
-    pdf.setTitle('外構・基礎 補足計画図 R05 / Site and foundation demonstration')
+    pdf.setTitle('外構・基礎 補足計画図 R09 / Site and foundation demonstration')
     pdf.setAuthor('text-CAD')
     d = site_dimensions(P, G)
     fence = fence_layout()
     drawing = SiteDrawing(pdf)
-    drawing.text('外構・基礎 補足計画図 / R05', (-4500, 15500), 500, align='left')
-    drawing.text('単位 mm / 配置 1:100 / A3 / 全寸法・方位・敷地はデモ仮定 / 2026-10-06',
+    drawing.text('外構・基礎 補足計画図 / R09', (-4500, 15500), 500, align='left')
+    drawing.text('単位 mm / 配置 1:100 / A3 / 全寸法・方位・敷地はデモ仮定 / 2026-10-07',
                  (-4500, 14600), 250, align='left')
     drawing.text('01 配置図', (-2000, 11500), 350, align='left')
     drawing.rect(d['lot'], 'WALL')
     drawing.rect(d['building'], 'WALL')
-    drawing.text('一戸建て（確認済み平面）', (3640, 4300), 300)
-    drawing.text('外形 7280 × 7280', (3640, 3650), 250)
-    drawing.text('1階仕上げ床 Z=0', (3640, 3000), 250)
+    drawing.text('一戸建て（確認済み平面）', (P.width/2, 4300), 300)
+    drawing.text(f'外形 {P.width:g} × {P.depth:g}', (P.width/2, 3650), 250)
+    drawing.text('1階仕上げ床 Z=0', (P.width/2, 3000), 250)
+    # 2F balcony projection is distinguished from ground-level site solids.
+    from lib.house_plan import dimensions
+    bx=dimensions(P)['bx']
+    pdf.saveState(); pdf.setDash(2*mm,1*mm)
+    before=set(drawing.msp)
+    drawing.rect((bx,-P.balcony_depth,bx+P.balcony_width,0),'DOOR')
+    for entity in drawing.msp:
+        if entity not in before:entity.dxf.linetype='SITE_DASH'
+    pdf.restoreState()
+    drawing.text('2階バルコニー投影',(bx+P.balcony_width/2,-700),250)
+
     for part in ('porch', 'upper_step', 'lower_step', 'path'):
         drawing.rect(d[part], 'DOOR')
-    drawing.line((5380, 0), (6280, 0), 'DOOR')
-    drawing.text('入口', (5830, 650), 250)
-    drawing.text('歩道', (5830, -2950), 250)
-    drawing.text('W1500', (5830, -3400), 250)
+    entrance=next(door for door in floor_plan(1).doors if door.a=='outside')
+    entry_x=entrance.start+entrance.width/2
+    drawing.line((entrance.start, 0), (entrance.start+entrance.width, 0), 'DOOR')
+    drawing.text('入口', (entry_x, 650), 250)
+    drawing.text('歩道', (entry_x, -2950), 250)
+    drawing.text(f'W{d["path"][2]-d["path"][0]:g}', (entry_x, -3400), 250)
     drawing.rect(d['parking'], 'FURNITURE')
     pdf.saveState(); pdf.setDash(2 * mm, 1 * mm)
     before = len(list(drawing.msp))
@@ -111,7 +124,7 @@ def generate():
     for name, bounds in d['lawns'].items():
         drawing.rect(bounds)
         if name == 'front': drawing.text('芝生・低木', (3450, -4400), 250)
-        if name == 'north': drawing.text('芝生', (3640, 8300), 250)
+        if name == 'north': drawing.text('芝生', (P.width/2, 8300), 250)
     for x, y, r in d['shrubs']: drawing.circle((x, y), r)
     for panel in fence['panels']:
         a, b = ((panel['start'], panel['at']), (panel['end'], panel['at'])) if panel['axis'] == 'h' else (
@@ -120,15 +133,15 @@ def generate():
     for post in fence['posts']:
         half = S.fence_post_width / 2
         drawing.rect((post['x']-half, post['y']-half, post['x']+half, post['y']+half), 'WALL')
-    drawing.text('敷地外形 166.7184 m²（幾何面積）', (3640, -6900), 250)
-    drawing.text('南側アクセスを仮定 / 道路・境界条件は未確定', (3640, -7400), 250)
-    drawing.dim((-2000, 9280), (9280, 9280), (0, 10180))
+    drawing.text(f'敷地外形 {(S.lot_east-S.lot_west)*(S.lot_north-S.lot_south)/1e6:.4f} m²（幾何面積）', (P.width/2, -6900), 250)
+    drawing.text('南側アクセスを仮定 / 道路・境界条件は未確定', (P.width/2, -7400), 250)
+    drawing.dim((S.lot_west, S.lot_north), (S.lot_east, S.lot_north), (0, 10180))
     drawing.dim((-2000, -5500), (-2000, 9280), (-3500, 0), 90)
-    drawing.dim((0, 7280), (7280, 7280), (0, 7540))
+    drawing.dim((0, P.depth), (P.width, P.depth), (0, 7540))
     drawing.dim((-1100, -5300), (1900, -5300), (0, -6100))
-    drawing.dim((4930, -5300), (6730, -5300), (0, -6100))
+    drawing.dim((S.pedestrian_opening_west, -5300), (S.pedestrian_opening_east, -5300), (0, -6100))
     drawing.text('車両開口', (400, -6500), 250)
-    drawing.text('歩行開口', (5830, -6500), 250)
+    drawing.text('歩行開口', (entry_x, -6500), 250)
     drawing.text('N*', (8300, 8000), 300)
     drawing.line((8300, 6600), (8300, 7450), 'NORTH')
     drawing.line((8300, 7450), (8100, 7100), 'NORTH')
@@ -161,20 +174,20 @@ def generate():
         '地盤 -500 → 追加段 -330 → 既存段 -160',
         '→ 既存ポーチ -25 → 玄関床 0',
         '段差：170 / 170 / 135 / 25',
-        '追加段：幅1500・奥行300 / 歩道：幅1500',
+        f'追加段・歩道幅{d["path"][2]-d["path"][0]:g} / 追加段奥行300',
     ]): drawing.text(text, (12600, 2400-i*500), 250, align='left')
     drawing.text('04 計画の前提', (12600, -500), 350, align='left')
     for i, text in enumerate([
         '敷地・駐車場・地盤は仮定。無舗装部は砂利。',
         '南側に車両3000・歩行1800の実開口を確保。',
-        'フェンス28面・柱30本。横桟間の隙間40。',
+        f'フェンス{len(fence["panels"])}面・柱{len(fence["posts"])}本。横桟間の隙間40。',
         '基礎・庭・フェンスは独立した表示グループ。',
         '確認済み1・2階平面と小屋裏形状を保持。',
         '地盤調査・配筋・耐力・排水・車両軌跡は未設計。',
         '境界・道路・植栽選定・法規は実計画で要検討。',
         '本図は施工図・構造計算・測量図ではない。',
     ]): drawing.text(text, (12600, -1200-i*550), 250, align='left')
-    drawing.text('text-CAD / R05-SITE / 参考デモ', (12600, -6900), 250, align='left')
+    drawing.text('text-CAD / R09-SITE / 参考デモ', (12600, -6900), 250, align='left')
 
     pdf.setLineWidth(.7 * mm); pdf.rect(7.5*mm, 7.5*mm, 405*mm, 282*mm)
     drawing.doc.layers.new('D-TTL-FRAM', dxfattribs={'color':7, 'lineweight':70})

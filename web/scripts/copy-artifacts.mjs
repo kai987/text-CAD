@@ -15,7 +15,7 @@ export const artifacts = [
   'DXF/house_attic_plan.dxf', 'output/pdf/house_attic_plan_R06_JP.pdf',
   'DXF/house_structural_scheme.dxf', 'output/pdf/house_structural_scheme_R06_JP.pdf',
   'DXF/house_site_plan.dxf', 'output/pdf/house_site_plan_R05_JP.pdf',
-  'output/pdf/house_floor_plans_R02_JP.pdf',
+  'output/pdf/house_floor_plans_R09_JP.pdf',
   'output/review/jp_floor_plan-1.png', 'output/review/jp_floor_plan-2.png',
   'output/review/house_3d_iso.png',
   'output/review/house_3d_1f_interior.png', 'output/review/house_3d_2f_interior.png',

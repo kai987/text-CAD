@@ -104,7 +104,7 @@ test('saved main and entrance rafts remain distinct and TS/WASM sections agree u
   assert.equal(meshesIn(raft).length, 2);
   for (const [backend, create] of backends) {
     const cap = groupCaps(raft, create, -.725);
-    near(cap.area, 7.28 * 7.28 + 1.5 * 1.9);
+    near(cap.area, 8.19 * 7.28 + 1.5 * 1.9);
     assert.ok(cap.triangles.length > 0, `${backend}: physical raft has an underground section`);
     assert.equal(groupCaps(raft, create, -.5).triangles.length, 0,
       `${backend}: hidden foundation cannot invent a cut surface above its actual top`);
@@ -115,8 +115,8 @@ test('fence footing cavities stay open around real embedded posts in both sectio
   const { nodes } = await loadHouse();
   const footings = meshesIn(nodes.get('fence:footings'));
   const posts = meshesIn(nodes.get('fence:posts'));
-  assert.equal(footings.length, 30);
-  assert.equal(posts.length, 30);
+  assert.equal(footings.length, 31);
+  assert.equal(posts.length, 31);
   // Sample a corner, middle and final footing using their true exported bounds.
   for (const index of [0, Math.floor(footings.length / 2), footings.length - 1]) {
     const footing = footings[index], box = new Box3().setFromObject(footing), center = box.getCenter(new Vector3());
@@ -148,14 +148,14 @@ test('soil and separate finishes preserve real foundation and post exclusions in
   const footingCenter = firstFooting.getCenter(new Vector3());
   for (const [backend, create] of backends) {
     const soil = groupCaps(nodes.get('yard:soil'), create, -.6);
-    near(soil.area, 108.17, 2e-4);
-    for (const [x, y, name] of [[3640, 3640, 'house raft'], [5830, -950, 'entrance footing']]) {
+    near(soil.area, 114.5, 2e-4);
+    for (const [x, y, name] of [[3640, 3640, 'house raft'], [6760, -950, 'entrance footing']]) {
       assert.equal(covers(soil.triangles, point(x, y, -.6)), false,
         `${backend}: soil must not fill the ${name} exclusion`);
     }
     assert.equal(covers(soil.triangles, new Vector3(footingCenter.x, -.6, footingCenter.z)), false,
       `${backend}: soil retains the full 300 mm footing hole`);
-    assert.equal(covers(soil.triangles, point(5830, -4000, -.6)), true,
+    assert.equal(covers(soil.triangles, point(6760, -4000, -.6)), true,
       `${backend}: the actual footpath has supporting soil beneath its paving`);
     const finishParts = ['yard:ground_surfaces:gravel', 'yard:entrance_path:paving', 'yard:parking:paving',
       ...['front', 'north', 'east', 'west'].map(name => `yard:planting:lawn_${name}`)];
@@ -170,7 +170,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
         finishTriangles.push(...inspected.triangles);
       } finally { cap.dispose(); }
     }
-    near(finishArea, 110.795, 2e-4);
+    near(finishArea, 117.2125, 2e-4);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x, -.525, footingCenter.z)), false,
       `${backend}: the smaller 50 mm finish hole still leaves its post open`);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x + .09, -.525, footingCenter.z)), true,

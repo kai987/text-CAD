@@ -1,4 +1,4 @@
-"""Inspect saved R02 architectural DXFs and the A3 PDF against adapted common rules.
+"""Inspect saved R09 architectural DXFs and the A3 PDF against adapted common rules.
 
 This is an artifact check, not a generator test or an SXF/building certification.
 Run after src/generate_plans.py; it writes only its JSON validation report.
@@ -131,7 +131,7 @@ def validate_dxf(number):
     wall_extents = bbox.extents(walls)
     wall_bounds = [wall_extents.extmin.x, wall_extents.extmin.y, wall_extents.extmax.x,
                    wall_extents.extmax.y] if wall_extents.has_data else []
-    check("approved_outer_boundary_preserved", matches(wall_bounds, [0, 0, 7280, 7280]),
+    check("approved_outer_boundary_preserved", matches(wall_bounds, [0, -P.balcony_depth if number == 2 else 0, P.width, P.depth]),
           {"wall_bounds_mm": wall_bounds, "demo_assumptions": [P.width, P.depth, P.storey_height]}, number)
     mtexts = list(msp.query("TEXT MTEXT"))
     bad_heights = [{"value": text(e), "height_mm": height(e), "paper_height_mm": height(e) / SCALE}
@@ -174,7 +174,7 @@ def validate_dxf(number):
               close(height(e) / SCALE, 2.5) for e in btexts),
               {"block": dim.dxf.geometry, "text": [text(e) for e in btexts],
                "paper_heights_mm": [height(e) / SCALE for e in btexts]}, number)
-    check("outer_dimensions_7280", sum(close(value, 7280) for value in measurements) >= 2,
+    check("outer_dimensions_7280", all(any(close(value, size) for value in measurements) for size in (P.width,P.depth)),
           {"native_measurements_mm": measurements}, number)
     check("paper_layout_exists", LAYOUT in doc.layouts, {"layout_names": list(doc.layout_names())}, number)
     if LAYOUT not in doc.layouts:
@@ -200,8 +200,8 @@ def validate_dxf(number):
     required_fields = ["施設名", "工事件名", "工事箇所", "図面名称", "縮尺", "図面番号", "作製年月日", "事業所名"]
     check("title_block_eight_residential_fields", all(any(s.startswith(label) for s in titletexts) for label in required_fields),
           {"required_labels": required_fields, "title_texts": titletexts}, number)
-    check("title_block_revision_date_scale_sheet", any("令和8年10月4日" in s for s in titletexts)
-          and any("1:50" in s for s in titletexts) and any("R02" in text(e) for e in ptexts)
+    check("title_block_revision_date_scale_sheet", any("令和8年10月7日" in s for s in titletexts)
+          and any("1:50" in s for s in titletexts) and any("R09" in text(e) for e in ptexts)
           and f"{number:03d}" in titletexts and "全2枚" in titletexts,
           {"title_texts": titletexts}, number)
     invalid_paper_heights = [{"value": text(e), "height_paper_mm": height(e)} for e in ptexts
@@ -227,14 +227,14 @@ def validate_dxf(number):
           {"scanned_text_entities": len(all_texts), "invalid": disallowed}, number)
     metadata = doc.ezdxf_metadata()
     meta = {key: metadata.get(key, "") for key in ("REVISION", "STANDARD", "SCOPE", "SCALE")}
-    check("document_standard_metadata", meta["REVISION"] == "R02" and "東京都" in meta["STANDARD"]
+    check("document_standard_metadata", meta["REVISION"] == "R09" and "東京都" in meta["STANDARD"]
           and "住宅" in meta["SCOPE"] and ("準用" in meta["SCOPE"] or "准用" in meta["SCOPE"])
           and meta["SCALE"] == "1:50", meta, number)
 
 
 def validate_pdf():
-    path = ROOT / "output/pdf/house_floor_plans_R02_JP.pdf"
-    check("R02_pdf_exists", path.is_file(), {"path": str(path.relative_to(ROOT))})
+    path = ROOT / "output/pdf/house_floor_plans_R09_JP.pdf"
+    check("R09_pdf_exists", path.is_file(), {"path": str(path.relative_to(ROOT))})
     if not path.is_file():
         return
     pdf = PdfReader(path)
@@ -244,10 +244,10 @@ def validate_pdf():
         check("pdf_A3_landscape", close(width, 420, 1e-4) and close(height_mm, 297, 1e-4),
               {"paper_mm": [width, height_mm]}, index)
         value = (page.extract_text() or "").replace(",", "")
-        check("pdf_standard_revision_date_and_demo_notes", "R02" in value and "1:50" in value
-              and "令和8年10月4日" in value and "7280" in value and "2800" in value,
-              {"R02": "R02" in value, "scale": "1:50" in value,
-               "wareki": "令和8年10月4日" in value, "outer": "7280" in value,
+        check("pdf_standard_revision_date_and_demo_notes", "R09" in value and "1:50" in value
+              and "令和8年10月7日" in value and "8190" in value and "7280" in value and "2800" in value,
+              {"R09": "R09" in value, "scale": "1:50" in value,
+               "wareki": "令和8年10月7日" in value, "outer": "7280" in value,
                "storey": "2800" in value}, index)
 
 
@@ -263,11 +263,11 @@ def main():
         check("pdf_check_execution_completed", False, {"exception": f"{type(exc).__name__}: {exc}"})
     paths = [ROOT / f"DXF/house_{n}f_plan.dxf" for n in (1, 2)] + [
         ROOT / f"DXF/{n:03d}D0PL2-{n}FPLAN.DXF" for n in (1, 2)] + [
-        ROOT / "output/pdf/house_floor_plans_R02_JP.pdf", Path(__file__),
+        ROOT / "output/pdf/house_floor_plans_R09_JP.pdf", Path(__file__),
         ROOT / "docs/tokyo_cad_standard_mapping_R02.md", ROOT / "src/generate_plans.py",
         ROOT / "src/lib/jp_sheet.py"]
     report = {
-        "revision": "R02", "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
+        "revision": "R09", "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
         "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
         "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
         "checked_at": datetime.now(ZoneInfo("Asia/Tokyo")).isoformat(),

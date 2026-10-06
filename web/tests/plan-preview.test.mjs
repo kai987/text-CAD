@@ -11,7 +11,8 @@ test('vector plans retain both overall dimensions and every required room label 
   const metadata = await validatePlanPreviews(root);
   assert.deepEqual(metadata.floors.map(item => item.floor), [1, 2]);
   for (const floor of metadata.floors) {
-    assert.equal(floor.annotations.filter(item => item.text === '7280').length, 2);
+    assert.ok(floor.annotations.some(item => item.text === '7280'));
+    assert.ok(floor.annotations.some(item => item.text === '8190'));
     assert.ok(floor.planViewBox[2] < floor.fullViewBox[2]);
     assert.ok(floor.bytes < 500_000);
   }

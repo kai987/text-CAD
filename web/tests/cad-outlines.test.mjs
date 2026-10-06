@@ -110,7 +110,7 @@ test('actual house wall cores and exterior cladding keep window edges without fa
   gltf.scene.traverse(object => {
     const node = gltf.parser.associations.get(object)?.nodes;
     const name = gltf.parser.json.nodes[node]?.name;
-    if (/^F[12]:(?:wall_external_east|exterior:cladding:east)$/.test(name)) walls.set(name, object);
+    if (/^F[12]:(?:wall_external_south|exterior:cladding:south)$/.test(name)) walls.set(name, object);
   });
   assert.equal(walls.size, 4, 'both floors have a recessed wall core and separate exterior cladding');
   for (const [name, wall] of walls) {
@@ -119,13 +119,13 @@ test('actual house wall cores and exterior cladding keep window edges without fa
     const lines = segments(createCadOutlineGeometry(wall.geometry), wall.matrixWorld);
     // The skin stays on the facade footprint while its core is recessed. Read
     // each actual face from its own bounds instead of assuming it is at 7280.
-    for (const x of [bounds.min.x, bounds.max.x]) {
-      assert.equal(covers(lines, [x, base + 2.1, -4.0]), false, `${name}: no window-to-window seam`);
-      assert.equal(covers(lines, [x, base + 2.1, -2.355]), true, `${name}: small window head retained`);
-      assert.equal(covers(lines, [x, base + 2.1, -6.5]), true, `${name}: larger window head retained`);
-      assert.equal(covers(lines, [x, base + 1.8, -2.13]), true, `${name}: window jamb retained`);
-      assert.equal(covers(lines, [x, base + 1.2, bounds.max.z]), true, `${name}: outer corner retained`);
-      assert.equal(covers(lines, [x, base + 1.2, bounds.min.z]), true, `${name}: opposite corner retained`);
+    for (const z of [bounds.min.z, bounds.max.z]) {
+      assert.equal(covers(lines, [4.5, base + 2.2, z]), false, `${name}: no window-to-window seam`);
+      assert.equal(covers(lines, [1.0, base + 2.2, z]), true, `${name}: small window head retained`);
+      assert.equal(covers(lines, [1.8, base + 2.2, z]), true, `${name}: larger window head retained`);
+      assert.equal(covers(lines, [.65, base + 1.8, z]), true, `${name}: window jamb retained`);
+      assert.equal(covers(lines, [bounds.max.x, base + 1.2, z]), true, `${name}: outer corner retained`);
+      assert.equal(covers(lines, [bounds.min.x, base + 1.2, z]), true, `${name}: opposite corner retained`);
     }
   }
 });

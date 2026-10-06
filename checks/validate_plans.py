@@ -336,4 +336,5 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    from validate_redesign_plans import run
+    raise SystemExit(run())

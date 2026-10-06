@@ -94,7 +94,7 @@ def facade_parts(floor, p, g, e=E, include_plinth=True):
     bottom = z - g.slab_thickness
     top = z + p.storey_height - (g.slab_thickness if floor.number == 1 else 0)
     cuts = [opening_box(d.axis, d.at, d.start, d.width, p.external_wall, z, z + g.door_height)
-            for d in floor.doors if d.a == "outside"]
+            for d in floor.doors if {'outside','balcony'} & {d.a,d.b}]
     for window in floor.windows:
         sill, height = window_vertical_range(window, g)
         cuts.append(opening_box(*window, p.external_wall, z + sill, z + sill + height))
@@ -280,11 +280,11 @@ def exterior_manifest(e=E):
         "design": "Contemporary Japanese new-build detached house; continuous warm-white siding, timber-tone entry door, dark standing-seam gable roof",
         "parameters_mm": asdict(e),
         "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
-        "finished_wall_footprint": "7280 x 7280 mm remains the approved demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
+        "finished_wall_footprint": "8190 x 7280 mm approved R09 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
         "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
         "assumptions": [
             "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-            "外饰面厚20 mm和背后2 mm示意间隙均在原180 mm墙厚范围内置换，主体完成外轮廓仍为7280 × 7280 mm。",
+            "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
             "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
             "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
             "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",

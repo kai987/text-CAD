@@ -12,6 +12,7 @@ R06は収納専用小屋裏・構造配置のデモで、最高仕上げ内法�
 
 | Source | Output | Purpose |
 | --- | --- | --- |
+| `lib/house_redesign_plan.py`, `generate_redesign_plans.py` | `DXF/house_redesign_R09_1f.dxf`, `house_redesign_R09_2f.dxf`, `output/pdf/house_floor_plans_R09_JP.pdf` | Approved R09 3-bedroom/drying-balcony source; run `checks/validate_redesign_plans.py` / 确认后采用的R09户型 / 承認済みR09平面 |
 | `generate_plans.py` | `DXF/001D0PL2-1FPLAN.DXF`, `DXF/002D0PL2-2FPLAN.DXF`, identical `house_1f_plan.dxf` / `house_2f_plan.dxf` aliases, `output/pdf/house_floor_plans_R02_JP.pdf` | R02 drawings with editable labels/dimensions and an A3 paper layout |
 | `lib/house_plan.py` | shared data, no standalone output | Millimetre parameters, rooms, walls, openings and assumptions |
 | `lib/jp_drafting.py` | shared style, no standalone output | Japanese drafting layer names, paper lineweights, nominal text sizes and drawing filenames |

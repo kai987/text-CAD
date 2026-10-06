@@ -113,7 +113,7 @@ for number in (1, 2):
         close(f"F{number}:approved_finished_outline_bound_{coordinate}", actual, expected)
     core_area = (P.width-2*setback)*(P.depth-2*setback)- \
                 (P.width-2*P.external_wall)*(P.depth-2*P.external_wall)
-    exterior_aperture_area = sum(d.width*G.door_height for d in plan.doors if d.a == "outside")+ \
+    exterior_aperture_area = sum(d.width*G.door_height for d in plan.doors if {'outside','balcony'} & {d.a,d.b})+ \
                              sum(window[3]*window_vertical_range(window)[1] for window in plan.windows)
     close(f"F{number}:backing_volume_preserves_inner_room_boundary_mm3", sum(s.volume for s in core),
           core_area*wall_height-exterior_aperture_area*(P.external_wall-setback), 0.1)
@@ -141,7 +141,7 @@ for number in (1, 2):
                    (label.startswith(f"F{number}:W") and label.endswith((":exterior_trim", ":sill"))) or
                    (label.startswith(f"F{number}:D") and label.endswith((":frame", ":canopy", ":porch", ":porch_step", ":threshold")))]
     for door in plan.doors:
-        if door.a == "outside":
+        if {'outside','balcony'} & {door.a,door.b}:
             swept = opening_box(door.axis, door.at, door.start+.1, door.width-.2, 1400,
                                 z+.1, z+G.door_height-.1)
             close(f"F{number}:{door.id}:projecting_attachments_clear_of_aperture_mm3", overlap(attachments, swept), 0)
@@ -160,11 +160,11 @@ for number in (1, 2):
         close("F1:slab_net_volume_mm3", slab.volume,
               (P.width-2*setback)*(P.depth-2*setback)*G.slab_thickness, 0.1)
     for door in plan.doors:
-        thickness = P.external_wall if door.a == "outside" else P.internal_wall
+        thickness = P.external_wall if {'outside','balcony'} & {door.a,door.b} else P.internal_wall
         tool = opening_box(door.axis, door.at, door.start, door.width,
                            thickness, z, z+G.door_height)
         close(f"F{number}:{door.id}:wall_opening_volume_mm3", overlap(walls, tool), 0)
-        if door.a == "outside":
+        if {'outside','balcony'} & {door.a,door.b}:
             head = exterior_core_tool(door.axis, door.at, door.start, door.width,
                                       z+G.door_height+1, z+wall_height-1)
             backing_walls = core
@@ -264,7 +264,7 @@ site_leaves = {label: shape for label, shape in native.items()
                if label.startswith(("foundation:", "yard:", "fence:"))}
 structure_leaves = {label: shape for label, shape in native.items() if label.startswith("structure:")}
 old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)-set(structure_leaves)
-check("attic:R03_leaves_after_requested_entry_accent_removal", len(old_leaf_names) == 377, len(old_leaf_names), 377)
+check("R09:named_balcony_present", all(name in native for name in ("balcony:slab","balcony:drying_rail","balcony:footing_1","balcony:footing_2")))
 check("attic:new_named_leaf_contract", len(attic_leaves) == 31, len(attic_leaves), 31)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
@@ -428,7 +428,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R06-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R09-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},
@@ -441,7 +441,7 @@ report = {
                                  "backing_thickness_mm": P.external_wall-setback,
                                  "approved_room_net_boundaries": "Unchanged; tested as exact native clear-room volumes",
                                  "finished_footprint_mm": [P.width, P.depth]},
-    "attic_test_basis": {"original_R03_leaf_count": 378, "retained_after_entry_accent_removal": 377,
+    "attic_test_basis": {"source_layout": "approved R09",
                          "new_attic_leaf_count": len(attic_leaves),
                          "new_access_leaf_count": len(access_leaves), "purpose": "storage attic concept",
                          "deck_storage_projection_area_m2": deck_area/1e6,

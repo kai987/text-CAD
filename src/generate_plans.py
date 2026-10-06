@@ -258,4 +258,6 @@ def generate():
     print('Created canonical R02 DXFs and updated house_1f_plan.dxf / house_2f_plan.dxf aliases')
 
 
-if __name__=='__main__':generate()
+if __name__=='__main__':
+    from generate_redesign_plans import main
+    main()

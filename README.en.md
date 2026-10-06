@@ -2,7 +2,11 @@
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-The house drawing revision is R02, which adapts Japanese drafting rules. **The user-confirmed R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
+## Current layout (R09, approved)
+
+The user approved R09 on 2026-10-07. The 8190 × 7280 mm body and two 2800 mm storeys are demonstration assumptions. Three bedrooms remain; toilets align beside the stairs, the first-floor LDK has open circulation, and a shared upstairs passage reaches a south 3640 × 1500 mm drying balcony. Named STEP/GLB, editable DXF, A3 drawings, attic, site and W/S/RC overlays follow this layout. Structural calculations and site-specific code review remain pending.
+
+[Design and references](docs/house_redesign_R09.md) · [Two-floor PDF](output/pdf/house_floor_plans_R09_JP.pdf) · [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
 
 ## Model day/night and outdoor fixtures (R08-3D)
 
@@ -18,7 +22,7 @@ Three independent overlays retain the existing building and user-confirmed plans
 
 ## Structural layout and storage-use demonstration (R06-3D)
 
-The structural layout introduced in R06 is a **demonstration concept**, with no actual building location specified. The 7280 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.
+The structural layout introduced in R06 is a **demonstration concept**, with no actual building location specified. The 8190 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.
 
 The separate `structure` root contains columns, beams, sills, attic joists, hatch headers, roof framing and candidate bearing walls. The “Structural scheme” preset shows timber and foundations while hiding finishes, doors/windows, furniture and roof cladding. Normal exterior and interior presets hide the timber proposal to avoid overlapping representations. Every member size is a demonstration assumption; wall candidates do not establish bearing capacity, seismic rating or calculation results. Original perimeter plinths retain their geometry under a separate `foundation` category. Internal foundation supports follow candidate column lines. Loads, materials, sizes, joints, reinforcement and soil capacity remain uncalculated.
 
@@ -43,7 +47,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 The attic remains inside the R03 gable envelope, with user-confirmed first- and second-floor boundaries unchanged. The attic interior preset shows floors, lining/knee walls, storage and hatch guardrails. Hide the deployed access ladder separately. It occupies the second-floor hall; hiding it does not simulate mechanical folding.
 
-All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 971.23 mm. Space above the ceiling is excluded from usable storage. The upper standing area has 1350 mm headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
+All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 1233.93 mm. Space above the ceiling is excluded from usable storage. The upper standing area has approximately 1254 mm minimum headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
 
 Parameters are in `src/lib/attic_geometry.py`. Current `DXF/house_attic_plan.dxf` retains editable text and dimensions. The current supplement is `output/pdf/house_attic_plan_R06_JP.pdf`, A3 at 1:50 with an east–west section. The R04 PDF and notes remain historical and do not describe current headroom. The fixed ceiling is only a candidate treatment. Local measurement of the finished ceiling and residual cavity, and storey classification, remain pending; adding a ceiling alone does not establish area or storey exemption. Neither 1350 mm nor 24.5384 m² establishes local regulatory recognition. Approved R02 floor plans are unchanged.
 
@@ -55,7 +59,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## Contemporary Japanese house exterior (R03-3D)
 
-The house uses warm-white siding, a timber-tone entry door, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
+The house uses warm-white siding, a timber-tone entry door, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 8190 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
 
 Parametric sources are `src/lib/exterior_geometry.py` and `src/lib/exterior_materials.py`. New components belong to the existing external-wall, door, window and roof categories, with Chinese, Japanese and English names, selection, visibility and section support. STEP contains solids and colours; GLB also embeds original siding and timber textures. [Official Nichiha, KMEW and YKK AP references](references/japanese-house-exterior.md) informed the design; no manufacturer photographs, textures or CAD models are redistributed.
 
@@ -194,7 +198,7 @@ The apartment is generated and checked independently of the house. Generation re
 - `src/lib/jp_drafting.py`, `src/lib/jp_sheet.py`: adapted layer names, paper text heights and lineweights, and the shared A3 frame, title block, area table, and notes.
 - `DXF/001D0PL2-1FPLAN.DXF`, `DXF/002D0PL2-2FPLAN.DXF`: floor plans with filenames adapted to the R02 naming rules.
 - `DXF/house_1f_plan.dxf`, `DXF/house_2f_plan.dxf`: R2018 DXF, millimetres, model space at 1:1.
-- `output/pdf/house_floor_plans_R02_JP.pdf`: current floor plans, frames, title blocks, area tables, and assumptions. Print at actual A3 size without automatic scaling. The R01 PDF is retained as a historical version.
+- `output/pdf/house_floor_plans_R09_JP.pdf`: current floor plans, frames, title blocks, area tables, and assumptions. Print at actual A3 size without automatic scaling. The R01 PDF is retained as a historical version.
 - `docs/tokyo_cad_standard_mapping_R02.md`: source-standard sections and pages, residential adaptations, and items outside the scope.
 - `checks/validate_jp_drafting.py`, `output/review/validation_jp_drafting.json`: checks of saved layers, text heights, colours, lineweights, native dimensions, and paper space.
 - `output/review/design_manifest.json`: machine-readable parameters, all assumptions, and room areas.

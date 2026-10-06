@@ -7,7 +7,7 @@ const contained = (bounds, [x, y, width, height]) =>
   bounds[0] >= x && bounds[1] >= y && bounds[2] <= x + width && bounds[3] <= y + height;
 
 export function validatePlanMetadata(metadata, pdfBytes, svgByFloor,
-  { floors = [1, 2], dimensions = ['7280', '7280'] } = {}) {
+  { floors = [1, 2], dimensions = ['8190', '7280'] } = {}) {
   if (metadata.version !== 1 || metadata.source.sha256 !== sha(pdfBytes)) {
     throw new Error('Vector plans are stale: regenerate SVG from the current approved PDF.');
   }

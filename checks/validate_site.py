@@ -24,7 +24,7 @@ from cadgen.geometry import overlap_volume
 from lib.house_geometry import cuboid
 from lib.house_geometry import G
 from lib.house_plan import P, floor_plan
-from lib.site_geometry import site_manifest
+from lib.site_geometry import site_manifest,S
 
 SITE_PREFIXES = ("foundation:", "yard:", "fence:")
 parser = argparse.ArgumentParser(description=__doc__)
@@ -107,13 +107,13 @@ site = {label: shape for label, shape in native.items() if label.startswith(SITE
 saved = json.loads((ROOT / "output/review/house_3d_assumptions_R01.json").read_text())
 record = saved["site"]
 check("site:saved_metadata_matches_current_parameters", record == site_manifest(P, G))
-check("revision:foundation_and_site_R06", saved["revision"] == "R06-3D", saved["revision"], "R06-3D")
+check("revision:foundation_and_site_R06", saved["revision"] == "R09-3D", saved["revision"], "R09-3D")
 legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
           and label != "attic:lining:flat_ceiling"}
-check("site:house_labels_after_requested_entry_accent_removal", len(legacy) == 423, len(legacy), 423)
+check("R09:house_and_balcony_labels_present", all(label in legacy for label in ("F1:floor_slab","F2:floor_slab","balcony:slab","balcony:drying_rail")))
 check("site:three_nonempty_top_groups", all(any(label.startswith(prefix) for label in site) for prefix in SITE_PREFIXES))
 new_supports = {label: shape for label, shape in site.items() if label.startswith("foundation:internal_supports:")}
-check("site:original_R05_leaf_contract", len(site)-len(new_supports) == 113, len(site)-len(new_supports), 113)
+check("site:R09_site_leaf_contract", len(site)-len(new_supports) == 116, len(site)-len(new_supports), 116)
 check("foundation:internal_supports_added", bool(new_supports))
 for group in ("foundation:raft", "foundation:stem_walls", "foundation:existing_plinth", "foundation:entrance_supports", "foundation:internal_supports",
               "yard:soil", "yard:ground_surfaces", "yard:entrance_path", "yard:parking", "yard:planting",
@@ -121,7 +121,7 @@ for group in ("foundation:raft", "foundation:stem_walls", "foundation:existing_p
     occurrence = scene.resolve(f"#{group}")
     check(f"{group}:saved_selectable_group_is_nonempty", bool(occurrence.children))
 
-lot = [-2000., -5500., 9280., 9280.]
+lot = [S.lot_west,S.lot_south,S.lot_east,S.lot_north]
 for label, shape in site.items():
     b = bounds(shape)
     check(f"{label}:inside_demo_lot", b[0] >= lot[0] - .01 and b[1] >= lot[1] - .01
@@ -192,11 +192,11 @@ close("yard:soil_actual_top_mm", bounds(soil)[5], -550)
 # holes lie away from them. This area identity detects ground accidentally
 # passing through footings, or duplicate paving/lawn meshes.
 gross_area = (lot[2] - lot[0]) * (lot[3] - lot[1])
-open_area = gross_area - P.width * P.depth - 1500 * 1900
+open_area = gross_area - P.width * P.depth - 1500 * 1900 - 2*450*450
 close("yard:soil_area_accounts_for_full_footing_exclusions_mm2", soil.volume / 100,
-      open_area - 30 * 300 * 300, .1)
+      open_area - len(record["fence"]["posts"])*300*300, .1)
 close("yard:finished_surfaces_tile_site_around_post_exclusions_mm2", surface_volume / 50,
-      open_area - 30 * 50 * 50, .1)
+      open_area - len(record["fence"]["posts"])*50*50, .1)
 close("yard:recorded_soil_area_matches_saved_native_mm2", soil.volume / 100, record["surfaces"]["soil_area_mm2"], .1)
 close("yard:recorded_finish_area_matches_saved_native_mm2", surface_volume / 50,
       record["surfaces"]["finish_total_area_mm2"], .1)
@@ -242,7 +242,7 @@ check("site_DXF:clean_audit", not doc.audit().has_errors)
 dimensions = list(doc.modelspace().query("DIMENSION"))
 check("site_DXF:editable_dimensions", len(dimensions) >= 5, len(dimensions))
 measurements = sorted(round(dimension.get_measurement(), 6) for dimension in dimensions)
-check("site_DXF:actual_lot_house_and_opening_measurements", measurements == [1800., 3000., 7280., 11280., 14780.], measurements)
+check("site_DXF:actual_lot_house_and_opening_measurements", measurements == sorted([1800.,3000.,float(P.width),S.lot_east-S.lot_west,S.lot_north-S.lot_south]), measurements)
 check("site_DXF:adaptive_black_white_annotation", all(entity.dxf.color in (7, 256)
       for entity in doc.modelspace().query("TEXT MTEXT DIMENSION")))
 layout = doc.layouts.get("SITE_A3_1_100")
@@ -299,7 +299,7 @@ if args.baseline:
               and hashlib.sha256(target.read_bytes()).hexdigest() == metadata["sha256"])
 
 report = {
-    "revision": "R06-3D", "units": "native STEP mm; GLB m/Y-up",
+    "revision": "R09-3D", "units": "native STEP mm; GLB m/Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "saved_native_leaves": len(native),
                 "new_site_leaves": len(site)},

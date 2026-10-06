@@ -146,21 +146,22 @@ def furniture_placements(floor,model_id,p):
     def put(id,room,kind,x,y,w,d,angle=0,height=0):
         result.append(Placement(id,room,kind,x,y,w,d,angle,height))
     if model_id=='house':
+        fixtures={name:bounds for name,bounds in floor.fixtures}
         if floor.number==1:
-            x,y,_,_=rooms['ldk'].shape.bounds
-            put('sofa','ldk','sofa',x+1690,y+200,1600,850,270)
-            put('coffee_table','ldk','table',x+720,y+550,900,500,90,380)
-            put('television','ldk','television',x+40,y+120,1200,350,90)
-            put('dining_table','ldk','table',x+3380,y+2620,1000,700,0,730)
-            put('dining_chair_west','ldk','chair',x+2910,y+2730,450,420,90)
-            put('dining_chair_east','ldk','chair',x+4430,y+2730,450,420,270)
+            x,y,x2,y2=fixtures['ソファ']
+            put('sofa','ldk','sofa',x,y,x2-x,y2-y)
+            put('coffee_table','ldk','table',1100,2000,900,500,0,380)
+            x,y,x2,y2=fixtures['TV']
+            put('television','ldk','television',x,y,y2-y,x2-x,90)
+            x,y,x2,y2=fixtures['ダイニング']
+            put('dining_table','ldk','table',x,y,x2-x,y2-y,0,730)
+            put('dining_chair_west','ldk','chair',2980,2700,450,420,90)
+            put('dining_chair_east','ldk','chair',5000,2700,450,420,270)
         else:
-            x,y,_,_=rooms['master'].shape.bounds
-            put('bed','master','bed',x+270,y+370,1470,2020,90)
-            x,y,_,_=rooms['bed2'].shape.bounds
-            put('bed','bed2','bed',x+730,y+220,1030,2020)
-            x,y,_,_=rooms['bed3'].shape.bounds
-            put('bed','bed3','bed',x+250,y+140,1030,2020)
+            beds=[bounds for name,bounds in floor.fixtures if name.startswith('ベッド')]
+            for room,bounds in zip(('master','bed2','bed3'),beds):
+                x,y,x2,y2=bounds
+                put('bed',room,'bed',x,y,x2-x,y2-y)
     elif model_id=='apartment':
         x,y,x2,y2=rooms['ldk'].shape.bounds
         put('sofa','ldk','sofa',x2-900,y+800,1500,850,270)
@@ -209,7 +210,7 @@ def clearance_zones(floor,model_id,p):
     for door in floor.doors:
         for room_id in {door.a,door.b}&furnished:
             room=rooms[room_id].shape
-            thick=p.external_wall if 'outside' in (door.a,door.b) else p.internal_wall
+            thick=p.external_wall if {'outside','balcony'} & {door.a,door.b} else p.internal_wall
             half=thick/2
             if door.axis=='h':
                 candidates=[box(door.start,door.at-half-650,door.start+door.width,door.at-half),
@@ -223,7 +224,7 @@ def clearance_zones(floor,model_id,p):
         if door.kind=='swing':zones.append((f'{door.id}:door_sweep',door_sweep(door)))
     # Retain the actual cabinet front, not a blanket buffer behind solid walls.
     for index,(name,bounds) in enumerate(floor.fixtures):
-        if name!='収納':continue
+        if name not in ({'収納','衣類棚','CL'} if model_id=='house' else {'収納'}):continue
         x1,y1,x2,y2=bounds
         if model_id=='apartment':
             zone=box(x2,y1,x2+650,y2) if x1<p.width/2 else box(x1-650,y1,x1,y2)
@@ -237,9 +238,9 @@ def clearance_zones(floor,model_id,p):
             if name=='キッチン':
                 a,b,c,d=bounds;zones.append(('kitchen:900mm_working_front',box(a,b-900,c,b)))
         if model_id=='house':
-            routes=[[(x2-30,y+2150),(x+2570,y+2150),(x+2570,y+3670),
-                     (x+2720,y+3670),(x+2720,y2-20)],
-                    [(x+2570,y+3670),(x+4420,y+3670),(x+4420,y2-20)]]
+            routes=[[(6800,3100),(6560,3700),(6560,4500)],
+                    [(6800,3100),(5560,3500),(5560,4800),(5560,5800)],
+                    [(5560,3900),(3500,3900),(3550,5700)]]
         else:
             routes=[[(4100,y2-20),(4100,600),(1500,600),(1500,y+10)],
                     [(4100,600),(5900,600),(5900,y+10)],
@@ -259,7 +260,9 @@ def clearance_report(floor,model_id,p,*,backend='auto'):
     furnished={item.room for item in placements}
     rooms={r.id:r.shape.buffer(.001) for r in floor.rooms if r.id in furnished}
     footprints=[item.footprint() for item in placements]
-    fixtures=[(name,bounds,box(*bounds)) for name,bounds in floor.fixtures if name!='ベッド']
+    placeholders={'ベッド'}
+    if model_id=='house':placeholders.update({'ソファ','TV','ダイニング','ベッド 1400','ベッド 1000'})
+    fixtures=[(name,bounds,box(*bounds)) for name,bounds in floor.fixtures if name not in placeholders]
     zones=clearance_zones(floor,model_id,p)
     checks=[];geometries=[];geometry_indices={};area_pairs=[];cover_pairs=[];evaluations=[]
     def geometry_index(shape):

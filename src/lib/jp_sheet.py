@@ -21,7 +21,7 @@ PAPER_SIZE = (420.0, 297.0)
 FRAME_BOUNDS = (7.5, 7.5, 412.5, 289.5)
 TITLE_BOUNDS = (352.5, 7.5, 412.5, 52.5)
 LAYOUT_NAME = "JP_A3_1_50"
-MODEL_PAPER_ORIGIN = (38.0, 55.0)
+MODEL_PAPER_ORIGIN = (37.0, 76.0)
 MODEL_SCALE = 50.0
 FRAME_LAYER = "D-TTL-FRAM"
 TABLE_LAYER = "D-TTL-LINE"
@@ -154,7 +154,7 @@ def _title_block(sheet, floor):
     _cell(sheet, "縮尺", (x1, 15.5, split, 22.5))
     _cell(sheet, "1:50", (split, 15.5, number_x, 22.5), 2.5)
     _cell(sheet, "作製年月日", (x1, 11.5, split, 15.5))
-    _cell(sheet, "令和8年10月4日", (split, 11.5, number_x, 15.5))
+    _cell(sheet, "令和8年10月7日", (split, 11.5, number_x, 15.5))
     _cell(sheet, "事業所名　未定", (x1, y1, number_x, 11.5))
     _cell(sheet, "図面番号", (number_x, 18.5, x2, 22.5))
     sheet.text(f"{floor.number:03d}", ((number_x+x2)/2, 14.8), 2.5,
@@ -166,7 +166,7 @@ def _title_block(sheet, floor):
 def _draw_sheet(sheet, floor):
     sheet.rect(FRAME_BOUNDS, .7, FRAME_LAYER, "frame")
     sheet.text(f"{floor.number}階平面図", (112.8, 260), 5.0, "center", TITLE_TEXT_LAYER)
-    sheet.text("尺度 1:50　単位 mm　計画参考図", (112.8, 249), 2.5, "center")
+    sheet.text("R09確認済み平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
     sheet.text("室別面積表（内法）", (230, 262), 3.5)
 
     left, right, divide, top, row_h = 230, 400, 352, 250, 7
@@ -196,7 +196,7 @@ def _draw_sheet(sheet, floor):
         "便所：内法 900×1,700 mm。出入口 700 mm は枠厚を控除する前の寸法。",
         "構造・防火・耐震・法令適合は未検証。施工図として使用不可。",
         "東京都土木CAD製図基準（令和6年4月）を住宅の図式に準用。",
-        "既存 A3横・1:50 を継承。SXF電子納品は今回の対象外。",
+        "南側物干しバルコニー3640×1500は仮定。支持・防水・排水は未設計。",
     ]
     y = 168
     for index, note in enumerate(notes, 1):
@@ -211,7 +211,7 @@ def _draw_sheet(sheet, floor):
         ("実線：壁・建具・家具の平面輪郭", 87),
         ("寸法線：壁内法・建物外形・建具開口幅", 81),
         ("D01 等：建具番号　UP：上り方向", 75),
-        ("北矢印：仮定方位　R02：製図様式改訂", 69),
+        ("北矢印：仮定方位　R09：確認済み平面・構造未計算", 69),
     ):
         sheet.text(value, (230, y), 2.5)
     _title_block(sheet, floor)
@@ -245,7 +245,7 @@ def add_paper_layout(doc, floor, font_style="HOUSE_UNICODE"):
     for paper_viewport in layout.query("VIEWPORT"):
         paper_viewport.dxf.layer = VIEWPORT_LAYER
     _draw_sheet(_DxfSheet(layout, font_style), floor)
-    vp_min, vp_max = (20.0, 25.0), (215.0, 242.0)
+    vp_min, vp_max = (18.0, 20.0), (225.0, 245.0)
     center = tuple((a+b)/2 for a, b in zip(vp_min, vp_max))
     size = tuple(b-a for a, b in zip(vp_min, vp_max))
     model_center = tuple((p-o)*MODEL_SCALE for p, o in zip(center, MODEL_PAPER_ORIGIN))

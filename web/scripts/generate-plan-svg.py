@@ -19,7 +19,7 @@ PDF = "output/pdf/house_floor_plans_R10_JP.pdf"
 POINTS_PER_MM = 72 / 25.4
 # Paper coordinates measured from the top-left of the existing A3 sheet.
 # Includes both overall dimensions, door arcs, room labels and north arrow.
-CROP_MM = (18.0, 50.0, 225.0, 225.0)
+CROP_MM = (18.0, 50.0, 210.0, 225.0)
 REQUIRED_LABELS = {
     1: ["7280", "LDK", "浴室", "洗面", "玄関", "トイレ", "階段"],
     2: ["7280", "主寝室", "洋室 2", "洋室 3", "収納", "トイレ", "階段", "6180", "1500", "バルコニー"],

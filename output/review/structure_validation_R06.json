@@ -11,8 +11,8 @@
     {
       "check": "saved:revision_R06",
       "pass": true,
-      "actual": "R09-3D",
-      "expected": "R09-3D"
+      "actual": "R10-3D",
+      "expected": "R10-3D"
     },
     {
       "check": "GLB:valid_container",

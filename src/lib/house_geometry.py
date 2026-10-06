@@ -319,13 +319,13 @@ def geometry_manifest(p=P, g=G):
     from .site_geometry import site_manifest
     from .structure_geometry import structure_manifest
     from .outdoor_lighting import outdoor_lighting_manifest
-    exterior = exterior_manifest()
+    exterior = exterior_manifest(p=p)
     attic = attic_manifest(p, g)
     site = site_manifest(p, g)
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R09-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R10-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -344,8 +344,8 @@ def geometry_manifest(p=P, g=G):
         },
         "assumptions": [
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "用户于2026-10-07确认R09平面；一、二层厕所和楼梯上下对齐。",
-            "南侧阳台外形3640 × 1500 mm，净几何面积4.816㎡；公共通道可达，支柱/基础/栏杆/排水均为未计算的演示输入。",
+            "保留2026-10-07确认的R09室内平面；R10按用户要求向东延长阳台并取消独立玄关雨棚。",
+            "南侧阳台外形6180 × 1500 mm，净几何面积8.372㎡；公共通道可达，右端与东外墙齐平并覆盖玄关，独立雨棚取消；三根示意支柱及其基础、栏杆和排水尚未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",

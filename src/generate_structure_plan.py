@@ -1,4 +1,4 @@
-"""R09 editable A3 structural demonstration supplement (two sheets).
+"""R10 editable A3 structural demonstration supplement (two sheets).
 
 Approved architectural floor plans stay unchanged. Every section is a drawing
 input; this supplement contains no strength result or construction detail.
@@ -64,10 +64,10 @@ def generate():
     path.parent.mkdir(parents=True,exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     pdf=canvas.Canvas(str(path),pagesize=(420*mm,297*mm),invariant=1)
-    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R09 / Demonstration only')
+    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R10 / Demonstration only')
     pdf.setAuthor('text-CAD')
     d=StructureDrawing(pdf)
-    d.doc.ezdxf_metadata()['REVISION']='R09-STRUCTURE'
+    d.doc.ezdxf_metadata()['REVISION']='R10-STRUCTURE'
     d.doc.ezdxf_metadata()['SCOPE']='構造候補の説明図。断面はデモ入力。構造計算・施工図・法規判定ではない。'
     d.doc.ezdxf_metadata()['SCALE']='Sheet 01 1:50; Sheet 02 1:75; labelled foundation section 1:25'
     d.doc.header['$PSLTSCALE']=0
@@ -159,7 +159,7 @@ def generate():
         d.dim((xoff,0),(xoff,P.depth),(xoff-700,0),90)
         d.text(f'柱: 外周120角 / 内部90角 / 梁: 120・90・180 × H300',(xoff+3640,-650),100)
         d.text('断面寸法はデモ入力。材種・等級・壁倍率・接合耐力は未設定。',(xoff+3640,-950),100)
-    d.text('木造軸組 候補構造図 / R09',(0,10800),250,align='left')
+    d.text('木造軸組 候補構造図 / R10',(0,10800),250,align='left')
     d.text('単位 mm / A3 / 確認済み平面を保持 / 演示方案・構造計算未実施 / 2026-10-07',(0,10300),125,align='left')
     for i,text in enumerate([
         'C：柱 / B：梁 / BW：耐力壁候補（倍率未設定）。必要壁量・偏心・耐震等級を示さない。',
@@ -175,7 +175,7 @@ def generate():
     def line(a,b,layer='FURNITURE'):d.line((a[0],a[1]+offset),(b[0],b[1]+offset),layer)
     def rect(bounds,layer='FURNITURE'):d.rect(shifted(bounds,0,offset),layer)
     def dim(a,b,base,angle=0):d.dim((a[0],a[1]+offset),(b[0],b[1]+offset),(base[0],base[1]+offset),angle)
-    text('基礎支持線・小屋裏床組 候補図 / R09',(0,10800),375,align='left')
+    text('基礎支持線・小屋裏床組 候補図 / R10',(0,10800),375,align='left')
     text('単位 mm / A3 / 平面・断面1:75 / 基礎参考断面のみ1:25 / 全寸法はデモ入力',(0,10000),187.5,align='left')
     text('01 基礎支持線候補 / 1:75',(3640,8500),262.5)
     text('02 小屋裏床組・検修口 / 1:75',(14140,8500),262.5)

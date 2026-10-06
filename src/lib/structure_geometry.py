@@ -55,7 +55,7 @@ def _attic():
 
 
 def foundation_support_segments(p):
-    """R09 load-path axes, all uncalculated; no obsolete LDK pillar retained."""
+    """R10 load-path axes, all uncalculated; no obsolete LDK pillar retained."""
     d=dimensions(p);e=p.external_wall/2;t=p.internal_wall
     return [
         {"id":"I01","axis":"h","at":d["south_top"]+t/2,"start":e,"end":p.width-e},
@@ -89,7 +89,7 @@ def _beam_segments(p, t=T):
 
 
 def floor_beam_segments(number,p,t=T):
-    """R09 attic opening transfer perimeter, with assumed connection details."""
+    """R10 attic opening transfer perimeter, with assumed connection details."""
     segments=_beam_segments(p,t)
     if number==2:
         a=_attic();d=dimensions(p);right=a.hatch_x+a.hatch_length
@@ -109,7 +109,7 @@ def attic_beam_opening(p,z1,z2):
 
 
 def column_layout(p,t=T):
-    """Posts in shared closed wall segments, avoiding every R09 aperture.
+    """Posts in shared closed wall segments, avoiding every R10 aperture.
 
     Grid candidates and door/window jamb candidates are filtered by complete
     footprint containment on BOTH floors. No free-standing F1 transfer pillar.
@@ -345,7 +345,7 @@ def structure_group(p,g,t=T):
 
 def structure_manifest(p,g,t=T):
     d=structure_dimensions(p,g,t)
-    return {"revision":"R09-STRUCTURE","units":"mm","status":"demonstration_candidate_not_engineered",
+    return {"revision":"R10-STRUCTURE","units":"mm","status":"demonstration_candidate_not_engineered",
             "scheme":"timber_post_and_beam_candidate","parameters":asdict(t),"dimensions":d,
             "columns":column_layout(p,t),"beam_axes":_beam_segments(p,t),
             "floor_beam_axes":{f"F{n}":floor_beam_segments(n,p,t) for n in (1,2)},

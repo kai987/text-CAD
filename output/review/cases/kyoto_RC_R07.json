@@ -15,7 +15,7 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "c85dd6ce673a030f5dc7c37dd81e555b1c6a1f6f3785742650a9600f9d671b35",
+    "glb": "02c0ddb06a2f56f95fc9ab220d02ff63d948ae2038663fb3251e29a02e00b0d0",
     "step": "894d32b00a7235d84e9371b401fde70f4ee666893ef12f9d8d7f4219c8e86c7a"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -889,7 +889,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm approved R09 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm approved R10 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "300 mm perimeter columns/beam bands extend 120 mm outside each architectural face; structural perimeter is 8430 x 7520 mm and exterior/site/area coordination remains pending.",
@@ -1049,6 +1049,12 @@
       "main_stair_collisions": [],
       "attic_hatch_collisions": [],
       "room_intrusions": [
+        {
+          "member": "structure:F2:column_C02",
+          "floor": 2,
+          "room_id": "balcony",
+          "footprint_mm2": 9600.0
+        },
         {
           "member": "structure:F2:column_C05",
           "floor": 2,

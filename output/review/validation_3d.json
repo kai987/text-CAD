@@ -1,23 +1,23 @@
 {
-  "revision": "R09-3D",
+  "revision": "R10-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 3188,
-    "passed": 3188,
+    "checks": 3275,
+    "passed": 3275,
     "failed": 0,
-    "STEP_leaf_occurrences": 879,
-    "native_solids": 896,
-    "GLB_mesh_nodes": 879,
-    "GLB_all_nodes": 986
+    "STEP_leaf_occurrences": 903,
+    "native_solids": 920,
+    "GLB_mesh_nodes": 903,
+    "GLB_all_nodes": 1010
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 20590770,
-      "sha256": "599e6a9181c9f58c2fbceab4f3261fafa9040dcc247dbab27950b9bb063e7714"
+      "bytes": 20626863,
+      "sha256": "4a4a08138b3a287bb13099b047f77184c64cc6f505687d0538241760e1e6b279"
     },
     "house_3d.glb": {
-      "bytes": 8269776,
-      "sha256": "5eb83b24d9e12ce83c142abf7d7c8b6c078b59384f6406d4c420d994cecb4afa"
+      "bytes": 8311924,
+      "sha256": "debefe79f3cc65278ebefd05f9b0e5c1ceb3344f3d587a0131104fee4971948f"
     }
   },
   "thresholds": {
@@ -37,7 +37,7 @@
     ]
   },
   "attic_test_basis": {
-    "source_layout": "approved R09",
+    "source_layout": "approved R10",
     "new_attic_leaf_count": 31,
     "new_access_leaf_count": 16,
     "purpose": "storage attic concept",
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 20590770,
+      "actual": 20626863,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 8269776,
+      "actual": 8311924,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 879,
+      "actual": 903,
       "expected": null
     },
     {
@@ -448,24 +448,6 @@
       "check": "F1:D01:threshold:solid_1_positive_volume",
       "pass": true,
       "actual": 1134000.0,
-      "expected": null
-    },
-    {
-      "check": "F1:D01:canopy:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F1:D01:canopy:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:D01:canopy:solid_1_positive_volume",
-      "pass": true,
-      "actual": 87750000.0,
       "expected": null
     },
     {
@@ -5469,7 +5451,7 @@
     {
       "check": "balcony:slab:solid_1_positive_volume",
       "pass": true,
-      "actual": 682500000.0,
+      "actual": 1158750000.0,
       "expected": null
     },
     {
@@ -5487,7 +5469,7 @@
     {
       "check": "balcony:finish:solid_1_positive_volume",
       "pass": true,
-      "actual": 120400000.0,
+      "actual": 209300000.0,
       "expected": null
     },
     {
@@ -5505,7 +5487,7 @@
     {
       "check": "balcony:south_rail_lower:solid_1_positive_volume",
       "pass": true,
-      "actual": 9100000.0,
+      "actual": 15450000.0,
       "expected": null
     },
     {
@@ -5523,7 +5505,7 @@
     {
       "check": "balcony:south_rail_top:solid_1_positive_volume",
       "pass": true,
-      "actual": 9100000.0,
+      "actual": 15450000.0,
       "expected": null
     },
     {
@@ -6152,6 +6134,420 @@
     },
     {
       "check": "balcony:south_bar_34:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_35:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_35:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_35:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_36:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_36:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_36:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_37:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_37:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_37:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_38:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_38:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_38:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_39:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_39:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_39:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_40:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_40:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_40:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_41:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_41:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_41:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_42:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_42:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_42:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_43:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_43:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_43:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_44:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_44:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_44:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_45:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_45:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_45:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_46:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_46:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_46:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_47:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_47:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_47:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_48:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_48:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_48:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_49:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_49:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_49:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_50:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_50:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_50:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_51:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_51:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_51:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_52:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_52:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_52:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_53:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_53:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_53:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_54:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_54:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_54:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_55:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_55:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_55:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_56:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_56:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_56:solid_1_positive_volume",
+      "pass": true,
+      "actual": 2550000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_57:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_57:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:south_bar_57:solid_1_positive_volume",
       "pass": true,
       "actual": 2550000.0,
       "expected": null
@@ -6800,6 +7196,42 @@
     },
     {
       "check": "balcony:footing_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 81000000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:support_post_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:support_post_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:support_post_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 31000000.0,
+      "expected": null
+    },
+    {
+      "check": "balcony:footing_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "balcony:footing_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "balcony:footing_3:solid_1_positive_volume",
       "pass": true,
       "actual": 81000000.0,
       "expected": null
@@ -9111,7 +9543,7 @@
     {
       "check": "yard:soil:base:solid_1_positive_volume",
       "pass": true,
-      "actual": 11450000000.0,
+      "actual": 11429750000.0,
       "expected": null
     },
     {
@@ -9129,7 +9561,7 @@
     {
       "check": "yard:ground_surfaces:gravel:solid_1_positive_volume",
       "pass": true,
-      "actual": 3557690000.0,
+      "actual": 3547565000.0,
       "expected": null
     },
     {
@@ -17838,7 +18270,97 @@
       "expected": 5600
     },
     {
-      "check": "R09:named_balcony_present",
+      "check": "R10:named_balcony_present",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:separate_entry_canopy_removed",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:balcony_slab_boundary_0_mm",
+      "pass": true,
+      "actual": 2010.0,
+      "expected": 2010
+    },
+    {
+      "check": "R10:balcony_slab_boundary_1_mm",
+      "pass": true,
+      "actual": -1500.0,
+      "expected": -1500
+    },
+    {
+      "check": "R10:balcony_slab_boundary_2_mm",
+      "pass": true,
+      "actual": 2650.0,
+      "expected": 2650
+    },
+    {
+      "check": "R10:balcony_slab_boundary_3_mm",
+      "pass": true,
+      "actual": 8190.0,
+      "expected": 8190
+    },
+    {
+      "check": "R10:balcony_slab_boundary_4_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R10:balcony_slab_boundary_5_mm",
+      "pass": true,
+      "actual": 2775.0,
+      "expected": 2775
+    },
+    {
+      "check": "R10:third_balcony_support_named",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:balcony_covers_entrance_porch",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:balcony_post_1_axis_mm",
+      "pass": true,
+      "actual": 2060.0,
+      "expected": 2060.0
+    },
+    {
+      "check": "R10:balcony_post_1_clear_of_porch",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:balcony_post_2_axis_mm",
+      "pass": true,
+      "actual": 8140.0,
+      "expected": 8140.0
+    },
+    {
+      "check": "R10:balcony_post_2_clear_of_porch",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R10:balcony_post_3_axis_mm",
+      "pass": true,
+      "actual": 5100.0,
+      "expected": 5100.0
+    },
+    {
+      "check": "R10:balcony_post_3_clear_of_porch",
       "pass": true,
       "actual": null,
       "expected": null
@@ -19100,8 +19622,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 879,
-      "expected": 879
+      "actual": 903,
+      "expected": 903
     },
     {
       "check": "GLB:named_groups_retained",
@@ -19137,8 +19659,8 @@
       "check": "GLB:numeric_mesh_audit",
       "pass": true,
       "actual": {
-        "vertex_count": 215107,
-        "triangle_count": 338844,
+        "vertex_count": 215731,
+        "triangle_count": 339172,
         "degenerate_count": 24
       },
       "expected": null

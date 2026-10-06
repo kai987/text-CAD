@@ -1,4 +1,4 @@
-"""Generate the approved R09 editable floor drawings and canonical aliases."""
+"""Generate the approved R10 editable floor drawings and canonical aliases."""
 import json
 from pathlib import Path
 from shutil import copyfile
@@ -107,24 +107,24 @@ def draw(g,f):
 
 def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
-    dest=ROOT/'output/pdf/house_floor_plans_R09_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
+    dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('Approved R09 layout - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('Approved R10 layout - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n);draw_pdf_sheet(c,f)
         g=Drawing(c);g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R09平面確認済み・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R10平面確認済み・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
-        source=ROOT/f'DXF/house_redesign_R09_{n}f.dxf'
+        source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'
         g.doc.saveas(source)
         copyfile(source,ROOT/f'DXF/house_{n}f_plan.dxf')
         copyfile(source,ROOT/f'DXF/{n:03d}D0PL2-{n}FPLAN.DXF')
         c.showPage()
     c.save()
     data=manifest()
-    data['drawing_revision']='R09'
+    data['drawing_revision']='R10'
     old=[original_plan(n) for n in (1,2)]
     data['comparison']={'old_outline_m2_per_floor':7280*7280/1e6,
         'new_outline_m2_per_floor':P.width*P.depth/1e6,
@@ -134,7 +134,7 @@ def main():
         'old_f1_ldk_m2':next(r.area for r in old[0].rooms if r.id=='ldk'),
         'new_f1_ldk_m2':next(r.area for r in floor_plan(1).rooms if r.id=='ldk'),
         'caveat':'LDK now includes open circulation and footprint grows; hall reduction is not a pure same-area efficiency score.'}
-    (ROOT/'output/review/house_redesign_R09.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+    (ROOT/'output/review/house_redesign_R10.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     (ROOT/'output/review/design_manifest.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     print(dest)
 

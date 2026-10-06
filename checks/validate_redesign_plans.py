@@ -1,4 +1,4 @@
-"""Independent door, furniture, route and saved-artifact checks of R09 draft."""
+"""Independent door, furniture, route and saved-artifact checks of R10 draft."""
 import hashlib
 import json
 import math
@@ -127,7 +127,7 @@ def run():
             swept=LineString(points).buffer(300,cap_style='flat',join_style='mitre')
             conflict=swept.intersection(unary_union([f.walls,obstacles])).area
             check(prefix+'route/'+name,conflict<.01,{'width_mm':600,'collision_mm2':conflict})
-        file=ROOT/f'DXF/house_redesign_R09_{f.number}f.dxf'
+        file=ROOT/f'DXF/house_redesign_R10_{f.number}f.dxf'
         doc=ezdxf.readfile(file);auditor=doc.audit();msp=doc.modelspace()
         check(prefix+'DXF/audit',not auditor.errors,[str(e) for e in auditor.errors])
         check(prefix+'DXF/units_revision',doc.units==ezdxf.units.MM and doc.ezdxf_metadata()['REVISION']==REVISION,
@@ -140,18 +140,44 @@ def run():
         check(prefix+'DXF/high_contrast',not badcolors,badcolors)
         check(prefix+'DXF/viewport_scale',all(abs(v.dxf.view_height/v.dxf.height-50)<1e-6
               for v in doc.layouts.get('JP_A3_1_50').query('VIEWPORT') if v.dxf.status>1),50)
+    # R10 changes only the balcony outside the approved R09 indoor rooms.
+    previous=json.loads((ROOT/'output/review/house_redesign_R09.json').read_text())
+    for f in floors:
+        old={r['id']:r for r in previous['floors'][f.number-1]['rooms']}
+        for room in f.rooms:
+            if room.id!='balcony':
+                check(f'{f.number}F/R09_room_preserved/{room.id}',
+                      room.shape.symmetric_difference(Polygon(old[room.id]['polygon_mm'])).area<.01,
+                      room.shape.bounds)
+    balcony=next(r for r in floors[1].rooms if r.id=='balcony')
+    check('R10/balcony_left_fixed',dimensions()['bx']==2010,dimensions()['bx'])
+    check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)
+    check('R10/balcony_clear_area',abs(balcony.area-8.372)<1e-8,balcony.area)
+    check('R10/separate_canopy_disabled',P.entrance_canopy is False,P.entrance_canopy)
+    from lib.exterior_geometry import E
+    from lib.balcony_geometry import support_positions,B
+    door=next(d for d in floors[0].doors if d.a=='outside')
+    porch=box(door.start-E.entrance_canopy_margin,-E.porch_depth,
+              door.start+door.width+E.entrance_canopy_margin,0)
+    slab=box(dimensions()['bx'],-P.balcony_depth,dimensions()['bx']+P.balcony_width,0)
+    check('R10/balcony_projects_over_full_entrance_porch',slab.covers(porch),porch.bounds)
+    path=box(porch.bounds[0],-5500,porch.bounds[2],0)
+    check('R10/three_supports_clear_entry_path',len(support_positions(P))==3 and all(
+          box(x-B.footing_width/2,-1450-B.footing_width/2,
+              x+B.footing_width/2,-1450+B.footing_width/2).intersection(path).area<.01
+          for x in support_positions(P)),list(support_positions(P)))
     a,b=[{r.id:r for r in f.rooms} for f in floors]
     for room in ('stairs','wc'):
         check('vertical_alignment/'+room,a[room].shape.equals(b[room].shape),a[room].shape.bounds)
-    pdf=fitz.open(ROOT/'output/pdf/house_floor_plans_R09_JP.pdf')
+    pdf=fitz.open(ROOT/'output/pdf/house_floor_plans_R10_JP.pdf')
     check('PDF/2_A3_sheets',len(pdf)==2 and all(abs(p.rect.width-420*72/25.4)<1 for p in pdf),len(pdf))
-    check('PDF/approval_and_assumptions',all('R09' in p.get_text() and '2800' in p.get_text().replace(',','') for p in pdf),True)
+    check('PDF/approval_and_assumptions',all('R10' in p.get_text() and '2800' in p.get_text().replace(',','') for p in pdf),True)
     report={'revision':REVISION,'status':'pass' if all(c['passed'] for c in checks) else 'fail',
             'scope':'Concept geometry and editable draft artifacts only; no engineering/code validation.',
             'checks':checks,'sha256':{str(path.relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest()
-                for path in [ROOT/'output/pdf/house_floor_plans_R09_JP.pdf',
-                             ROOT/'DXF/house_redesign_R09_1f.dxf',ROOT/'DXF/house_redesign_R09_2f.dxf']}}
-    (ROOT/'output/review/validation_redesign_R09.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+                for path in [ROOT/'output/pdf/house_floor_plans_R10_JP.pdf',
+                             ROOT/'DXF/house_redesign_R10_1f.dxf',ROOT/'DXF/house_redesign_R10_2f.dxf']}}
+    (ROOT/'output/review/validation_redesign_R10.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     failures=[c for c in checks if not c['passed']]
     print(json.dumps({'status':report['status'],'checks':len(checks),'failures':failures},ensure_ascii=False,indent=2))
     return int(bool(failures))

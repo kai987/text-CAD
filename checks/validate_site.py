@@ -107,13 +107,13 @@ site = {label: shape for label, shape in native.items() if label.startswith(SITE
 saved = json.loads((ROOT / "output/review/house_3d_assumptions_R01.json").read_text())
 record = saved["site"]
 check("site:saved_metadata_matches_current_parameters", record == site_manifest(P, G))
-check("revision:foundation_and_site_R06", saved["revision"] == "R09-3D", saved["revision"], "R09-3D")
+check("revision:foundation_and_site_R06", saved["revision"] == "R10-3D", saved["revision"], "R10-3D")
 legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
           and label != "attic:lining:flat_ceiling"}
-check("R09:house_and_balcony_labels_present", all(label in legacy for label in ("F1:floor_slab","F2:floor_slab","balcony:slab","balcony:drying_rail")))
+check("R10:house_and_balcony_labels_present", all(label in legacy for label in ("F1:floor_slab","F2:floor_slab","balcony:slab","balcony:drying_rail")))
 check("site:three_nonempty_top_groups", all(any(label.startswith(prefix) for label in site) for prefix in SITE_PREFIXES))
 new_supports = {label: shape for label, shape in site.items() if label.startswith("foundation:internal_supports:")}
-check("site:R09_site_leaf_contract", len(site)-len(new_supports) == 116, len(site)-len(new_supports), 116)
+check("site:R10_site_leaf_contract", len(site)-len(new_supports) == 116, len(site)-len(new_supports), 116)
 check("foundation:internal_supports_added", bool(new_supports))
 for group in ("foundation:raft", "foundation:stem_walls", "foundation:existing_plinth", "foundation:entrance_supports", "foundation:internal_supports",
               "yard:soil", "yard:ground_surfaces", "yard:entrance_path", "yard:parking", "yard:planting",
@@ -192,7 +192,7 @@ close("yard:soil_actual_top_mm", bounds(soil)[5], -550)
 # holes lie away from them. This area identity detects ground accidentally
 # passing through footings, or duplicate paving/lawn meshes.
 gross_area = (lot[2] - lot[0]) * (lot[3] - lot[1])
-open_area = gross_area - P.width * P.depth - 1500 * 1900 - 2*450*450
+open_area = gross_area - P.width * P.depth - 1500 * 1900 - 3*450*450
 close("yard:soil_area_accounts_for_full_footing_exclusions_mm2", soil.volume / 100,
       open_area - len(record["fence"]["posts"])*300*300, .1)
 close("yard:finished_surfaces_tile_site_around_post_exclusions_mm2", surface_volume / 50,
@@ -299,7 +299,7 @@ if args.baseline:
               and hashlib.sha256(target.read_bytes()).hexdigest() == metadata["sha256"])
 
 report = {
-    "revision": "R09-3D", "units": "native STEP mm; GLB m/Y-up",
+    "revision": "R10-3D", "units": "native STEP mm; GLB m/Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "saved_native_leaves": len(native),
                 "new_site_leaves": len(site)},

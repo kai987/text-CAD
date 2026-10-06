@@ -15,7 +15,7 @@
     "step": "STEP/structure_S.step"
   },
   "model_hashes_sha256": {
-    "glb": "adfe06927353b4a06975ec3e471b6611967c250f641235933dc5bb416ee8fdca",
+    "glb": "e0ed590a8ee8efe93429c3c9b211ac63c88561f7bc99c22d7933aa83248ea1c6",
     "step": "571d7dce02b6b5f5a0598a317f1fd48a81aa98a76d65bf443fd9b27006800d6d"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -7604,7 +7604,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm approved R09 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm approved R10 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "RHS members are genuinely hollow with assumed 2.3 mm column/joist and 3.2 mm beam walls; no manufacturing/product standard or approved light-steel system is selected.",

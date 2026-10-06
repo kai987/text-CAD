@@ -2,11 +2,11 @@
 
 **简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
-## 当前户型（R09，已确认）
+## 当前户型（R10 阳台扩展）
 
-用户于2026-10-07确认R09：主体8190 × 7280 mm、两层层高2800 mm均为演示假设。保留三卧室，厕所移到楼梯旁上下对齐，一层LDK采用开放通行，二层公共走廊连接南侧3640 × 1500 mm晾衣阳台。具名STEP/GLB、可编辑DXF、A3图纸、阁楼、外构及W/S/RC叠加层均已更新到此平面。结构计算与所在地法规核定仍未完成。
+沿用2026-10-07确认的R09室内平面，R10将阳台延伸至东外墙并取消独立玄关雨棚：主体8190 × 7280 mm、两层层高2800 mm均为演示假设。保留三卧室，厕所移到楼梯旁上下对齐，一层LDK采用开放通行，二层公共走廊连接南侧6180 × 1500 mm晾衣阳台。具名STEP/GLB、可编辑DXF、A3图纸、阁楼、外构及W/S/RC叠加层均已更新到此平面。结构计算与所在地法规核定仍未完成。
 
-[方案与参考来源](docs/house_redesign_R09.md) · [两层PDF](output/pdf/house_floor_plans_R09_JP.pdf) · [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
+[方案与参考来源](docs/house_balcony_R10.md) · [两层PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
 
 ## 模型昼夜与室外灯具（R08-3D）
 
@@ -32,7 +32,7 @@ R06 引入的结构布置为**演示方案**，未指定实际建房地点。保
 
 新增独立 `foundation`、`yard`、`fence` 分组：概念贝塔基础底板与周圈立墙、入口支承和低阶、砂石院子、停车铺装与车挡、四块草坪、三株简化灌木，以及有真实空隙的横栅围栏。完整外观显示外构；内部预设隐藏外构，也可展开分类独立隐藏或单独查看。剖切高度始终以一层完成面 Z=0 为基准。
 
-新增尺寸均为**演示假设**：地块 **11280 × 14780 mm（几何面积166.7184㎡）**，室外地面 **Z=-500 mm**，概念底板厚150 mm、周圈立墙宽140 mm，停车划线范围 **2800 × 5000 mm**。围栏地上高1200 mm，共28片透空面板、30根柱及30个柱脚；南侧车口净宽3000 mm、行人开口1800 mm。入口地面、低阶、原台阶、原门廊、玄关标高依次为-500／-330／-160／-25／0 mm。尺寸、植栽及材料均可在 `src/lib/site_geometry.py` 修改，基础不代表已设计的配筋、承载或地盘处理方案。
+新增尺寸均为**演示假设**：地块 **12190 × 14780 mm（几何面积180.1682㎡）**，室外地面 **Z=-500 mm**，概念底板厚150 mm、周圈立墙宽140 mm，停车划线范围 **2800 × 5000 mm**。围栏地上高1200 mm，共28片透空面板、31根柱及31个柱脚；南侧车口净宽3000 mm、行人开口1800 mm。入口地面、低阶、原台阶、原门廊、玄关标高依次为-500／-330／-160／-25／0 mm。尺寸、植栽及材料均可在 `src/lib/site_geometry.py` 修改，基础不代表已设计的配筋、承载或地盘处理方案。
 
 R05最初添加场地时有537个具名实体；R06现有实体数以导出校验报告为准。另附 `DXF/house_site_plan.dxf` 和 `output/pdf/house_site_plan_R05_JP.pdf`：A3、配置图1:100、概念基础断面1:25，保留可编辑文字和尺寸。确认的两层平面保持；阁楼图已更新为R06。[参数与范围记录](docs/site_R05.md)。
 
@@ -59,7 +59,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## 日式新建一户建外立面（R03-3D）
 
-一户建采用暖白挂板、木色入户门、深灰切妻屋面和黑色窗框。新增屋面立缝、屋脊盖板、破风、檐底、檐沟、分层落水管、玄关雨棚与平台以及独立窗台水切；楼板外缘由连续外饰面包覆。外装尺寸、颜色与材质重复尺度均为演示假设，保留8190 × 7280 mm主体完成外轮廓、两层2800 mm层高及已确认的平面与门窗毛洞。
+一户建采用暖白挂板、木色入户门、深灰切妻屋面和黑色窗框。新增屋面立缝、屋脊盖板、破风、檐底、檐沟、分层落水管、覆盖玄关的扩展阳台与平台以及独立窗台水切；楼板外缘由连续外饰面包覆。外装尺寸、颜色与材质重复尺度均为演示假设，保留8190 × 7280 mm主体完成外轮廓、两层2800 mm层高及已确认的平面与门窗毛洞。
 
 参数化源码在 `src/lib/exterior_geometry.py` 和 `src/lib/exterior_materials.py`。新增部件分别归入现有外墙、门、窗及屋顶分类，支持中日英名称、点选、隐藏与剖切；STEP包含实体与颜色，GLB另内嵌原创挂板及木纹材质。参考 [Nichiha、KMEW与YKK AP官方资料](references/japanese-house-exterior.md)，未再分发厂商图片、纹理或CAD模型。
 
@@ -198,7 +198,7 @@ npm run build
 - `src/lib/jp_drafting.py`、`src/lib/jp_sheet.py`：规范式图层、纸面字高与线宽，以及共用的 A3 图框、表题栏、面积表和注记。
 - `DXF/001D0PL2-1FPLAN.DXF`、`DXF/002D0PL2-2FPLAN.DXF`：R02 规范式文件名的两层平面。
 - `DXF/house_1f_plan.dxf`、`DXF/house_2f_plan.dxf`：R2018、毫米、模型空间 1:1。
-- `output/pdf/house_floor_plans_R09_JP.pdf`：当前两层平面、图框、表题栏、面积表和假设。打印时使用 A3 实际尺寸，不要自动缩放。R01 PDF 保留为历史版本。
+- `output/pdf/house_floor_plans_R10_JP.pdf`：当前两层平面、图框、表题栏、面积表和假设。打印时使用 A3 实际尺寸，不要自动缩放。R01 PDF 保留为历史版本。
 - `docs/tokyo_cad_standard_mapping_R02.md`：所引用基准的章节、页码、住宅准用方式和未覆盖项。
 - `checks/validate_jp_drafting.py`、`output/review/validation_jp_drafting.json`：保存后图层、字高、色彩、线宽、原生尺寸及纸空间的检查。
 - `output/review/design_manifest.json`：机器可读参数、所有假设与房间面积。
@@ -211,7 +211,7 @@ npm run build
 - `output/review/house_3d_assumptions_R01.json`：三维演示参数和具体假设。
 - `checks/validate_3d.py`、`output/review/validation_3d.json`：保存后的 STEP 实体和 GLB 单位、名称、层级等检查。
 
-## 方案
+## 旧版方案（R01/R02，历史记录）
 
 坐标 X 向东、Y 向北。南入口和北向都是演示假设，尚无地块或道路资料。
 

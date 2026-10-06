@@ -1,4 +1,4 @@
-"""Active user-approved R09 layout; historical R01 data is in house_plan_r01.
+"""Active user-approved R10 layout; historical R01 data is in house_plan_r01.
 
 Compatibility dimension names describe new partitions. All values are demo inputs.
 """
@@ -18,5 +18,5 @@ def dimensions(p=P):
 
 def design_manifest(p=P):
     data=manifest(p)
-    data['drawing_revision']='R09'
+    data['drawing_revision']='R10'
     return data

@@ -318,7 +318,7 @@ def attic_manifest(p, g, a=A):
     ladder_y0 = d["ladder_center_y"] - a.ladder_width / 2
     ladder_y1 = ladder_y0 + a.ladder_width
     assumptions = [
-        "R09阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R09 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+        "R10阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R10 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
         "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
         "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
         "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -331,11 +331,11 @@ def attic_manifest(p, g, a=A):
     ]
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R09",
+        "revision": "R10",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
-        "unchanged": ["approved R09 F1/F2 room boundaries", "R09 roof geometry and exterior silhouette"],
+        "unchanged": ["approved R10 F1/F2 room boundaries", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],

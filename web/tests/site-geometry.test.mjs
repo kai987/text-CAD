@@ -148,7 +148,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
   const footingCenter = firstFooting.getCenter(new Vector3());
   for (const [backend, create] of backends) {
     const soil = groupCaps(nodes.get('yard:soil'), create, -.6);
-    near(soil.area, 114.5, 2e-4);
+    near(soil.area, 114.2975, 2e-4);
     for (const [x, y, name] of [[3640, 3640, 'house raft'], [6760, -950, 'entrance footing']]) {
       assert.equal(covers(soil.triangles, point(x, y, -.6)), false,
         `${backend}: soil must not fill the ${name} exclusion`);
@@ -170,7 +170,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
         finishTriangles.push(...inspected.triangles);
       } finally { cap.dispose(); }
     }
-    near(finishArea, 117.2125, 2e-4);
+    near(finishArea, 117.01, 2e-4);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x, -.525, footingCenter.z)), false,
       `${backend}: the smaller 50 mm finish hole still leaves its post open`);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x + .09, -.525, footingCenter.z)), true,

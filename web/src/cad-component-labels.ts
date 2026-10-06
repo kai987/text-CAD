@@ -76,6 +76,8 @@ const componentLabels = {
   'balcony:finish': label('阳台地面饰面', 'バルコニー床仕上げ', 'Balcony floor finish'),
   'balcony:support_post_1': label('阳台西侧示意支柱', 'バルコニー西側の支持柱案', 'Concept west balcony support'),
   'balcony:support_post_2': label('阳台东侧示意支柱', 'バルコニー東側の支持柱案', 'Concept east balcony support'),
+  'balcony:support_post_3': label('阳台中间示意支柱', 'バルコニー中央の支持柱案', 'Concept middle balcony support'),
+  'balcony:footing_3': label('阳台中间示意基础', 'バルコニー中央の基礎案', 'Concept middle balcony footing'),
   'balcony:footing_1': label('阳台西侧示意基础', 'バルコニー西側の基礎案', 'Concept west balcony footing'),
   'balcony:footing_2': label('阳台东侧示意基础', 'バルコニー東側の基礎案', 'Concept east balcony footing'),
   'balcony:drying_post_1': label('晾衣架西侧立杆', '物干し西側の支柱', 'West drying rack post'),

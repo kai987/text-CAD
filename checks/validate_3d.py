@@ -264,7 +264,18 @@ site_leaves = {label: shape for label, shape in native.items()
                if label.startswith(("foundation:", "yard:", "fence:"))}
 structure_leaves = {label: shape for label, shape in native.items() if label.startswith("structure:")}
 old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)-set(structure_leaves)
-check("R09:named_balcony_present", all(name in native for name in ("balcony:slab","balcony:drying_rail","balcony:footing_1","balcony:footing_2")))
+check("R10:named_balcony_present", all(name in native for name in ("balcony:slab","balcony:drying_rail","balcony:footing_1","balcony:footing_2")))
+check("R10:separate_entry_canopy_removed", "F1:D01:canopy" not in native)
+bs=bounds(native["balcony:slab"])
+for i,expected in enumerate((2010,-1500,2650,8190,0,2775)):
+    close(f"R10:balcony_slab_boundary_{i}_mm",bs[i],expected)
+check("R10:third_balcony_support_named", all(name in native for name in ("balcony:support_post_3","balcony:footing_3")))
+porch_bounds=bounds(native["F1:D01:porch"])
+check("R10:balcony_covers_entrance_porch",bs[0]<=porch_bounds[0] and bs[1]<=porch_bounds[1] and bs[3]>=porch_bounds[3] and bs[4]>=porch_bounds[4])
+from lib.balcony_geometry import support_positions
+for i,x in enumerate(support_positions(P),1):
+    close(f"R10:balcony_post_{i}_axis_mm",(bounds(native[f"balcony:support_post_{i}"])[0]+bounds(native[f"balcony:support_post_{i}"])[3])/2,x)
+    check(f"R10:balcony_post_{i}_clear_of_porch",overlap_volume(native[f"balcony:support_post_{i}"],native["F1:D01:porch"])<.01)
 check("attic:new_named_leaf_contract", len(attic_leaves) == 31, len(attic_leaves), 31)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
@@ -428,7 +439,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R09-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R10-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},
@@ -441,7 +452,7 @@ report = {
                                  "backing_thickness_mm": P.external_wall-setback,
                                  "approved_room_net_boundaries": "Unchanged; tested as exact native clear-room volumes",
                                  "finished_footprint_mm": [P.width, P.depth]},
-    "attic_test_basis": {"source_layout": "approved R09",
+    "attic_test_basis": {"source_layout": "approved R10",
                          "new_attic_leaf_count": len(attic_leaves),
                          "new_access_leaf_count": len(access_leaves), "purpose": "storage attic concept",
                          "deck_storage_projection_area_m2": deck_area/1e6,

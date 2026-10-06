@@ -1,4 +1,4 @@
-"""Convert the approved R02 PDF to committed, font-independent vector previews.
+"""Convert the approved R10 PDF to committed, font-independent vector previews.
 
 Run locally: uv pip install --python .venv/bin/python PyMuPDF==1.26.7
              .venv/bin/python web/scripts/generate-plan-svg.py
@@ -15,14 +15,14 @@ from pathlib import Path
 import fitz
 
 ROOT = Path(__file__).resolve().parents[2]
-PDF = "output/pdf/house_floor_plans_R09_JP.pdf"
+PDF = "output/pdf/house_floor_plans_R10_JP.pdf"
 POINTS_PER_MM = 72 / 25.4
 # Paper coordinates measured from the top-left of the existing A3 sheet.
 # Includes both overall dimensions, door arcs, room labels and north arrow.
-CROP_MM = (18.0, 50.0, 207.0, 225.0)
+CROP_MM = (18.0, 50.0, 225.0, 225.0)
 REQUIRED_LABELS = {
     1: ["7280", "LDK", "浴室", "洗面", "玄関", "トイレ", "階段"],
-    2: ["7280", "主寝室", "洋室 2", "洋室 3", "収納", "トイレ", "階段"],
+    2: ["7280", "主寝室", "洋室 2", "洋室 3", "収納", "トイレ", "階段", "6180", "1500", "バルコニー"],
 }
 
 
@@ -64,7 +64,7 @@ def main() -> None:
             if not any(required in text for text in labels):
                 raise ValueError(f"Floor {floor} crop omits required label {required!r}.")
         if labels.count("7280") < 1 or labels.count("8190") < 1:
-            raise ValueError("Both overall R09 dimensions must be retained.")
+            raise ValueError("Both overall R10 dimensions must be retained.")
         svg = page.get_svg_image(text_as_path=True).encode("utf-8")
         if b"<text" in svg or b"<image" in svg:
             raise ValueError("Expected vector-only shapes and outlined text.")

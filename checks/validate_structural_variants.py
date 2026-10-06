@@ -117,8 +117,8 @@ def main():
             check('RC:reinforcing_bars_not_invented',not any('rebar' in name for name in native))
         geometries[system]=sorted((name,round(shape.volume,3),tuple(round(v,3) for v in shape_bounds(shape))) for name,shape in native.items())
     check('variants:distinct_geometry_not_recolouring',len({json.dumps(value) for value in geometries.values()})==3,counts)
-    # R09 intentionally replaces architectural assets. Historical apartment files remain separate.
-    check('R09:approved_architectural_parameters',manifest['original_architectural_parameters']['width']==P.width and manifest['original_architectural_parameters']['depth']==P.depth)
+    # R10 intentionally replaces architectural assets. Historical apartment files remain separate.
+    check('R10:approved_architectural_parameters',manifest['original_architectural_parameters']['width']==P.width and manifest['original_architectural_parameters']['depth']==P.depth)
     failures=[result for result in results if not result['pass']]
     report={'scope':'Native geometry, shared coordinates and uncalculated status only; no safety or compliance conclusion',
         'pass':not failures,'member_counts':counts,'checks':results}

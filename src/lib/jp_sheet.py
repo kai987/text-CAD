@@ -166,7 +166,7 @@ def _title_block(sheet, floor):
 def _draw_sheet(sheet, floor):
     sheet.rect(FRAME_BOUNDS, .7, FRAME_LAYER, "frame")
     sheet.text(f"{floor.number}階平面図", (112.8, 260), 5.0, "center", TITLE_TEXT_LAYER)
-    sheet.text("R09確認済み平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
+    sheet.text("R10確認済み平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
     sheet.text("室別面積表（内法）", (230, 262), 3.5)
 
     left, right, divide, top, row_h = 230, 400, 352, 250, 7
@@ -196,7 +196,7 @@ def _draw_sheet(sheet, floor):
         "便所：内法 900×1,700 mm。出入口 700 mm は枠厚を控除する前の寸法。",
         "構造・防火・耐震・法令適合は未検証。施工図として使用不可。",
         "東京都土木CAD製図基準（令和6年4月）を住宅の図式に準用。",
-        "南側物干しバルコニー3640×1500は仮定。支持・防水・排水は未設計。",
+        "南側物干しバルコニー6180×1500は仮定。玄関庇を兼用。支持・防水・排水は未設計。",
     ]
     y = 168
     for index, note in enumerate(notes, 1):
@@ -211,7 +211,7 @@ def _draw_sheet(sheet, floor):
         ("実線：壁・建具・家具の平面輪郭", 87),
         ("寸法線：壁内法・建物外形・建具開口幅", 81),
         ("D01 等：建具番号　UP：上り方向", 75),
-        ("北矢印：仮定方位　R09：確認済み平面・構造未計算", 69),
+        ("北矢印：仮定方位　R10：確認済み平面・構造未計算", 69),
     ):
         sheet.text(value, (230, y), 2.5)
     _title_block(sheet, floor)

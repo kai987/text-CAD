@@ -1,5 +1,5 @@
 {
-  "revision": "R09-3D",
+  "revision": "R10-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -21,7 +21,9 @@
     "south_room_depth": 3100,
     "hall_width": 900,
     "access_left": 3380,
-    "balcony_width": 3640,
+    "balcony_left": 2010,
+    "balcony_width": 6180,
+    "entrance_canopy": false,
     "balcony_depth": 1500,
     "balcony_rail_thickness": 100
   },
@@ -88,22 +90,24 @@
       "downpipe_elbow_drop": 320,
       "downpipe_ground_clearance": 50
     },
+    "entrance_canopy_enabled": false,
+    "entrance_shelter": "Extended south balcony above the entrance; waterproofing and drainage not designed",
     "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
-    "finished_wall_footprint": "8190 x 7280 mm approved R09 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
-    "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
+    "finished_wall_footprint": "8190 x 7280 mm approved R10 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
+    "projecting_attachments": "12 mm window trims, 35 mm sills, entrance porch, balcony shelter, fascias, gutters and downpipes project outside the finished wall footprint",
     "assumptions": [
       "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-      "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
+      "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R10主体完成外轮廓为8190 × 7280 mm。",
       "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
       "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
-      "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
+      "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R10由扩展阳台覆盖入口，取消独立挑檐；门洞宽高和玄关位置不变。",
       "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
       "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。"
     ]
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R09",
+    "revision": "R10",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
@@ -151,8 +155,8 @@
       "ladder_bottom_landing_depth": 600
     },
     "unchanged": [
-      "approved R09 F1/F2 room boundaries",
-      "R09 roof geometry and exterior silhouette"
+      "approved R10 F1/F2 room boundaries",
+      "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
     "floor_group": "attic:floor_slab",
@@ -256,7 +260,7 @@
       "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "R09阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R09 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "R10阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R10 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
       "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
       "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -880,9 +884,9 @@
       ]
     },
     "surfaces": {
-      "soil_area_mm2": 114500000.0,
-      "finish_total_area_mm2": 117212500.0,
-      "gravel_area_mm2": 71153800.0,
+      "soil_area_mm2": 114297500.0,
+      "finish_total_area_mm2": 117010000.0,
+      "gravel_area_mm2": 70951300.0,
       "entrance_paving_area_mm2": 5400000.0,
       "parking_paving_area_mm2": 14840000.0,
       "lawns_area_mm2": {
@@ -947,7 +951,7 @@
     "assumptions": [
       "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
       "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-      "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R09重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+      "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
       "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
       "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
       "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",
@@ -956,7 +960,7 @@
     ]
   },
   "structure": {
-    "revision": "R09-STRUCTURE",
+    "revision": "R10-STRUCTURE",
     "units": "mm",
     "status": "demonstration_candidate_not_engineered",
     "scheme": "timber_post_and_beam_candidate",
@@ -1572,6 +1576,212 @@
         "width": 90
       }
     ],
+    "floor_beam_axes": {
+      "F1": [
+        {
+          "id": "B01",
+          "axis": "h",
+          "at": 90.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B02",
+          "axis": "h",
+          "at": 7190.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B03",
+          "axis": "v",
+          "at": 90.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B04",
+          "axis": "v",
+          "at": 8100.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B05",
+          "axis": "h",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 180
+        },
+        {
+          "id": "B06",
+          "axis": "h",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 90
+        },
+        {
+          "id": "B07",
+          "axis": "v",
+          "at": 5060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B08",
+          "axis": "v",
+          "at": 6060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B09",
+          "axis": "h",
+          "at": 5230.0,
+          "start": 5060.0,
+          "end": 6060.0,
+          "width": 90
+        },
+        {
+          "id": "B10",
+          "axis": "v",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B11",
+          "axis": "v",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        }
+      ],
+      "F2": [
+        {
+          "id": "B01",
+          "axis": "h",
+          "at": 90.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B02",
+          "axis": "h",
+          "at": 7190.0,
+          "start": 30.0,
+          "end": 8160.0,
+          "width": 120.0
+        },
+        {
+          "id": "B03",
+          "axis": "v",
+          "at": 90.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B04",
+          "axis": "v",
+          "at": 8100.0,
+          "start": 150.0,
+          "end": 7130.0,
+          "width": 120.0
+        },
+        {
+          "id": "B05",
+          "axis": "h",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 180
+        },
+        {
+          "id": "B06",
+          "axis": "h",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 8040.0,
+          "width": 90
+        },
+        {
+          "id": "B07",
+          "axis": "v",
+          "at": 5060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B08",
+          "axis": "v",
+          "at": 6060.0,
+          "start": 4330.0,
+          "end": 7130.0,
+          "width": 90
+        },
+        {
+          "id": "B09",
+          "axis": "h",
+          "at": 5230.0,
+          "start": 5060.0,
+          "end": 6060.0,
+          "width": 90
+        },
+        {
+          "id": "B10",
+          "axis": "v",
+          "at": 3330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B11",
+          "axis": "v",
+          "at": 4330.0,
+          "start": 150.0,
+          "end": 4330.0,
+          "width": 90
+        },
+        {
+          "id": "B12",
+          "axis": "h",
+          "at": 3460.0,
+          "start": 3375.0,
+          "end": 5390,
+          "width": 90
+        },
+        {
+          "id": "B13",
+          "axis": "h",
+          "at": 4200.0,
+          "start": 3375.0,
+          "end": 5390,
+          "width": 90
+        },
+        {
+          "id": "B14",
+          "axis": "v",
+          "at": 5345.0,
+          "start": 3505,
+          "end": 4155,
+          "width": 90
+        }
+      ]
+    },
     "bearing_wall_candidates": [
       {
         "id": "BW01",
@@ -2125,213 +2335,7 @@
       "The hatch requires designed load transfer, connections and a coordinated attic ladder product.",
       "First-floor floor build-up, foundations, ventilation and moisture protection require engineering.",
       "Bearing panels have no certified wall multiplier; geometry does not prove seismic or wind resistance."
-    ],
-    "floor_beam_axes": {
-      "F1": [
-        {
-          "id": "B01",
-          "axis": "h",
-          "at": 90.0,
-          "start": 30.0,
-          "end": 8160.0,
-          "width": 120.0
-        },
-        {
-          "id": "B02",
-          "axis": "h",
-          "at": 7190.0,
-          "start": 30.0,
-          "end": 8160.0,
-          "width": 120.0
-        },
-        {
-          "id": "B03",
-          "axis": "v",
-          "at": 90.0,
-          "start": 150.0,
-          "end": 7130.0,
-          "width": 120.0
-        },
-        {
-          "id": "B04",
-          "axis": "v",
-          "at": 8100.0,
-          "start": 150.0,
-          "end": 7130.0,
-          "width": 120.0
-        },
-        {
-          "id": "B05",
-          "axis": "h",
-          "at": 3330.0,
-          "start": 150.0,
-          "end": 8040.0,
-          "width": 180
-        },
-        {
-          "id": "B06",
-          "axis": "h",
-          "at": 4330.0,
-          "start": 150.0,
-          "end": 8040.0,
-          "width": 90
-        },
-        {
-          "id": "B07",
-          "axis": "v",
-          "at": 5060.0,
-          "start": 4330.0,
-          "end": 7130.0,
-          "width": 90
-        },
-        {
-          "id": "B08",
-          "axis": "v",
-          "at": 6060.0,
-          "start": 4330.0,
-          "end": 7130.0,
-          "width": 90
-        },
-        {
-          "id": "B09",
-          "axis": "h",
-          "at": 5230.0,
-          "start": 5060.0,
-          "end": 6060.0,
-          "width": 90
-        },
-        {
-          "id": "B10",
-          "axis": "v",
-          "at": 3330.0,
-          "start": 150.0,
-          "end": 4330.0,
-          "width": 90
-        },
-        {
-          "id": "B11",
-          "axis": "v",
-          "at": 4330.0,
-          "start": 150.0,
-          "end": 4330.0,
-          "width": 90
-        }
-      ],
-      "F2": [
-        {
-          "id": "B01",
-          "axis": "h",
-          "at": 90.0,
-          "start": 30.0,
-          "end": 8160.0,
-          "width": 120.0
-        },
-        {
-          "id": "B02",
-          "axis": "h",
-          "at": 7190.0,
-          "start": 30.0,
-          "end": 8160.0,
-          "width": 120.0
-        },
-        {
-          "id": "B03",
-          "axis": "v",
-          "at": 90.0,
-          "start": 150.0,
-          "end": 7130.0,
-          "width": 120.0
-        },
-        {
-          "id": "B04",
-          "axis": "v",
-          "at": 8100.0,
-          "start": 150.0,
-          "end": 7130.0,
-          "width": 120.0
-        },
-        {
-          "id": "B05",
-          "axis": "h",
-          "at": 3330.0,
-          "start": 150.0,
-          "end": 8040.0,
-          "width": 180
-        },
-        {
-          "id": "B06",
-          "axis": "h",
-          "at": 4330.0,
-          "start": 150.0,
-          "end": 8040.0,
-          "width": 90
-        },
-        {
-          "id": "B07",
-          "axis": "v",
-          "at": 5060.0,
-          "start": 4330.0,
-          "end": 7130.0,
-          "width": 90
-        },
-        {
-          "id": "B08",
-          "axis": "v",
-          "at": 6060.0,
-          "start": 4330.0,
-          "end": 7130.0,
-          "width": 90
-        },
-        {
-          "id": "B09",
-          "axis": "h",
-          "at": 5230.0,
-          "start": 5060.0,
-          "end": 6060.0,
-          "width": 90
-        },
-        {
-          "id": "B10",
-          "axis": "v",
-          "at": 3330.0,
-          "start": 150.0,
-          "end": 4330.0,
-          "width": 90
-        },
-        {
-          "id": "B11",
-          "axis": "v",
-          "at": 4330.0,
-          "start": 150.0,
-          "end": 4330.0,
-          "width": 90
-        },
-        {
-          "id": "B12",
-          "axis": "h",
-          "at": 3460.0,
-          "start": 3375.0,
-          "end": 5390,
-          "width": 90
-        },
-        {
-          "id": "B13",
-          "axis": "h",
-          "at": 4200.0,
-          "start": 3375.0,
-          "end": 5390,
-          "width": 90
-        },
-        {
-          "id": "B14",
-          "axis": "v",
-          "at": 5345.0,
-          "start": 3505,
-          "end": 4155,
-          "width": 90
-        }
-      ]
-    }
+    ]
   },
   "outdoor_lighting": {
     "revision": "R08",
@@ -2729,8 +2733,8 @@
   },
   "assumptions": [
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "用户于2026-10-07确认R09平面；一、二层厕所和楼梯上下对齐。",
-    "南侧阳台外形3640 × 1500 mm，净几何面积4.816㎡；公共通道可达，支柱/基础/栏杆/排水均为未计算的演示输入。",
+    "保留2026-10-07确认的R09室内平面；R10按用户要求向东延长阳台并取消独立玄关雨棚。",
+    "南侧阳台外形6180 × 1500 mm，净几何面积8.372㎡；公共通道可达，右端与东外墙齐平并覆盖玄关，独立雨棚取消；三根示意支柱及其基础、栏杆和排水尚未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
     "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
@@ -2743,13 +2747,13 @@
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
     "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-    "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
+    "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R10主体完成外轮廓为8190 × 7280 mm。",
     "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
     "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
-    "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
+    "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R10由扩展阳台覆盖入口，取消独立挑檐；门洞宽高和玄关位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R09阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R09 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R10阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R10 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
     "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -2761,7 +2765,7 @@
     "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
     "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
     "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R09重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
     "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
     "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
     "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",
@@ -2972,7 +2976,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 879,
-    "all_nodes": 986
+    "named_mesh_nodes": 903,
+    "all_nodes": 1010
   }
 }

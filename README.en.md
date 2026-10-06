@@ -2,11 +2,11 @@
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-## Current layout (R09, approved)
+## Current layout (R10, extended balcony)
 
-The user approved R09 on 2026-10-07. The 8190 × 7280 mm body and two 2800 mm storeys are demonstration assumptions. Three bedrooms remain; toilets align beside the stairs, the first-floor LDK has open circulation, and a shared upstairs passage reaches a south 3640 × 1500 mm drying balcony. Named STEP/GLB, editable DXF, A3 drawings, attic, site and W/S/RC overlays follow this layout. Structural calculations and site-specific code review remain pending.
+R10 retains the R09 interiors approved on 2026-10-07, extends the balcony to the east wall and removes the separate entrance canopy. The 8190 × 7280 mm body and two 2800 mm storeys are demonstration assumptions. Three bedrooms remain; toilets align beside the stairs, the first-floor LDK has open circulation, and a shared upstairs passage reaches a south 6180 × 1500 mm drying balcony. Named STEP/GLB, editable DXF, A3 drawings, attic, site and W/S/RC overlays follow this layout. Structural calculations and site-specific code review remain pending.
 
-[Design and references](docs/house_redesign_R09.md) · [Two-floor PDF](output/pdf/house_floor_plans_R09_JP.pdf) · [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
+[Design and references](docs/house_balcony_R10.md) · [Two-floor PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
 
 ## Model day/night and outdoor fixtures (R08-3D)
 
@@ -32,7 +32,7 @@ Downloads include `DXF/house_structural_scheme.dxf`, `output/pdf/house_structura
 
 Independent `foundation`, `yard` and `fence` groups add a conceptual raft foundation with perimeter stem walls, entrance supports and a lower step, gravel, parking paving and wheel stops, four lawns, three simplified shrubs, and fences with actual gaps between slats. The exterior preset shows the site; interior presets hide it. Each category can be hidden or viewed alone. Section heights remain measured from the first-floor finished datum, Z=0.
 
-All added dimensions are **demonstration assumptions**: a **11280 × 14780 mm lot (166.7184 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and a **2800 × 5000 mm parking bay**. The 1200 mm-high fence has 28 open panels, 30 posts and 30 footings, with clear southern vehicle/pedestrian openings of 3000/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
+All added dimensions are **demonstration assumptions**: a **12190 × 14780 mm lot (180.1682 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and a **2800 × 5000 mm parking bay**. The 1200 mm-high fence has 29 open panels, 31 posts and 31 footings, with clear southern vehicle/pedestrian openings of 3000/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
 
 R05 originally contained 537 named bodies after adding the site. See export validation for the current R06 body count. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor drawings remain; the attic drawing is updated to R06. [Parameters and scope](docs/site_R05.md).
 
@@ -59,7 +59,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## Contemporary Japanese house exterior (R03-3D)
 
-The house uses warm-white siding, a timber-tone entry door, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 8190 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
+The house uses warm-white siding, a timber-tone entry door, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, a balcony sheltering the entrance and a porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 8190 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
 
 Parametric sources are `src/lib/exterior_geometry.py` and `src/lib/exterior_materials.py`. New components belong to the existing external-wall, door, window and roof categories, with Chinese, Japanese and English names, selection, visibility and section support. STEP contains solids and colours; GLB also embeds original siding and timber textures. [Official Nichiha, KMEW and YKK AP references](references/japanese-house-exterior.md) informed the design; no manufacturer photographs, textures or CAD models are redistributed.
 
@@ -198,7 +198,7 @@ The apartment is generated and checked independently of the house. Generation re
 - `src/lib/jp_drafting.py`, `src/lib/jp_sheet.py`: adapted layer names, paper text heights and lineweights, and the shared A3 frame, title block, area table, and notes.
 - `DXF/001D0PL2-1FPLAN.DXF`, `DXF/002D0PL2-2FPLAN.DXF`: floor plans with filenames adapted to the R02 naming rules.
 - `DXF/house_1f_plan.dxf`, `DXF/house_2f_plan.dxf`: R2018 DXF, millimetres, model space at 1:1.
-- `output/pdf/house_floor_plans_R09_JP.pdf`: current floor plans, frames, title blocks, area tables, and assumptions. Print at actual A3 size without automatic scaling. The R01 PDF is retained as a historical version.
+- `output/pdf/house_floor_plans_R10_JP.pdf`: current floor plans, frames, title blocks, area tables, and assumptions. Print at actual A3 size without automatic scaling. The R01 PDF is retained as a historical version.
 - `docs/tokyo_cad_standard_mapping_R02.md`: source-standard sections and pages, residential adaptations, and items outside the scope.
 - `checks/validate_jp_drafting.py`, `output/review/validation_jp_drafting.json`: checks of saved layers, text heights, colours, lineweights, native dimensions, and paper space.
 - `output/review/design_manifest.json`: machine-readable parameters, all assumptions, and room areas.
@@ -211,7 +211,7 @@ The apartment is generated and checked independently of the house. Generation re
 - `output/review/house_3d_assumptions_R01.json`: 3D demonstration parameters and specific assumptions.
 - `checks/validate_3d.py`, `output/review/validation_3d.json`: checks of saved STEP solids and GLB units, names, hierarchy, and related properties.
 
-## Layout
+## Previous plan (R01/R02 history)
 
 Coordinates use X east and Y north. The south entrance and north direction are demonstration assumptions; no site or road information has been supplied.
 

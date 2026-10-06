@@ -15,7 +15,7 @@
     "step": "STEP/structure_W.step"
   },
   "model_hashes_sha256": {
-    "glb": "01981744c784faa1bcbe0836717f6840b6fdde0ed6bc18e3697a688d8d51903f",
+    "glb": "14e842ed160e69b8b063fa0b9ca8b3346a04c62a74bebd68ef35ff28e0faef5d",
     "step": "149a094ba94e6acca210c8d3b162866ffb7e9507632e302e50aea07d1a39a00c"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -3677,7 +3677,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm approved R09 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm approved R10 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
@@ -3693,9 +3693,9 @@
       "scope": "native solid aperture checks and column/pier footprints only; no strength or statutory assessment",
       "status": "geometry_checks_passed_engineering_pending",
       "summary": {
-        "zh": "按 R09 平面重排木结构演示架构；截面、节点与基础均未验算。",
-        "ja": "R09の間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。",
-        "en": "Timber concept rearranged for the R09 layout; sections, connections and foundations are uncalculated."
+        "zh": "按 R10 平面重排木结构演示架构；截面、节点与基础均未验算。",
+        "ja": "R10の間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。",
+        "en": "Timber concept rearranged for the R10 layout; sections, connections and foundations are uncalculated."
       },
       "apertures": [
         {

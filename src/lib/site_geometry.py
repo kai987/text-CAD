@@ -220,12 +220,12 @@ def _terrain_profiles(p, g, s=S):
     post_profiles = [box(post["x"] - half_post, post["y"] - half_post,
                          post["x"] + half_post, post["y"] + half_post) for post in fence["posts"]]
     # The separate balcony support foundations displace terrain as real solids.
-    from .balcony_geometry import B
+    from .balcony_geometry import B, support_positions
     from .house_plan import dimensions
     bx=dimensions(p)['bx']; h=B.footing_width/2
     balcony_feet=[box(x-h,-p.balcony_depth+p.balcony_rail_thickness/2-h,x+h,
                       -p.balcony_depth+p.balcony_rail_thickness/2+h)
-                  for x in (bx+p.balcony_rail_thickness/2,bx+p.balcony_width-p.balcony_rail_thickness/2)]
+                  for x in support_positions(p)]
     occupied=unary_union([occupied,*balcony_feet])
     soil = _box_profile(d["lot"]).difference(unary_union([occupied, *footing_profiles]))
     finish = _box_profile(d["lot"]).difference(unary_union([occupied, *post_profiles]))
@@ -387,7 +387,7 @@ def site_manifest(p, g, s=S):
         "assumptions": [
             "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
             "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-            "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R09重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+            "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
             "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
             "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
             "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",

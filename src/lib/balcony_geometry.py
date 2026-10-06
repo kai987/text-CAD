@@ -1,4 +1,4 @@
-"""Named R09 drying balcony. Placeholder supports, no structural adequacy claim."""
+"""Named R10 drying balcony. Placeholder supports, no structural adequacy claim."""
 from dataclasses import asdict, dataclass
 
 from cadgen import build123d as bd
@@ -20,6 +20,13 @@ class BalconyParameters:
 B=BalconyParameters()
 
 
+def support_positions(p):
+    """Keep west/east CAD identifiers stable; add a midpoint on wider balconies."""
+    x1=dimensions(p)["bx"]+p.balcony_rail_thickness/2
+    x2=dimensions(p)["bx"]+p.balcony_width-p.balcony_rail_thickness/2
+    return (x1,x2,(x1+x2)/2) if x2-x1>4000 else (x1,x2)
+
+
 def balcony_group(p,g,b=B):
     from .house_geometry import cuboid,named
     d=dimensions(p);x1=d['bx'];x2=x1+p.balcony_width;y1=-p.balcony_depth;z=p.storey_height
@@ -39,7 +46,7 @@ def balcony_group(p,g,b=B):
             parts.append(cuboid((bx,by,z+80,bx+(b.guard_bar_width if side=='south' else r),
                                  by+(r if side=='south' else b.guard_bar_width),z+b.guard_height),
                                 f'balcony:{side}_bar_{i:02d}','charcoal'))
-    for i,x in enumerate((x1+r/2,x2-r/2),1):
+    for i,x in enumerate(support_positions(p),1):
         y=y1+r/2;half=b.post_width/2;fw=b.footing_width/2
         parts.extend([cuboid((x-half,y-half,b.footing_top_z,x+half,y+half,z-b.slab_thickness),
                             f'balcony:support_post_{i}','charcoal'),

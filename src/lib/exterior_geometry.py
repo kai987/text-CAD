@@ -129,13 +129,14 @@ def entrance_parts(floor, p, g, e=E):
     handle = handle.fuse(cuboid((handle_x, -30, 900, handle_x+20, 0, 920)),
                          cuboid((handle_x, -30, 1340, handle_x+20, 0, 1360)))
     margin = e.entrance_canopy_margin
+    canopy = [cuboid((x-margin, -e.entrance_canopy_depth, e.entrance_canopy_height,
+                      x+w+margin, 0, e.entrance_canopy_height+e.entrance_canopy_thickness),
+                     f"{label}:canopy", "charcoal")] if getattr(p,"entrance_canopy",True) else []
     return [
         named(frame, f"{label}:frame", "charcoal"),
         named(handle, f"{label}:handle", "charcoal"),
         cuboid((x, -70, -18, x+w, 0, 0), f"{label}:threshold", "charcoal"),
-        cuboid((x-margin, -e.entrance_canopy_depth, e.entrance_canopy_height,
-                 x+w+margin, 0, e.entrance_canopy_height+e.entrance_canopy_thickness),
-                f"{label}:canopy", "charcoal"),
+        *canopy,
         cuboid((x-margin, -e.porch_depth, -g.slab_thickness,
                  x+w+margin, 0, e.porch_top), f"{label}:porch", "concrete"),
         cuboid((x-margin, -e.porch_depth-e.porch_step_depth, -g.slab_thickness-100,
@@ -274,20 +275,25 @@ def roof_detail_parts(p, g, e=E):
     return leaves
 
 
-def exterior_manifest(e=E):
+def exterior_manifest(e=E, p=None):
+    if p is None:
+        from .house_plan import P
+        p = P
     return {
         "reference": "references/japanese-house-exterior.md",
         "design": "Contemporary Japanese new-build detached house; continuous warm-white siding, timber-tone entry door, dark standing-seam gable roof",
         "parameters_mm": asdict(e),
+        "entrance_canopy_enabled": getattr(p, "entrance_canopy", True),
+        "entrance_shelter": "Extended south balcony above the entrance; waterproofing and drainage not designed",
         "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
-        "finished_wall_footprint": "8190 x 7280 mm approved R09 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
-        "projecting_attachments": "12 mm window trims, 35 mm sills, entrance canopy/porch, fascias, gutters and downpipes project outside the finished wall footprint",
+        "finished_wall_footprint": "8190 x 7280 mm approved R10 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
+        "projecting_attachments": "12 mm window trims, 35 mm sills, entrance porch, balcony shelter, fascias, gutters and downpipes project outside the finished wall footprint",
         "assumptions": [
             "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-            "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R09主体完成外轮廓为8190 × 7280 mm。",
+            "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R10主体完成外轮廓为8190 × 7280 mm。",
             "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
             "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
-            "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
+            "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R10由扩展阳台覆盖入口，取消独立挑檐；门洞宽高和玄关位置不变。",
             "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
             "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
         ],

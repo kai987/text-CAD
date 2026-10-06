@@ -1,7 +1,7 @@
-"""R09 plan-review proposal. Millimetres; NOT an approved structural model.
+"""Active R10 layout: approved R09 rooms, east-extended entrance-sheltering balcony.
 
-Independent of house_plan.py: changing this draft never changes published assets.
-X east / Y north, south entrance and balcony are demonstration assumptions.
+Millimetres; all dimensions are demonstration assumptions. Structural adequacy
+and site-specific code compliance have not been established.
 """
 from dataclasses import asdict, dataclass
 
@@ -30,13 +30,15 @@ class RedesignParameters:
     south_room_depth: float = 3100
     hall_width: float = 900
     access_left: float = 3380
-    balcony_width: float = 3640
+    balcony_left: float = 2010
+    balcony_width: float = 6180
+    entrance_canopy: bool = False
     balcony_depth: float = 1500
     balcony_rail_thickness: float = 100
 
 
 P = RedesignParameters()
-REVISION = 'R09'
+REVISION = 'R10'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -61,7 +63,9 @@ def dimensions(p=P):
     wetbottom = ym-p.bath_depth
     st = e+p.south_room_depth
     ar = p.access_left+p.hall_width
-    bx = (p.access_left+ar-p.balcony_width)/2
+    bx = p.balcony_left
+    if bx < 0 or bx+p.balcony_width > p.width:
+        raise ValueError("Balcony must stay within the south facade extent.")
     if not (wetbottom >= sy+p.hall_width and wcl-t > bathr+t and
             p.access_left-t > e+2400 and sx > ar+t):
         raise ValueError('Parameters do not preserve this proposal topology; redesign partitions first.')
@@ -164,16 +168,16 @@ def manifest(p=P):
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
                 '8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.',
                 'South entrance / south balcony / north direction are assumptions without site survey.',
-                '3640 x 1500 balcony is outside the main outline; net space excludes 100 mm railing footprint.',
+                '6180 x 1500 balcony is outside the main outline; net space excludes 100 mm railing footprint; east edge aligns with the external wall and replaces the separate entry canopy.',
                 'Walls 180/100 mm and all doors, windows and furniture are demonstration placeholders.',
                 'Toilets remain 900 x 1700 mm, now vertically aligned beside stairs; not wheelchair adapted.',
                 '16 risers x 175, tread 260, clear flights/landing 900 mm; slab and headroom not evaluated.',
                 'Room areas include fixtures/storage within each room. Stairwell is an opening reservation.',
                 'Areas are geometric comparison only, not legal floor/building area measurements.',
-                'R09 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
+                'R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
                 'Balcony support, waterproofing, threshold, drainage and railing height/anchorage are pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
-                'User approved R09 on 2026-10-07; named STEP/GLB and overlays follow this layout.'],
+                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony with the separate canopy removed; R10 keeps the room layout.'],
             'floors':[{'floor':n,'outline_area_m2':p.width*p.depth/1e6,
                        'rooms':[{'id':r.id,'name':r.name,'area_m2':round(r.area,4),
                                  'polygon_mm':list(r.shape.exterior.coords),'size_note':r.size_note}

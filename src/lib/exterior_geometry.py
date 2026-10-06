@@ -96,7 +96,7 @@ def facade_parts(floor, p, g, e=E, include_plinth=True):
     cuts = [opening_box(d.axis, d.at, d.start, d.width, p.external_wall, z, z + g.door_height)
             for d in floor.doors if {'outside','balcony'} & {d.a,d.b}]
     for window in floor.windows:
-        sill, height = window_vertical_range(window, g)
+        sill, height = window_vertical_range(window, g, p)
         cuts.append(opening_box(*window, p.external_wall, z + sill, z + sill + height))
     bounds = {
         "south": (0, 0, bottom, p.width, c, top),
@@ -148,9 +148,10 @@ def entrance_parts(floor, p, g, e=E):
 def exterior_window_parts(window, number, index, p, g, e=E):
     cuboid, named, _, _, window_vertical_range = _helpers()
     axis, at, start, width = window
-    sill, height = window_vertical_range(window, g)
+    sill, height = window_vertical_range(window, g, p)
     z = (number-1) * p.storey_height + sill
     t, projection = e.window_trim_width, e.window_trim_projection
+    lower=z if sill==0 else z-t
     label = f"F{number}:W{index:02d}"
     size = p.depth if axis == "h" else p.width
     positive = at > size / 2
@@ -159,18 +160,20 @@ def exterior_window_parts(window, number, index, p, g, e=E):
     sill_a, sill_b = ((outer, outer+e.window_sill_projection) if positive
                        else (-e.window_sill_projection, 0))
     if axis == "h":
-        trim = cuboid((start-t, a, z-t, start+width+t, b, z+height+t))
+        trim = cuboid((start-t, a, lower, start+width+t, b, z+height+t))
         trim = trim.cut(cuboid((start, a-1, z, start+width, b+1, z+height)))
         sill_bounds = (start-t, sill_a, z-e.window_sill_drop,
                        start+width+t, sill_b, z-t)
     else:
-        trim = cuboid((a, start-t, z-t, b, start+width+t, z+height+t))
+        trim = cuboid((a, start-t, lower, b, start+width+t, z+height+t))
         trim = trim.cut(cuboid((a-1, start, z, b+1, start+width, z+height)))
         sill_bounds = (sill_a, start-t, z-e.window_sill_drop,
                        sill_b, start+width+t, z-t)
     # The sill meets the bottom surround at an edge without overlapping its volume.
-    return [named(trim, f"{label}:exterior_trim", "frame"),
-            cuboid(sill_bounds, f"{label}:sill", "charcoal")]
+    parts=[named(trim,f"{label}:exterior_trim","frame")]
+    if sill>0:
+        parts.append(cuboid(sill_bounds,f"{label}:sill","charcoal"))
+    return parts
 
 
 def _rainpipe(points, e):
@@ -284,7 +287,7 @@ def exterior_manifest(e=E, p=None):
         "design": "Contemporary Japanese new-build detached house; continuous warm-white siding, timber-tone entry door, dark standing-seam gable roof",
         "parameters_mm": asdict(e),
         "entrance_canopy_enabled": getattr(p, "entrance_canopy", True),
-        "entrance_shelter": "R12 1000 mm balcony above entrance; outer 300 mm of porch exposed; cantilever, waterproofing and drainage not designed",
+        "entrance_shelter": "R13 1000 mm balcony above entrance; outer 300 mm of porch exposed; cantilever, waterproofing and drainage not designed",
         "model_origin": "Original parameterized BRep geometry with original procedural finish textures; no downloaded manufacturer mesh",
         "finished_wall_footprint": "8190 x 7280 mm approved R10 demonstration footprint; 20 mm finish replaces the outer wall band and a 2 mm backing gap",
         "projecting_attachments": "12 mm window trims, 35 mm sills, entrance porch, balcony shelter, fascias, gutters and downpipes project outside the finished wall footprint",
@@ -293,7 +296,7 @@ def exterior_manifest(e=E, p=None):
             "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R10主体完成外轮廓为8190 × 7280 mm。",
             "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
             "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
-            "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R12保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
+            "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R13保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
             "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
             "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
         ],

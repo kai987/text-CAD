@@ -166,7 +166,7 @@ def _title_block(sheet, floor):
 def _draw_sheet(sheet, floor):
     sheet.rect(FRAME_BOUNDS, .7, FRAME_LAYER, "frame")
     sheet.text(f"{floor.number}階平面図", (112.8, 260), 5.0, "center", TITLE_TEXT_LAYER)
-    sheet.text("R12参考平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
+    sheet.text("R13参考平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
     sheet.text("室別面積表（内法）", (230, 262), 3.5)
 
     left, right, divide, top, row_h = 230, 400, 352, 250, 7
@@ -192,11 +192,11 @@ def _draw_sheet(sheet, floor):
         "廊下面積は階段を除く。階段面積は階段室の確保範囲を示す。",
         f"階段：{P.risers}R×{P.storey_height/P.risers:.0f}、T{P.tread:.0f}、階段幅 {P.stair_width:.0f}、踊場 {P.stair_landing:.0f} mm。",
         "2階の階段室は床開口。踏板・手すりの詳細は別途設計。",
-        "窓・扉は仮配置。引戸の戸袋・枠厚・製品仕様は未設計。",
+        "南側LDK・2寝室は掃出し窓H2200/FL+0。ガラス・建具・防水・耐力は未設計。",
         "便所：内法 900×1,700 mm。出入口 700 mm は枠厚を控除する前の寸法。",
         "構造・防火・耐震・法令適合は未検証。施工図として使用不可。",
         "東京都土木CAD製図基準（令和6年4月）を住宅の図式に準用。",
-        "南側バルコニー6180×1000は仮定。柱なし・ポーチ先端300露出。耐力・防水・排水は未設計。",
+        "南側バルコニー8190×1000は仮定。柱なし・ポーチ先端300露出。耐力・防水・排水は未設計。",
     ]
     y = 168
     for index, note in enumerate(notes, 1):
@@ -211,7 +211,7 @@ def _draw_sheet(sheet, floor):
         ("実線：壁・建具・家具の平面輪郭", 87),
         ("寸法線：壁内法・建物外形・建具開口幅", 81),
         ("D01 等：建具番号　UP：上り方向", 75),
-        ("北矢印：仮定方位　R12：室内確認済み・バルコニー変更・構造未計算", 69),
+        ("北矢印：仮定方位　R13：室内確認済み・バルコニー変更・構造未計算", 69),
     ):
         sheet.text(value, (230, y), 2.5)
     _title_block(sheet, floor)

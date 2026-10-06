@@ -43,6 +43,11 @@ def draw(g,f):
         for o in (-40,0,40):
             a,b=((start,at+o),(start+width,at+o)) if axis=='h' else ((at+o,start),(at+o,start+width))
             g.line(a,b,'WINDOW')
+    from lib.house_redesign_plan import south_floor_window
+    for window in f.windows:
+        if south_floor_window(window):
+            _,at,start,width=window
+            g.text(f'掃出し窓 W{width:g} / H{P.south_window_height:g} / FL+{P.south_window_sill:g}',(start+width/2,330),90)
     for name,b in f.fixtures:
         g.rect(b,'FURNITURE');g.text(name,((b[0]+b[2])/2,(b[1]+b[3])/2),90)
     for door in f.doors:
@@ -109,12 +114,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R12 balcony revision - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R13 balcony revision - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n);draw_pdf_sheet(c,f)
         g=Drawing(c);g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R12室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R13室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

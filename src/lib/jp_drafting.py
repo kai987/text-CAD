@@ -4,7 +4,7 @@ The reference governs civil engineering, not residential architecture. These
 are documented common-rule adaptations; DXF is not an SXF electronic delivery.
 Paper measurements are millimetres and model geometry stays at actual size.
 """
-REVISION = 'R12'
+REVISION = 'R13'
 SCALE = 50
 STANDARD = '東京都建設局 CAD製図基準 令和6年4月'
 SOURCE_URL = 'https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788'

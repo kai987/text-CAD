@@ -1,4 +1,4 @@
-"""Active R12 layout: approved rooms with a 1000 mm unsupported balcony proposal.
+"""Active R13 layout: approved rooms with a 1000 mm unsupported balcony proposal.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
@@ -30,16 +30,18 @@ class RedesignParameters:
     south_room_depth: float = 3100
     hall_width: float = 900
     access_left: float = 3380
-    balcony_left: float = 2010
-    balcony_width: float = 6180
+    balcony_left: float = 0
+    balcony_width: float = 8190
     entrance_canopy: bool = False
     balcony_depth: float = 1000
     balcony_supports: bool = False
+    south_window_sill: float = 0
+    south_window_height: float = 2200
     balcony_rail_thickness: float = 100
 
 
 P = RedesignParameters()
-REVISION = 'R12'
+REVISION = 'R13'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -72,6 +74,12 @@ def dimensions(p=P):
         raise ValueError('Parameters do not preserve this proposal topology; redesign partitions first.')
     return dict(e=e,t=t,xm=xm,ym=ym,sx=sx,sy=sy,wcl=wcl,wcr=wcr,
                 bathr=bathr,wetbottom=wetbottom,st=st,ar=ar,bx=bx)
+
+
+def south_floor_window(window,p=P):
+    """Only the three wide south living/bedroom apertures are floor-height."""
+    axis,at,_,width=window
+    return axis=='h' and abs(at-p.external_wall/2)<1e-6 and width>1000
 
 
 def balcony_drying_bounds(p=P):
@@ -133,7 +141,7 @@ def floor_plan(number, p=P):
         balcony=rectangle('balcony','バルコニー / 物干し',bx+r,-p.balcony_depth+r,
                           bx+p.balcony_width-r,0,(bx+p.balcony_width-850,-450),'outside')
         balcony.name='バルコニー'
-        rooms=[rectangle('master','主寝室',e,e,p.access_left-t,st,(2530,1300)),
+        rooms=[rectangle('master','主寝室',e,e,p.access_left-t,st,(2820,1300)),
                rectangle('closet','収納',e,st+t,p.access_left-t,sy-t,(1700,st+t+150),'storage'),
                rectangle('bed2','洋室 2',ar+t,e,xm,st,(7350,1450)),
                rectangle('bed3','洋室 3',e,sy,wcl-t,ym,(3000,5500)),
@@ -150,9 +158,9 @@ def floor_plan(number, p=P):
         windows=[('h',e/2,650,1600),('h',e/2,5200,1800),
                  ('v',e/2,700,1200),('h',ym+e/2,650,1800),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
-        fixtures=[('ベッド 1400',(430,500,1830,2500)),
+        fixtures=[('ベッド 1400',(430,950,2430,2350)),
                   ('衣類棚',(e+100,sy-t-600,p.access_left-t-100,sy-t)),
-                  ('ベッド 1000',(5500,450,6500,2450)),
+                  ('ベッド 1000',(5500,850,6500,2850)),
                   ('CL',(xm-600,200,xm,1200)),
                   ('ベッド 1000',(500,sy+300,1500,sy+2300)),
                   ('CL',(2500,ym-600,4800,ym)),
@@ -181,16 +189,17 @@ def manifest(p=P):
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
                 '8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.',
                 'South entrance / south balcony / north direction are assumptions without site survey.',
-                '6180 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; east edge aligns with the external wall and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.',
+                '8190 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; both ends align with the external walls and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.',
                 'Walls 180/100 mm and all doors, windows and furniture are demonstration placeholders.',
+                'Three south living/bedroom windows retain 2100/1600/1800 mm widths, with 0 mm sill and 2200 mm height; glazing, opening mechanism, waterproofing and structural headers remain pending.',
                 'Toilets remain 900 x 1700 mm, now vertically aligned beside stairs; not wheelchair adapted.',
                 '16 risers x 175, tread 260, clear flights/landing 900 mm; slab and headroom not evaluated.',
                 'Room areas include fixtures/storage within each room. Stairwell is an opening reservation.',
                 'Areas are geometric comparison only, not legal floor/building area measurements.',
                 'R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
-                'R12 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
+                'R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
-                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R12 keeps the room layout.'],
+                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R13 keeps the room layout.'],
             'floors':[{'floor':n,'outline_area_m2':p.width*p.depth/1e6,
                        'rooms':[{'id':r.id,'name':r.name,'area_m2':round(r.area,4),
                                  'polygon_mm':list(r.shape.exterior.coords),'size_note':r.size_note}

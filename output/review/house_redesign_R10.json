@@ -1,5 +1,5 @@
 {
-  "revision": "R12",
+  "revision": "R13",
   "stage": "floor_plan_approved",
   "approved_on": "2026-10-07",
   "units": "mm",
@@ -21,11 +21,13 @@
     "south_room_depth": 3100,
     "hall_width": 900,
     "access_left": 3380,
-    "balcony_left": 2010,
-    "balcony_width": 6180,
+    "balcony_left": 0,
+    "balcony_width": 8190,
     "entrance_canopy": false,
     "balcony_depth": 1000,
     "balcony_supports": false,
+    "south_window_sill": 0,
+    "south_window_height": 2200,
     "balcony_rail_thickness": 100
   },
   "sources": [
@@ -49,16 +51,17 @@
     "User permits footprint adjustment and requires three bedrooms and a drying balcony.",
     "8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.",
     "South entrance / south balcony / north direction are assumptions without site survey.",
-    "6180 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; east edge aligns with the external wall and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.",
+    "8190 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; both ends align with the external walls and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.",
     "Walls 180/100 mm and all doors, windows and furniture are demonstration placeholders.",
+    "Three south living/bedroom windows retain 2100/1600/1800 mm widths, with 0 mm sill and 2200 mm height; glazing, opening mechanism, waterproofing and structural headers remain pending.",
     "Toilets remain 900 x 1700 mm, now vertically aligned beside stairs; not wheelchair adapted.",
     "16 risers x 175, tread 260, clear flights/landing 900 mm; slab and headroom not evaluated.",
     "Room areas include fixtures/storage within each room. Stairwell is an opening reservation.",
     "Areas are geometric comparison only, not legal floor/building area measurements.",
     "R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.",
-    "R12 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.",
+    "R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.",
     "No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.",
-    "User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R12 keeps the room layout."
+    "User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R13 keeps the room layout."
   ],
   "floors": [
     {
@@ -601,7 +604,7 @@
         {
           "id": "balcony",
           "name": "バルコニー",
-          "area_m2": 5.382,
+          "area_m2": 7.191,
           "polygon_mm": [
             [
               8090.0,
@@ -612,11 +615,11 @@
               0.0
             ],
             [
-              2110.0,
+              100.0,
               0.0
             ],
             [
-              2110.0,
+              100.0,
               -900.0
             ],
             [
@@ -624,7 +627,7 @@
               -900.0
             ]
           ],
-          "size_note": "5980 × 900"
+          "size_note": "7990 × 900"
         }
       ],
       "doors": [
@@ -719,7 +722,7 @@
       ]
     }
   ],
-  "drawing_revision": "R12",
+  "drawing_revision": "R13",
   "comparison": {
     "old_outline_m2_per_floor": 52.9984,
     "new_outline_m2_per_floor": 59.6232,

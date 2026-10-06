@@ -57,7 +57,7 @@ const zh = {
     drafting: '平面图采用東京都建設局 CAD 製图基准的共通项目用于住宅方案，保留可编辑标注；本次输出包含 DXF、STEP、GLB、PDF，未包含 SXF 电子纳品。',
     files: {
       engineeringSource: { title: '结构与法规输入 Python 源码', detail: '可编辑的演示设计任务书；待核定输入保留为空值。' },
-      engineering: { title: '结构与法规待定输入', detail: 'R10 演示参数、结构计算所需输入和所在地待核定项；不包含已完成计算。' },
+      engineering: { title: '结构与法规待定输入', detail: 'R13 演示参数、结构计算所需输入和所在地待核定项；不包含已完成计算。' },
       structure: { title: '可编辑结构布置方案', detail: '日文柱梁、搁栅、开口边梁和基础支承示意；截面与承载尚未计算。' },
       structurePdf: { title: '结构布置方案 PDF', detail: 'R10 补充图，标明结构方案、演示截面及待核定项目。' },
       glb: { title: 'GLB 三维模型', detail: '保留楼层与部件名称，可用于 Blender、Three.js。' },
@@ -118,7 +118,7 @@ const ja: Messages = {
     drafting: '住宅計画に東京都建設局CAD製図基準の共通項目を適用し、編集可能な注記を保持しています。出力はDXF・STEP・GLB・PDFで、SXFによる電子納品は含みません。',
     files: {
       engineeringSource: { title: '構造・法規入力の Python ソース', detail: '編集可能なデモ設計要件。未確定入力は空値のまま保持します。' },
-      engineering: { title: '構造・法規の未確定入力', detail: 'R10の仮定、構造計算に必要な入力、所在地での未確定事項。計算済みの成果ではありません。' },
+      engineering: { title: '構造・法規の未確定入力', detail: 'R13の仮定、構造計算に必要な入力、所在地での未確定事項。計算済みの成果ではありません。' },
       structure: { title: '編集可能な構造配置案', detail: '柱梁・根太・開口補強梁・基礎支持部の日本語概念図。断面・耐荷力は未計算です。' },
       structurePdf: { title: '構造配置案 PDF', detail: 'R10補足図。構造案・仮断面・未確定事項を記載します。' },
       glb: { title: 'GLB 3Dモデル', detail: '階・部材名を保持。BlenderやThree.jsで利用できます。' },
@@ -176,7 +176,7 @@ const en: Messages = {
     drafting: 'The residential concept uses the common provisions of the Tokyo Metropolitan Government Bureau of Construction CAD drafting standard and retains editable annotations. Outputs include DXF, STEP, GLB and PDF; SXF electronic submission is not included.',
     files: {
       engineeringSource: { title: 'Structural and regulatory input Python source', detail: 'Editable demonstration design brief. Pending inputs remain null.' },
-      engineering: { title: 'Pending structural and regulatory inputs', detail: 'R10 assumptions, inputs required for structural calculations and pending local decisions. No completed calculation is included.' },
+      engineering: { title: 'Pending structural and regulatory inputs', detail: 'R13 assumptions, inputs required for structural calculations and pending local decisions. No completed calculation is included.' },
       structure: { title: 'Editable structural layout scheme', detail: 'Japanese concept drawings of columns, beams, joists, hatch headers and foundation supports. Sizes and capacity are uncalculated.' },
       structurePdf: { title: 'Structural layout scheme PDF', detail: 'R10 supplementary drawing with the structural proposal, assumed sizes and pending verification items.' },
       glb: { title: 'GLB 3D model', detail: 'Retains floor and component names for use in Blender and Three.js.' },

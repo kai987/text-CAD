@@ -161,7 +161,10 @@ def furniture_placements(floor,model_id,p):
             beds=[bounds for name,bounds in floor.fixtures if name.startswith('ベッド')]
             for room,bounds in zip(('master','bed2','bed3'),beds):
                 x,y,x2,y2=bounds
-                put('bed',room,'bed',x,y,x2-x,y2-y)
+                if room=='master' and x2-x>y2-y:
+                    put('bed',room,'bed',x,y,y2-y,x2-x,90)
+                else:
+                    put('bed',room,'bed',x,y,x2-x,y2-y)
     elif model_id=='apartment':
         x,y,x2,y2=rooms['ldk'].shape.bounds
         put('sofa','ldk','sofa',x2-900,y+800,1500,850,270)
@@ -252,6 +255,11 @@ def clearance_zones(floor,model_id,p):
                     zones.append((f'balcony_slider_{start:g}:800mm_landing',box(start,y,start+width,y+800)))
         for i,path in enumerate(routes,1):
             zones.append((f'ldk:route_{i}:650mm',LineString(path).buffer(325,cap_style='flat').intersection(room)))
+    if model_id=='house':
+        from .house_redesign_plan import south_floor_window
+        for axis,at,start,width in floor.windows:
+            if south_floor_window((axis,at,start,width),p):
+                zones.append((f'south_window_{start:g}:650mm_approach',box(start,p.external_wall,start+width,p.external_wall+650)))
     return zones
 
 

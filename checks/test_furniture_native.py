@@ -68,7 +68,8 @@ class FurnitureClearanceTests(unittest.TestCase):
         return expected
 
     def test_all_actual_layouts_keep_every_original_row_name_order_evidence_and_decision(self):
-        layouts=[('house',floor_plan(1),HOUSE,141),('house',floor_plan(2),HOUSE,51),
+        # R13 includes six additional furniture/approach comparisons per floor.
+        layouts=[('house',floor_plan(1),HOUSE,147),('house',floor_plan(2),HOUSE,57),
                  ('apartment',apartment_plan()[0],APARTMENT,228)]
         for model,floor,p,count in layouts:
             rows=self.assert_reports_equal(floor,model,p)

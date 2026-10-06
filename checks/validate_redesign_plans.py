@@ -150,9 +150,9 @@ def run():
                       room.shape.symmetric_difference(Polygon(old[room.id]['polygon_mm'])).area<.01,
                       room.shape.bounds)
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
-    check('R10/balcony_left_fixed',dimensions()['bx']==2010,dimensions()['bx'])
+    check('R10/balcony_left_fixed',dimensions()['bx']==0,dimensions()['bx'])
     check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)
-    check('R10/balcony_clear_area',abs(balcony.area-5.382)<1e-8,balcony.area)
+    check('R10/balcony_clear_area',abs(balcony.area-7.191)<1e-8,balcony.area)
     check('R10/separate_canopy_disabled',P.entrance_canopy is False,P.entrance_canopy)
     from lib.exterior_geometry import E
     from lib.balcony_geometry import support_positions,B

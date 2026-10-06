@@ -1,12 +1,14 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+Three south living/main-bedroom/bedroom-2 windows now extend from FL+0 to FL+2200, retaining widths of 2100/1600/1800 mm. The main bed rotates and bedroom-2 bed moves north to retain a 650 mm demonstration approach. Safety glass, sash specifications, waterproofing, headers and thermal performance remain undesigned.
+
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-## Current scheme (R12 balcony revision)
+## Current scheme (R13 balcony revision)
 
-R12 retains the approved three-bedroom interiors and changes the south balcony to **6180 × 1000 mm**, with **5980 × 900 mm clear space (5.382 m²)**. Three support posts and their separate footings are removed; the drying rack moves east, clear of the door swing. The 1300 mm-deep entrance porch now projects 300 mm beyond the balcony, with no separate canopy. The R11 lot of 140.4182 m² and two side-by-side parking bays remain. Cantilever capacity, connections, waterproofing and drainage are unengineered; all dimensions are demonstration assumptions.
+R13 retains the approved three-bedroom interiors and changes the south balcony to **8190 × 1000 mm**, with **7990 × 900 mm clear space (7.191 m²)**. Three support posts and their separate footings are removed; the drying rack moves east, clear of the door swing. The 1300 mm-deep entrance porch now projects 300 mm beyond the balcony, with no separate canopy. The R11 lot of 140.4182 m² and two side-by-side parking bays remain. Cantilever capacity, connections, waterproofing and drainage are unengineered; all dimensions are demonstration assumptions.
 
-[Design and references](docs/house_balcony_R12.md) · [Two-floor PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
+[Design and references](docs/house_facade_R13.md) · [Two-floor PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
 
 ## Model day/night and outdoor fixtures (R08-3D)
 
@@ -28,13 +30,13 @@ The separate `structure` root contains columns, beams, sills, attic joists, hatc
 
 Downloads include `DXF/house_structural_scheme.dxf`, `output/pdf/house_structural_scheme_R06_JP.pdf` and `output/review/engineering_inputs_R06.json`. The JSON records pending site, soil, load, material and regulatory inputs; it is not a calculation report. Source and STEP/GLB retain editable named structure. Construction use requires a Japanese architect to complete local compliance review, structural calculations, building approval and construction supervision. The apartment remains independent.
 
-## Foundation, fence and yard (R12-SITE)
+## Foundation, fence and yard (R13-SITE)
 
 Independent `foundation`, `yard` and `fence` groups add a conceptual raft foundation with perimeter stem walls, entrance supports and a lower step, gravel, parking paving and wheel stops, three narrow lawns, two side-by-side parking bays with all shrubs removed, and fences with actual gaps between slats. The exterior preset shows the site; interior presets hide it. Each category can be hidden or viewed alone. Section heights remain measured from the first-floor finished datum, Z=0.
 
 All added dimensions are **demonstration assumptions**: a **10190 × 13780 mm lot (140.4182 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and two **2800 × 5000 mm side-by-side parking bays**. The 1200 mm-high fence has 24 open panels, 26 posts and 26 footings, with clear southern vehicle/pedestrian openings of 5675/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
 
-R05 originally contained 537 named bodies after adding the site. The current export contains 873 named leaf bodies; see export validation for details. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor drawings remain; the attic drawing is updated to R06. [Parameters and scope](docs/site_R11.md).
+R05 originally contained 537 named bodies after adding the site. The current export contains 891 named leaf bodies; see export validation for details. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor drawings remain; the attic drawing is updated to R06. [Parameters and scope](docs/site_R11.md).
 
 ```bash
 .venv/bin/python src/generate_site_plan.py

@@ -18,5 +18,5 @@ def dimensions(p=P):
 
 def design_manifest(p=P):
     data=manifest(p)
-    data['drawing_revision']='R12'
+    data['drawing_revision']='R13'
     return data

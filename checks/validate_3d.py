@@ -178,9 +178,10 @@ for number in (1, 2):
         sill, height = window_vertical_range(window)
         tool = opening_box(*window, P.external_wall, z+sill, z+sill+height)
         close(f"F{number}:W{i:02d}:wall_opening_volume_mm3", overlap(walls, tool), 0)
-        below = exterior_core_tool(*window, z+1, z+sill-1)
+        below = exterior_core_tool(*window, z+1, z+sill-1) if sill>2 else None
         above = exterior_core_tool(*window, z+sill+height+1, z+wall_height-1)
-        close(f"F{number}:W{i:02d}:wall_below_preserved_mm3", overlap(core, below), below.volume, 0.1)
+        if below is not None:
+            close(f"F{number}:W{i:02d}:wall_below_preserved_mm3", overlap(core, below), below.volume, 0.1)
         close(f"F{number}:W{i:02d}:wall_above_preserved_mm3", overlap(core, above), above.volume, 0.1)
         original_frames = [native[f"F{number}:W{i:02d}:frame_{j}"] for j in range(1, 5)]
         wb = [min(bounds(s)[j] for s in original_frames) for j in range(3)]+ \
@@ -194,6 +195,19 @@ for number in (1, 2):
                                      (2, z+sill), (5, z+sill+height)):
             close(f"F{number}:W{i:02d}:unchanged_aperture_and_flush_frame_bound_{coordinate}", wb[coordinate], expected)
 
+
+for number,index,width in ((1,1,2100),(2,1,1600),(2,2,1800)):
+    frame=bounds(native[f'F{number}:W{index:02d}:frame_5'])
+    close(f'R13:F{number}:W{index:02d}:floor_level_frame_bottom_mm',
+          bounds(native[f'F{number}:W{index:02d}:frame_1'])[2],(number-1)*2800)
+    close(f'R13:F{number}:W{index:02d}:floor_window_head_mm',
+          bounds(native[f'F{number}:W{index:02d}:frame_2'])[5],(number-1)*2800+2200)
+    check(f'R13:F{number}:W{index:02d}:two_glass_solids',len(native[f'F{number}:W{index:02d}:glass'].solids())==2)
+    check(f'R13:F{number}:W{index:02d}:no_hanging_sill',f'F{number}:W{index:02d}:sill' not in native)
+    if number==2:
+        for name in ('exterior_trim','frame_5','glass'):
+            close(f'R13:W{index:02d}:{name}:balcony_finish_clear_mm3',
+                  overlap([native[f'F2:W{index:02d}:{name}']],native['balcony:finish']),0)
 
 d = dimensions(P)
 stair_footprint = next(r.shape for r in floor_plan(2).rooms if r.id == "stairs")
@@ -267,17 +281,17 @@ old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leave
 check("R10:named_balcony_present", all(name in native for name in ("balcony:slab","balcony:drying_rail")))
 check("R10:separate_entry_canopy_removed", "F1:D01:canopy" not in native)
 bs=bounds(native["balcony:slab"])
-for i,expected in enumerate((2010,-1000,2650,8190,0,2775)):
+for i,expected in enumerate((0,-1000,2650,8190,0,2775)):
     close(f"R10:balcony_slab_boundary_{i}_mm",bs[i],expected)
-check("R12:no_balcony_supports_or_footings",not any(name.startswith(("balcony:support_post_","balcony:footing_")) for name in native))
+check("R13:no_balcony_supports_or_footings",not any(name.startswith(("balcony:support_post_","balcony:footing_")) for name in native))
 porch_bounds=bounds(native["F1:D01:porch"])
-close("R12:porch_projects_beyond_balcony_mm",bs[1]-porch_bounds[1],300)
+close("R13:porch_projects_beyond_balcony_mm",bs[1]-porch_bounds[1],300)
 from lib.house_redesign_plan import balcony_drying_bounds
 rb=balcony_drying_bounds(P)
 for name in ("balcony:drying_post_1","balcony:drying_post_2","balcony:drying_rail"):
     b=bounds(native[name])
-    check(f"R12:{name}_within_slab",bs[0]<b[0] and b[3]<bs[3] and bs[1]<b[1] and b[4]<bs[4])
-    check(f"R12:{name}_east_of_balcony_door",b[0]>P.access_left+50+800)
+    check(f"R13:{name}_within_slab",bs[0]<b[0] and b[3]<bs[3] and bs[1]<b[1] and b[4]<bs[4])
+    check(f"R13:{name}_east_of_balcony_door",b[0]>P.access_left+50+800)
 check("attic:new_named_leaf_contract", len(attic_leaves) == 31, len(attic_leaves), 31)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
@@ -441,7 +455,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R12-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R13-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

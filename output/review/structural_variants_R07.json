@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "R10-STRUCTURE-VARIANTS",
+  "revision": "R13-STRUCTURE-VARIANTS",
   "status": "demonstration_candidates_not_engineered",
   "original_architectural_parameters": {
     "width": 8190,
@@ -20,10 +20,13 @@
     "south_room_depth": 3100,
     "hall_width": 900,
     "access_left": 3380,
-    "balcony_left": 2010,
-    "balcony_width": 6180,
+    "balcony_left": 0,
+    "balcony_width": 8190,
     "entrance_canopy": false,
-    "balcony_depth": 1500,
+    "balcony_depth": 1000,
+    "balcony_supports": false,
+    "south_window_sill": 0,
+    "south_window_height": 2200,
     "balcony_rail_thickness": 100
   },
   "source_same_city_geometry": true,
@@ -804,6 +807,12 @@
         "main_stair_collisions": [],
         "attic_hatch_collisions": [],
         "room_intrusions": [
+          {
+            "member": "structure:F2:column_C01",
+            "floor": 2,
+            "room_id": "balcony",
+            "footprint_mm2": 9600.0
+          },
           {
             "member": "structure:F2:column_C02",
             "floor": 2,

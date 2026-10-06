@@ -1,11 +1,11 @@
 {
-  "revision": "R12-3D",
+  "revision": "R13-3D",
   "units": "native STEP mm; GLB m/Y-up",
   "summary": {
     "checks": 725,
     "passed": 725,
     "failed": 0,
-    "saved_native_leaves": 873,
+    "saved_native_leaves": 891,
     "new_site_leaves": 107
   },
   "baseline": null,
@@ -26,8 +26,8 @@
     {
       "check": "revision:house_R10_with_site_R11",
       "pass": true,
-      "actual": "R12-3D",
-      "expected": "R12-3D"
+      "actual": "R13-3D",
+      "expected": "R13-3D"
     },
     {
       "check": "R10:house_and_balcony_labels_present",

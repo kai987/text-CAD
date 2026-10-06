@@ -1,4 +1,4 @@
-"""Named R12 cantilever balcony proposal; no structural adequacy claim."""
+"""Named R13 cantilever balcony proposal; no structural adequacy claim."""
 from dataclasses import asdict, dataclass
 
 from cadgen import build123d as bd

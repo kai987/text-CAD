@@ -93,7 +93,10 @@ def raw_wall_footprint(floor, p=P):
     return unary_union(filled).intersection(box(0,0,p.width,p.depth))
 
 
-def window_vertical_range(window, g=G):
+def window_vertical_range(window, g=G, p=P):
+    from .house_redesign_plan import south_floor_window
+    if south_floor_window(window,p):
+        return p.south_window_sill,p.south_window_height
     if window[3] > 1000:
         return g.large_window_sill, g.large_window_height
     return g.small_window_sill, g.small_window_height
@@ -127,7 +130,7 @@ def wall_groups(floor, p=P, g=G):
                          p.external_wall if {'outside','balcony'} & {d.a,d.b} else p.internal_wall,
                          z, z+g.door_height) for d in floor.doors]
     for window in floor.windows:
-        sill, wh = window_vertical_range(window, g)
+        sill, wh = window_vertical_range(window, g, p)
         cuts.append(opening_box(*window, p.external_wall, z+sill, z+sill+wh))
     exterior = []
     for direction, profile in wall_profiles:
@@ -177,7 +180,7 @@ def window_group(floor, p=P, g=G):
     for i, window in enumerate(floor.windows, 1):
         axis, at, start, width = window
         at = exterior_window_center(axis, at, p, g)
-        sill, height = window_vertical_range(window, g)
+        sill, height = window_vertical_range(window, g, p)
         bottom = z+sill
         label = f"F{floor.number}:W{i:02d}"
         if axis == "h":
@@ -201,8 +204,17 @@ def window_group(floor, p=P, g=G):
         frame = bd.Compound(children=[cuboid(b, f"{label}:frame_{j}", "frame")
                                       for j, b in enumerate(frame_bounds, 1)],
                             label=f"{label}:frame")
-        glass = named(cuboid(glass_bounds), f"{label}:glass", "glass", 0.45)
-        windows.append(bd.Compound(children=[frame, glass,
+        glass_shape=cuboid(glass_bounds)
+        from .house_redesign_plan import south_floor_window
+        sash=[]
+        if south_floor_window(window,p):
+            mid=start+width/2
+            divider=cuboid((mid-fw/2,at-g.window_frame_depth/2,bottom+fw,
+                            mid+fw/2,at+g.window_frame_depth/2,bottom+height-fw))
+            glass_shape=glass_shape.cut(divider)
+            sash=[named(divider,f"{label}:frame_5","frame")]
+        glass = named(glass_shape, f"{label}:glass", "glass", 0.45)
+        windows.append(bd.Compound(children=[frame, glass, *sash,
                                              *exterior_window_parts(window, floor.number, i, p, g)], label=label))
     return bd.Compound(children=windows, label=f"F{floor.number}:windows")
 
@@ -325,7 +337,7 @@ def geometry_manifest(p=P, g=G):
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R12-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R13-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -345,11 +357,11 @@ def geometry_manifest(p=P, g=G):
         "assumptions": [
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
             "保留2026-10-07确认的R09室内平面；R10按用户要求向东延长阳台并取消独立玄关雨棚。",
-            "R12南侧阳台外形6180 × 1000 mm，净空间5980 × 900 mm、净几何面积5.382㎡；公共通道可达，右端与东外墙齐平，三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
+            "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
-            "大窗宽大于1000 mm：窗台900/窗高1300 mm；其他窗：窗台1500/窗高600 mm。",
+            "南侧客厅与两卧室三樘落地窗窗台0/高2200 mm，保留原宽；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
             "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
             "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",

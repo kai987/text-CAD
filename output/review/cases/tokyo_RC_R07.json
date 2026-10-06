@@ -15,7 +15,7 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "02c0ddb06a2f56f95fc9ab220d02ff63d948ae2038663fb3251e29a02e00b0d0",
+    "glb": "0a5b745171c699b9ae4abdb5edf0d4655ef83988ce5136c648086986ef7622b1",
     "step": "894d32b00a7235d84e9371b401fde70f4ee666893ef12f9d8d7f4219c8e86c7a"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -1040,6 +1040,12 @@
       "attic_hatch_collisions": [],
       "room_intrusions": [
         {
+          "member": "structure:F2:column_C01",
+          "floor": 2,
+          "room_id": "balcony",
+          "footprint_mm2": 9600.0
+        },
+        {
           "member": "structure:F2:column_C02",
           "floor": 2,
           "room_id": "balcony",
@@ -1447,7 +1453,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R06-3D; user-confirmed R02 floor drawings are unchanged",
+  "architectural_geometry_baseline": "R13-3D; approved indoor room boundaries retained; south glazing and balcony revised",
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

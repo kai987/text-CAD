@@ -1,5 +1,5 @@
 {
-  "revision": "R12",
+  "revision": "R13",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -517,13 +517,14 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R12"
+        "revision": "R13"
       }
     },
     {
       "name": "1F/DXF/room_labels",
       "passed": true,
       "evidence": [
+        "掃出し窓 W2100 / H2200 / FL+0",
         "靴収納",
         "キッチン",
         "ダイニング",
@@ -599,7 +600,7 @@
       "evidence": {
         "area_m2": 9.61,
         "label": [
-          2530,
+          2820,
           1300
         ]
       }
@@ -725,7 +726,7 @@
       "name": "2F/balcony/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 5.382,
+        "area_m2": 7.191,
         "label": [
           7340,
           -450
@@ -1144,13 +1145,15 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R12"
+        "revision": "R13"
       }
     },
     {
       "name": "2F/DXF/room_labels",
       "passed": true,
       "evidence": [
+        "掃出し窓 W1600 / H2200 / FL+0",
+        "掃出し窓 W1800 / H2200 / FL+0",
         "ベッド 1400",
         "衣類棚",
         "ベッド 1000",
@@ -1185,8 +1188,8 @@
         "ホール",
         "0.83 m2",
         "バルコニー",
-        "5.38 m2",
-        "5980 × 900",
+        "7.19 m2",
+        "7990 × 900",
         "階段 DOWN",
         "16R x 175 / T260",
         "W900 / 踊場900",
@@ -1362,7 +1365,7 @@
     {
       "name": "R10/balcony_left_fixed",
       "passed": true,
-      "evidence": 2010
+      "evidence": 0
     },
     {
       "name": "R10/balcony_east_aligns_with_wall",
@@ -1372,7 +1375,7 @@
     {
       "name": "R10/balcony_clear_area",
       "passed": true,
-      "evidence": 5.382
+      "evidence": 7.191
     },
     {
       "name": "R10/separate_canopy_disabled",
@@ -1431,8 +1434,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "bbdf26943a93059e166b75c70269d2fe4784a71bc163897170937539bae47b54",
-    "DXF/house_redesign_R10_1f.dxf": "d4a2df0cd2ac18e09e005f0b72001973f1365d9bfc687303431a277fad62d11d",
-    "DXF/house_redesign_R10_2f.dxf": "e0de4c20864e8b5621884927e6d575364708bf831209ce6751f25a560c1ae934"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "f2feb92d72ab4bdb86b60873d74f43a65b62073f43c06c35d447afdbd663cba2",
+    "DXF/house_redesign_R10_1f.dxf": "6e9a8e63c00682ca199ba179c2feb8a93242495c15edb6e75e22eb09daadce3a",
+    "DXF/house_redesign_R10_2f.dxf": "a6cbfcb37d4448e1d2668147b427b3af4617afc6db8bc8009d6d7808a5fbd161"
   }
 }

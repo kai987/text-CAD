@@ -57,7 +57,7 @@ def restore_named_hierarchy(step_path,glb_path,system):
     scene=read_scene(step_path)
     doc['scenes']=[{'name':f'structure_{system}','nodes':[insert(root) for root in scene.roots]}]
     doc['scene']=0
-    doc['asset']['extras']={'units':'metres','upAxis':'Y','revision':'R10-STRUCTURE-VARIANTS',
+    doc['asset']['extras']={'units':'metres','upAxis':'Y','revision':'R13-STRUCTURE-VARIANTS',
                           'scope':'Demonstration geometry; capacity and statutory compliance uncalculated'}
     for material in doc.get('materials',[]):
         pbr=material.setdefault('pbrMetallicRoughness',{})
@@ -92,10 +92,10 @@ def main():
     # this generator's own options before invoking it.
     sys.argv=[sys.argv[0],"--force"]
     path=ROOT/'output/review/structural_variants_R07.json'
-    manifest=json.loads(path.read_text()) if path.exists() else {'schema_version':1,'revision':'R10-STRUCTURE-VARIANTS',
+    manifest=json.loads(path.read_text()) if path.exists() else {'schema_version':1,'revision':'R13-STRUCTURE-VARIANTS',
         'status':'demonstration_candidates_not_engineered','original_architectural_parameters':asdict(P),
         'source_same_city_geometry':True,'city_specific_member_sizing':False,'variants':{}}
-    manifest['revision']='R10-STRUCTURE-VARIANTS'
+    manifest['revision']='R13-STRUCTURE-VARIANTS'
     manifest['original_architectural_parameters']=asdict(P)
     for system in args.systems:manifest['variants'][system]=export(system)
     path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

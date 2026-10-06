@@ -384,7 +384,7 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
                 p.external_wall if {'outside','balcony'} & {door.a,door.b} else p.internal_wall,z+.1,z+g.door_height-.1)
             opening_queries.append((n,f"F{n}:{door.id}",'door',tool))
         for index,window in enumerate(floor.windows,1):
-            sill,height=window_vertical_range(window,g)
+            sill,height=window_vertical_range(window,g,p)
             tool=opening_box(*window,p.external_wall,z+sill+.1,z+sill+height-.1)
             opening_queries.append((n,f"F{n}:W{index:02d}",'window',tool))
     stair=next(r.shape for r in floors[2].rooms if r.id=='stairs')

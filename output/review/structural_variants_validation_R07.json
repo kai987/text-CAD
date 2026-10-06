@@ -1828,6 +1828,12 @@
       "pass": true,
       "actual": [
         {
+          "member": "structure:F2:column_C01",
+          "floor": 2,
+          "room_id": "balcony",
+          "footprint_mm2": 9600.0
+        },
+        {
           "member": "structure:F2:column_C02",
           "floor": 2,
           "room_id": "balcony",

@@ -15,7 +15,7 @@
     "step": "STEP/structure_W.step"
   },
   "model_hashes_sha256": {
-    "glb": "14e842ed160e69b8b063fa0b9ca8b3346a04c62a74bebd68ef35ff28e0faef5d",
+    "glb": "28c35c44e93004acc34dec23da521175ce0f200dc494fc0031fa773258601968",
     "step": "149a094ba94e6acca210c8d3b162866ffb7e9507632e302e50aea07d1a39a00c"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -3892,7 +3892,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R06-3D; user-confirmed R02 floor drawings are unchanged",
+  "architectural_geometry_baseline": "R13-3D; approved indoor room boundaries retained; south glazing and balcony revised",
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

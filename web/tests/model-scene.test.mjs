@@ -81,7 +81,7 @@ test('site meshes select their real categories and support independent yard and 
   const gltf = await loadHouse();
   const nodes = bindCadNodes(gltf);
   const foundation = nodes.get('foundation:raft:slab');
-  const lawn = nodes.get('yard:planting:lawn_front');
+  const lawn = nodes.get('yard:planting:lawn_north');
   const fence = nodes.get('fence:panels:north_01');
   assert.ok(foundation?.isMesh && lawn?.isMesh && fence?.isMesh);
   assert.equal(selectionFor(foundation).id, 'foundation:raft');

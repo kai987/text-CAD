@@ -78,7 +78,7 @@ test('deep site footings do not move architectural levels or cut planes in the s
   const { gltf, nodes } = await loadHouse();
   const savedMeshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const siteMeshes = savedMeshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
-  assert.ok(siteMeshes.length > 113, 'R06 adds internal foundation support ribs');
+  assert.ok(siteMeshes.length > 90, 'R06 adds internal foundation support ribs');
   assert.ok(savedMeshes.some(node => node.name.startsWith('foundation:internal_supports:')), 'named internal supports exist');
   assert.ok(nodes.get('structure')?.children.length, 'structural proposal is distinct from the site');
   near(new Box3().setFromObject(gltf.scene).min.y, -.95);
@@ -115,8 +115,8 @@ test('fence footing cavities stay open around real embedded posts in both sectio
   const { nodes } = await loadHouse();
   const footings = meshesIn(nodes.get('fence:footings'));
   const posts = meshesIn(nodes.get('fence:posts'));
-  assert.equal(footings.length, 31);
-  assert.equal(posts.length, 31);
+  assert.equal(footings.length, 26);
+  assert.equal(posts.length, 26);
   // Sample a corner, middle and final footing using their true exported bounds.
   for (const index of [0, Math.floor(footings.length / 2), footings.length - 1]) {
     const footing = footings[index], box = new Box3().setFromObject(footing), center = box.getCenter(new Vector3());
@@ -148,7 +148,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
   const footingCenter = firstFooting.getCenter(new Vector3());
   for (const [backend, create] of backends) {
     const soil = groupCaps(nodes.get('yard:soil'), create, -.6);
-    near(soil.area, 114.2975, 2e-4);
+    near(soil.area, 74.9975, 2e-4);
     for (const [x, y, name] of [[3640, 3640, 'house raft'], [6760, -950, 'entrance footing']]) {
       assert.equal(covers(soil.triangles, point(x, y, -.6)), false,
         `${backend}: soil must not fill the ${name} exclusion`);
@@ -158,7 +158,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
     assert.equal(covers(soil.triangles, point(6760, -4000, -.6)), true,
       `${backend}: the actual footpath has supporting soil beneath its paving`);
     const finishParts = ['yard:ground_surfaces:gravel', 'yard:entrance_path:paving', 'yard:parking:paving',
-      ...['front', 'north', 'east', 'west'].map(name => `yard:planting:lawn_${name}`)];
+      ...['north', 'east', 'west'].map(name => `yard:planting:lawn_${name}`)];
     let finishArea = 0;
     const finishTriangles = [];
     for (const name of finishParts) {
@@ -170,7 +170,7 @@ test('soil and separate finishes preserve real foundation and post exclusions in
         finishTriangles.push(...inspected.triangles);
       } finally { cap.dispose(); }
     }
-    near(finishArea, 117.01, 2e-4);
+    near(finishArea, 77.2725, 2e-4);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x, -.525, footingCenter.z)), false,
       `${backend}: the smaller 50 mm finish hole still leaves its post open`);
     assert.equal(covers(finishTriangles, new Vector3(footingCenter.x + .09, -.525, footingCenter.z)), true,

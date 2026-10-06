@@ -2,22 +2,22 @@
   "revision": "R10-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 3275,
-    "passed": 3275,
+    "checks": 3229,
+    "passed": 3229,
     "failed": 0,
-    "STEP_leaf_occurrences": 903,
-    "native_solids": 920,
-    "GLB_mesh_nodes": 903,
-    "GLB_all_nodes": 1010
+    "STEP_leaf_occurrences": 887,
+    "native_solids": 905,
+    "GLB_mesh_nodes": 887,
+    "GLB_all_nodes": 994
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 20626863,
-      "sha256": "4a4a08138b3a287bb13099b047f77184c64cc6f505687d0538241760e1e6b279"
+      "bytes": 19622536,
+      "sha256": "72858c6777991518c6b847b0cdc0f7552e63edb6c943d8b5e38d06c83dda6194"
     },
     "house_3d.glb": {
-      "bytes": 8311924,
-      "sha256": "debefe79f3cc65278ebefd05f9b0e5c1ceb3344f3d587a0131104fee4971948f"
+      "bytes": 8024696,
+      "sha256": "0fa892bca91ca8b44bd6625ea829d9ee2c03166715f35c6a88678ab53a915fb1"
     }
   },
   "thresholds": {
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 20626863,
+      "actual": 19622536,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 8311924,
+      "actual": 8024696,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 903,
+      "actual": 887,
       "expected": null
     },
     {
@@ -9543,7 +9543,7 @@
     {
       "check": "yard:soil:base:solid_1_positive_volume",
       "pass": true,
-      "actual": 11429750000.0,
+      "actual": 7499750000.0,
       "expected": null
     },
     {
@@ -9561,7 +9561,7 @@
     {
       "check": "yard:ground_surfaces:gravel:solid_1_positive_volume",
       "pass": true,
-      "actual": 3547565000.0,
+      "actual": 1728750000.0,
       "expected": null
     },
     {
@@ -9615,7 +9615,7 @@
     {
       "check": "yard:parking:paving:solid_1_positive_volume",
       "pass": true,
-      "actual": 742000000.0,
+      "actual": 1473875000.0,
       "expected": null
     },
     {
@@ -9669,61 +9669,109 @@
     {
       "check": "yard:parking:line_back:solid_1_positive_volume",
       "pass": true,
-      "actual": 270000.0,
+      "actual": 550000.0,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_left:contains_solid",
+      "check": "yard:parking:line_divider_1:contains_solid",
       "pass": true,
-      "actual": 1,
+      "actual": 2,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_left:solid_1_valid",
+      "check": "yard:parking:line_divider_1:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_left:solid_1_positive_volume",
+      "check": "yard:parking:line_divider_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 352500.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_divider_1:solid_2_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:line_divider_1:solid_2_positive_volume",
+      "pass": true,
+      "actual": 97500.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_1_wheel_stop_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_1_wheel_stop_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_1_wheel_stop_left:solid_1_positive_volume",
       "pass": true,
       "actual": 5000000.0,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_right:contains_solid",
+      "check": "yard:parking:bay_1_wheel_stop_right:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_right:solid_1_valid",
+      "check": "yard:parking:bay_1_wheel_stop_right:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_right:solid_1_positive_volume",
+      "check": "yard:parking:bay_1_wheel_stop_right:solid_1_positive_volume",
       "pass": true,
       "actual": 5000000.0,
       "expected": null
     },
     {
-      "check": "yard:planting:lawn_front:contains_solid",
+      "check": "yard:parking:bay_2_wheel_stop_left:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "yard:planting:lawn_front:solid_1_valid",
+      "check": "yard:parking:bay_2_wheel_stop_left:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "yard:planting:lawn_front:solid_1_positive_volume",
+      "check": "yard:parking:bay_2_wheel_stop_left:solid_1_positive_volume",
       "pass": true,
-      "actual": 368000000.0,
+      "actual": 5000000.0,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5000000.0,
       "expected": null
     },
     {
@@ -9741,7 +9789,7 @@
     {
       "check": "yard:planting:lawn_north:solid_1_positive_volume",
       "pass": true,
-      "actual": 380585000.0,
+      "actual": 147800000.0,
       "expected": null
     },
     {
@@ -9759,7 +9807,7 @@
     {
       "check": "yard:planting:lawn_east:solid_1_positive_volume",
       "pass": true,
-      "actual": 295850000.0,
+      "actual": 125600000.0,
       "expected": null
     },
     {
@@ -9777,61 +9825,7 @@
     {
       "check": "yard:planting:lawn_west:solid_1_positive_volume",
       "pass": true,
-      "actual": 246500000.0,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_01:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_01:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_01:solid_1_positive_volume",
-      "pass": true,
-      "actual": 268082573.106,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 378300115.37,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_03:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_03:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_03:solid_1_positive_volume",
-      "pass": true,
-      "actual": 508938009.882,
+      "actual": 117600000.0,
       "expected": null
     },
     {
@@ -9956,24 +9950,6 @@
     },
     {
       "check": "fence:posts:north_07:solid_1_positive_volume",
-      "pass": true,
-      "actual": 3625000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:north_08:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:north_08:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:north_08:solid_1_positive_volume",
       "pass": true,
       "actual": 3625000.0,
       "expected": null
@@ -10267,24 +10243,6 @@
       "expected": null
     },
     {
-      "check": "fence:posts:south_west_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_west_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_west_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 3625000.0,
-      "expected": null
-    },
-    {
       "check": "fence:posts:south_middle_01:contains_solid",
       "pass": true,
       "actual": 1,
@@ -10321,42 +10279,6 @@
       "expected": null
     },
     {
-      "check": "fence:posts:south_middle_03:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_03:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_03:solid_1_positive_volume",
-      "pass": true,
-      "actual": 3625000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_04:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_04:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_04:solid_1_positive_volume",
-      "pass": true,
-      "actual": 3625000.0,
-      "expected": null
-    },
-    {
       "check": "fence:posts:south_east_01:contains_solid",
       "pass": true,
       "actual": 1,
@@ -10370,24 +10292,6 @@
     },
     {
       "check": "fence:posts:south_east_01:solid_1_positive_volume",
-      "pass": true,
-      "actual": 3625000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_east_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_east_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_east_02:solid_1_positive_volume",
       "pass": true,
       "actual": 3625000.0,
       "expected": null
@@ -10407,7 +10311,7 @@
     {
       "check": "fence:panels:north_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10425,7 +10329,7 @@
     {
       "check": "fence:panels:north_02:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10443,7 +10347,7 @@
     {
       "check": "fence:panels:north_03:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10461,7 +10365,7 @@
     {
       "check": "fence:panels:north_04:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10479,7 +10383,7 @@
     {
       "check": "fence:panels:north_05:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10497,25 +10401,7 @@
     {
       "check": "fence:panels:north_06:solid_1_positive_volume",
       "pass": true,
-      "actual": 23789714.286,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:north_07:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:north_07:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:north_07:solid_1_positive_volume",
-      "pass": true,
-      "actual": 23789714.286,
+      "actual": 23032000.0,
       "expected": null
     },
     {
@@ -10533,7 +10419,7 @@
     {
       "check": "fence:panels:west_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10551,7 +10437,7 @@
     {
       "check": "fence:panels:west_02:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10569,7 +10455,7 @@
     {
       "check": "fence:panels:west_03:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10587,7 +10473,7 @@
     {
       "check": "fence:panels:west_04:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10605,7 +10491,7 @@
     {
       "check": "fence:panels:west_05:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10623,7 +10509,7 @@
     {
       "check": "fence:panels:west_06:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10641,7 +10527,7 @@
     {
       "check": "fence:panels:west_07:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10659,7 +10545,7 @@
     {
       "check": "fence:panels:west_08:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10677,7 +10563,7 @@
     {
       "check": "fence:panels:east_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10695,7 +10581,7 @@
     {
       "check": "fence:panels:east_02:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10713,7 +10599,7 @@
     {
       "check": "fence:panels:east_03:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10731,7 +10617,7 @@
     {
       "check": "fence:panels:east_04:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10749,7 +10635,7 @@
     {
       "check": "fence:panels:east_05:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10767,7 +10653,7 @@
     {
       "check": "fence:panels:east_06:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10785,7 +10671,7 @@
     {
       "check": "fence:panels:east_07:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10803,25 +10689,7 @@
     {
       "check": "fence:panels:east_08:solid_1_positive_volume",
       "pass": true,
-      "actual": 25420000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_west_01:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_west_01:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_west_01:solid_1_positive_volume",
-      "pass": true,
-      "actual": 9256000.0,
+      "actual": 23620000.0,
       "expected": null
     },
     {
@@ -10839,43 +10707,7 @@
     {
       "check": "fence:panels:south_middle_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 18304000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 18304000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_03:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_03:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_03:solid_1_positive_volume",
-      "pass": true,
-      "actual": 18304000.0,
+      "actual": 12640000.0,
       "expected": null
     },
     {
@@ -10893,25 +10725,7 @@
     {
       "check": "fence:panels:south_east_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 16132000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_east_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_east_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_east_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 16132000.0,
+      "actual": 18328000.0,
       "expected": null
     },
     {
@@ -11036,24 +10850,6 @@
     },
     {
       "check": "fence:footings:north_07:solid_1_positive_volume",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:north_08:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:north_08:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:north_08:solid_1_positive_volume",
       "pass": true,
       "actual": 35500000.0,
       "expected": null
@@ -11347,24 +11143,6 @@
       "expected": null
     },
     {
-      "check": "fence:footings:south_west_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_west_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_west_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": null
-    },
-    {
       "check": "fence:footings:south_middle_01:contains_solid",
       "pass": true,
       "actual": 1,
@@ -11401,42 +11179,6 @@
       "expected": null
     },
     {
-      "check": "fence:footings:south_middle_03:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_03:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_03:solid_1_positive_volume",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_04:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_04:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_04:solid_1_positive_volume",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": null
-    },
-    {
       "check": "fence:footings:south_east_01:contains_solid",
       "pass": true,
       "actual": 1,
@@ -11450,24 +11192,6 @@
     },
     {
       "check": "fence:footings:south_east_01:solid_1_positive_volume",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_east_02:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_east_02:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_east_02:solid_1_positive_volume",
       "pass": true,
       "actual": 35500000.0,
       "expected": null
@@ -16239,7 +15963,7 @@
     {
       "check": "lighting:garden:garden_01:body:solid_1_positive_volume",
       "pass": true,
-      "actual": 290322.196,
+      "actual": 283887.564,
       "expected": null
     },
     {
@@ -16293,7 +16017,7 @@
     {
       "check": "lighting:garden:garden_02:body:solid_1_positive_volume",
       "pass": true,
-      "actual": 290265.184,
+      "actual": 284262.202,
       "expected": null
     },
     {
@@ -19622,8 +19346,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 903,
-      "expected": 903
+      "actual": 887,
+      "expected": 887
     },
     {
       "check": "GLB:named_groups_retained",
@@ -19659,17 +19383,17 @@
       "check": "GLB:numeric_mesh_audit",
       "pass": true,
       "actual": {
-        "vertex_count": 215731,
-        "triangle_count": 339172,
-        "degenerate_count": 24
+        "vertex_count": 207774,
+        "triangle_count": 326032,
+        "degenerate_count": 1
       },
       "expected": null
     },
     {
       "check": "GLB:metre_Y_up_bound_0",
       "pass": true,
-      "actual": -2.0,
-      "expected": -2.0
+      "actual": -1.0,
+      "expected": -1.0
     },
     {
       "check": "GLB:metre_Y_up_bound_1",
@@ -19680,14 +19404,14 @@
     {
       "check": "GLB:metre_Y_up_bound_2",
       "pass": true,
-      "actual": -9.28,
-      "expected": -9.28
+      "actual": -8.28,
+      "expected": -8.28
     },
     {
       "check": "GLB:metre_Y_up_bound_3",
       "pass": true,
-      "actual": 10.19,
-      "expected": 10.19
+      "actual": 9.19,
+      "expected": 9.19
     },
     {
       "check": "GLB:metre_Y_up_bound_4",

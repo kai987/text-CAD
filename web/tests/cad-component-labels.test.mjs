@@ -180,7 +180,7 @@ test('foundation, yard and fence labels distinguish directions and physical deta
     ['south', 'north', 'west', 'east'].map(side => `foundation:stem_walls:${side}`),
     ['foundation:entrance_supports:porch', 'foundation:entrance_supports:upper_step'],
     ['yard:entrance_path:paving', 'yard:entrance_path:lower_step'],
-    ['paving', 'line_left', 'line_right', 'line_back', 'wheel_stop_left', 'wheel_stop_right'].map(part => `yard:parking:${part}`),
+    ['paving', 'line_left', 'line_right', 'line_back', 'line_divider_1', 'bay_1_wheel_stop_left', 'bay_1_wheel_stop_right', 'bay_2_wheel_stop_left', 'bay_2_wheel_stop_right'].map(part => `yard:parking:${part}`),
     ['lawn_front', 'lawn_north', 'lawn_east', 'lawn_west', 'shrub_01', 'shrub_02', 'shrub_03'].map(part => `yard:planting:${part}`),
     ...['posts', 'panels', 'footings'].map(kind => ['north_01', 'west_01', 'east_01', 'south_west_01', 'south_middle_01', 'south_east_01', 'north_02']
       .map(part => `fence:${kind}:${part}`)),

@@ -2,11 +2,11 @@
   "revision": "R10-3D",
   "units": "native STEP mm; GLB m/Y-up",
   "summary": {
-    "checks": 827,
-    "passed": 827,
+    "checks": 733,
+    "passed": 733,
     "failed": 0,
-    "saved_native_leaves": 903,
-    "new_site_leaves": 123
+    "saved_native_leaves": 887,
+    "new_site_leaves": 107
   },
   "baseline": null,
   "scope": "Concept geometry, labelled hierarchy, circulation and unchanged prior geometry only",
@@ -24,7 +24,7 @@
       "expected": null
     },
     {
-      "check": "revision:foundation_and_site_R06",
+      "check": "revision:house_R10_with_site_R11",
       "pass": true,
       "actual": "R10-3D",
       "expected": "R10-3D"
@@ -42,10 +42,10 @@
       "expected": null
     },
     {
-      "check": "site:R10_site_leaf_contract",
+      "check": "site:R11_site_leaf_contract",
       "pass": true,
-      "actual": 116,
-      "expected": 116
+      "actual": 100,
+      "expected": 100
     },
     {
       "check": "foundation:internal_supports_added",
@@ -143,10 +143,10 @@
         -650.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -167,10 +167,10 @@
         -650.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -191,10 +191,10 @@
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -215,10 +215,10 @@
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -239,10 +239,10 @@
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -263,10 +263,10 @@
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -287,10 +287,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -311,10 +311,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -335,10 +335,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -359,10 +359,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -383,10 +383,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -407,10 +407,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -431,10 +431,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -455,10 +455,10 @@
         -200.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -479,10 +479,10 @@
         -300.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -495,18 +495,18 @@
       "check": "yard:soil:base:inside_demo_lot",
       "pass": true,
       "actual": [
-        -2000.0,
+        -1000.0,
         -5500.0,
         -650.0,
-        10190.0,
-        9280.0,
+        9190.0,
+        8280.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -519,18 +519,18 @@
       "check": "yard:ground_surfaces:gravel:inside_demo_lot",
       "pass": true,
       "actual": [
-        -2000.0,
+        -1000.0,
         -5500.0,
         -550.0,
-        10190.0,
-        9280.0,
+        9190.0,
+        8280.0,
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -551,10 +551,10 @@
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -575,10 +575,10 @@
         -330.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -591,18 +591,18 @@
       "check": "yard:parking:paving:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1000.0,
+        -750.0,
         -5500.0,
         -550.0,
-        1800.0,
+        4850.0,
         -200.0,
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -615,18 +615,18 @@
       "check": "yard:parking:line_left:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1000.0,
+        -750.0,
         -5200.0,
         -500.0,
-        -950.0,
+        -700.0,
         -200.0,
         -498.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -639,18 +639,18 @@
       "check": "yard:parking:line_right:inside_demo_lot",
       "pass": true,
       "actual": [
-        1750.0,
+        4800.0,
         -5200.0,
         -500.0,
-        1800.0,
+        4850.0,
         -200.0,
         -498.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -663,18 +663,18 @@
       "check": "yard:parking:line_back:inside_demo_lot",
       "pass": true,
       "actual": [
-        -950.0,
+        -700.0,
         -250.0,
         -500.0,
-        1750.0,
+        4800.0,
         -200.0,
         -498.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -684,73 +684,121 @@
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_left:inside_demo_lot",
+      "check": "yard:parking:line_divider_1:inside_demo_lot",
       "pass": true,
       "actual": [
-        -850.0,
-        -550.0,
+        2025.0,
+        -5200.0,
         -500.0,
-        -350.0,
-        -450.0,
-        -400.0
+        2075.0,
+        -250.0,
+        -498.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "yard:parking:wheel_stop_left:valid_positive_saved_solids",
+      "check": "yard:parking:line_divider_1:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "yard:parking:wheel_stop_right:inside_demo_lot",
+      "check": "yard:parking:bay_1_wheel_stop_left:inside_demo_lot",
       "pass": true,
       "actual": [
-        1150.0,
+        -450.0,
         -550.0,
         -500.0,
-        1650.0,
+        50.0,
         -450.0,
         -400.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "yard:parking:wheel_stop_right:valid_positive_saved_solids",
+      "check": "yard:parking:bay_1_wheel_stop_left:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "yard:planting:lawn_front:inside_demo_lot",
+      "check": "yard:parking:bay_1_wheel_stop_right:inside_demo_lot",
       "pass": true,
       "actual": [
-        2300.0,
-        -4700.0,
+        1250.0,
         -550.0,
-        4600.0,
-        -1500.0,
-        -500.0
+        -500.0,
+        1750.0,
+        -450.0,
+        -400.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "yard:planting:lawn_front:valid_positive_saved_solids",
+      "check": "yard:parking:bay_1_wheel_stop_right:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_left:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        2350.0,
+        -550.0,
+        -500.0,
+        2850.0,
+        -450.0,
+        -400.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_left:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_right:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        4050.0,
+        -550.0,
+        -500.0,
+        4550.0,
+        -450.0,
+        -400.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "yard:parking:bay_2_wheel_stop_right:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -760,17 +808,17 @@
       "pass": true,
       "actual": [
         400.0,
-        7750.0,
+        7530.0,
         -550.0,
         7790.0,
-        8780.0,
+        7930.0,
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -783,18 +831,18 @@
       "check": "yard:planting:lawn_east:inside_demo_lot",
       "pass": true,
       "actual": [
-        8690.0,
+        8440.0,
         500.0,
         -550.0,
-        9660.0,
-        6600.0,
+        8840.0,
+        6780.0,
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -807,18 +855,18 @@
       "check": "yard:planting:lawn_west:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1450.0,
+        -650.0,
         700.0,
         -550.0,
-        -600.0,
-        6500.0,
+        -250.0,
+        6580.0,
         -500.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -828,93 +876,21 @@
       "expected": null
     },
     {
-      "check": "yard:planting:shrub_01:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        2450.0,
-        -4200.0,
-        -500.0,
-        3250.0,
-        -3400.0,
-        300.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "yard:planting:shrub_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        3500.0,
-        -4100.0,
-        -500.0,
-        4400.0,
-        -3200.0,
-        350.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "yard:planting:shrub_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "yard:planting:shrub_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        2950.0,
-        -2750.0,
-        -500.00000000000006,
-        3950.0,
-        -1750.0,
-        400.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "yard:planting:shrub_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:posts:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        9055.0,
+        -825.0,
+        8055.0,
         -750.0,
-        -1775.0,
-        9105.0,
+        -775.0,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -927,18 +903,18 @@
       "check": "fence:posts:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -140.7142857142,
-        9055.0,
+        806.66666666666,
+        8055.0,
         -750.0,
-        -90.7142857142,
-        9105.0,
+        856.66666666666,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -951,18 +927,18 @@
       "check": "fence:posts:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        1543.571428571,
-        9055.0,
+        2438.333333333,
+        8055.0,
         -750.0,
-        1593.571428571,
-        9105.0,
+        2488.333333333,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -975,18 +951,18 @@
       "check": "fence:posts:north_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        3227.857142857,
-        9055.0,
+        4070.0,
+        8055.0,
         -750.0,
-        3277.857142857,
-        9105.0,
+        4120.0,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -999,18 +975,18 @@
       "check": "fence:posts:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        4912.142857143,
-        9055.0,
+        5701.666666667,
+        8055.0,
         -750.0,
-        4962.142857143,
-        9105.0,
+        5751.666666667,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1023,18 +999,18 @@
       "check": "fence:posts:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        6596.428571429,
-        9055.0,
+        7333.333333333,
+        8055.0,
         -750.0,
-        6646.428571429,
-        9105.0,
+        7383.333333333,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1047,18 +1023,18 @@
       "check": "fence:posts:north_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        8280.714285714,
-        9055.0,
+        8965.0,
+        8055.0,
         -750.0,
-        8330.714285714,
-        9105.0,
+        9015.0,
+        8105.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1068,45 +1044,21 @@
       "expected": null
     },
     {
-      "check": "fence:posts:north_08:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        9965.0,
-        9055.0,
-        -750.0,
-        10015.0,
-        9105.0,
-        700.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:posts:north_08:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:posts:west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
+        -825.0,
         -5325.0,
         -750.0,
-        -1775.0,
+        -775.0,
         -5275.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1119,18 +1071,18 @@
       "check": "fence:posts:west_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        -3527.5,
+        -825.0,
+        -3652.5,
         -750.0,
-        -1775.0,
-        -3477.5,
+        -775.0,
+        -3602.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1143,18 +1095,18 @@
       "check": "fence:posts:west_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        -1730.0,
+        -825.0,
+        -1980.0,
         -750.0,
-        -1775.0,
-        -1680.0,
+        -775.0,
+        -1930.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1167,18 +1119,18 @@
       "check": "fence:posts:west_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        67.5,
+        -825.0,
+        -307.5,
         -750.0,
-        -1775.0,
-        117.5,
+        -775.0,
+        -257.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1191,18 +1143,18 @@
       "check": "fence:posts:west_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        1865.0,
+        -825.0,
+        1365.0,
         -750.0,
-        -1775.0,
-        1915.0,
+        -775.0,
+        1415.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1215,18 +1167,18 @@
       "check": "fence:posts:west_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        3662.5,
+        -825.0,
+        3037.5,
         -750.0,
-        -1775.0,
-        3712.5,
+        -775.0,
+        3087.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1239,18 +1191,18 @@
       "check": "fence:posts:west_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        5460.0,
+        -825.0,
+        4710.0,
         -750.0,
-        -1775.0,
-        5510.0,
+        -775.0,
+        4760.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1263,18 +1215,18 @@
       "check": "fence:posts:west_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1825.0,
-        7257.5,
+        -825.0,
+        6382.5,
         -750.0,
-        -1775.0,
-        7307.5,
+        -775.0,
+        6432.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1287,18 +1239,18 @@
       "check": "fence:posts:east_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
+        8965.0,
         -5325.0,
         -750.0,
-        10015.0,
+        9015.0,
         -5275.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1311,18 +1263,18 @@
       "check": "fence:posts:east_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        -3527.5,
+        8965.0,
+        -3652.5,
         -750.0,
-        10015.0,
-        -3477.5,
+        9015.0,
+        -3602.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1335,18 +1287,18 @@
       "check": "fence:posts:east_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        -1730.0,
+        8965.0,
+        -1980.0,
         -750.0,
-        10015.0,
-        -1680.0,
+        9015.0,
+        -1930.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1359,18 +1311,18 @@
       "check": "fence:posts:east_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        67.5,
+        8965.0,
+        -307.5,
         -750.0,
-        10015.0,
-        117.5,
+        9015.0,
+        -257.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1383,18 +1335,18 @@
       "check": "fence:posts:east_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        1865.0,
+        8965.0,
+        1365.0,
         -750.0,
-        10015.0,
-        1915.0,
+        9015.0,
+        1415.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1407,18 +1359,18 @@
       "check": "fence:posts:east_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        3662.5,
+        8965.0,
+        3037.5,
         -750.0,
-        10015.0,
-        3712.5,
+        9015.0,
+        3087.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1431,18 +1383,18 @@
       "check": "fence:posts:east_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        5460.0,
+        8965.0,
+        4710.0,
         -750.0,
-        10015.0,
-        5510.0,
+        9015.0,
+        4760.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1455,18 +1407,18 @@
       "check": "fence:posts:east_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        9965.0,
-        7257.5,
+        8965.0,
+        6382.5,
         -750.0,
-        10015.0,
-        7307.5,
+        9015.0,
+        6432.5,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1476,45 +1428,21 @@
       "expected": null
     },
     {
-      "check": "fence:posts:south_west_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -1150.0,
-        -5325.0,
-        -750.0,
-        -1100.0,
-        -5275.0,
-        700.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:posts:south_west_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:posts:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        1900.0,
+        4900.0,
         -5325.0,
         -750.0,
-        1950.0,
+        4950.0,
         -5275.0,
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1527,54 +1455,6 @@
       "check": "fence:posts:south_middle_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        3203.333333333,
-        -5325.0,
-        -750.0,
-        3253.333333333,
-        -5275.0,
-        700.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:posts:south_middle_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        4506.666666667,
-        -5325.0,
-        -750.0,
-        4556.666666667,
-        -5275.0,
-        700.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:posts:south_middle_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:south_middle_04:inside_demo_lot",
-      "pass": true,
-      "actual": [
         5810.0,
         -5325.0,
         -750.0,
@@ -1583,14 +1463,14 @@
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "fence:posts:south_middle_04:valid_positive_saved_solids",
+      "check": "fence:posts:south_middle_02:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1607,10 +1487,10 @@
         700.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1620,45 +1500,21 @@
       "expected": null
     },
     {
-      "check": "fence:posts:south_east_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        8812.5,
-        -5325.0,
-        -750.0,
-        8862.5,
-        -5275.0,
-        700.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:posts:south_east_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:panels:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1775.0,
-        9070.0,
+        -775.0000000000001,
+        8070.0,
         -420.0,
-        -140.7142857142,
-        9090.0,
+        806.6666666666601,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1671,18 +1527,18 @@
       "check": "fence:panels:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -90.7142857142801,
-        9070.0,
+        856.66666666666,
+        8070.0,
         -420.0,
-        1543.571428571,
-        9090.0,
+        2438.333333333,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1695,18 +1551,18 @@
       "check": "fence:panels:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        1593.571428571,
-        9070.0,
+        2488.333333333,
+        8070.0,
         -420.0,
-        3227.857142857,
-        9090.0,
+        4070.0,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1719,18 +1575,18 @@
       "check": "fence:panels:north_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        3277.857142857,
-        9070.0,
+        4120.0,
+        8070.0,
         -420.0,
-        4912.142857143,
-        9090.0,
+        5701.666666667,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1743,18 +1599,18 @@
       "check": "fence:panels:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        4962.142857143,
-        9070.0,
+        5751.666666667,
+        8070.0,
         -420.0,
-        6596.428571429,
-        9090.0,
+        7333.333333333,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1767,18 +1623,18 @@
       "check": "fence:panels:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        6646.428571429,
-        9070.0,
+        7383.333333333,
+        8070.0,
         -420.0,
-        8280.714285714,
-        9090.0,
+        8965.0,
+        8090.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1788,45 +1644,21 @@
       "expected": null
     },
     {
-      "check": "fence:panels:north_07:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        8330.714285714,
-        9070.0,
-        -420.0,
-        9965.0,
-        9090.0,
-        620.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:panels:north_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:panels:west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
+        -810.0,
         -5275.0,
         -420.0,
-        -1790.0,
-        -3527.5,
+        -790.0,
+        -3652.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1839,18 +1671,18 @@
       "check": "fence:panels:west_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        -3477.5,
+        -810.0,
+        -3602.5,
         -420.0,
-        -1790.0,
-        -1730.0,
+        -790.0,
+        -1980.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1863,18 +1695,18 @@
       "check": "fence:panels:west_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        -1680.0,
+        -810.0,
+        -1930.0,
         -420.0,
-        -1790.0,
-        67.5,
+        -790.0,
+        -307.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1887,18 +1719,18 @@
       "check": "fence:panels:west_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        117.5,
+        -810.0,
+        -257.5,
         -420.0,
-        -1790.0,
-        1865.0,
+        -790.0,
+        1365.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1911,18 +1743,18 @@
       "check": "fence:panels:west_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        1915.0,
+        -810.0,
+        1415.0,
         -420.0,
-        -1790.0,
-        3662.5,
+        -790.0,
+        3037.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1935,18 +1767,18 @@
       "check": "fence:panels:west_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        3712.5,
+        -810.0,
+        3087.5,
         -420.0,
-        -1790.0,
-        5460.0,
+        -790.0,
+        4710.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1959,18 +1791,18 @@
       "check": "fence:panels:west_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        5510.0,
+        -810.0,
+        4760.0,
         -420.0,
-        -1790.0,
-        7257.5,
+        -790.0,
+        6382.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -1983,18 +1815,18 @@
       "check": "fence:panels:west_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1810.0,
-        7307.5,
+        -810.0,
+        6432.5,
         -420.0,
-        -1790.0,
-        9055.0,
+        -790.0,
+        8055.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2007,18 +1839,18 @@
       "check": "fence:panels:east_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
+        8980.0,
         -5275.0,
         -420.0,
-        10000.0,
-        -3527.5,
+        9000.0,
+        -3652.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2031,18 +1863,18 @@
       "check": "fence:panels:east_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        -3477.5,
+        8980.0,
+        -3602.5,
         -420.0,
-        10000.0,
-        -1730.0,
+        9000.0,
+        -1980.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2055,18 +1887,18 @@
       "check": "fence:panels:east_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        -1680.0,
+        8980.0,
+        -1930.0,
         -420.0,
-        10000.0,
-        67.5,
+        9000.0,
+        -307.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2079,18 +1911,18 @@
       "check": "fence:panels:east_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        117.5,
+        8980.0,
+        -257.5,
         -420.0,
-        10000.0,
-        1865.0,
+        9000.0,
+        1365.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2103,18 +1935,18 @@
       "check": "fence:panels:east_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        1915.0,
+        8980.0,
+        1415.0,
         -420.0,
-        10000.0,
-        3662.5,
+        9000.0,
+        3037.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2127,18 +1959,18 @@
       "check": "fence:panels:east_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        3712.5,
+        8980.0,
+        3087.5,
         -420.0,
-        10000.0,
-        5460.0,
+        9000.0,
+        4710.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2151,18 +1983,18 @@
       "check": "fence:panels:east_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        5510.0,
+        8980.0,
+        4760.0,
         -420.0,
-        10000.0,
-        7257.5,
+        9000.0,
+        6382.5,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2175,18 +2007,18 @@
       "check": "fence:panels:east_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        9980.0,
-        7307.5,
+        8980.0,
+        6432.5,
         -420.0,
-        10000.0,
-        9055.0,
+        9000.0,
+        8055.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2196,82 +2028,10 @@
       "expected": null
     },
     {
-      "check": "fence:panels:south_west_01:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -1775.0,
-        -5310.0,
-        -420.0,
-        -1150.0,
-        -5290.0,
-        620.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:panels:south_west_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:panels:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        1950.0,
-        -5310.0,
-        -420.0,
-        3203.333333333,
-        -5290.0,
-        620.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:panels:south_middle_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        3253.333333333,
-        -5310.0,
-        -420.0,
-        4506.666666667,
-        -5290.0,
-        620.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:panels:south_middle_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:south_middle_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        4556.666666667,
+        4950.0,
         -5310.0,
         -420.0,
         5810.0,
@@ -2279,14 +2039,14 @@
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "fence:panels:south_middle_03:valid_positive_saved_solids",
+      "check": "fence:panels:south_middle_01:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -2298,15 +2058,15 @@
         7710.0,
         -5310.0,
         -420.0,
-        8812.5,
+        8965.0,
         -5290.0,
         620.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2316,45 +2076,21 @@
       "expected": null
     },
     {
-      "check": "fence:panels:south_east_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        8862.5,
-        -5310.0,
-        -420.0,
-        9965.0,
-        -5290.0,
-        620.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:panels:south_east_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:footings:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        8930.0,
         -950.0,
-        -1650.0,
-        9230.0,
+        7930.0,
+        -950.0,
+        -650.0,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2367,18 +2103,18 @@
       "check": "fence:footings:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -265.7142857142,
-        8930.0,
+        681.66666666666,
+        7930.0,
         -950.0,
-        34.285714285714,
-        9230.0,
+        981.66666666666,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2391,18 +2127,18 @@
       "check": "fence:footings:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        1418.571428571,
-        8930.0,
+        2313.333333333,
+        7930.0,
         -950.0,
-        1718.571428571,
-        9230.0,
+        2613.333333333,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2415,18 +2151,18 @@
       "check": "fence:footings:north_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        3102.857142857,
-        8930.0,
+        3945.0,
+        7930.0,
         -950.0,
-        3402.857142857,
-        9230.0,
+        4245.0,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2439,18 +2175,18 @@
       "check": "fence:footings:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        4787.142857143,
-        8930.0,
+        5576.666666667,
+        7930.0,
         -950.0,
-        5087.142857143,
-        9230.0,
+        5876.666666667,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2463,18 +2199,18 @@
       "check": "fence:footings:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        6471.428571429,
-        8930.0,
+        7208.333333333,
+        7930.0,
         -950.0,
-        6771.428571429,
-        9230.0,
+        7508.333333333,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2487,18 +2223,18 @@
       "check": "fence:footings:north_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        8155.714285714,
-        8930.0,
+        8840.0,
+        7930.0,
         -950.0,
-        8455.714285714,
-        9230.0,
+        9140.0,
+        8230.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2508,45 +2244,21 @@
       "expected": null
     },
     {
-      "check": "fence:footings:north_08:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        9840.0,
-        8930.0,
-        -950.0,
-        10140.0,
-        9230.0,
-        -550.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:footings:north_08:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:footings:west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
+        -950.0,
         -5450.0,
         -950.0,
-        -1650.0,
+        -650.0,
         -5150.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2559,18 +2271,18 @@
       "check": "fence:footings:west_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        -3652.5,
         -950.0,
-        -1650.0,
-        -3352.5,
+        -3777.5,
+        -950.0,
+        -650.0,
+        -3477.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2583,18 +2295,18 @@
       "check": "fence:footings:west_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        -1855.0,
         -950.0,
-        -1650.0,
-        -1555.0,
+        -2105.0,
+        -950.0,
+        -650.0,
+        -1805.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2607,18 +2319,18 @@
       "check": "fence:footings:west_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        -57.5,
         -950.0,
-        -1650.0,
-        242.5,
+        -432.5,
+        -950.0,
+        -650.0,
+        -132.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2631,18 +2343,18 @@
       "check": "fence:footings:west_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        1740.0,
         -950.0,
-        -1650.0,
-        2040.0,
+        1240.0,
+        -950.0,
+        -650.0,
+        1540.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2655,18 +2367,18 @@
       "check": "fence:footings:west_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        3537.5,
         -950.0,
-        -1650.0,
-        3837.5,
+        2912.5,
+        -950.0,
+        -650.0,
+        3212.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2679,18 +2391,18 @@
       "check": "fence:footings:west_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        5335.0,
         -950.0,
-        -1650.0,
-        5635.0,
+        4585.0,
+        -950.0,
+        -650.0,
+        4885.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2703,18 +2415,18 @@
       "check": "fence:footings:west_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        -1950.0,
-        7132.5,
         -950.0,
-        -1650.0,
-        7432.5,
+        6257.5,
+        -950.0,
+        -650.0,
+        6557.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2727,18 +2439,18 @@
       "check": "fence:footings:east_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
+        8840.0,
         -5450.0,
         -950.0,
-        10140.0,
+        9140.0,
         -5150.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2751,18 +2463,18 @@
       "check": "fence:footings:east_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        -3652.5,
+        8840.0,
+        -3777.5,
         -950.0,
-        10140.0,
-        -3352.5,
+        9140.0,
+        -3477.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2775,18 +2487,18 @@
       "check": "fence:footings:east_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        -1855.0,
+        8840.0,
+        -2105.0,
         -950.0,
-        10140.0,
-        -1555.0,
+        9140.0,
+        -1805.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2799,18 +2511,18 @@
       "check": "fence:footings:east_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        -57.5,
+        8840.0,
+        -432.5,
         -950.0,
-        10140.0,
-        242.5,
+        9140.0,
+        -132.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2823,18 +2535,18 @@
       "check": "fence:footings:east_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        1740.0,
+        8840.0,
+        1240.0,
         -950.0,
-        10140.0,
-        2040.0,
+        9140.0,
+        1540.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2847,18 +2559,18 @@
       "check": "fence:footings:east_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        3537.5,
+        8840.0,
+        2912.5,
         -950.0,
-        10140.0,
-        3837.5,
+        9140.0,
+        3212.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2871,18 +2583,18 @@
       "check": "fence:footings:east_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        5335.0,
+        8840.0,
+        4585.0,
         -950.0,
-        10140.0,
-        5635.0,
+        9140.0,
+        4885.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2895,18 +2607,18 @@
       "check": "fence:footings:east_08:inside_demo_lot",
       "pass": true,
       "actual": [
-        9840.0,
-        7132.5,
+        8840.0,
+        6257.5,
         -950.0,
-        10140.0,
-        7432.5,
+        9140.0,
+        6557.5,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2916,45 +2628,21 @@
       "expected": null
     },
     {
-      "check": "fence:footings:south_west_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -1275.0,
-        -5450.0,
-        -950.0,
-        -975.0,
-        -5150.0,
-        -550.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:footings:south_west_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "fence:footings:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        1775.0,
+        4775.0,
         -5450.0,
         -950.0,
-        2075.0,
+        5075.0,
         -5150.0,
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
@@ -2967,54 +2655,6 @@
       "check": "fence:footings:south_middle_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        3078.333333333,
-        -5450.0,
-        -950.0,
-        3378.333333333,
-        -5150.0,
-        -550.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:footings:south_middle_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        4381.666666667,
-        -5450.0,
-        -950.0,
-        4681.666666667,
-        -5150.0,
-        -550.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:footings:south_middle_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_middle_04:inside_demo_lot",
-      "pass": true,
-      "actual": [
         5685.0,
         -5450.0,
         -950.0,
@@ -3023,14 +2663,14 @@
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
-      "check": "fence:footings:south_middle_04:valid_positive_saved_solids",
+      "check": "fence:footings:south_middle_02:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3047,38 +2687,14 @@
         -550.0
       ],
       "expected": [
-        -2000,
+        -1000,
         -5500,
-        10190,
-        9280
+        9190,
+        8280
       ]
     },
     {
       "check": "fence:footings:south_east_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:south_east_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        8687.5,
-        -5450.0,
-        -950.0,
-        8987.5,
-        -5150.0,
-        -550.0
-      ],
-      "expected": [
-        -2000,
-        -5500,
-        10190,
-        9280
-      ]
-    },
-    {
-      "check": "fence:footings:south_east_02:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3485,18 +3101,6 @@
       "expected": 50
     },
     {
-      "check": "yard:planting:lawn_front:actual_grade_top_mm",
-      "pass": true,
-      "actual": -500.0,
-      "expected": -500
-    },
-    {
-      "check": "yard:planting:lawn_front:actual_finish_thickness_mm",
-      "pass": true,
-      "actual": 50.0,
-      "expected": 50
-    },
-    {
       "check": "yard:planting:lawn_north:actual_grade_top_mm",
       "pass": true,
       "actual": -500.0,
@@ -3547,26 +3151,26 @@
     {
       "check": "yard:soil_area_accounts_for_full_footing_exclusions_mm2",
       "pass": true,
-      "actual": 114297500.0,
-      "expected": 114297500
+      "actual": 74997500.0,
+      "expected": 74997500
     },
     {
       "check": "yard:finished_surfaces_tile_site_around_post_exclusions_mm2",
       "pass": true,
-      "actual": 117010000.0,
-      "expected": 117010000
+      "actual": 77272500.0,
+      "expected": 77272500
     },
     {
       "check": "yard:recorded_soil_area_matches_saved_native_mm2",
       "pass": true,
-      "actual": 114297500.0,
-      "expected": 114297500.0
+      "actual": 74997500.0,
+      "expected": 74997500.0
     },
     {
       "check": "yard:recorded_finish_area_matches_saved_native_mm2",
       "pass": true,
-      "actual": 117010000.0,
-      "expected": 117010000.0
+      "actual": 77272500.0,
+      "expected": 77272500.0
     },
     {
       "check": "fence:north_01:post_height_above_grade_mm",
@@ -3601,14 +3205,14 @@
     {
       "check": "fence:north_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:north_01:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_01:post_and_cut_footing_touch_mm",
@@ -3643,20 +3247,20 @@
     {
       "check": "fence:north_02:footing_volume_retains_post_pocket_mm3",
       "pass": true,
-      "actual": 35499999.99999,
+      "actual": 35500000.0,
       "expected": 35500000
     },
     {
       "check": "fence:north_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -115.714286,
-      "expected": -115.714285714243
+      "actual": 831.666667,
+      "expected": 831.66666666666
     },
     {
       "check": "fence:north_02:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_02:post_and_cut_footing_touch_mm",
@@ -3697,14 +3301,14 @@
     {
       "check": "fence:north_03:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 1568.571429,
-      "expected": 1568.571428571
+      "actual": 2463.333333,
+      "expected": 2463.333333333
     },
     {
       "check": "fence:north_03:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_03:post_and_cut_footing_touch_mm",
@@ -3745,14 +3349,14 @@
     {
       "check": "fence:north_04:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 3252.857143,
-      "expected": 3252.857142857
+      "actual": 4095.0,
+      "expected": 4095.0
     },
     {
       "check": "fence:north_04:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_04:post_and_cut_footing_touch_mm",
@@ -3793,14 +3397,14 @@
     {
       "check": "fence:north_05:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 4937.142857,
-      "expected": 4937.142857143
+      "actual": 5726.666667,
+      "expected": 5726.666666667
     },
     {
       "check": "fence:north_05:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_05:post_and_cut_footing_touch_mm",
@@ -3841,14 +3445,14 @@
     {
       "check": "fence:north_06:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 6621.428571,
-      "expected": 6621.428571429
+      "actual": 7358.333333,
+      "expected": 7358.333333333
     },
     {
       "check": "fence:north_06:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_06:post_and_cut_footing_touch_mm",
@@ -3889,65 +3493,17 @@
     {
       "check": "fence:north_07:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 8305.714286,
-      "expected": 8305.714285714
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:north_07:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
+      "actual": 8080.0,
+      "expected": 8080.0
     },
     {
       "check": "fence:north_07:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:north_08:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:north_08:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:north_08:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:north_08:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:north_08:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:north_08:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
-    },
-    {
-      "check": "fence:north_08:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": 9080.0,
-      "expected": 9080.0
-    },
-    {
-      "check": "fence:north_08:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -3985,8 +3541,8 @@
     {
       "check": "fence:west_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_01:post_matches_footing_center_Y_mm",
@@ -4033,14 +3589,14 @@
     {
       "check": "fence:west_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_02:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": -3502.5,
-      "expected": -3502.5
+      "actual": -3627.5,
+      "expected": -3627.5
     },
     {
       "check": "fence:west_02:post_and_cut_footing_touch_mm",
@@ -4081,14 +3637,14 @@
     {
       "check": "fence:west_03:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_03:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": -1705.0,
-      "expected": -1705.0
+      "actual": -1955.0,
+      "expected": -1955.0
     },
     {
       "check": "fence:west_03:post_and_cut_footing_touch_mm",
@@ -4129,14 +3685,14 @@
     {
       "check": "fence:west_04:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_04:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 92.5,
-      "expected": 92.5
+      "actual": -282.5,
+      "expected": -282.5
     },
     {
       "check": "fence:west_04:post_and_cut_footing_touch_mm",
@@ -4177,14 +3733,14 @@
     {
       "check": "fence:west_05:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_05:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 1890.0,
-      "expected": 1890.0
+      "actual": 1390.0,
+      "expected": 1390.0
     },
     {
       "check": "fence:west_05:post_and_cut_footing_touch_mm",
@@ -4225,14 +3781,14 @@
     {
       "check": "fence:west_06:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_06:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 3687.5,
-      "expected": 3687.5
+      "actual": 3062.5,
+      "expected": 3062.5
     },
     {
       "check": "fence:west_06:post_and_cut_footing_touch_mm",
@@ -4273,14 +3829,14 @@
     {
       "check": "fence:west_07:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_07:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 5485.0,
-      "expected": 5485.0
+      "actual": 4735.0,
+      "expected": 4735.0
     },
     {
       "check": "fence:west_07:post_and_cut_footing_touch_mm",
@@ -4321,14 +3877,14 @@
     {
       "check": "fence:west_08:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -1800.0,
-      "expected": -1800.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:west_08:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 7282.5,
-      "expected": 7282.5
+      "actual": 6407.5,
+      "expected": 6407.5
     },
     {
       "check": "fence:west_08:post_and_cut_footing_touch_mm",
@@ -4369,8 +3925,8 @@
     {
       "check": "fence:east_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_01:post_matches_footing_center_Y_mm",
@@ -4417,14 +3973,14 @@
     {
       "check": "fence:east_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_02:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": -3502.5,
-      "expected": -3502.5
+      "actual": -3627.5,
+      "expected": -3627.5
     },
     {
       "check": "fence:east_02:post_and_cut_footing_touch_mm",
@@ -4465,14 +4021,14 @@
     {
       "check": "fence:east_03:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_03:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": -1705.0,
-      "expected": -1705.0
+      "actual": -1955.0,
+      "expected": -1955.0
     },
     {
       "check": "fence:east_03:post_and_cut_footing_touch_mm",
@@ -4513,14 +4069,14 @@
     {
       "check": "fence:east_04:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_04:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 92.5,
-      "expected": 92.5
+      "actual": -282.5,
+      "expected": -282.5
     },
     {
       "check": "fence:east_04:post_and_cut_footing_touch_mm",
@@ -4561,14 +4117,14 @@
     {
       "check": "fence:east_05:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_05:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 1890.0,
-      "expected": 1890.0
+      "actual": 1390.0,
+      "expected": 1390.0
     },
     {
       "check": "fence:east_05:post_and_cut_footing_touch_mm",
@@ -4609,14 +4165,14 @@
     {
       "check": "fence:east_06:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_06:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 3687.5,
-      "expected": 3687.5
+      "actual": 3062.5,
+      "expected": 3062.5
     },
     {
       "check": "fence:east_06:post_and_cut_footing_touch_mm",
@@ -4657,14 +4213,14 @@
     {
       "check": "fence:east_07:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_07:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 5485.0,
-      "expected": 5485.0
+      "actual": 4735.0,
+      "expected": 4735.0
     },
     {
       "check": "fence:east_07:post_and_cut_footing_touch_mm",
@@ -4705,65 +4261,17 @@
     {
       "check": "fence:east_08:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 9990.0,
-      "expected": 9990.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:east_08:post_matches_footing_center_Y_mm",
       "pass": true,
-      "actual": 7282.5,
-      "expected": 7282.5
+      "actual": 6407.5,
+      "expected": 6407.5
     },
     {
       "check": "fence:east_08:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_west_02:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:south_west_02:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:south_west_02:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_west_02:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_west_02:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:south_west_02:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -1125.0,
-      "expected": -1125.0
-    },
-    {
-      "check": "fence:south_west_02:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -5300.0,
-      "expected": -5300.0
-    },
-    {
-      "check": "fence:south_west_02:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4801,8 +4309,8 @@
     {
       "check": "fence:south_middle_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 1925.0,
-      "expected": 1925.0
+      "actual": 4925.0,
+      "expected": 4925.0
     },
     {
       "check": "fence:south_middle_01:post_matches_footing_center_Y_mm",
@@ -4849,8 +4357,8 @@
     {
       "check": "fence:south_middle_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 3228.333333,
-      "expected": 3228.333333333
+      "actual": 5835.0,
+      "expected": 5835.0
     },
     {
       "check": "fence:south_middle_02:post_matches_footing_center_Y_mm",
@@ -4860,102 +4368,6 @@
     },
     {
       "check": "fence:south_middle_02:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_middle_03:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:south_middle_03:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:south_middle_03:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_middle_03:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_middle_03:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:south_middle_03:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": 4531.666667,
-      "expected": 4531.666666667
-    },
-    {
-      "check": "fence:south_middle_03:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -5300.0,
-      "expected": -5300.0
-    },
-    {
-      "check": "fence:south_middle_03:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_middle_04:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:south_middle_04:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:south_middle_04:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_middle_04:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_middle_04:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:south_middle_04:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": 5835.0,
-      "expected": 5835.0
-    },
-    {
-      "check": "fence:south_middle_04:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -5300.0,
-      "expected": -5300.0
-    },
-    {
-      "check": "fence:south_middle_04:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5004,54 +4416,6 @@
     },
     {
       "check": "fence:south_east_01:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_east_02:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:south_east_02:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:south_east_02:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_east_02:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:south_east_02:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:south_east_02:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": 8837.5,
-      "expected": 8837.5
-    },
-    {
-      "check": "fence:south_east_02:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -5300.0,
-      "expected": -5300.0
-    },
-    {
-      "check": "fence:south_east_02:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5142,18 +4506,6 @@
     },
     {
       "check": "fence:north_06:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:north_07:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:north_07:actual_40mm_slat_gap_remains_open_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5351,18 +4703,6 @@
       "expected": 0
     },
     {
-      "check": "fence:south_west_01:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:south_west_01:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "fence:south_middle_01:actual_slat_midspan_is_solid_mm3",
       "pass": true,
       "actual": 1000.0,
@@ -5370,30 +4710,6 @@
     },
     {
       "check": "fence:south_middle_01:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_middle_02:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:south_middle_02:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:south_middle_03:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:south_middle_03:actual_40mm_slat_gap_remains_open_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5411,16 +4727,58 @@
       "expected": 0
     },
     {
-      "check": "fence:south_east_02:actual_slat_midspan_is_solid_mm3",
+      "check": "R11:no_saved_shrub_bodies",
       "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
+      "actual": null,
+      "expected": null
     },
     {
-      "check": "fence:south_east_02:actual_40mm_slat_gap_remains_open_mm3",
+      "check": "R11:lot_dimensions_and_area",
       "pass": true,
-      "actual": 0.0,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R11:two_parallel_bays_2800_5000",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R11:four_named_wheel_stops",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R11:shared_marking_is_editable_and_clear_of_footing",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R11:vehicle_1_static_envelope_clear_mm3",
+      "pass": true,
+      "actual": 0,
       "expected": 0
+    },
+    {
+      "check": "R11:vehicle_1_fits_bay",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R11:vehicle_2_static_envelope_clear_mm3",
+      "pass": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check": "R11:vehicle_2_fits_bay",
+      "pass": true,
+      "actual": null,
+      "expected": null
     },
     {
       "check": "site_DXF:millimetre_units",
@@ -5445,10 +4803,10 @@
       "pass": true,
       "actual": [
         1800.0,
-        3000.0,
+        5675.0,
         8190.0,
-        12190.0,
-        14780.0
+        10190.0,
+        13780.0
       ],
       "expected": null
     },
@@ -5657,18 +5015,6 @@
       "expected": 0
     },
     {
-      "check": "fence:footings:north_08:fence:posts:north_08:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:north_08:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "fence:footings:south_east_01:fence:posts:south_east_01:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
@@ -5676,18 +5022,6 @@
     },
     {
       "check": "fence:footings:south_east_01:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_east_02:fence:posts:south_east_02:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_east_02:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5712,42 +5046,6 @@
     },
     {
       "check": "fence:footings:south_middle_02:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_middle_03:fence:posts:south_middle_03:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_middle_03:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_middle_04:fence:posts:south_middle_04:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_middle_04:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_west_02:fence:posts:south_west_02:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_west_02:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -6029,18 +5327,6 @@
       "expected": 0
     },
     {
-      "check": "fence:posts:north_08:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:north_08:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "fence:posts:south_east_01:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
@@ -6048,18 +5334,6 @@
     },
     {
       "check": "fence:posts:south_east_01:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_east_02:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_east_02:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -6084,42 +5358,6 @@
     },
     {
       "check": "fence:posts:south_middle_02:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_middle_03:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_middle_03:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_middle_04:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_middle_04:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_west_02:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_west_02:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -6419,12 +5657,6 @@
       "expected": 0
     },
     {
-      "check": "yard:ground_surfaces:gravel:yard:planting:lawn_front:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "yard:ground_surfaces:gravel:yard:planting:lawn_north:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
@@ -6450,6 +5682,18 @@
     },
     {
       "check": "yard:ground_surfaces:gravel:balcony:footing_3:clear_of_R04_solid_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "yard:parking:line_divider_1:balcony:footing_1:clear_of_R04_solid_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "yard:parking:paving:balcony:footing_1:clear_of_R04_solid_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

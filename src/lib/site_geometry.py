@@ -18,10 +18,10 @@ from .exterior_geometry import E
 
 @dataclass(frozen=True)
 class SiteParameters:
-    lot_west: float = -2000
-    lot_east: float = 10190
+    lot_west: float = -1000
+    lot_east: float = 9190
     lot_south: float = -5500
-    lot_north: float = 9280
+    lot_north: float = 8280
     ground_z: float = -500
     soil_thickness: float = 100
     finish_thickness: float = 50
@@ -29,8 +29,8 @@ class SiteParameters:
     raft_thickness: float = 150
     entrance_lower_step_depth: float = 300
     entrance_lower_step_top_z: float = -330
-    parking_west: float = -1000
-    parking_east: float = 1800
+    parking_west: float = -750
+    parking_east: float = 4850
     parking_south: float = -5500
     parking_north: float = -200
     parking_mark_south: float = -5200
@@ -39,10 +39,10 @@ class SiteParameters:
     wheel_stop_width: float = 500
     wheel_stop_depth: float = 100
     wheel_stop_height: float = 100
-    fence_west: float = -1800
-    fence_east: float = 9990
+    fence_west: float = -800
+    fence_east: float = 8990
     fence_south: float = -5300
-    fence_north: float = 9080
+    fence_north: float = 8080
     fence_height: float = 1200
     fence_post_width: float = 50
     fence_post_embedment: float = 250
@@ -56,10 +56,12 @@ class SiteParameters:
     fence_footing_width: float = 300
     fence_footing_bottom_z: float = -950
     fence_footing_top_z: float = -550
-    car_opening_west: float = -1100
-    car_opening_east: float = 1900
+    car_opening_west: float = -775
+    car_opening_east: float = 4900
     pedestrian_opening_west: float = 5860
     pedestrian_opening_east: float = 7660
+    parking_count: int = 2
+    shrubs_enabled: bool = False
     shrub_center_z: float = -100
 
 
@@ -91,17 +93,20 @@ def site_dimensions(p, g, s=S):
         "path": (entrance_x1, s.lot_south, entrance_x2, lower_step_south),
         "parking": (s.parking_west, s.parking_south, s.parking_east, s.parking_north),
         "parking_bay": (s.parking_west, s.parking_mark_south, s.parking_east, s.parking_north),
+        "parking_bays": [(s.parking_west+i*(s.parking_east-s.parking_west)/s.parking_count,
+                          s.parking_mark_south,
+                          s.parking_west+(i+1)*(s.parking_east-s.parking_west)/s.parking_count,
+                          s.parking_north) for i in range(s.parking_count)],
         "raft_top_z": raft_top,
         "finish_bottom_z": finish_bottom,
         "soil_bottom_z": finish_bottom - s.soil_thickness,
         "old_plinth_bottom_z": -g.slab_thickness - E.foundation_depth,
         "lawns": {
-            "front": (2300, -4700, 4600, -1500),
-            "north": (400, 7750, p.width - 400, 8780),
-            "east": (p.width+500, 500, s.lot_east-530, 6600),
-            "west": (-1450, 700, -600, 6500),
+            "north": (400, p.depth+250, p.width-400, s.lot_north-350),
+            "east": (p.width+250, 500, s.lot_east-350, p.depth-500),
+            "west": (s.lot_west+350, 700, -250, p.depth-700),
         },
-        "shrubs": [(2850, -3800, 400), (3950, -3650, 450), (3450, -2250, 500)],
+        "shrubs": [(2850, -3800, 400), (3950, -3650, 450), (3450, -2250, 500)] if s.shrubs_enabled else [],
     }
 
 
@@ -119,6 +124,8 @@ def fence_layout(s=S):
     ]
     posts, panels, seen = [], [], {}
     for side, axis, at, start, end in segments:
+        if end <= start:
+            continue
         count = ceil((end - start) / s.fence_max_span)
         coordinates = [start + (end - start) * i / count for i in range(count + 1)]
         for i, coordinate in enumerate(coordinates, 1):
@@ -254,17 +261,27 @@ def yard_group(p, g, s=S):
                                 "yard:parking:paving", "site_paving")]
     x1, y1, x2, y2 = d["parking_bay"]
     w = s.parking_line_width
-    for name, bounds in [
-        ("line_left", (x1, y1, s.ground_z, x1 + w, y2, s.ground_z + s.parking_line_thickness)),
-        ("line_right", (x2 - w, y1, s.ground_z, x2, y2, s.ground_z + s.parking_line_thickness)),
-        ("line_back", (x1 + w, y2 - w, s.ground_z, x2 - w, y2, s.ground_z + s.parking_line_thickness)),
-    ]:
-        parking.append(cuboid(bounds, f"yard:parking:{name}", "site_paint"))
-    for side, left in [("left", -850), ("right", 1150)]:
-        parking.append(cuboid((left, -550, s.ground_z,
-                               left + s.wheel_stop_width, -550 + s.wheel_stop_depth,
-                               s.ground_z + s.wheel_stop_height),
-                              f"yard:parking:wheel_stop_{side}", "site_concrete"))
+    lines = [
+        ("line_left", (x1,y1,x1+w,y2)),
+        ("line_right", (x2-w,y1,x2,y2)),
+        ("line_back", (x1+w,y2-w,x2-w,y2)),
+    ]
+    for i in range(1,s.parking_count):
+        divider=x1+(x2-x1)*i/s.parking_count
+        lines.append((f"line_divider_{i}",(divider-w/2,y1,divider+w/2,y2-w)))
+    for name,bounds in lines:
+        # The existing balcony footing straddles the shared boundary. Keep the
+        # marking open over its real 450 mm exclusion, rather than drawing into it.
+        profile=box(*bounds).intersection(profiles["parking"])
+        if not profile.is_empty:
+            parking.append(_extrude_profile(profile,s.ground_z,s.ground_z+s.parking_line_thickness,
+                                            f"yard:parking:{name}","site_paint"))
+    for i,(left,bottom,right,top) in enumerate(d["parking_bays"],1):
+        for side,x in [("left",left+300),("right",right-300-s.wheel_stop_width)]:
+            y=top-350
+            parking.append(cuboid((x,y,s.ground_z,x+s.wheel_stop_width,y+s.wheel_stop_depth,
+                                   s.ground_z+s.wheel_stop_height),
+                                   f"yard:parking:bay_{i}_wheel_stop_{side}","site_concrete"))
     planting = [_extrude_profile(profile, d["finish_bottom_z"], s.ground_z,
                                  f"yard:planting:lawn_{name}", "site_lawn")
                 for name, profile in profiles["lawns"].items()]
@@ -330,6 +347,7 @@ def fence_group(s=S):
 def site_manifest(p, g, s=S):
     d, layout, profiles = site_dimensions(p, g, s), fence_layout(s), _terrain_profiles(p, g, s)
     return {
+        "revision": "R11-SITE",
         "parameters": asdict(s),
         "lot_bounds_mm": list(d["lot"]),
         "lot_dimensions_mm": [s.lot_east - s.lot_west, s.lot_north - s.lot_south],
@@ -361,7 +379,14 @@ def site_manifest(p, g, s=S):
             "old_porch_and_step_preserved": True,
         },
         "parking": {"surface_bounds_mm": list(d["parking"]), "bay_bounds_mm": list(d["parking_bay"]),
-                    "bay_dimensions_mm": [s.parking_east - s.parking_west, s.parking_north - s.parking_mark_south]},
+                    "count": s.parking_count,
+                    "bay_dimensions_mm": [(s.parking_east-s.parking_west)/s.parking_count,
+                                          s.parking_north-s.parking_mark_south],
+                    "bays_bounds_mm": [list(b) for b in d["parking_bays"]],
+                    "vehicle_envelopes_mm": [[(b[0]+b[2])/2-900,b[1]+100,
+                                               (b[0]+b[2])/2+900,b[1]+4600] for b in d["parking_bays"]],
+                    "vehicle_dimensions_mm": [1800,4500],
+                    "maneuvering_verified": False},
         "fence": {
             "post_count": len(layout["posts"]), "panel_count": len(layout["panels"]),
             "height_above_grade_mm": s.fence_height,
@@ -385,13 +410,13 @@ def site_manifest(p, g, s=S):
                        for x, y, radius in d["shrubs"]],
         },
         "assumptions": [
-            "新增用地暂定12190 × 14780 mm（约180.17㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+            "R11用地暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
             "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
             "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
             "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
-            "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
-            "金属围栏暂定地上高1200 mm、柱宽50 mm；29片面板各含9道80 mm横栅和40 mm空隙，31个柱脚为概念展示，未完成连接或结构设计。",
+            "南侧并列2个停车位，每位暂定2800 × 5000 mm，车辆开口5675 mm、行人开口1800 mm；1800 × 4500 mm车辆包络仅作静态空间检查；未验证具体车辆转弯、道路接入或停车许可。",
+            "金属围栏暂定地上高1200 mm、柱宽50 mm；24片面板各含9道80 mm横栅和40 mm空隙，26个柱脚为概念展示，未完成连接或结构设计。",
             "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
-            "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。",
+            "三侧窄草坪保留，前院草坪改为第二车位，所有灌木移除；基础、院子、入口与围栏分组可独立查看，已确认两层平面保持不变。",
         ],
     }

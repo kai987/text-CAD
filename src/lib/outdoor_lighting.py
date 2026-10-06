@@ -86,8 +86,8 @@ def fixture_layout(p, g, s=S, l=L):
             "visual_intensity": 1.5, "visual_range_m": 3.2,
             "mount_to": "yard:ground_surfaces:gravel"})
     for i, (origin, target) in enumerate([
-        ([2500, -4450, s.ground_z+160], [2850, -3800, 100]),
-        ([4200, -1700, s.ground_z+160], [3450, -2250, 150]),
+        ([s.parking_east+550, -4450, s.ground_z+160], [3450, -3800, s.ground_z]),
+        ([s.parking_east+550, -2450, s.ground_z+160], [650, -2250, s.ground_z]),
     ], 1):
         direction = _unit([target[a]-origin[a] for a in range(3)])
         light = [origin[a]+direction[a]*(l.spotlight_length+4) for a in range(3)]
@@ -95,7 +95,7 @@ def fixture_layout(p, g, s=S, l=L):
             "mount_center_mm": [origin[0], origin[1], s.ground_z], "head_origin_mm": origin,
             "light_position_mm": light, "target_mm": target, "beam_angle_degrees": 48,
             "visual_intensity": 2.2, "visual_range_m": 3.4,
-            "mount_to": "yard:planting:lawn_front"})
+            "mount_to": "yard:ground_surfaces:gravel"})
     posts = fence_layout(s)["posts"]
     for i, desired_x in enumerate((s.pedestrian_opening_west-s.fence_post_width/2,
                                     s.pedestrian_opening_east+s.fence_post_width/2), 1):
@@ -214,7 +214,7 @@ def outdoor_lighting_manifest(p, g, s=S, l=L):
         "assumptions": [
             "R08新增7盏原创室外灯具：1盏玄关壁灯、2盏步道灯、2盏庭院射灯及2盏门柱灯；位置、安装高度、外壳尺寸和3000K暖白色均为演示假设。",
             "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
-            "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与3000 mm车辆开口。",
+            "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与5675 mm车辆开口。",
             "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。",
         ],
     }

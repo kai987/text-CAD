@@ -1,4 +1,4 @@
-"""Validate the saved R05 foundation, yard and fence without rebuilding them.
+"""Validate the saved R11 foundation, yard and fence without rebuilding them.
 
 Run .venv/bin/python checks/validate_site.py. An optional --baseline points to
 an earlier saved snapshot and proves that its original native solids, GLB
@@ -13,6 +13,7 @@ from pathlib import Path
 import struct
 import sys
 
+from shapely.geometry import box
 import ezdxf
 from ezdxf.lldxf import const
 import fitz
@@ -107,13 +108,13 @@ site = {label: shape for label, shape in native.items() if label.startswith(SITE
 saved = json.loads((ROOT / "output/review/house_3d_assumptions_R01.json").read_text())
 record = saved["site"]
 check("site:saved_metadata_matches_current_parameters", record == site_manifest(P, G))
-check("revision:foundation_and_site_R06", saved["revision"] == "R10-3D", saved["revision"], "R10-3D")
+check("revision:house_R10_with_site_R11", saved["revision"] == "R10-3D", saved["revision"], "R10-3D")
 legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
           and label != "attic:lining:flat_ceiling"}
 check("R10:house_and_balcony_labels_present", all(label in legacy for label in ("F1:floor_slab","F2:floor_slab","balcony:slab","balcony:drying_rail")))
 check("site:three_nonempty_top_groups", all(any(label.startswith(prefix) for label in site) for prefix in SITE_PREFIXES))
 new_supports = {label: shape for label, shape in site.items() if label.startswith("foundation:internal_supports:")}
-check("site:R10_site_leaf_contract", len(site)-len(new_supports) == 116, len(site)-len(new_supports), 116)
+check("site:R11_site_leaf_contract", len(site)-len(new_supports) == 100, len(site)-len(new_supports), 100)
 check("foundation:internal_supports_added", bool(new_supports))
 for group in ("foundation:raft", "foundation:stem_walls", "foundation:existing_plinth", "foundation:entrance_supports", "foundation:internal_supports",
               "yard:soil", "yard:ground_surfaces", "yard:entrance_path", "yard:parking", "yard:planting",
@@ -179,7 +180,7 @@ close("entrance:path_joins_lower_step_south_edge_mm", pb[4], bounds(lower_step)[
 
 soil = native["yard:soil:base"]
 surface_labels = ["yard:ground_surfaces:gravel", "yard:entrance_path:paving", "yard:parking:paving"] + \
-                [f"yard:planting:lawn_{name}" for name in ("front", "north", "east", "west")]
+                [f"yard:planting:lawn_{name}" for name in ("north", "east", "west")]
 surface_volume = 0.
 for label in surface_labels:
     part = native[label]
@@ -235,6 +236,23 @@ for panel in record["fence"]["panels"]:
     close(f"fence:{panel['id']}:actual_slat_midspan_is_solid_mm3", overlap(actual, solid_probe), 1000, .1)
     close(f"fence:{panel['id']}:actual_40mm_slat_gap_remains_open_mm3", overlap(actual, gap_probe), 0, .1)
 
+# Independent R11 parking/lot checks against the actual saved solids.
+check("R11:no_saved_shrub_bodies", not any("yard:planting:shrub_" in label for label in native))
+check("R11:lot_dimensions_and_area", record["lot_dimensions_mm"]==[10190,13780]
+      and abs(record["lot_area_mm2"]-140418200)<.01)
+check("R11:two_parallel_bays_2800_5000", record["parking"]["count"]==2
+      and record["parking"]["bay_dimensions_mm"]==[2800,5000])
+check("R11:four_named_wheel_stops", len([label for label in site if "wheel_stop" in label])==4)
+check("R11:shared_marking_is_editable_and_clear_of_footing", "yard:parking:line_divider_1" in native
+      and overlap(native["yard:parking:line_divider_1"],native["balcony:footing_1"])<.1)
+for i,b in enumerate(record["parking"]["vehicle_envelopes_mm"],1):
+    probe=cuboid((b[0],b[1],-499,b[2],b[3],1400))
+    obstacles=[shape for label,shape in native.items()
+               if label.startswith(("fence:","balcony:support_post_","balcony:footing_","lighting:"))]
+    close(f"R11:vehicle_{i}_static_envelope_clear_mm3",sum(overlap(shape,probe)
+          for shape in obstacles if bounds_overlap(bounds(shape),bounds(probe))),0,.1)
+    check(f"R11:vehicle_{i}_fits_bay",box(*record["parking"]["bays_bounds_mm"][i-1]).covers(box(*b)))
+
 dxf_path = ROOT / "DXF/house_site_plan.dxf"
 doc = ezdxf.readfile(dxf_path)
 check("site_DXF:millimetre_units", doc.units == 4)
@@ -242,7 +260,7 @@ check("site_DXF:clean_audit", not doc.audit().has_errors)
 dimensions = list(doc.modelspace().query("DIMENSION"))
 check("site_DXF:editable_dimensions", len(dimensions) >= 5, len(dimensions))
 measurements = sorted(round(dimension.get_measurement(), 6) for dimension in dimensions)
-check("site_DXF:actual_lot_house_and_opening_measurements", measurements == sorted([1800.,3000.,float(P.width),S.lot_east-S.lot_west,S.lot_north-S.lot_south]), measurements)
+check("site_DXF:actual_lot_house_and_opening_measurements", measurements == sorted([1800.,5675.,float(P.width),S.lot_east-S.lot_west,S.lot_north-S.lot_south]), measurements)
 check("site_DXF:adaptive_black_white_annotation", all(entity.dxf.color in (7, 256)
       for entity in doc.modelspace().query("TEXT MTEXT DIMENSION")))
 layout = doc.layouts.get("SITE_A3_1_100")

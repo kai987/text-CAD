@@ -1,9 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { locales, messages, resolveLocale, htmlLanguages } from '../src/localization.ts';
+import { locales, messages, resolveLocale, htmlLanguages, selectionLabel } from '../src/localization.ts';
 import { languageStorageKey, readLanguage, saveLanguage } from '../src/language-preferences.ts';
 import { modelCopy } from '../src/model-copy.ts';
+import { modelLayouts } from '../src/model-state.ts';
 
 function leaves(value, prefix = '') {
   return Object.entries(value).flatMap(([key, item]) => {
@@ -69,4 +70,20 @@ test('apartment copy covers its own rooms and every recorded assumption in all t
     assert.match(copy.app.title, /2LDK/);
     assert.notEqual(copy.plan.title, messages[locale].plan.title);
   }
+});
+test('attic controls translate groups, parts, preset and the deployed ladder limitation', () => {
+  for (const locale of locales) {
+    const copy = messages[locale];
+    for (const group of modelLayouts.house.groups) assert.ok(selectionLabel(copy, group.id)?.trim(), `${locale}: ${group.id}`);
+    for (const part of modelLayouts.house.parts) assert.ok(selectionLabel(copy, part.id)?.trim(), `${locale}: ${part.id}`);
+    assert.ok(copy.presets.attic.trim());
+    assert.ok(copy.model.atticNote.trim());
+    assert.notEqual(copy.groups.attic, copy.groups.roof);
+    assert.notEqual(copy.groups.attic_access, copy.groups.stairs);
+    assert.deepEqual(modelLayouts.apartment.groups.map(group => group.id), ['F1', 'ceiling', 'balcony']);
+    assert.ok(modelLayouts.apartment.parts.every(part => part.group === 'F1' && !part.id.endsWith(':guardrails')));
+  }
+  assert.match(messages.zh.model.atticNote, /仅表示展开状态.*二层走廊/);
+  assert.match(messages.ja.model.atticNote, /展開状態のみ.*2階廊下/);
+  assert.match(messages.en.model.atticNote, /deployed state.*second-floor hall/);
 });

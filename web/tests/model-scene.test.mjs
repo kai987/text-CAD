@@ -29,3 +29,24 @@ test('hidden categories and floors cannot appear in the picking mesh list', asyn
   assert.ok(!visibleMeshes(gltf.scene).includes(nodes.get('F2:floor_slab')));
   assert.equal(selectionFor(nodes.get('roof:west_plane')).id, 'roof');
 });
+test('attic floor and access ladder are selectable independently of the roof and lower floors', async () => {
+  const gltf = await loadHouse();
+  const nodes = bindCadNodes(gltf);
+  const slab = nodes.get('roof:attic_ceiling_slab');
+  const finish = nodes.get('attic:deck_finish');
+  const tread = nodes.get('attic_access:tread_01');
+  assert.ok(slab?.isMesh && finish?.isMesh && tread?.isMesh);
+  assert.equal(selectionFor(slab).id, 'attic:floor_slab', 'the preserved CAD slab belongs to the attic');
+  assert.equal(selectionFor(finish).id, 'attic:floor_slab');
+  assert.equal(selectionFor(nodes.get('attic:guardrail:west_rail')).id, 'attic:guardrails');
+  assert.equal(selectionFor(nodes.get('attic:storage:west_shelf:middle')).id, 'attic:storage_fixtures');
+  assert.equal(selectionFor(tread).id, 'attic_access');
+  for (const group of ['F1', 'F2', 'roof', 'stairs']) nodes.get(group).visible = false;
+  assert.ok(visibleMeshes(gltf.scene).includes(slab), 'hiding the roof must retain the attic floor');
+  assert.ok(visibleMeshes(gltf.scene).includes(tread));
+  nodes.get('attic_access').visible = false;
+  assert.ok(!visibleMeshes(gltf.scene).includes(tread), 'ladder visibility does not hide the attic');
+  assert.ok(visibleMeshes(gltf.scene).includes(finish));
+  nodes.get('attic').visible = false;
+  assert.ok(!visibleMeshes(gltf.scene).includes(slab));
+});

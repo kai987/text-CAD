@@ -14,7 +14,27 @@ const componentLabels = {
   'roof:east_plane': label('东侧屋面', '東側の屋根面', 'East roof plane'),
   'roof:south_gable_wall': label('南侧山墙', '南側の妻壁', 'South gable wall'),
   'roof:north_gable_wall': label('北侧山墙', '北側の妻壁', 'North gable wall'),
-  'roof:attic_ceiling_slab': label('屋顶下方顶板', '屋根下の天井スラブ', 'Ceiling slab beneath roof'),
+  'roof:attic_ceiling_slab': label('阁楼结构楼板（兼二层顶板）', '小屋裏の構造床（2階の天井兼用）', 'Attic structural slab / second-floor ceiling'),
+  'attic:deck_finish': label('阁楼地板饰面', '小屋裏の床仕上げ', 'Attic floor finish'),
+  'attic:lining:west_slope': label('阁楼西侧斜顶内衬', '小屋裏西側の勾配天井', 'West sloped attic lining'),
+  'attic:lining:east_slope': label('阁楼东侧斜顶内衬', '小屋裏東側の勾配天井', 'East sloped attic lining'),
+  'attic:knee_wall:west': label('阁楼西侧矮墙', '小屋裏西側の腰壁', 'West attic knee wall'),
+  'attic:knee_wall:east': label('阁楼东侧矮墙', '小屋裏東側の腰壁', 'East attic knee wall'),
+  'attic:gable_lining:south': label('阁楼南侧山墙内衬', '小屋裏南側の妻壁内装', 'South attic gable lining'),
+  'attic:gable_lining:north': label('阁楼北侧山墙内衬', '小屋裏北側の妻壁内装', 'North attic gable lining'),
+  'attic:guardrail:post_southwest': label('阁楼开口西南侧护栏立柱', '小屋裏開口・南西の手すり支柱', 'Attic hatch guardrail southwest post'),
+  'attic:guardrail:post_southeast': label('阁楼开口东南侧护栏立柱', '小屋裏開口・南東の手すり支柱', 'Attic hatch guardrail southeast post'),
+  'attic:guardrail:post_northwest': label('阁楼开口西北侧护栏立柱', '小屋裏開口・北西の手すり支柱', 'Attic hatch guardrail northwest post'),
+  'attic:guardrail:post_northeast': label('阁楼开口东北侧护栏立柱', '小屋裏開口・北東の手すり支柱', 'Attic hatch guardrail northeast post'),
+  'attic:guardrail:west_rail': label('阁楼开口西侧护栏横杆', '小屋裏開口・西側の手すり横桟', 'Attic hatch west guardrail rail'),
+  'attic:guardrail:south_rail': label('阁楼开口南侧护栏横杆', '小屋裏開口・南側の手すり横桟', 'Attic hatch south guardrail rail'),
+  'attic:guardrail:north_rail': label('阁楼开口北侧护栏横杆', '小屋裏開口・北側の手すり横桟', 'Attic hatch north guardrail rail'),
+  'attic_access:left_stringer': label('阁楼检修梯左侧梯梁', '小屋裏点検はしご・左の側桁', 'Attic ladder left stringer'),
+  'attic_access:right_stringer': label('阁楼检修梯右侧梯梁', '小屋裏点検はしご・右の側桁', 'Attic ladder right stringer'),
+  'attic_access:hatch_trim': label('阁楼检修口边框', '小屋裏点検口の枠', 'Attic access hatch trim'),
+  'attic_access:hatch_lid': label('阁楼检修口盖板（展开）', '小屋裏点検口のふた（展開）', 'Attic access hatch lid (deployed)'),
+  'attic_access:hinge_left': label('阁楼检修口左侧铰链', '小屋裏点検口・左のヒンジ', 'Attic hatch left hinge'),
+  'attic_access:hinge_right': label('阁楼检修口右侧铰链', '小屋裏点検口・右のヒンジ', 'Attic hatch right hinge'),
   'roof:ridge_cap': label('屋脊盖板', '棟包み', 'Ridge cap'),
   'stairs:mid_landing': label('楼梯中间平台', '階段の中間踊り場', 'Intermediate stair landing'),
   'balcony:slab': label('阳台楼板', 'バルコニー床スラブ', 'Balcony floor slab'),
@@ -23,6 +43,25 @@ const componentLabels = {
   'balcony:east_guard': label('阳台东侧栏板', 'バルコニー東側の腰壁', 'East balcony parapet'),
   'ceiling:slab': label('室内顶板', '室内の天井スラブ', 'Interior ceiling slab'),
 } satisfies Catalog;
+
+const atticStorage = {
+  west_shelf: label('阁楼西侧置物架', '小屋裏西側の収納棚', 'West attic shelf'),
+  east_shelf: label('阁楼东侧置物架', '小屋裏東側の収納棚', 'East attic shelf'),
+  southwest_box: label('阁楼西南侧储物箱', '小屋裏南西の収納箱', 'Southwest attic storage box'),
+  southeast_box: label('阁楼东南侧储物箱', '小屋裏南東の収納箱', 'Southeast attic storage box'),
+} satisfies Catalog;
+const atticShelfPanels = {
+  back: label('背板', '背板', 'Back panel'),
+  side_south: label('南侧板', '南側板', 'South side panel'),
+  side_north: label('北侧板', '北側板', 'North side panel'),
+  bottom: label('底板', '底板', 'Bottom panel'),
+  middle: label('中层板', '中段棚板', 'Middle shelf'),
+  top: label('顶板', '天板', 'Top panel'),
+} satisfies Catalog;
+const atticBoxPanels = {
+  body: label('箱体', '箱本体', 'Box body'), lid: label('箱盖', 'ふた', 'Lid'),
+} satisfies Catalog;
+const atticLadderTread = label('阁楼检修梯踏步', '小屋裏点検はしごの踏み板', 'Attic access ladder tread');
 
 const directions = {
   south: label('南侧', '南側', 'South'), north: label('北侧', '北側', 'North'),
@@ -274,6 +313,13 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
+
+  const atticShelf = /^attic:storage:(west_shelf|east_shelf):(back|side_south|side_north|bottom|middle|top)$/.exec(name);
+  if (atticShelf) return `${atticStorage[atticShelf[1] as keyof typeof atticStorage][locale]} · ${atticShelfPanels[atticShelf[2] as keyof typeof atticShelfPanels][locale]}`;
+  const atticBox = /^attic:storage:(southwest_box|southeast_box):(body|lid)$/.exec(name);
+  if (atticBox) return `${atticStorage[atticBox[1] as keyof typeof atticStorage][locale]} · ${atticBoxPanels[atticBox[2] as keyof typeof atticBoxPanels][locale]}`;
+  const atticTread = /^attic_access:tread_(0[1-9]|10)$/.exec(name);
+  if (atticTread) return `${atticLadderTread[locale]} ${Number(atticTread[1])}`;
 
   const exterior = /^(?:F[12]:exterior|roof):(cladding|foundation|entry_panel|downpipe|standing_seam|fascia|soffit|gutter):([^:]+)$/.exec(name);
   if (exterior) {

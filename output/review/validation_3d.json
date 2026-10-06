@@ -1,23 +1,23 @@
 {
-  "revision": "R03-3D",
+  "revision": "R04-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 1459,
-    "passed": 1459,
+    "checks": 1803,
+    "passed": 1803,
     "failed": 0,
-    "STEP_leaf_occurrences": 378,
-    "native_solids": 378,
-    "GLB_mesh_nodes": 378,
-    "GLB_all_nodes": 444
+    "STEP_leaf_occurrences": 424,
+    "native_solids": 424,
+    "GLB_mesh_nodes": 424,
+    "GLB_all_nodes": 500
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 8961373,
-      "sha256": "13ebb5dd431b95510c5b1c1775564ef724e34346fbbc91f4d24c9d7e4611fa0a"
+      "bytes": 9500875,
+      "sha256": "5522ad32f3a85b2f841f1cb650f8557d73cf2c2a1f7f65d454d63dfd368757eb"
     },
     "house_3d.glb": {
-      "bytes": 6550032,
-      "sha256": "6898e2f0e02d8c15697eef92c84b78eada68150d8ec43365cf7d7e051224d066"
+      "bytes": 6633444,
+      "sha256": "c8482b9cdb7116ade6b7b34bf751294f3db1c71f7c320e0204638638ad77ce94"
     }
   },
   "thresholds": {
@@ -36,29 +36,40 @@
       7280
     ]
   },
+  "attic_test_basis": {
+    "original_R03_leaf_count": 378,
+    "new_attic_leaf_count": 30,
+    "new_access_leaf_count": 16,
+    "purpose": "storage attic concept",
+    "deck_storage_projection_area_m2": 24.5384,
+    "upper_landing_min_clear_height_mm": 1479.2987214281966,
+    "illustrative_clearance_probe_mm": 1400,
+    "clearance_scope": "A geometric probe only, not a certified actual usage clearance"
+  },
   "not_verified": [
     "Structure or building regulations",
     "Actual stair headroom and handrail design",
     "Door pockets and selected products",
-    "Site conditions and permit drawings"
+    "Site conditions and permit drawings",
+    "Attic loading, folding-ladder mechanism, actual access safety and statutory floor classification"
   ],
   "checks": [
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 8961373,
+      "actual": 9500875,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 6550032,
+      "actual": 6633444,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 378,
+      "actual": 424,
       "expected": null
     },
     {
@@ -5930,24 +5941,6 @@
       "expected": null
     },
     {
-      "check": "roof:attic_ceiling_slab:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "roof:attic_ceiling_slab:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "roof:attic_ceiling_slab:solid_1_positive_volume",
-      "pass": true,
-      "actual": 10471939200.0,
-      "expected": null
-    },
-    {
       "check": "roof:cladding:south_gable:contains_solid",
       "pass": true,
       "actual": 1,
@@ -6863,6 +6856,852 @@
       "check": "roof:gutter:east:solid_1_positive_volume",
       "pass": true,
       "actual": 17890757.285,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "roof:attic_ceiling_slab:solid_1_positive_volume",
+      "pass": true,
+      "actual": 10315939200.0,
+      "expected": null
+    },
+    {
+      "check": "attic:deck_finish:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:deck_finish:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:deck_finish:solid_1_positive_volume",
+      "pass": true,
+      "actual": 441691200.0,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:west_slope:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:west_slope:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:west_slope:solid_1_positive_volume",
+      "pass": true,
+      "actual": 653939999.993,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:east_slope:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:east_slope:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:lining:east_slope:solid_1_positive_volume",
+      "pass": true,
+      "actual": 653940000.007,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:west:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:west:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:west:solid_1_positive_volume",
+      "pass": true,
+      "actual": 337279667.822,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:east:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:east:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:knee_wall:east:solid_1_positive_volume",
+      "pass": true,
+      "actual": 337279667.823,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 110576105.09,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:gable_lining:north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 110576105.09,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:back:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:back:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:back:solid_1_positive_volume",
+      "pass": true,
+      "actual": 17550000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6432264.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:side_north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6432264.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:bottom:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:bottom:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:bottom:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15714000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:middle:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:middle:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:middle:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15336864.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:top:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:top:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:west_shelf:top:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15714000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:back:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:back:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:back:solid_1_positive_volume",
+      "pass": true,
+      "actual": 17550000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_south:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_south:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_south:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6432264.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_north:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_north:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:side_north:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6432264.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:bottom:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:bottom:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:bottom:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15714000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:middle:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:middle:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:middle:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15336864.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:top:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:top:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:east_shelf:top:solid_1_positive_volume",
+      "pass": true,
+      "actual": 15714000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:body:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:body:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:body:solid_1_positive_volume",
+      "pass": true,
+      "actual": 116100000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:lid:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:lid:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southwest_box:lid:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5400000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:body:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:body:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:body:solid_1_positive_volume",
+      "pass": true,
+      "actual": 116100000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:lid:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:lid:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:storage:southeast_box:lid:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5400000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southwest:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southwest:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southwest:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1200000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southeast:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southeast:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_southeast:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1200000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northwest:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northwest:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northwest:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1200000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northeast:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northeast:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:post_northeast:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1200000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:west_rail:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:west_rail:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:west_rail:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1040000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:south_rail:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:south_rail:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:south_rail:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1920000.0,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:north_rail:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:north_rail:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:guardrail:north_rail:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1920000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:left_stringer:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:left_stringer:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:left_stringer:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5162958.391,
+      "expected": null
+    },
+    {
+      "check": "attic_access:right_stringer:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:right_stringer:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:right_stringer:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5162958.391,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_01:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_01:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_01:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_07:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_07:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_07:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_08:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_08:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_08:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_09:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_09:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_09:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_10:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_10:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:tread_10:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1300000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_trim:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_trim:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_trim:solid_1_positive_volume",
+      "pass": true,
+      "actual": 4704000.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_lid:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_lid:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hatch_lid:solid_1_positive_volume",
+      "pass": true,
+      "actual": 13814183.421,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_left:solid_1_positive_volume",
+      "pass": true,
+      "actual": 14700.0,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:hinge_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 14700.0,
       "expected": null
     },
     {
@@ -8709,14 +9548,1244 @@
     {
       "check": "roof:ceiling_backing_volume_mm3",
       "pass": true,
-      "actual": 10471939200.0,
-      "expected": 10471939200
+      "actual": 10315939200.0,
+      "expected": 10315939200
     },
     {
       "check": "roof:ceiling_finished_floor_datum_mm",
       "pass": true,
       "actual": 5600.0,
       "expected": 5600
+    },
+    {
+      "check": "attic:R03_original_leaf_count_retained",
+      "pass": true,
+      "actual": 378,
+      "expected": 378
+    },
+    {
+      "check": "attic:new_named_leaf_contract",
+      "pass": true,
+      "actual": 30,
+      "expected": 30
+    },
+    {
+      "check": "attic_access:new_named_leaf_contract",
+      "pass": true,
+      "actual": 16,
+      "expected": 16
+    },
+    {
+      "check": "attic:deck_bound_0_mm",
+      "pass": true,
+      "actual": 1800.0,
+      "expected": 1800.0
+    },
+    {
+      "check": "attic:deck_bound_1_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
+      "check": "attic:deck_bound_2_mm",
+      "pass": true,
+      "actual": 5600.0,
+      "expected": 5600
+    },
+    {
+      "check": "attic:deck_bound_3_mm",
+      "pass": true,
+      "actual": 5480.0,
+      "expected": 5480.0
+    },
+    {
+      "check": "attic:deck_bound_4_mm",
+      "pass": true,
+      "actual": 7080.0,
+      "expected": 7080
+    },
+    {
+      "check": "attic:deck_bound_5_mm",
+      "pass": true,
+      "actual": 5618.0,
+      "expected": 5618
+    },
+    {
+      "check": "attic:deck_net_native_volume_mm3",
+      "pass": true,
+      "actual": 441691200.0,
+      "expected": 441691200
+    },
+    {
+      "check": "attic:deck_storage_projection_area_m2",
+      "pass": true,
+      "actual": 24.5384,
+      "expected": 24.5384
+    },
+    {
+      "check": "attic:hatch_passes_through_floor_and_finish_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:original_ceiling_reparented_to_floor_group",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:deck_finish:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:deck_finish:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:lining:west_slope:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:lining:west_slope:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:lining:east_slope:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:lining:east_slope:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:knee_wall:west:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:knee_wall:west:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:knee_wall:east:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:knee_wall:east:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:gable_lining:south:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:gable_lining:south:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:gable_lining:north:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:gable_lining:north:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:back:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:back:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:side_south:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:side_south:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:side_north:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:side_north:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:bottom:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:bottom:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:middle:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:middle:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:top:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:west_shelf:top:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:back:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:back:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:side_south:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:side_south:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:side_north:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:side_north:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:bottom:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:bottom:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:middle:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:middle:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:top:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:east_shelf:top:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southwest_box:body:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southwest_box:body:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southwest_box:lid:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southwest_box:lid:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southeast_box:body:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southeast_box:body:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southeast_box:lid:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:storage:southeast_box:lid:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_southwest:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_southwest:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_southeast:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_southeast:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_northwest:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_northwest:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_northeast:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:post_northeast:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:west_rail:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:west_rail:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:south_rail:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:south_rail:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:north_rail:outside_existing_roof_envelope_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:guardrail:north_rail:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:ridge_clear_height_mm",
+      "pass": true,
+      "actual": 2033.55498,
+      "expected": 2033.554979850237
+    },
+    {
+      "check": "attic:west_deck_edge_has_native_lining",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:west_deck_edge_clear_height_mm",
+      "pass": true,
+      "actual": 971.229907,
+      "expected": 971.2304845413264
+    },
+    {
+      "check": "attic:east_deck_edge_has_native_lining",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:east_deck_edge_clear_height_mm",
+      "pass": true,
+      "actual": 971.229907,
+      "expected": 971.2304845413264
+    },
+    {
+      "check": "attic_access:deployed_ladder_footprint_inside_F2_hall",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:bottom_standing_footprint_inside_F2_hall",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic_access:bottom_standing_probe_clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:left_stringer:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:left_stringer:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:right_stringer:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:right_stringer:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_01:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_01:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_02:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_02:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_03:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_03:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_04:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_04:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_05:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_05:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_06:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_06:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_07:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_07:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_08:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_08:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_09:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_09:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_10:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_10:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hatch_trim:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hatch_trim:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hatch_lid:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hatch_lid:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_left:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_left:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_right:clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_right:clear_of_reused_ceiling_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:left:foot_z_mm",
+      "pass": true,
+      "actual": 2800.0,
+      "expected": 2800
+    },
+    {
+      "check": "attic_access:left:top_z_mm",
+      "pass": true,
+      "actual": 5618.0,
+      "expected": 5618
+    },
+    {
+      "check": "attic_access:left:foot_x_mm",
+      "pass": true,
+      "actual": 2685.945019,
+      "expected": 2685.945019319214
+    },
+    {
+      "check": "attic_access:left:top_x_mm",
+      "pass": true,
+      "actual": 4000.0,
+      "expected": 4000
+    },
+    {
+      "check": "attic_access:left:top_reaches_finished_deck_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:right:foot_z_mm",
+      "pass": true,
+      "actual": 2800.0,
+      "expected": 2800
+    },
+    {
+      "check": "attic_access:right:top_z_mm",
+      "pass": true,
+      "actual": 5618.0,
+      "expected": 5618
+    },
+    {
+      "check": "attic_access:right:foot_x_mm",
+      "pass": true,
+      "actual": 2685.945019,
+      "expected": 2685.945019319214
+    },
+    {
+      "check": "attic_access:right:top_x_mm",
+      "pass": true,
+      "actual": 4000.0,
+      "expected": 4000
+    },
+    {
+      "check": "attic_access:right:top_reaches_finished_deck_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:overall_ladder_width_mm",
+      "pass": true,
+      "actual": 600.0,
+      "expected": 600
+    },
+    {
+      "check": "attic_access:clear_tread_width_mm",
+      "pass": true,
+      "actual": 520.0,
+      "expected": 520
+    },
+    {
+      "check": "attic_access:inclination_degrees",
+      "pass": true,
+      "actual": 65.0,
+      "expected": 65
+    },
+    {
+      "check": "attic_access:tread_01:riser_elevation_mm",
+      "pass": true,
+      "actual": 3056.181818,
+      "expected": 3056.181818181818
+    },
+    {
+      "check": "attic_access:tread_01:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_01:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_01:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_01:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_02:riser_elevation_mm",
+      "pass": true,
+      "actual": 3312.363636,
+      "expected": 3312.3636363636365
+    },
+    {
+      "check": "attic_access:tread_02:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_02:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_02:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_02:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_03:riser_elevation_mm",
+      "pass": true,
+      "actual": 3568.545455,
+      "expected": 3568.5454545454545
+    },
+    {
+      "check": "attic_access:tread_03:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_03:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_03:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_03:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_04:riser_elevation_mm",
+      "pass": true,
+      "actual": 3824.727273,
+      "expected": 3824.727272727273
+    },
+    {
+      "check": "attic_access:tread_04:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_04:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_04:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_04:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_05:riser_elevation_mm",
+      "pass": true,
+      "actual": 4080.909091,
+      "expected": 4080.909090909091
+    },
+    {
+      "check": "attic_access:tread_05:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_05:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_05:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_05:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_06:riser_elevation_mm",
+      "pass": true,
+      "actual": 4337.090909,
+      "expected": 4337.090909090909
+    },
+    {
+      "check": "attic_access:tread_06:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_06:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_06:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_06:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_07:riser_elevation_mm",
+      "pass": true,
+      "actual": 4593.272727,
+      "expected": 4593.272727272727
+    },
+    {
+      "check": "attic_access:tread_07:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_07:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_07:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_07:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_08:riser_elevation_mm",
+      "pass": true,
+      "actual": 4849.454545,
+      "expected": 4849.454545454546
+    },
+    {
+      "check": "attic_access:tread_08:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_08:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_08:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_08:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_09:riser_elevation_mm",
+      "pass": true,
+      "actual": 5105.636364,
+      "expected": 5105.636363636364
+    },
+    {
+      "check": "attic_access:tread_09:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_09:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_09:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_09:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_10:riser_elevation_mm",
+      "pass": true,
+      "actual": 5361.818182,
+      "expected": 5361.818181818182
+    },
+    {
+      "check": "attic_access:tread_10:depth_mm",
+      "pass": true,
+      "actual": 100.0,
+      "expected": 100
+    },
+    {
+      "check": "attic_access:tread_10:thickness_mm",
+      "pass": true,
+      "actual": 25.0,
+      "expected": 25
+    },
+    {
+      "check": "attic_access:tread_10:left_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_10:right_stringer_contact_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:last_step_to_deck_rise_mm",
+      "pass": true,
+      "actual": 256.181818,
+      "expected": 256.1818181818182
+    },
+    {
+      "check": "attic_access:lid_to_left_stringer_distance_mm",
+      "pass": true,
+      "actual": 49.868955,
+      "expected": 49.86895488540254
+    },
+    {
+      "check": "attic_access:lid_to_right_stringer_distance_mm",
+      "pass": true,
+      "actual": 49.868955,
+      "expected": 49.86895488540254
+    },
+    {
+      "check": "attic_access:left_stringer:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:right_stringer:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_01:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_02:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_03:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_04:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_05:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_06:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_07:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_08:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_09:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:tread_10:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hatch_trim:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_left:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:hinge_right:open_lid_no_solid_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:illustrative_climbing_probe_clear_of_F2_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:illustrative_climbing_probe_clear_of_attic_parts_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:illustrative_climbing_probe_clear_of_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:recorded_upper_landing_bound_0_mm",
+      "pass": true,
+      "actual": 4000,
+      "expected": 4000
+    },
+    {
+      "check": "attic_access:recorded_upper_landing_bound_1_mm",
+      "pass": true,
+      "actual": 3505,
+      "expected": 3505
+    },
+    {
+      "check": "attic_access:recorded_upper_landing_bound_2_mm",
+      "pass": true,
+      "actual": 4600,
+      "expected": 4600
+    },
+    {
+      "check": "attic_access:recorded_upper_landing_bound_3_mm",
+      "pass": true,
+      "actual": 4155,
+      "expected": 4155
+    },
+    {
+      "check": "attic_access:recorded_upper_landing_min_clear_height_mm",
+      "pass": true,
+      "actual": 1479.298721,
+      "expected": 1479.2987214281966
+    },
+    {
+      "check": "attic_access:upper_standing_area_accepts_illustrative_1400mm_probe",
+      "pass": true,
+      "actual": 1479.2987214281966,
+      "expected": 1400
+    },
+    {
+      "check": "attic_access:open_east_top_standing_probe_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic_access:upper_standing_probe_supported_by_deck_mm3",
+      "pass": true,
+      "actual": 6937550.712,
+      "expected": 6937550.711999998
     },
     {
       "check": "GLB:valid_container",
@@ -8727,11 +10796,17 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 378,
-      "expected": 378
+      "actual": 424,
+      "expected": 424
     },
     {
       "check": "GLB:named_groups_retained",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "GLB:attic_ceiling_and_finish_parent_retained",
       "pass": true,
       "actual": null,
       "expected": null

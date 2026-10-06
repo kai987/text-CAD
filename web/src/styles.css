@@ -100,7 +100,8 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .preset { width: 100%; min-height: 42px; padding: 9px 16px; text-align: left; border: 1px solid var(--control-border); border-radius: 4px; background: var(--surface); color: var(--text); font-size: 15px; font-weight: 550; }
 .preset:hover:not(:disabled):not(.selected) { border-color: var(--accent); background: var(--soft-hover); }
 .preset.selected { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--selected-text); }
-.view-presets { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; padding: 11px 26px; background: var(--surface); border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.view-presets { display: grid; grid-template-columns: repeat(var(--preset-columns, 3), minmax(0,1fr)); gap: 9px; padding: 11px 26px; background: var(--surface); border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.attic-view-note { margin: 0; padding: 8px 26px; background: var(--surface); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.5; flex-shrink: 0; }
 .view-presets .preset { text-align: center; min-height: 38px; padding: 7px 12px; font-size: 14px; }
 .part-tree { display: grid; gap: 10px; }
 .part-group-row { display: grid; grid-template-columns: 18px 18px minmax(0,1fr) auto; gap: 5px; align-items: center; }
@@ -247,6 +248,8 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .presets { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .preset { text-align: center; font-size: 14px; padding: 8px 5px; }
   .view-presets { padding: 10px 14px; gap: 6px; }
+  .view-presets.four-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .attic-view-note { padding-inline: 14px; }
   .view-presets .preset { padding-inline: 5px; font-size: 13px; min-height: 56px; }
   .part-group-row { grid-template-columns: 20px 20px minmax(0,1fr) auto; gap: 8px; }
   .part-child-row { grid-template-columns: 20px minmax(0,1fr) auto; gap: 8px; }

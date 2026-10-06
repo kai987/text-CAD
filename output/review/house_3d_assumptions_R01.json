@@ -1,5 +1,5 @@
 {
-  "revision": "R03-3D",
+  "revision": "R04-3D",
   "stage": "approved_floor_plan_concept_model",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -99,6 +99,135 @@
       "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。"
     ]
   },
+  "attic": {
+    "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
+    "status": "demonstration proposal, not structural or statutory design",
+    "parameters": {
+      "deck_width": 3680,
+      "deck_end_inset": 200,
+      "deck_thickness": 18,
+      "lining_vertical_allowance": 50,
+      "knee_wall_thickness": 50,
+      "gable_lining_thickness": 20,
+      "hatch_x": 2800,
+      "hatch_y": 3505,
+      "hatch_length": 1200,
+      "hatch_width": 650,
+      "hatch_trim_width": 35,
+      "hatch_trim_drop": 35,
+      "hatch_lid_thickness": 18,
+      "hinge_mount_width": 35,
+      "hinge_mount_height": 12,
+      "guardrail_post_width": 40,
+      "guardrail_height": 750,
+      "guardrail_rail_height": 40,
+      "shelf_width": 600,
+      "shelf_depth": 1500,
+      "shelf_height": 650,
+      "shelf_panel_thickness": 18,
+      "shelf_side_inset": 100,
+      "shelf_north_inset": 380,
+      "storage_box_width": 450,
+      "storage_box_depth": 600,
+      "storage_box_height": 450,
+      "storage_box_lid_thickness": 20,
+      "storage_box_side_inset": 500,
+      "storage_box_y": 650,
+      "ladder_width": 600,
+      "ladder_angle_degrees": 65,
+      "ladder_stringer_width": 40,
+      "ladder_stringer_vertical_depth": 100,
+      "ladder_treads": 10,
+      "ladder_tread_depth": 100,
+      "ladder_tread_thickness": 25,
+      "ladder_bottom_landing_depth": 600
+    },
+    "unchanged": [
+      "approved R01 F1/F2 room boundaries",
+      "R03 roof geometry and exterior silhouette"
+    ],
+    "existing_floor_leaf": "roof:attic_ceiling_slab",
+    "floor_group": "attic:floor_slab",
+    "slab_bounds_mm": [
+      22,
+      22,
+      5400,
+      7258,
+      7258,
+      5600
+    ],
+    "deck_bounds_mm": [
+      1800.0,
+      200,
+      5600,
+      5480.0,
+      7080,
+      5618
+    ],
+    "hatch_bounds_mm": [
+      2800,
+      3505,
+      5400,
+      4000,
+      4155,
+      5618
+    ],
+    "storage_projection_area_m2": 24.5384,
+    "clear_height_mm": {
+      "ridge": 2033.554979850237,
+      "deck_edge": 971.2304845413264,
+      "formula": "tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness"
+    },
+    "ladder": {
+      "state": "deployed concept, independently hideable",
+      "top_mm": [
+        4000,
+        3830.0,
+        5618
+      ],
+      "foot_mm": [
+        2685.945019319214,
+        3830.0,
+        2800
+      ],
+      "rise_mm": 2818,
+      "horizontal_run_mm": 1314.054980680786,
+      "inclined_length_mm": 3109.3189756363017,
+      "riser_count": 11,
+      "tread_count": 10,
+      "riser_mm": 256.1818181818182,
+      "deployed_plan_bounds_mm": [
+        2685.945019319214,
+        3530.0,
+        4000,
+        4130.0
+      ],
+      "bottom_landing_bounds_mm": [
+        2085.945019319214,
+        3505,
+        2685.945019319214,
+        4155
+      ],
+      "upper_landing_bounds_mm": [
+        4000,
+        3505,
+        4600,
+        4155
+      ],
+      "upper_landing_min_clear_height_mm": 1479.2987214281966,
+      "lid_to_stringer_gap_mm": 49.86895488540254
+    },
+    "assumptions": [
+      "阁楼采用储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形，不作为已确定的第三层居室。",
+      "原 Z=5400–5600 mm、厚200 mm概念顶板复用为阁楼示意楼板；净检修口1200 × 650 mm贯穿顶板，中央18 mm板面完成面为 Z=5618 mm。",
+      "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
+      "斜屋面内衬采用50 mm竖向展示预留，阁楼板面至内衬的屋脊净高约2033.55 mm、两侧边缘约971.23 mm；保温、屋面层次和实际净高尚未设计。",
+      "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
+      "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
+      "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
+      "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。"
+    ]
+  },
   "assumptions": [
     "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
     "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
@@ -119,7 +248,15 @@
     "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
     "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
-    "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。"
+    "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
+    "阁楼采用储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形，不作为已确定的第三层居室。",
+    "原 Z=5400–5600 mm、厚200 mm概念顶板复用为阁楼示意楼板；净检修口1200 × 650 mm贯穿顶板，中央18 mm板面完成面为 Z=5618 mm。",
+    "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
+    "斜屋面内衬采用50 mm竖向展示预留，阁楼板面至内衬的屋脊净高约2033.55 mm、两侧边缘约971.23 mm；保温、屋面层次和实际净高尚未设计。",
+    "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
+    "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
+    "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
+    "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -313,7 +450,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 378,
-    "all_nodes": 444
+    "named_mesh_nodes": 424,
+    "all_nodes": 500
   }
 }

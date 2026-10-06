@@ -17,6 +17,10 @@ async function loadModel(filename) {
 // These are the categories the original CAD naming convention assigns to meshes.
 // They are also the IDs used to highlight, isolate, and toggle the picked part.
 function originalCategory(name) {
+  if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
+  if (/^attic:(?:lining|knee_wall|gable_lining):/.test(name)) return 'attic:partition_walls';
+  if (/^attic:storage:/.test(name)) return 'attic:storage_fixtures';
+  if (/^attic:guardrail:/.test(name)) return 'attic:guardrails';
   const floor = /^(F[12]):/.exec(name)?.[1];
   if (!floor) return name.split(':')[0];
   if (/^F[12]:floor_slab$/.test(name)) return name;
@@ -104,6 +108,33 @@ test('roof labels distinguish east/west planes, gable walls, and attic ceiling',
     'roof:north_gable_wall', 'roof:attic_ceiling_slab'];
   for (const locale of locales) {
     names.forEach((name, index) => assert.match(cadComponentLabel(locale, name), expected[locale][index], `${locale}: ${name}`));
+  }
+});
+test('attic storage, hatch and ladder details have distinct labels in all three languages', () => {
+  const groups = [
+    ['attic:lining:west_slope', 'attic:lining:east_slope'],
+    ['attic:knee_wall:west', 'attic:knee_wall:east'],
+    ['attic:gable_lining:south', 'attic:gable_lining:north'],
+    ['attic:guardrail:post_southwest', 'attic:guardrail:post_southeast', 'attic:guardrail:post_northwest', 'attic:guardrail:post_northeast'],
+    ['attic:guardrail:west_rail', 'attic:guardrail:south_rail', 'attic:guardrail:north_rail'],
+    ['attic_access:left_stringer', 'attic_access:right_stringer'],
+    ['attic_access:hatch_trim', 'attic_access:hatch_lid'],
+    ['attic_access:hinge_left', 'attic_access:hinge_right'],
+    ['attic_access:tread_01', 'attic_access:tread_10'],
+    ...['west_shelf', 'east_shelf'].map(shelf => ['back', 'side_south', 'side_north', 'bottom', 'middle', 'top']
+      .map(panel => `attic:storage:${shelf}:${panel}`)),
+    ...['southwest_box', 'southeast_box'].map(box => ['body', 'lid'].map(panel => `attic:storage:${box}:${panel}`)),
+  ];
+  for (const locale of locales) {
+    assert.ok(cadComponentLabel(locale, 'attic:deck_finish')?.trim());
+    for (const names of groups) {
+      const labels = names.map(name => cadComponentLabel(locale, name));
+      assert.ok(labels.every(label => label?.trim()), `${locale}: every detail is translated`);
+      assert.equal(new Set(labels).size, names.length, `${locale}: left/right and part numbers remain distinguishable`);
+    }
+    assert.match(cadComponentLabel(locale, 'attic_access:tread_10'), /10$/);
+    assert.notEqual(cadComponentLabel(locale, 'attic:storage:west_shelf:middle'),
+      cadComponentLabel(locale, 'attic:storage:east_shelf:middle'));
   }
 });
 
@@ -219,7 +250,10 @@ test('unknown CAD names and category/group selections leave the translated categ
     for (const name of ['', 'unknown:part', 'roof:diagonal_plane', 'F1:W01:unknown',
       'F1:fixture_02_kitchen:unknown', 'F1:furniture:ldk:sofa:unknown',
       'F1', 'F2', 'roof', 'stairs', 'balcony', 'ceiling', 'F1:doors', 'F2:windows',
-      'F1:floor_slab', 'F2:floor_slab', 'F1:fixtures', 'F1:furniture']) {
+      'F1:floor_slab', 'F2:floor_slab', 'F1:fixtures', 'F1:furniture',
+      'attic', 'attic_access', 'attic:floor_slab', 'attic:guardrails', 'attic:storage:west_shelf',
+      'attic:storage:west_shelf:lid', 'attic:storage:southwest_box:middle',
+      'attic_access:tread_00', 'attic_access:tread_11', 'attic_access:tread_1']) {
       assert.equal(cadComponentLabel(locale, name), null, `${locale}: ${name}`);
     }
   }

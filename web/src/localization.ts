@@ -1,6 +1,6 @@
 import plan from '../../output/review/design_manifest.json' with { type: 'json' };
 import model from '../../output/review/house_3d_assumptions_R01.json' with { type: 'json' };
-import type { GroupId, ModelPartId, PartKind } from './model-state';
+import type { FloorId, GroupId, ModelPartId, PartKind } from './model-state';
 
 export type Locale = 'zh' | 'ja' | 'en';
 export const locales = ['zh', 'ja', 'en'] as const;
@@ -22,6 +22,7 @@ const zh = {
     title: '日本两层一户建', description: '查看日本两层一户建的参数化方案模型、平面图和可下载 CAD 文件。',
     tabs: { '3d': '三维模型', '1f': '一层平面', '2f': '二层平面', files: '文件下载' } },
   model: { region: '三维模型查看区域', title: '日本两层一户建', top: '俯视', reset: '重置视角',
+    atticNote: '低净高储物阁楼，标注净高均为演示假设。检修梯仅表示展开状态，会占用二层走廊；可单独隐藏，尚未核验结构和法规。',
     loadingViewer: '正在加载查看器…', loadingModel: '正在加载房屋模型…', selected: '已选部件', clear: '清除部件高亮',
     empty: '当前未显示部件，请勾选需要查看的部件。', gesture: '点选部件 · 拖动旋转 ·', wheel: '滚轮缩放', touch: '双指缩放',
     downloadGlb: '下载 GLB', canvas: '可旋转和缩放的房屋三维模型', fallback: '房屋模型静态预览',
@@ -29,12 +30,12 @@ const zh = {
   controls: { region: '模型控制', parts: '部件显示', cut: '剖切', enableCut: '启用剖切', height: '剖切高度', showFurniture: '显示家具', furnitureHelp: '床、沙发、桌椅与电视；不改变当前楼层和剖切高度。' },
   parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高', clearHeight: '净高', outlineArea: '外轮廓面积', interiorArea: '室内净面积合计', balconyArea: '阳台面积',
     note: '尺寸为演示假设。结构与管线尚未建模。' },
-  groups: { F1: '一层', F2: '二层', stairs: '楼梯', roof: '屋顶', ceiling: '顶板', balcony: '阳台' },
-  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具' },
+  groups: { F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', ceiling: '顶板', balcony: '阳台' },
+  partKinds: { floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏' },
   tree: { show: '显示{label}', collapse: '收起{label}部件', expand: '展开{label}部件', highlight: '高亮{label}',
     isolate: '单独查看{label}', alone: '单独', region: '{label}部件',
     help: '展开楼层可查看分类；点击名称高亮，使用“单独”查看部件。顶部视图按钮可恢复显示。' },
-  presets: { region: '模型视图', exterior: '完整外观', first: '一层内部', second: '二层内部', interior: '室内剖视' },
+  presets: { region: '模型视图', exterior: '完整外观', first: '一层内部', second: '二层内部', attic: '阁楼内部', interior: '室内剖视' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品储藏室', foyer: '玄关', wc: '厕所',
     hall: '走廊', stairs: '楼梯', master: '主卧', bed2: '卧室 2', bed3: '卧室 3', storage: '储藏室', balcony: '阳台' },
   plan: { sidebar: '{floor}层图纸资料', viewer: '{floor}层平面图查看区域', title: '{floor}层平面图',
@@ -55,6 +56,8 @@ const zh = {
       step: { title: 'STEP 精确实体', detail: '毫米制实体，可在 CAD 软件中继续编辑。' },
       first: { title: '一层平面', detail: '日文房间名与原生尺寸可编辑，包含 A3 纸空间。' },
       second: { title: '二层平面', detail: '日文房间名与原生尺寸可编辑，包含 A3 纸空间。' },
+      attic: { title: '阁楼可编辑平面图', detail: '日文标注的储物阁楼、检修口、收纳和净高；尺寸均为演示假设。' },
+      atticPdf: { title: '阁楼补充平面 PDF', detail: '独立 A3 日文补充图，包含阁楼净高与检修梯展开说明。' },
       pdf: { title: '两层 A3 图纸', detail: '日文图纸，1:50、A3 横向；打印选择实际尺寸。' },
       manifest: { title: '方案参数与假设', detail: '记录演示尺寸、房间净面积和待定项。' },
     } },
@@ -71,6 +74,7 @@ const ja: Messages = {
     title: '日本の2階建て戸建住宅', description: '日本の2階建て戸建住宅のパラメトリックな計画モデル、平面図、CADファイルを閲覧できます。',
     tabs: { '3d': '3Dモデル', '1f': '1階平面図', '2f': '2階平面図', files: 'ダウンロード' } },
   model: { region: '3Dモデル閲覧エリア', title: '日本の2階建て戸建住宅', top: '上面図', reset: '視点をリセット',
+    atticNote: '天井の低い小屋裏収納です。内法高さはデモ用の仮定です。点検はしごは展開状態のみを表し、2階廊下を占有します。個別に非表示にできます。構造・法規は未検証です。',
     loadingViewer: 'ビューアを読み込み中…', loadingModel: '住宅モデルを読み込み中…', selected: '選択中の部材', clear: '部材の強調表示を解除',
     empty: '表示中の部材がありません。閲覧したい部材を選択してください。', gesture: '部材を選択 · ドラッグで回転 ·', wheel: 'ホイールで拡大・縮小', touch: '2本指で拡大・縮小',
     downloadGlb: 'GLBをダウンロード', canvas: '回転・拡大・縮小できる住宅の3Dモデル', fallback: '住宅モデルの静止画プレビュー',
@@ -78,12 +82,12 @@ const ja: Messages = {
   controls: { region: 'モデル操作', parts: '部材の表示', cut: '水平断面', enableCut: '水平断面を有効にする', height: '切断高さ', showFurniture: '家具を表示', furnitureHelp: 'ベッド・ソファ・テーブル・椅子・テレビ。表示階と断面高さは維持します。' },
   parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高', clearHeight: '天井高', outlineArea: '外形面積', interiorArea: '室内有効面積の合計', balconyArea: 'バルコニー面積',
     note: '寸法はデモ用の仮定です。構造・設備配管は未モデル化です。' },
-  groups: { F1: '1階', F2: '2階', stairs: '階段', roof: '屋根', ceiling: '天井スラブ', balcony: 'バルコニー' },
-  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具' },
+  groups: { F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', ceiling: '天井スラブ', balcony: 'バルコニー' },
+  partKinds: { floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり' },
   tree: { show: '{label}を表示', collapse: '{label}の部材を折りたたむ', expand: '{label}の部材を展開', highlight: '{label}を強調表示',
     isolate: '{label}のみ表示', alone: '単独', region: '{label}の部材',
     help: '階を展開すると分類を表示します。名称を選択して強調表示、「単独」でその部材だけを表示できます。上部の表示切替で全体表示に戻せます。' },
-  presets: { region: 'モデルの表示切替', exterior: '建物全体', first: '1階内部', second: '2階内部', interior: '室内断面' },
+  presets: { region: 'モデルの表示切替', exterior: '建物全体', first: '1階内部', second: '2階内部', attic: '小屋裏内部', interior: '室内断面' },
   rooms: { ldk: 'LDK', bath: '浴室', wash: '洗面・脱衣室', pantry: '食品庫', foyer: '玄関', wc: 'トイレ',
     hall: '廊下', stairs: '階段', master: '主寝室', bed2: '洋室 2', bed3: '洋室 3', storage: '納戸', balcony: 'バルコニー' },
   plan: { sidebar: '{floor}階の図面情報', viewer: '{floor}階平面図の閲覧エリア', title: '{floor}階平面図',
@@ -104,6 +108,8 @@ const ja: Messages = {
       step: { title: 'STEP 精密ソリッド', detail: 'ミリメートル単位のソリッド。CADソフトで引き続き編集できます。' },
       first: { title: '1階平面図', detail: '日本語の室名・ネイティブ寸法を編集可能。A3ペーパー空間を含みます。' },
       second: { title: '2階平面図', detail: '日本語の室名・ネイティブ寸法を編集可能。A3ペーパー空間を含みます。' },
+      attic: { title: '編集可能な小屋裏平面図', detail: '小屋裏収納・点検開口・収納・内法高さを日本語で表示。寸法はデモ用の仮定です。' },
+      atticPdf: { title: '小屋裏補足平面図 PDF', detail: '独立したA3日本語補足図。内法高さと点検はしごの展開説明を含みます。' },
       pdf: { title: '2階分のA3図面', detail: '日本語図面、縮尺1:50・A3横。印刷時は実際のサイズを選択してください。' },
       manifest: { title: '計画パラメータと仮定条件', detail: 'デモ寸法、室内有効面積、未確定事項を記録しています。' },
     } },
@@ -140,6 +146,14 @@ const ja: Messages = {
     '木目の玄関扉・ハンドル・枠・庇・ポーチと1段の踏み段はデモ用付属部品です。玄関の開口幅・高さと平面位置を保持しています。',
     '屋根の勾配30度・軒450 mm・鉛直厚150 mmを保持し、立ちはぜ・棟包み・破風・軒天・軒とい・階別のたてといを追加しています。',
     '外装・雨とい・玄関付属部品の寸法はすべてデモ用仮定です。実際の層構成・排水・構造・防火・地盤高さ・申請要件は未検証です。',
+    '小屋裏は収納用途のデモプランです。確認済みの1・2階の室内有効境界とR03切妻屋根の外形を維持し、確定した3階の居室としては扱いません。',
+    '既存のZ=5400〜5600 mm、厚さ200 mmの概念的な天井スラブを小屋裏の床表示に再利用します。内法1200 × 650 mmの点検開口がスラブを貫通し、中央の18 mm床仕上げの上面はZ=5618 mmです。',
+    '小屋裏の床仕上げ範囲は3680 × 6880 mmです。点検開口を除く幾何投影面積は24.5384㎡で、法規や申請上の面積を確定するものではありません。',
+    '勾配天井の内装には鉛直方向50 mmの表示用の余裕を仮定します。床仕上げから内装までの高さは棟下で約2033.55 mm、両端で約971.23 mmです。断熱・屋根の層構成・実際の内法高さは未設計です。',
+    '両側の厚さ50 mmの腰壁、南北の厚さ20 mmの内装、高さ650 mmのオープン収納棚、高さ450 mmの収納箱は独自の変更可能な仮形状です。実製品は未選定です。',
+    '点検はしごは展開状態を表します。幅600 mm、角度65度、高低差2818 mmで、11等分の蹴上げは約256.18 mm、踏み板は10枚です。小屋裏の床を最後の段とし、点検開口を塞ぐ追加の踏み板は設けません。',
+    '点検はしごの展開範囲と奥行600 mmの足元立ち位置は2階廊下にあり、展開中は通路を占有します。点検口のふたとはしごは個別に命名し、点検入口の部材一式を独立して非表示にできます。折りたたみ機構や同時通行は検証していません。',
+    '小屋裏の梁柱、スラブの耐荷重、接合、断熱・換気、防火、点検はしご使用時の実際の頭上空間、法規上の定義は未設計です。追加寸法はすべてデモ用の仮定です。',
   ],
 };
 
@@ -150,6 +164,7 @@ const en: Messages = {
     title: 'Japanese two-storey house', description: 'Explore a parametric concept model, floor plans and downloadable CAD files for a Japanese two-storey house.',
     tabs: { '3d': '3D model', '1f': 'First-floor plan', '2f': 'Second-floor plan', files: 'Downloads' } },
   model: { region: '3D model viewer', title: 'Japanese two-storey house', top: 'Top view', reset: 'Reset view',
+    atticNote: 'Low-headroom attic storage; clear heights are demonstration assumptions. The access ladder shows its deployed state and occupies the second-floor hall. It can be hidden separately. Structure and regulatory compliance have not been verified.',
     loadingViewer: 'Loading viewer…', loadingModel: 'Loading house model…', selected: 'Selected component', clear: 'Clear component highlight',
     empty: 'No components are visible. Select the components you want to view.', gesture: 'Select a component · Drag to rotate ·', wheel: 'Scroll to zoom', touch: 'Pinch to zoom',
     downloadGlb: 'Download GLB', canvas: 'House 3D model with rotation and zoom controls', fallback: 'Static house model preview',
@@ -157,12 +172,12 @@ const en: Messages = {
   controls: { region: 'Model controls', parts: 'Component visibility', cut: 'Cutaway', enableCut: 'Enable cutaway', height: 'Cut height', showFurniture: 'Furniture', furnitureHelp: 'Beds, sofas, tables, chairs and TVs. Keeps the current floor and cut height.' },
   parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height', clearHeight: 'Clear height', outlineArea: 'Outline area', interiorArea: 'Total net interior area', balconyArea: 'Balcony area',
     note: 'Dimensions are demonstration assumptions. Structure and services have not been modelled.' },
-  groups: { F1: 'First floor', F2: 'Second floor', stairs: 'Stairs', roof: 'Roof', ceiling: 'Ceiling slab', balcony: 'Balcony' },
-  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture' },
+  groups: { F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', ceiling: 'Ceiling slab', balcony: 'Balcony' },
+  partKinds: { floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails' },
   tree: { show: 'Show {label}', collapse: 'Collapse {label} components', expand: 'Expand {label} components', highlight: 'Highlight {label}',
     isolate: 'View only {label}', alone: 'Only', region: '{label} components',
     help: 'Expand a floor to see its categories. Select a name to highlight it, or use “Only” to isolate it. The view presets above restore the display.' },
-  presets: { region: 'Model views', exterior: 'Whole house', first: 'First-floor interior', second: 'Second-floor interior', interior: 'Interior cutaway' },
+  presets: { region: 'Model views', exterior: 'Whole house', first: 'First-floor interior', second: 'Second-floor interior', attic: 'Attic interior', interior: 'Interior cutaway' },
   rooms: { ldk: 'Living / dining / kitchen', bath: 'Bathroom', wash: 'Washroom / changing room', pantry: 'Pantry', foyer: 'Entrance', wc: 'Toilet',
     hall: 'Hallway', stairs: 'Stairs', master: 'Main bedroom', bed2: 'Bedroom 2', bed3: 'Bedroom 3', storage: 'Storeroom', balcony: 'Balcony' },
   plan: { sidebar: 'Floor {floor} drawing information', viewer: 'Floor {floor} plan viewer', title: 'Floor {floor} plan',
@@ -183,6 +198,8 @@ const en: Messages = {
       step: { title: 'STEP exact solids', detail: 'Millimetre-based solids for further editing in CAD software.' },
       first: { title: 'First-floor plan', detail: 'Editable Japanese room names and native dimensions, with A3 paper space.' },
       second: { title: 'Second-floor plan', detail: 'Editable Japanese room names and native dimensions, with A3 paper space.' },
+      attic: { title: 'Editable attic plan', detail: 'Japanese annotations for attic storage, hatch, cabinets and clear heights; dimensions are demonstration assumptions.' },
+      atticPdf: { title: 'Supplementary attic plan PDF', detail: 'A separate A3 Japanese drawing with attic clear heights and the deployed access-ladder note.' },
       pdf: { title: 'Both floors on A3 sheets', detail: 'Japanese drawings, 1:50, A3 landscape. Print at actual size.' },
       manifest: { title: 'Parameters and assumptions', detail: 'Records demonstration dimensions, net room areas and unresolved details.' },
     } },
@@ -219,6 +236,14 @@ const en: Messages = {
     'The timber entry leaf, handle, frame, canopy, porch and single step are demonstration accessories. Entry opening width, height and plan position remain unchanged.',
     'The original 30-degree roof pitch, 450 mm eaves and 150 mm vertical thickness are retained, with added standing seams, ridge cap, bargeboards, soffits, gutters and floor-specific downpipes.',
     'All siding, rainwater and entry-accessory dimensions are demonstration assumptions. Actual layers, drainage, structure, fire safety, ground levels and application requirements have not been verified.',
+    'The attic is a storage-use demonstration proposal. The approved first- and second-floor clear room boundaries and R03 gable roof envelope are retained; it is not a confirmed third-storey habitable room.',
+    'The existing 200 mm concept ceiling slab at Z=5400–5600 mm is reused as an illustrative attic floor. A clear 1200 × 650 mm access hatch passes through the slab; the central 18 mm floor finish has its top at Z=5618 mm.',
+    'The attic floor finish spans 3680 × 6880 mm. Its geometric projected area excluding the hatch is 24.5384 m²; this is not a statutory or application-area conclusion.',
+    'The sloped lining uses a 50 mm vertical display allowance. Clear heights from the floor finish to the lining are approximately 2033.55 mm under the ridge and 971.23 mm at both edges. Insulation, roof build-up and actual clear heights have not been designed.',
+    'The 50 mm side knee walls, 20 mm north and south linings, 650 mm-high open shelves and 450 mm-high storage boxes are original, editable placeholder parameters; no products have been selected.',
+    'The access ladder is shown deployed, with a 600 mm width, 65-degree angle and 2818 mm rise. Eleven equal rises of approximately 256.18 mm use ten treads; the attic floor provides the final step without an extra panel obstructing the hatch.',
+    'The deployed ladder envelope and 600 mm-deep foot standing area lie in the second-floor hall and occupy its passage during deployment. The hatch lid and ladder are named individually, and the access assembly can be hidden independently. Folding mechanisms and simultaneous passage have not been verified.',
+    'Attic beams and posts, slab load capacity, connections, insulation and ventilation, fire safety, actual access-ladder headroom and statutory classification have not been designed. All additional dimensions are demonstration assumptions.',
   ],
 };
 
@@ -226,7 +251,7 @@ export const messages: Record<Locale, Messages> = { zh, ja, en };
 
 export function selectionLabel(copy: Messages, id: ModelPartId): string {
   if (!id.includes(':')) return copy.groups[id as GroupId];
-  const [floor, kind] = id.split(':') as ['F1' | 'F2', PartKind];
+  const [floor, kind] = id.split(':') as [FloorId, PartKind];
   return `${copy.groups[floor]} · ${copy.partKinds[kind]}`;
 }
 export function roomLabel(copy: Messages, id: string): string {

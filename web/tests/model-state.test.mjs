@@ -4,11 +4,12 @@ import { readFile } from 'node:fs/promises';
 import {
   settingsForPreset, activePreset, clampCutHeight, initialPage, groups, parts,
   setGroupVisible, setPartVisible, isolatePart, isPartVisible, groupVisibilityState, anyVisible,
+  initialPreset, modelLayouts, setFurnitureVisible,
 } from '../src/model-state.ts';
 
 test('internal views remove the actual covering floor and roof', () => {
-  assert.deepEqual(settingsForPreset('first').visibility, { F1: true, F2: false, stairs: true, roof: false });
-  assert.deepEqual(settingsForPreset('second').visibility, { F1: false, F2: true, stairs: true, roof: false });
+  assert.deepEqual(settingsForPreset('first').visibility, { F1: true, F2: false, attic: false, attic_access: false, stairs: true, roof: false });
+  assert.deepEqual(settingsForPreset('second').visibility, { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false });
   const edited = settingsForPreset('first'); edited.visibility.F2 = true;
   assert.equal(activePreset(edited), undefined);
   assert.equal(activePreset(settingsForPreset('first')), 'first');
@@ -46,7 +47,7 @@ test('child visibility respects parents, supports partial checks and restores al
 test('single category isolation shows that category only and presets restore the entire model', () => {
   const original = settingsForPreset('exterior'); original.cutaway = true;
   const isolated = isolatePart(original, 'F2:windows');
-  assert.deepEqual(isolated.visibility, { F1: false, F2: true, stairs: false, roof: false });
+  assert.deepEqual(isolated.visibility, { F1: false, F2: true, attic: false, attic_access: false, stairs: false, roof: false });
   assert.deepEqual(parts.filter(part => isPartVisible(isolated, part.id)).map(part => part.id), ['F2:windows']);
   assert.equal(groupVisibilityState(isolated, 'F2'), 'some');
   assert.equal(isolated.cutaway, false, 'isolated parts must not be clipped by a previous cutaway');
@@ -58,7 +59,7 @@ test('single category isolation shows that category only and presets restore the
 });
 
 test('whole floor and root group isolation remain usable and no visible children is empty', () => {
-  for (const id of ['F1', 'F2', 'stairs', 'roof']) {
+  for (const id of ['F1', 'F2', 'attic', 'attic_access', 'stairs', 'roof']) {
     const isolated = isolatePart(settingsForPreset('exterior'), id);
     assert.deepEqual(groups.filter(group => isolated.visibility[group.id]).map(group => group.id), [id]);
     assert.equal(anyVisible(isolated), true);
@@ -69,6 +70,41 @@ test('whole floor and root group isolation remain usable and no visible children
   assert.equal(empty.visibility.F1, true, 'a parent can remain enabled while every child is hidden');
   assert.equal(groupVisibilityState(empty, 'F1'), 'none');
   assert.equal(anyVisible(empty), false);
+});
+test('attic interior uses its own cut plane, hides the roof and preserves the furniture choice', () => {
+  const exterior = settingsForPreset('exterior');
+  assert.equal(exterior.visibility.attic, true);
+  assert.equal(exterior.visibility.attic_access, false, 'deployed ladder is hidden in the whole-house view');
+  const attic = settingsForPreset('attic', modelLayouts.house, setFurnitureVisible(exterior, false));
+  assert.deepEqual(attic.visibility, { F1: false, F2: false, attic: true, attic_access: true, stairs: false, roof: false });
+  assert.equal(attic.cutaway, true);
+  assert.equal(attic.heightMm, 6900, 'the attic cut plane must be above the attic floor');
+  assert.ok(parts.filter(part => part.id.endsWith(':furniture')).every(part => attic.partVisibility[part.id] === false));
+  assert.equal(activePreset(attic), 'attic');
+  assert.equal(initialPreset('?mode=attic'), 'attic');
+  assert.equal(initialPreset('?mode=attic', modelLayouts.apartment), 'interior');
+  assert.equal(activePreset({ ...attic, heightMm: 6600 }), undefined, 'a moved attic plane is a custom view');
+  assert.equal(activePreset({ ...exterior, heightMm: 6600 }), 'exterior', 'uncut presets do not constrain an unused height');
+  assert.deepEqual(parts.filter(part => part.group === 'attic').map(part => part.id), [
+    'attic:floor_slab', 'attic:partition_walls', 'attic:storage_fixtures', 'attic:guardrails',
+  ]);
+  assert.ok(parts.filter(part => part.group !== 'attic').every(part => !part.id.endsWith(':guardrails')));
+  const hiddenLadder = setGroupVisible(attic, 'attic_access', false);
+  assert.equal(isPartVisible(hiddenLadder, 'attic:floor_slab'), true);
+  assert.equal(activePreset(hiddenLadder), undefined);
+  assert.deepEqual(settingsForPreset('second', modelLayouts.house, attic).visibility,
+    { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false });
+});
+test('attic categories support visibility and isolation without revealing other floors', () => {
+  const attic = settingsForPreset('attic');
+  const edited = setPartVisible(attic, 'attic:guardrails', false);
+  assert.equal(groupVisibilityState(edited, 'attic'), 'some');
+  assert.equal(isPartVisible(edited, 'attic:floor_slab'), true);
+  assert.equal(isPartVisible(edited, 'attic:guardrails'), false);
+  const isolated = isolatePart(edited, 'attic:storage_fixtures');
+  assert.deepEqual(groups.filter(group => isolated.visibility[group.id]).map(group => group.id), ['attic']);
+  assert.deepEqual(parts.filter(part => isPartVisible(isolated, part.id)).map(part => part.id), ['attic:storage_fixtures']);
+  assert.equal(isolated.cutaway, false);
 });
 test('invalid heights and shared plan URLs are handled safely', () => {
   assert.equal(clampCutHeight(NaN), 4200);

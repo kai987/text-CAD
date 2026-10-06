@@ -33,10 +33,10 @@ function GroupCheckbox({ settings, id, label, ready, onChange }: GroupCheckboxPr
 
 export default function PartTree({ settings, setSettings, ready, selectedPart, onSelectPart }: Props) {
   const { copy, layout } = useModel();
-  const [expanded, setExpanded] = useState<Record<FloorId, boolean>>({ F1: true, F2: false });
+  const [expanded, setExpanded] = useState<Record<FloorId, boolean>>({ F1: true, F2: false, attic: false });
   useEffect(() => {
     const group = layout.parts.find(part => part.id === selectedPart)?.group
-      ?? (selectedPart === 'F1' || selectedPart === 'F2' ? selectedPart : undefined);
+      ?? (selectedPart === 'F1' || selectedPart === 'F2' || selectedPart === 'attic' ? selectedPart : undefined);
     if (group) setExpanded(s => s[group] ? s : { ...s, [group]: true });
   }, [selectedPart, layout]);
   const isolate = (id: ModelPartId) => {

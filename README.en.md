@@ -4,6 +4,20 @@
 
 The house drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
 
+## Storage attic (R04-3D)
+
+A storage attic now fits within the existing gable roof. The approved first- and second-floor room boundaries and R03 roof envelope are retained. The viewer adds an attic interior preset and separate floor, lining/knee-wall, storage and opening-guardrail categories. A separately visible access assembly has named hatch lid, stringers and ten treads. It shows a deployed concept ladder; hiding it does not simulate mechanical folding. Deployment occupies the second-floor hall.
+
+Every new dimension is a **demonstration assumption**. The central deck is **3680 × 6880 mm**, with a **1200 × 650 mm** clear hatch. Deck projection after subtracting the opening is **24.5384 m²**, not a statutory area. The deck surface is at Z=5618 mm. With a 50 mm vertical display allowance for the lining, clear height is approximately **2034 mm** at the ridge and **971 mm** at the deck edges. This is low storage space; load capacity, actual ladder headroom, insulation, ventilation and statutory use remain undesigned.
+
+Parameters are in `src/lib/attic_geometry.py`. STEP / GLB contain named `attic` and `attic_access` groups. The supplemental `DXF/house_attic_plan.dxf` retains editable text and dimensions; `output/pdf/house_attic_plan_R04_JP.pdf` is a monochrome A3 sheet at 1:50 with an east-west height section. The approved R02 two-floor drawings are not rewritten. Trilingual controls, downloads and an attic fallback image are included. [Dimensions and scope](docs/attic_R04.md).
+
+```bash
+.venv/bin/python src/generate_attic_plan.py
+CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
+.venv/bin/python checks/validate_3d.py
+```
+
 ## Contemporary Japanese house exterior (R03-3D)
 
 The house uses warm-white siding, grey and timber entry accents, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, approved room layout and door/window rough openings are retained.
@@ -57,7 +71,7 @@ npm run build
 
 `build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
 
-Development and builds copy 23 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
+Development and builds copy 26 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
 After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:
 

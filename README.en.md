@@ -4,6 +4,12 @@
 
 The house drawing revision is R02, which adapts Japanese drafting rules. **The user-confirmed R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
 
+## Model day/night and outdoor fixtures (R08-3D)
+
+The 3D viewer now switches between day and night independently of the page light/dark theme. The house adds seven named outdoor fixtures: one entrance wall light, two path lights, two garden lights and two gate-post lights. Choose “Night” and enable “Outdoor lights” for warm illumination; switching off retains the fixture geometry. Hidden categories, interior/structural presets and section cuts disable the corresponding sources. Lighting choices persist and can be shared by URL; day/night switching preserves the camera, furniture and section state.
+
+Fixtures are included in STEP/GLB and retain editable parametric source. All sizes, positions and the 3000 K warm appearance are demonstration assumptions; illuminance, circuits, product weatherproof ratings and installation remain undetermined. Confirmed plans, apartment files and R07 structural files remain unchanged. [Parameters, usage and validation](docs/outdoor_lighting_R08.md).
+
 ## Four cities and three structural systems (R07)
 
 Added 12 conditional cases: Tokyo / Osaka City / Kyoto City / Nagoya City × timber W / lightweight steel S / reinforced concrete RC. In “Structural scheme”, choose the city and system to inspect distinct named structural geometry, local review references, and download the corresponding STEP, GLB and case JSON. Official references include applicability, sources and verification dates. [Concepts and regeneration](docs/structural_comparison_R07.md) · [Official regulatory references](docs/regulations_R07.md).
@@ -12,7 +18,7 @@ Three independent overlays retain the existing building and user-confirmed plans
 
 ## Structural layout and storage-use demonstration (R06-3D)
 
-The current 3D model is an **R06 demonstration concept**, with no actual building location specified. The 7280 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.
+The structural layout introduced in R06 is a **demonstration concept**, with no actual building location specified. The 7280 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.
 
 The separate `structure` root contains columns, beams, sills, attic joists, hatch headers, roof framing and candidate bearing walls. The “Structural scheme” preset shows timber and foundations while hiding finishes, doors/windows, furniture and roof cladding. Normal exterior and interior presets hide the timber proposal to avoid overlapping representations. Every member size is a demonstration assumption; wall candidates do not establish bearing capacity, seismic rating or calculation results. Original perimeter plinths retain their geometry under a separate `foundation` category. Internal foundation supports follow candidate column lines. Loads, materials, sizes, joints, reinforcement and soil capacity remain uncalculated.
 

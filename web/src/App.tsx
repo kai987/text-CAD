@@ -13,6 +13,7 @@ import { isThemePreference } from './theme-preferences';
 import { ModelProvider } from './ModelContext';
 import { modelCopy } from './model-copy';
 import { StructuralDesignProvider } from './StructuralDesignContext';
+import { initialSceneLighting, saveSceneLighting, sceneLightingUrl } from './scene-lighting-settings';
 
 export default function App() {
   const { locale, setLocale, copy: baseCopy } = useLanguage();
@@ -23,8 +24,16 @@ export default function App() {
   const [page, setPage] = useState(() => initialPage(location.search, modelLayouts[initialModel(location.search)]));
   const [settings, setSettings] = useState(() => {
     const initial = modelLayouts[initialModel(location.search)];
-    return settingsForPreset(initialPreset(location.search, initial), initial);
+    let lighting;
+    try { lighting = initialSceneLighting(location.search, window.localStorage); }
+    catch { lighting = initialSceneLighting(location.search); }
+    return { ...settingsForPreset(initialPreset(location.search, initial), initial), ...lighting };
   });
+  useEffect(() => {
+    try { saveSceneLighting(window.localStorage, settings); }
+    catch { /* Embedded browsers can block access to localStorage itself. */ }
+    history.replaceState(null, '', sceneLightingUrl(location.href, settings));
+  }, [settings.environment, settings.outdoorLights]);
   useEffect(() => {
     document.title = `${copy.app.title} · text-CAD`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', copy.app.description);
@@ -34,7 +43,7 @@ export default function App() {
   }
   function changeModel(id: ModelId) {
     const next = modelLayouts[id];
-    setModel(id); setSettings(settingsForPreset(next.defaultPreset, next));
+    setModel(id); setSettings(previous => settingsForPreset(next.defaultPreset, next, previous));
     setPage('3d'); updateUrl('3d', id);
   }
   function navigate(next: PageId) {

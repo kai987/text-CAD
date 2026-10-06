@@ -9,6 +9,7 @@ import { selectionLabel } from './localization';
 import type { ModelSettings } from './model-state';
 import ModelControls from './ModelControls';
 import FurnitureToggle from './FurnitureToggle';
+import SceneLightingControls from './SceneLightingControls';
 import ViewPresets from './ViewPresets';
 import { anyVisible, groupVisibilityState, initialPreset, setGroupVisible, setPartVisible } from './model-state';
 import type { GroupId, ModelPartId, PartId } from './model-state';
@@ -61,6 +62,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
             setCameraRequest(s => ({ mode: 'iso', seq: s.seq + 1 }))}><RotateCcw size={16} aria-hidden="true" />{copy.model.reset}</button>
         </div>
       </div>
+      <SceneLightingControls settings={settings} setSettings={setSettings} ready={ready} />
       {layout.id === 'house' ? <StructuralOptions compact showSummary={structuralMode} /> : null}
       <ViewPresets settings={settings} setSettings={setSettings} ready={ready} structuralMode={structuralMode} onPreset={preset => {
         setStructuralMode(preset === 'structure');
@@ -68,7 +70,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
         history.replaceState(null, '', url.href);
         setSelection(null); setCameraRequest(s => ({ mode: 'iso', seq: s.seq + 1 }));
       }} />
-      <div className="model-canvas">
+      <div className="model-canvas" data-scene-environment={settings.environment}>
         <Suspense fallback={<p className="canvas-message" role="status">{copy.model.loadingViewer}</p>}>
           <ThreeScene settings={settings} cameraRequest={cameraRequest} onReady={onReady}
             selection={selection} onSelection={setSelection}

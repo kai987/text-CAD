@@ -1,4 +1,4 @@
-"""Build named STEP and GLB outputs for the approved R01 concept house."""
+"""Build named STEP and GLB outputs for the user-confirmed concept house."""
 from pathlib import Path
 import json
 import struct
@@ -8,6 +8,7 @@ from cadgen import glb, read_scene, step
 from lib.house_geometry import geometry_manifest, house_assembly
 from lib.interior_materials import apply_interior_materials
 from lib.exterior_materials import apply_exterior_materials
+from lib.outdoor_lighting import apply_outdoor_lighting_materials
 from lib.engineering_inputs import engineering_inputs
 from lib.house_plan import P
 from lib.house_geometry import G
@@ -81,13 +82,14 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["scenes"] = [{"name": "house_3d", "nodes": [insert(root) for root in scene.roots]}]
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
-                                    "source": "Named CADgen STEP assembly; approved R01 plan"}
+                                    "source": "Named CADgen STEP assembly; user-confirmed plan; R08 exterior lighting"}
     apply_interior_materials(document)
     bin_offset = 20+json_size
     bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)
     if bin_kind != 0x004E4942:
         raise ValueError("CADgen GLB second chunk is not BIN")
     binary = apply_exterior_materials(document, data[bin_offset+8:bin_offset+8+bin_size])
+    apply_outdoor_lighting_materials(document, P, G)
     encoded = json.dumps(document, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     encoded += b" "*((-len(encoded)) % 4)
     remaining_chunks = struct.pack("<II", len(binary), bin_kind)+binary

@@ -1,19 +1,23 @@
 export type ModelId = 'house' | 'apartment';
-export type GroupId = 'F1' | 'F2' | 'attic' | 'attic_access' | 'stairs' | 'roof' | 'foundation' | 'yard' | 'fence' | 'structure' | 'ceiling' | 'balcony';
+export type GroupId = 'F1' | 'F2' | 'attic' | 'attic_access' | 'stairs' | 'roof' | 'foundation' | 'yard' | 'fence' | 'lighting' | 'structure' | 'ceiling' | 'balcony';
 export type FloorId = 'F1' | 'F2' | 'attic';
-export type PartGroupId = FloorId | 'foundation' | 'yard' | 'fence' | 'structure';
+export type PartGroupId = FloorId | 'foundation' | 'yard' | 'fence' | 'lighting' | 'structure';
 export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures' | 'furniture' | 'guardrails'
   | 'columns' | 'beams' | 'sills' | 'attic_joists' | 'attic_headers' | 'roof_framing' | 'bearing_walls'
-  | 'existing_plinth' | 'internal_supports' | 'raft' | 'stem_walls' | 'entrance_supports' | 'soil' | 'ground_surfaces' | 'entrance_path' | 'parking' | 'planting' | 'posts' | 'panels' | 'footings';
+  | 'existing_plinth' | 'internal_supports' | 'raft' | 'stem_walls' | 'entrance_supports' | 'soil' | 'ground_surfaces' | 'entrance_path' | 'parking' | 'planting' | 'posts' | 'panels' | 'footings'
+  | 'wall' | 'path' | 'garden' | 'gate';
 export type PartId = `${PartGroupId}:${PartKind}`;
 export type ModelPartId = PartId | GroupId;
 export type PresetId = 'exterior' | 'first' | 'second' | 'attic' | 'interior' | 'structure';
 export type PageId = '3d' | '1f' | '2f' | 'files';
+export type SceneEnvironment = 'day' | 'night';
 export interface ModelSettings {
   visibility: Partial<Record<GroupId, boolean>>;
   partVisibility: Partial<Record<PartId, boolean>>;
   cutaway: boolean;
   heightMm: number;
+  environment: SceneEnvironment;
+  outdoorLights: boolean;
 }
 interface ModelGroup { id: GroupId; label: string }
 interface ModelPart { id: PartId; group: PartGroupId; label: string }
@@ -34,6 +38,7 @@ export const groups: ModelGroup[] = [
   { id: 'attic', label: '储物阁楼' }, { id: 'attic_access', label: '阁楼检修梯（展开）' },
   { id: 'stairs', label: '楼梯' }, { id: 'roof', label: '屋顶' },
   { id: 'structure', label: '结构方案' }, { id: 'foundation', label: '建筑基础' }, { id: 'yard', label: '院子' }, { id: 'fence', label: '围栏' },
+  { id: 'lighting', label: '室外灯具' },
 ];
 const partKinds: { id: PartKind; label: string }[] = [
   { id: 'floor_slab', label: '楼板' }, { id: 'external_walls', label: '外墙' },
@@ -68,13 +73,17 @@ export const parts: ModelPart[] = [
   { id: 'fence:posts', group: 'fence', label: '围栏立柱' },
   { id: 'fence:panels', group: 'fence', label: '围栏面板' },
   { id: 'fence:footings', group: 'fence', label: '围栏独立基础' },
+  { id: 'lighting:wall', group: 'lighting', label: '外墙灯' },
+  { id: 'lighting:path', group: 'lighting', label: '步道灯' },
+  { id: 'lighting:garden', group: 'lighting', label: '庭院灯' },
+  { id: 'lighting:gate', group: 'lighting', label: '门口灯' },
 ];
 export const presets: ViewPreset[] = [
-  { id: 'exterior', label: '完整外观', visibility: { F1: true, F2: true, attic: true, attic_access: false, stairs: true, roof: true, foundation: true, yard: true, fence: true, structure: false } },
-  { id: 'first', label: '一层内部', visibility: { F1: true, F2: false, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false, structure: false } },
-  { id: 'second', label: '二层内部', visibility: { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false, structure: false } },
-  { id: 'attic', label: '阁楼内部', visibility: { F1: false, F2: false, attic: true, attic_access: true, stairs: false, roof: false, foundation: false, yard: false, fence: false, structure: false }, cutaway: true, heightMm: 6900 },
-  { id: 'structure', label: '结构方案', visibility: { F1: false, F2: false, attic: false, attic_access: false, stairs: false, roof: false, foundation: true, yard: false, fence: false, structure: true } },
+  { id: 'exterior', label: '完整外观', visibility: { F1: true, F2: true, attic: true, attic_access: false, stairs: true, roof: true, foundation: true, yard: true, fence: true, lighting: true, structure: false } },
+  { id: 'first', label: '一层内部', visibility: { F1: true, F2: false, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false, lighting: false, structure: false } },
+  { id: 'second', label: '二层内部', visibility: { F1: false, F2: true, attic: false, attic_access: false, stairs: true, roof: false, foundation: false, yard: false, fence: false, lighting: false, structure: false } },
+  { id: 'attic', label: '阁楼内部', visibility: { F1: false, F2: false, attic: true, attic_access: true, stairs: false, roof: false, foundation: false, yard: false, fence: false, lighting: false, structure: false }, cutaway: true, heightMm: 6900 },
+  { id: 'structure', label: '结构方案', visibility: { F1: false, F2: false, attic: false, attic_access: false, stairs: false, roof: false, foundation: true, yard: false, fence: false, lighting: false, structure: true } },
 ];
 export const modelLayouts: Record<ModelId, ModelLayout> = {
   house: { id: 'house', groups, parts, presets, defaultPreset: 'exterior', maxCutHeight: 8000, defaultCutHeight: 4200, pages: ['3d', '1f', '2f', 'files'] },
@@ -150,7 +159,8 @@ export function settingsForPreset(id: PresetId, layout = modelLayouts.house, pre
   if (previous) for (const part of layout.parts) {
     if (part.id.endsWith(':furniture')) partVisibility[part.id] = previous.partVisibility[part.id] ?? true;
   }
-  return { visibility: { ...preset.visibility }, partVisibility, cutaway: preset.cutaway ?? false, heightMm: preset.heightMm ?? layout.defaultCutHeight };
+  return { visibility: { ...preset.visibility }, partVisibility, cutaway: preset.cutaway ?? false, heightMm: preset.heightMm ?? layout.defaultCutHeight,
+    environment: previous?.environment ?? 'day', outdoorLights: previous?.outdoorLights ?? true };
 }
 export function activePreset(s: ModelSettings, layout = modelLayouts.house): PresetId | undefined {
   if (layout.parts.some(part => !part.id.endsWith(':furniture') && !s.partVisibility[part.id])) return undefined;
@@ -186,8 +196,12 @@ export function modelUrl(current: string, page: PageId, model: ModelId): string 
   url.searchParams.set('view', modelLayouts[model].pages.includes(page) ? page : '1f');
   if (model === 'apartment') url.searchParams.set('model', model);
   if (section === 'wasm') url.searchParams.set('section', section);
+  const currentParams = new URL(current).searchParams;
+  for (const key of ['environment', 'lights']) {
+    const value = currentParams.get(key);
+    if (value) url.searchParams.set(key, value);
+  }
   if (model === 'house') {
-    const currentParams = new URL(current).searchParams;
     for (const key of ['city', 'system']) {
       const value = currentParams.get(key);
       if (value) url.searchParams.set(key, value);

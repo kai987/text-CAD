@@ -1,6 +1,7 @@
 import {
-  Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
+  ACESFilmicToneMapping, Box3, Color, DirectionalLight, DoubleSide, EdgesGeometry, FrontSide, HemisphereLight, LineBasicMaterial,
   LineSegments, Mesh, Object3D, OrthographicCamera, Plane, PMREMGenerator, Raycaster, Scene, Texture, Vector2, Vector3, WebGLRenderer,
+  NoToneMapping, PCFSoftShadowMap,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -17,6 +18,7 @@ import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
 import { structuralObjectVisible } from './structural-design';
 import type { StructuralOverlayState, StructuralSystem } from './structural-design';
+import { createOutdoorLighting, nightScenePalette } from './scene-lighting';
 
 export interface HouseViewer {
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
@@ -51,8 +53,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const outlineMaterials = new Set<LineBasicMaterial>();
   function createOutlineMaterial(opacity = 0.55) {
     const material = new LineBasicMaterial({
-      color: new Color(themePalette[theme].outline), transparent: true, opacity,
+      color: new Color(settings.environment === 'night' ? nightScenePalette.outline : themePalette[theme].outline),
+      transparent: true, opacity: settings.environment === 'night' ? opacity * 0.48 : opacity,
     });
+    material.userData.dayOpacity = opacity;
     outlineMaterials.add(material);
     return material;
   }
@@ -72,9 +76,12 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   scene.environment = environment.texture;
   scene.environmentIntensity = 0.12;
   studio.dispose(); pmrem.dispose();
-  scene.add(new HemisphereLight(0xffffff, 0xbac2cc, 1.8));
+  const sky = new HemisphereLight(0xffffff, 0xbac2cc, 1.8); scene.add(sky);
   const sun = new DirectionalLight(0xffffff, 2.0);
   sun.position.set(-8, 16, 12); scene.add(sun);
+  const outdoorLighting = createOutdoorLighting(scene);
+  renderer.shadowMap.type = PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;
   const camera = new OrthographicCamera(-8, 8, 8, -8, 0.1, 100);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -111,9 +118,33 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   function setTheme(next: ResolvedTheme) {
     if (disposed) return;
     theme = next;
-    renderer.setClearColor(themePalette[theme].canvasBackground);
-    outlineMaterials.forEach(material => material.color.set(themePalette[theme].outline));
+    updateEnvironment();
     requestRender();
+  }
+  function updateEnvironment() {
+    const night = settings.environment === 'night';
+    renderer.setClearColor(night ? nightScenePalette.background : themePalette[theme].canvasBackground);
+    outlineMaterials.forEach(material => {
+      material.color.set(night ? nightScenePalette.outline : themePalette[theme].outline);
+      material.opacity = Number(material.userData.dayOpacity ?? 0.55) * (night ? 0.48 : 1);
+    });
+    sky.color.set(night ? nightScenePalette.sky : 0xffffff);
+    sky.groundColor.set(night ? nightScenePalette.ground : 0xbac2cc);
+    sky.intensity = night ? 0.48 : 1.8;
+    sun.color.set(night ? nightScenePalette.moon : 0xffffff);
+    sun.intensity = night ? 0.32 : 2;
+    scene.environmentIntensity = night ? 0.035 : 0.12;
+    renderer.toneMapping = night ? ACESFilmicToneMapping : NoToneMapping;
+    renderer.toneMappingExposure = night ? 1.1 : 1;
+    const lighting = outdoorLighting.update(settings);
+    renderer.shadowMap.enabled = night && lighting.shadowLights > 0;
+    renderer.shadowMap.needsUpdate = true;
+    renderer.domElement.dataset.sceneEnvironment = settings.environment;
+    renderer.domElement.dataset.outdoorLights = String(settings.outdoorLights);
+    renderer.domElement.dataset.outdoorLightFixtures = String(lighting.total);
+    renderer.domElement.dataset.activeOutdoorLights = String(lighting.active);
+    renderer.domElement.dataset.activeOutdoorLightIds = JSON.stringify(lighting.activeIds);
+    renderer.domElement.dataset.outdoorShadowLights = String(lighting.shadowLights);
   }
   controls.addEventListener('change', requestRender);
   function resize() {
@@ -244,6 +275,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     const height = next.cutaway ? next.heightMm / 1000 : null;
     renderer.clippingPlanes = height === null ? [] : [new Plane(new Vector3(0, -1, 0), height)];
     updateSectionCaps(height);
+    updateEnvironment();
     if (selectionName) {
       const target = cadObjects.get(selectionName);
       if (!target || !visibleMeshes(target).length) { select(null); onSelection(null); }
@@ -260,6 +292,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         m.side = m.transparent ? DoubleSide : FrontSide;
         m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1;
       });
+      o.castShadow = materials.some(material => !material.transparent && material.opacity >= 1);
+      o.receiveShadow = !String(o.userData.cadName).startsWith('lighting:');
       const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
       const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
       const outline = wall ? createCadOutlineGeometry(o.geometry, 28) : new EdgesGeometry(o.geometry, 28);
@@ -361,7 +395,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
       groupObjects.set(group.id, object);
     }
-    scene.add(root); apply(settings); fit(); onReady();
+    scene.add(root); outdoorLighting.register(root); apply(settings); fit(); onReady();
   }, undefined, () => { if (!disposed) onError(); });
   // Opt-in prototype: keep the model usable while the optional engine initializes.
   if (new URLSearchParams(location.search).get('section') === 'wasm') {
@@ -398,6 +432,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       renderer.domElement.removeEventListener('pointercancel', pointerCancel);
       renderer.domElement.removeEventListener('keydown', keyDown);
       clearHighlight();
+      outdoorLighting.dispose();
       if (root) disposeObject(root, true);
       outlineMaterials.clear();
       environment.dispose();

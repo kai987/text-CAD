@@ -136,6 +136,26 @@ const fenceDetails = {
   footings: label('围栏独立基础', 'フェンスの独立基礎', 'Fence footing'),
 } satisfies Catalog;
 const yardShrub = label('院子灌木', '庭の低木', 'Yard shrub');
+const outdoorFixtures = {
+  entrance_01: label('玄关外墙灯', '玄関の外壁灯', 'Entrance wall light'),
+  path_01: label('步道灯 1', 'アプローチ灯 1', 'Path light 1'),
+  path_02: label('步道灯 2', 'アプローチ灯 2', 'Path light 2'),
+  garden_01: label('庭院灯 1', '庭園灯 1', 'Garden light 1'),
+  garden_02: label('庭院灯 2', '庭園灯 2', 'Garden light 2'),
+  gate_01: label('门口灯 1', '門灯 1', 'Gate light 1'),
+  gate_02: label('门口灯 2', '門灯 2', 'Gate light 2'),
+} satisfies Catalog;
+const outdoorFixtureDetails = {
+  mount: label('安装底座', '取付台', 'Mounting plate'),
+  lower_cap: label('下端盖', '下部キャップ', 'Lower cap'),
+  upper_cap: label('上端盖', '上部キャップ', 'Upper cap'),
+  left_trim: label('左边框', '左側フレーム', 'Left trim'),
+  right_trim: label('右边框', '右側フレーム', 'Right trim'),
+  diffuser: label('柔光罩', '拡散カバー', 'Diffuser'),
+  base: label('底座', 'ベース', 'Base'),
+  body: label('灯体', '器具本体', 'Housing'),
+  cap: label('顶盖', '上部カバー', 'Top cap'),
+} satisfies Catalog;
 
 const directions = {
   south: label('南侧', '南側', 'South'), north: label('北侧', '北側', 'North'),
@@ -387,6 +407,12 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
+  const outdoor = /^lighting:(?:wall|path|garden|gate):([^:]+):([^:]+)$/.exec(name);
+  if (outdoor) {
+    const fixture = lookup(outdoorFixtures, outdoor[1], locale);
+    const detail = lookup(outdoorFixtureDetails, outdoor[2], locale);
+    return fixture && detail ? `${fixture} · ${detail}` : null;
+  }
 
   const variantMember = /^structure:(F1|F2|attic):(base_plate|shear_wall)_([A-Z]+\d{2})$/.exec(name);
   if (variantMember) return `${structuralLevels[variantMember[1] as keyof typeof structuralLevels][locale]} · ${structuralDetails[variantMember[2] as keyof typeof structuralDetails][locale]} ${variantMember[3]}`;

@@ -330,3 +330,26 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .plan-actions { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* Model illumination stays independent of the page's light/dark appearance. */
+.scene-lighting-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 24px; padding: 10px 26px; flex-shrink: 0; background: var(--surface); border-bottom: 1px solid var(--line); }
+.scene-environment { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.scene-lighting-label { margin-right: 5px; font-size: 12px; font-weight: 650; color: var(--secondary); }
+.scene-time { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--control-border); border-radius: 4px; color: var(--text); background: var(--surface); font-size: 13px; }
+.scene-time.selected { color: var(--selected-text); background: var(--accent-fill); border-color: var(--accent-fill); }
+.scene-time:hover:not(:disabled):not(.selected) { color: var(--accent); border-color: var(--accent); background: var(--soft-hover); }
+.scene-outdoor-lights { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text); cursor: pointer; }
+.scene-outdoor-lights:has(input:disabled) { opacity: .55; cursor: default; }
+.scene-lighting-help { flex: 1 1 260px; margin: 0; font-size: 11px; color: var(--muted); line-height: 1.6; }
+.model-canvas[data-scene-environment='night'] .canvas-footer { color: #a7bcd2; }
+.model-canvas[data-scene-environment='night'] .canvas-footer a { color: #92d1ff; }
+.model-canvas[data-scene-environment='night'] .canvas-footer a:focus-visible { outline-color: #92d1ff; }
+.model-canvas[data-scene-environment='night'] .canvas-message { color: #d0dce8; padding: 12px 14px; border-radius: 4px; background: #152233ed; }
+@media (max-width: 1000px) { .scene-lighting-controls { padding-inline: 20px; gap: 8px 16px; } }
+@media (max-width: 760px) {
+  .scene-lighting-controls { padding: 10px 14px; gap: 8px 12px; }
+  .scene-lighting-help { flex-basis: 100%; }
+  .scene-lighting-label { font-size: 11px; }
+  .scene-time { min-height: 38px; padding-inline: 9px; font-size: 12px; }
+  .scene-outdoor-lights { margin-left: auto; font-size: 12px; }
+}

@@ -1,4 +1,4 @@
-"""Parametric concept assembly derived from the approved R01 floor plans.
+"""Parametric concept assembly derived from the user-confirmed floor plans.
 
 All source dimensions are millimetres; Z=0 and Z=2800 are finished-floor
 datums. This is a concept model, not a structural or statutory design.
@@ -283,6 +283,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     from .attic_geometry import attic_access_group, attic_group
     from .site_geometry import foundation_group, yard_group, fence_group
     from .structure_geometry import structure_group
+    from .outdoor_lighting import outdoor_lighting_group
     floors = []
     for number in (1, 2):
         plan = floor_plan(number, p)
@@ -297,6 +298,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     children += [attic_group(p, g), attic_access_group(p, g)]
     children += [foundation_group(p, g), yard_group(p, g), fence_group()]
     children.append(structure_group(p, g))
+    children.append(outdoor_lighting_group(p, g))
     return bd.Compound(children=children, label="house_3d")
 
 
@@ -306,12 +308,14 @@ def geometry_manifest(p=P, g=G):
     from .attic_geometry import attic_manifest
     from .site_geometry import site_manifest
     from .structure_geometry import structure_manifest
+    from .outdoor_lighting import outdoor_lighting_manifest
     exterior = exterior_manifest()
     attic = attic_manifest(p, g)
     site = site_manifest(p, g)
     structure = structure_manifest(p, g)
+    lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R06-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R08-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -320,6 +324,7 @@ def geometry_manifest(p=P, g=G):
         "attic": attic,
         "site": site,
         "structure": structure,
+        "outdoor_lighting": lighting,
         "engineering_status": {
             "site": "demonstration; municipality and actual parcel unspecified",
             "structural_calculation": "not performed",
@@ -341,7 +346,7 @@ def geometry_manifest(p=P, g=G):
             "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"],
+        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"] + lighting["assumptions"],
         "interior_reference": "references/interior-furnishings.md",
         "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
         "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],

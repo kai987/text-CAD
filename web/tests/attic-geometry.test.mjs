@@ -34,7 +34,9 @@ test('the real GLB retains 377 original leaves after entry-accent removal and st
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));
   const site = meshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
   const structure = meshes.filter(node => node.name.startsWith('structure:'));
-  assert.equal(meshes.length - added.length - site.length - structure.length, 377,
+  const lighting = meshes.filter(node => node.name.startsWith('lighting:'));
+  assert.equal(lighting.length, 32, 'R08 adds outdoor fixtures independently of the retained R03/attic geometry');
+  assert.equal(meshes.length - added.length - site.length - structure.length - lighting.length, 377,
     'R03 leaves remain except the removed entry accent, including regrouped foundation plinths');
   assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 31);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);

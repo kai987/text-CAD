@@ -29,7 +29,7 @@ function originalCategory(name) {
     if (kind.startsWith('bearing_wall_')) return 'structure:bearing_walls';
     if (structural[1] === 'roof') return 'structure:roof_framing';
   }
-  const siteCategory = /^(foundation|yard|fence):([^:]+):/.exec(name);
+  const siteCategory = /^(foundation|yard|fence|lighting):([^:]+):/.exec(name);
   if (siteCategory) return `${siteCategory[1]}:${siteCategory[2]}`;
   if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
   if (/^attic:(?:lining|knee_wall|gable_lining):/.test(name)) return 'attic:partition_walls';
@@ -122,6 +122,28 @@ test('roof labels distinguish east/west planes, gable walls, and attic ceiling',
     'roof:north_gable_wall', 'roof:attic_ceiling_slab'];
   for (const locale of locales) {
     names.forEach((name, index) => assert.match(cadComponentLabel(locale, name), expected[locale][index], `${locale}: ${name}`));
+  }
+});
+test('outdoor fixture labels identify their individual housings and diffusers in all three languages', () => {
+  const fixtures = [
+    ['wall', 'entrance_01', ['mount', 'lower_cap', 'upper_cap', 'left_trim', 'right_trim', 'diffuser']],
+    ...['path_01', 'path_02'].map(id => ['path', id, ['base', 'body', 'diffuser', 'cap']]),
+    ...['garden_01', 'garden_02'].map(id => ['garden', id, ['base', 'body', 'diffuser']]),
+    ...['gate_01', 'gate_02'].map(id => ['gate', id, ['mount', 'lower_cap', 'upper_cap', 'left_trim', 'right_trim', 'diffuser']]),
+  ];
+  for (const locale of locales) {
+    const labels = fixtures.flatMap(([category, fixture, details]) => details.map(detail => {
+      const label = cadComponentLabel(locale, `lighting:${category}:${fixture}:${detail}`);
+      assert.ok(label?.trim(), `${locale}: ${fixture}/${detail}`);
+      assert.doesNotMatch(label, /lighting:|_/);
+      return label;
+    }));
+    assert.equal(labels.length, 32);
+    assert.equal(new Set(labels).size, labels.length, 'fixture numbers and individual details remain distinct');
+    assert.equal(cadComponentLabel(locale, 'lighting'), null);
+    assert.equal(cadComponentLabel(locale, 'lighting:wall'), null);
+    assert.equal(cadComponentLabel(locale, 'lighting:wall:entrance_01'), null);
+    assert.equal(cadComponentLabel(locale, 'lighting:wall:unknown:diffuser'), null);
   }
 });
 test('attic storage, hatch and ladder details have distinct labels in all three languages', () => {

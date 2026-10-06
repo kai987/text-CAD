@@ -17,6 +17,7 @@ export function format(template: string, values: Record<string, string | number>
 
 const zh = {
   models: { label: '户型方案', house: '日本两层一户建', apartment: '日本公寓 2LDK · 约 65㎡', note: '所有方案尺寸均为演示假设' },
+  sceneLighting: { label: '模型昼夜', day: '白天', night: '夜晚', outdoor: '室外灯光', help: '模型昼夜独立于页面颜色模式。', fixtureHelp: '夜晚时为可见的室外灯具点灯；在部件树中可分别隐藏灯具。' },
   theme: { label: '颜色模式', system: '系统', light: '浅色', dark: '深色', help: '选择系统可跟随设备的明暗设置。' },
   app: { skip: '跳到查看区域', home: 'text-CAD 首页', nav: '房屋模型与图纸', language: '界面语言',
     title: '日本两层一户建', description: '查看日本两层一户建的参数化方案模型、平面图和可下载 CAD 文件。',
@@ -31,9 +32,9 @@ const zh = {
   controls: { region: '模型控制', parts: '部件显示', cut: '剖切', enableCut: '启用剖切', height: '剖切高度', showFurniture: '显示家具', furnitureHelp: '床、沙发、桌椅与电视；不改变当前楼层和剖切高度。' },
   parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高', clearHeight: '净高', outlineArea: '外轮廓面积', interiorArea: '室内净面积合计', balconyArea: '阳台面积',
     note: '尺寸与结构截面均为演示假设。荷载、连接件、地基承载与法规用途待核定。' },
-  groups: { structure: '结构方案', F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', foundation: '建筑基础', yard: '院子', fence: '围栏', ceiling: '顶板', balcony: '阳台' },
+  groups: { structure: '结构方案', F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', foundation: '建筑基础', yard: '院子', fence: '围栏', lighting: '室外灯具', ceiling: '顶板', balcony: '阳台' },
   partKinds: { columns: '柱', beams: '梁', sills: '土台', attic_joists: '阁楼搁栅', attic_headers: '阁楼开口边梁', roof_framing: '屋架', bearing_walls: '候选承重墙', existing_plinth: '周圈基座', internal_supports: '内部基础支承', floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏',
-    raft: '基础底板', stem_walls: '基础立上墙', entrance_supports: '玄关支承', soil: '场地土层', ground_surfaces: '砾石地面', entrance_path: '入户步道', parking: '停车位', planting: '绿化', posts: '围栏立柱', panels: '围栏面板', footings: '围栏独立基础' },
+    raft: '基础底板', stem_walls: '基础立上墙', entrance_supports: '玄关支承', soil: '场地土层', ground_surfaces: '砾石地面', entrance_path: '入户步道', parking: '停车位', planting: '绿化', posts: '围栏立柱', panels: '围栏面板', footings: '围栏独立基础', wall: '外墙灯', path: '步道灯', garden: '庭院灯', gate: '门口灯' },
   tree: { show: '显示{label}', collapse: '收起{label}部件', expand: '展开{label}部件', highlight: '高亮{label}',
     isolate: '单独查看{label}', alone: '单独', region: '{label}部件',
     help: '展开楼层或外构可查看分类；点击名称高亮，使用“单独”查看部件。顶部视图按钮可恢复显示。' },
@@ -77,6 +78,7 @@ export type Messages = Strings<typeof zh>;
 
 const ja: Messages = {
   models: { label: '間取りプラン', house: '日本の2階建て戸建住宅', apartment: '日本のマンション 2LDK · 約65㎡', note: 'すべての寸法はデモ用の仮定です' },
+  sceneLighting: { label: 'モデルの昼夜', day: '昼', night: '夜', outdoor: '屋外照明', help: 'モデルの昼夜はページの表示モードとは別に切り替えます。', fixtureHelp: '夜は表示中の屋外灯を点灯します。器具は部材ツリーで個別に非表示にできます。' },
   theme: { label: '表示モード', system: '自動', light: 'ライト', dark: 'ダーク', help: '自動を選ぶと端末の明暗設定に連動します。' },
   app: { skip: '閲覧エリアへ移動', home: 'text-CAD ホーム', nav: '住宅モデルと図面', language: '表示言語',
     title: '日本の2階建て戸建住宅', description: '日本の2階建て戸建住宅のパラメトリックな計画モデル、平面図、CADファイルを閲覧できます。',
@@ -91,9 +93,9 @@ const ja: Messages = {
   controls: { region: 'モデル操作', parts: '部材の表示', cut: '水平断面', enableCut: '水平断面を有効にする', height: '切断高さ', showFurniture: '家具を表示', furnitureHelp: 'ベッド・ソファ・テーブル・椅子・テレビ。表示階と断面高さは維持します。' },
   parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高', clearHeight: '天井高', outlineArea: '外形面積', interiorArea: '室内有効面積の合計', balconyArea: 'バルコニー面積',
     note: '寸法と部材断面はデモ用の仮定です。荷重・接合・基礎支持力・法規上の用途は未確定です。' },
-  groups: { structure: '構造案', F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', foundation: '建物基礎', yard: '庭', fence: 'フェンス', ceiling: '天井スラブ', balcony: 'バルコニー' },
+  groups: { structure: '構造案', F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', foundation: '建物基礎', yard: '庭', fence: 'フェンス', lighting: '屋外照明器具', ceiling: '天井スラブ', balcony: 'バルコニー' },
   partKinds: { columns: '柱', beams: '梁', sills: '土台', attic_joists: '小屋裏根太', attic_headers: '小屋裏開口補強梁', roof_framing: '小屋組', bearing_walls: '耐力壁候補', existing_plinth: '外周の基壇', internal_supports: '内部基礎支持部', floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり',
-    raft: '基礎底盤', stem_walls: '基礎立上り', entrance_supports: '玄関支持部', soil: '地盤層', ground_surfaces: '砂利敷き', entrance_path: '玄関アプローチ', parking: '駐車スペース', planting: '植栽', posts: 'フェンス支柱', panels: 'フェンスパネル', footings: 'フェンス独立基礎' },
+    raft: '基礎底盤', stem_walls: '基礎立上り', entrance_supports: '玄関支持部', soil: '地盤層', ground_surfaces: '砂利敷き', entrance_path: '玄関アプローチ', parking: '駐車スペース', planting: '植栽', posts: 'フェンス支柱', panels: 'フェンスパネル', footings: 'フェンス独立基礎', wall: '外壁灯', path: 'アプローチ灯', garden: '庭園灯', gate: '門灯' },
   tree: { show: '{label}を表示', collapse: '{label}の部材を折りたたむ', expand: '{label}の部材を展開', highlight: '{label}を強調表示',
     isolate: '{label}のみ表示', alone: '単独', region: '{label}の部材',
     help: '階や外構を展開すると分類を表示します。名称を選択して強調表示、「単独」でその部材だけを表示できます。上部の表示切替で全体表示に戻せます。' },
@@ -188,11 +190,16 @@ const ja: Messages = {
     "小屋裏の内法空間を保持するため、小屋組を厚150 mmの概念屋根帯に配置します。実際の屋根構成と部材断面は再設計・検証が必要です。",
     "収納用小屋裏が将来法定床面積に算入されないと認められても、収納荷重は建物全体の構造設計に含める必要があります。",
     "従来の1階厚200 mmの建築床表示は、設計済みの木床やコンクリート構造床ではありません。",
+    'R08では独自形状の屋外灯を7台追加します。玄関外壁灯1台、アプローチ灯2台、庭園スポット灯2台、門柱灯2台です。位置・取付高さ・外形寸法・3000Kの温白色はデモ用の仮定です。',
+    '玄関外壁灯の取付台は南側外壁、門柱灯の取付台は既存フェンス支柱に接します。地面の灯具のベースは庭の仕上げ面Z=-500 mmに接し、元の地盤層・基礎を変更しません。',
+    'アプローチ灯2台は幅1500 mmの入口通路の西側に配置します。門柱灯の幅45 mmは支柱幅50 mm未満で、歩行者開口1800 mmと車両開口3000 mmを保持します。',
+    '昼夜の光と発光拡散カバーはモデル閲覧用です。照度・まぶしさ・隣地への漏れ光・器具の防水等級・電気回路・接地・施工取付は未設計です。',
   ],
 };
 
 const en: Messages = {
   models: { label: 'Layout', house: 'Japanese two-storey house', apartment: 'Japanese apartment 2LDK · approx. 65 m²', note: 'All plan dimensions are demonstration assumptions' },
+  sceneLighting: { label: 'Model time of day', day: 'Day', night: 'Night', outdoor: 'Outdoor lights', help: 'Model time of day is independent of the page color mode.', fixtureHelp: 'Lights visible outdoor fixtures at night. Hide fixtures separately in the component tree.' },
   theme: { label: 'Color mode', system: 'Auto', light: 'Light', dark: 'Dark', help: 'Auto follows your device’s light or dark appearance.' },
   app: { skip: 'Skip to viewer', home: 'text-CAD home', nav: 'House model and drawings', language: 'Interface language',
     title: 'Japanese two-storey house', description: 'Explore a parametric concept model, floor plans and downloadable CAD files for a Japanese two-storey house.',
@@ -207,9 +214,9 @@ const en: Messages = {
   controls: { region: 'Model controls', parts: 'Component visibility', cut: 'Cutaway', enableCut: 'Enable cutaway', height: 'Cut height', showFurniture: 'Furniture', furnitureHelp: 'Beds, sofas, tables, chairs and TVs. Keeps the current floor and cut height.' },
   parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height', clearHeight: 'Clear height', outlineArea: 'Outline area', interiorArea: 'Total net interior area', balconyArea: 'Balcony area',
     note: 'Dimensions and member sizes are demonstration assumptions. Loads, connections, foundation capacity and regulatory use remain pending.' },
-  groups: { structure: 'Structural scheme', F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', foundation: 'Building foundation', yard: 'Yard', fence: 'Fence', ceiling: 'Ceiling slab', balcony: 'Balcony' },
+  groups: { structure: 'Structural scheme', F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', foundation: 'Building foundation', yard: 'Yard', fence: 'Fence', lighting: 'Outdoor light fixtures', ceiling: 'Ceiling slab', balcony: 'Balcony' },
   partKinds: { columns: 'Columns', beams: 'Beams', sills: 'Sills', attic_joists: 'Attic joists', attic_headers: 'Attic hatch headers', roof_framing: 'Roof framing', bearing_walls: 'Candidate bearing walls', existing_plinth: 'Perimeter plinth', internal_supports: 'Internal foundation supports', floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails',
-    raft: 'Foundation slabs', stem_walls: 'Stem walls', entrance_supports: 'Entrance supports', soil: 'Soil layer', ground_surfaces: 'Gravel surface', entrance_path: 'Entrance path', parking: 'Parking space', planting: 'Planting', posts: 'Fence posts', panels: 'Fence panels', footings: 'Fence footings' },
+    raft: 'Foundation slabs', stem_walls: 'Stem walls', entrance_supports: 'Entrance supports', soil: 'Soil layer', ground_surfaces: 'Gravel surface', entrance_path: 'Entrance path', parking: 'Parking space', planting: 'Planting', posts: 'Fence posts', panels: 'Fence panels', footings: 'Fence footings', wall: 'Wall lights', path: 'Path lights', garden: 'Garden lights', gate: 'Gate lights' },
   tree: { show: 'Show {label}', collapse: 'Collapse {label} components', expand: 'Expand {label} components', highlight: 'Highlight {label}',
     isolate: 'View only {label}', alone: 'Only', region: '{label} components',
     help: 'Expand a floor or site group to see its categories. Select a name to highlight it, or use “Only” to isolate it. The view presets above restore the display.' },
@@ -304,6 +311,10 @@ const en: Messages = {
     "Roof framing occupies the 150 mm concept roof band to preserve attic clearance. Actual roof construction and member sizes require redesign and calculation.",
     "Even if the storage attic is later accepted for statutory floor-area exclusion, its storage loads must remain part of the whole-building structural design.",
     "The original 200 mm first-floor architectural shell is not a designed timber floor or concrete load-bearing slab.",
+    'R08 adds seven original outdoor fixtures: one entrance wall light, two path lights, two garden spotlights and two gate-post lights. Positions, mounting heights, housing dimensions and 3000K warm-white color are demonstration assumptions.',
+    'The entrance light mounting plate touches the south facade and gate-light plates touch existing fence posts. Ground-fixture bases touch the yard finished level Z=-500 mm without changing the original soil layer or foundation.',
+    'Two path lights sit west of the 1500 mm-wide entrance path. The 45 mm-wide gate lights are narrower than the 50 mm posts, preserving the 1800 mm pedestrian and 3000 mm vehicle openings.',
+    'Day/night illumination and emissive diffusers are for model viewing only. Illuminance, glare, spill to neighboring sites, weatherproof rating, circuits, grounding and construction mounting have not been designed.',
   ],
 };
 

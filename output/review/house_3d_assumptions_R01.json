@@ -1,5 +1,5 @@
 {
-  "revision": "R06-3D",
+  "revision": "R08-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -1754,6 +1754,393 @@
       "Bearing panels have no certified wall multiplier; geometry does not prove seismic or wind resistance."
     ]
   },
+  "outdoor_lighting": {
+    "revision": "R08",
+    "units": "mm",
+    "parameters": {
+      "color_temperature_K": 3000,
+      "body_color": "#252B30",
+      "diffuser_color": "#FFE7C6",
+      "light_color": "#FFDDB2",
+      "wall_width": 120,
+      "wall_height": 320,
+      "wall_projection": 84,
+      "bollard_height": 800,
+      "bollard_width": 100,
+      "bollard_cap_width": 120,
+      "bollard_base_width": 160,
+      "bollard_diffuser_height": 100,
+      "spotlight_radius": 50,
+      "spotlight_length": 105,
+      "spotlight_wall": 5,
+      "gate_width": 45,
+      "gate_height": 100,
+      "gate_projection": 55
+    },
+    "fixture_count": 7,
+    "fixture_group": "lighting",
+    "fixtures": [
+      {
+        "category": "wall",
+        "id": "entrance_01",
+        "mount_center_mm": [
+          6490,
+          0,
+          1520
+        ],
+        "light_position_mm": [
+          6490,
+          -88,
+          1500
+        ],
+        "target_mm": [
+          5830.0,
+          -1000,
+          -25
+        ],
+        "beam_angle_degrees": 72,
+        "visual_intensity": 3.0,
+        "visual_range_m": 5.0,
+        "mount_to": "F1:exterior:cladding:south",
+        "group": "lighting:wall:entrance_01",
+        "diffuser_label": "lighting:wall:entrance_01:diffuser",
+        "direction_cad": [
+          -0.3481907267159145,
+          -0.48113627691653643,
+          -0.8045316033966207
+        ],
+        "light_position_glb_m": [
+          6.49,
+          1.5,
+          0.088
+        ],
+        "target_glb_m": [
+          5.83,
+          -0.025,
+          1.0
+        ],
+        "direction_glb": [
+          -0.3481907267159145,
+          -0.8045316033966207,
+          0.48113627691653643
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "path",
+        "id": "path_01",
+        "mount_center_mm": [
+          4800,
+          -4050,
+          -500
+        ],
+        "light_position_mm": [
+          4856,
+          -4050,
+          230
+        ],
+        "target_mm": [
+          5830.0,
+          -4050,
+          -500
+        ],
+        "beam_angle_degrees": 95,
+        "visual_intensity": 1.5,
+        "visual_range_m": 3.2,
+        "mount_to": "yard:ground_surfaces:gravel",
+        "group": "lighting:path:path_01",
+        "diffuser_label": "lighting:path:path_01:diffuser",
+        "direction_cad": [
+          0.8001971306337118,
+          0.0,
+          -0.5997370691607902
+        ],
+        "light_position_glb_m": [
+          4.856,
+          0.23,
+          4.05
+        ],
+        "target_glb_m": [
+          5.83,
+          -0.5,
+          4.05
+        ],
+        "direction_glb": [
+          0.8001971306337118,
+          -0.5997370691607902,
+          -0.0
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "path",
+        "id": "path_02",
+        "mount_center_mm": [
+          4800,
+          -2550,
+          -500
+        ],
+        "light_position_mm": [
+          4856,
+          -2550,
+          230
+        ],
+        "target_mm": [
+          5830.0,
+          -2550,
+          -500
+        ],
+        "beam_angle_degrees": 95,
+        "visual_intensity": 1.5,
+        "visual_range_m": 3.2,
+        "mount_to": "yard:ground_surfaces:gravel",
+        "group": "lighting:path:path_02",
+        "diffuser_label": "lighting:path:path_02:diffuser",
+        "direction_cad": [
+          0.8001971306337118,
+          0.0,
+          -0.5997370691607902
+        ],
+        "light_position_glb_m": [
+          4.856,
+          0.23,
+          2.55
+        ],
+        "target_glb_m": [
+          5.83,
+          -0.5,
+          2.55
+        ],
+        "direction_glb": [
+          0.8001971306337118,
+          -0.5997370691607902,
+          -0.0
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "garden",
+        "id": "garden_01",
+        "mount_center_mm": [
+          2500,
+          -4450,
+          -500
+        ],
+        "head_origin_mm": [
+          2500,
+          -4450,
+          -340
+        ],
+        "light_position_mm": [
+          2544.390485059565,
+          -4367.560527746522,
+          -284.19481878226134
+        ],
+        "target_mm": [
+          2850,
+          -3800,
+          100
+        ],
+        "beam_angle_degrees": 48,
+        "visual_intensity": 2.2,
+        "visual_range_m": 3.4,
+        "mount_to": "yard:planting:lawn_front",
+        "group": "lighting:garden:garden_01",
+        "diffuser_label": "lighting:garden:garden_01:diffuser",
+        "direction_cad": [
+          0.40725215650976926,
+          0.7563254335181426,
+          0.5119741396122816
+        ],
+        "light_position_glb_m": [
+          2.544390485059565,
+          -0.2841948187822613,
+          4.367560527746522
+        ],
+        "target_glb_m": [
+          2.85,
+          0.1,
+          3.8
+        ],
+        "direction_glb": [
+          0.40725215650976926,
+          0.5119741396122816,
+          -0.7563254335181426
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "garden",
+        "id": "garden_02",
+        "mount_center_mm": [
+          4200,
+          -1700,
+          -500
+        ],
+        "head_origin_mm": [
+          4200,
+          -1700,
+          -340
+        ],
+        "light_position_mm": [
+          4122.234499427064,
+          -1757.0280337534866,
+          -289.19320629234835
+        ],
+        "target_mm": [
+          3450,
+          -2250,
+          150
+        ],
+        "beam_angle_degrees": 48,
+        "visual_intensity": 2.2,
+        "visual_range_m": 3.4,
+        "mount_to": "yard:planting:lawn_front",
+        "group": "lighting:garden:garden_02",
+        "diffuser_label": "lighting:garden:garden_02:diffuser",
+        "direction_cad": [
+          -0.7134449593847356,
+          -0.5231929702154724,
+          0.4661173734646936
+        ],
+        "light_position_glb_m": [
+          4.122234499427064,
+          -0.28919320629234835,
+          1.7570280337534867
+        ],
+        "target_glb_m": [
+          3.45,
+          0.15,
+          2.25
+        ],
+        "direction_glb": [
+          -0.7134449593847356,
+          0.4661173734646936,
+          0.5231929702154724
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "gate",
+        "id": "gate_01",
+        "mount_center_mm": [
+          4905.0,
+          -5325.0,
+          550
+        ],
+        "light_position_mm": [
+          4905.0,
+          -5384.0,
+          550
+        ],
+        "target_mm": [
+          4905.0,
+          -5500,
+          -500
+        ],
+        "beam_angle_degrees": 80,
+        "visual_intensity": 0.8,
+        "visual_range_m": 2.5,
+        "mount_to": "fence:posts:south_middle_03",
+        "group": "lighting:gate:gate_01",
+        "diffuser_label": "lighting:gate:gate_01:diffuser",
+        "direction_cad": [
+          0.0,
+          -0.1098081193186233,
+          -0.9939528041771938
+        ],
+        "light_position_glb_m": [
+          4.905,
+          0.55,
+          5.384
+        ],
+        "target_glb_m": [
+          4.905,
+          -0.5,
+          5.5
+        ],
+        "direction_glb": [
+          0.0,
+          -0.9939528041771938,
+          0.1098081193186233
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      },
+      {
+        "category": "gate",
+        "id": "gate_02",
+        "mount_center_mm": [
+          6755.0,
+          -5325.0,
+          550
+        ],
+        "light_position_mm": [
+          6755.0,
+          -5384.0,
+          550
+        ],
+        "target_mm": [
+          6755.0,
+          -5500,
+          -500
+        ],
+        "beam_angle_degrees": 80,
+        "visual_intensity": 0.8,
+        "visual_range_m": 2.5,
+        "mount_to": "fence:posts:south_east_01",
+        "group": "lighting:gate:gate_02",
+        "diffuser_label": "lighting:gate:gate_02:diffuser",
+        "direction_cad": [
+          0.0,
+          -0.1098081193186233,
+          -0.9939528041771938
+        ],
+        "light_position_glb_m": [
+          6.755,
+          0.55,
+          5.384
+        ],
+        "target_glb_m": [
+          6.755,
+          -0.5,
+          5.5
+        ],
+        "direction_glb": [
+          0.0,
+          -0.9939528041771938,
+          0.1098081193186233
+        ],
+        "color_temperature_K": 3000,
+        "color_hex": "#FFDDB2"
+      }
+    ],
+    "geometry_source": "src/lib/outdoor_lighting.py",
+    "glb_axis_transform": "[X_mm, Y_mm, Z_mm] -> [X_mm/1000, Z_mm/1000, -Y_mm/1000]",
+    "rendering_only": {
+      "visual_intensity": "relative renderer value; no photometric/lumen/lux specification",
+      "visual_range_m": "visual attenuation range, not a verified lighting coverage radius",
+      "switching": "Day/night scene lighting; independent of page colour theme"
+    },
+    "engineering_results": {
+      "illuminance_lux": null,
+      "glare": null,
+      "electrical_circuit": null,
+      "weatherproof_product_rating": null,
+      "construction_installation": null
+    },
+    "assumptions": [
+      "R08新增7盏原创室外灯具：1盏玄关壁灯、2盏步道灯、2盏庭院射灯及2盏门柱灯；位置、安装高度、外壳尺寸和3000K暖白色均为演示假设。",
+      "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
+      "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与3000 mm车辆开口。",
+      "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。"
+    ]
+  },
   "engineering_status": {
     "site": "demonstration; municipality and actual parcel unspecified",
     "structural_calculation": "not performed",
@@ -1807,7 +2194,11 @@
     "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
     "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
     "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
-    "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。"
+    "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。",
+    "R08新增7盏原创室外灯具：1盏玄关壁灯、2盏步道灯、2盏庭院射灯及2盏门柱灯；位置、安装高度、外壳尺寸和3000K暖白色均为演示假设。",
+    "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
+    "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与3000 mm车辆开口。",
+    "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -2001,7 +2392,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 729,
-    "all_nodes": 829
+    "named_mesh_nodes": 761,
+    "all_nodes": 873
   }
 }

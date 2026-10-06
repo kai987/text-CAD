@@ -49,6 +49,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
   const preset = activePreset(settings, layout);
   const fallback = layout.id === 'house' && preset === 'first' ? 'output/review/house_3d_1f_interior.png'
     : layout.id === 'house' && preset === 'second' ? 'output/review/house_3d_2f_interior.png'
+    : layout.id === 'house' && preset === 'structure' ? 'output/review/house_3d_structure.png'
     : layout.id === 'house' && preset === 'attic' ? 'output/review/house_3d_attic_interior.png' : modelFallback;
   return <div className="scene-host" ref={host}>
     {status === 'loading' ? <p className="canvas-message" role="status">{copy.model.loadingModel}</p> : null}

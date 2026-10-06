@@ -33,9 +33,10 @@ test('the real GLB retains the 378 original leaves and stores the new attic insi
   const meshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));
   const site = meshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
-  assert.equal(meshes.length - added.length - site.length, 378,
-    'all R03 leaves, including the original ceiling label, remain');
-  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 30);
+  const structure = meshes.filter(node => node.name.startsWith('structure:'));
+  assert.equal(meshes.length - added.length - site.length - structure.length, 378,
+    'all R03 leaves remain, including the plinths regrouped into the foundation');
+  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 31);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);
   const floor = nodes.get('attic:floor_slab');
   assert.equal(nodes.get('roof:attic_ceiling_slab').parent, floor);
@@ -66,34 +67,53 @@ test('the saved floor and lining geometry agrees with the recorded storage area 
     actual.forEach((value, index) => near(value, expected[index], .02));
   }
   const deckTop = attic.deck_bounds_mm[5];
-  const lining = nodes.get('attic:lining:west_slope');
-  const positions = lining.geometry.getAttribute('position');
-  const ridgeVertices = [];
-  for (let index = 0; index < positions.count; index++) {
-    const vertex = new Vector3().fromBufferAttribute(positions, index);
-    if (Math.abs(vertex.x * 1000 - p.width / 2) < .02) ridgeVertices.push(vertex.y * 1000);
-  }
-  assert.ok(ridgeVertices.length > 0, 'the true sloping lining reaches the ridge');
-  near(Math.min(...ridgeVertices) - deckTop, attic.clear_height_mm.ridge, .02);
+  const flat = nodes.get('attic:lining:flat_ceiling');
+  assert.ok(flat?.isMesh, 'R06 has a real selectable flat ceiling, not only a clip plane');
+  boxInCadMillimetres(flat).forEach((value, index) => near(value, attic.flat_ceiling_bounds_mm[index], .02));
+  near(attic.slab_bounds_mm[5] - attic.slab_bounds_mm[2], 24);
+  near(attic.flat_ceiling_bounds_mm[2] - deckTop, 1350);
+  near(attic.clear_height_mm.maximum, 1350);
+  near(attic.clear_height_mm.ridge, 1350);
   const computedEdgeHeight = 2 * p.storey_height + attic.deck_bounds_mm[0] * slope
     - a.lining_vertical_allowance - deckTop;
   near(computedEdgeHeight, attic.clear_height_mm.deck_edge, .02);
-  // Derive the east lining's lower plane from its actual exported vertices,
-  // then sample the full upper-entry standing area rather than only the ridge.
-  const eastPositions = nodes.get('attic:lining:east_slope').geometry.getAttribute('position');
-  const byX = new Map();
-  for (let index = 0; index < eastPositions.count; index++) {
-    const vertex = new Vector3().fromBufferAttribute(eastPositions, index);
-    const x = Math.round(vertex.x * 1000 * 100) / 100;
-    byX.set(x, Math.min(byX.get(x) ?? Infinity, vertex.y * 1000));
+  // Reconstruct lower planes from all three physical ceiling meshes. Sample
+  // the whole deck and entry against them, including both slope/flat joints.
+  const surfaces = [];
+  for (const name of ['attic:lining:west_slope', 'attic:lining:flat_ceiling', 'attic:lining:east_slope']) {
+    const mesh = nodes.get(name), positions = mesh.geometry.getAttribute('position');
+    const byX = new Map();
+    for (let index = 0; index < positions.count; index++) {
+      const vertex = new Vector3().fromBufferAttribute(positions, index).applyMatrix4(mesh.matrixWorld);
+      const x = Math.round(vertex.x * 1000 * 100) / 100;
+      byX.set(x, Math.min(byX.get(x) ?? Infinity, vertex.y * 1000));
+    }
+    const xs = [...byX.keys()].sort((left, right) => left - right);
+    surfaces.push({ x1: xs[0], x2: xs.at(-1), z1: byX.get(xs[0]), z2: byX.get(xs.at(-1)) });
   }
-  const xs = [...byX.keys()].sort((left, right) => left - right);
-  const x1 = xs[0], x2 = xs.at(-1), z1 = byX.get(x1), z2 = byX.get(x2);
-  const lowerPlane = x => z1 + (x - x1) * (z2 - z1) / (x2 - x1);
+  near(surfaces[0].x2, surfaces[1].x1, .02);
+  near(surfaces[1].x2, surfaces[2].x1, .02);
+  near(surfaces[0].z2, surfaces[1].z1, .02);
+  near(surfaces[1].z2, surfaces[2].z1, .02);
+  const lowerCeiling = x => {
+    const applicable = surfaces.filter(surface => x >= surface.x1 - .02 && x <= surface.x2 + .02);
+    assert.ok(applicable.length, `a real ceiling covers deck X=${x}`);
+    return Math.min(...applicable.map(({ x1, x2, z1, z2 }) => z1 + (x - x1) * (z2 - z1) / (x2 - x1)));
+  };
+  for (let index = 0; index <= 100; index++) {
+    const x = attic.deck_bounds_mm[0] + index / 100 * a.deck_width;
+    const actualHeight = lowerCeiling(x) - deckTop;
+    const expected = Math.min(2 * p.storey_height + Math.min(x, p.width - x) * slope
+      - a.lining_vertical_allowance - deckTop, a.maximum_finished_clear_height);
+    near(actualHeight, expected, .03);
+    assert.ok(actualHeight <= 1350.03, 'the whole finished storage space is capped at1350 mm');
+  }
   const upperEntry = attic.ladder.upper_landing_bounds_mm;
-  const entryClearHeight = Math.min(lowerPlane(upperEntry[0]), lowerPlane(upperEntry[2])) - deckTop;
+  const entryClearHeight = Math.min(lowerCeiling(upperEntry[0]), lowerCeiling(upperEntry[2])) - deckTop;
   near(entryClearHeight, attic.ladder.upper_landing_min_clear_height_mm, .02);
-  assert.ok(entryClearHeight >= 1400, 'the improved entry accepts the 1400 mm illustrative probe');
+  near(entryClearHeight, 1350, .02);
+  assert.match(attic.statutory_area_status, /classification pending/,
+    'finished height and geometric area are not presented as statutory approval');
   near(attic.storage_projection_area_m2,
     (a.deck_width * (p.depth - 2 * a.deck_end_inset) - a.hatch_length * a.hatch_width) / 1e6, 1e-6);
 });

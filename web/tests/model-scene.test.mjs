@@ -85,6 +85,7 @@ test('site meshes select their real categories and support independent yard and 
   const fence = nodes.get('fence:panels:north_01');
   assert.ok(foundation?.isMesh && lawn?.isMesh && fence?.isMesh);
   assert.equal(selectionFor(foundation).id, 'foundation:raft');
+  assert.equal(selectionFor(nodes.get('F1:exterior:foundation:west')).id, 'foundation:existing_plinth');
   assert.equal(selectionFor(nodes.get('foundation:stem_walls:west')).id, 'foundation:stem_walls');
   assert.equal(selectionFor(lawn).id, 'yard:planting');
   assert.equal(selectionFor(nodes.get('yard:entrance_path:lower_step')).id, 'yard:entrance_path');
@@ -97,4 +98,28 @@ test('site meshes select their real categories and support independent yard and 
   nodes.get('fence').visible = false;
   assert.ok(!visibleMeshes(gltf.scene).includes(fence));
   assert.ok(visibleMeshes(gltf.scene).includes(foundation));
+});
+
+
+test('R06 structure leaves select their independent categories without changing the floor datum', async () => {
+  const gltf = await loadHouse();
+  const nodes = bindCadNodes(gltf);
+  assert.ok(nodes.get('structure')?.children.length);
+  const samples = [
+    ['structure:F1:column_C01', 'structure:columns'],
+    ['structure:F2:beam_B01', 'structure:beams'],
+    ['structure:F1:sill_B01', 'structure:sills'],
+    ['structure:attic:trimmer_west', 'structure:attic_headers'],
+    ['structure:roof:ridge_beam', 'structure:roof_framing'],
+    ['structure:F1:bearing_wall_BW01', 'structure:bearing_walls'],
+  ];
+  for (const [name, category] of samples) {
+    const mesh = nodes.get(name);
+    assert.ok(mesh?.isMesh, `${name} is a named saved solid`);
+    assert.equal(selectionFor(mesh).id, category);
+  }
+  nodes.get('structure').visible = false;
+  assert.ok(!visibleMeshes(gltf.scene).includes(nodes.get(samples[0][0])), 'hidden skeleton cannot be picked');
+  assert.equal(centerModelAtFloorDatum(gltf.scene, nodes), true);
+  assert.ok(Math.abs(new Box3().setFromObject(nodes.get('F1:floor_slab')).max.y) < 1e-8);
 });

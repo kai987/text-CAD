@@ -17,6 +17,18 @@ async function loadModel(filename) {
 // These are the categories the original CAD naming convention assigns to meshes.
 // They are also the IDs used to highlight, isolate, and toggle the picked part.
 function originalCategory(name) {
+  if (/^F1:exterior:foundation:(?:south|north|west|east)$/.test(name)) return 'foundation:existing_plinth';
+  const structural = /^structure:(F1|F2|attic|roof):([^:]+)/.exec(name);
+  if (structural) {
+    const kind = structural[2];
+    if (kind.startsWith('column_')) return 'structure:columns';
+    if (kind.startsWith('beam_')) return 'structure:beams';
+    if (kind.startsWith('sill_')) return 'structure:sills';
+    if (kind.startsWith('joist_')) return 'structure:attic_joists';
+    if (/^(?:header|trimmer)_/.test(kind)) return 'structure:attic_headers';
+    if (kind.startsWith('bearing_wall_')) return 'structure:bearing_walls';
+    if (structural[1] === 'roof') return 'structure:roof_framing';
+  }
   const siteCategory = /^(foundation|yard|fence):([^:]+):/.exec(name);
   if (siteCategory) return `${siteCategory[1]}:${siteCategory[2]}`;
   if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
@@ -102,9 +114,9 @@ for (const [modelId, filename] of models) {
 
 test('roof labels distinguish east/west planes, gable walls, and attic ceiling', () => {
   const expected = {
-    zh: [/西.*屋面/, /东.*屋面/, /南.*山墙/, /北.*山墙/, /(?:阁楼|屋顶).*顶板/],
-    ja: [/西.*屋根面/, /東.*屋根面/, /南.*妻壁/, /北.*妻壁/, /(?:小屋裏|屋根).*天井/],
-    en: [/West.*roof plane/i, /East.*roof plane/i, /South.*gable wall/i, /North.*gable wall/i, /(?:Attic.*ceiling|Ceiling slab.*(?:beneath|under).*roof)/i],
+    zh: [/西.*屋面/, /东.*屋面/, /南.*山墙/, /北.*山墙/, /阁楼.*下地板/],
+    ja: [/西.*屋根面/, /東.*屋根面/, /南.*妻壁/, /北.*妻壁/, /小屋裏.*下地床/],
+    en: [/West.*roof plane/i, /East.*roof plane/i, /South.*gable wall/i, /North.*gable wall/i, /Attic.*subfloor/i],
   };
   const names = ['roof:west_plane', 'roof:east_plane', 'roof:south_gable_wall',
     'roof:north_gable_wall', 'roof:attic_ceiling_slab'];
@@ -282,5 +294,25 @@ test('unknown CAD names and category/group selections leave the translated categ
       'attic_access:tread_00', 'attic_access:tread_11', 'attic_access:tread_1']) {
       assert.equal(cadComponentLabel(locale, name), null, `${locale}: ${name}`);
     }
+  }
+});
+
+
+test('R06 structural proposal details retain member references in all three languages', () => {
+  const samples = [
+    'structure:F1:column_C01', 'structure:F2:beam_B01', 'structure:F1:sill_S01',
+    'structure:attic:joist_J01_south', 'structure:attic:joist_J01_north',
+    'structure:attic:trimmer_west', 'structure:attic:trimmer_east',
+    'structure:attic:header_south', 'structure:attic:header_north',
+    'structure:roof:ridge_beam', 'structure:roof:purlin_west', 'structure:roof:purlin_east',
+    'structure:roof:rafter_west_R01', 'structure:roof:rafter_east_R01',
+    'structure:roof:post_ridge_P01', 'structure:F1:bearing_wall_BW01',
+    'attic:lining:flat_ceiling',
+  ];
+  for (const locale of locales) {
+    const labels = samples.map(name => cadComponentLabel(locale, name));
+    assert.ok(labels.every(label => label?.trim()), `${locale}: every R06 detail is translated`);
+    assert.equal(new Set(labels).size, labels.length, `${locale}: direction and member type remain distinguishable`);
+    assert.ok(labels.every(label => !label.includes('_') && !label.includes('structure:')));
   }
 });

@@ -107,11 +107,15 @@ site = {label: shape for label, shape in native.items() if label.startswith(SITE
 saved = json.loads((ROOT / "output/review/house_3d_assumptions_R01.json").read_text())
 record = saved["site"]
 check("site:saved_metadata_matches_current_parameters", record == site_manifest(P, G))
-check("revision:foundation_and_site_R05", saved["revision"] == "R05-3D", saved["revision"], "R05-3D")
-check("site:all_R04_leaf_labels_retained", len(native) - len(site) == 424, len(native) - len(site), 424)
+check("revision:foundation_and_site_R06", saved["revision"] == "R06-3D", saved["revision"], "R06-3D")
+legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
+          and label != "attic:lining:flat_ceiling"}
+check("site:existing_house_labels_retained", len(legacy) == 424, len(legacy), 424)
 check("site:three_nonempty_top_groups", all(any(label.startswith(prefix) for label in site) for prefix in SITE_PREFIXES))
-check("site:named_leaf_contract", len(site) == 113, len(site), 113)
-for group in ("foundation:raft", "foundation:stem_walls", "foundation:entrance_supports",
+new_supports = {label: shape for label, shape in site.items() if label.startswith("foundation:internal_supports:")}
+check("site:original_R05_leaf_contract", len(site)-len(new_supports) == 113, len(site)-len(new_supports), 113)
+check("foundation:internal_supports_added", bool(new_supports))
+for group in ("foundation:raft", "foundation:stem_walls", "foundation:existing_plinth", "foundation:entrance_supports", "foundation:internal_supports",
               "yard:soil", "yard:ground_surfaces", "yard:entrance_path", "yard:parking", "yard:planting",
               "fence:posts", "fence:panels", "fence:footings"):
     occurrence = scene.resolve(f"#{group}")
@@ -129,6 +133,10 @@ close("datum:first_floor_finished_top_mm", bounds(native["F1:floor_slab"])[5], 0
 close("datum:second_floor_finished_top_mm", bounds(native["F2:floor_slab"])[5], 2800)
 close("datum:attic_finished_top_mm", bounds(native["attic:deck_finish"])[5], 5618)
 close("site:minimum_saved_Z_is_fence_footing_mm", min(bounds(s)[2] for s in native.values()), -950)
+for label, shape in new_supports.items():
+    close(f"{label}:bottom_joins_raft_mm", bounds(shape)[2], record["foundation"]["raft_bounds_mm"][5])
+    close(f"{label}:top_reaches_timber_support_datum_mm", bounds(shape)[5], -G.slab_thickness)
+    close(f"{label}:physical_raft_contact_mm", shape.distance_to(native["foundation:raft:slab"]), 0)
 
 # The new support actually joins the old perimeter instead of moving the old
 # model or leaving a gap under it. Check every independently saved side.
@@ -291,7 +299,7 @@ if args.baseline:
               and hashlib.sha256(target.read_bytes()).hexdigest() == metadata["sha256"])
 
 report = {
-    "revision": "R05-3D", "units": "native STEP mm; GLB m/Y-up",
+    "revision": "R06-3D", "units": "native STEP mm; GLB m/Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "saved_native_leaves": len(native),
                 "new_site_leaves": len(site)},

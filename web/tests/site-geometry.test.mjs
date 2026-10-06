@@ -78,8 +78,9 @@ test('deep site footings do not move architectural levels or cut planes in the s
   const { gltf, nodes } = await loadHouse();
   const savedMeshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const siteMeshes = savedMeshes.filter(node => /^(?:foundation|yard|fence):/.test(node.name));
-  assert.equal(siteMeshes.length, 113);
-  assert.equal(savedMeshes.length - siteMeshes.length, 424, 'the original R04 geometry still exists');
+  assert.ok(siteMeshes.length > 113, 'R06 adds internal foundation support ribs');
+  assert.ok(savedMeshes.some(node => node.name.startsWith('foundation:internal_supports:')), 'named internal supports exist');
+  assert.ok(nodes.get('structure')?.children.length, 'structural proposal is distinct from the site');
   near(new Box3().setFromObject(gltf.scene).min.y, -.95);
   near(new Box3().setFromObject(nodes.get('F1:floor_slab')).max.y, 0);
   near(new Box3().setFromObject(nodes.get('F2:floor_slab')).max.y, 2.8);

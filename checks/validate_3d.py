@@ -246,8 +246,9 @@ for side in ("south", "north"):
     close(f"roof:{side}_gable_backing_volume_mm3", gable.volume,
           .5*P.width*(P.width/2)*math.tan(math.radians(G.roof_pitch_degrees))*(P.external_wall-setback), .1)
 ceiling = native["roof:attic_ceiling_slab"]
-close("roof:ceiling_backing_volume_mm3", ceiling.volume,
-      ((P.width-2*setback)*(P.depth-2*setback)-A.hatch_length*A.hatch_width)*G.slab_thickness, .1)
+close("attic:thin_subfloor_native_volume_mm3", ceiling.volume,
+      ((P.width-2*setback)*(P.depth-2*setback)-A.hatch_length*A.hatch_width)*A.subfloor_thickness, .1)
+close("attic:thin_subfloor_thickness_mm", bounds(ceiling)[5]-bounds(ceiling)[2], A.subfloor_thickness)
 close("roof:ceiling_finished_floor_datum_mm", bounds(ceiling)[5], 2*P.storey_height)
 
 
@@ -260,9 +261,10 @@ attic_leaves = {label: shape for label, shape in native.items() if label.startsw
 access_leaves = {label: shape for label, shape in native.items() if label.startswith("attic_access:")}
 site_leaves = {label: shape for label, shape in native.items()
                if label.startswith(("foundation:", "yard:", "fence:"))}
-old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)
+structure_leaves = {label: shape for label, shape in native.items() if label.startswith("structure:")}
+old_leaf_names = set(native)-set(attic_leaves)-set(access_leaves)-set(site_leaves)-set(structure_leaves)
 check("attic:R03_original_leaf_count_retained", len(old_leaf_names) == 378, len(old_leaf_names), 378)
-check("attic:new_named_leaf_contract", len(attic_leaves) == 30, len(attic_leaves), 30)
+check("attic:new_named_leaf_contract", len(attic_leaves) == 31, len(attic_leaves), 31)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
 
@@ -294,8 +296,11 @@ for label, shape in attic_leaves.items():
 
 lining_west = native["attic:lining:west_slope"]
 lining_east = native["attic:lining:east_slope"]
-clear_ridge = max(bounds(lining_west)[5], bounds(lining_east)[5])-A.lining_vertical_allowance-bounds(deck)[5]
+flat_ceiling = native["attic:lining:flat_ceiling"]
+clear_ridge = bounds(flat_ceiling)[2]-bounds(deck)[5]
 close("attic:ridge_clear_height_mm", clear_ridge, attic_clear_height(P.width/2, P, G))
+close("attic:physical_ceiling_caps_height_mm", clear_ridge, A.maximum_finished_clear_height)
+check("attic:1350mm_demonstration_target_is_not_1400mm_exceeded", clear_ridge <= 1350+.01, clear_ridge)
 for side, x in (("west", ad["deck_left"]), ("east", ad["deck_right"])):
     # A narrow native cross-section establishes the lower lining surface at
     # the finished deck edge, independently of its wider outer knee-wall edge.
@@ -350,17 +355,18 @@ close("attic_access:last_step_to_deck_rise_mm", bounds(deck)[5]-bounds(native[f"
 lid = native["attic_access:hatch_lid"]
 for side, rail in (("left", left_rail), ("right", right_rail)):
     close(f"attic_access:lid_to_{side}_stringer_distance_mm", lid.distance_to(rail),
-          (G.slab_thickness+A.deck_thickness-A.ladder_stringer_vertical_depth)*math.cos(math.radians(A.ladder_angle_degrees)))
+          attic_record["ladder"]["lid_to_stringer_gap_mm"])
 for label, shape in access_leaves.items():
     if label != "attic_access:hatch_lid":
         close(f"{label}:open_lid_no_solid_overlap_mm3", overlap([shape], lid), 0)
 
-# This 1400 mm swept probe is only a reproducible spatial relationship check
-# through a low storage attic. It is not a certified headroom requirement.
+# A 1250 mm crouched-access illustration tests only spatial relationships.
+# Actual ladder/product safety and human-use headroom remain unresolved.
+access_probe_height = A.maximum_finished_clear_height-100
 climb_probe = section_extrusion([(ad["ladder_foot_x"], P.storey_height+1),
                                  (ad["hatch_right"], ad["deck_top_z"]+1),
-                                 (ad["hatch_right"], ad["deck_top_z"]+1400),
-                                 (ad["ladder_foot_x"], P.storey_height+1400)],
+                                 (ad["hatch_right"], ad["deck_top_z"]+access_probe_height),
+                                 (ad["ladder_foot_x"], P.storey_height+access_probe_height)],
                                 left_bounds[4]+1, right_bounds[1]-left_bounds[4]-2)
 attic_obstructions = list(attic_leaves.values())+[ceiling, lid, native["attic_access:hatch_trim"]]
 close("attic_access:illustrative_climbing_probe_clear_of_F2_parts_mm3", overlap(floor2_obstructions, climb_probe), 0)
@@ -374,10 +380,10 @@ for coordinate, (actual, expected) in enumerate(zip(upper_bounds, expected_upper
 minimum_upper_height = min(attic_clear_height(x, P, G) for x in (upper_bounds[0], upper_bounds[2]))
 close("attic_access:recorded_upper_landing_min_clear_height_mm",
       attic_record["ladder"]["upper_landing_min_clear_height_mm"], minimum_upper_height)
-check("attic_access:upper_standing_area_accepts_illustrative_1400mm_probe", minimum_upper_height >= 1400,
-      minimum_upper_height, 1400)
+check("attic_access:upper_landing_has_low_storage_headroom", minimum_upper_height >= access_probe_height,
+      minimum_upper_height, access_probe_height)
 upper_landing = cuboid((upper_bounds[0]+.1, upper_bounds[1]+.1, ad["deck_top_z"]+.1,
-                        upper_bounds[2]-.1, upper_bounds[3]-.1, ad["deck_top_z"]+1400))
+                        upper_bounds[2]-.1, upper_bounds[3]-.1, ad["deck_top_z"]+access_probe_height))
 close("attic_access:open_east_top_standing_probe_clear_mm3", overlap(attic_obstructions, upper_landing), 0)
 close("attic_access:upper_standing_probe_supported_by_deck_mm3", overlap([deck],
       cuboid((upper_bounds[0]+.1, upper_bounds[1]+.1, ad["base_z"]+.1,
@@ -393,7 +399,7 @@ document = json.loads(data[20:20+json_size])
 nodes = document["nodes"]
 mesh_nodes = [node for node in nodes if "mesh" in node]
 check("GLB:all_STEP_leaf_names_retained", {node["name"] for node in mesh_nodes} == set(native), len(mesh_nodes), len(native))
-check("GLB:named_groups_retained", {"house_3d", "F1", "F2", "stairs", "roof", "attic", "attic_access", "foundation", "yard", "fence"}.issubset({n["name"] for n in nodes}))
+check("GLB:named_groups_retained", {"house_3d", "F1", "F2", "stairs", "roof", "attic", "attic_access", "foundation", "yard", "fence", "structure"}.issubset({n["name"] for n in nodes}))
 attic_floor_node = next(n for n in nodes if n["name"] == "attic:floor_slab")
 check("GLB:attic_ceiling_and_finish_parent_retained",
       {nodes[i]["name"] for i in attic_floor_node.get("children", [])} == {"roof:attic_ceiling_slab", "attic:deck_finish"})
@@ -421,7 +427,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R05-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R06-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

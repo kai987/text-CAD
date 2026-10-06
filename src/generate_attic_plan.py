@@ -1,4 +1,4 @@
-"""Generate a supplemental editable attic plan from the same R04 parameters.
+"""Generate a supplemental editable attic plan from the same R06 parameters.
 
 The approved R02 two-floor sheets are not rewritten. Units are millimetres;
 all attic dimensions and storage purpose are demonstration assumptions.
@@ -22,11 +22,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def generate():
-    out = ROOT / 'output/pdf/house_attic_plan_R04_JP.pdf'
+    out = ROOT / 'output/pdf/house_attic_plan_R06_JP.pdf'
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420*mm, 297*mm))
-    pdf.setTitle('小屋裏収納 補足計画図 R04 / Storage attic demonstration')
+    pdf.setTitle('小屋裏収納 補足計画図 R06 / Low storage attic demonstration')
     pdf.setAuthor('text-CAD')
     drawing = Drawing(pdf)
     # Paper dash lengths × 50: setup's inch-based defaults are too short here.
@@ -34,14 +34,14 @@ def generate():
     drawing.doc.linetypes.new('ATTIC_HEIGHT', dxfattribs={'description':'1/1 mm at 1:50', 'pattern':[100,50,-50]})
     drawing.doc.linetypes.new('ATTIC_RIDGE', dxfattribs={'description':'3/1/0.5/1 mm at 1:50', 'pattern':[275,150,-50,25,-50]})
     drawing.doc.header['$PSLTSCALE'] = 0
-    drawing.doc.ezdxf_metadata()['REVISION'] = 'R04-ATTIC'
-    drawing.doc.ezdxf_metadata()['SCOPE'] = '小屋裏収納の補足デモ計画。確認済み1・2階図面は変更しない。'
+    drawing.doc.ezdxf_metadata()['REVISION'] = 'R06-ATTIC'
+    drawing.doc.ezdxf_metadata()['SCOPE'] = '低天井の収納補足デモ。所在地未定、法定面積・構造安全は未確定。'
     d = attic_dimensions(P, G)
     m = attic_manifest(P, G)
     x0, x1 = d['deck_left'], d['deck_right']
     y0, y1 = A.deck_end_inset, P.depth - A.deck_end_inset
     hatch = (A.hatch_x, A.hatch_y, d['hatch_right'], d['hatch_north'])
-    drawing.text('小屋裏収納 補足計画図 / R04', (0, 10800), 250, align='left')
+    drawing.text('小屋裏収納 補足計画図 / R06', (0, 10800), 250, align='left')
     drawing.text('単位 mm / A3・1:50 / 全寸法はデモ仮定 / 2026-10-06', (0, 10300), 125, align='left')
     drawing.rect((0, 0, P.width, P.depth), 'WALL')
     drawing.rect((x0, y0, x1, y1), 'WALL')
@@ -75,16 +75,15 @@ def generate():
     drawing.text('検修口 1200 × 650', (6250, 3650), 115)
     drawing.line((4800, 3650), (hatch[2], 3830), 'DOOR')
     drawing.text('破線：展開梯子・2階立ち位置', (3600, 3150), 105)
-    # Ridge and clear-height 1800 mm boundary as editable reference lines.
+    # Ridge and physical flat-ceiling transitions as editable reference lines.
     pdf.saveState(); pdf.setDash([3*mm, 1*mm, .5*mm, 1*mm])
     drawing.line((3640, 5200), (3640, y1), 'DIM'); pdf.restoreState()
     list(drawing.msp)[-1].dxf.linetype = 'ATTIC_RIDGE'
-    threshold_x = (1800+A.lining_vertical_allowance+A.deck_thickness) / math.tan(math.radians(G.roof_pitch_degrees))
-    for x in (threshold_x, P.width-threshold_x):
+    for x in (d['ceiling_left'], d['ceiling_right']):
         pdf.saveState(); pdf.setDash(1*mm, 1*mm)
         drawing.line((x, 4400), (x, y1), 'DIM'); pdf.restoreState()
         list(drawing.msp)[-1].dxf.linetype = 'ATTIC_HEIGHT'
-    drawing.text('中央点線間のみ CH ≥ 1800', (3640, 5100), 105)
+    drawing.text('中央点線間：平天井 CH 1350', (3640, 5100), 105)
     drawing.dim((0, P.depth), (P.width, P.depth), (0, 8300))
     drawing.dim((x0, y1), (x1, y1), (0, 7700))
     drawing.dim((0, 0), (0, P.depth), (-900, 0), 90)
@@ -93,28 +92,40 @@ def generate():
     drawing.dim((hatch[2], hatch[1]), (hatch[2], hatch[3]), (hatch[2]+400, 0), 90)
     # Roof cross-section uses local height above Z5600, drawn at the same scale.
     sx, sy = 9000, 5950
-    drawing.text('参考断面（東西）/ 屋根外形は維持', (sx, sy+3000), 175, align='left')
+    drawing.text('参考断面（東西・Y=2000）/ 屋根外形維持', (sx, sy+3000), 175, align='left')
     ridge = P.width/2*math.tan(math.radians(G.roof_pitch_degrees))
     drawing.line((sx, sy), (sx+3640, sy+ridge), 'WALL')
     drawing.line((sx+3640, sy+ridge), (sx+7280, sy), 'WALL')
-    drawing.line((sx+x0, sy+18), (sx+x1, sy+18), 'WALL')
+    slab = m['slab_bounds_mm']
+    drawing.rect((sx+slab[0], sy-A.subfloor_thickness,
+                  sx+slab[3], sy), 'WALL')
+    drawing.rect((sx+x0, sy, sx+x1, sy+A.deck_thickness), 'WALL')
     edge_top = 18+m['clear_height_mm']['deck_edge']
     drawing.line((sx+x0, sy+18), (sx+x0, sy+edge_top), 'WALL')
     drawing.line((sx+x1, sy+18), (sx+x1, sy+edge_top), 'WALL')
-    drawing.line((sx+x0, sy+edge_top), (sx+3640, sy+ridge-50), 'WALL')
-    drawing.line((sx+3640, sy+ridge-50), (sx+x1, sy+edge_top), 'WALL')
+    profile = m['finished_ceiling_profile_xz_mm']
+    for start, end in zip(profile, profile[1:]):
+        drawing.line((sx+start[0], sy+start[1]-d['base_z']),
+                     (sx+end[0], sy+end[1]-d['base_z']), 'WALL')
+        drawing.line((sx+start[0], sy+start[1]-d['base_z']+A.flat_ceiling_thickness),
+                     (sx+end[0], sy+end[1]-d['base_z']+A.flat_ceiling_thickness), 'WALL')
     drawing.text('板面 Z=5618', (sx+3640, sy-350), 125)
-    drawing.text(f'中央 CH ≈ {m["clear_height_mm"]["ridge"]:.0f}', (sx+3640, sy+1000), 125)
+    drawing.text(f'最大 CH {m["clear_height_mm"]["maximum"]:.0f}', (sx+3640, sy+1000), 125)
     drawing.text(f'両側 CH ≈ {m["clear_height_mm"]["deck_edge"]:.0f}', (sx+3640, sy+650), 125)
+    drawing.text('平天井上は収納に使用しない空間', (sx+3640, sy+2450), 115)
+    drawing.dim((sx+3640, sy+A.deck_thickness),
+                (sx+3640, sy+A.deck_thickness+A.maximum_finished_clear_height),
+                (sx+4700, 0), 90)
     notes = [
-        '収納用デモ。居室・第3階の確定計画ではない。',
+        '所在地未定の収納デモ。法規適合の確定ではない。',
         '確認済み1・2階平面とR03屋根外形を維持。',
-        'CH：板面から内張りまで。50は鉛直表示余裕。',
+        'CH：板面から実体天井まで。上限1350は仮定。',
+        '床基板24・仕上18・平天井厚50は仮定寸法。',
         '検修梯子：幅600・65°・高さ2818・踏板10枚。',
         '2階廊下に展開。展開中は通行を占有する。',
-        '入口蓋と梯子は命名済み。入口組を独立表示。',
-        '梁・耐荷重・構造接合・断熱換気は未設計。',
-        '実使用の頭上空間・避難・法規は未検証。',
+        '上口 CH1350。低い収納用の検修アクセス。',
+        '木構部材は概念表示。耐荷重・接合は未検証。',
+        '実製品・安全操作・断熱換気・法規は要確認。',
         '本図は補足図。既存R02図面を書き換えない。',
     ]
     for i, note in enumerate(notes):

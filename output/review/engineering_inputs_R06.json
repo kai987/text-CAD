@@ -1,0 +1,75 @@
+{
+  "revision": "R06",
+  "units": "mm; forces kN; distributed loads kN/m2",
+  "status": "demonstration only; no structural calculations or permit determination",
+  "confirmed_intent": {
+    "main_storeys": 2,
+    "attic_use": "storage only",
+    "candidate_system": "timber post-and-beam"
+  },
+  "demonstration_geometry": {
+    "outline_mm": [
+      7280,
+      7280
+    ],
+    "storey_height_mm": 2800,
+    "roof_pitch_degrees": 30
+  },
+  "site_inputs": {
+    "municipality": null,
+    "survey_and_road_information": null,
+    "zoning_and_fire_district": null,
+    "ground_investigation": null,
+    "allowable_ground_bearing_kN_m2": null,
+    "settlement": null,
+    "snow_depth_mm": null,
+    "basic_wind_speed_m_s": null,
+    "seismic_site_conditions": null
+  },
+  "material_inputs": {
+    "timber_species_and_grade": null,
+    "moisture_and_design_strengths": null,
+    "sheathing_specification": null,
+    "wall_resistance_specification": null,
+    "connection_products_and_capacities": null,
+    "concrete_grade": null,
+    "rebar_grade": null
+  },
+  "load_inputs": {
+    "roof_dead_load_kN_m2": null,
+    "wall_and_floor_dead_load_kN_m2": null,
+    "residential_live_load_kN_m2": null,
+    "attic_storage_live_load_kN_m2": null,
+    "shelf_and_box_concentrated_loads_kN": null,
+    "future_roof_equipment": null
+  },
+  "required_calculations": [
+    "gravity, wind, snow and earthquake load cases and combinations",
+    "wall quantity, distribution, torsion and storey drift",
+    "floor and roof diaphragm and hatch opening reinforcement",
+    "beam/joist bending, shear, deflection and vibration; column stability",
+    "joint, hold-down, anchor and uplift capacity",
+    "foundation reactions, bearing, settlement and reinforcement"
+  ],
+  "local_attic_review": {
+    "determination": "pending; no building locality selected",
+    "example_only": "Nerima treatment is a reference, not the selected jurisdiction",
+    "questions": [
+      "maximum finished internal height and actual ceiling treatment",
+      "acceptance of a fixed false ceiling and remaining roof void above it",
+      "statutory projection area, stairs/hatch and corresponding floor area",
+      "storage-only use, openings, equipment and access ladder acceptance"
+    ],
+    "reference": "https://www.city.nerima.tokyo.jp/kurashi/sumai/takuchi/kentiku-toriatukai.files/all.pdf"
+  },
+  "unresolved_detail_design": [
+    "insulation, roof ventilation and condensation",
+    "ceiling suspension/support and roof-void maintenance access",
+    "fire protection, escape and energy performance",
+    "ladder product, low-clearance access and fall protection",
+    "drainage and foundation waterproofing"
+  ],
+  "capacity_results": null,
+  "statutory_compliance_result": null,
+  "designer_and_supervisor": null
+}

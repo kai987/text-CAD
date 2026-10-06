@@ -77,7 +77,21 @@ def _helpers():
     return cuboid, named, opening_box, section_extrusion, window_vertical_range
 
 
-def facade_parts(floor, p, g, e=E):
+def plinth_parts(p, g, e=E):
+    """Original plinth solids, retained by name under the foundation hierarchy."""
+    cuboid, _, _, _, _ = _helpers()
+    z0 = -g.slab_thickness - e.foundation_depth
+    t = e.foundation_wall_thickness
+    foundation = {
+        "south": (0, 0, z0, p.width, t, -g.slab_thickness),
+        "north": (0, p.depth-t, z0, p.width, p.depth, -g.slab_thickness),
+        "west": (0, t, z0, t, p.depth-t, -g.slab_thickness),
+        "east": (p.width-t, t, z0, p.width, p.depth-t, -g.slab_thickness),
+    }
+    return [cuboid(b, f"F1:exterior:foundation:{side}", "concrete") for side, b in foundation.items()]
+
+
+def facade_parts(floor, p, g, e=E, include_plinth=True):
     cuboid, named, opening_box, _, window_vertical_range = _helpers()
     c = e.cladding_thickness
     z = (floor.number - 1) * p.storey_height
@@ -97,17 +111,8 @@ def facade_parts(floor, p, g, e=E):
     leaves = [named(cuboid(b).cut(*cuts), f"F{floor.number}:exterior:cladding:{side}", "exterior")
               for side, b in bounds.items()]
     if floor.number == 1:
-        # The grey plinth continues down from the slab without a wood-coloured band.
-        z0 = -g.slab_thickness - e.foundation_depth
-        t = e.foundation_wall_thickness
-        foundation = {
-            "south": (0, 0, z0, p.width, t, -g.slab_thickness),
-            "north": (0, p.depth - t, z0, p.width, p.depth, -g.slab_thickness),
-            "west": (0, t, z0, t, p.depth - t, -g.slab_thickness),
-            "east": (p.width - t, t, z0, p.width, p.depth - t, -g.slab_thickness),
-        }
-        leaves += [cuboid(b, f"F1:exterior:foundation:{side}", "concrete")
-                   for side, b in foundation.items()]
+        if include_plinth:
+            leaves += plinth_parts(p, g, e)
         entrance = next(d for d in floor.doors if d.a == "outside")
         # A narrow timber accent beside the entry keeps the entire door aperture clear.
         x1 = entrance.start + entrance.width + e.entry_panel_door_clearance

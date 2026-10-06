@@ -134,7 +134,7 @@ def wall_groups(floor, p=P, g=G):
         wall = extruded_polygon(profile, z, h)
         wall = wall.cut(*cuts)
         exterior.append(named(wall, f"{prefix}:wall_external_{direction}", "external"))
-    exterior.extend(facade_parts(floor, p, g))
+    exterior.extend(facade_parts(floor, p, g, include_plinth=False))
     interior = []
     for i, profile in enumerate(polygons(partitions), 1):
         wall = extruded_polygon(profile, z, h).cut(*cuts)
@@ -282,6 +282,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     from .fixture_geometry import fixture_group
     from .attic_geometry import attic_access_group, attic_group
     from .site_geometry import foundation_group, yard_group, fence_group
+    from .structure_geometry import structure_group
     floors = []
     for number in (1, 2):
         plan = floor_plan(number, p)
@@ -295,6 +296,7 @@ def house_assembly(p=P, g=G, include_roof=True):
         children.append(roof_group(p, g))
     children += [attic_group(p, g), attic_access_group(p, g)]
     children += [foundation_group(p, g), yard_group(p, g), fence_group()]
+    children.append(structure_group(p, g))
     return bd.Compound(children=children, label="house_3d")
 
 
@@ -303,11 +305,13 @@ def geometry_manifest(p=P, g=G):
     from .exterior_geometry import exterior_manifest
     from .attic_geometry import attic_manifest
     from .site_geometry import site_manifest
+    from .structure_geometry import structure_manifest
     exterior = exterior_manifest()
     attic = attic_manifest(p, g)
     site = site_manifest(p, g)
+    structure = structure_manifest(p, g)
     return {
-        "revision": "R05-3D", "stage": "approved_floor_plan_concept_model",
+        "revision": "R06-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -315,11 +319,19 @@ def geometry_manifest(p=P, g=G):
         "exterior": exterior,
         "attic": attic,
         "site": site,
+        "structure": structure,
+        "engineering_status": {
+            "site": "demonstration; municipality and actual parcel unspecified",
+            "structural_calculation": "not performed",
+            "statutory_classification": "pending local authority review",
+            "construction_use": "not approved for construction",
+            "input_sheet": "output/review/engineering_inputs_R06.json",
+        },
         "assumptions": [
             "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
             "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
-            "二层楼板为整个1900 × 2720 mm 梯间净边界开洞，未覆盖楼梯；屋顶下另设200 mm概念顶板。",
+            "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
             "大窗宽大于1000 mm：窗台900/窗高1300 mm；其他窗：窗台1500/窗高600 mm。",
             "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
@@ -329,7 +341,7 @@ def geometry_manifest(p=P, g=G):
             "鞋柜高1800 mm、其余收纳柜2100 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"],
+        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"],
         "interior_reference": "references/interior-furnishings.md",
         "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
         "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],

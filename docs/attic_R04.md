@@ -1,5 +1,7 @@
 # R04 storage attic / 小屋裏収納 / 储物阁楼
 
+> Historical R04 record. R06 supersedes the current geometry and editable attic DXF with a1350 mm maximum finished ceiling and24 mm subfloor panel; see `docs/attic_R06.md`. The R04 PDF is preserved for revision comparison. The generator now outputs the R06 PDF rather than reproducing this sheet. 历史R04记录；当前模型以R06为准。R04の履歴です。現行モデルはR06を参照してください。
+
 All dimensions below are millimetre-based demonstration assumptions. The user selected storage use. This supplements the approved two-storey plan and keeps the R03 gable envelope.
 
 | Item / 項目 / 项目 | Value |

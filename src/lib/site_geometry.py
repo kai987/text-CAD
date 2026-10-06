@@ -147,6 +147,7 @@ def _extrude_profile(profile, bottom, top, label, color):
 
 
 def foundation_group(p, g, s=S):
+    from .exterior_geometry import plinth_parts
     cuboid, _, _, _ = _helpers()
     d = site_dimensions(p, g, s)
     x1, y1, x2, y2 = d["entrance"]
@@ -173,9 +174,41 @@ def foundation_group(p, g, s=S):
         x1, y1, x2, y2 = footprint
         supports.append(cuboid((x1, y1, bottom, x2, y2, top),
                                f"foundation:entrance_supports:{name}", "site_concrete"))
-    return bd.Compound(children=[raft, stems,
+    plinth = bd.Compound(children=plinth_parts(p, g), label="foundation:existing_plinth")
+    return bd.Compound(children=[raft, stems, plinth, internal_support_group(p, g, s),
                                  bd.Compound(children=supports, label="foundation:entrance_supports")],
                        label="foundation")
+
+
+def internal_support_profiles(p):
+    """Non-overlapping proposal ribs following candidate structural support lines.
+
+    Concrete section dimensions remain unverified demonstration parameters.
+    Existing perimeter stems/plinths occupy the perimeter; ribs meet that band
+    without duplicating it or duplicating one another at crossings.
+    """
+    from .structure_geometry import foundation_support_segments
+    t = E.foundation_wall_thickness
+    outer = box(0, 0, p.width, p.depth)
+    perimeter = outer.difference(box(t, t, p.width-t, p.depth-t))
+    occupied, profiles = perimeter, []
+    for index, segment in enumerate(foundation_support_segments(p), 1):
+        axis, at, start, end = (segment[k] for k in ("axis", "at", "start", "end"))
+        footprint = box(start, at-t/2, end, at+t/2) if axis == "h" else box(at-t/2, start, at+t/2, end)
+        clipped = footprint.intersection(outer).difference(occupied)
+        occupied = occupied.union(footprint)
+        if not clipped.is_empty and clipped.area > .01:
+            profiles.append((segment.get("id", f"rib_{index:02d}"), clipped))
+    return profiles
+
+
+def internal_support_group(p, g, s=S):
+    d = site_dimensions(p, g, s)
+    top = -g.slab_thickness
+    children = [_extrude_profile(profile, d["raft_top_z"], top,
+                 f"foundation:internal_supports:{name}", "site_concrete")
+                for name, profile in internal_support_profiles(p)]
+    return bd.Compound(children=children, label="foundation:internal_supports")
 
 
 def _terrain_profiles(p, g, s=S):
@@ -295,12 +328,19 @@ def site_manifest(p, g, s=S):
         "lot_area_mm2": _box_profile(d["lot"]).area,
         "grade_z_mm": s.ground_z,
         "foundation": {
-            "type": "concept raft and perimeter stem continuation; no internal reinforcement design",
+            "type": "demonstration raft, perimeter stems and candidate internal support ribs; no reinforcement design",
             "raft_bounds_mm": [0, 0, s.raft_bottom_z, p.width, p.depth, d["raft_top_z"]],
             "raft_thickness_mm": s.raft_thickness,
             "stem_width_mm": E.foundation_wall_thickness,
             "stem_bottom_top_mm": [d["raft_top_z"], d["old_plinth_bottom_z"]],
             "existing_plinth_preserved": True,
+            "existing_plinth_group": "foundation:existing_plinth",
+            "internal_support_width_mm": E.foundation_wall_thickness,
+            "internal_support_bottom_top_mm": [d["raft_top_z"], -g.slab_thickness],
+            "internal_supports": [{"id": name, "plan_bounds_mm": list(profile.bounds),
+                                   "plan_area_mm2": profile.area}
+                                  for name, profile in internal_support_profiles(p)],
+            "design_status": "sizes are assumptions; reactions, ground bearing and reinforcement pending",
         },
         "entrance": {
             "footprint_mm": list(d["entrance"]),
@@ -339,11 +379,11 @@ def site_manifest(p, g, s=S):
         "assumptions": [
             "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
             "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-            "新增贝塔基础仅以150 mm底板和140 mm周圈立上り表达；保留原四个基座，未设计配筋、地梁、地盘处理或验证承载、抗震和排水。",
+            "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R06增加与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
             "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
             "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
             "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
             "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
-            "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，旧房屋、阁楼和已确认两层平面保持不变。",
+            "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。",
         ],
     }

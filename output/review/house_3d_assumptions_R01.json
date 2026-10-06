@@ -1,6 +1,6 @@
 {
-  "revision": "R05-3D",
-  "stage": "approved_floor_plan_concept_model",
+  "revision": "R06-3D",
+  "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
   "plan_parameters": {
@@ -101,11 +101,16 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
+    "revision": "R06",
     "status": "demonstration proposal, not structural or statutory design",
+    "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
       "deck_width": 3680,
       "deck_end_inset": 200,
       "deck_thickness": 18,
+      "subfloor_thickness": 24,
+      "maximum_finished_clear_height": 1350,
+      "flat_ceiling_thickness": 50,
       "lining_vertical_allowance": 50,
       "knee_wall_thickness": 50,
       "gable_lining_thickness": 20,
@@ -118,6 +123,7 @@
       "hatch_lid_thickness": 18,
       "hinge_mount_width": 35,
       "hinge_mount_height": 12,
+      "deployed_lid_vertical_gap": 20,
       "guardrail_post_width": 40,
       "guardrail_height": 750,
       "guardrail_rail_height": 40,
@@ -151,7 +157,7 @@
     "slab_bounds_mm": [
       22,
       22,
-      5400,
+      5576,
       7258,
       7258,
       5600
@@ -167,16 +173,43 @@
     "hatch_bounds_mm": [
       2800,
       3505,
-      5400,
+      5576,
       4000,
       4155,
       5618
     ],
     "storage_projection_area_m2": 24.5384,
+    "flat_ceiling_bounds_mm": [
+      2456.0480451326684,
+      180,
+      6968,
+      4823.951954867332,
+      7100,
+      7018
+    ],
+    "finished_ceiling_profile_xz_mm": [
+      [
+        1800.0,
+        6589.230484541326
+      ],
+      [
+        2456.0480451326684,
+        6968
+      ],
+      [
+        4823.951954867332,
+        6968
+      ],
+      [
+        5480.0,
+        6589.230484541326
+      ]
+    ],
     "clear_height_mm": {
-      "ridge": 2033.554979850237,
+      "maximum": 1350,
+      "ridge": 1350,
       "deck_edge": 971.2304845413264,
-      "formula": "tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness"
+      "formula": "min(tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness, maximum_finished_clear_height)"
     },
     "ladder": {
       "state": "deployed concept, independently hideable",
@@ -214,18 +247,23 @@
         4600,
         4155
       ],
-      "upper_landing_min_clear_height_mm": 1479.2987214281966,
-      "lid_to_stringer_gap_mm": 49.86895488540254
+      "upper_landing_min_clear_height_mm": 1350,
+      "lid_hinge_z_mm": 5465.774653974522,
+      "lid_hinge_drop_below_panel_mm": 110.22534602547793,
+      "lid_to_stringer_gap_mm": 22.071384956093993,
+      "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "阁楼采用储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形，不作为已确定的第三层居室。",
-      "原 Z=5400–5600 mm、厚200 mm概念顶板复用为阁楼示意楼板；净检修口1200 × 650 mm贯穿顶板，中央18 mm板面完成面为 Z=5618 mm。",
+      "R06阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
-      "斜屋面内衬采用50 mm竖向展示预留，阁楼板面至内衬的屋脊净高约2033.55 mm、两侧边缘约971.23 mm；保温、屋面层次和实际净高尚未设计。",
+      "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约971.23 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
+      "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
       "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
       "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-      "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
-      "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。"
+      "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位净高为1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+      "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
+      "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。"
     ]
   },
   "site": {
@@ -287,7 +325,7 @@
     "lot_area_mm2": 166718400.0,
     "grade_z_mm": -500,
     "foundation": {
-      "type": "concept raft and perimeter stem continuation; no internal reinforcement design",
+      "type": "demonstration raft, perimeter stems and candidate internal support ribs; no reinforcement design",
       "raft_bounds_mm": [
         0,
         0,
@@ -302,7 +340,66 @@
         -650,
         -500
       ],
-      "existing_plinth_preserved": true
+      "existing_plinth_preserved": true,
+      "existing_plinth_group": "foundation:existing_plinth",
+      "internal_support_width_mm": 140,
+      "internal_support_bottom_top_mm": [
+        -650,
+        -200
+      ],
+      "internal_supports": [
+        {
+          "id": "I01",
+          "plan_bounds_mm": [
+            140.0,
+            3290.0,
+            7140.0,
+            3430.0
+          ],
+          "plan_area_mm2": 980000.0
+        },
+        {
+          "id": "I02",
+          "plan_bounds_mm": [
+            140.0,
+            4260.0,
+            7140.0,
+            4400.0
+          ],
+          "plan_area_mm2": 980000.0
+        },
+        {
+          "id": "I03",
+          "plan_bounds_mm": [
+            5080.0,
+            140.0,
+            5220.0,
+            7140.0
+          ],
+          "plan_area_mm2": 940800.0
+        },
+        {
+          "id": "I04",
+          "plan_bounds_mm": [
+            6150.0,
+            1460.0,
+            7140.0,
+            1600.0
+          ],
+          "plan_area_mm2": 138600.0
+        },
+        {
+          "id": "I05",
+          "plan_bounds_mm": [
+            6080.0,
+            1530.0,
+            6220.0,
+            3290.0
+          ],
+          "plan_area_mm2": 241500.0
+        }
+      ],
+      "design_status": "sizes are assumptions; reactions, ground bearing and reinforcement pending"
     },
     "entrance": {
       "footprint_mm": [
@@ -815,19 +912,864 @@
     "assumptions": [
       "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
       "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-      "新增贝塔基础仅以150 mm底板和140 mm周圈立上り表达；保留原四个基座，未设计配筋、地梁、地盘处理或验证承载、抗震和排水。",
+      "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R06增加与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
       "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
       "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
       "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
       "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
-      "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，旧房屋、阁楼和已确认两层平面保持不变。"
+      "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。"
     ]
+  },
+  "structure": {
+    "revision": "R06-STRUCTURE",
+    "units": "mm",
+    "status": "demonstration_candidate_not_engineered",
+    "scheme": "timber_post_and_beam_candidate",
+    "parameters": {
+      "external_column_width": 120,
+      "internal_column_width": 90,
+      "perimeter_beam_width": 120,
+      "internal_beam_width": 90,
+      "transfer_beam_width": 180,
+      "storey_beam_depth": 300,
+      "sill_base_z": -200,
+      "sill_depth": 120,
+      "floor_board_allowance": 24,
+      "attic_joist_width": 60,
+      "attic_joist_depth": 180,
+      "attic_joist_max_spacing": 455,
+      "hatch_trimmer_width": 120,
+      "hatch_header_width": 60,
+      "bearing_panel_thickness": 9,
+      "internal_bearing_panel_display_thickness": 5,
+      "minimum_bearing_panel_length": 300,
+      "roof_post_width": 90,
+      "roof_purlin_width": 120,
+      "roof_purlin_vertical_depth": 60,
+      "roof_rafter_width": 60,
+      "roof_rafter_vertical_depth": 90,
+      "roof_rafter_max_spacing": 455,
+      "ridge_beam_width": 120,
+      "ridge_beam_depth": 60
+    },
+    "dimensions": {
+      "sill_bottom_z": -200,
+      "sill_top_z": -80,
+      "F1_beam_top_z": 2776,
+      "F1_beam_bottom_z": 2476,
+      "F2_beam_top_z": 5396,
+      "F2_beam_bottom_z": 5096,
+      "attic_joist_bottom_z": 5396,
+      "attic_joist_top_z": 5576,
+      "attic_subfloor_bottom_z": 5576,
+      "attic_subfloor_top_z": 5600,
+      "deck_left": 1800.0,
+      "deck_right": 5480.0,
+      "hatch": [
+        2800,
+        3505,
+        4000,
+        4155
+      ]
+    },
+    "columns": [
+      {
+        "id": "C01",
+        "x": 90.0,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C02",
+        "x": 7190.0,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C03",
+        "x": 90.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C04",
+        "x": 7190.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C05",
+        "x": 590,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C06",
+        "x": 3060,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C07",
+        "x": 3640.0,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C08",
+        "x": 6340,
+        "y": 90.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C09",
+        "x": 590,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C10",
+        "x": 3320,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C11",
+        "x": 3640.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C12",
+        "x": 4870,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C13",
+        "x": 5150.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C14",
+        "x": 90.0,
+        "y": 840,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C15",
+        "x": 90.0,
+        "y": 3360.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C16",
+        "x": 90.0,
+        "y": 4330.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C17",
+        "x": 90.0,
+        "y": 6260,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C18",
+        "x": 7190.0,
+        "y": 1530.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C19",
+        "x": 7190.0,
+        "y": 2640,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C20",
+        "x": 7190.0,
+        "y": 3330.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C21",
+        "x": 7190.0,
+        "y": 4330.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C22",
+        "x": 7190.0,
+        "y": 6140,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C23",
+        "x": 7190.0,
+        "y": 6860,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C24",
+        "x": 2455.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C25",
+        "x": 3445.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C26",
+        "x": 3640.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C27",
+        "x": 3755.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C28",
+        "x": 5005.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C29",
+        "x": 5150.0,
+        "y": 4330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C30",
+        "x": 6150.0,
+        "y": 1530.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C31",
+        "x": 6150.0,
+        "y": 2155,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C32",
+        "x": 6150.0,
+        "y": 2945,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C33",
+        "x": 6150.0,
+        "y": 3330.0,
+        "width": 90,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
+        "id": "C34",
+        "x": 5150.0,
+        "y": 3360.0,
+        "width": 90,
+        "floors": [
+          1
+        ],
+        "support": "F1_transfer_beam_pillar"
+      }
+    ],
+    "beam_axes": [
+      {
+        "id": "B01",
+        "axis": "h",
+        "at": 90.0,
+        "start": 30.0,
+        "end": 7250.0,
+        "width": 120.0
+      },
+      {
+        "id": "B02",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 30.0,
+        "end": 7250.0,
+        "width": 120.0
+      },
+      {
+        "id": "B03",
+        "axis": "v",
+        "at": 90.0,
+        "start": 150.0,
+        "end": 7130.0,
+        "width": 120.0
+      },
+      {
+        "id": "B04",
+        "axis": "v",
+        "at": 7190.0,
+        "start": 150.0,
+        "end": 7130.0,
+        "width": 120.0
+      },
+      {
+        "id": "B05",
+        "axis": "h",
+        "at": 3360.0,
+        "start": 150.0,
+        "end": 7130.0,
+        "width": 180
+      },
+      {
+        "id": "B06",
+        "axis": "h",
+        "at": 4330.0,
+        "start": 150.0,
+        "end": 7130.0,
+        "width": 90
+      },
+      {
+        "id": "B07",
+        "axis": "v",
+        "at": 5150.0,
+        "start": 150.0,
+        "end": 7130.0,
+        "width": 90
+      },
+      {
+        "id": "B08",
+        "axis": "h",
+        "at": 1530.0,
+        "start": 6150.0,
+        "end": 7130.0,
+        "width": 90
+      },
+      {
+        "id": "B09",
+        "axis": "v",
+        "at": 6150.0,
+        "start": 1530.0,
+        "end": 3360.0,
+        "width": 90
+      }
+    ],
+    "bearing_wall_candidates": [
+      {
+        "id": "BW01",
+        "axis": "h",
+        "at": 90.0,
+        "start": 90.0,
+        "end": 590,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 380.0,
+        "external": true,
+        "end_columns": [
+          "C01",
+          "C05"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW02",
+        "axis": "h",
+        "at": 90.0,
+        "start": 3060,
+        "end": 3640.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 460.0,
+        "external": true,
+        "end_columns": [
+          "C06",
+          "C07"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW03",
+        "axis": "h",
+        "at": 90.0,
+        "start": 6340,
+        "end": 7190.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 730.0,
+        "external": true,
+        "end_columns": [
+          "C08",
+          "C02"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW04",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 90.0,
+        "end": 590,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 380.0,
+        "external": true,
+        "end_columns": [
+          "C03",
+          "C09"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW05",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 5150.0,
+        "end": 7190.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 1920.0,
+        "external": true,
+        "end_columns": [
+          "C13",
+          "C04"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW06",
+        "axis": "v",
+        "at": 90.0,
+        "start": 90.0,
+        "end": 840,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 630.0,
+        "external": true,
+        "end_columns": [
+          "C01",
+          "C14"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW07",
+        "axis": "v",
+        "at": 90.0,
+        "start": 3360.0,
+        "end": 4330.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 850.0,
+        "external": true,
+        "end_columns": [
+          "C15",
+          "C16"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW08",
+        "axis": "v",
+        "at": 90.0,
+        "start": 6260,
+        "end": 7190.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 810.0,
+        "external": true,
+        "end_columns": [
+          "C17",
+          "C03"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW09",
+        "axis": "v",
+        "at": 7190.0,
+        "start": 90.0,
+        "end": 1530.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 1320.0,
+        "external": true,
+        "end_columns": [
+          "C02",
+          "C18"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW10",
+        "axis": "v",
+        "at": 7190.0,
+        "start": 2640,
+        "end": 3330.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 570.0,
+        "external": true,
+        "end_columns": [
+          "C19",
+          "C20"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW11",
+        "axis": "v",
+        "at": 7190.0,
+        "start": 3330.0,
+        "end": 4330.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 880.0,
+        "external": true,
+        "end_columns": [
+          "C20",
+          "C21"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW12",
+        "axis": "v",
+        "at": 7190.0,
+        "start": 4330.0,
+        "end": 6140,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 1690.0,
+        "external": true,
+        "end_columns": [
+          "C21",
+          "C22"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW13",
+        "axis": "h",
+        "at": 4330.0,
+        "start": 90.0,
+        "end": 2455.0,
+        "normal_start": 4375.0,
+        "thickness": 5,
+        "clear_span": 2260.0,
+        "external": false,
+        "end_columns": [
+          "C16",
+          "C24"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW14",
+        "axis": "v",
+        "at": 5150.0,
+        "start": 4330.0,
+        "end": 7190.0,
+        "normal_start": 5195.0,
+        "thickness": 5,
+        "clear_span": 2755.0,
+        "external": false,
+        "end_columns": [
+          "C29",
+          "C13"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW15",
+        "axis": "v",
+        "at": 6150.0,
+        "start": 1530.0,
+        "end": 2155,
+        "normal_start": 6195.0,
+        "thickness": 5,
+        "clear_span": 535.0,
+        "external": false,
+        "end_columns": [
+          "C30",
+          "C31"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      }
+    ],
+    "foundation_support_axes": [
+      {
+        "id": "I01",
+        "axis": "h",
+        "at": 3360.0,
+        "start": 90.0,
+        "end": 7190.0
+      },
+      {
+        "id": "I02",
+        "axis": "h",
+        "at": 4330.0,
+        "start": 90.0,
+        "end": 7190.0
+      },
+      {
+        "id": "I03",
+        "axis": "v",
+        "at": 5150.0,
+        "start": 90.0,
+        "end": 7190.0
+      },
+      {
+        "id": "I04",
+        "axis": "h",
+        "at": 1530.0,
+        "start": 6150.0,
+        "end": 7190.0
+      },
+      {
+        "id": "I05",
+        "axis": "v",
+        "at": 6150.0,
+        "start": 1530.0,
+        "end": 3360.0
+      }
+    ],
+    "roof_posts": {
+      "gable_y": [
+        90.0,
+        7190.0
+      ],
+      "purlin_x": [
+        1740.0,
+        5540.0
+      ],
+      "middle_y": 4330.0
+    },
+    "capacity_results": null,
+    "statutory_compliance_result": null,
+    "material_grade": null,
+    "assumptions": [
+      "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
+      "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
+      "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
+      "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
+      "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+      "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
+      "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
+      "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。"
+    ],
+    "required_calculations": [
+      "dead_live_and_local_storage_loads",
+      "snow_wind_and_seismic_site_actions",
+      "bearing_wall_quantity_distribution_and_torsion",
+      "floor_and_roof_diaphragms",
+      "beam_bending_shear_deflection_and_transfer_reactions",
+      "column_axial_and_buckling",
+      "ridge_purlin_and_rafter_spans_and_uplift",
+      "hatch_trimmer_and_header_reactions",
+      "joints_anchors_and_hold_downs",
+      "foundation_soil_bearing_settlement_and_reinforcement"
+    ],
+    "critical_unresolved_items": [
+      "7280 mm envelope creates long LDK/roof spans; no section adequacy is established.",
+      "The hatch requires designed load transfer, connections and a coordinated attic ladder product.",
+      "First-floor floor build-up, foundations, ventilation and moisture protection require engineering.",
+      "Bearing panels have no certified wall multiplier; geometry does not prove seismic or wind resistance."
+    ]
+  },
+  "engineering_status": {
+    "site": "demonstration; municipality and actual parcel unspecified",
+    "structural_calculation": "not performed",
+    "statutory_classification": "pending local authority review",
+    "construction_use": "not approved for construction",
+    "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
     "7280 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
     "已确认 R01 房间净边界和门窗平面位置直接复用；一、二层厕所上下对齐。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
-    "二层楼板为整个1900 × 2720 mm 梯间净边界开洞，未覆盖楼梯；屋顶下另设200 mm概念顶板。",
+    "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
     "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
     "大窗宽大于1000 mm：窗台900/窗高1300 mm；其他窗：窗台1500/窗高600 mm。",
     "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
@@ -844,22 +1786,32 @@
     "玄关木色外扇、拉手、门框、挑檐、平台及单级踏步为演示附件；门洞宽高和玄关平面位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "阁楼采用储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形，不作为已确定的第三层居室。",
-    "原 Z=5400–5600 mm、厚200 mm概念顶板复用为阁楼示意楼板；净检修口1200 × 650 mm贯穿顶板，中央18 mm板面完成面为 Z=5618 mm。",
+    "R06阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
-    "斜屋面内衬采用50 mm竖向展示预留，阁楼板面至内衬的屋脊净高约2033.55 mm、两侧边缘约971.23 mm；保温、屋面层次和实际净高尚未设计。",
+    "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约971.23 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
+    "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
     "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
     "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-    "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
-    "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。",
+    "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位净高为1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+    "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
+    "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
     "新增用地暂定11280 × 14780 mm（约166.72㎡），房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
     "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-    "新增贝塔基础仅以150 mm底板和140 mm周圈立上り表达；保留原四个基座，未设计配筋、地梁、地盘处理或验证承载、抗震和排水。",
+    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R06增加与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
     "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
     "南侧停车划线范围暂定2800 × 5000 mm，车辆开口3000 mm、行人开口1800 mm；未验证具体车辆转弯、道路接入或停车许可。",
     "金属围栏暂定地上高1200 mm、柱宽50 mm；28片面板各含9道80 mm横栅和40 mm空隙，30个柱脚为概念展示，未完成连接或结构设计。",
     "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
-    "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，旧房屋、阁楼和已确认两层平面保持不变。"
+    "四块草坪和三株圆顶灌木为原创简化植栽；基础、院子、入口与围栏分组可独立查看，已确认两层平面及院子布局保持不变。",
+    "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
+    "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
+    "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
+    "原建筑墙体、楼板和屋顶保留为展示壳体，与独立结构方案层有意重叠；查看结构时应隐藏建筑壳体。",
+    "示意对接和避让切口仅用于几何协调，未设计紧固件、抗拔件或节点承载能力。",
+    "屋架布置在150 mm概念屋面带内以保持阁楼净空；实际屋面层次与结构截面仍待重新设计和验算。",
+    "储物阁楼即使未来获准不计法规面积，储物荷载仍必须纳入整栋结构设计。",
+    "一层原200 mm建筑楼板壳体不是已设计的木楼面或混凝土承重楼板。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -1053,7 +2005,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 537,
-    "all_nodes": 627
+    "named_mesh_nodes": 730,
+    "all_nodes": 830
   }
 }

@@ -103,3 +103,21 @@ test('site controls and supplementary downloads have distinct names in all three
     assert.notEqual(copy.downloads.files.site.title, copy.downloads.files.sitePdf.title);
   }
 });
+
+
+test('R06 structural controls and pending demonstration status are translated separately from apartment copy', () => {
+  for (const locale of locales) {
+    const copy = modelCopy(messages[locale], locale, 'house');
+    for (const key of ['columns', 'beams', 'sills', 'attic_joists', 'attic_headers', 'roof_framing', 'bearing_walls', 'existing_plinth', 'internal_supports']) assert.ok(copy.partKinds[key].trim());
+    assert.ok(copy.groups.structure.trim());
+    assert.ok(copy.presets.structure.trim());
+    assert.ok(copy.model.structureNote.trim());
+    assert.ok(copy.model.demoNote.trim());
+    assert.match(copy.model.atticNote, /1350/);
+    for (const id of ['structure', 'structurePdf']) {
+      assert.ok(copy.downloads.files[id].title.trim());
+      assert.ok(copy.downloads.files[id].detail.trim());
+    }
+    assert.equal(modelLayouts.apartment.presets.some(preset => preset.id === 'structure'), false);
+  }
+});

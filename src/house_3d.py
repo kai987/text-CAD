@@ -8,6 +8,9 @@ from cadgen import glb, read_scene, step
 from lib.house_geometry import geometry_manifest, house_assembly
 from lib.interior_materials import apply_interior_materials
 from lib.exterior_materials import apply_exterior_materials
+from lib.engineering_inputs import engineering_inputs
+from lib.house_plan import P
+from lib.house_geometry import G
 
 
 MATERIALS = {
@@ -112,3 +115,5 @@ if __name__ == "__main__":
     manifest = geometry_manifest()
     manifest["glb_export"] = glb_metadata
     destination.write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+    (destination.parent/"engineering_inputs_R06.json").write_text(
+        json.dumps(engineering_inputs(P, G), ensure_ascii=False, indent=2)+"\n", encoding="utf-8")

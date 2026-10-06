@@ -4,7 +4,7 @@ import { useModel } from './ModelContext';
 import { format } from './localization';
 
 export default function DownloadPage() {
-  const { copy, data, downloads, source } = useModel();
+  const { copy, data, downloads, source, layout } = useModel();
   return <div className="downloads-page">
     <header><h1>{copy.downloads.title}</h1><p>{format(copy.downloads.revision, { drawing: data.drawingRevision, model: data.modelRevision })}</p></header>
     <div className="download-list">
@@ -13,7 +13,10 @@ export default function DownloadPage() {
         <Download size={20} aria-hidden="true" /><span className="sr-only">{copy.downloads.download}</span>
       </a>)}
     </div>
+    <div className="source-links">
     <a className="outline-button source-button" href={`${repository}/blob/main/${source}`} target="_blank" rel="noreferrer">{copy.downloads.source}<ArrowUpRight size={17} aria-hidden="true" /></a>
+    {layout.id === 'house' ? <a className="outline-button source-button" href={`${repository}/tree/main/src/lib`} target="_blank" rel="noreferrer">{copy.downloads.sourceParameters}<ArrowUpRight size={17} aria-hidden="true" /></a> : null}
+    </div>
     <section className="assumptions"><h2>{copy.downloads.notes}</h2>
       <p>{copy.downloads.summary}</p>
       <p>{copy.downloads.drafting}</p>

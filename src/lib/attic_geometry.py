@@ -1,8 +1,9 @@
-"""Original storage-attic concept within the unchanged R03 gable envelope.
+"""R06 low storage-attic concept within the unchanged R03 gable envelope.
 
 All dimensions are millimetre-based demonstration assumptions. The existing
-200 mm concept ceiling is reused as a floor display; no load-bearing design,
-insulation build-up, folding mechanism or statutory classification is implied.
+thin subfloor panel and capped finished ceiling replace the former solid
+concept slab and high roof void. Separate demonstration framing is assembled
+by the house module; no load rating or statutory classification is implied.
 """
 from __future__ import annotations
 
@@ -19,6 +20,9 @@ class AtticParameters:
     deck_width: float = 3680
     deck_end_inset: float = 200
     deck_thickness: float = 18
+    subfloor_thickness: float = 24
+    maximum_finished_clear_height: float = 1350
+    flat_ceiling_thickness: float = 50
     lining_vertical_allowance: float = 50
     knee_wall_thickness: float = 50
     gable_lining_thickness: float = 20
@@ -31,6 +35,7 @@ class AtticParameters:
     hatch_lid_thickness: float = 18
     hinge_mount_width: float = 35
     hinge_mount_height: float = 12
+    deployed_lid_vertical_gap: float = 20
     guardrail_post_width: float = 40
     guardrail_height: float = 750
     guardrail_rail_height: float = 40
@@ -75,8 +80,30 @@ def attic_dimensions(p, g, a=A):
     hatch_north = a.hatch_y + a.hatch_width
     ladder_rise = deck_top - p.storey_height
     ladder_run = ladder_rise / tan(radians(a.ladder_angle_degrees))
+    panel_bottom = zbase - a.subfloor_thickness
+    ceiling_bottom = deck_top + a.maximum_finished_clear_height
+    ceiling_left = (ceiling_bottom + a.lining_vertical_allowance - zbase) / tan(radians(g.roof_pitch_degrees))
+    if not (0 < a.flat_ceiling_thickness <= a.lining_vertical_allowance):
+        raise ValueError("Attic flat ceiling thickness must fit the lining's vertical allowance")
+    if not (deck_left < ceiling_left < p.width / 2):
+        raise ValueError("Attic capped ceiling must meet both roof slopes within the finished deck")
+    # The deployed cover hangs below the stringers. Its conceptual hinge drop
+    # follows the new panel underside, rather than relying on the old slab.
+    ladder_back_depth = max(a.ladder_stringer_vertical_depth,
+                            a.ladder_tread_depth / 2 * tan(radians(a.ladder_angle_degrees))
+                            + a.ladder_tread_thickness)
+    lid_hinge_drop = max(a.hatch_trim_drop + a.hinge_mount_height,
+                        ladder_back_depth - a.subfloor_thickness
+                        - a.deck_thickness + a.deployed_lid_vertical_gap)
     return {
         "base_z": zbase, "deck_top_z": deck_top,
+        "panel_bottom_z": panel_bottom,
+        "ceiling_bottom_z": ceiling_bottom,
+        "ceiling_top_z": ceiling_bottom + a.flat_ceiling_thickness,
+        "ceiling_left": ceiling_left, "ceiling_right": p.width - ceiling_left,
+        "lid_hinge_z": panel_bottom - lid_hinge_drop,
+        "lid_hinge_drop": lid_hinge_drop,
+        "ladder_back_depth": ladder_back_depth,
         "deck_left": deck_left, "deck_right": deck_right,
         "hatch_right": hatch_right, "hatch_north": hatch_north,
         "ladder_center_y": a.hatch_y + a.hatch_width / 2,
@@ -90,14 +117,17 @@ def roof_underside_z(x, p, g):
 
 
 def attic_clear_height(x, p, g, a=A):
-    return roof_underside_z(x, p, g) - a.lining_vertical_allowance - attic_dimensions(p, g, a)["deck_top_z"]
+    """Finished height to the physical sloping/flat ceiling, not roof space."""
+    d = attic_dimensions(p, g, a)
+    return min(roof_underside_z(x, p, g) - a.lining_vertical_allowance,
+               d["ceiling_bottom_z"]) - d["deck_top_z"]
 
 
 def _hatch_cut(p, g, a=A):
     cuboid, _, _ = _helpers()
     d = attic_dimensions(p, g, a)
-    # One over-length tool cuts both the reused slab and the 18 mm finish.
-    return cuboid((a.hatch_x, a.hatch_y, d["base_z"] - g.slab_thickness - 1,
+    # One over-length tool cuts both the 24 mm panel and the 18 mm finish.
+    return cuboid((a.hatch_x, a.hatch_y, d["panel_bottom_z"] - 1,
                    d["hatch_right"], d["hatch_north"], d["deck_top_z"] + 1))
 
 
@@ -106,7 +136,7 @@ def _floor_group(p, g, a=A):
     d = attic_dimensions(p, g, a)
     setback = wall_setback()
     tool = _hatch_cut(p, g, a)
-    slab = cuboid((setback, setback, d["base_z"] - g.slab_thickness,
+    slab = cuboid((setback, setback, d["panel_bottom_z"],
                    p.width - setback, p.depth - setback, d["base_z"])).cut(tool)
     # The old leaf name survives the real hierarchy move for stable selection.
     slab = named(slab, "roof:attic_ceiling_slab", "slab")
@@ -119,7 +149,7 @@ def _floor_group(p, g, a=A):
 def _partition_group(p, g, a=A):
     _, named, section_extrusion = _helpers()
     d = attic_dimensions(p, g, a)
-    left, right, ridge = d["deck_left"], d["deck_right"], p.width / 2
+    left, right = d["deck_left"], d["deck_right"]
     outer_left, outer_right = left - a.knee_wall_thickness, right + a.knee_wall_thickness
     south = p.external_wall
     depth = p.depth - 2 * south
@@ -130,10 +160,15 @@ def _partition_group(p, g, a=A):
         return [(x1, z1 - offset), (x2, z2 - offset), (x2, z2), (x1, z1)]
 
     leaves = [
-        named(section_extrusion(lining_section(outer_left, ridge), south, depth),
+        named(section_extrusion(lining_section(outer_left, d["ceiling_left"]), south, depth),
               "attic:lining:west_slope", "attic_lining"),
-        named(section_extrusion(lining_section(ridge, outer_right), south, depth),
+        named(section_extrusion(lining_section(d["ceiling_right"], outer_right), south, depth),
               "attic:lining:east_slope", "attic_lining"),
+        named(section_extrusion([(d["ceiling_left"], d["ceiling_bottom_z"]),
+                                 (d["ceiling_right"], d["ceiling_bottom_z"]),
+                                 (d["ceiling_right"], d["ceiling_top_z"]),
+                                 (d["ceiling_left"], d["ceiling_top_z"])], south, depth),
+              "attic:lining:flat_ceiling", "attic_lining"),
     ]
     for side, x1, x2 in [("west", outer_left, left), ("east", right, outer_right)]:
         # Sloping tops touch the underside of the lining without entering it.
@@ -144,7 +179,8 @@ def _partition_group(p, g, a=A):
                             f"attic:knee_wall:{side}", "attic_lining"))
     gable_points = [(left, d["deck_top_z"]), (right, d["deck_top_z"]),
                     (right, roof_underside_z(right, p, g) - offset),
-                    (ridge, roof_underside_z(ridge, p, g) - offset),
+                    (d["ceiling_right"], d["ceiling_bottom_z"]),
+                    (d["ceiling_left"], d["ceiling_bottom_z"]),
                     (left, roof_underside_z(left, p, g) - offset)]
     for side, y in [("south", south), ("north", p.depth - south - a.gable_lining_thickness)]:
         leaves.append(named(section_extrusion(gable_points, y, a.gable_lining_thickness),
@@ -246,14 +282,14 @@ def attic_access_group(p, g, a=A):
                               z - a.ladder_tread_thickness, x + a.ladder_tread_depth / 2,
                               y1 - a.ladder_stringer_width, z),
                              f"attic_access:tread_{index:02d}", "attic_wood"))
-    ceiling_bottom = d["base_z"] - g.slab_thickness
+    ceiling_bottom = d["panel_bottom_z"]
     trim = a.hatch_trim_width
     outer = cuboid((a.hatch_x - trim, a.hatch_y - trim, ceiling_bottom - a.hatch_trim_drop,
                     d["hatch_right"] + trim, d["hatch_north"] + trim, ceiling_bottom))
     tool = cuboid((a.hatch_x, a.hatch_y, ceiling_bottom - a.hatch_trim_drop - 1,
                    d["hatch_right"], d["hatch_north"], ceiling_bottom + 1))
     leaves.append(named(outer.cut(tool), "attic_access:hatch_trim", "attic_lining"))
-    lid_top = (d["hatch_right"], ceiling_bottom)
+    lid_top = (d["hatch_right"], d["lid_hinge_z"])
     lid_bottom = (lid_top[0] - a.hatch_length * cos(theta), lid_top[1] - a.hatch_length * sin(theta))
     # Offset to the back (+X/-Z), away from the ladder's lower rail surface.
     back = (a.hatch_lid_thickness * sin(theta), -a.hatch_lid_thickness * cos(theta))
@@ -264,11 +300,11 @@ def attic_access_group(p, g, a=A):
                   (lid_bottom[0] + back[0], lid_bottom[1] + back[1])]
     leaves.append(named(section_extrusion(lid_points, a.hatch_y, a.hatch_width),
                         "attic_access:hatch_lid", "attic_lining"))
-    # The mounts sit below the outer trim and touch the lid's hinge end, without
-    # entering either the 200 mm slab or the trim's positive volume.
+    # These conceptual drop brackets connect the trim underside to the lid
+    # hinge. They do not model a selected folding-ladder product or mechanism.
     for side, y in [("left", a.hatch_y), ("right", d["hatch_north"] - a.hinge_mount_width)]:
         mount_top = ceiling_bottom - a.hatch_trim_drop
-        leaves.append(cuboid((d["hatch_right"], y, mount_top - a.hinge_mount_height,
+        leaves.append(cuboid((d["hatch_right"], y, d["lid_hinge_z"],
                               d["hatch_right"] + a.hinge_mount_width, y + a.hinge_mount_width,
                               mount_top),
                              f"attic_access:hinge_{side}", "frame"))
@@ -282,32 +318,45 @@ def attic_manifest(p, g, a=A):
     ladder_y0 = d["ladder_center_y"] - a.ladder_width / 2
     ladder_y1 = ladder_y0 + a.ladder_width
     assumptions = [
-        "阁楼采用储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形，不作为已确定的第三层居室。",
-        "原 Z=5400–5600 mm、厚200 mm概念顶板复用为阁楼示意楼板；净检修口1200 × 650 mm贯穿顶板，中央18 mm板面完成面为 Z=5618 mm。",
+        "R06阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R03 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+        "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
         "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
-        "斜屋面内衬采用50 mm竖向展示预留，阁楼板面至内衬的屋脊净高约2033.55 mm、两侧边缘约971.23 mm；保温、屋面层次和实际净高尚未设计。",
+        "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约971.23 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
+        "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
         "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
         "检修梯以展开状态示意，宽600 mm、角度65度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-        "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；检修口盖板与梯子均单独命名，检修入口组合可独立隐藏查看，未模拟折叠机械或保证同时通行。",
-        "本次未设计阁楼梁柱、顶板承载、连接、保温通风、防火、实际检修梯使用净空或法规定义；全部新增尺寸为演示假设。",
+        "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位净高为1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+        "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
+        "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
     ]
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
+        "revision": "R06",
         "status": "demonstration proposal, not structural or statutory design",
+        "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
         "unchanged": ["approved R01 F1/F2 room boundaries", "R03 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
-        "slab_bounds_mm": [wall_setback(), wall_setback(), d["base_z"] - g.slab_thickness,
+        "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],
                            p.width - wall_setback(), p.depth - wall_setback(), d["base_z"]],
         "deck_bounds_mm": [d["deck_left"], a.deck_end_inset, d["base_z"],
                            d["deck_right"], p.depth - a.deck_end_inset, d["deck_top_z"]],
-        "hatch_bounds_mm": [a.hatch_x, a.hatch_y, d["base_z"] - g.slab_thickness,
+        "hatch_bounds_mm": [a.hatch_x, a.hatch_y, d["panel_bottom_z"],
                             d["hatch_right"], d["hatch_north"], d["deck_top_z"]],
         "storage_projection_area_m2": (a.deck_width * finished_depth - a.hatch_length * a.hatch_width) / 1e6,
-        "clear_height_mm": {"ridge": attic_clear_height(p.width / 2, p, g, a),
+        "flat_ceiling_bounds_mm": [d["ceiling_left"], p.external_wall, d["ceiling_bottom_z"],
+                                   d["ceiling_right"], p.depth - p.external_wall, d["ceiling_top_z"]],
+        "finished_ceiling_profile_xz_mm": [
+            [d["deck_left"], d["deck_top_z"] + attic_clear_height(d["deck_left"], p, g, a)],
+            [d["ceiling_left"], d["ceiling_bottom_z"]],
+            [d["ceiling_right"], d["ceiling_bottom_z"]],
+            [d["deck_right"], d["deck_top_z"] + attic_clear_height(d["deck_right"], p, g, a)],
+        ],
+        "clear_height_mm": {"maximum": a.maximum_finished_clear_height,
+                             "ridge": attic_clear_height(p.width / 2, p, g, a),
                              "deck_edge": attic_clear_height(d["deck_left"], p, g, a),
-                             "formula": "tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness"},
+                             "formula": "min(tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness, maximum_finished_clear_height)"},
         "ladder": {
             "state": "deployed concept, independently hideable",
             "top_mm": [d["hatch_right"], d["ladder_center_y"], d["deck_top_z"]],
@@ -324,7 +373,10 @@ def attic_manifest(p, g, a=A):
             "upper_landing_min_clear_height_mm": min(
                 attic_clear_height(x, p, g, a)
                 for x in (d["hatch_right"], d["hatch_right"] + a.ladder_bottom_landing_depth)),
-            "lid_to_stringer_gap_mm": (g.slab_thickness + a.deck_thickness - a.ladder_stringer_vertical_depth) * cos(theta),
+            "lid_hinge_z_mm": d["lid_hinge_z"],
+            "lid_hinge_drop_below_panel_mm": d["lid_hinge_drop"],
+            "lid_to_stringer_gap_mm": (d["deck_top_z"] - a.ladder_stringer_vertical_depth - d["lid_hinge_z"]) * cos(theta),
+            "lid_to_ladder_back_vertical_gap_mm": d["deck_top_z"] - d["ladder_back_depth"] - d["lid_hinge_z"],
         },
         "assumptions": assumptions,
     }

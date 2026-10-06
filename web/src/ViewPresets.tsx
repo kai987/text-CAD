@@ -14,7 +14,7 @@ export default function ViewPresets({ settings, setSettings, ready, onPreset }: 
   const { copy, layout } = useModel();
   const active = activePreset(settings, layout);
   return <>
-    <div className={`view-presets${layout.presets.length === 4 ? ' four-presets' : ''}`}
+    <div className={`view-presets${layout.presets.length > 3 ? ' many-presets' : ''}`}
       style={{ '--preset-columns': layout.presets.length } as CSSProperties} role="group" aria-label={copy.presets.region}>
       {layout.presets.map(p => <button key={p.id} type="button" disabled={!ready}
         className={active === p.id ? 'preset selected' : 'preset'}
@@ -22,6 +22,6 @@ export default function ViewPresets({ settings, setSettings, ready, onPreset }: 
           setSettings(previous => settingsForPreset(p.id, layout, previous)); onPreset(p.id);
         }}>{copy.presets[p.id]}</button>)}
     </div>
-    {layout.id === 'house' && active === 'attic' ? <p className="attic-view-note">{copy.model.atticNote}</p> : null}
+    {layout.id === 'house' ? <p className="attic-view-note">{active === 'attic' ? copy.model.atticNote : active === 'structure' ? copy.model.structureNote : copy.model.demoNote}</p> : null}
   </>;
 }

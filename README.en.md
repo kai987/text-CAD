@@ -2,7 +2,15 @@
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-The house drawing revision is R02, which adapts Japanese drafting rules. **The user-approved R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
+The house drawing revision is R02, which adapts Japanese drafting rules. **The user-confirmed R01 floor layout is unchanged**, and the 3D model continues to use it. Room names, areas, dimensions, door references, and furniture labels use colours that remain readable against the background.
+
+## Structural layout and storage-use demonstration (R06-3D)
+
+The current 3D model is an **R06 demonstration concept**, with no actual building location specified. The 7280 × 7280 mm outline, two 2800 mm storeys and user-confirmed first- and second-floor plans remain. A physical flat ceiling limits the storage-only attic to **1350 mm maximum finished clear height**. Local use classification, statutory area, soil conditions and building approval remain pending. The height is a design target, not regulatory approval.
+
+The separate `structure` root contains columns, beams, sills, attic joists, hatch headers, roof framing and candidate bearing walls. The “Structural scheme” preset shows timber and foundations while hiding finishes, doors/windows, furniture and roof cladding. Normal exterior and interior presets hide the timber proposal to avoid overlapping representations. Every member size is a demonstration assumption; wall candidates do not establish bearing capacity, seismic rating or calculation results. Original perimeter plinths retain their geometry under a separate `foundation` category. Internal foundation supports follow candidate column lines. Loads, materials, sizes, joints, reinforcement and soil capacity remain uncalculated.
+
+Downloads include `DXF/house_structural_scheme.dxf`, `output/pdf/house_structural_scheme_R06_JP.pdf` and `output/review/engineering_inputs_R06.json`. The JSON records pending site, soil, load, material and regulatory inputs; it is not a calculation report. Source and STEP/GLB retain editable named structure. Construction use requires a Japanese architect to complete local compliance review, structural calculations, building approval and construction supervision. The apartment remains independent.
 
 ## Foundation, fence and yard (R05-3D)
 
@@ -10,7 +18,7 @@ Independent `foundation`, `yard` and `fence` groups add a conceptual raft founda
 
 All added dimensions are **demonstration assumptions**: a **11280 × 14780 mm lot (166.7184 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and a **2800 × 5000 mm parking bay**. The 1200 mm-high fence has 28 open panels, 30 posts and 30 footings, with clear southern vehicle/pedestrian openings of 3000/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
 
-STEP / GLB now contain 537 named bodies, preserving all 424 existing house and attic bodies. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor and attic drawings are preserved. [Parameters and scope](docs/site_R05.md).
+R05 originally contained 537 named bodies after adding the site. See export validation for the current R06 body count. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor drawings remain; the attic drawing is updated to R06. [Parameters and scope](docs/site_R05.md).
 
 ```bash
 .venv/bin/python src/generate_site_plan.py
@@ -19,13 +27,13 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 .venv/bin/python checks/validate_site.py
 ```
 
-## Storage attic (R04-3D)
+## Storage attic (R06-3D)
 
-A storage attic now fits within the existing gable roof. The approved first- and second-floor room boundaries and R03 roof envelope are retained. The viewer adds an attic interior preset and separate floor, lining/knee-wall, storage and opening-guardrail categories. A separately visible access assembly has named hatch lid, stringers and ten treads. It shows a deployed concept ladder; hiding it does not simulate mechanical folding. Deployment occupies the second-floor hall.
+The attic remains inside the R03 gable envelope, with user-confirmed first- and second-floor boundaries unchanged. The attic interior preset shows floors, lining/knee walls, storage and hatch guardrails. Hide the deployed access ladder separately. It occupies the second-floor hall; hiding it does not simulate mechanical folding.
 
-Every new dimension is a **demonstration assumption**. The central deck is **3680 × 6880 mm**, with a **1200 × 650 mm** clear hatch. Deck projection after subtracting the opening is **24.5384 m²**, not a statutory area. The deck surface is at Z=5618 mm. With a 50 mm vertical display allowance for the lining, clear height is approximately **2034 mm** at the ridge and **971 mm** at the deck edges. This is low storage space; load capacity, actual ladder headroom, insulation, ventilation and statutory use remain undesigned.
+All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 971.23 mm. Space above the ceiling is excluded from usable storage. The upper standing area has 1350 mm headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
 
-Parameters are in `src/lib/attic_geometry.py`. STEP / GLB contain named `attic` and `attic_access` groups. The supplemental `DXF/house_attic_plan.dxf` retains editable text and dimensions; `output/pdf/house_attic_plan_R04_JP.pdf` is a monochrome A3 sheet at 1:50 with an east-west height section. The approved R02 two-floor drawings are not rewritten. Trilingual controls, downloads and an attic fallback image are included. [Dimensions and scope](docs/attic_R04.md).
+Parameters are in `src/lib/attic_geometry.py`. Current `DXF/house_attic_plan.dxf` retains editable text and dimensions. The current supplement is `output/pdf/house_attic_plan_R06_JP.pdf`, A3 at 1:50 with an east–west section. The R04 PDF and notes remain historical and do not describe current headroom. The fixed ceiling is only a candidate treatment. Local measurement of the finished ceiling and residual cavity, and storey classification, remain pending; adding a ceiling alone does not establish area or storey exemption. Neither 1350 mm nor 24.5384 m² establishes local regulatory recognition. Approved R02 floor plans are unchanged.
 
 ```bash
 .venv/bin/python src/generate_attic_plan.py
@@ -35,7 +43,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## Contemporary Japanese house exterior (R03-3D)
 
-The house uses warm-white siding, grey and timber entry accents, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, approved room layout and door/window rough openings are retained.
+The house uses warm-white siding, grey and timber entry accents, a charcoal gable roof and black window frames. New named solids include roof standing seams, a ridge cap, bargeboards, soffits, gutters, floor-specific downpipes, an entry canopy and porch, and individual sill flashings. Continuous siding covers the slab edges. Exterior dimensions, colours and texture repeat sizes are demonstration assumptions. The 7280 × 7280 mm finished building body, two 2800 mm storey heights, user-confirmed room layout and door/window rough openings are retained.
 
 Parametric sources are `src/lib/exterior_geometry.py` and `src/lib/exterior_materials.py`. New components belong to the existing external-wall, door, window and roof categories, with Chinese, Japanese and English names, selection, visibility and section support. STEP contains solids and colours; GLB also embeds original siding and timber textures. [Official Nichiha, KMEW and YKK AP references](references/japanese-house-exterior.md) informed the design; no manufacturer photographs, textures or CAD models are redistributed.
 
@@ -43,7 +51,7 @@ Parametric sources are `src/lib/exterior_geometry.py` and `src/lib/exterior_mate
 
 Both layouts now have a “Furniture” checkbox above the 3D canvas, enabled by default. Beds, sofas, coffee tables, dining tables/chairs and TV consoles have individual names under each floor’s `F#:furniture` group. Toggle them together or hide/isolate one floor’s furniture in the component tree. The toggle preserves the active floor, camera and section height; furniture choices also survive view preset, language and theme changes.
 
-`F#:fixtures` includes detailed bathtub interiors, washbasins and taps, mirrors, toilets, washing-machine doors, kitchen sinks and hobs. Wood, fabric, ceramic, metal and glass have distinct colours and surface roughness; a locally generated studio environment supplies reflections. Furniture and fixtures are included in the downloadable STEP / GLB. Existing annotated plans keep their approved layout and do not change with the 3D furniture toggle.
+`F#:fixtures` includes detailed bathtub interiors, washbasins and taps, mirrors, toilets, washing-machine doors, kitchen sinks and hobs. Wood, fabric, ceramic, metal and glass have distinct colours and surface roughness; a locally generated studio environment supplies reflections. Furniture and fixtures are included in the downloadable STEP / GLB. Existing annotated plans keep their user-confirmed layout and do not change with the 3D furniture toggle.
 
 All shapes are original parametric geometry generated by `src/lib/furniture_geometry.py` and `src/lib/fixture_geometry.py`. Public product information informs dimensions and shape only. No manufacturer model is imported or redistributed, and the geometry does not establish product selection or installation suitability. See [reference sources and scope](references/interior-furnishings.md).
 
@@ -86,7 +94,7 @@ npm run build
 
 `build:wasm` runs native Rust tests and generates WASM/JS bindings plus source and output hashes. Ordinary tests and builds reject stale artifacts. A separate Rust workflow runs native tests, Clippy, and WASM compilation. The benchmark accepts `--output /absolute/path/result.json` to save its results.
 
-Development and builds copy 28 CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
+Development and builds copy the current manifest of CAD, drawing, and reference assets from the repository, including vector previews for both floors, and generate a SHA-256 manifest. The production build verifies the copies again. Vector metadata also records the source PDF hash, SVG hashes, and annotation bounds within the crop. Builds fail if the source PDF has changed or an SVG does not match, requiring conversion first. `web/public/artifacts/`, derived data, and `web/dist/` are not committed to Git.
 
 After changing the design, regenerate CAD and PDF and complete the relevant checks before updating vector previews. The converter uses Python locally; the GitHub Pages build reads the committed SVG files directly:
 
@@ -95,7 +103,7 @@ uv pip install --python .venv/bin/python PyMuPDF==1.26.7
 .venv/bin/python web/scripts/generate-plan-svg.py
 ```
 
-Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the approved 7,280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
+Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the user-confirmed 7,280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
 
 On pushes to `main`, `.github/workflows/pages.yml` installs dependencies, runs model-control tests, checks TypeScript, builds the app, verifies file hashes, and publishes to GitHub Pages. Online dimensions remain demonstration assumptions. Outstanding structural and service-design items are listed below.
 
@@ -135,7 +143,7 @@ The apartment is generated and checked independently of the house. Generation re
 - `output/review/design_manifest.json`: machine-readable parameters, all assumptions, and room areas.
 - `checks/validate_plans.py`: checks of the current layout geometry, doors, stairs, and saved DXF files.
 - `output/review/validation.json`: actual check results and unverified items.
-- `src/lib/house_geometry.py`: 3D parameters using the approved plans, wall apertures, slabs, gable roof, doors, windows, and U-shaped stairs.
+- `src/lib/house_geometry.py`: 3D parameters using the user-confirmed plans, wall apertures, slabs, gable roof, doors, windows, and U-shaped stairs.
 - `src/house_3d.py`: 3D assembly entry point for regenerating STEP and GLB.
 - `STEP/house_3d.step`: precise millimetre solids, named by `F1`, `F2`, `stairs`, `roof`, and component. The adjacent `.step.json` stores CADgen viewer materials and other metadata.
 - `GLB/house_3d.glb`: standard glTF 2.0 in metres with Y up, preserving component names and hierarchy for viewing and editing in Blender and other tools.
@@ -172,15 +180,15 @@ SXF(P21/P2Z), DRAWING.XML, and electronic-delivery folders have not been produce
 2. External walls at 180 mm and internal walls at 100 mm are placeholders, not a designed timber structure or building assembly.
 3. Room annotations use clear dimensions inside walls. Areas include furniture footprints. Stair areas describe the reserved stairwell, including the second-floor opening. The rounded 53.00 m² per floor and 106.00 m² total describe only the geometric outline area and cannot be used directly as statutory building or floor areas.
 4. Door widths represent drawn openings before deducting frames. Bedroom doors swing into the rooms. Sliding doors are shown as placeholders that retract into wall pockets; actual pockets, hardware, and clear opening widths require further detailing.
-5. The approved toilet layout is compact at 900 × 1,700 mm. The pantry has a 350 mm shelf placeholder on one side, leaving a 730 mm passage. It is not treated as a main circulation route.
-6. The bathroom and wash/changing room are each 4.95 m², retaining the approved allocation.
+5. The user-confirmed toilet layout is compact at 900 × 1,700 mm. The pantry has a 350 mm shelf placeholder on one side, leaving a 730 mm passage. It is not treated as a main circulation route.
+6. The bathroom and wash/changing room are each 4.95 m², retaining the user-confirmed allocation.
 7. Furniture, kitchen units, bathtub, sanitary fixtures, and windows are dimensional placeholders, not selected products. Storey height is not clear room height.
 8. Additional 3D assumptions: slabs 200 mm thick; door openings 2,100 mm high; large windows with a 900 mm sill and 1,300 mm height; small windows with a 1,500 mm sill and 600 mm height; gable roof pitch 30°, eaves projection 450 mm, and vertical roof thickness 150 mm. These are not finalized construction assemblies.
 9. Structure, site constraints, building services, statutory areas, and building-code compliance are unverified. Actual stair headroom must be checked after slabs, beams, and finishes are determined.
 
-The 3D finished-floor datums are Z=0 and 2,800 mm, with slabs below those datums and a provisional clear wall height of 2,600 mm. An additional 200 mm conceptual top slab below the roof has its upper surface at Z=5,600 mm. The intermediate landing is 200 mm thick. Each half-flight has seven complete 260 mm treads; the landing and second-floor surface form the respective eighth risers. Stairs use conceptual stepped solids. Handrails, stair beams, and structural connections require further design.
+The 3D finished-floor datums are Z=0 and 2,800 mm, with slabs below those datums and a provisional clear wall height of 2,600 mm. R06 uses a 24 mm attic subfloor below Z=5600 mm and a separate timber structural proposal. The intermediate landing is 200 mm thick. Each half-flight has seven complete 260 mm treads; the landing and second-floor surface form the respective eighth risers. Stairs use conceptual stepped solids. Handrails, stair beams, and structural connections require further design.
 
-Walls retain the material above doors and below and above windows. Openings reuse the approved plan positions. 3D door leaves are shown closed, while plan doors show their opening direction. Shoe storage and other cabinets are named dimensional placeholder solids.
+Walls retain the material above doors and below and above windows. Openings reuse the user-confirmed plan positions. 3D door leaves are shown closed, while plan doors show their opening direction. Shoe storage and other cabinets are named dimensional placeholder solids.
 
 ## Regenerate and view
 

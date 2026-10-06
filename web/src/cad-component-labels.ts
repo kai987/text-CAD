@@ -36,8 +36,9 @@ const componentLabels = {
   'roof:east_plane': label('东侧屋面', '東側の屋根面', 'East roof plane'),
   'roof:south_gable_wall': label('南侧山墙', '南側の妻壁', 'South gable wall'),
   'roof:north_gable_wall': label('北侧山墙', '北側の妻壁', 'North gable wall'),
-  'roof:attic_ceiling_slab': label('阁楼结构楼板（兼二层顶板）', '小屋裏の構造床（2階の天井兼用）', 'Attic structural slab / second-floor ceiling'),
+  'roof:attic_ceiling_slab': label('阁楼下地板（厚 24 mm）', '小屋裏の下地床（厚24 mm）', 'Attic subfloor (24 mm thick)'),
   'attic:deck_finish': label('阁楼地板饰面', '小屋裏の床仕上げ', 'Attic floor finish'),
+  'attic:lining:flat_ceiling': label('阁楼限高平天花', '小屋裏の高さを制限する水平天井', 'Attic height-limiting flat ceiling'),
   'attic:lining:west_slope': label('阁楼西侧斜顶内衬', '小屋裏西側の勾配天井', 'West sloped attic lining'),
   'attic:lining:east_slope': label('阁楼东侧斜顶内衬', '小屋裏東側の勾配天井', 'East sloped attic lining'),
   'attic:knee_wall:west': label('阁楼西侧矮墙', '小屋裏西側の腰壁', 'West attic knee wall'),
@@ -65,6 +66,21 @@ const componentLabels = {
   'balcony:east_guard': label('阳台东侧栏板', 'バルコニー東側の腰壁', 'East balcony parapet'),
   'ceiling:slab': label('室内顶板', '室内の天井スラブ', 'Interior ceiling slab'),
 } satisfies Catalog;
+
+const structuralLevels = {
+  F1: label('一层', '1階', 'First floor'), F2: label('二层', '2階', 'Second floor'),
+  attic: label('阁楼', '小屋裏', 'Attic'), roof: label('屋顶', '屋根', 'Roof'),
+} satisfies Catalog;
+const structuralDetails = {
+  column: label('柱', '柱', 'Column'), beam: label('梁', '梁', 'Beam'), sill: label('土台', '土台', 'Sill'),
+  joist: label('搁栅', '根太', 'Joist'), header: label('开口边梁', '開口補強梁', 'Hatch header'),
+  rafter: label('椽', '垂木', 'Rafter'), ridge: label('脊梁', '棟木', 'Ridge beam'),
+  purlin: label('檩条', '母屋', 'Purlin'), post: label('屋架支柱', '小屋束', 'Roof post'),
+  bearing_wall: label('候选承重墙', '耐力壁候補', 'Candidate bearing wall'),
+} satisfies Catalog;
+const atticTrimmer = label('检修口侧边梁', '点検口の側面補強梁', 'Hatch trimmer');
+const ridgeLocation = label('屋脊处', '棟部', 'At the ridge');
+const foundationSupport = label('内部基础支承', '内部基礎支持部', 'Internal foundation support');
 
 const atticStorage = {
   west_shelf: label('阁楼西侧置物架', '小屋裏西側の収納棚', 'West attic shelf'),
@@ -348,6 +364,21 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
+
+  const structural = /^structure:(F1|F2|attic):(column|beam|sill|joist|bearing_wall)_([A-Z]+\d{2})(?:_(south|north))?$/.exec(name);
+  if (structural) {
+    const direction = structural[4] ? `${directions[structural[4] as keyof typeof directions][locale]} · ` : '';
+    return `${structuralLevels[structural[1] as keyof typeof structuralLevels][locale]} · ${direction}${structuralDetails[structural[2] as keyof typeof structuralDetails][locale]} ${structural[3]}`;
+  }
+  const hatchFrame = /^structure:attic:(trimmer|header)_(west|east|south|north)$/.exec(name);
+  if (hatchFrame) return `${structuralLevels.attic[locale]} · ${directions[hatchFrame[2] as keyof typeof directions][locale]} · ${hatchFrame[1] === 'trimmer' ? atticTrimmer[locale] : structuralDetails.header[locale]}`;
+  if (name === 'structure:roof:ridge_beam') return `${structuralLevels.roof[locale]} · ${structuralDetails.ridge[locale]}`;
+  const purlin = /^structure:roof:purlin_(west|east)$/.exec(name);
+  if (purlin) return `${directions[purlin[1] as keyof typeof directions][locale]} · ${structuralDetails.purlin[locale]}`;
+  const roofFrame = /^structure:roof:(rafter|post)_(west|east|ridge)_([RP]\d{2})$/.exec(name);
+  if (roofFrame) return `${roofFrame[2] === 'ridge' ? ridgeLocation[locale] : directions[roofFrame[2] as keyof typeof directions][locale]} · ${structuralDetails[roofFrame[1] as keyof typeof structuralDetails][locale]} ${roofFrame[3]}`;
+  const support = /^foundation:internal_supports:(I\d{2})$/.exec(name);
+  if (support) return `${foundationSupport[locale]} ${support[1]}`;
 
   const fence = /^fence:(posts|panels|footings):(north|west|east|south_west|south_middle|south_east)_(\d{2})$/.exec(name);
   if (fence) return `${fenceSegments[fence[2] as keyof typeof fenceSegments][locale]} · ${fenceDetails[fence[1] as keyof typeof fenceDetails][locale]} ${Number(fence[3])}`;

@@ -192,7 +192,9 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .file-description { flex: 1; min-width: 0; display: grid; gap: 5px; }
 .file-description strong { font-size: 16px; font-weight: 600; }
 .file-description > span { font-size: 13px; color: var(--detail); line-height: 1.65; }
-.source-button { margin-bottom: 35px; }
+.source-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 35px; }
+.source-button { max-width: 100%; white-space: normal; text-align: center; }
+.source-button svg { flex-shrink: 0; }
 .assumptions { border-top: 1px solid var(--line); padding-top: 24px; }
 .assumptions p { font-size: 13px; line-height: 1.9; color: var(--detail); margin-top: 10px; }
 .assumption-details { margin-top: 18px; font-size: 13px; color: var(--secondary); }
@@ -242,13 +244,14 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .nav-tab { flex: 1; padding: 0 6px; font-size: 13px; line-height: 1.2; border-bottom-width: 3px; overflow-wrap: normal; }
   .workspace { height: auto; min-height: 0; grid-template-columns: minmax(0,1fr); grid-template-areas: 'viewer' 'controls'; }
   .viewer-panel { grid-area: viewer; }
-  .model-workspace .viewer-panel { height: clamp(420px, 65svh, 600px); }
+  .model-workspace .viewer-panel { height: auto; min-height: clamp(420px, 65svh, 600px); }
+  .model-workspace .model-canvas { flex: 1 0 clamp(320px, 45svh, 480px); min-height: 320px; }
   .sidebar { grid-area: controls; border-right: 0; border-top: 1px solid var(--line); padding: 24px 22px; overflow: visible; }
   .sidebar section + section { margin-top: 26px; }
   .presets { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .preset { text-align: center; font-size: 14px; padding: 8px 5px; }
   .view-presets { padding: 10px 14px; gap: 6px; }
-  .view-presets.four-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .view-presets.many-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .attic-view-note { padding-inline: 14px; }
   .view-presets .preset { padding-inline: 5px; font-size: 13px; min-height: 56px; }
   .part-group-row { grid-template-columns: 20px 20px minmax(0,1fr) auto; gap: 8px; }

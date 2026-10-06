@@ -32,7 +32,7 @@ interface ModelConfig {
 export const models: Record<ModelId, ModelConfig> = {
   house: {
     layout: modelLayouts.house, data: house, glb: 'GLB/house_3d.glb',
-    pdf: 'output/pdf/house_floor_plans_R02_JP.pdf',
+    pdf: housePreview.source.path,
     plans: { 1: 'DXF/001D0PL2-1FPLAN.DXF', 2: 'DXF/002D0PL2-2FPLAN.DXF' },
     previews: housePreview.floors, fallback: 'output/review/house_3d_iso.png',
     source: 'src/house_3d.py', downloads: [...downloadFiles],

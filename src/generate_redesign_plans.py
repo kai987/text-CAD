@@ -109,12 +109,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('Approved R10 layout - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R12 balcony revision - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n);draw_pdf_sheet(c,f)
         g=Drawing(c);g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R10平面確認済み・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R12室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'
@@ -124,7 +124,7 @@ def main():
         c.showPage()
     c.save()
     data=manifest()
-    data['drawing_revision']='R10'
+    data['drawing_revision']=REVISION
     old=[original_plan(n) for n in (1,2)]
     data['comparison']={'old_outline_m2_per_floor':7280*7280/1e6,
         'new_outline_m2_per_floor':P.width*P.depth/1e6,

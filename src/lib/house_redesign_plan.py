@@ -1,4 +1,4 @@
-"""Active R10 layout: approved R09 rooms, east-extended entrance-sheltering balcony.
+"""Active R12 layout: approved rooms with a 1000 mm unsupported balcony proposal.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
@@ -33,12 +33,13 @@ class RedesignParameters:
     balcony_left: float = 2010
     balcony_width: float = 6180
     entrance_canopy: bool = False
-    balcony_depth: float = 1500
+    balcony_depth: float = 1000
+    balcony_supports: bool = False
     balcony_rail_thickness: float = 100
 
 
 P = RedesignParameters()
-REVISION = 'R10'
+REVISION = 'R12'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -71,6 +72,18 @@ def dimensions(p=P):
         raise ValueError('Parameters do not preserve this proposal topology; redesign partitions first.')
     return dict(e=e,t=t,xm=xm,ym=ym,sx=sx,sy=sy,wcl=wcl,wcr=wcr,
                 bathr=bathr,wetbottom=wetbottom,st=st,ar=ar,bx=bx)
+
+
+def balcony_drying_bounds(p=P):
+    """Move the 1900 mm rack east of the unchanged 800 mm balcony-door swing."""
+    left=p.access_left+p.hall_width+200
+    bottom=-p.balcony_depth+350
+    bounds=(left,bottom,left+1900,bottom+200)
+    if not box(dimensions(p)['bx']+p.balcony_rail_thickness,
+               -p.balcony_depth+p.balcony_rail_thickness,
+               dimensions(p)['bx']+p.balcony_width-p.balcony_rail_thickness,0).covers(box(*bounds)):
+        raise ValueError('Drying rack must remain within the clear balcony.')
+    return bounds
 
 
 def floor_plan(number, p=P):
@@ -144,7 +157,7 @@ def floor_plan(number, p=P):
                   ('ベッド 1000',(500,sy+300,1500,sy+2300)),
                   ('CL',(2500,ym-600,4800,ym)),
                   ('WC',(wcl+200,ym-800,wcr-200,ym-150)),
-                  ('物干し',(bx+250,-1150,bx+250+1900,-950))]
+                  ('物干し',balcony_drying_bounds(p))]
     building=box(0,0,p.width,p.depth)
     interior_rooms=[r.shape for r in rooms if r.kind!='outside']
     walls=building.difference(unary_union(interior_rooms))
@@ -168,16 +181,16 @@ def manifest(p=P):
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
                 '8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.',
                 'South entrance / south balcony / north direction are assumptions without site survey.',
-                '6180 x 1500 balcony is outside the main outline; net space excludes 100 mm railing footprint; east edge aligns with the external wall and replaces the separate entry canopy.',
+                '6180 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; east edge aligns with the external wall and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.',
                 'Walls 180/100 mm and all doors, windows and furniture are demonstration placeholders.',
                 'Toilets remain 900 x 1700 mm, now vertically aligned beside stairs; not wheelchair adapted.',
                 '16 risers x 175, tread 260, clear flights/landing 900 mm; slab and headroom not evaluated.',
                 'Room areas include fixtures/storage within each room. Stairwell is an opening reservation.',
                 'Areas are geometric comparison only, not legal floor/building area measurements.',
                 'R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
-                'Balcony support, waterproofing, threshold, drainage and railing height/anchorage are pending.',
+                'R12 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
-                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony with the separate canopy removed; R10 keeps the room layout.'],
+                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R12 keeps the room layout.'],
             'floors':[{'floor':n,'outline_area_m2':p.width*p.depth/1e6,
                        'rooms':[{'id':r.id,'name':r.name,'area_m2':round(r.area,4),
                                  'polygon_mm':list(r.shape.exterior.coords),'size_note':r.size_note}

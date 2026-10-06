@@ -1,5 +1,5 @@
 {
-  "revision": "R10",
+  "revision": "R12",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -517,7 +517,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R10"
+        "revision": "R12"
       }
     },
     {
@@ -725,7 +725,7 @@
       "name": "2F/balcony/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 8.372,
+        "area_m2": 5.382,
         "label": [
           7340,
           -450
@@ -1144,7 +1144,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R10"
+        "revision": "R12"
       }
     },
     {
@@ -1185,8 +1185,8 @@
         "ホール",
         "0.83 m2",
         "バルコニー",
-        "8.37 m2",
-        "5980 × 1400",
+        "5.38 m2",
+        "5980 × 900",
         "階段 DOWN",
         "16R x 175 / T260",
         "W900 / 踊場900",
@@ -1372,7 +1372,7 @@
     {
       "name": "R10/balcony_clear_area",
       "passed": true,
-      "evidence": 8.372
+      "evidence": 5.382
     },
     {
       "name": "R10/separate_canopy_disabled",
@@ -1380,7 +1380,12 @@
       "evidence": false
     },
     {
-      "name": "R10/balcony_projects_over_full_entrance_porch",
+      "name": "R12/balcony_depth",
+      "passed": true,
+      "evidence": 1000
+    },
+    {
+      "name": "R12/porch_outer_300mm_exposed",
       "passed": true,
       "evidence": [
         6010.0,
@@ -1390,13 +1395,9 @@
       ]
     },
     {
-      "name": "R10/three_supports_clear_entry_path",
+      "name": "R12/no_ground_supports",
       "passed": true,
-      "evidence": [
-        2060.0,
-        8140.0,
-        5100.0
-      ]
+      "evidence": []
     },
     {
       "name": "vertical_alignment/stairs",
@@ -1430,8 +1431,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "3f3b0b6e28bc9f71ac2a80802eda61a28adda5fa384731e0c8594e2b368392b7",
-    "DXF/house_redesign_R10_1f.dxf": "2979bb23bcbd134293f18d42685bf040a558383d8f1001e141cd25670daa87a9",
-    "DXF/house_redesign_R10_2f.dxf": "dd3abdd6b4833d46c69473a44491c6c05ce8f3b635cbb0a779c5115e622d5ad5"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "bbdf26943a93059e166b75c70269d2fe4784a71bc163897170937539bae47b54",
+    "DXF/house_redesign_R10_1f.dxf": "d4a2df0cd2ac18e09e005f0b72001973f1365d9bfc687303431a277fad62d11d",
+    "DXF/house_redesign_R10_2f.dxf": "e0de4c20864e8b5621884927e6d575364708bf831209ce6751f25a560c1ae934"
   }
 }

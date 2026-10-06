@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461321.2136921296
+2461321.25818287
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461321.2136921296
+2461321.25818287
   9
 $TDUUPDATE
  40
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{5D95F892-FD3F-4AB7-98AF-62DF58A83246}
+{7B0130A2-C808-4DC7-BEE0-119B18C9D558}
   9
 $VERSIONGUID
   2
-{E7AAFBF1-CF94-4492-B785-A589924D4351}
+{932F7F1D-A75C-4CDF-8397-6BC7B643DCA6}
   9
 $EXTNAMES
 290
@@ -1327,9 +1327,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1343,9 +1343,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -12977,7 +12977,7 @@ AcDbText
  40
 2.5
   1
-R10確認済み平面　1:50　単位 mm
+R12参考平面　1:50　単位 mm
   7
 HOUSE_UNICODE
  72
@@ -14553,7 +14553,7 @@ AcDbText
  40
 2.5
   1
-12. 南側物干しバルコニー6180×1500は仮定。玄関庇を兼用。支持・防水・排水は未設計。
+12. 南側バルコニー6180×1000は仮定。柱なし・ポーチ先端300露出。耐力・防水・排水は未設計。
   7
 HOUSE_UNICODE
  11
@@ -14763,7 +14763,7 @@ AcDbText
  40
 2.5
   1
-北矢印：仮定方位　R10：確認済み平面・構造未計算
+北矢印：仮定方位　R12：室内確認済み・バルコニー変更・構造未計算
   7
 HOUSE_UNICODE
  11
@@ -17049,7 +17049,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-06T20:07:43.473601+00:00
+1.4.4 @ 2026-10-06T21:11:47.557295+00:00
   0
 VISUALSTYLE
   5
@@ -23611,7 +23611,7 @@ DictionaryVariables
 280
 0
   1
-R10
+R12
   0
 DICTIONARYVAR
   5
@@ -23635,7 +23635,7 @@ DictionaryVariables
 280
 0
   1
-住宅参考計画に東京都共通製図規定を準用。R10平面確認済み・構造計算と法規適合は未検証。
+住宅参考計画に東京都共通製図規定を準用。R12室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。
   0
 DICTIONARYVAR
   5
@@ -23797,7 +23797,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-06T20:07:43.485376+00:00
+1.4.4 @ 2026-10-06T21:11:47.569667+00:00
   0
 ENDSEC
   0

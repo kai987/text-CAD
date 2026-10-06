@@ -152,7 +152,7 @@ def run():
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
     check('R10/balcony_left_fixed',dimensions()['bx']==2010,dimensions()['bx'])
     check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)
-    check('R10/balcony_clear_area',abs(balcony.area-8.372)<1e-8,balcony.area)
+    check('R10/balcony_clear_area',abs(balcony.area-5.382)<1e-8,balcony.area)
     check('R10/separate_canopy_disabled',P.entrance_canopy is False,P.entrance_canopy)
     from lib.exterior_geometry import E
     from lib.balcony_geometry import support_positions,B
@@ -160,18 +160,15 @@ def run():
     porch=box(door.start-E.entrance_canopy_margin,-E.porch_depth,
               door.start+door.width+E.entrance_canopy_margin,0)
     slab=box(dimensions()['bx'],-P.balcony_depth,dimensions()['bx']+P.balcony_width,0)
-    check('R10/balcony_projects_over_full_entrance_porch',slab.covers(porch),porch.bounds)
-    path=box(porch.bounds[0],-5500,porch.bounds[2],0)
-    check('R10/three_supports_clear_entry_path',len(support_positions(P))==3 and all(
-          box(x-B.footing_width/2,-1450-B.footing_width/2,
-              x+B.footing_width/2,-1450+B.footing_width/2).intersection(path).area<.01
-          for x in support_positions(P)),list(support_positions(P)))
+    check('R12/balcony_depth',P.balcony_depth==1000,P.balcony_depth)
+    check('R12/porch_outer_300mm_exposed',abs(slab.bounds[1]-porch.bounds[1]-300)<.01,porch.bounds)
+    check('R12/no_ground_supports',not P.balcony_supports and not support_positions(P),list(support_positions(P)))
     a,b=[{r.id:r for r in f.rooms} for f in floors]
     for room in ('stairs','wc'):
         check('vertical_alignment/'+room,a[room].shape.equals(b[room].shape),a[room].shape.bounds)
     pdf=fitz.open(ROOT/'output/pdf/house_floor_plans_R10_JP.pdf')
     check('PDF/2_A3_sheets',len(pdf)==2 and all(abs(p.rect.width-420*72/25.4)<1 for p in pdf),len(pdf))
-    check('PDF/approval_and_assumptions',all('R10' in p.get_text() and '2800' in p.get_text().replace(',','') for p in pdf),True)
+    check('PDF/approval_and_assumptions',all(REVISION in p.get_text() and '2800' in p.get_text().replace(',','') for p in pdf),True)
     report={'revision':REVISION,'status':'pass' if all(c['passed'] for c in checks) else 'fail',
             'scope':'Concept geometry and editable draft artifacts only; no engineering/code validation.',
             'checks':checks,'sha256':{str(path.relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest()

@@ -347,7 +347,7 @@ def fence_group(s=S):
 def site_manifest(p, g, s=S):
     d, layout, profiles = site_dimensions(p, g, s), fence_layout(s), _terrain_profiles(p, g, s)
     return {
-        "revision": "R11-SITE",
+        "revision": "R12-SITE",
         "parameters": asdict(s),
         "lot_bounds_mm": list(d["lot"]),
         "lot_dimensions_mm": [s.lot_east - s.lot_west, s.lot_north - s.lot_south],
@@ -410,7 +410,7 @@ def site_manifest(p, g, s=S):
                        for x, y, radius in d["shrubs"]],
         },
         "assumptions": [
-            "R11用地暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+            "R12用地沿用R11，暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
             "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
             "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
             "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",

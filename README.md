@@ -2,11 +2,11 @@
 
 **简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
-## 当前户型（R10 阳台扩展）
+## 当前方案（R12 一米无柱阳台）
 
-沿用2026-10-07确认的R09室内平面，R10将阳台延伸至东外墙并取消独立玄关雨棚：主体8190 × 7280 mm、两层层高2800 mm均为演示假设。保留三卧室，厕所移到楼梯旁上下对齐，一层LDK采用开放通行，二层公共走廊连接南侧6180 × 1500 mm晾衣阳台。具名STEP/GLB、可编辑DXF、A3图纸、阁楼、外构及W/S/RC叠加层均已更新到此平面。结构计算与所在地法规核定仍未完成。
+R12沿用已确认的三卧室室内平面，将南侧阳台改为 **6180 × 1000 mm**，净空间 **5980 × 900 mm（5.382㎡）**，取消三根支撑柱及独立基础，并将晾衣架移到东段避开阳台门。玄关平台深1300 mm，外沿300 mm不再被阳台覆盖；独立雨棚仍取消。敷地保留R11的140.4182㎡及两个并列车位。悬挑阳台的承载、连接、防水和排水尚未设计，全部尺寸为演示假设。
 
-[方案与参考来源](docs/house_balcony_R10.md) · [两层PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
+[方案与参考来源](docs/house_balcony_R12.md) · [两层PDF](output/pdf/house_floor_plans_R10_JP.pdf) · [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [GLB](GLB/house_3d.glb) · [STEP](STEP/house_3d.step)
 
 ## 模型昼夜与室外灯具（R08-3D）
 
@@ -28,13 +28,13 @@ R06 引入的结构布置为**演示方案**，未指定实际建房地点。保
 
 下载包含 `DXF/house_structural_scheme.dxf`、`output/pdf/house_structural_scheme_R06_JP.pdf` 和 `output/review/engineering_inputs_R06.json`。后者记录未确定的地块、地盘、荷载、材料与法规输入；不是计算书。源码和STEP/GLB保留可修改的命名结构。要用于施工，需要日本建筑士完成所在地规则适配、结构计算、确认申请及施工监理。公寓模型保持独立。
 
-## 地基、围栏与院子（R11-SITE）
+## 地基、围栏与院子（R12-SITE）
 
 新增独立 `foundation`、`yard`、`fence` 分组：概念贝塔基础底板与周圈立墙、入口支承和低阶、砂石院子、停车铺装与车挡、三侧窄草坪、两个并列车位，已移除灌木，以及有真实空隙的横栅围栏。完整外观显示外构；内部预设隐藏外构，也可展开分类独立隐藏或单独查看。剖切高度始终以一层完成面 Z=0 为基准。
 
 新增尺寸均为**演示假设**：地块 **10190 × 13780 mm（几何面积140.4182㎡）**，室外地面 **Z=-500 mm**，概念底板厚150 mm、周圈立墙宽140 mm，并列两个车位，每位 **2800 × 5000 mm**。围栏地上高1200 mm，共24片透空面板、26根柱及26个柱脚；南侧车口净宽5675 mm、行人开口1800 mm。入口地面、低阶、原台阶、原门廊、玄关标高依次为-500／-330／-160／-25／0 mm。尺寸、植栽及材料均可在 `src/lib/site_geometry.py` 修改，基础不代表已设计的配筋、承载或地盘处理方案。
 
-R05最初添加场地时有537个具名实体；当前导出含887个具名叶实体，具体核对见导出校验报告。另附 `DXF/house_site_plan.dxf` 和 `output/pdf/house_site_plan_R05_JP.pdf`：A3、配置图1:100、概念基础断面1:25，保留可编辑文字和尺寸。确认的两层平面保持；阁楼图已更新为R06。[参数与范围记录](docs/site_R11.md)。
+R05最初添加场地时有537个具名实体；当前导出含873个具名叶实体，具体核对见导出校验报告。另附 `DXF/house_site_plan.dxf` 和 `output/pdf/house_site_plan_R05_JP.pdf`：A3、配置图1:100、概念基础断面1:25，保留可编辑文字和尺寸。确认的两层平面保持；阁楼图已更新为R06。[参数与范围记录](docs/site_R11.md)。
 
 ```bash
 .venv/bin/python src/generate_site_plan.py

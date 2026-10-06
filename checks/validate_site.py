@@ -108,7 +108,7 @@ site = {label: shape for label, shape in native.items() if label.startswith(SITE
 saved = json.loads((ROOT / "output/review/house_3d_assumptions_R01.json").read_text())
 record = saved["site"]
 check("site:saved_metadata_matches_current_parameters", record == site_manifest(P, G))
-check("revision:house_R10_with_site_R11", saved["revision"] == "R10-3D", saved["revision"], "R10-3D")
+check("revision:house_R10_with_site_R11", saved["revision"] == "R12-3D", saved["revision"], "R12-3D")
 legacy = {label for label in native if not label.startswith(SITE_PREFIXES+("structure:",))
           and label != "attic:lining:flat_ceiling"}
 check("R10:house_and_balcony_labels_present", all(label in legacy for label in ("F1:floor_slab","F2:floor_slab","balcony:slab","balcony:drying_rail")))
@@ -193,7 +193,7 @@ close("yard:soil_actual_top_mm", bounds(soil)[5], -550)
 # holes lie away from them. This area identity detects ground accidentally
 # passing through footings, or duplicate paving/lawn meshes.
 gross_area = (lot[2] - lot[0]) * (lot[3] - lot[1])
-open_area = gross_area - P.width * P.depth - 1500 * 1900 - 3*450*450
+open_area = gross_area - P.width * P.depth - 1500 * 1900
 close("yard:soil_area_accounts_for_full_footing_exclusions_mm2", soil.volume / 100,
       open_area - len(record["fence"]["posts"])*300*300, .1)
 close("yard:finished_surfaces_tile_site_around_post_exclusions_mm2", surface_volume / 50,
@@ -244,7 +244,7 @@ check("R11:two_parallel_bays_2800_5000", record["parking"]["count"]==2
       and record["parking"]["bay_dimensions_mm"]==[2800,5000])
 check("R11:four_named_wheel_stops", len([label for label in site if "wheel_stop" in label])==4)
 check("R11:shared_marking_is_editable_and_clear_of_footing", "yard:parking:line_divider_1" in native
-      and overlap(native["yard:parking:line_divider_1"],native["balcony:footing_1"])<.1)
+      and not any(name.startswith("balcony:footing_") for name in native))
 for i,b in enumerate(record["parking"]["vehicle_envelopes_mm"],1):
     probe=cuboid((b[0],b[1],-499,b[2],b[3],1400))
     obstacles=[shape for label,shape in native.items()
@@ -317,7 +317,7 @@ if args.baseline:
               and hashlib.sha256(target.read_bytes()).hexdigest() == metadata["sha256"])
 
 report = {
-    "revision": "R10-3D", "units": "native STEP mm; GLB m/Y-up",
+    "revision": "R12-3D", "units": "native STEP mm; GLB m/Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "saved_native_leaves": len(native),
                 "new_site_leaves": len(site)},

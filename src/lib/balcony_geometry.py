@@ -1,8 +1,8 @@
-"""Named R10 drying balcony. Placeholder supports, no structural adequacy claim."""
+"""Named R12 cantilever balcony proposal; no structural adequacy claim."""
 from dataclasses import asdict, dataclass
 
 from cadgen import build123d as bd
-from .house_redesign_plan import dimensions
+from .house_redesign_plan import dimensions, balcony_drying_bounds
 
 
 @dataclass(frozen=True)
@@ -22,6 +22,8 @@ B=BalconyParameters()
 
 def support_positions(p):
     """Keep west/east CAD identifiers stable; add a midpoint on wider balconies."""
+    if not p.balcony_supports:
+        return ()
     x1=dimensions(p)["bx"]+p.balcony_rail_thickness/2
     x2=dimensions(p)["bx"]+p.balcony_width-p.balcony_rail_thickness/2
     return (x1,x2,(x1+x2)/2) if x2-x1>4000 else (x1,x2)
@@ -52,9 +54,10 @@ def balcony_group(p,g,b=B):
                             f'balcony:support_post_{i}','charcoal'),
                       cuboid((x-fw,y-fw,b.footing_bottom_z,x+fw,y+fw,b.footing_top_z),
                             f'balcony:footing_{i}','concrete')])
-    for i,x in enumerate((x1+250,x1+2150),1):
-        parts.append(cuboid((x-15,-1150,z,x+15,-1120,z+1600),f'balcony:drying_post_{i}','charcoal'))
-    parts.append(cuboid((x1+250,-1150,z+1575,x1+2150,-1120,z+1600),'balcony:drying_rail','charcoal'))
+    dl,dy,dr,_=balcony_drying_bounds(p)
+    for i,x in enumerate((dl,dr),1):
+        parts.append(cuboid((x-15,dy,z,x+15,dy+30,z+1600),f'balcony:drying_post_{i}','charcoal'))
+    parts.append(cuboid((dl,dy,z+1575,dr,dy+30,z+1600),'balcony:drying_rail','charcoal'))
     # An exposed scupper placeholder labels drainage rather than implying a
     # finished waterproofing detail or simulated water flow.
     parts.append(cuboid((x2-r,-400,z-50,x2+60,-300,z-25),'balcony:drain_outlet','frame'))

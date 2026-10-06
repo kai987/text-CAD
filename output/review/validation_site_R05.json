@@ -1,11 +1,11 @@
 {
-  "revision": "R10-3D",
+  "revision": "R12-3D",
   "units": "native STEP mm; GLB m/Y-up",
   "summary": {
-    "checks": 733,
-    "passed": 733,
+    "checks": 725,
+    "passed": 725,
     "failed": 0,
-    "saved_native_leaves": 887,
+    "saved_native_leaves": 873,
     "new_site_leaves": 107
   },
   "baseline": null,
@@ -26,8 +26,8 @@
     {
       "check": "revision:house_R10_with_site_R11",
       "pass": true,
-      "actual": "R10-3D",
-      "expected": "R10-3D"
+      "actual": "R12-3D",
+      "expected": "R12-3D"
     },
     {
       "check": "R10:house_and_balcony_labels_present",
@@ -3151,26 +3151,26 @@
     {
       "check": "yard:soil_area_accounts_for_full_footing_exclusions_mm2",
       "pass": true,
-      "actual": 74997500.0,
-      "expected": 74997500
+      "actual": 75605000.0,
+      "expected": 75605000
     },
     {
       "check": "yard:finished_surfaces_tile_site_around_post_exclusions_mm2",
       "pass": true,
-      "actual": 77272500.0,
-      "expected": 77272500
+      "actual": 77880000.0,
+      "expected": 77880000
     },
     {
       "check": "yard:recorded_soil_area_matches_saved_native_mm2",
       "pass": true,
-      "actual": 74997500.0,
-      "expected": 74997500.0
+      "actual": 75605000.0,
+      "expected": 75605000.0
     },
     {
       "check": "yard:recorded_finish_area_matches_saved_native_mm2",
       "pass": true,
-      "actual": 77272500.0,
-      "expected": 77272500.0
+      "actual": 77880000.0,
+      "expected": 77880000.0
     },
     {
       "check": "fence:north_01:post_height_above_grade_mm",
@@ -5664,54 +5664,6 @@
     },
     {
       "check": "yard:ground_surfaces:gravel:yard:planting:lawn_west:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:ground_surfaces:gravel:balcony:footing_1:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:ground_surfaces:gravel:balcony:footing_2:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:ground_surfaces:gravel:balcony:footing_3:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:parking:line_divider_1:balcony:footing_1:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:parking:paving:balcony:footing_1:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:soil:base:balcony:footing_1:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:soil:base:balcony:footing_2:clear_of_R04_solid_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "yard:soil:base:balcony:footing_3:clear_of_R04_solid_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

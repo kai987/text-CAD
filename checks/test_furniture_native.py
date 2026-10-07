@@ -68,8 +68,8 @@ class FurnitureClearanceTests(unittest.TestCase):
         return expected
 
     def test_all_actual_layouts_keep_every_original_row_name_order_evidence_and_decision(self):
-        # R13 includes six additional furniture/approach comparisons per floor.
-        layouts=[('house',floor_plan(1),HOUSE,147),('house',floor_plan(2),HOUSE,57),
+        # R14 additionally checks the refrigerator, cupboard and facing-kitchen aisle.
+        layouts=[('house',floor_plan(1),HOUSE,159),('house',floor_plan(2),HOUSE,57),
                  ('apartment',apartment_plan()[0],APARTMENT,228)]
         for model,floor,p,count in layouts:
             rows=self.assert_reports_equal(floor,model,p)
@@ -93,7 +93,7 @@ class FurnitureClearanceTests(unittest.TestCase):
 
     def test_wardrobe_kitchen_routes_and_balcony_landings_reject_obstructions(self):
         scenarios=[('house',2,HOUSE,'wardrobe_1:650mm_front','master'),
-                   ('house',1,HOUSE,'kitchen:900mm_working_front','ldk'),
+                   ('house',1,HOUSE,'kitchen:900mm_working_rear','ldk'),
                    ('house',1,HOUSE,'ldk:route_1:650mm','ldk'),
                    ('apartment',1,APARTMENT,'balcony_slider_900:800mm_landing','ldk'),
                    ('apartment',1,APARTMENT,'ldk:route_4:650mm','ldk')]
@@ -120,7 +120,8 @@ class FurnitureClearanceTests(unittest.TestCase):
         for outside,expected in ((.0005,True),(.0015,False)):
             floor=floor_plan(2)
             placements=furniture.furniture_placements(floor,'house',HOUSE)
-            placements[2]=replace(placements[2],x=180-outside,y=5500,width=100,depth=100,rotation=0)
+            room=next(room for room in floor.rooms if room.id=='bed3')
+            placements[2]=replace(placements[2],x=room.shape.bounds[0]-outside,y=5500,width=100,depth=100,rotation=0)
             with patch.object(furniture,'furniture_placements',return_value=placements):
                 rows=self.assert_reports_equal(floor,'house',HOUSE)
                 row=next(row for row in rows if row['check']=='bed3:bed:inside_room')
@@ -186,12 +187,15 @@ class FurnitureClearanceTests(unittest.TestCase):
         floor=floor_plan(1)
         placements=furniture.furniture_placements(floor,'house',HOUSE)
         expected=original_report(floor,'house',HOUSE)
+        zone_polygons=furniture.clearance_zones(floor,'house',HOUSE)
         footprint_calls=[]
         original_footprint=furniture.Placement.footprint
         def counted_footprint(item):
             footprint_calls.append(item)
             return original_footprint(item)
-        with patch.object(furniture,'clearance_zones',wraps=furniture.clearance_zones) as zones,\
+        # Measure batching independently of authoring-to-world reflection setup.
+        with patch.object(furniture,'furniture_placements',return_value=placements),\
+             patch.object(furniture,'clearance_zones',return_value=zone_polygons) as zones,\
              patch.object(furniture,'polygon_metrics',wraps=furniture.polygon_metrics) as metrics,\
              patch.object(furniture.Placement,'footprint',counted_footprint):
             actual=furniture.clearance_report(floor,'house',HOUSE,backend='python')

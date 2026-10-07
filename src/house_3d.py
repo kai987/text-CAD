@@ -10,6 +10,7 @@ from lib.interior_materials import apply_interior_materials
 from lib.exterior_materials import apply_exterior_materials
 from lib.outdoor_lighting import apply_outdoor_lighting_materials
 from lib.engineering_inputs import engineering_inputs
+from lib.step_transport import compact_export
 from lib.house_plan import P, floor_plan
 from lib.house_geometry import G
 
@@ -119,3 +120,4 @@ if __name__ == "__main__":
     destination.write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     (destination.parent/"engineering_inputs_R06.json").write_text(
         json.dumps(engineering_inputs(P, G), ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+    compact_export(root/"STEP"/"house_3d.step")

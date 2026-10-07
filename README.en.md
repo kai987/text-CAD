@@ -12,6 +12,8 @@ The facing kitchen has a 2550×650 mm counter and a 900 mm main rear working ais
 
 [First-floor DXF](DXF/house_1f_plan.dxf) · [Second-floor DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) · [Parameters](src/lib/house_redesign_plan.py)
 
+STEP export losslessly compacts whitespace for the Sites 25 MiB per-file limit. Numbers, named components and appearance metadata are retained and the saved CAD is revalidated.
+
 R13 and earlier sections below are historical; R14 and the current exported files take precedence.
 
 ## Earlier scheme (R13 balcony revision)

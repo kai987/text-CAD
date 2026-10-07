@@ -12,6 +12,8 @@
 
 [1階DXF](DXF/house_1f_plan.dxf) · [2階DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) · [パラメータ](src/lib/house_redesign_plan.py)
 
+STEPはSitesの1ファイル25 MiB上限に合わせて余分な空白のみ圧縮します。数値・部材名・外観情報を保持し、保存後のCADを再検証します。
+
 以下のR13以前は変更履歴です。現行案はR14と最新出力を参照してください。
 
 ## 過去の計画（R13・奥行1mの柱なしバルコニー）

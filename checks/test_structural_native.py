@@ -125,10 +125,12 @@ class ActualStructuralReportTests(unittest.TestCase):
         members={item.label:item for item in variants.leaves(self.assemblies['RC'])}
         slab=members['structure:F2:slab_floor']
         attic=members['structure:attic:slab_storage']
-        stair_tool=variants.solid_box((dimensions(P)['sx']+.1,dimensions(P)['sy']+.1,2620.1,dimensions(P)['xmax']-.1,dimensions(P)['ymax']-.1,2799.9),
+        sx,sy,xmax,ymax=next(room.shape.bounds for room in floor_plan(2).rooms if room.id=='stairs')
+        stair_tool=variants.solid_box((sx+.1,sy+.1,2620.1,xmax-.1,ymax-.1,2799.9),
                                      'test:stair','#FFFFFF')
-        hatch_tool=variants.solid_box((A.hatch_x+.1,A.hatch_y+.1,5420.1,
-            A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9),'test:hatch','#FFFFFF')
+        hatch_x=P.width-A.hatch_x-A.hatch_length if P.mirror_layout else A.hatch_x
+        hatch_tool=variants.solid_box((hatch_x+.1,A.hatch_y+.1,5420.1,
+            hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9),'test:hatch','#FFFFFF')
         for member,tool in ((slab,stair_tool),(attic,hatch_tool)):
             with self.subTest(member=member.label):
                 bounds=[variants.shape_bounds(member)]

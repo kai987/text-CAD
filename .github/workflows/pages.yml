@@ -22,7 +22,7 @@ jobs:
           python-version: '3.13'
           cache: pip
       - run: python -m pip install -r requirements.txt
-      - run: python -m unittest checks/test_cad_release.py checks/test_orientation.py -v
+      - run: python -m unittest checks/test_cad_release.py checks/test_orientation.py checks/test_step_transport.py -v
       - run: python src/cad_pipeline.py --validate
   build:
     needs: cad

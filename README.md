@@ -10,6 +10,8 @@ R14按用户要求镜像一、二层，玄关移到西南、楼梯移到西北�
 
 [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) · [R14参数化源码](src/lib/house_redesign_plan.py)
 
+STEP导出会无损去除多余排版空白，以适配Sites单文件25 MiB限制；保留数值、具名部件及外观元数据，并重新校验保存后的CAD。
+
 以下R13及更早章节记录历史改动；上述R14及当前导出文件优先。
 
 ## 历史方案（R13 一米无柱阳台）

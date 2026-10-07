@@ -12,8 +12,8 @@
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 27557141,
-      "sha256": "a520591681cd574c8316c983452ecddc23be8495ca8568403d7c2f89b2169ff7"
+      "bytes": 25603115,
+      "sha256": "d4d2add1e74391de855d575462faa662be7c957bd21a3ccc97163524db84b66e"
     },
     "house_3d.glb": {
       "bytes": 8198824,
@@ -57,7 +57,7 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 27557141,
+      "actual": 25603115,
       "expected": null
     },
     {

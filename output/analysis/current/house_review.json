@@ -8,7 +8,7 @@
       "output/review/house_3d_assumptions_R01.json": "aaef2904b40957f319bf5b12f0d30363307cb41022fafc3c33e8ae02552c3b30"
     }
   },
-  "analysis_code_sha256": "49a8dc1fe7a6660865d81843c69221fda78e7661e1a3c26cf7e601191c19e800",
+  "analysis_code_sha256": "9a1b933f0eb0fc3ef1de640a1755448da54b9ff6ab6c8942bf56cb6ad5f37477",
   "input_sha256": "e7389e442f219d4380dc5f499967ce1cb9d84a8302a8ef7f146fef4ed503f5be",
   "status": "concept_review_only",
   "structural_capacity_result": null,
@@ -345,6 +345,746 @@
       "Furniture, fixtures, low clearances and door operating space are not deducted",
       "Unassigned remainder includes wall strips/thresholds/gaps; not a wall-only area",
       "No efficiency grade or W/S/RC net-area equivalence is inferred"
+    ]
+  },
+  "circulation": {
+    "status": "geometry_relationship_review",
+    "units": "mm",
+    "door_probe_offset_beyond_wall_face_mm": 2,
+    "floors": [
+      {
+        "floor": 1,
+        "origin": "outside",
+        "doors": [
+          {
+            "id": "D01",
+            "declared_rooms": [
+              "outside",
+              "foyer"
+            ],
+            "kind": "swing",
+            "nominal_aperture_width_mm": 900.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "outside"
+                ],
+                "room_coverage_mm": {
+                  "outside": 900.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "foyer"
+                ],
+                "room_coverage_mm": {
+                  "foyer": 900.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D02",
+            "declared_rooms": [
+              "foyer",
+              "ldk"
+            ],
+            "kind": "swing",
+            "nominal_aperture_width_mm": 900.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "foyer"
+                ],
+                "room_coverage_mm": {
+                  "foyer": 900.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "ldk"
+                ],
+                "room_coverage_mm": {
+                  "ldk": 900.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D03",
+            "declared_rooms": [
+              "ldk",
+              "wash"
+            ],
+            "kind": "slide",
+            "nominal_aperture_width_mm": 800.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "ldk"
+                ],
+                "room_coverage_mm": {
+                  "ldk": 800.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "wash"
+                ],
+                "room_coverage_mm": {
+                  "wash": 800.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D04",
+            "declared_rooms": [
+              "wash",
+              "bath"
+            ],
+            "kind": "slide",
+            "nominal_aperture_width_mm": 750.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "wash"
+                ],
+                "room_coverage_mm": {
+                  "wash": 750.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "bath"
+                ],
+                "room_coverage_mm": {
+                  "bath": 750.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D05",
+            "declared_rooms": [
+              "ldk",
+              "wc"
+            ],
+            "kind": "swing",
+            "nominal_aperture_width_mm": 700.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "ldk"
+                ],
+                "room_coverage_mm": {
+                  "ldk": 700.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "wc"
+                ],
+                "room_coverage_mm": {
+                  "wc": 700.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "O02",
+            "declared_rooms": [
+              "ldk",
+              "stairs"
+            ],
+            "kind": "open",
+            "nominal_aperture_width_mm": 900.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "ldk"
+                ],
+                "room_coverage_mm": {
+                  "ldk": 900.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "stairs"
+                ],
+                "room_coverage_mm": {
+                  "stairs": 900.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D07",
+            "declared_rooms": [
+              "ldk",
+              "under_stairs"
+            ],
+            "kind": "swing",
+            "nominal_aperture_width_mm": 700.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "ldk"
+                ],
+                "room_coverage_mm": {
+                  "ldk": 700.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "under_stairs"
+                ],
+                "room_coverage_mm": {
+                  "under_stairs": 700.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          }
+        ],
+        "room_paths": {
+          "bath": [
+            "outside",
+            "foyer",
+            "ldk",
+            "wash",
+            "bath"
+          ],
+          "foyer": [
+            "outside",
+            "foyer"
+          ],
+          "ldk": [
+            "outside",
+            "foyer",
+            "ldk"
+          ],
+          "stairs": [
+            "outside",
+            "foyer",
+            "ldk",
+            "stairs"
+          ],
+          "under_stairs": [
+            "outside",
+            "foyer",
+            "ldk",
+            "under_stairs"
+          ],
+          "wash": [
+            "outside",
+            "foyer",
+            "ldk",
+            "wash"
+          ],
+          "wc": [
+            "outside",
+            "foyer",
+            "ldk",
+            "wc"
+          ]
+        },
+        "unreachable_rooms": [],
+        "furniture_envelopes_examined": 8,
+        "furniture_envelope_containment": [
+          {
+            "id": "sofa",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "coffee_table",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "television",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "dining_table",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "dining_chair_east_1",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "dining_chair_west_1",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "dining_chair_east_2",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "dining_chair_west_2",
+            "room": "ldk",
+            "envelope_outside_assigned_room_mm2": 0.0
+          }
+        ]
+      },
+      {
+        "floor": 2,
+        "origin": "stairs",
+        "doors": [
+          {
+            "id": "D21",
+            "declared_rooms": [
+              "hall",
+              "master"
+            ],
+            "kind": "slide",
+            "nominal_aperture_width_mm": 750.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "hall"
+                ],
+                "room_coverage_mm": {
+                  "hall": 750.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "master"
+                ],
+                "room_coverage_mm": {
+                  "master": 750.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D22",
+            "declared_rooms": [
+              "hall",
+              "bed2"
+            ],
+            "kind": "slide",
+            "nominal_aperture_width_mm": 800.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "bed2"
+                ],
+                "room_coverage_mm": {
+                  "bed2": 800.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "hall"
+                ],
+                "room_coverage_mm": {
+                  "hall": 800.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D23",
+            "declared_rooms": [
+              "hall",
+              "bed3"
+            ],
+            "kind": "slide",
+            "nominal_aperture_width_mm": 750.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "hall"
+                ],
+                "room_coverage_mm": {
+                  "hall": 750.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "bed3"
+                ],
+                "room_coverage_mm": {
+                  "bed3": 750.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D25",
+            "declared_rooms": [
+              "hall",
+              "wc"
+            ],
+            "kind": "swing",
+            "nominal_aperture_width_mm": 700.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "hall"
+                ],
+                "room_coverage_mm": {
+                  "hall": 700.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "wc"
+                ],
+                "room_coverage_mm": {
+                  "wc": 700.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "O22",
+            "declared_rooms": [
+              "hall",
+              "stairs"
+            ],
+            "kind": "open",
+            "nominal_aperture_width_mm": 900.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "hall"
+                ],
+                "room_coverage_mm": {
+                  "hall": 900.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "stairs"
+                ],
+                "room_coverage_mm": {
+                  "stairs": 900.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D26",
+            "declared_rooms": [
+              "master",
+              "balcony"
+            ],
+            "kind": "bypass",
+            "nominal_aperture_width_mm": 1600.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "balcony"
+                ],
+                "room_coverage_mm": {
+                  "balcony": 1600.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "master"
+                ],
+                "room_coverage_mm": {
+                  "master": 1600.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          },
+          {
+            "id": "D27",
+            "declared_rooms": [
+              "bed2",
+              "balcony"
+            ],
+            "kind": "bypass",
+            "nominal_aperture_width_mm": 1800.0,
+            "sides": [
+              {
+                "normal_sign": -1,
+                "full_width_owners": [
+                  "balcony"
+                ],
+                "room_coverage_mm": {
+                  "balcony": 1800.0
+                }
+              },
+              {
+                "normal_sign": 1,
+                "full_width_owners": [
+                  "bed2"
+                ],
+                "room_coverage_mm": {
+                  "bed2": 1800.0
+                }
+              }
+            ],
+            "full_width_room_adjacency": true,
+            "furniture_envelope_overlaps": []
+          }
+        ],
+        "room_paths": {
+          "balcony": [
+            "stairs",
+            "hall",
+            "bed2",
+            "balcony"
+          ],
+          "bed2": [
+            "stairs",
+            "hall",
+            "bed2"
+          ],
+          "bed3": [
+            "stairs",
+            "hall",
+            "bed3"
+          ],
+          "hall": [
+            "stairs",
+            "hall"
+          ],
+          "master": [
+            "stairs",
+            "hall",
+            "master"
+          ],
+          "stairs": [
+            "stairs"
+          ],
+          "wc": [
+            "stairs",
+            "hall",
+            "wc"
+          ]
+        },
+        "unreachable_rooms": [],
+        "furniture_envelopes_examined": 12,
+        "furniture_envelope_containment": [
+          {
+            "id": "bed",
+            "room": "master",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "bed",
+            "room": "bed2",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "bed",
+            "room": "bed3",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk",
+            "room": "master",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk_chair",
+            "room": "master",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk",
+            "room": "bed2",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk_chair",
+            "room": "bed2",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk",
+            "room": "bed3",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "desk_chair",
+            "room": "bed3",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "bedside_table",
+            "room": "master",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "bedside_table",
+            "room": "bed2",
+            "envelope_outside_assigned_room_mm2": 0.0
+          },
+          {
+            "id": "bedside_table",
+            "room": "bed3",
+            "envelope_outside_assigned_room_mm2": 0.0
+          }
+        ]
+      }
+    ],
+    "vertical_coordination": {
+      "stairs": {
+        "lower_projection_outside_upper_mm2": 0.0,
+        "upper_projection_outside_lower_mm2": 1638000.0,
+        "projection_bounds_equal": true
+      },
+      "wc": {
+        "lower_projection_outside_upper_mm2": 0.0,
+        "upper_projection_outside_lower_mm2": 0.0,
+        "projection_bounds_equal": true
+      }
+    },
+    "attic_access": {
+      "hatch_outside_deck_mm2": 0.0,
+      "hatch_outside_F2_hall_mm2": 0.0,
+      "deployed_ladder_outside_F2_hall_mm2": 0.0,
+      "bottom_landing_outside_F2_hall_mm2": 0.0,
+      "upper_landing_outside_attic_deck_mm2": 0.0,
+      "deployed_operation_occupied_hall_projection_m2": 0.8430484945625422,
+      "deployed_hall_vertical_cross_sections": [
+        {
+          "x_interval_mm": [
+            2199.9191757290964,
+            2799.9191757290964
+          ],
+          "station_x_mm": 2499.9191757290964,
+          "remaining_y_spans_mm": [
+            [
+              3380.0,
+              3505.0
+            ],
+            [
+              4155.0,
+              5180.0
+            ]
+          ],
+          "remaining_span_lengths_mm": [
+            125.0,
+            1025.0
+          ]
+        },
+        {
+          "x_interval_mm": [
+            2799.9191757290964,
+            3380.0
+          ],
+          "station_x_mm": 3089.959587864548,
+          "remaining_y_spans_mm": [
+            [
+              3380.0,
+              3530.0
+            ],
+            [
+              4130.0,
+              5180.0
+            ]
+          ],
+          "remaining_span_lengths_mm": [
+            150.0,
+            1050.0
+          ]
+        },
+        {
+          "x_interval_mm": [
+            3380.0,
+            3555.0
+          ],
+          "station_x_mm": 3467.5,
+          "remaining_y_spans_mm": [
+            [
+              3380.0,
+              3530.0
+            ],
+            [
+              4130.0,
+              4280.0
+            ]
+          ],
+          "remaining_span_lengths_mm": [
+            150.0,
+            150.0
+          ]
+        }
+      ],
+      "simultaneous_hall_passage_result": null,
+      "headroom_and_ladder_product_safety_result": null
+    },
+    "conflicts": [],
+    "statutory_egress_result": null,
+    "pending": [
+      "Actual frame clear width, handles, leaf movement and pocket construction",
+      "Continuous occupied-room routes and all fixed kitchen/bathroom/storage equipment",
+      "Deployed attic ladder occupies the hall; simultaneous passage and safe operation require design review",
+      "Stair/hatch headroom, guarding, product selection and structural support",
+      "Site-specific accessibility, fire and evacuation requirements"
+    ],
+    "limitations": [
+      "Room paths are a door-adjacency graph, not collision-free walking paths",
+      "Furniture checks use saved rectangular envelopes; empty parts of corner sofas and space below tables remain included",
+      "Cross sections are local vertical line measurements, not minimum route width or a clearance approval",
+      "Projection coordination does not prove pipe routing or a continuous structural/load path"
     ]
   }
 }

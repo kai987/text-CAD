@@ -42,6 +42,58 @@
 | 階段 | 5.1680 |
 | バルコニー（室外，排除） | 7.1910 |
 
+## 门、房间与阁楼入口关系
+
+读取保存后的CAD清单，沿每个名义洞口的全宽测量墙面外2 mm处的房间覆盖。关联图只表示房间之间存在对应洞口，不代表无障碍通行、门扇操作或疏散合格。门宽未扣除实际门框、把手及安装间隙。
+
+| 楼层 | 洞口 | 关联房间 | 名义宽mm | 全宽对应关系 | 家具包络重叠数 |
+| --- | --- | --- | ---: | --- | ---: |
+| 1F | D01 | outside ↔ foyer | 900 | 对应 | 0 |
+| 1F | D02 | foyer ↔ ldk | 900 | 对应 | 0 |
+| 1F | D03 | ldk ↔ wash | 800 | 对应 | 0 |
+| 1F | D04 | wash ↔ bath | 750 | 对应 | 0 |
+| 1F | D05 | ldk ↔ wc | 700 | 对应 | 0 |
+| 1F | O02 | ldk ↔ stairs | 900 | 对应 | 0 |
+| 1F | D07 | ldk ↔ under_stairs | 700 | 对应 | 0 |
+| 2F | D21 | hall ↔ master | 750 | 对应 | 0 |
+| 2F | D22 | hall ↔ bed2 | 800 | 对应 | 0 |
+| 2F | D23 | hall ↔ bed3 | 750 | 对应 | 0 |
+| 2F | D25 | hall ↔ wc | 700 | 对应 | 0 |
+| 2F | O22 | hall ↔ stairs | 900 | 对应 | 0 |
+| 2F | D26 | master ↔ balcony | 1600 | 对应 | 0 |
+| 2F | D27 | bed2 ↔ balcony | 1800 | 对应 | 0 |
+
+房间关联路径：
+
+- 1F bath：outside → foyer → ldk → wash → bath
+- 1F foyer：outside → foyer
+- 1F ldk：outside → foyer → ldk
+- 1F stairs：outside → foyer → ldk → stairs
+- 1F under_stairs：outside → foyer → ldk → under_stairs
+- 1F wash：outside → foyer → ldk → wash
+- 1F wc：outside → foyer → ldk → wc
+- 2F balcony：stairs → hall → bed2 → balcony
+- 2F bed2：stairs → hall → bed2
+- 2F bed3：stairs → hall → bed3
+- 2F hall：stairs → hall
+- 2F master：stairs → hall → master
+- 2F stairs：stairs
+- 2F wc：stairs → hall → wc
+
+检修梯展开包络与底端站位合计占用二层走廊投影 **0.8430㎡**。以下为占用区域各X区间中点的局部南北向截线，不是连续绕行路径的最小净宽：
+
+| X区间mm | 剩余南北向线段长度mm |
+| --- | --- |
+| 2199.92–2799.92 | 125.00 / 1025.00 |
+| 2799.92–3380.00 | 150.00 / 1050.00 |
+| 3380.00–3555.00 | 150.00 / 150.00 |
+
+展开期间的同时通行、上下口净高和选定产品安全操作仍待核定。不能因房间关联图连通或局部余留投影存在，就认定检修梯展开时可安全绕行。
+
+几何关系冲突记录 **0 项**。阁楼口/上下站位范围、楼梯和厕所的跨层投影差值、每扇门两侧的实际覆盖长度保留在JSON。
+
+家具检查采用保存的矩形包络，转角沙发内空及桌下空间也包含在包络中；尚未计入全部厨房、浴室、收纳固定设备，也未模拟门扇开合、人体通行或高度。投影对齐不能证明设备管线、结构支承或传力连续。
+
 ## 承重计算准备
 
 未填写工程资料 **22 项**。

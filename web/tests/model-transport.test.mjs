@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { startModelLoad } from '../src/model-resource.ts';
 
 function load(fetcher, extras = {}) {
@@ -32,6 +33,24 @@ test('cancelling compressed downloads never starts a fallback request', async ()
   const request=startModelLoad({url:'/house.glb',compressed:true, fetcher:()=>{calls++;return new Promise((_,r)=>{reject=r;});},parse:async()=>null,onLoad(){},onError:e=>errors.push(e),disposeLate(){}});
   await new Promise(resolve=>setImmediate(resolve)); request.cancel(); reject(new Error('Aborted'));
   await new Promise(resolve=>setImmediate(resolve)); assert.equal(calls,1); assert.deepEqual(errors,[]);
+});
+test('versioned gzip URL verifies decoded bytes, with an independent raw fallback hash', async () => {
+  const native = new Uint8Array([1, 2, 3]), stale = new Uint8Array([4, 5, 6]);
+  const expectedSha256 = createHash('sha256').update(native).digest('hex');
+  const paths = [];
+  const result = await load(async path => {
+    paths.push(path);
+    return new Response(path.includes('.gz?') ? gzipSync(stale) : native);
+  }, { url: '/house.glb?v=native', compressedUrl: '/house.glb.gz?v=encoded', expectedSha256 });
+  assert.deepEqual(paths, ['/house.glb.gz?v=encoded', '/house.glb?v=native']);
+  assert.deepEqual(result.value, [...native]);
+});
+test('corrupt native bytes are rejected before GLB parsing', async () => {
+  let parses = 0;
+  await assert.rejects(load(async () => new Response(new Uint8Array([4, 5, 6])), {
+    compressed: false, expectedSha256: '0'.repeat(64), parse: async () => { parses++; },
+  }), /checksum/);
+  assert.equal(parses, 0);
 });
 test('all five published compressed models retain every original GLB byte', async () => {
   for (const name of ['house_3d','apartment_2ldk','structure_W','structure_S','structure_RC']) {

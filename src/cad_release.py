@@ -14,7 +14,7 @@ def digest(path: Path) -> str:
 
 
 def source_paths(root: Path) -> list[str]:
-    paths = [*root.glob('src/**/*.py'), *root.glob('checks/**/*.py')]
+    paths = [*root.glob('src/**/*.py'), *root.glob('checks/**/*.py'), *root.glob('analysis/**/*.py')]
     paths += [root/'requirements.txt', root/'web/scripts/generate-plan-svg.py']
     return sorted(str(p.relative_to(root)) for p in paths if p.is_file())
 

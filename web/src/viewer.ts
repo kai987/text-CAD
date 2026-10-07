@@ -10,7 +10,7 @@ import type { ModelProgress } from './model-resource';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Material, MeshStandardMaterial } from 'three';
-import { asset } from './data';
+import { asset, assetSha256 } from './data';
 import { modelLayouts, settingsForPreset } from './model-state';
 import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, centerModelAtFloorDatum, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
@@ -23,6 +23,7 @@ import { structuralObjectVisible } from './structural-design';
 import type { StructuralOverlayState, StructuralSystem } from './structural-design';
 import { createOutdoorLighting, createIndoorLighting, nightScenePalette } from './scene-lighting';
 import { createGeometryWorkerClient } from './geometry-worker-client';
+import { createDemandRenderScheduler } from './demand-render';
 
 export interface ViewerCameraState { mode: 'iso' | 'top'; position: number[]; target: number[]; up: number[]; zoom: number }
 
@@ -76,6 +77,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.tabIndex = 0;
   renderer.domElement.setAttribute('aria-label', '可旋转和缩放的房屋三维模型');
   renderer.domElement.setAttribute('role', 'img');
+  renderer.domElement.dataset.renderStrategy = 'demand';
+  renderer.domElement.dataset.renderedFrames = '0';
   const useTypeScript = new URLSearchParams(location.search).get('section') === 'typescript';
   renderer.domElement.dataset.sectionBackend = useTypeScript ? 'typescript' : 'loading-rust-worker';
   renderer.domElement.dataset.outlineBackend = useTypeScript ? 'typescript' : 'loading-rust-worker';
@@ -104,7 +107,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   controls.listenToKeyEvents(renderer.domElement);
   let disposed = false;
   let contextUnavailable = false;
-  let frame = 0;
+  let inViewport = true;
+  let renderedFrames = 0;
   let root: Object3D | undefined;
   let settings = settingsForPreset(layout.defaultPreset, layout);
   const groupObjects = new Map<ModelPartId, Object3D>();
@@ -127,13 +131,42 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
   let cameraInitialized = false;
+  let cameraPoseDirty = true;
   function draw() {
-    frame = 0;
-    if (disposed || contextUnavailable || !host.clientWidth || !host.clientHeight) return;
+    if (disposed) return;
+    updateRenderAvailability();
+    if (renderer.domElement.dataset.renderVisibility !== 'visible') return;
     controls.update(); renderer.render(scene, camera);
-    renderer.domElement.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+    renderer.domElement.dataset.renderedFrames = String(++renderedFrames);
+    if (cameraPoseDirty) {
+      renderer.domElement.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+      cameraPoseDirty = false;
+    }
   }
-  function requestRender() { if (!disposed && !frame) frame = requestAnimationFrame(draw); }
+  const renderScheduler = createDemandRenderScheduler({
+    draw,
+    requestFrame: callback => requestAnimationFrame(callback),
+    cancelFrame: id => cancelAnimationFrame(id),
+    onState: state => {
+      if (renderer.domElement.dataset.renderState !== state) renderer.domElement.dataset.renderState = state;
+    },
+  });
+  function requestRender() { renderScheduler.invalidate(); }
+  function updateRenderAvailability(width = host.clientWidth, height = host.clientHeight) {
+    if (disposed) return;
+    const visibility = document.hidden ? 'document-hidden' : contextUnavailable ? 'context-lost'
+      : !width || !height ? 'layout-hidden' : !inViewport ? 'offscreen' : 'visible';
+    if (renderer.domElement.dataset.renderVisibility !== visibility) renderer.domElement.dataset.renderVisibility = visibility;
+    renderScheduler.setActive(visibility === 'visible');
+  }
+  function documentVisibilityChanged() { updateRenderAvailability(); }
+  document.addEventListener('visibilitychange', documentVisibilityChanged);
+  // Keep model and Worker loading active; only drawing pauses outside the visible viewport.
+  const viewportObserver = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => {
+    inViewport = entries[entries.length - 1]?.isIntersecting ?? true;
+    updateRenderAvailability();
+  });
+  viewportObserver?.observe(host);
   function setTheme(next: ResolvedTheme) {
     if (disposed) return;
     theme = next;
@@ -170,9 +203,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     renderer.domElement.dataset.activeOutdoorLightIds = JSON.stringify(lighting.activeIds);
     renderer.domElement.dataset.outdoorShadowLights = String(lighting.shadowLights);
   }
-  controls.addEventListener('change', requestRender);
+  function cameraChanged() { cameraPoseDirty = true; requestRender(); }
+  controls.addEventListener('change', cameraChanged);
   function resize() {
     const width = host.clientWidth, height = host.clientHeight;
+    updateRenderAvailability(width, height);
     if (!width || !height || disposed) return;
     renderer.setSize(width, height, false);
     camera.left = -halfHeight * width / height; camera.right = -camera.left;
@@ -181,7 +216,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   }
   // Text reflow can resize the canvas during a language change. Adjust its framing
   // without resetting the user's orbit, pan or zoom.
-  const observer = new ResizeObserver(() => { if (root) updateFrustum(); else resize(); }); observer.observe(host);
+  const observer = new ResizeObserver(() => {
+    updateRenderAvailability();
+    if (root) updateFrustum(); else resize();
+  }); observer.observe(host);
   function clearHighlight() {
     for (const [mesh, original] of originalMaterials) {
       (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).forEach(material => material.dispose());
@@ -444,10 +482,12 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     if (overlays.has(system)) { reportOverlay('ready', system); return; }
     reportOverlay('loading', system);
     if (overlayLoads.has(system) || !root) return;
-    const overlayUrl = new URL(asset(`GLB/structure_${system}.glb`), location.href);
+    const overlayPath = `GLB/structure_${system}.glb`;
+    const overlayUrl = new URL(asset(overlayPath), location.href);
     const loading = new Promise<GLTF>((resolve, reject) => {
       overlayRequests.set(system, startModelLoad<GLTF>({
         url: overlayUrl.href, compressed: true,
+        compressedUrl: asset(`${overlayPath}.gz`), expectedSha256: assetSha256(overlayPath),
         parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', overlayUrl).href),
         onLoad: resolve, onError: reject, disposeLate: gltf => disposeObject(gltf.scene, true),
       }));
@@ -502,7 +542,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.addEventListener('pointercancel', pointerCancel);
   renderer.domElement.addEventListener('keydown', keyDown);
   function contextLost(event: Event) {
-    event.preventDefault(); contextUnavailable = true; cancelAnimationFrame(frame); frame = 0; onError();
+    event.preventDefault(); contextUnavailable = true; updateRenderAvailability(); onError();
   }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   renderer.domElement.addEventListener('webglcontextrestored', onContextRestored);
@@ -527,6 +567,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const modelUrl = new URL(asset(glbPath), location.href);
   const modelLoad = startModelLoad<GLTF>({
     url: modelUrl.href, onProgress, compressed: true,
+    compressedUrl: asset(`${glbPath}.gz`), expectedSha256: assetSha256(glbPath),
     parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', modelUrl).href),
     disposeLate: gltf => disposeObject(gltf.scene, true),
     onError: () => { if (!disposed) onError(); },
@@ -565,7 +606,9 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       overlayRequests.forEach(request => request.cancel()); overlayRequests.clear();
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored);
-      cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();
+      renderScheduler.dispose(); observer.disconnect(); viewportObserver?.disconnect();
+      document.removeEventListener('visibilitychange', documentVisibilityChanged);
+      controls.removeEventListener('change', cameraChanged); controls.dispose();
       capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); wallOutlines.clear();
       renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', pointerMove);

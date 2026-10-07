@@ -93,7 +93,8 @@ export const modelLayouts: Record<ModelId, ModelLayout> = {
   apartment: {
     id: 'apartment',
     groups: [{ id: 'F1', label: '公寓室内' }, { id: 'ceiling', label: '顶板' }, { id: 'balcony', label: '阳台' }],
-    parts: parts.filter(part => part.group === 'F1'),
+    // This GLB has no room-light nodes; house-only categories must not become required apartment nodes.
+    parts: parts.filter(part => part.group === 'F1' && part.id !== 'F1:indoor_lights'),
     presets: [
       { id: 'exterior', label: '完整户型', visibility: { F1: true, ceiling: true, balcony: true } },
       { id: 'interior', label: '室内剖视', visibility: { F1: true, ceiling: false, balcony: true }, cutaway: true },

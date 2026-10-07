@@ -53,6 +53,32 @@ class CadReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'source set changed'):
             module.verify(self.root)
 
+    def test_analysis_algorithm_and_source_set_changes_are_blocked(self):
+        # Python glob treats a missing analysis directory as an empty source set.
+        module.verify(self.root)
+        path = self.root/'analysis/house_review.py'
+        path.parent.mkdir()
+        path.write_bytes(b'original analysis')
+        with self.assertRaisesRegex(ValueError, 'source set changed'):
+            module.verify(self.root)
+        self.release['sources']['analysis/house_review.py'] = module.digest(path)
+        self.save()
+        module.verify(self.root)
+        path.write_bytes(b'changed area or load calculation')
+        with self.assertRaisesRegex(ValueError, 'Stale CAD sources: analysis/house_review.py'):
+            module.verify(self.root)
+        path.write_bytes(b'original analysis')
+        nested = self.root/'analysis/rules/areas.py'
+        nested.parent.mkdir()
+        nested.write_bytes(b'new analysis rule')
+        self.assertIn('analysis/rules/areas.py', module.source_paths(self.root))
+        with self.assertRaisesRegex(ValueError, 'source set changed'):
+            module.verify(self.root)
+        nested.unlink()
+        path.unlink()
+        with self.assertRaisesRegex(ValueError, 'source set changed'):
+            module.verify(self.root)
+
     def test_modified_missing_or_unsafe_artifact_is_blocked(self):
         (self.root/'GLB/house.glb').write_bytes(b'outdated export')
         with self.assertRaisesRegex(ValueError, 'Stale CAD artifacts'):

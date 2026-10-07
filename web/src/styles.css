@@ -226,6 +226,15 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .downloads-page header h1 { font-size: 26px; margin-bottom: 8px; }
 .downloads-page header p { color: var(--detail); font-size: 14px; }
 .download-list { margin: 28px 0; border-top: 1px solid var(--line); }
+.download-file { border-bottom: 1px solid var(--line); }
+.download-file .download-row { border-bottom: 0; }
+.download-status { padding: 0 8px 16px 80px; font-size: 13px; color: var(--detail); overflow-wrap: anywhere; }
+.download-status p { margin: 0; }
+.download-status progress { width: min(100%, 400px); display: block; margin-top: 8px; accent-color: var(--accent); }
+.download-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.download-actions:empty { margin: 0; }
+.download-row[aria-busy="true"] { cursor: progress; }
+@media (max-width: 600px) { .download-status { padding-left: 62px; } }
 .download-row { display: flex; align-items: center; gap: 22px; padding: 22px 8px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text); }
 .download-row:hover { background: var(--hover); }
 .file-type { width: 50px; font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: .3px; flex-shrink: 0; }

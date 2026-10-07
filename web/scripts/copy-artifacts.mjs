@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
+import { validateAnalysisReport } from './analysis-report-validation.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
@@ -12,6 +13,7 @@ await validateCadRelease(root);
 // Fail before publishing if the approved PDF was changed without regenerating SVG.
 const vectorPlans = await validatePlanPreviews(root);
 const apartmentPlans = await validateApartmentPreviews(root);
+const analysisReport = await validateAnalysisReport(root);
 export const artifacts = [
   'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
@@ -36,6 +38,7 @@ export const artifacts = [
   'DXF/apartment_2ldk_plan.dxf', 'output/pdf/apartment_2ldk_plan.pdf',
   'output/review/apartment_2ldk_manifest.json', 'output/review/apartment_2ldk_preview.json',
   'output/review/apartment_2ldk_iso.png',
+  ...analysisReport.paths,
   ...apartmentPlans.floors.map(floor => floor.path),
 ];
 

@@ -18,6 +18,8 @@
 
 面积：以保存的房间多边形并集为分子、外轮廓投影为分母；分别给出包含/排除楼梯区的两种比例。阳台和阁楼单列，不加入两层合计。检查多边形、面积记录、范围、重叠、楼层编号和房间分类。面积含家具及设备占地，楼梯区含洞口投影，余量含墙带/门槛/间隙；法定面积、自由通行面积和效率等级不推定。结构体系W/S/RC改动墙厚及截面后须重新统计。
 
+空间关系：报告的 `circulation` 部分绑定同一份保存后的源清单，逐个测量名义门洞全宽在墙面两侧的房间覆盖，生成从入口或楼梯出发的房间关联路径，并检查门开口与已保存家具矩形包络的重叠。它还记录两层楼梯/厕所投影协调、阁楼口及梯子上下站位的包含关系，以及检修梯展开期间占用走廊的投影。局部截线的余留长度不是连续通行路径的最小净宽；关联图连通也不代表人体可以无阻碍通过。实际门框净宽、门扇运动、全部厨房/浴室/收纳固定设备及高度条件未覆盖，展开梯子时能否同时通行保持待核定（`simultaneous_hall_passage_result: null`）；整体承重、法规及疏散结论也保持 `null`。JSON保留冲突证据，Markdown列出门关联表、房间路径和展开操作截线。
+
 计算表：先填写所在地、地盘、材料、荷载和所选体系的专项资料。LDK转移梁、无柱阳台、阁楼根太/洞口梁分别预留案例；默认的简支/悬臂模型只是候选，实际支承与传力须由设计者确认。禁止直接把房间尺寸、阳台进深或展示截面当作有效跨度或工程选型。`assumptions_reviewed`、荷载/材料来源、构件/支承来源和六个基本数值全部齐全才执行单梁弹性计算。
 
 支持等截面、小挠度Euler–Bernoulli梁，全跨向下均布荷载，可叠加简支梁跨中点荷载或悬臂自由端点荷载。跨度L用mm；均布w用kN/m（数值等于N/mm）；点荷载P用kN并内部转为N；E用N/mm²；I用mm⁴；截面模量W用mm³。这里的截面模量W不是结构体系W造。P=0必须显式填写，null不能当作零。点荷载任意位置、连续梁、框架、扭转、剪切变形、材料非线性及二阶效应不支持。
@@ -37,6 +39,8 @@
 
 面積比は室ポリゴンの和集合を外形投影面積で割ったものです。階段区画を含む/除く両方を表示し、バルコニーと小屋裏は別集計とします。家具・設備の占有を差し引いた自由通行面積や、壁芯による法定床面積ではありません。階段には開口の投影が含まれます。重複・範囲・記録面積を検証し、W/S/RCの壁厚・断面が確定した後は再集計が必要です。
 
+空間の関係は、同じ保存済み元データに結び付けた `circulation` に記録します。図示上の各開口の全幅が両側の対応する部屋に接するかを測り、玄関または階段からの室間接続経路と、開口・保存済み家具の矩形外接範囲の重なりを確認します。上下階の階段・トイレの投影整合、小屋裏点検口・はしご上下の立ち位置の収まり、はしご展開時の廊下占有も記録します。局所断面に残る線分長は連続した通行経路の最小有効幅ではなく、接続グラフの連結も人が支障なく通れることを示しません。実際の枠内有効幅、建具の可動範囲、厨房・浴室・収納の全固定設備と高さ条件は未検証です。展開時の同時通行は未判定（`simultaneous_hall_passage_result: null`）とし、建物の構造・法規・避難の判定も `null` を維持します。JSONに矛盾の根拠、Markdownに開口接続表・室間経路・展開操作の局所断面を出力します。
+
 LDK梁・柱なしバルコニー・小屋裏床組の候補ケースを用意します。支点条件、実際の有効スパン、分担荷重、材料と出典、仮定の確認が揃うまで計算しません。部屋寸法や表示用断面を構造入力に自動転用しません。単純支持梁は全長等分布荷重＋中央集中荷重、片持ち梁は全長等分布荷重＋先端集中荷重に限定した一定EI・小変形の弾性計算です。単位と式は上表を参照してください。null荷重をゼロとは扱いません。
 
 曲げ・せん断・反力・たわみ・弾性曲げ応力度と、利用者が指定した限界値との比を出力します。日本法令の限界値は自動設定せず、建物の構造合否は出しません。RCは配筋・ひび割れ・有効剛性・クリープの専用モデルが必要なため、この計算を実行しません。耐震・耐風、接合、座屈、長期変形、基礎・地盤、敷地と法規は別途設計・審査が必要です。現モデル寸法は全てデモ仮定です。
@@ -46,6 +50,8 @@ LDK梁・柱なしバルコニー・小屋裏床組の候補ケースを用意�
 This companion tool reads the saved CAD without changing drawings, STEP, GLB or the accepted layout. It first verifies CAD provenance. Source JSON, inputs and analysis code are SHA-256 bound; stale input templates are rejected after model changes. Run the commands above from the repository root to create an unfilled input JSON and Markdown/JSON reports. Template initialization refuses to overwrite existing inputs.
 
 Space ratios use the union of room polygons divided by exterior-outline projection. Both stair-inclusive and stair-exclusive metrics are reported. Balcony and attic are separate. These are neither statutory wall-centre floor areas nor unobstructed walkable areas: furniture/equipment are not deducted and stairs include openings in projection. Polygon validity, containment, overlap and recorded areas are checked. Recalculate after actual W/S/RC wall thicknesses and member sizes are selected.
+
+The `circulation` section uses the same saved source binding. It measures room coverage across the full nominal aperture on both sides of each assumed wall, reports room-adjacency paths from the entrance or stairs, and checks aperture overlap with saved rectangular furniture envelopes. It also records stair/WC projection coordination between floors, containment of the attic hatch and ladder landings, and hall area occupied during ladder deployment. Remaining lengths in local cross sections are not the minimum clear width of a continuous walking route; graph connectivity does not establish unobstructed passage. Actual frame clear widths, leaf movement, all fixed kitchen/bathroom/storage equipment and height conditions remain unverified. Simultaneous hall passage with the ladder deployed remains undetermined (`simultaneous_hall_passage_result: null`); whole-building structural, statutory and egress results also remain `null`. JSON retains conflict evidence, while Markdown lists aperture relationships, room paths and local deployment cross sections.
 
 LDK transfer beams, the unsupported balcony and attic joists/headers have separate candidate cases. Effective span, supports, tributary loads, materials and references require explicit review. Display geometry is never automatically treated as engineering input. The limited constant-EI, small-deflection Euler–Bernoulli calculator supports a full-span downward UDL plus a midspan point load for simple supports or a free-end point load for a cantilever. Units and equations are in the table above. Unknown loads stay null; zero must be entered explicitly.
 

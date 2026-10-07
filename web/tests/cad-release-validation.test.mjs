@@ -39,3 +39,35 @@ test('the web publication gate rejects source drift, broken CAD and unknown path
   release.artifacts = { '../outside': 'bad' }; await save();
   await assert.rejects(validateCadRelease(root), /Invalid CAD release path/);
 });
+
+test('analysis algorithms bind the release, including added nested rules and removed sources', async t => {
+  const root = await mkdtemp(resolve(tmpdir(), 'cad-analysis-release-test-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const sources = ['src/model.py', 'checks/validate.py', 'requirements.txt', 'web/scripts/generate-plan-svg.py'];
+  for (const path of [...sources, 'GLB/house.glb']) {
+    await mkdir(dirname(resolve(root, path)), { recursive: true });
+    await writeFile(resolve(root, path), 'original');
+  }
+  const release = { schema_version: 1, validation_commands: ['check.py'],
+    sources: Object.fromEntries(sources.map(path => [path, sha('original')])),
+    artifacts: { 'GLB/house.glb': sha('original') } };
+  await mkdir(resolve(root, 'output/review'), { recursive: true });
+  const save = () => writeFile(resolve(root, 'output/review/cad_release.json'), JSON.stringify(release));
+  await save();
+  await validateCadRelease(root); // A missing analysis directory matches Python's empty glob.
+  await mkdir(resolve(root, 'analysis'));
+  const algorithm = resolve(root, 'analysis/house_review.py');
+  await writeFile(algorithm, 'original analysis');
+  await assert.rejects(validateCadRelease(root), /source set changed/);
+  release.sources['analysis/house_review.py'] = sha('original analysis');
+  await save(); await validateCadRelease(root);
+  await writeFile(algorithm, 'changed area or load calculation');
+  await assert.rejects(validateCadRelease(root), /Stale CAD sources: analysis\/house_review.py/);
+  await writeFile(algorithm, 'original analysis');
+  await mkdir(resolve(root, 'analysis/rules'));
+  await writeFile(resolve(root, 'analysis/rules/areas.py'), 'new analysis rule');
+  await assert.rejects(validateCadRelease(root), /source set changed/);
+  await rm(resolve(root, 'analysis/rules/areas.py'));
+  await rm(algorithm);
+  await assert.rejects(validateCadRelease(root), /source set changed/);
+});

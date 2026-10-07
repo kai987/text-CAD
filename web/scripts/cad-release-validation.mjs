@@ -3,7 +3,9 @@ import { createHash } from 'node:crypto';
 import { resolve, relative, sep, parse } from 'node:path';
 
 async function pythonFiles(directory, root) {
-  const entries = await readdir(directory, { withFileTypes: true });
+  let entries;
+  try { entries = await readdir(directory, { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return []; throw error; }
   return (await Promise.all(entries.filter(entry => entry.name !== '__pycache__').map(async entry => {
     const path = resolve(directory, entry.name);
     return entry.isDirectory() ? pythonFiles(path, root) : entry.name.endsWith('.py') ? [relative(root, path).split(sep).join('/')] : [];
@@ -32,6 +34,7 @@ export async function validateCadRelease(root) {
   const release = JSON.parse(await readFile(resolve(root, 'output/review/cad_release.json'), 'utf8'));
   if (release.schema_version !== 1 || !release.validation_commands?.length) throw new Error('Missing CAD validation provenance.');
   const sources = [...await pythonFiles(resolve(root, 'src'), root), ...await pythonFiles(resolve(root, 'checks'), root),
+    ...await pythonFiles(resolve(root, 'analysis'), root),
     'requirements.txt', 'web/scripts/generate-plan-svg.py'].sort();
   if (JSON.stringify(sources) !== JSON.stringify(Object.keys(release.sources).sort())) throw new Error('CAD source set changed; regenerate CAD before publishing.');
   for (const section of ['sources', 'artifacts']) {

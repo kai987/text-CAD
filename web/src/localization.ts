@@ -69,6 +69,8 @@ const zh = {
       sitePdf: { title: '外构与基础补充 PDF', detail: '独立 A3 日文补充图，包含场地配置、基础及入口标高说明。' },
       pdf: { title: '两层 A3 图纸', detail: '日文图纸，1:50、A3 横向；打印选择实际尺寸。' },
       manifest: { title: '方案参数与假设', detail: '记录演示尺寸、房间净面积和待定项。' },
+      spaceReview: { title: '空间与动线分析 JSON', detail: '{drawing} 几何面积、门与房间关联、检修梯操作限制和计算来源；不是结构或法规认证。' },
+      spaceReviewMarkdown: { title: '空间与动线分析报告', detail: '中文 Markdown 报告，可阅读面积统计与检修梯展开限制；不是无障碍通行、承重或法规合格证明。' },
     } },
   assumptions: houseAssumptions.zh,
 };
@@ -131,6 +133,8 @@ const ja: Messages = {
       sitePdf: { title: '外構・基礎補足図 PDF', detail: '独立したA3日本語補足図。敷地配置、基礎と入口の高さを説明します。' },
       pdf: { title: '2階分のA3図面', detail: '日本語図面、縮尺1:50・A3横。印刷時は実際のサイズを選択してください。' },
       manifest: { title: '計画パラメータと仮定条件', detail: 'デモ寸法、室内有効面積、未確定事項を記録しています。' },
+      spaceReview: { title: '空間・動線分析 JSON', detail: '{drawing}の幾何学的面積、建具と室の関連、点検はしごの操作制約と計算元。構造・法規の認証ではありません。' },
+      spaceReviewMarkdown: { title: '空間・動線分析レポート', detail: '面積統計と点検はしご展開時の制約を確認できる中国語Markdown。通行・耐荷力・法規適合の証明ではありません。' },
     } },
   assumptions: houseAssumptions.ja,
 };
@@ -190,6 +194,8 @@ const en: Messages = {
       sitePdf: { title: 'Supplementary site and foundation PDF', detail: 'A separate A3 Japanese drawing showing the site layout, foundation and entrance levels.' },
       pdf: { title: 'Both floors on A3 sheets', detail: 'Japanese drawings, 1:50, A3 landscape. Print at actual size.' },
       manifest: { title: 'Parameters and assumptions', detail: 'Records demonstration dimensions, net room areas and unresolved details.' },
+      spaceReview: { title: 'Space and circulation analysis JSON', detail: '{drawing} geometric areas, door and room relationships, ladder operation limits and calculation provenance. Not structural or regulatory certification.' },
+      spaceReviewMarkdown: { title: 'Space and circulation report', detail: 'Chinese Markdown report of area statistics and deployed ladder constraints. Not a clearance, load-capacity or code-compliance certificate.' },
     } },
   assumptions: houseAssumptions.en,
 };

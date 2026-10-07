@@ -4,7 +4,7 @@ import unittest
 
 from analysis.house_review import (
     VALUES, assess_case, build_report, elastic_beam, input_template,
-    load_sources, space_review,
+    circulation_review, load_sources, markdown, space_review,
 )
 
 
@@ -167,12 +167,122 @@ class ModelReviewTests(unittest.TestCase):
         self.assertIsNone(report["structural_capacity_result"])
         self.assertIsNone(report["statutory_compliance_result"])
         self.assertEqual(report["source_binding"], self.binding)
+        self.assertIsNone(report["circulation"]["statutory_egress_result"])
+        self.assertIn("展开期间的同时通行", markdown(report))
 
     def test_incomplete_system_specific_schema_rejected(self):
         template = input_template(self.data[1], self.binding)
         del template["system_specific_inputs"]["S"]["local_and_global_buckling"]
         with self.assertRaises(ValueError):
             build_report(self.data, self.binding, template)
+
+
+class CirculationReviewTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        data, _ = load_sources()
+        cls.plan, cls.model = data[0], data[2]
+
+    def test_current_saved_portals_and_reproducible_room_paths(self):
+        result = circulation_review(self.plan, self.model)
+        self.assertFalse(result["conflicts"])
+        self.assertEqual(sum(len(f["doors"]) for f in result["floors"]), 14)
+        self.assertTrue(all(d["full_width_room_adjacency"] for f in result["floors"] for d in f["doors"]))
+        self.assertEqual(result["floors"][0]["room_paths"]["bath"],
+                         ["outside", "foyer", "ldk", "wash", "bath"])
+        self.assertEqual(result["floors"][1]["room_paths"]["master"], ["stairs", "hall", "master"])
+        self.assertIsNone(result["statutory_egress_result"])
+
+    def test_missing_door_is_not_replaced_by_declared_room_connectivity(self):
+        plan = copy.deepcopy(self.plan)
+        plan["floors"][0]["doors"] = [d for d in plan["floors"][0]["doors"] if d["id"] != "D04"]
+        result = circulation_review(plan, self.model)
+        self.assertEqual(result["floors"][0]["unreachable_rooms"], ["bath"])
+        self.assertTrue(any(c["kind"] == "unreachable_room" for c in result["conflicts"]))
+
+    def test_full_width_adjacency_detects_portal_that_only_has_valid_midpoint(self):
+        plan = copy.deepcopy(self.plan)
+        door = next(d for d in plan["floors"][1]["doors"] if d["id"] == "D21")
+        door["start"] = 3800  # Midpoint 4175 is inside both rooms; endpoint 4550 is outside.
+        result = circulation_review(plan, self.model)
+        measured = next(d for d in result["floors"][1]["doors"] if d["id"] == "D21")
+        self.assertFalse(measured["full_width_room_adjacency"])
+        self.assertAlmostEqual(measured["sides"][0]["room_coverage_mm"]["hall"], 480)
+        self.assertTrue(any(c["kind"] == "door_room_adjacency" for c in result["conflicts"]))
+
+    def test_wrong_declared_rooms_do_not_create_spurious_graph_edge(self):
+        plan = copy.deepcopy(self.plan)
+        next(d for d in plan["floors"][0]["doors"] if d["id"] == "D04")["b"] = "wc"
+        result = circulation_review(plan, self.model)
+        self.assertEqual(result["floors"][0]["unreachable_rooms"], ["bath"])
+        self.assertTrue(any(c["kind"] == "door_room_adjacency" for c in result["conflicts"]))
+
+    def test_furniture_envelope_in_portal_is_reported_without_capacity_or_width_claim(self):
+        model = copy.deepcopy(self.model)
+        sofa = next(o for o in model["furnishings"][0]["objects"] if o["id"] == "sofa")
+        door = next(d for d in self.plan["floors"][0]["doors"] if d["id"] == "D02")
+        sofa["footprint_mm"] = [door["start"], door["at"]-40, door["start"]+300, door["at"]+40]
+        result = circulation_review(self.plan, model)
+        measured = next(d for d in result["floors"][0]["doors"] if d["id"] == "D02")
+        self.assertEqual(measured["furniture_envelope_overlaps"][0]["envelope_overlap_mm2"], 24000)
+        self.assertTrue(any(c["kind"] == "door_furniture_envelope_overlap" for c in result["conflicts"]))
+        self.assertIsNone(result["statutory_egress_result"])
+
+    def test_attic_access_containment_and_deployed_operation_restriction_measured(self):
+        result = circulation_review(self.plan, self.model)
+        access = result["attic_access"]
+        self.assertTrue(all(v == 0 for k, v in access.items() if k.endswith("_mm2")))
+        self.assertAlmostEqual(access["deployed_operation_occupied_hall_projection_m2"], .8430484945625423)
+        scans = access["deployed_hall_vertical_cross_sections"]
+        self.assertEqual(scans[-1]["remaining_span_lengths_mm"], [150, 150])
+        self.assertEqual(scans[0]["remaining_span_lengths_mm"], [125, 1025])
+        self.assertIsNone(access["simultaneous_hall_passage_result"])
+        self.assertIsNone(access["headroom_and_ladder_product_safety_result"])
+
+    def test_hatch_outside_hall_is_not_hidden_by_valid_deck_area(self):
+        model = copy.deepcopy(self.model)
+        bounds = model["attic"]["hatch_bounds_mm"]
+        bounds[1] -= 1000
+        bounds[4] -= 1000
+        result = circulation_review(self.plan, model)
+        self.assertEqual(result["attic_access"]["hatch_outside_F2_hall_mm2"], 780000)
+        self.assertTrue(any(c["id"] == "attic/hatch_outside_F2_hall_mm2" for c in result["conflicts"]))
+
+    def test_disconnected_ladder_landing_envelope_is_reported_without_crashing(self):
+        model = copy.deepcopy(self.model)
+        bounds = model["attic"]["ladder"]["bottom_landing_bounds_mm"]
+        bounds[0] -= 2200
+        bounds[2] -= 2200
+        result = circulation_review(self.plan, model)
+        self.assertGreater(result["attic_access"]["bottom_landing_outside_F2_hall_mm2"], 0)
+        self.assertTrue(result["conflicts"])
+
+    def test_vertical_room_shift_reports_projection_misalignment(self):
+        plan = copy.deepcopy(self.plan)
+        room = next(r for r in plan["floors"][1]["rooms"] if r["id"] == "wc")
+        room["polygon_mm"] = [[x+20, y] for x, y in room["polygon_mm"]]
+        result = circulation_review(plan, self.model)
+        self.assertEqual(result["vertical_coordination"]["wc"]["lower_projection_outside_upper_mm2"], 36400)
+        self.assertTrue(any(c["kind"] == "projection_misalignment" for c in result["conflicts"]))
+
+    def test_invalid_saved_dimensions_and_door_identity_rejected(self):
+        for invalid in (True, float("nan"), -1):
+            plan = copy.deepcopy(self.plan)
+            plan["floors"][0]["doors"][0]["width"] = invalid
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                circulation_review(plan, self.model)
+        plan = copy.deepcopy(self.plan)
+        plan["floors"][0]["doors"][1]["id"] = plan["floors"][0]["doors"][0]["id"]
+        with self.assertRaises(ValueError):
+            circulation_review(plan, self.model)
+        model = copy.deepcopy(self.model)
+        model["furnishings"][0]["objects"][0]["footprint_mm"][2] = float("inf")
+        with self.assertRaises(ValueError):
+            circulation_review(self.plan, model)
+        model = copy.deepcopy(self.model)
+        model["furnishings"].pop()
+        with self.assertRaises(ValueError):
+            circulation_review(self.plan, model)
 
 
 if __name__ == "__main__":

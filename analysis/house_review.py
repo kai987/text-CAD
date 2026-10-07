@@ -1,4 +1,4 @@
-"""Read-only, source-bound area review and limited elastic beam calculator.
+"""Read-only, source-bound space/relationship review and elastic beam calculator.
 
 This companion tool does not edit CAD, choose engineering loads/materials, or
 determine structural capacity, statutory floor area or regulatory compliance.
@@ -7,13 +7,14 @@ from __future__ import annotations
 
 import argparse
 import copy
+from collections import deque
 import hashlib
 import json
 import math
 from pathlib import Path
 import sys
 
-from shapely.geometry import Polygon, box
+from shapely.geometry import LineString, Polygon, box
 from shapely.ops import unary_union
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -215,6 +216,208 @@ def space_review(plan, model):
                             "No efficiency grade or W/S/RC net-area equivalence is inferred"]}
 
 
+def projected_bounds(bounds, name, dimensions=4):
+    """Validate saved axis-aligned bounds without treating them as a solid."""
+    if not isinstance(bounds, (list, tuple)) or len(bounds) != dimensions or any(
+        isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
+        for x in bounds
+    ):
+        raise ValueError(f"Invalid {name} bounds")
+    end = dimensions // 2
+    if any(bounds[i + end] <= bounds[i] for i in range(end)):
+        raise ValueError(f"Nonpositive {name} bounds")
+    return box(bounds[0], bounds[1], bounds[end], bounds[end + 1])
+
+
+def line_parts(geometry):
+    if geometry.geom_type == "LineString":
+        return [geometry] if geometry.length > 1e-6 else []
+    return [part for child in getattr(geometry, "geoms", ()) for part in line_parts(child)]
+
+
+def polygon_parts(geometry):
+    if geometry.geom_type == "Polygon":
+        return [geometry]
+    return [part for child in getattr(geometry, "geoms", ()) for part in polygon_parts(child)]
+
+
+def circulation_review(plan, model):
+    """Measure saved plan relationships; do not infer usable width or egress.
+
+    Door side lines are 2 mm beyond the assumed wall face, consistent with the
+    existing CAD topology check. Furniture records are rectangular envelopes,
+    not precise solids. No normative minimum width is introduced here.
+    """
+    if plan.get("units") != "mm" or model.get("units") != "mm":
+        raise ValueError("Circulation source units must be mm")
+    p = plan["parameters"]
+    outline = box(0, 0, number(p["width"], "width"), number(p["depth"], "depth"))
+    external = number(p["external_wall"], "external_wall")
+    internal = number(p["internal_wall"], "internal_wall")
+    floors, floor_shapes, conflicts = [], {}, []
+    furniture = {1: [], 2: []}
+    furnishing_floors = set()
+    for group in model["furnishings"]:
+        if group.get("model") != "house" or group.get("units") != "mm" or \
+                group.get("floor") not in furniture or group["floor"] in furnishing_floors:
+            raise ValueError("Unexpected furniture model, floor or units")
+        furnishing_floors.add(group["floor"])
+        for obj in group["objects"]:
+            shape = projected_bounds(obj["footprint_mm"], "furniture")
+            furniture[group["floor"]].append((obj, shape))
+    if furnishing_floors != {1, 2}:
+        raise ValueError("Missing saved furniture envelope group for a floor")
+    for floor in sorted(plan["floors"], key=lambda f: f["floor"]):
+        n = floor["floor"]
+        if n not in furniture or n in floor_shapes:
+            raise ValueError("Circulation requires distinct floors 1 and 2")
+        rooms = {r["id"]: Polygon(r["polygon_mm"]) for r in floor["rooms"]}
+        if len(rooms) != len(floor["rooms"]) or any(not s.is_valid or s.is_empty for s in rooms.values()):
+            raise ValueError("Invalid or duplicate circulation room polygons")
+        floor_shapes[n] = rooms
+        graph = {rid: set() for rid in rooms}
+        graph["outside"] = set()
+        portals, ids, furniture_containment = [], set(), []
+        object_ids = set()
+        for obj, shape in furniture[n]:
+            key = (obj["room"], obj["id"])
+            if key in object_ids or obj["room"] not in rooms:
+                raise ValueError("Unknown room or duplicate furniture identity")
+            object_ids.add(key)
+            outside_area = shape.difference(rooms[obj["room"]]).area
+            item = {"id": obj["id"], "room": obj["room"],
+                    "envelope_outside_assigned_room_mm2": outside_area}
+            furniture_containment.append(item)
+            if outside_area > .01:
+                conflicts.append({"id": f"F{n}/furniture/{obj['room']}/{obj['id']}",
+                                  "kind": "envelope_outside_assigned_room", "evidence": item})
+        for door in floor["doors"]:
+            did, a, b, axis = door["id"], door["a"], door["b"], door["axis"]
+            if did in ids or a not in graph or b not in graph or a == b or axis not in {"h", "v"}:
+                raise ValueError("Invalid/duplicate door identity, rooms or axis")
+            ids.add(did)
+            width = number(door["width"], f"{did}.width")
+            start, at = door["start"], door["at"]
+            if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
+                   for x in (start, at)):
+                raise ValueError(f"Invalid door coordinates: {did}")
+            thickness = external if {a, b} & {"outside", "balcony"} else internal
+            sides = []
+            for sign in (-1, 1):
+                coordinate = at + sign * (thickness / 2 + 2)
+                segment = LineString([(start, coordinate), (start + width, coordinate)]) if axis == "h" else \
+                    LineString([(coordinate, start), (coordinate, start + width)])
+                coverage = {rid: segment.intersection(shape).length for rid, shape in rooms.items()}
+                coverage = {rid: length for rid, length in coverage.items() if length > 1e-6}
+                if not coverage and segment.disjoint(outline):
+                    coverage["outside"] = width
+                owners = sorted(rid for rid, length in coverage.items() if abs(length - width) < 1e-6)
+                sides.append({"normal_sign": sign, "full_width_owners": owners,
+                              "room_coverage_mm": coverage})
+            adjacent = all(len(side["full_width_owners"]) == 1 for side in sides) and \
+                sorted(side["full_width_owners"][0] for side in sides) == sorted([a, b])
+            opening = box(start, at-thickness/2, start+width, at+thickness/2) if axis == "h" else \
+                box(at-thickness/2, start, at+thickness/2, start+width)
+            overlaps = [{"id": obj["id"], "room": obj["room"],
+                         "envelope_overlap_mm2": opening.intersection(shape).area}
+                        for obj, shape in furniture[n] if opening.intersection(shape).area > .01]
+            item = {"id": did, "declared_rooms": [a, b], "kind": door["kind"],
+                    "nominal_aperture_width_mm": width, "sides": sides,
+                    "full_width_room_adjacency": adjacent,
+                    "furniture_envelope_overlaps": overlaps}
+            portals.append(item)
+            if not adjacent:
+                conflicts.append({"id": f"F{n}/{did}", "kind": "door_room_adjacency", "evidence": item})
+            else:
+                graph[a].add(b)
+                graph[b].add(a)
+            if overlaps:
+                conflicts.append({"id": f"F{n}/{did}", "kind": "door_furniture_envelope_overlap",
+                                  "evidence": overlaps})
+        origin = "outside" if n == 1 else "stairs"
+        if origin not in graph:
+            raise ValueError("Missing floor circulation origin")
+        paths, queue = {origin: [origin]}, deque([origin])
+        while queue:
+            parent = queue.popleft()
+            for target in sorted(graph[parent]):
+                if target not in paths:
+                    paths[target] = paths[parent] + [target]
+                    queue.append(target)
+        unreachable = sorted(set(rooms) - set(paths))
+        if unreachable:
+            conflicts.append({"id": f"F{n}/room_graph", "kind": "unreachable_room",
+                              "evidence": {"origin": origin, "rooms": unreachable}})
+        floors.append({"floor": n, "origin": origin, "doors": portals,
+                       "room_paths": {rid: paths[rid] for rid in sorted(rooms) if rid in paths},
+                       "unreachable_rooms": unreachable,
+                       "furniture_envelopes_examined": len(furniture[n]),
+                       "furniture_envelope_containment": furniture_containment})
+    if set(floor_shapes) != {1, 2}:
+        raise ValueError("Circulation requires both floors")
+    vertical = {}
+    for rid in ("stairs", "wc"):
+        if any(rid not in rooms for rooms in floor_shapes.values()):
+            raise ValueError(f"Missing vertical coordination room: {rid}")
+        lower, upper = floor_shapes[1][rid], floor_shapes[2][rid]
+        vertical[rid] = {"lower_projection_outside_upper_mm2": lower.difference(upper).area,
+                         "upper_projection_outside_lower_mm2": upper.difference(lower).area,
+                         "projection_bounds_equal": lower.bounds == upper.bounds}
+        # F1 under-stair storage intentionally removes part of the stair room.
+        if lower.difference(upper).area > .01 or (rid == "wc" and upper.difference(lower).area > .01):
+            conflicts.append({"id": f"vertical/{rid}", "kind": "projection_misalignment",
+                              "evidence": vertical[rid]})
+    attic, hall = model["attic"], floor_shapes[2]["hall"]
+    deck = projected_bounds(attic["deck_bounds_mm"], "attic deck", 6)
+    hatch = projected_bounds(attic["hatch_bounds_mm"], "attic hatch", 6)
+    ladder = attic["ladder"]
+    deployed = projected_bounds(ladder["deployed_plan_bounds_mm"], "deployed ladder")
+    bottom = projected_bounds(ladder["bottom_landing_bounds_mm"], "ladder bottom landing")
+    upper = projected_bounds(ladder["upper_landing_bounds_mm"], "ladder upper landing")
+    access = {"hatch_outside_deck_mm2": hatch.difference(deck).area,
+              "hatch_outside_F2_hall_mm2": hatch.difference(hall).area,
+              "deployed_ladder_outside_F2_hall_mm2": deployed.difference(hall).area,
+              "bottom_landing_outside_F2_hall_mm2": bottom.difference(hall).area,
+              "upper_landing_outside_attic_deck_mm2": upper.difference(deck.difference(hatch)).area}
+    for name, area in access.items():
+        if area > .01:
+            conflicts.append({"id": f"attic/{name}", "kind": "access_projection_outside_assigned_space",
+                              "evidence": {"outside_area_mm2": area}})
+    occupied = unary_union([deployed, bottom])
+    free_hall = hall.difference(occupied)
+    # Scan every rectilinear x interval in the saved hall and operation envelope.
+    # Report each interval, rather than claiming a global route clearance.
+    xs = sorted({x for shape in polygon_parts(hall) + polygon_parts(occupied)
+                 for x, _ in shape.exterior.coords})
+    scans = []
+    for left, right in zip(xs, xs[1:]):
+        x = (left + right) / 2
+        line = LineString([(x, -1), (x, p["depth"]+1)])
+        if occupied.intersection(line).length <= 1e-6:
+            continue
+        parts = sorted(line_parts(free_hall.intersection(line)), key=lambda s: s.bounds[1])
+        scans.append({"x_interval_mm": [left, right], "station_x_mm": x,
+                      "remaining_y_spans_mm": [[s.bounds[1], s.bounds[3]] for s in parts],
+                      "remaining_span_lengths_mm": [s.length for s in parts]})
+    access.update({"deployed_operation_occupied_hall_projection_m2": hall.intersection(occupied).area / 1e6,
+                   "deployed_hall_vertical_cross_sections": scans,
+                   "simultaneous_hall_passage_result": None,
+                   "headroom_and_ladder_product_safety_result": None})
+    return {"status": "geometry_relationship_review", "units": "mm",
+            "door_probe_offset_beyond_wall_face_mm": 2,
+            "floors": floors, "vertical_coordination": vertical, "attic_access": access,
+            "conflicts": conflicts, "statutory_egress_result": None,
+            "pending": ["Actual frame clear width, handles, leaf movement and pocket construction",
+                        "Continuous occupied-room routes and all fixed kitchen/bathroom/storage equipment",
+                        "Deployed attic ladder occupies the hall; simultaneous passage and safe operation require design review",
+                        "Stair/hatch headroom, guarding, product selection and structural support",
+                        "Site-specific accessibility, fire and evacuation requirements"],
+            "limitations": ["Room paths are a door-adjacency graph, not collision-free walking paths",
+                            "Furniture checks use saved rectangular envelopes; empty parts of corner sofas and space below tables remain included",
+                            "Cross sections are local vertical line measurements, not minimum route width or a clearance approval",
+                            "Projection coordination does not prove pipe routing or a continuous structural/load path"]}
+
+
 def load_sources(root=ROOT):
     verify(root)  # Refuse stale CAD; never update its provenance.
     data = [json.loads((root / p).read_text()) for p in SOURCE_PATHS]
@@ -280,7 +483,8 @@ def build_report(data, binding, inputs):
             "system_specific_missing_inputs": system_gaps,
             "system_specific_inputs": inputs["system_specific_inputs"],
             "pending_global_checks": GLOBAL_PENDING,
-            "member_cases": [assess_case(c) for c in cases], "space": space_review(plan, model)}
+            "member_cases": [assess_case(c) for c in cases], "space": space_review(plan, model),
+            "circulation": circulation_review(plan, model)}
 
 
 def markdown(report):
@@ -303,6 +507,32 @@ def markdown(report):
         lines += [f"| {r['name']} | {r['polygon_area_m2']:.4f} |" for r in f["rooms"]]
         lines += [f"| {r['name']}（室外，排除） | {r['polygon_area_m2']:.4f} |" for r in f["external_rooms_excluded"]]
         lines += [""]
+    circulation = report["circulation"]
+    lines += ["## 门、房间与阁楼入口关系", "",
+              "读取保存后的CAD清单，沿每个名义洞口的全宽测量墙面外2 mm处的房间覆盖。关联图只表示房间之间存在对应洞口，不代表无障碍通行、门扇操作或疏散合格。门宽未扣除实际门框、把手及安装间隙。", "",
+              "| 楼层 | 洞口 | 关联房间 | 名义宽mm | 全宽对应关系 | 家具包络重叠数 |",
+              "| --- | --- | --- | ---: | --- | ---: |"]
+    for floor in circulation["floors"]:
+        for door in floor["doors"]:
+            relation = "对应" if door["full_width_room_adjacency"] else "冲突"
+            lines.append(f"| {floor['floor']}F | {door['id']} | {' ↔ '.join(door['declared_rooms'])} | {door['nominal_aperture_width_mm']:g} | {relation} | {len(door['furniture_envelope_overlaps'])} |")
+    lines += ["", "房间关联路径：", ""]
+    for floor in circulation["floors"]:
+        for rid, path in floor["room_paths"].items():
+            lines.append(f"- {floor['floor']}F {rid}：{' → '.join(path)}")
+        if floor["unreachable_rooms"]:
+            lines.append(f"- {floor['floor']}F 无关联路径：{', '.join(floor['unreachable_rooms'])}")
+    access = circulation["attic_access"]
+    lines += ["", f"检修梯展开包络与底端站位合计占用二层走廊投影 **{access['deployed_operation_occupied_hall_projection_m2']:.4f}㎡**。以下为占用区域各X区间中点的局部南北向截线，不是连续绕行路径的最小净宽：", "",
+              "| X区间mm | 剩余南北向线段长度mm |", "| --- | --- |"]
+    for scan in access["deployed_hall_vertical_cross_sections"]:
+        lengths = " / ".join(f"{length:.2f}" for length in scan["remaining_span_lengths_mm"]) or "无"
+        lines.append(f"| {scan['x_interval_mm'][0]:.2f}–{scan['x_interval_mm'][1]:.2f} | {lengths} |")
+    lines += ["", "展开期间的同时通行、上下口净高和选定产品安全操作仍待核定。不能因房间关联图连通或局部余留投影存在，就认定检修梯展开时可安全绕行。", "",
+              f"几何关系冲突记录 **{len(circulation['conflicts'])} 项**。阁楼口/上下站位范围、楼梯和厕所的跨层投影差值、每扇门两侧的实际覆盖长度保留在JSON。", ""]
+    if circulation["conflicts"]:
+        lines += ["```json", json.dumps(circulation["conflicts"], ensure_ascii=False, indent=2), "```", ""]
+    lines += ["家具检查采用保存的矩形包络，转角沙发内空及桌下空间也包含在包络中；尚未计入全部厨房、浴室、收纳固定设备，也未模拟门扇开合、人体通行或高度。投影对齐不能证明设备管线、结构支承或传力连续。", ""]
     lines += ["## 承重计算准备", "", f"未填写工程资料 **{len(report['missing_engineering_inputs'])} 项**。", "",
               "| 部位 | 候选简化模型 | 输入状态 |", "| --- | --- | --- |"]
     for case in report["member_cases"]:
@@ -359,6 +589,8 @@ def main():
     paths[1].write_text(markdown(report))
     print(json.dumps({"revision": binding["revision"], "structural_capacity_result": None,
                       "excluding_stairs_ratio_percent": report["space"]["combined"]["excluding_stairs_ratio_percent"],
+                      "circulation_conflict_count": len(report["circulation"]["conflicts"]),
+                      "attic_simultaneous_hall_passage_result": None,
                       "outputs": [str(p) for p in paths]}, ensure_ascii=False))
 
 

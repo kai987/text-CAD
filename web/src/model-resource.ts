@@ -1,3 +1,5 @@
+import { gzipUrl } from './asset-url.ts';
+
 export interface ModelProgress { loaded: number; total: number | null }
 export interface ModelLoadOptions<T> {
   url: string;
@@ -9,6 +11,8 @@ export interface ModelLoadOptions<T> {
   timeoutMs?: number;
   fetcher?: typeof fetch;
   compressed?: boolean;
+  compressedUrl?: string;
+  expectedSha256?: string;
 }
 
 // One deadline covers download and parsing. Cancellation also isolates late decode results.
@@ -50,21 +54,29 @@ export function startModelLoad<T>(options: ModelLoadOptions<T>) {
     }
     return bytes;
   }
+  async function verify(bytes: ArrayBuffer) {
+    if (!options.expectedSha256 || !globalThis.crypto?.subtle) return;
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    const actual = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+    if (actual !== options.expectedSha256) throw new Error('Model checksum does not match this release.');
+  }
   void (async () => {
     let bytes: ArrayBuffer;
     if (options.compressed && typeof DecompressionStream !== 'undefined') {
       try {
-        bytes = await download(`${options.url}.gz`);
+        bytes = await download(options.compressedUrl ?? gzipUrl(options.url));
         const magic = new Uint8Array(bytes, 0, Math.min(bytes.byteLength, 2));
         // Hosts may already decompress a response with Content-Encoding: gzip.
         if (magic[0] === 0x1f && magic[1] === 0x8b) {
           bytes = await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
         }
+        await verify(bytes);
       } catch (error) {
         if (!active || abort.signal.aborted) return;
         bytes = await download(options.url);
+        await verify(bytes);
       }
-    } else bytes = await download(options.url);
+    } else { bytes = await download(options.url); await verify(bytes); }
     if (!active) return;
     const value = await options.parse(bytes);
     if (!active) { options.disposeLate(value); return; }

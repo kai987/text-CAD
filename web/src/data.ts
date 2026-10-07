@@ -1,7 +1,10 @@
 import house from './house-data.json';
+import { artifactUrl, pinnedSourceUrl } from './asset-url';
 export { house };
 export const repository = 'https://github.com/kai987/text-CAD';
-export const asset = (path: string) => `${import.meta.env.BASE_URL}artifacts/${path}`;
+export const asset = (path: string) => artifactUrl(import.meta.env.BASE_URL, path, __CAD_ASSET_HASHES__, __CAD_MANIFEST_HASH__);
+export const assetSha256 = (path: string): string | undefined => __CAD_ASSET_HASHES__[path];
+export const sourceUrl = (path: string, kind: 'blob' | 'tree' = 'blob') => pinnedSourceUrl(repository, __CAD_SOURCE_COMMIT__, path, kind);
 export const downloadFiles = [
   { id: 'glb', path: 'GLB/house_3d.glb', type: 'GLB' },
   { id: 'step', path: 'STEP/house_3d.step', type: 'STEP' },
@@ -17,4 +20,6 @@ export const downloadFiles = [
   { id: 'engineeringSource', path: 'src/lib/engineering_inputs.py', type: 'PY' },
   { id: 'engineering', path: 'output/review/engineering_inputs_R06.json', type: 'JSON' },
   { id: 'manifest', path: 'output/review/design_manifest.json', type: 'JSON' },
+  { id: 'spaceReview', path: 'output/analysis/current/house_review.json', type: 'JSON' },
+  { id: 'spaceReviewMarkdown', path: 'output/analysis/current/house_review.md', type: 'MD' },
 ] as const;

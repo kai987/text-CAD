@@ -1,19 +1,19 @@
 {
-  "revision": "R21",
+  "revision": "R22",
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-07T22:07:40.537014+09:00",
+  "checked_at": "2026-10-07T23:32:52.193378+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "d214b84b02edd3ed41cf64b21ff3bfdead17e1ea622abfbac5b6ea2bd8178486",
-    "DXF/house_2f_plan.dxf": "d22cab9de19d0b913610250389e174e16e8516e4c6e12d361a8960f8a5946b9e",
-    "DXF/001D0PL2-1FPLAN.DXF": "d214b84b02edd3ed41cf64b21ff3bfdead17e1ea622abfbac5b6ea2bd8178486",
-    "DXF/002D0PL2-2FPLAN.DXF": "d22cab9de19d0b913610250389e174e16e8516e4c6e12d361a8960f8a5946b9e",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "a326f9411169cbc78a9dd71c1e43f4552aefb1606f36cb0f0399bc46c5cfc273",
-    "checks/validate_jp_drafting.py": "1a8ce1de4c0f14d186f3b1828fe5d05ea2087e241bf017869489fe0a56c7c2f7",
+    "DXF/house_1f_plan.dxf": "353b77d01d7e3876ed1e1e7b997194d3cf4dbbfc9ee534335a2f57f9f2338f7d",
+    "DXF/house_2f_plan.dxf": "b3b1901128dfdff9e66a16f22a6d40db4bfa69e14874d32137ae094cf723b0bd",
+    "DXF/001D0PL2-1FPLAN.DXF": "353b77d01d7e3876ed1e1e7b997194d3cf4dbbfc9ee534335a2f57f9f2338f7d",
+    "DXF/002D0PL2-2FPLAN.DXF": "b3b1901128dfdff9e66a16f22a6d40db4bfa69e14874d32137ae094cf723b0bd",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "6bb0153451094f00040724f863cba8cfd232b235637bf9da876ca0c88e44d117",
+    "checks/validate_jp_drafting.py": "721d37816f2da85e6135dd96ddbf2df9d3306e2e00edf4f9357a4130912959be",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
-    "src/lib/jp_sheet.py": "8d1def8e7ee3234cb8d03dad78469d73a65f35cce8d8cf411ac53dbdf6c5b14c"
+    "src/lib/jp_sheet.py": "06d978024d5b946eaa1ac376ff2e2a093aaedf6ab142a214b875cbb1d3c6cd4e"
   },
   "summary": {
     "checks": 222,
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "d214b84b02edd3ed41cf64b21ff3bfdead17e1ea622abfbac5b6ea2bd8178486",
-        "canonical_sha256": "d214b84b02edd3ed41cf64b21ff3bfdead17e1ea622abfbac5b6ea2bd8178486"
+        "alias_sha256": "353b77d01d7e3876ed1e1e7b997194d3cf4dbbfc9ee534335a2f57f9f2338f7d",
+        "canonical_sha256": "353b77d01d7e3876ed1e1e7b997194d3cf4dbbfc9ee534335a2f57f9f2338f7d"
       },
       "floor": 1
     },
@@ -1138,9 +1138,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R21",
+        "REVISION": "R22",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R21階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R22階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 1
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "d22cab9de19d0b913610250389e174e16e8516e4c6e12d361a8960f8a5946b9e",
-        "canonical_sha256": "d22cab9de19d0b913610250389e174e16e8516e4c6e12d361a8960f8a5946b9e"
+        "alias_sha256": "b3b1901128dfdff9e66a16f22a6d40db4bfa69e14874d32137ae094cf723b0bd",
+        "canonical_sha256": "b3b1901128dfdff9e66a16f22a6d40db4bfa69e14874d32137ae094cf723b0bd"
       },
       "floor": 2
     },
@@ -2305,9 +2305,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R21",
+        "REVISION": "R22",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R21階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R22階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 2

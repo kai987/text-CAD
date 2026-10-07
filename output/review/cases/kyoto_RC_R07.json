@@ -1501,7 +1501,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R21-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R22-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Kyoto City current handbook, General 5-6, p48-51",

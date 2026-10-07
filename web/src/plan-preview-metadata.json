@@ -2,7 +2,7 @@
   "version": 1,
   "source": {
     "path": "output/pdf/house_floor_plans_R10_JP.pdf",
-    "sha256": "a326f9411169cbc78a9dd71c1e43f4552aefb1606f36cb0f0399bc46c5cfc273",
+    "sha256": "6bb0153451094f00040724f863cba8cfd232b235637bf9da876ca0c88e44d117",
     "pages": 2
   },
   "generator": {
@@ -22,8 +22,8 @@
       "floor": 1,
       "page": 1,
       "path": "output/vector/house_1f_plan.svg",
-      "bytes": 420173,
-      "sha256": "0f5a213d718040b7eb5dac7de57602c7e98f0b59ede242c201d1c60792e570ac",
+      "bytes": 418332,
+      "sha256": "79679c37ad45d309de648c274b0ce91beb46530c80861ef8e54ca54fb4235d4a",
       "fullViewBox": [
         0,
         0,
@@ -113,9 +113,9 @@
           "text": "洗面",
           "bounds": [
             411.02359,
-            241.452057,
+            234.365448,
             421.228302,
-            246.554413
+            239.467804
           ]
         },
         {
@@ -511,8 +511,8 @@
       "floor": 2,
       "page": 2,
       "path": "output/vector/house_2f_plan.svg",
-      "bytes": 397654,
-      "sha256": "200bec56cd6dc8c6f6cb0bb4bdbd48cb49a3a37d13d1906ccefd8c9bf14763e4",
+      "bytes": 399306,
+      "sha256": "c3891de1584a50c221bc3e12b4d33256d6dd798f6a70bb8cd44c75eec126e113",
       "fullViewBox": [
         0,
         0,

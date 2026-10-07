@@ -1,5 +1,11 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R22 Bathroom fixtures and sliding doors
+
+Show upstairs sliding doors closed, retaining tracks and pulls. Use the same 600×450 mm vanity and mirror in the F1 washroom as upstairs. The 1820 mm tub outer length reaches both clear east/west wall faces; move its shower and mixer to the east wall near the south-east tub corner. Keep R21 attic access and lighting positions. All dimensions are illustrative; waterproofing, plumbing and products remain undesigned.
+
+[中文 / 日本語 / English](docs/bathroom_R22.md)
+
 ## R21 F2 basin and attic access coordination
 
 Centre the F2 basin on its 800 mm wall with 100 mm at each end. Two 750 mm bedroom sliders now show retracted leaves, tracks and pulls. Shift the attic hatch 535 mm west, retaining 100 mm to the west deck edge; coordinate floor/ceiling openings and access/framing parts. Relocate the hall pendant and add a vanity wall light, bringing the indoor total to 16. All dimensions and lighting remain illustrative.
@@ -8,7 +14,7 @@ Centre the F2 basin on its 800 mm wall with 100 mm at each end. Two 750 mm bedro
 
 ## Engineering preparation and space review
 
-A read-only tool adds unfilled inputs for LDK beams, the unsupported balcony and attic framing, limited elastic simple/cantilever beam calculations, and source-bound area recomputation. R21 indoor assigned projection excluding stairs is 95.5102 m², or 80.09% of the two-floor exterior-outline projection. This is neither statutory floor area nor furniture-free walkable area. Building capacity and compliance remain unassessed; RC requires a dedicated model. CAD exports are R21.
+A read-only tool adds unfilled inputs for LDK beams, the unsupported balcony and attic framing, limited elastic simple/cantilever beam calculations, and source-bound area recomputation. R22 indoor assigned projection excluding stairs is 95.5102 m², or 80.09% of the two-floor exterior-outline projection. This is neither statutory floor area nor furniture-free walkable area. Building capacity and compliance remain unassessed; RC requires a dedicated model. CAD exports are R22.
 
 [中文 / 日本語 / English guide](analysis/README.md) · [Current analysis report (Chinese)](output/analysis/current/house_review.md)
 
@@ -16,7 +22,7 @@ A read-only tool adds unfilled inputs for LDK beams, the unsupported balcony and
 
 Restore one centred north ridge post, flanked by two 200×450 mm fixed aluminium louvers (total gross apertures 0.18 m²). Reflect the deployed ladder, lid, hinges and guardrail entry about the existing hatch centre, retaining the hatch position. Python also retains an offset 300×600 mm single-opening alternative. Opening counts in Osaka and other jurisdictions remain unconfirmed; this is not approval for paired vents. Structure and safe operation remain undesigned. This paragraph records the historical R20 scheme. [R20 / 中文 / 日本語 / English](docs/attic_layout_R20.md).
 
-R20 and earlier sections are historical. R21 describes the current exports.
+R20 and earlier sections are historical. R22 describes the current exports.
 
 ## R19 Attic opening references
 

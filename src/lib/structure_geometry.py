@@ -364,7 +364,7 @@ def structure_manifest(p,g,t=T):
             "columns":column_layout(p,t),"beam_axes":_beam_segments(p,t),
             "floor_beam_axes":{f"F{n}":floor_beam_segments(n,p,t) for n in (1,2)},
             "bearing_wall_candidates":bearing_wall_candidates(p,t),"foundation_support_axes":foundation_support_segments(p),
-            "roof_posts":{"north_vent_transfer_frame":"R21 single centred north ridge post retained; vertical vents flank the post; uncalculated", "gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
+            "roof_posts":{"north_vent_transfer_frame":"R22 single centred north ridge post retained; vertical vents flank the post; uncalculated", "gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
                           "purlin_x":[d["deck_left"]-t.roof_purlin_width/2,d["deck_right"]+t.roof_purlin_width/2],
                           "middle_y":dimensions(p)["sy"]-p.internal_wall/2},
             "capacity_results":None,"statutory_compliance_result":None,"material_grade":None,

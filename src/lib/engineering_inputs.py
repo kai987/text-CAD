@@ -4,7 +4,7 @@ from __future__ import annotations
 
 def engineering_inputs(p, g):
     return {
-        "revision": "R21", "units": "mm; forces kN; distributed loads kN/m2",
+        "revision": "R22", "units": "mm; forces kN; distributed loads kN/m2",
         "status": "demonstration only; no structural calculations or permit determination",
         "confirmed_intent": {"main_storeys": 2, "attic_use": "storage only",
                              "candidate_system": "timber post-and-beam"},

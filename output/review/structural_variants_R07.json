@@ -28,6 +28,7 @@
     "balcony_left": 0,
     "balcony_width": 8190,
     "entrance_canopy": false,
+    "bedroom_sliders_open": false,
     "balcony_depth": 1000,
     "balcony_supports": false,
     "south_living_window_width": 2100,

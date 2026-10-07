@@ -1,4 +1,4 @@
-"""Generate a supplemental editable attic plan from the same R21 parameters.
+"""Generate a supplemental editable attic plan from the same R22 parameters.
 
 The approved R02 two-floor sheets are not rewritten. Units are millimetres;
 all attic dimensions and storage purpose are demonstration assumptions.
@@ -29,7 +29,7 @@ def generate():
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420*mm, 297*mm))
-    pdf.setTitle('小屋裏収納 補足計画図 R21 / Low storage attic demonstration')
+    pdf.setTitle('小屋裏収納 補足計画図 R22 / Low storage attic demonstration')
     pdf.setAuthor('text-CAD')
     drawing = Drawing(pdf)
     # Paper dash lengths × 50: setup's inch-based defaults are too short here.
@@ -37,14 +37,14 @@ def generate():
     drawing.doc.linetypes.new('ATTIC_HEIGHT', dxfattribs={'description':'1/1 mm at 1:50', 'pattern':[100,50,-50]})
     drawing.doc.linetypes.new('ATTIC_RIDGE', dxfattribs={'description':'3/1/0.5/1 mm at 1:50', 'pattern':[275,150,-50,25,-50]})
     drawing.doc.header['$PSLTSCALE'] = 0
-    drawing.doc.ezdxf_metadata()['REVISION'] = 'R21-ATTIC'
+    drawing.doc.ezdxf_metadata()['REVISION'] = 'R22-ATTIC'
     drawing.doc.ezdxf_metadata()['SCOPE'] = '低天井の収納補足デモ。所在地未定、法定面積・構造安全は未確定。'
     d = attic_dimensions(P, G)
     m = attic_manifest(P, G)
     x0, x1 = d['deck_left'], d['deck_right']
     y0, y1 = A.deck_end_inset, P.depth - A.deck_end_inset
     hatch = (A.hatch_x, A.hatch_y, d['hatch_right'], d['hatch_north'])
-    drawing.text('小屋裏収納 補足計画図 / R21', (0, 10800), 250, align='left')
+    drawing.text('小屋裏収納 補足計画図 / R22', (0, 10800), 250, align='left')
     drawing.text('単位 mm / A3・1:50 / 全寸法はデモ仮定 / 2026-10-07', (0, 10300), 125, align='left')
     drawing.mirror_width=P.width
     drawing.rect((0, 0, P.width, P.depth), 'WALL')

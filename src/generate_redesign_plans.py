@@ -83,11 +83,13 @@ def draw(g,f):
             face_offset=71 if f.number==2 and door.id in ('D21','D23') else 30
             if door.axis=='h':
                 g.line((s,a+10),(s+w,a+10),'DOOR')
-                g.line((parked,a+face_offset),(parked+w,a+face_offset),'DOOR')
+                shown=s if f.number==2 and door.id in ('D21','D23') and not P.bedroom_sliders_open else parked
+                g.line((shown,a+face_offset),(shown+w,a+face_offset),'DOOR')
                 label=(s+w/2,a-175)
             else:
                 g.line((a-10,s),(a-10,s+w),'DOOR')
-                g.line((a-face_offset,parked),(a-face_offset,parked+w),'DOOR')
+                shown=s if f.number==2 and door.id in ('D21','D23') and not P.bedroom_sliders_open else parked
+                g.line((a-face_offset,shown),(a-face_offset,shown+w),'DOOR')
                 label=(a-450,s+w/2)
                 if door.id=='D04':label=(a+450,s+300)
             g.text(f'{door.id} / {w:.0f} 引戸',label,125)
@@ -134,12 +136,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R21 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R22 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n,canonical(P));draw_pdf_sheet(c,f)
         g=Drawing(c);g.mirror_width=P.width if P.mirror_layout else None;g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R21階段下収納・4人家具・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R22階段下収納・4人家具・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

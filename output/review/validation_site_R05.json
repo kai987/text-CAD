@@ -1,5 +1,5 @@
 {
-  "revision": "R21-3D",
+  "revision": "R22-3D",
   "units": "native STEP mm; GLB m/Y-up",
   "summary": {
     "checks": 725,
@@ -26,8 +26,8 @@
     {
       "check": "revision:house_R10_with_site_R11",
       "pass": true,
-      "actual": "R21-3D",
-      "expected": "R21-3D"
+      "actual": "R22-3D",
+      "expected": "R22-3D"
     },
     {
       "check": "R10:house_and_balcony_labels_present",

@@ -114,7 +114,7 @@ def run():
                 seen.add(target);todo.append(target)
         check(prefix+'all_rooms_reachable',set(rooms)<=seen,{'reachable':sorted(seen)})
         if f.number==2:
-            check('R21/balcony_from_both_bedrooms',all('balcony' in graph[r] for r in ('master','bed2')),{k:sorted(v) for k,v in graph.items()})
+            check('R22/balcony_from_both_bedrooms',all('balcony' in graph[r] for r in ('master','bed2')),{k:sorted(v) for k,v in graph.items()})
         # Independent occupied-room routes; 600 mm demonstration corridor swept
         # around the centreline. This is not an accessibility or legal test.
         routes=([('entry_stairs',[(6800,950),(6800,3100),(6560,3700),(6560,4500)]),
@@ -174,14 +174,14 @@ def run():
     second_rooms={r.id:r for r in floors[1].rooms}
     for f in floors:
         wc=next(r for r in f.rooms if r.id=='wc')
-        check(f'R21/F{f.number}/WC_south_wall_flush_with_washroom',wc.shape.bounds[1]==first_rooms['wash'].shape.bounds[1],wc.shape.bounds)
-        check(f'R21/F{f.number}/WC_clear_900x1820',abs(wc.area-1.638)<1e-8,wc.area)
-    check('R21/open_wardrobe_in_master','closet' not in second_rooms and abs(second_rooms['master'].area-14.76)<1e-8,second_rooms['master'].shape.bounds)
+        check(f'R22/F{f.number}/WC_south_wall_flush_with_washroom',wc.shape.bounds[1]==first_rooms['wash'].shape.bounds[1],wc.shape.bounds)
+        check(f'R22/F{f.number}/WC_clear_900x1820',abs(wc.area-1.638)<1e-8,wc.area)
+    check('R22/open_wardrobe_in_master','closet' not in second_rooms and abs(second_rooms['master'].area-14.76)<1e-8,second_rooms['master'].shape.bounds)
     new_doors={d.id:d for d in floors[1].doors}
-    check('R21/master_door_at_hall_corner',new_doors['D21'].axis=='v' and new_doors['D21'].at==4360 and new_doors['D21'].start==3480 and new_doors['D21'].width==750,new_doors['D21'].__dict__)
-    check('R21/north_bedroom_door_at_hall_corner',new_doors['D23'].axis=='h' and new_doors['D23'].at==4330 and new_doors['D23'].start==3510 and new_doors['D23'].width==750,new_doors['D23'].__dict__)
-    check('R21/no_enclosed_closet_door','D24' not in new_doors,list(new_doors))
-    check('R21/bedrooms_still_separate',not second_rooms['master'].shape.intersects(second_rooms['bed3'].shape),True)
+    check('R22/master_door_at_hall_corner',new_doors['D21'].axis=='v' and new_doors['D21'].at==4360 and new_doors['D21'].start==3480 and new_doors['D21'].width==750,new_doors['D21'].__dict__)
+    check('R22/north_bedroom_door_at_hall_corner',new_doors['D23'].axis=='h' and new_doors['D23'].at==4330 and new_doors['D23'].start==3510 and new_doors['D23'].width==750,new_doors['D23'].__dict__)
+    check('R22/no_enclosed_closet_door','D24' not in new_doors,list(new_doors))
+    check('R22/bedrooms_still_separate',not second_rooms['master'].shape.intersects(second_rooms['bed3'].shape),True)
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
     check('R10/balcony_left_fixed',dimensions()['bx']==0,dimensions()['bx'])
     check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)

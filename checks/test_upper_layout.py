@@ -1,4 +1,4 @@
-"""R21 upper-floor coordination: actual source solids, not engineering approval."""
+"""R22 upper-floor coordination: actual source solids, not engineering approval."""
 import sys
 import unittest
 from pathlib import Path
@@ -13,6 +13,28 @@ from shapely.geometry import box
 
 
 class UpperLayoutTests(unittest.TestCase):
+    def test_bath_fills_clear_room_span_and_shower_is_at_east_south_corner(self):
+        from lib.fixture_geometry import fixture_group
+        floor=floor_plan(1);bath=next(r for r in floor.rooms if r.id=='bath')
+        tub=next(b for name,b in floor.fixtures if name=='浴槽')
+        self.assertEqual((tub[0],tub[2]),(bath.shape.bounds[0],bath.shape.bounds[2]))
+        group=next(g for g in fixture_group(floor,P).children if g.label.endswith('_bath'))
+        rim=next(s for s in group.children if s.label.endswith(':tub_rim_ceramic')).bounding_box()
+        self.assertAlmostEqual(rim.min.X,tub[0],places=3)
+        self.assertAlmostEqual(rim.max.X,tub[2],places=3)
+        head=next(s for s in group.children if s.label.endswith(':shower_head_chrome')).bounding_box()
+        self.assertGreater((head.min.X+head.max.X)/2,tub[2]-200)
+        self.assertLess((head.min.Y+head.max.Y)/2,tub[1]+200)
+
+    def test_first_and_second_floor_vanities_use_identical_parts(self):
+        from lib.fixture_geometry import fixture_group
+        layouts=[floor_plan(n) for n in (1,2)]
+        groups=[next(g for g in fixture_group(f,P).children if g.label.endswith('_vanity')) for f in layouts]
+        fixtures=[next(b for name,b in f.fixtures if name in ('洗面','手洗い')) for f in layouts]
+        self.assertEqual(sorted((fixtures[0][2]-fixtures[0][0],fixtures[0][3]-fixtures[0][1])),[450,600])
+        volumes=[{s.label.split(':')[-1]:s.volume for s in g.children} for g in groups]
+        self.assertEqual(volumes[0].keys(),volumes[1].keys())
+        for name in volumes[0]:self.assertAlmostEqual(volumes[0][name],volumes[1][name],places=3)
     def test_relocated_trimmers_do_not_duplicate_regular_joists(self):
         from lib.structure_geometry import _attic_members, structure_dimensions, T
         q=canonical(P)
@@ -29,7 +51,7 @@ class UpperLayoutTests(unittest.TestCase):
         self.assertAlmostEqual(d['ym']-q.toilet_depth-q.internal_wall-b[3],100)
         self.assertEqual(b[3]-b[1],600)
 
-    def test_two_bedroom_sliders_are_retracted_clear_of_openings(self):
+    def test_two_bedroom_sliders_are_closed_along_their_openings(self):
         floor=floor_plan(2);doors=door_group(floor,P,G)
         leaves={s.label:s for s in doors.children}
         for ident in ('D21','D23'):
@@ -38,7 +60,11 @@ class UpperLayoutTests(unittest.TestCase):
             self.assertIn(f'F2:{ident}_slide_track',leaves)
             b=leaves[f'F2:{ident}_door_slide'].bounding_box()
             footprint=box(b.min.X,b.min.Y,b.max.X,b.max.Y)
-            self.assertLess(footprint.intersection(door.opening(P.internal_wall)).area,.001)
+            start,end=(b.min.X,b.max.X) if door.axis=='h' else (b.min.Y,b.max.Y)
+            self.assertAlmostEqual(start,door.start+5)
+            self.assertAlmostEqual(end,door.start+door.width-5)
+            self.assertLess(footprint.intersection(door.opening(P.internal_wall)).area,.001,
+                            'face-mounted door stays outside wall thickness')
             self.assertTrue(any(r.shape.covers(footprint) for r in floor.rooms if r.id in (door.a,door.b)))
 
     def test_hatch_west_wall_gap_and_hall_lamp_clearance(self):

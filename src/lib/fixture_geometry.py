@@ -94,7 +94,8 @@ def _bath(w, d, prefix, model_id):
     # the long tapered inner loft at R09's new bath dimensions.
     cavity = _round(w-130,d-135,450,100,cx,cy,130)
     parts.append(_named(outer.cut(cavity), prefix+':tub_shell_ceramic', 'ceramic'))
-    rim = _round(w-8, d-8, 32, 102, cx, cy, 518).cut(cavity)
+    # House tub ends reach the two clear wall faces; apartment is unchanged.
+    rim = _round(w if model_id=='house' else w-8, d-8, 32, 102, cx, cy, 518).cut(cavity)
     parts.append(_named(rim, prefix+':tub_rim_ceramic', 'ceramic'))
     parts.append(_named(_cylinder(26, 4, cx-w*.26, cy, 131), prefix+':drain_chrome', 'chrome'))
     # Put the standing shower rail near the end, clear of the house bath high window.
@@ -104,6 +105,14 @@ def _bath(w, d, prefix, model_id):
     parts.append(_named(rail, prefix+':shower_rail_chrome', 'chrome'))
     parts.append(_named(_cylinder(47, 13, sx, sy-100, 1767), prefix+':shower_head_chrome', 'chrome'))
     parts.append(_named(_cylinder(39, 3, sx, sy-100, 1763), prefix+':shower_face_dark', 'dark'))
+    if model_id=='house':
+        # Canonical west becomes world east after the house mirror. Rotate the
+        # complete mixer/rail/head toward the bath, near its south-east corner.
+        pivot=bd.Axis((sx,sy,0),(0,0,1))
+        for index in range(3,len(parts)):
+            leaf=parts[index];label,color=leaf.label,leaf.color
+            shifted=leaf.rotate(pivot,90).moved(bd.Location((34-sx,130-sy,0)))
+            shifted.label,shifted.color=label,color;parts[index]=shifted
     return parts
 
 
@@ -125,7 +134,10 @@ def _vanity(w, d, prefix, model_id):
     outer_cut = _round(basin_w+4, basin_d+4, 220, 65, cx, cy, 610)
     parts.append(_named(countertop.cut(outer_cut), prefix+':counter_ceramic', 'ceramic'))
     bowl = _round_sections([(basin_w-110, basin_d-100, 50, 650), (basin_w, basin_d, 68, 820)], cx, cy)
-    hollow = _round_sections([(basin_w-153, basin_d-143, 40, 667), (basin_w-48, basin_d-48, 60, 829)], cx, cy)
+    # Straight rounded inner walls give the compact house basin a robust STEP
+    # cavity in both orientations. The tapered loft failed after F1 reflection.
+    hollow = (_round(basin_w-153,basin_d-143,180,40,cx,cy,667) if model_id=='house'
+              else _round_sections([(basin_w-153, basin_d-143, 40, 667), (basin_w-48, basin_d-48, 60, 829)], cx, cy))
     parts.append(_named(bowl.cut(hollow), prefix+':basin_ceramic', 'ceramic'))
     parts.append(_named(_cylinder(21, 4, cx, cy, 668), prefix+':drain_chrome', 'chrome'))
     _faucet(parts, prefix, cx, d-40, 821, reach=95, rise=165)

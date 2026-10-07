@@ -167,9 +167,9 @@ def door_group(floor, p=P, g=G):
         if door.kind == 'open':
             continue
         if floor.number==2 and door.id in ('D21','D23') and door.kind=='slide':
-            # Fully retracted face-mounted sliders. Keep each opening clear;
-            # the travel position agrees with the editable plan symbol.
-            start=door.start+door.direction*door.width
+            # Closed face-mounted sliders, aligned with the door opening.
+            # Retain the full travel rail so the parked position stays editable.
+            start=door.start+(door.direction*door.width if p.bedroom_sliders_open else 0)
             offset=(p.internal_wall/2+g.door_leaf_thickness/2+3)
             if door.axis=='v' and not getattr(p,'mirror_layout',False):offset=-offset
             at=door.at+offset
@@ -424,7 +424,7 @@ def geometry_manifest(p=P, g=G):
     from .indoor_lighting import indoor_lighting_manifest
     indoor=indoor_lighting_manifest(p,g)
     return {
-        "revision": "R21-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R22-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -443,16 +443,16 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
-            "R21玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-            "R21四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-            "R21按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+            "R22玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+            "R22四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+            "R22按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
             "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧两扇换气窗各200×450 mm、窗台距阁楼底板650 mm，均为演示假设，排烟、通风和承载未设计。",
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "R21左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+            "R22左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
             "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
-            "门洞高2100 mm；门扇厚36 mm；二层D21/D23以墙面外挂式推拉门完全打开位置表达，其余门采用关闭示意，五金与承载未选型。",
+            "门洞高2100 mm；门扇厚36 mm；二层D21/D23以墙面外挂式推拉门关闭位置表达，其余门采用关闭示意，五金与承载未选型；一楼洗面台与二楼同为600×450 mm盆柜/镜子；浴缸东西端抵内墙、喷头在东墙浴缸东南角，防水与给排水未设计。",
             "南侧客厅落地窗窗台0/高2200 mm，二层两扇阳台双扇推拉门高2100 mm、宽1600/1800 mm；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
             "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",

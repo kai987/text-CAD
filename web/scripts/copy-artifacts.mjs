@@ -2,14 +2,17 @@ import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
+await validateCadRelease(root);
 // Fail before publishing if the approved PDF was changed without regenerating SVG.
 const vectorPlans = await validatePlanPreviews(root);
 const apartmentPlans = await validateApartmentPreviews(root);
 export const artifacts = [
+  'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
   'DXF/001D0PL2-1FPLAN.DXF', 'DXF/002D0PL2-2FPLAN.DXF',
   'DXF/house_attic_plan.dxf', 'output/pdf/house_attic_plan_R06_JP.pdf',

@@ -20,7 +20,9 @@ from lib.jp_drafting import REVISION, SCALE, STANDARD, SOURCE_URL, LAYERS, PENS_
 from lib.jp_sheet import add_paper_layout, draw_pdf_sheet
 
 ROOT=Path(__file__).resolve().parents[1]
-FONT=Path('/System/Library/Fonts/Supplemental/Arial Unicode.ttf')
+# CI artifact validation needs no font; authoring may select any licensed CJK TTF.
+import os
+FONT=Path(os.environ.get('TEXT_CAD_CJK_FONT', '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
 COLORS={key:'#000000' for key in LAYERS}
 
 

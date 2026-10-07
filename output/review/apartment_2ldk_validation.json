@@ -1,7 +1,7 @@
 {
   "summary": {
-    "checks": 514,
-    "passed": 514,
+    "checks": 515,
+    "passed": 515,
     "failed": 0,
     "STEP_leaf_occurrences": 183,
     "areas": {
@@ -2402,9 +2402,18 @@
       "actual": null
     },
     {
+      "check": "GLB:numeric_mesh_audit",
+      "pass": true,
+      "actual": {
+        "vertex_count": 144632,
+        "triangle_count": 247584,
+        "degenerate_count": 0
+      }
+    },
+    {
       "check": "GLB:metre_bound_0",
       "pass": true,
-      "actual": 0
+      "actual": 0.0
     },
     {
       "check": "GLB:metre_bound_1",

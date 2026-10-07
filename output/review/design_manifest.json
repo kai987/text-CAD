@@ -26,6 +26,9 @@
     "entrance_canopy": false,
     "balcony_depth": 1000,
     "balcony_supports": false,
+    "south_living_window_width": 2100,
+    "south_master_window_width": 1600,
+    "south_bedroom_window_width": 1800,
     "south_window_sill": 0,
     "south_window_height": 2200,
     "balcony_rail_thickness": 100

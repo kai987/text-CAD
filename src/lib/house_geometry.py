@@ -32,6 +32,8 @@ class GeometryParameters:
     roof_pitch_degrees: float = 30
     roof_vertical_thickness: float = 150
     landing_thickness: float = 200
+    shoe_cabinet_height: float = 1800
+    storage_cabinet_height: float = 2000
 
 
 G = GeometryParameters()
@@ -292,7 +294,7 @@ def storage_group(floor, p=P):
         if name not in ("靴収納", "収納", "食品棚", "収納棚", "食品収納", "衣類棚", "CL", "リネン"):
             continue
         x1, y1, x2, y2 = bounds
-        height = 1800 if name == "靴収納" else 2000
+        height = G.shoe_cabinet_height if name == "靴収納" else G.storage_cabinet_height
         storage.append(cuboid((x1, y1, z, x2, y2, z+height),
                                 f"F{floor.number}:storage_{i:02d}", "storage"))
     return bd.Compound(children=storage, label=f"F{floor.number}:storage_fixtures")

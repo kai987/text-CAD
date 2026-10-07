@@ -4,6 +4,9 @@ import {
   NoToneMapping, PCFShadowMap,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import type { GLTF } from 'three/addons/loaders/GLTFLoader.js';
+import { startModelLoad } from './model-resource';
+import type { ModelProgress } from './model-resource';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Material, MeshStandardMaterial } from 'three';
@@ -21,7 +24,11 @@ import type { StructuralOverlayState, StructuralSystem } from './structural-desi
 import { createOutdoorLighting, nightScenePalette } from './scene-lighting';
 import { createGeometryWorkerClient } from './geometry-worker-client';
 
+export interface ViewerCameraState { mode: 'iso' | 'top'; position: number[]; target: number[]; up: number[]; zoom: number }
+
 export interface HouseViewer {
+  captureCamera: () => ViewerCameraState | null;
+  restoreCamera: (state: ViewerCameraState) => void;
   apply: (settings: ModelSettings, selectionName?: string | null) => void;
   camera: (mode: 'iso' | 'top') => void;
   select: (name: string | null) => void;
@@ -49,7 +56,9 @@ function disposeObject(root: Object3D, disposeTextures = false) {
 export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: () => void,
   onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light',
   layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb',
-  onOverlayState: (state: StructuralOverlayState) => void = () => {}): HouseViewer {
+  onOverlayState: (state: StructuralOverlayState) => void = () => {},
+  onProgress: (progress: ModelProgress) => void = () => {},
+  onContextRestored: () => void = () => {}): HouseViewer {
   let theme = initialTheme;
   const outlineMaterials = new Set<LineBasicMaterial>();
   function createOutlineMaterial(opacity = 0.55) {
@@ -93,6 +102,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   controls.maxPolarAngle = Math.PI * 0.94;
   controls.listenToKeyEvents(renderer.domElement);
   let disposed = false;
+  let contextUnavailable = false;
   let frame = 0;
   let root: Object3D | undefined;
   let settings = settingsForPreset(layout.defaultPreset, layout);
@@ -117,7 +127,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let cameraInitialized = false;
   function draw() {
     frame = 0;
-    if (disposed || !host.clientWidth || !host.clientHeight) return;
+    if (disposed || contextUnavailable || !host.clientWidth || !host.clientHeight) return;
     controls.update(); renderer.render(scene, camera);
     renderer.domElement.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
   }
@@ -477,8 +487,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   renderer.domElement.addEventListener('pointerup', pointerUp);
   renderer.domElement.addEventListener('pointercancel', pointerCancel);
   renderer.domElement.addEventListener('keydown', keyDown);
-  function contextLost(event: Event) { event.preventDefault(); onError(); }
+  function contextLost(event: Event) {
+    event.preventDefault(); contextUnavailable = true; cancelAnimationFrame(frame); frame = 0; onError();
+  }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
+  renderer.domElement.addEventListener('webglcontextrestored', onContextRestored);
   if (!useTypeScript) {
     geometryWorker = createGeometryWorkerClient({ onFailure: () => {
       if (disposed) return;
@@ -497,7 +510,13 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       capHeight = null; apply(settings, selectedName);
     }).catch(() => { /* onFailure installs the TypeScript fallback. */ });
   }
-  new GLTFLoader().load(asset(glbPath), gltf => {
+  const modelUrl = new URL(asset(glbPath), location.href);
+  const modelLoad = startModelLoad<GLTF>({
+    url: modelUrl.href, onProgress,
+    parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', modelUrl).href),
+    disposeLate: gltf => disposeObject(gltf.scene, true),
+    onError: () => { if (!disposed) onError(); },
+    onLoad: gltf => {
     if (disposed) { disposeObject(gltf.scene, true); return; }
     root = gltf.scene;
     cadObjects = bindCadNodes(gltf);
@@ -512,18 +531,27 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       groupObjects.set(group.id, object);
     }
     scene.add(root); outdoorLighting.register(root); apply(settings); fit(); onReady();
-  }, undefined, () => { if (!disposed) onError(); });
+    },
+  });
   resize();
   return {
+    captureCamera: () => root ? ({ mode, position: camera.position.toArray(), target: controls.target.toArray(), up: camera.up.toArray(), zoom: camera.zoom }) : null,
+    restoreCamera(state) {
+      mode = state.mode;
+      camera.position.fromArray(state.position); controls.target.fromArray(state.target); camera.up.fromArray(state.up);
+      camera.zoom = state.zoom; camera.updateProjectionMatrix(); controls.update(); requestRender();
+    },
     apply,
     select,
     setTheme,
     setStructure,
     camera(next) { mode = next; fit(); },
     dispose() {
-      disposed = true; cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();
-      capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); wallOutlines.clear();
+      disposed = true; modelLoad.cancel();
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
+      renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored);
+      cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();
+      capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); wallOutlines.clear();
       renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', pointerMove);
       renderer.domElement.removeEventListener('pointerup', pointerUp);

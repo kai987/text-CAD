@@ -284,3 +284,17 @@ The official `@dxf` output contract targets manufacturing geometry and converts 
 ## Further design work
 
 These files form a parametric concept model. The actual site, structural system, wall and roof assemblies, door and window products, sliding-door pockets, stair handrails, and building services require further design. The model cannot be used as construction drawings until the relevant professional checks are complete.
+
+### CAD release checks and model recovery
+
+The geometry revision remains R13. Building, room, balcony and opening positions are preserved. Key measurements in all three languages are rendered from exported model parameters, including storage heights, stairs, floor-height glazing, wall thicknesses and clear balcony area.
+
+- Rebuild the current house/apartment catalog and validate it: `.venv/bin/python src/cad_pipeline.py --regenerate`.
+- Check source/output provenance before validating saved artifacts: `.venv/bin/python src/cad_pipeline.py --validate`.
+- Fast publication freshness check: `python3 src/cad_release.py`.
+
+`output/review/cad_release.json` records source/output hashes, tools, font and completed generation/validation steps. Web builds reject stale CAD after source changes, and Pages deployment depends on CAD validation. Runtime timestamps in validation reports are excluded from artifact binding. Configure a licensed CJK TTF with `TEXT_CAD_CJK_FONT=/absolute/path/CJK.ttf`; the existing macOS font remains the default. Saved-artifact checks do not require the authoring font, but regenerating drawings does. R05/R06/R10 download paths remain compatibility aliases; the title blocks and manifests identify the actual revision.
+
+The main model reports download progress and enforces a 60-second deadline across download and parsing. Failures offer retry; cancelled requests and late decode results are discarded. After WebGL recovery, the viewer rebuilds while preserving its camera, component visibility, section, day/night and structural choices. An uninitialized camera from an initial download failure is not restored.
+
+These checks establish concept geometry, file consistency and viewer behavior. They do not certify structural capacity, regulatory compliance or construction readiness.

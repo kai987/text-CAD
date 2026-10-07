@@ -31,7 +31,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
   const [overlayAttempt, setOverlayAttempt] = useState(0);
   const [selection, setSelection] = useState<ModelSelection | null>(null);
   const [cameraRequest, setCameraRequest] = useState({ mode: 'iso' as 'iso' | 'top', seq: 0 });
-  const onReady = useCallback((value: boolean) => { setReady(value); if (!value) setSelection(null); }, []);
+  const onReady = useCallback((value: boolean) => { setReady(value); }, []);
   useEffect(() => {
     if (layout.id === 'house') history.replaceState(null, '', structuralDesignUrl(location.href, design));
   }, [layout.id, design]);

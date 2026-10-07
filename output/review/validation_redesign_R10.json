@@ -1434,8 +1434,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "f2feb92d72ab4bdb86b60873d74f43a65b62073f43c06c35d447afdbd663cba2",
-    "DXF/house_redesign_R10_1f.dxf": "6e9a8e63c00682ca199ba179c2feb8a93242495c15edb6e75e22eb09daadce3a",
-    "DXF/house_redesign_R10_2f.dxf": "a6cbfcb37d4448e1d2668147b427b3af4617afc6db8bc8009d6d7808a5fbd161"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "8688ef483a94cd4a99239114a6962281941a32cc7d12c3650a75aed762b14d0b",
+    "DXF/house_redesign_R10_1f.dxf": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9",
+    "DXF/house_redesign_R10_2f.dxf": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b"
   }
 }

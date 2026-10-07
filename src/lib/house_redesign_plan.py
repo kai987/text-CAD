@@ -35,6 +35,9 @@ class RedesignParameters:
     entrance_canopy: bool = False
     balcony_depth: float = 1000
     balcony_supports: bool = False
+    south_living_window_width: float = 2100
+    south_master_window_width: float = 1600
+    south_bedroom_window_width: float = 1800
     south_window_sill: float = 0
     south_window_height: float = 2200
     balcony_rail_thickness: float = 100
@@ -121,7 +124,7 @@ def floor_plan(number, p=P):
                Door('O01','ldk','wc_hall','h',sy-t/2,wcl,900,'open'),
                Door('D05','wc_hall','wc','h',ym-p.toilet_depth-t/2,wcl+100,700,'swing',-1),
                Door('O02','ldk','stairs','h',sy-t/2,sx,900,'open')]
-        windows=[('h',e/2,650,2100),('v',e/2,1700,1800),
+        windows=[('h',e/2,650,p.south_living_window_width),('v',e/2,1700,1800),
                  ('h',ym+e/2,700,600),('h',ym+e/2,3000,900),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
         fixtures=[('靴収納',(xm-400,350,xm,1450)),
@@ -155,7 +158,7 @@ def floor_plan(number, p=P):
                Door('D25','wc_hall','wc','h',ym-p.toilet_depth-t/2,wcl+100,700,'swing',-1),
                Door('O22','hall','stairs','h',sy-t/2,sx+p.stair_width+t,900,'open'),
                Door('D26','hall','balcony','h',e/2,p.access_left+50,800,'swing',-1)]
-        windows=[('h',e/2,650,1600),('h',e/2,5200,1800),
+        windows=[('h',e/2,650,p.south_master_window_width),('h',e/2,5200,p.south_bedroom_window_width),
                  ('v',e/2,700,1200),('h',ym+e/2,650,1800),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
         fixtures=[('ベッド 1400',(430,950,2430,2350)),

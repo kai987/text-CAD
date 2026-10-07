@@ -407,7 +407,7 @@ def geometry_manifest(p=P, g=G):
     from .indoor_lighting import indoor_lighting_manifest
     indoor=indoor_lighting_manifest(p,g)
     return {
-        "revision": "R18-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R19-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -426,12 +426,12 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
-            "R18玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-            "R18四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-            "R18按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+            "R19玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+            "R19四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+            "R19按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
             "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "R18左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+            "R19左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
             "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",

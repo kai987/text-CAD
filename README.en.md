@@ -1,5 +1,9 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R19 Attic opening references
+
+Keep the centered 600 × 300 mm gross aperture (0.18 m²), now a fixed aluminium louver. Tokyo uses a named Edogawa example; Osaka references approximately 0.2 m² and louver specifications. No numerical Kyoto/Nagoya ceiling is invented. Current output is R19; effective ventilation, fire specification and approval remain pending. [R19 / 日本語 / English](docs/attic_opening_rules_R19.md).
+
 ## R18 centred attic north window and lighting
 
 The north attic window moves to the ridge centre. Paired jamb posts, a header and an upper ridge post keep its opening clear in the concept frame. Two short pendants sit below the default 6900 mm attic cut plane and share the Indoor lights switch. Sections, capacity and lighting remain illustrative; current exports are R18. [R18](docs/attic_window_lighting_R18.md).

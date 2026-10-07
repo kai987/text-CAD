@@ -69,3 +69,6 @@
 JSON 中的官方数值是带适用范围和来源的参考资料，不能自动成为某一未选址工程的荷载输入。每个组合应继续保留：实际地址／行政庁、敷地测量、道路性质和宽度、用途地域和面积率、火区及延烧范围、地盘调查、標高和临海／山地条件、材料等级、各用途荷载、抗震目标、计算路线及阁楼取扱。由符合资格和业务范围的日本建筑士据此完成计算、当地咨询、确认申请及施工图。
 
 日文・English summary：R07 は 4 地域 × 3 構造の比較用資料であり、構造計算・確認申請・法適合の判定は未実施です。R07 provides four jurisdiction reference profiles and three structural concepts. No structural capacity, permit eligibility, or site compliance has been determined. All dimensions are demonstration assumptions; locality-specific reference values are not adopted design loads.
+
+
+R19 supplement: [current attic opening references, reviewed 2026-10-07](attic_opening_rules_R19.md). This update records the Aichi prefecture-wide common interpretation alongside Nagoya City rules, and keeps unconfirmed numerical opening treatment unfilled. Earlier R07 statements are historical.

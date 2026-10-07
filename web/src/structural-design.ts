@@ -20,6 +20,10 @@ export interface RegulatoryProfile {
   }>;
   review_items: ReviewItem[];
   pending_site_inputs: (string | ReviewItem)[];
+  attic_opening_review?: {
+    checked_at: string; source_ids: string[]; opening_area_m2: number; width_mm: number; height_mm: number;
+    description: LocalizedText; statutory_compliance_result: null;
+  };
   statutory_compliance_result: null;
 }
 export interface RegulatoryProfiles { revision: string; checked_at: string; national_requirements: ReviewItem[]; profiles: RegulatoryProfile[]; sources: RegulatorySource[] }
@@ -74,6 +78,9 @@ export const systemNames = {
   RC: text('RC造 · 钢筋混凝土', 'RC造 · 鉄筋コンクリート造', 'RC · Reinforced concrete'),
 };
 export const structuralCopy = {
+  atticWindow: text('阁楼换气口核查', '小屋裏換気口の確認', 'Attic ventilation opening review'),
+  atticOpening: text('固定铝百叶 · 墙体洞口', '固定アルミガラリ・壁の開口', 'Fixed aluminium louver · Gross wall aperture'),
+  atticPending: text('有效通风面积、防火规格与审批待核定。', '有効換気面積・防火仕様・確認は未確定。', 'Effective ventilation area, fire specification and approval remain pending.'),
   title: text('结构与法规方案', '構造・法規プラン', 'Structure and regulatory concept'),
   city: text('所在地参考', '地域の参照先', 'Jurisdiction reference'),
   system: text('结构体系', '構造種別', 'Structural system'),

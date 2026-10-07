@@ -1,5 +1,5 @@
 {
-  "revision": "R18-3D",
+  "revision": "R19-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -123,7 +123,7 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R18",
+    "revision": "R19",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
@@ -131,6 +131,10 @@
       "north_vent_height": 300,
       "north_vent_sill": 850,
       "north_vent_offset_from_ridge": 0,
+      "north_vent_blade_count": 6,
+      "north_vent_blade_depth": 24,
+      "north_vent_blade_thickness": 3,
+      "north_vent_blade_angle": 45,
       "deck_width": 3680,
       "deck_end_inset": 200,
       "deck_thickness": 18,
@@ -182,9 +186,21 @@
       7281,
       6768
     ],
-    "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
+    "north_vent_status": "600 x 300 mm fixed aluminium louver; gross opening 0.18 m2; airflow, weather and fire specification pending",
+    "north_vent_opening": {
+      "count": 1,
+      "width_mm": 600,
+      "height_mm": 300,
+      "gross_area_m2": 0.18,
+      "inner_frame_clear_area_m2": 0.1219,
+      "form": "fixed_aluminium_louver",
+      "blade_count": 6,
+      "effective_ventilation_area_m2": null,
+      "certified_free_area_m2": null,
+      "area_basis": "Gross wall aperture including frame; not louver aerodynamic free area"
+    },
     "unchanged": [
-      "R18 coordinated layout; stairwell and WC remain vertically aligned",
+      "R19 coordinated layout; stairwell and WC remain vertically aligned",
       "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
@@ -289,7 +305,7 @@
       "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "R10阁楼采用纯储物用途的演示方案，采用R18重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "R10阁楼采用纯储物用途的演示方案，采用R19重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
       "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
       "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -298,7 +314,8 @@
       "检修梯以展开状态示意，宽600 mm、角度75度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
       "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
       "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
-      "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。"
+      "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
+      "R19北侧居中600×300 mm固定铝百叶，洞口面积0.18㎡；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。"
     ]
   },
   "site": {
@@ -2236,7 +2253,7 @@
       }
     ],
     "roof_posts": {
-      "north_vent_transfer_frame": "R18 centred opening with paired jamb posts, header and upper ridge post; uncalculated",
+      "north_vent_transfer_frame": "R19 centred opening with paired jamb posts, header and upper ridge post; uncalculated",
       "gable_y": [
         90.0,
         7190.0
@@ -2667,7 +2684,7 @@
     ]
   },
   "indoor_lighting": {
-    "revision": "R18",
+    "revision": "R19",
     "fixtures": [
       {
         "id": "indoor_F1_ldk",
@@ -3091,7 +3108,7 @@
       }
     ],
     "assumptions": [
-      "R18室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
+      "R19室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
     ]
   },
   "engineering_status": {
@@ -3102,12 +3119,12 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
-    "R18玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-    "R18四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-    "R18按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+    "R19玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+    "R19四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+    "R19按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
     "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "R18左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+    "R19左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
     "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
@@ -3127,7 +3144,7 @@
     "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R13保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R10阁楼采用纯储物用途的演示方案，采用R18重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R10阁楼采用纯储物用途的演示方案，采用R19重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
     "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -3137,6 +3154,7 @@
     "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
     "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
     "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
+    "R19北侧居中600×300 mm固定铝百叶，洞口面积0.18㎡；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。",
     "R13用地沿用R11，暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
     "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
     "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R10重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
@@ -3157,7 +3175,7 @@
     "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
     "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与5675 mm车辆开口。",
     "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。",
-    "R18室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
+    "R19室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -3558,7 +3576,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 1087,
-    "all_nodes": 1225
+    "named_mesh_nodes": 1092,
+    "all_nodes": 1230
   }
 }

@@ -1,23 +1,23 @@
 {
-  "revision": "R18-3D",
+  "revision": "R19-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 3914,
-    "passed": 3914,
+    "checks": 3950,
+    "passed": 3950,
     "failed": 0,
-    "STEP_leaf_occurrences": 1087,
-    "native_solids": 1103,
-    "GLB_mesh_nodes": 1087,
-    "GLB_all_nodes": 1225
+    "STEP_leaf_occurrences": 1092,
+    "native_solids": 1108,
+    "GLB_mesh_nodes": 1092,
+    "GLB_all_nodes": 1230
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 29761417,
-      "sha256": "27e953b5e23807bca081d0050128c841d22b88bb88b8e42df897eccddef0015f"
+      "bytes": 29850694,
+      "sha256": "2d625dee5e8a1dc4b08e23ee0cca62d76952195ab13b139fba54947fc9db0f65"
     },
     "house_3d.glb": {
-      "bytes": 11818556,
-      "sha256": "b5ef20d0545d94558740cf2af41046d18102297faa0c2d2f1552f9bba4c5faae"
+      "bytes": 11827272,
+      "sha256": "e57523009c37f1d44869c28b4433bce030f204cd55d82bfc86c8d28a666e9556"
     }
   },
   "thresholds": {
@@ -38,7 +38,7 @@
   },
   "attic_test_basis": {
     "source_layout": "approved R10",
-    "new_attic_leaf_count": 45,
+    "new_attic_leaf_count": 50,
     "new_access_leaf_count": 16,
     "purpose": "storage attic concept",
     "deck_storage_projection_area_m2": 24.5384,
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 29761417,
+      "actual": 29850694,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 11818556,
+      "actual": 11827272,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 1087,
+      "actual": 1092,
       "expected": null
     },
     {
@@ -12325,21 +12325,111 @@
       "expected": null
     },
     {
-      "check": "attic:north_vent:open_glass:contains_solid",
+      "check": "attic:north_vent:louver_01:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "attic:north_vent:open_glass:solid_1_valid",
+      "check": "attic:north_vent:louver_01:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "attic:north_vent:open_glass:solid_1_positive_volume",
+      "check": "attic:north_vent:louver_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 1462800.0,
+      "actual": 38160.0,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_02:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_02:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 38160.0,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_03:solid_1_positive_volume",
+      "pass": true,
+      "actual": 38160.0,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_04:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_04:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_04:solid_1_positive_volume",
+      "pass": true,
+      "actual": 38160.0,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_05:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_05:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_05:solid_1_positive_volume",
+      "pass": true,
+      "actual": 38160.0,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_06:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_06:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_06:solid_1_positive_volume",
+      "pass": true,
+      "actual": 38160.0,
       "expected": null
     },
     {
@@ -21097,85 +21187,85 @@
       "expected": null
     },
     {
-      "check": "R18:D26:1:frame_floor_gap_mm",
+      "check": "R19:D26:1:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R18:D26:1:head_elevation_mm",
+      "check": "R19:D26:1:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R18:D26:1:balcony_finish_clear_mm3",
+      "check": "R19:D26:1:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R18:D26:2:frame_floor_gap_mm",
+      "check": "R19:D26:2:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R18:D26:2:head_elevation_mm",
+      "check": "R19:D26:2:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R18:D26:2:balcony_finish_clear_mm3",
+      "check": "R19:D26:2:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R18:D26:two_independent_glazed_leaves",
+      "check": "R19:D26:two_independent_glazed_leaves",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:D27:1:frame_floor_gap_mm",
+      "check": "R19:D27:1:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R18:D27:1:head_elevation_mm",
+      "check": "R19:D27:1:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R18:D27:1:balcony_finish_clear_mm3",
+      "check": "R19:D27:1:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R18:D27:2:frame_floor_gap_mm",
+      "check": "R19:D27:2:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R18:D27:2:head_elevation_mm",
+      "check": "R19:D27:2:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R18:D27:2:balcony_finish_clear_mm3",
+      "check": "R19:D27:2:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R18:D27:two_independent_glazed_leaves",
+      "check": "R19:D27:two_independent_glazed_leaves",
       "pass": true,
       "actual": null,
       "expected": null
@@ -21247,7 +21337,7 @@
       "expected": 175.0
     },
     {
-      "check": "stairs:lower_tread_01:R18_thickness_mm",
+      "check": "stairs:lower_tread_01:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21271,7 +21361,7 @@
       "expected": 350.0
     },
     {
-      "check": "stairs:lower_tread_02:R18_thickness_mm",
+      "check": "stairs:lower_tread_02:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21295,7 +21385,7 @@
       "expected": 525.0
     },
     {
-      "check": "stairs:lower_tread_03:R18_thickness_mm",
+      "check": "stairs:lower_tread_03:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21319,7 +21409,7 @@
       "expected": 700.0
     },
     {
-      "check": "stairs:lower_tread_04:R18_thickness_mm",
+      "check": "stairs:lower_tread_04:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21343,7 +21433,7 @@
       "expected": 875.0
     },
     {
-      "check": "stairs:lower_tread_05:R18_thickness_mm",
+      "check": "stairs:lower_tread_05:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21367,7 +21457,7 @@
       "expected": 1050.0
     },
     {
-      "check": "stairs:lower_tread_06:R18_thickness_mm",
+      "check": "stairs:lower_tread_06:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21391,7 +21481,7 @@
       "expected": 1225.0
     },
     {
-      "check": "stairs:lower_tread_07:R18_thickness_mm",
+      "check": "stairs:lower_tread_07:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21415,7 +21505,7 @@
       "expected": 1575.0
     },
     {
-      "check": "stairs:upper_tread_01:R18_thickness_mm",
+      "check": "stairs:upper_tread_01:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21439,7 +21529,7 @@
       "expected": 1750.0
     },
     {
-      "check": "stairs:upper_tread_02:R18_thickness_mm",
+      "check": "stairs:upper_tread_02:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21463,7 +21553,7 @@
       "expected": 1925.0
     },
     {
-      "check": "stairs:upper_tread_03:R18_thickness_mm",
+      "check": "stairs:upper_tread_03:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21487,7 +21577,7 @@
       "expected": 2100.0
     },
     {
-      "check": "stairs:upper_tread_04:R18_thickness_mm",
+      "check": "stairs:upper_tread_04:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21511,7 +21601,7 @@
       "expected": 2275.0
     },
     {
-      "check": "stairs:upper_tread_05:R18_thickness_mm",
+      "check": "stairs:upper_tread_05:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21535,7 +21625,7 @@
       "expected": 2450.0
     },
     {
-      "check": "stairs:upper_tread_06:R18_thickness_mm",
+      "check": "stairs:upper_tread_06:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21559,187 +21649,187 @@
       "expected": 2625.0
     },
     {
-      "check": "stairs:upper_tread_07:R18_thickness_mm",
+      "check": "stairs:upper_tread_07:R19_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
     },
     {
-      "check": "R18:lower:two_stringers",
+      "check": "R19:lower:two_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:tread_1:supported_by_both_stringers",
+      "check": "R19:lower:tread_1:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_2:supported_by_both_stringers",
+      "check": "R19:lower:tread_2:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_3:supported_by_both_stringers",
+      "check": "R19:lower:tread_3:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_4:supported_by_both_stringers",
+      "check": "R19:lower:tread_4:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_5:supported_by_both_stringers",
+      "check": "R19:lower:tread_5:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_6:supported_by_both_stringers",
+      "check": "R19:lower:tread_6:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:lower:tread_7:supported_by_both_stringers",
+      "check": "R19:lower:tread_7:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:lower:open_riser_gap_mm",
+      "check": "R19:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:two_stringers",
+      "check": "R19:upper:two_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:tread_1:supported_by_both_stringers",
+      "check": "R19:upper:tread_1:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_2:supported_by_both_stringers",
+      "check": "R19:upper:tread_2:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_3:supported_by_both_stringers",
+      "check": "R19:upper:tread_3:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_4:supported_by_both_stringers",
+      "check": "R19:upper:tread_4:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_5:supported_by_both_stringers",
+      "check": "R19:upper:tread_5:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_6:supported_by_both_stringers",
+      "check": "R19:upper:tread_6:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R18:upper:tread_7:supported_by_both_stringers",
+      "check": "R19:upper:tread_7:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R18:upper:open_riser_gap_mm",
+      "check": "R19:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
@@ -21922,7 +22012,7 @@
       "expected": 0
     },
     {
-      "check": "R18:north_attic_vent_centred_x_mm",
+      "check": "R19:north_attic_vent_centred_x_mm",
       "pass": true,
       "actual": 4095.0,
       "expected": 4095.0
@@ -21944,6 +22034,72 @@
       "pass": true,
       "actual": null,
       "expected": null
+    },
+    {
+      "check": "R19:fixed_louver_replaces_glass",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_0:positive",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_0:unobstructed_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R19:louver_gap_1:positive",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_1:unobstructed_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R19:louver_gap_2:positive",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_2:unobstructed_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R19:louver_gap_3:positive",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_3:unobstructed_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R19:louver_gap_4:positive",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R19:louver_gap_4:unobstructed_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
     },
     {
       "check": "R10:named_balcony_present",
@@ -22044,8 +22200,8 @@
     {
       "check": "attic:new_named_leaf_contract",
       "pass": true,
-      "actual": 45,
-      "expected": 45
+      "actual": 50,
+      "expected": 50
     },
     {
       "check": "attic_access:new_named_leaf_contract",
@@ -22562,20 +22718,115 @@
       "expected": 0
     },
     {
-      "check": "attic:north_vent:open_glass:north_facing_window_band",
+      "check": "attic:north_vent:louver_01:north_facing_window_band",
       "pass": true,
       "actual": [
         3830.0,
-        7239.204445042314,
-        6509.284145683,
+        7235.45405845444,
+        6512.620725121,
         4360.0,
-        7310.3239353314675,
-        6734.552914270693
+        7254.5459415464775,
+        6531.712608213037
       ],
       "expected": null
     },
     {
-      "check": "attic:north_vent:open_glass:does_not_enter_existing_roof_mm3",
+      "check": "attic:north_vent:louver_01:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:north_vent:louver_02:north_facing_window_band",
+      "pass": true,
+      "actual": [
+        3830.0,
+        7235.45405845444,
+        6550.954058454,
+        4360.0,
+        7254.5459415464775,
+        6570.045941546037
+      ],
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_02:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:north_vent:louver_03:north_facing_window_band",
+      "pass": true,
+      "actual": [
+        3830.0,
+        7235.45405845444,
+        6589.287391786999,
+        4360.0,
+        7254.545941546478,
+        6608.379274879037
+      ],
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_03:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:north_vent:louver_04:north_facing_window_band",
+      "pass": true,
+      "actual": [
+        3830.0,
+        7235.45405845444,
+        6627.620725121,
+        4360.0,
+        7254.545941546478,
+        6646.712608213038
+      ],
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_04:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:north_vent:louver_05:north_facing_window_band",
+      "pass": true,
+      "actual": [
+        3830.0,
+        7235.454058454439,
+        6665.954058454,
+        4360.0,
+        7254.5459415464775,
+        6685.045941546037
+      ],
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_05:does_not_enter_existing_roof_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "attic:north_vent:louver_06:north_facing_window_band",
+      "pass": true,
+      "actual": [
+        3830.0,
+        7235.45405845444,
+        6704.287391786999,
+        4360.0,
+        7254.5459415464775,
+        6723.379274879037
+      ],
+      "expected": null
+    },
+    {
+      "check": "attic:north_vent:louver_06:does_not_enter_existing_roof_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -23508,8 +23759,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 1087,
-      "expected": 1087
+      "actual": 1092,
+      "expected": 1092
     },
     {
       "check": "GLB:named_groups_retained",
@@ -23545,8 +23796,8 @@
       "check": "GLB:numeric_mesh_audit",
       "pass": true,
       "actual": {
-        "vertex_count": 313200,
-        "triangle_count": 491311,
+        "vertex_count": 313320,
+        "triangle_count": 491371,
         "degenerate_count": 90
       },
       "expected": null

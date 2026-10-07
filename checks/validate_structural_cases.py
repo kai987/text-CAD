@@ -19,6 +19,15 @@ def check(name, condition):
 
 
 profiles = json.loads((REVIEW/"regulatory_profiles_R07.json").read_text())
+house=json.loads((REVIEW/'house_3d_assumptions_R01.json').read_text())
+opening=house['attic']['north_vent_opening']
+check('opening_gross_area_from_parameters',opening['gross_area_m2']==opening['width_mm']*opening['height_mm']/1e6)
+check('current_outline_not_stale',profiles['demonstration_geometry']['outline_mm']==[house['plan_parameters']['width'],house['plan_parameters']['depth']])
+for profile in profiles['profiles']:
+    review=profile['attic_opening_review']
+    check(profile['id']+':opening_matches_geometry',review['opening_area_m2']==opening['gross_area_m2'] and review['opening_form']==opening['form'])
+    check(profile['id']+':opening_not_approved',review['statutory_compliance_result'] is None and review['effective_ventilation_area_m2'] is None)
+    if profile['id'] in ('kyoto','nagoya'):check(profile['id']+':no_invented_numeric_limit',review['area_reference_match'] is None)
 variants = json.loads((REVIEW/"structural_variants_R07.json").read_text())["variants"]
 index = json.loads((REVIEW/"structural_cases_R07.json").read_text())
 expected = {f"{city}_{system}" for city in ("tokyo", "osaka", "kyoto", "nagoya")
@@ -34,10 +43,11 @@ check("unique_official_source_ids", len(source_ids) == len(sources))
 for source in sources:
     host = urlparse(source["url"]).hostname or ""
     check(f"official_source:{source['id']}", host.endswith(".go.jp") or host.endswith(".lg.jp")
-          or host in {"faq.city.nagoya.jp", "www.city.nagoya.jp", "www.city.edogawa.tokyo.jp"})
+          or host in {"faq.city.nagoya.jp", "www.city.nagoya.jp", "www.city.edogawa.tokyo.jp", "www.pref.aichi.jp"})
 for entry in index["cases"]:
     record = json.loads((ROOT/entry["path"]).read_text())
     prefix = entry["id"]
+    check(prefix+":opening_review_parity",record["attic_opening_review"]==record["regulatory_profile"]["attic_opening_review"])
     check(f"{prefix}:saved_id", record["case_id"] == prefix)
     check(f"{prefix}:review_profile", record["regulatory_profile"] == next(p for p in profiles["profiles"] if p["id"] == record["city_id"]))
     check(f"{prefix}:national_design_basis", record["national_regulatory_requirements"] == profiles["national_requirements"])

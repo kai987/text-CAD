@@ -10,6 +10,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from lib.attic_opening_rules import CHECKED_AT, RULES, SOURCES, review_opening
+
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "output/review"
 SYSTEM_CHECKS = {
@@ -54,6 +56,18 @@ def generate():
     structural = json.loads((REVIEW / "structural_variants_R07.json").read_text())
     variants = structural["variants"]
     profiles = regulations["profiles"]
+    house=json.loads((REVIEW / "house_3d_assumptions_R01.json").read_text())
+    attic=house['attic']; opening=attic['north_vent_opening']
+    regulations['attic_opening_checked_at']=CHECKED_AT
+    regulations['attic_opening_revision']='R19'
+    regulations['demonstration_geometry']['outline_mm']=[house['plan_parameters']['width'],house['plan_parameters']['depth']]
+    existing={item['id'] for item in regulations['sources']}
+    regulations['sources'].extend(item for item in SOURCES if item['id'] not in existing)
+    for profile in profiles:
+        profile['attic_opening_rule']=RULES[profile['id']]
+        profile['attic_opening_review']=review_opening(profile['id'],opening['gross_area_m2'],attic['storage_projection_area_m2'],opening['form'])
+        profile['attic_opening_review'].update({'width_mm':opening['width_mm'],'height_mm':opening['height_mm']})
+    (REVIEW / "regulatory_profiles_R07.json").write_text(json.dumps(regulations,ensure_ascii=False,indent=2)+'\n')
     assert {p["id"] for p in profiles} == {"tokyo", "osaka", "kyoto", "nagoya"}
     assert set(variants) == {"W", "S", "RC"}
     destination = REVIEW / "cases"
@@ -89,7 +103,8 @@ def generate():
                     "The same uncalculated material-system geometry is shared across cities. "
                     "Official regional reference parameters are not site-specific design loads. "
                     "Sizing must be recalculated after the actual site and load conditions are known."),
-                "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+                "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+                "attic_opening_review": profile["attic_opening_review"],
                 "architectural_coordination_result": None,
                 "capacity_results": None, "statutory_compliance_result": None,
                 "building_confirmation_result": None,

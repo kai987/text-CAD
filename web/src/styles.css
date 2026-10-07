@@ -362,3 +362,8 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
   .scene-time { min-height: 38px; padding-inline: 9px; font-size: 12px; }
   .scene-outdoor-lights { margin-left: auto; font-size: 12px; }
 }
+
+.attic-opening-review { margin: 12px 0; padding: 12px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
+.attic-opening-review h3 { margin-bottom: 8px; font-size: 13px; }
+.attic-opening-review p { margin: 6px 0; }
+.attic-opening-review small { color: var(--muted); }

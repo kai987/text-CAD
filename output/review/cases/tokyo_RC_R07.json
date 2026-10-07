@@ -214,7 +214,55 @@
       "shinjuku-structure-reference",
       "tokyo-additional-fire",
       "edogawa-attic-reference"
-    ]
+    ],
+    "attic_opening_rule": {
+      "source_ids": [
+        "attic-edogawa-2026"
+      ],
+      "scope": "Edogawa example only; actual Tokyo municipality unspecified",
+      "numeric_kind": "edogawa_any",
+      "ratio_divisor": 20,
+      "absolute_area_m2": 0.6,
+      "required_form": null,
+      "jurisdiction_resolved": false,
+      "description": {
+        "zh": "东京区市町村未定。江户川区参考：换气开口合计小于阁楼床面积1/20，或不超过0.6㎡；仅为该区例，不代表全都。",
+        "ja": "東京の区市町村は未定。江戸川区の参考は換気開口合計が床面積1/20未満、又は0.6㎡以下。他区市町村へ一律適用しない。",
+        "en": "Tokyo municipality is unspecified. Edogawa reference: total ventilation openings below 1/20 of attic floor area OR at most 0.6 m². This example is not a Tokyo-wide rule."
+      }
+    },
+    "attic_opening_review": {
+      "checked_at": "2026-10-07",
+      "scope": "Edogawa example only; actual Tokyo municipality unspecified",
+      "source_ids": [
+        "attic-edogawa-2026"
+      ],
+      "opening_area_m2": 0.18,
+      "opening_count": 1,
+      "opening_form": "fixed_aluminium_louver",
+      "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+      "attic_reference_area_m2": 24.5384,
+      "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+      "area_reference_match": true,
+      "form_reference_match": null,
+      "status": "reference_example_matches_actual_municipality_pending",
+      "actual_confirming_authority": null,
+      "effective_ventilation_area_m2": null,
+      "fire_equipment_specification": null,
+      "statutory_compliance_result": null,
+      "remaining_checks": [
+        "Actual confirming authority and storage-attic classification",
+        "Manufacturer free area, ventilation path, weather/insect protection",
+        "Fire district, spreading-fire exposure and approved opening equipment"
+      ],
+      "description": {
+        "zh": "东京区市町村未定。江户川区参考：换气开口合计小于阁楼床面积1/20，或不超过0.6㎡；仅为该区例，不代表全都。",
+        "ja": "東京の区市町村は未定。江戸川区の参考は換気開口合計が床面積1/20未満、又は0.6㎡以下。他区市町村へ一律適用しない。",
+        "en": "Tokyo municipality is unspecified. Edogawa reference: total ventilation openings below 1/20 of attic floor area OR at most 0.6 m². This example is not a Tokyo-wide rule."
+      },
+      "width_mm": 600,
+      "height_mm": 300
+    }
   },
   "national_regulatory_requirements": [
     {
@@ -1443,7 +1491,39 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "attic_opening_review": {
+    "checked_at": "2026-10-07",
+    "scope": "Edogawa example only; actual Tokyo municipality unspecified",
+    "source_ids": [
+      "attic-edogawa-2026"
+    ],
+    "opening_area_m2": 0.18,
+    "opening_count": 1,
+    "opening_form": "fixed_aluminium_louver",
+    "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+    "attic_reference_area_m2": 24.5384,
+    "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+    "area_reference_match": true,
+    "form_reference_match": null,
+    "status": "reference_example_matches_actual_municipality_pending",
+    "actual_confirming_authority": null,
+    "effective_ventilation_area_m2": null,
+    "fire_equipment_specification": null,
+    "statutory_compliance_result": null,
+    "remaining_checks": [
+      "Actual confirming authority and storage-attic classification",
+      "Manufacturer free area, ventilation path, weather/insect protection",
+      "Fire district, spreading-fire exposure and approved opening equipment"
+    ],
+    "description": {
+      "zh": "东京区市町村未定。江户川区参考：换气开口合计小于阁楼床面积1/20，或不超过0.6㎡；仅为该区例，不代表全都。",
+      "ja": "東京の区市町村は未定。江戸川区の参考は換気開口合計が床面積1/20未満、又は0.6㎡以下。他区市町村へ一律適用しない。",
+      "en": "Tokyo municipality is unspecified. Edogawa reference: total ventilation openings below 1/20 of attic floor area OR at most 0.6 m². This example is not a Tokyo-wide rule."
+    },
+    "width_mm": 600,
+    "height_mm": 300
+  },
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

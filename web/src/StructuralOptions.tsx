@@ -54,13 +54,14 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
   const summary = schemes?.variants[design.system]?.coordination.summary;
   const nationalRequirements = data?.national_requirements.filter(item => item.id !== 'current_timber_rules' || design.system === 'W') ?? [];
   const referencedIds = new Set([
+    ...(profile?.attic_opening_review?.source_ids ?? []),
     ...nationalRequirements.flatMap(item => item.source_ids ?? []),
     ...profile?.review_items.flatMap(item => item.source_ids ?? []) ?? [],
     ...Object.values(profile?.environmental_parameters ?? {}).flatMap(item => item.source_ids ?? []),
   ]);
   const sources = data?.sources.filter(source => referencedIds.has(source.id)) ?? [];
   return <section className={compact ? 'structural-options compact' : 'structural-options'} aria-label={structuralCopy.title[locale]}>
-    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R18</span></h2> : null}
+    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R19</span></h2> : null}
     {showSelectors ? <div className="structural-selectors">
       <div><label htmlFor={`${controlId}-city`}>{structuralCopy.city[locale]}</label>
         <select id={`${controlId}-city`} value={design.city} onChange={event => {
@@ -77,6 +78,14 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
     {!compact ? <>
       <p className="structural-status">{structuralCopy.status[locale]}</p>
       <p className="structural-explanation">{structuralCopy.introduction[locale]}</p>
+      {profile?.attic_opening_review ? <section className="attic-opening-review" aria-label={structuralCopy.atticWindow[locale]}>
+        <h3>{structuralCopy.atticWindow[locale]}</h3>
+        <p><strong>{profile.attic_opening_review.width_mm} × {profile.attic_opening_review.height_mm} mm · {profile.attic_opening_review.opening_area_m2.toFixed(2)} m²</strong></p>
+        <p>{structuralCopy.atticOpening[locale]}</p>
+        <p>{profile.attic_opening_review.description[locale]}</p>
+        <p>{structuralCopy.atticPending[locale]}</p>
+        <small>{structuralCopy.referencesChecked[locale]}: {profile.attic_opening_review.checked_at}</small>
+      </section> : null}
       <StructuralDownloads />
       <details className="structural-details">
         <summary>{structuralCopy.details[locale]}</summary>

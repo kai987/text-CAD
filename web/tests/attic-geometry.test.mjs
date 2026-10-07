@@ -39,7 +39,7 @@ test('the R15 GLB includes named balcony geometry and stores the attic inside th
   assert.ok(meshes.some(node => node.name === 'balcony:slab'));
   assert.ok(meshes.some(node => node.name === 'balcony:drying_rail'));
   assert.equal(meshes.length, manifest.glb_export.named_mesh_nodes);
-  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 45);
+  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 50);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);
   const floor = nodes.get('attic:floor_slab');
   assert.equal(nodes.get('roof:attic_ceiling_slab').parent, floor);

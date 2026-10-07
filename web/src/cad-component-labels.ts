@@ -465,9 +465,9 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
   }
   if (name === 'F2:D26_door_glass') return label('阳台门玻璃', 'バルコニー扉のガラス', 'Balcony door glazing')[locale];
   if (name === 'F2:D24_door_bifold') return label('衣柜折门 D24', '収納折戸 D24', 'Closet bifold door D24')[locale];
-  const vent = /^attic:north_vent:(frame_[1-4]|open_glass|sill)$/.exec(name);
+  const vent = /^attic:north_vent:(frame_[1-4]|louver_0[1-6]|open_glass|sill)$/.exec(name);
   if (vent) {
-    const detail = vent[1] === 'open_glass' ? label('上悬玻璃', '外倒しガラス', 'Top-hung glass') : vent[1] === 'sill' ? windowDetails.sill : windowDetails[vent[1] as keyof typeof windowDetails];
+    const detail = vent[1].startsWith('louver_') ? label('固定铝百叶叶片', '固定アルミガラリ羽根', 'Fixed aluminium louver blade') : vent[1] === 'open_glass' ? label('上悬玻璃', '外倒しガラス', 'Top-hung glass') : vent[1] === 'sill' ? windowDetails.sill : windowDetails[vent[1] as keyof typeof windowDetails];
     return `${label('阁楼北侧换气窗', '小屋裏北側換気窓', 'North attic ventilation window')[locale]} · ${detail[locale]}`;
   }
   const fixed = lookup(componentLabels, name, locale);

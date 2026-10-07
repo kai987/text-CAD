@@ -213,7 +213,55 @@
       "osaka-city-handling-current",
       "osaka-city-attic",
       "osaka-city-fire"
-    ]
+    ],
+    "attic_opening_rule": {
+      "source_ids": [
+        "attic-osaka-2026"
+      ],
+      "scope": "Osaka City storage attic, excluding lofts",
+      "numeric_kind": "approximate_guidance",
+      "approximate_area_m2": 0.2,
+      "project_ceiling_m2": 0.2,
+      "required_form": "fixed_or_movable_louver",
+      "jurisdiction_resolved": true,
+      "description": {
+        "zh": "大阪市1-18(3)：非loft阁楼原则不设开口；换气用途约0.2㎡开口可，建具须固定或可动百叶。本方案自设0.2㎡上限，不将“约”改写为法定硬上限。",
+        "ja": "大阪市1-18(3)：ロフト以外は原則開口不可。換気用約0.2㎡、固定又は可動ガラリ。計画上限0.2㎡は自主設定で、法定の厳密な上限ではない。",
+        "en": "Osaka City 1-18(3): non-loft attic openings are generally restricted; ventilation openings of approximately 0.2 m² use fixed or movable louvers. The 0.2 m² project ceiling is voluntary, not an exact statutory maximum."
+      }
+    },
+    "attic_opening_review": {
+      "checked_at": "2026-10-07",
+      "scope": "Osaka City storage attic, excluding lofts",
+      "source_ids": [
+        "attic-osaka-2026"
+      ],
+      "opening_area_m2": 0.18,
+      "opening_count": 1,
+      "opening_form": "fixed_aluminium_louver",
+      "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+      "attic_reference_area_m2": 24.5384,
+      "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+      "area_reference_match": true,
+      "form_reference_match": true,
+      "status": "within_voluntary_ceiling_for_approximate_guidance",
+      "actual_confirming_authority": null,
+      "effective_ventilation_area_m2": null,
+      "fire_equipment_specification": null,
+      "statutory_compliance_result": null,
+      "remaining_checks": [
+        "Actual confirming authority and storage-attic classification",
+        "Manufacturer free area, ventilation path, weather/insect protection",
+        "Fire district, spreading-fire exposure and approved opening equipment"
+      ],
+      "description": {
+        "zh": "大阪市1-18(3)：非loft阁楼原则不设开口；换气用途约0.2㎡开口可，建具须固定或可动百叶。本方案自设0.2㎡上限，不将“约”改写为法定硬上限。",
+        "ja": "大阪市1-18(3)：ロフト以外は原則開口不可。換気用約0.2㎡、固定又は可動ガラリ。計画上限0.2㎡は自主設定で、法定の厳密な上限ではない。",
+        "en": "Osaka City 1-18(3): non-loft attic openings are generally restricted; ventilation openings of approximately 0.2 m² use fixed or movable louvers. The 0.2 m² project ceiling is voluntary, not an exact statutory maximum."
+      },
+      "width_mm": 600,
+      "height_mm": 300
+    }
   },
   "national_regulatory_requirements": [
     {
@@ -7651,7 +7699,39 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "attic_opening_review": {
+    "checked_at": "2026-10-07",
+    "scope": "Osaka City storage attic, excluding lofts",
+    "source_ids": [
+      "attic-osaka-2026"
+    ],
+    "opening_area_m2": 0.18,
+    "opening_count": 1,
+    "opening_form": "fixed_aluminium_louver",
+    "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+    "attic_reference_area_m2": 24.5384,
+    "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+    "area_reference_match": true,
+    "form_reference_match": true,
+    "status": "within_voluntary_ceiling_for_approximate_guidance",
+    "actual_confirming_authority": null,
+    "effective_ventilation_area_m2": null,
+    "fire_equipment_specification": null,
+    "statutory_compliance_result": null,
+    "remaining_checks": [
+      "Actual confirming authority and storage-attic classification",
+      "Manufacturer free area, ventilation path, weather/insect protection",
+      "Fire district, spreading-fire exposure and approved opening equipment"
+    ],
+    "description": {
+      "zh": "大阪市1-18(3)：非loft阁楼原则不设开口；换气用途约0.2㎡开口可，建具须固定或可动百叶。本方案自设0.2㎡上限，不将“约”改写为法定硬上限。",
+      "ja": "大阪市1-18(3)：ロフト以外は原則開口不可。換気用約0.2㎡、固定又は可動ガラリ。計画上限0.2㎡は自主設定で、法定の厳密な上限ではない。",
+      "en": "Osaka City 1-18(3): non-loft attic openings are generally restricted; ventilation openings of approximately 0.2 m² use fixed or movable louvers. The 0.2 m² project ceiling is voluntary, not an exact statutory maximum."
+    },
+    "width_mm": 600,
+    "height_mm": 300
+  },
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

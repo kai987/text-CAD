@@ -224,7 +224,53 @@
       "kyoto-city-handbook-current",
       "kyoto-city-landscape",
       "kyoto-city-scenic"
-    ]
+    ],
+    "attic_opening_rule": {
+      "source_ids": [
+        "attic-kyoto-current"
+      ],
+      "scope": "Kyoto City current handbook, General 5-6, p48-51",
+      "numeric_kind": "not_stated_in_reviewed_section",
+      "required_form": null,
+      "jurisdiction_resolved": true,
+      "description": {
+        "zh": "京都市現行総5-6所查页未给出窗面积数值上限，且阁楼窗不能计为居室有效采光。保留0.18㎡小型换气口，面积及规格须向主管机关核定。",
+        "ja": "京都市の現行総5-6確認頁に窓面積の数値上限は明記されず、居室の有効採光に算入できない。0.18㎡の小型換気口を保持し、面積・仕様は審査先へ確認。",
+        "en": "The reviewed Kyoto General 5-6 pages state no numerical window-area ceiling and do not count attic windows as habitable-room daylight. Retain the small 0.18 m² vent; confirm area and specification with the authority."
+      }
+    },
+    "attic_opening_review": {
+      "checked_at": "2026-10-07",
+      "scope": "Kyoto City current handbook, General 5-6, p48-51",
+      "source_ids": [
+        "attic-kyoto-current"
+      ],
+      "opening_area_m2": 0.18,
+      "opening_count": 1,
+      "opening_form": "fixed_aluminium_louver",
+      "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+      "attic_reference_area_m2": 24.5384,
+      "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+      "area_reference_match": null,
+      "form_reference_match": null,
+      "status": "numeric_opening_treatment_pending_authority",
+      "actual_confirming_authority": null,
+      "effective_ventilation_area_m2": null,
+      "fire_equipment_specification": null,
+      "statutory_compliance_result": null,
+      "remaining_checks": [
+        "Actual confirming authority and storage-attic classification",
+        "Manufacturer free area, ventilation path, weather/insect protection",
+        "Fire district, spreading-fire exposure and approved opening equipment"
+      ],
+      "description": {
+        "zh": "京都市現行総5-6所查页未给出窗面积数值上限，且阁楼窗不能计为居室有效采光。保留0.18㎡小型换气口，面积及规格须向主管机关核定。",
+        "ja": "京都市の現行総5-6確認頁に窓面積の数値上限は明記されず、居室の有効採光に算入できない。0.18㎡の小型換気口を保持し、面積・仕様は審査先へ確認。",
+        "en": "The reviewed Kyoto General 5-6 pages state no numerical window-area ceiling and do not count attic windows as habitable-room daylight. Retain the small 0.18 m² vent; confirm area and specification with the authority."
+      },
+      "width_mm": 600,
+      "height_mm": 300
+    }
   },
   "national_regulatory_requirements": [
     {
@@ -3880,7 +3926,39 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "attic_opening_review": {
+    "checked_at": "2026-10-07",
+    "scope": "Kyoto City current handbook, General 5-6, p48-51",
+    "source_ids": [
+      "attic-kyoto-current"
+    ],
+    "opening_area_m2": 0.18,
+    "opening_count": 1,
+    "opening_form": "fixed_aluminium_louver",
+    "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
+    "attic_reference_area_m2": 24.5384,
+    "attic_reference_area_status": "Conservative model projection excluding hatch; not approved statutory floor area",
+    "area_reference_match": null,
+    "form_reference_match": null,
+    "status": "numeric_opening_treatment_pending_authority",
+    "actual_confirming_authority": null,
+    "effective_ventilation_area_m2": null,
+    "fire_equipment_specification": null,
+    "statutory_compliance_result": null,
+    "remaining_checks": [
+      "Actual confirming authority and storage-attic classification",
+      "Manufacturer free area, ventilation path, weather/insect protection",
+      "Fire district, spreading-fire exposure and approved opening equipment"
+    ],
+    "description": {
+      "zh": "京都市現行総5-6所查页未给出窗面积数值上限，且阁楼窗不能计为居室有效采光。保留0.18㎡小型换气口，面积及规格须向主管机关核定。",
+      "ja": "京都市の現行総5-6確認頁に窓面積の数値上限は明記されず、居室の有効採光に算入できない。0.18㎡の小型換気口を保持し、面積・仕様は審査先へ確認。",
+      "en": "The reviewed Kyoto General 5-6 pages state no numerical window-area ceiling and do not count attic windows as habitable-room daylight. Retain the small 0.18 m² vent; confirm area and specification with the authority."
+    },
+    "width_mm": 600,
+    "height_mm": 300
+  },
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

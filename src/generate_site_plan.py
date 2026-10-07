@@ -32,7 +32,7 @@ class SiteDrawing(Drawing):
         self.scale = mm / 100
         self.ox, self.oy = 70 * mm, 105 * mm
         metadata = self.doc.ezdxf_metadata()
-        metadata['REVISION'] = 'R18-SITE'
+        metadata['REVISION'] = 'R19-SITE'
         metadata['SCALE'] = '1:100; labelled conceptual foundation section 1:25'
         metadata['SCOPE'] = '外構・基礎のデモ補足計画。敷地測量・構造設計・施工図ではない。'
         self.doc.header['$PSLTSCALE'] = 0
@@ -84,12 +84,12 @@ def generate():
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420 * mm, 297 * mm), invariant=1)
-    pdf.setTitle('外構・基礎 補足計画図 R18 / Site and foundation demonstration')
+    pdf.setTitle('外構・基礎 補足計画図 R19 / Site and foundation demonstration')
     pdf.setAuthor('text-CAD')
     d = site_dimensions(P, G)
     fence = fence_layout(p=P)
     drawing = SiteDrawing(pdf)
-    drawing.text('外構・基礎 補足計画図 / R18', (-4500, 15500), 500, align='left')
+    drawing.text('外構・基礎 補足計画図 / R19', (-4500, 15500), 500, align='left')
     drawing.text('単位 mm / 配置 1:100 / A3 / 全寸法・方位・敷地はデモ仮定 / 2026-10-07',
                  (-4500, 14600), 250, align='left')
     drawing.text('01 配置図', (-2000, 11500), 350, align='left')
@@ -205,7 +205,7 @@ def generate():
         '玄関ポーチ先端300は陽台の外（仮定）。',
         '本図は施工図・構造計算・測量図ではない。',
     ]): drawing.text(text, (12600, -1200-i*550), 250, align='left')
-    drawing.text('text-CAD / R18-SITE / 参考デモ', (12600, -6900), 250, align='left')
+    drawing.text('text-CAD / R19-SITE / 参考デモ', (12600, -6900), 250, align='left')
 
     pdf.setLineWidth(.7 * mm); pdf.rect(7.5*mm, 7.5*mm, 405*mm, 282*mm)
     drawing.doc.layers.new('D-TTL-FRAM', dxfattribs={'color':7, 'lineweight':70})

@@ -1,4 +1,4 @@
-"""Active user-requested R18 reflected layout; historical R01 data is in house_plan_r01.
+"""Active user-requested R19 reflected layout; historical R01 data is in house_plan_r01.
 
 Compatibility dimension names describe canonical authoring partitions; public floor plans are world-space. Normalize p with orientation.canonical before creating nested builders. All values are demo inputs.
 """
@@ -18,5 +18,5 @@ def dimensions(p=P):
 
 def design_manifest(p=P):
     data=manifest(p)
-    data['drawing_revision']='R18'
+    data['drawing_revision']='R19'
     return data

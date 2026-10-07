@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461321.845474537
+2461321.8644444444
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461321.845474537
+2461321.8644444444
   9
 $TDUUPDATE
  40
@@ -553,7 +553,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-160
+162
   9
 $SURFTAB1
  70
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{6CA1A368-DF92-4EB1-A130-9BD83D23B1B9}
+{259DB770-A989-4056-BA85-DAAF780940D3}
   9
 $VERSIONGUID
   2
-{E9708429-CCCF-4AC9-8E96-2F3B3AF4E132}
+{2C445AAF-3D92-45BA-B0CB-C5055FA565E2}
   9
 $EXTNAMES
 290
@@ -1327,9 +1327,9 @@ ISM
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -1343,9 +1343,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -2581,7 +2581,7 @@ Continuous
   0
 LAYER
   5
-154
+156
 330
 1
 100
@@ -2605,7 +2605,7 @@ Continuous
   0
 LAYER
   5
-155
+157
 330
 1
 100
@@ -3457,7 +3457,7 @@ ACAD
   0
 APPID
   5
-15D
+15F
 330
 3
 100
@@ -3471,7 +3471,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-15E
+160
 330
 3
 100
@@ -5397,7 +5397,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-156
+158
 330
 9
 100
@@ -5407,7 +5407,7 @@ AcDbBlockTableRecord
   2
 *Paper_Space
 340
-159
+15B
  70
 0
 280
@@ -7521,9 +7521,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-157
+159
 330
-156
+158
 100
 AcDbEntity
   8
@@ -7547,9 +7547,9 @@ AcDbBlockBegin
   0
 ENDBLK
   5
-158
+15A
 330
-156
+158
 100
 AcDbEntity
   8
@@ -7621,7 +7621,7 @@ AcDbText
  40
 250.0
   1
-小屋裏収納 補足計画図 / R18
+小屋裏収納 補足計画図 / R19
   7
 HOUSE_UNICODE
  11
@@ -8089,7 +8089,7 @@ AcDbText
  40
 95.0
   1
-北側中央換気窓 600×300 / FL+850（仮）
+北側中央 固定アルミガラリ 600×300 / 洞口0.18 m²（仮）
   7
 HOUSE_UNICODE
  72
@@ -10661,7 +10661,7 @@ AcDbText
  40
 125.0
   1
-R18確認済み平面・屋根外形と整合。
+固定アルミガラリ：洞口面積0.18 m²。
   7
 HOUSE_UNICODE
  11
@@ -10933,7 +10933,7 @@ AcDbText
  40
 125.0
   1
-R18平面の公共廊下上に検修口を配置。
+大阪市：約0.2 m²・ガラリ規定を参照。
   7
 HOUSE_UNICODE
  11
@@ -10947,11 +10947,79 @@ AcDbText
  73
 2
   0
+TEXT
+  5
+154
+330
+17
+100
+AcDbEntity
+  8
+D-STR-TXT
+100
+AcDbText
+ 10
+9200.0
+ 20
+900.0
+ 30
+0.0
+ 40
+125.0
+  1
+東京：江戸川区例。京都・名古屋：要確認。
+  7
+HOUSE_UNICODE
+ 11
+9200.0
+ 21
+900.0
+ 31
+0.0
+100
+AcDbText
+ 73
+2
+  0
+TEXT
+  5
+155
+330
+17
+100
+AcDbEntity
+  8
+D-STR-TXT
+100
+AcDbText
+ 10
+9200.0
+ 20
+550.0
+ 30
+0.0
+ 40
+125.0
+  1
+有効換気面積・防火設備・審査は未確定。
+  7
+HOUSE_UNICODE
+ 11
+9200.0
+ 21
+550.0
+ 31
+0.0
+100
+AcDbText
+ 73
+2
+  0
 VIEWPORT
   5
-15A
+15C
 330
-156
+158
 100
 AcDbEntity
  67
@@ -11053,9 +11121,9 @@ AcDbViewport
   0
 LWPOLYLINE
   5
-15B
+15D
 330
-156
+158
 100
 AcDbEntity
  67
@@ -11087,9 +11155,9 @@ AcDbPolyline
   0
 VIEWPORT
   5
-15C
+15E
 330
-156
+158
 100
 AcDbEntity
  67
@@ -11293,7 +11361,7 @@ Layout1
   3
 ATTIC_A3_1_50
 350
-159
+15B
   0
 DICTIONARY
   5
@@ -12303,7 +12371,7 @@ SOURCE_URL
   3
 WRITTEN_BY_EZDXF
 350
-15F
+161
   0
 DICTIONARYVAR
   5
@@ -12315,7 +12383,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-07T11:17:29.552160+00:00
+1.4.4 @ 2026-10-07T11:44:48.401934+00:00
   0
 VISUALSTYLE
   5
@@ -18877,7 +18945,7 @@ DictionaryVariables
 280
 0
   1
-R18-ATTIC
+R19-ATTIC
   0
 DICTIONARYVAR
   5
@@ -18929,7 +18997,7 @@ https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788
   0
 LAYOUT
   5
-159
+15B
 330
 D
 100
@@ -19051,13 +19119,13 @@ ATTIC_A3_1_50
  76
 1
 330
-156
+158
 331
-15A
+15C
   0
 DICTIONARYVAR
   5
-15F
+161
 330
 2D
 100
@@ -19065,7 +19133,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-07T11:17:29.565638+00:00
+1.4.4 @ 2026-10-07T11:44:48.413939+00:00
   0
 ENDSEC
   0

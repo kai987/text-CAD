@@ -1,5 +1,5 @@
 {
-  "revision": "R18",
+  "revision": "R19",
   "units": "mm; forces kN; distributed loads kN/m2",
   "status": "demonstration only; no structural calculations or permit determination",
   "confirmed_intent": {

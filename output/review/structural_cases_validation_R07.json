@@ -1,8 +1,56 @@
 {
   "scope": "saved case integrity and official-source provenance; no engineering verification",
-  "checks": 401,
-  "passed": 401,
+  "checks": 455,
+  "passed": 455,
   "results": [
+    {
+      "check": "opening_gross_area_from_parameters",
+      "pass": true
+    },
+    {
+      "check": "current_outline_not_stale",
+      "pass": true
+    },
+    {
+      "check": "tokyo:opening_matches_geometry",
+      "pass": true
+    },
+    {
+      "check": "tokyo:opening_not_approved",
+      "pass": true
+    },
+    {
+      "check": "osaka:opening_matches_geometry",
+      "pass": true
+    },
+    {
+      "check": "osaka:opening_not_approved",
+      "pass": true
+    },
+    {
+      "check": "kyoto:opening_matches_geometry",
+      "pass": true
+    },
+    {
+      "check": "kyoto:opening_not_approved",
+      "pass": true
+    },
+    {
+      "check": "kyoto:no_invented_numeric_limit",
+      "pass": true
+    },
+    {
+      "check": "nagoya:opening_matches_geometry",
+      "pass": true
+    },
+    {
+      "check": "nagoya:opening_not_approved",
+      "pass": true
+    },
+    {
+      "check": "nagoya:no_invented_numeric_limit",
+      "pass": true
+    },
     {
       "check": "all_12_cases_exactly_once",
       "pass": true
@@ -117,6 +165,34 @@
     },
     {
       "check": "official_source:nagoya-city-coastal",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-edogawa-2026",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-osaka-2026",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-kyoto-current",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-aichi-common-2026",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-aichi-scope",
+      "pass": true
+    },
+    {
+      "check": "official_source:attic-nagoya-city",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:opening_review_parity",
       "pass": true
     },
     {
@@ -244,6 +320,18 @@
       "pass": true
     },
     {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "tokyo_S:saved_id",
       "pass": true
     },
@@ -365,6 +453,18 @@
     },
     {
       "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:opening_review_parity",
       "pass": true
     },
     {
@@ -492,6 +592,18 @@
       "pass": true
     },
     {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "tokyo_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "osaka_W:saved_id",
       "pass": true
     },
@@ -613,6 +725,18 @@
     },
     {
       "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:opening_review_parity",
       "pass": true
     },
     {
@@ -740,6 +864,18 @@
       "pass": true
     },
     {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "osaka_RC:saved_id",
       "pass": true
     },
@@ -861,6 +997,18 @@
     },
     {
       "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "osaka_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:opening_review_parity",
       "pass": true
     },
     {
@@ -988,6 +1136,18 @@
       "pass": true
     },
     {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "kyoto_S:saved_id",
       "pass": true
     },
@@ -1109,6 +1269,18 @@
     },
     {
       "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:opening_review_parity",
       "pass": true
     },
     {
@@ -1236,6 +1408,18 @@
       "pass": true
     },
     {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "kyoto_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "nagoya_W:saved_id",
       "pass": true
     },
@@ -1357,6 +1541,18 @@
     },
     {
       "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_W:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:opening_review_parity",
       "pass": true
     },
     {
@@ -1484,6 +1680,18 @@
       "pass": true
     },
     {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_S:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:opening_review_parity",
+      "pass": true
+    },
+    {
       "check": "nagoya_RC:saved_id",
       "pass": true
     },
@@ -1525,6 +1733,14 @@
     },
     {
       "check": "nagoya_RC:step_hash",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
+      "pass": true
+    },
+    {
+      "check": "nagoya_RC:source_references",
       "pass": true
     },
     {

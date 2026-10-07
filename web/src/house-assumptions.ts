@@ -5,7 +5,7 @@ import type { HouseFacts } from './house-facts.ts';
 const planTemplates = {
   "zh": [
     "用户允许调整主体尺寸，保留三个卧室，并新增晾衣阳台。",
-    "R18外轮廓8190 × 7280 mm替代旧7280 × 7280 mm，层高仍为2800 mm；均为演示假设。",
+    "R19外轮廓8190 × 7280 mm替代旧7280 × 7280 mm，层高仍为2800 mm；均为演示假设。",
     "南侧玄关、南侧阳台与北方向均未依据场地测量。",
     "阳台{balconyWidth} × {balconyDepth} mm位于主体外，净空间{balconyClearWidth} × {balconyClearDepth} mm；南侧客厅窗为FL+{southWindowSill}起、高{southWindowHeight} mm，卧室阳台推拉门高2100 mm。",
     "外墙{externalWall} mm、内墙{internalWall} mm，以及门窗和家具尺寸均为示意。",
@@ -14,14 +14,14 @@ const planTemplates = {
     "楼梯{risers}踢面×{rise} mm，踏面{tread} mm，梯宽与平台{stairWidth} mm；实际净空尚待核定。",
     "房间面积包含室内设备与收纳占地；梯间为预留开洞区域。",
     "面积仅作几何比较，不是法定建筑面积或占地面积。",
-    "阁楼、场地、基础、外立面及W/S/RC几何按R18重新协调；工程设计未完成。",
+    "阁楼、场地、基础、外立面及W/S/RC几何按R19重新协调；工程设计未完成。",
     "阳台支承、防水、门槛、排水及栏杆高度与锚固均待专项设计。",
     "结构、防火、采光、通风、法规、设备和地盘均未完成核验。",
-    "R18按用户于2026-10-07的要求调整；具名STEP/GLB及叠加层采用同一镜像坐标。"
+    "R19按用户于2026-10-07的要求调整；具名STEP/GLB及叠加层采用同一镜像坐标。"
   ],
   "ja": [
     "ユーザーは本体寸法の調整を認め、3室の寝室と物干しバルコニーを希望しています。",
-    "R18外形8190 × 7280 mmは旧7280 × 7280 mmに代わるデモ仮定です。階高2800 mmを保持します。",
+    "R19外形8190 × 7280 mmは旧7280 × 7280 mmに代わるデモ仮定です。階高2800 mmを保持します。",
     "南側玄関・南側バルコニー・北方向は、現地測量に基づかない仮定です。",
     "{balconyWidth} × {balconyDepth} mmのバルコニーは本体外、内法{balconyClearWidth} × {balconyClearDepth} mm。南側LDK窓FL+{southWindowSill}/H{southWindowHeight}、2寝室のバルコニー戸H2100。",
     "外壁{externalWall} mm・内壁{internalWall} mm、建具・窓・家具は仮寸法です。",
@@ -30,14 +30,14 @@ const planTemplates = {
     "{risers}段×{rise} mm、踏面{tread} mm、階段・踊り場幅{stairWidth} mm。実際の頭上空間は要確認です。",
     "室面積は設備・収納の占有を含みます。階段室は床開口の確保区域です。",
     "面積は幾何比較のみで、法定床面積・建築面積ではありません。",
-    "小屋裏・外構・基礎・外装・W/S/RCの形状をR18に合わせます。構造計算は未実施です。",
+    "小屋裏・外構・基礎・外装・W/S/RCの形状をR19に合わせます。構造計算は未実施です。",
     "バルコニー支持・防水・敷居・排水・手すり高さと固定は別途設計が必要です。",
     "構造・防火・採光・換気・法規・設備・地盤の適合は未検証です。",
-    "R18は2026-10-07のユーザー要望に基づく変更案です。具名STEP/GLBと構造表示は同じ反転座標を使用します。"
+    "R19は2026-10-07のユーザー要望に基づく変更案です。具名STEP/GLBと構造表示は同じ反転座標を使用します。"
   ],
   "en": [
     "The user permits footprint adjustment, retaining three bedrooms and adding a drying balcony.",
-    "The R18 8190 × 7280 mm outline replaces the earlier 7280 × 7280 mm demonstration outline. Storeys remain 2800 mm.",
+    "The R19 8190 × 7280 mm outline replaces the earlier 7280 × 7280 mm demonstration outline. Storeys remain 2800 mm.",
     "South entry, south balcony and north direction are assumptions without a site survey.",
     "The full-width {balconyWidth} × {balconyDepth} mm balcony has {balconyClearWidth} × {balconyClearDepth} mm clear space. South living/two-bedroom glazing starts at FL+{southWindowSill} with {southWindowHeight} mm height.",
     "{externalWall}/{internalWall} mm walls, doors, windows and furniture dimensions are demonstration placeholders.",
@@ -46,16 +46,16 @@ const planTemplates = {
     "{risers} risers × {rise} mm, {tread} mm treads, {stairWidth} mm flights and landing; actual headroom needs verification.",
     "Room areas include fixtures and storage. The stairwell is a reserved slab opening.",
     "Areas are geometric comparisons, not statutory floor or building areas.",
-    "Attic, site, foundation, facade and W/S/RC geometry follow R18; engineering remains pending.",
+    "Attic, site, foundation, facade and W/S/RC geometry follow R19; engineering remains pending.",
     "Balcony support, waterproofing, threshold, drainage, guard height and anchorage need dedicated design.",
     "Structure, fire, daylight, ventilation, code, services and ground conditions have not been verified.",
-    "R18 follows the user request of 2026-10-07; named STEP/GLB and overlays use the same reflection."
+    "R19 follows the user request of 2026-10-07; named STEP/GLB and overlays use the same reflection."
   ]
 };
 const modelTemplates = {
   "ja": [
     "外形{width} × {depth} mm、階高{storeyHeight} mm、北方向・南側玄関はデモ用の仮定です。",
-    "R18の左右反転後の室内境界と建具・窓の位置を利用。1・2階トイレは上下で一致します。",
+    "R19の左右反転後の室内境界と建具・窓の位置を利用。1・2階トイレは上下で一致します。",
     "南側LDK窓FL+{southWindowSill}/H{southWindowHeight}、寝室戸H2100。バルコニー外形{balconyWidth} × {balconyDepth} mm、内法幾何面積{balconyClearArea}㎡。南側の2寝室からアクセスできます。東西外壁まで延長し玄関の独立庇を省きます。支持柱3本と独立基礎は撤去。奥行130{southWindowSill} mmの玄関ポーチは先端30{southWindowSill} mmが露出し、独立庇は設けません。持出しの耐力・接合・防水・手すり・排水は未計算です。",
     "床仕上げ基準はZ=0・{storeyHeight} mm。仮の床スラブ厚{slabThickness} mmは仕上げ面下に配置し、壁の有効高さは{clearHeight} mmです。",
     "2階床は1900 × 2720 mmの階段室全体に開口を保持します。小屋裏は厚24 mmの仮下地と18 mmの仕上げ、独立した梁・根太の構造案に変更します。",
@@ -75,7 +75,7 @@ const modelTemplates = {
     "木目の玄関扉・ハンドル・枠・ポーチと1段の踏み段はデモ用付属部品です。玄関の開口幅・高さと平面位置を保持しています。",
     "屋根の勾配{roofPitch}度・軒{roofOverhang} mm・鉛直厚{roofThickness} mmを保持し、立ちはぜ・棟包み・破風・軒天・軒とい・階別のたてといを追加しています。",
     "外装・雨とい・玄関付属部品の寸法はすべてデモ用仮定です。実際の層構成・排水・構造・防火・地盤高さ・申請要件は未検証です。",
-    "R18の小屋裏は収納専用のデモプランです。R18の2階室内配置とR18切妻屋根外形を保持し、1階のトイレ入口と階段下収納を変更します。所在地が未指定のため、床面積不算入の認定や3階の居室としての認定は行っていません。",
+    "R19の小屋裏は収納専用のデモプランです。R19の2階室内配置とR19切妻屋根外形を保持し、1階のトイレ入口と階段下収納を変更します。所在地が未指定のため、床面積不算入の認定や3階の居室としての認定は行っていません。",
     "従来の厚200 mmの概念天井板を厚24 mmの仮下地床に置き換えます。Z=5576〜5600 mmで、内法1200 × 650 mmの点検口は下地と18 mm仕上げを貫通し、仕上げ面はZ=5618 mmです。下地板だけでは耐荷力を示しません。",
     "小屋裏の床仕上げ範囲は3680 × 6880 mmです。点検開口を除く幾何投影面積24.5384㎡は法規や申請上の面積を確定するものではありません。",
     "水平天井と両側の勾配内張りを設け、仕上げ内法高さを1350 mm以下にします。水平天井の下面はZ=6968 mm、厚さ50 mm、床両端の内法高さは約1233.93 mmです。1350 mmはデモ設計目標であり、所在地の法規適合を示しません。",
@@ -87,12 +87,12 @@ const modelTemplates = {
     "個別木材は構造の荷重伝達案を表示するものです。梁柱・床耐荷力・接合・基礎・法規の検証ではありません。所在地・地盤・荷重・材料・最終寸法は日本の建築士による確認が必要です。追加寸法はすべてデモ用仮定です。",
     "新しい敷地は10190 × 13780 mm（約140.42㎡、東西北の余白各1000 mm）と仮定します。建物配置と南側出入口はデモ用で、実測や道路資料に基づいていません。",
     "庭の仕上げ面はZ=-500 mmと仮定します。その下に厚さ50 mmの表示用面層と100 mmの概念的な地盤層を設けます。砂利・舗装・芝生の材質と厚さは変更可能です。",
-    "追加のベタ基礎は厚150 mmの底盤と幅140 mmの外周立上りを保持します。R18では構造案の柱列に対応した内部支持リブを追加します。断面はすべてデモ用仮定で、配筋・地盤・支持力・耐震性・排水は今後の設計事項です。",
+    "追加のベタ基礎は厚150 mmの底盤と幅140 mmの外周立上りを保持します。R19では構造案の柱列に対応した内部支持リブを追加します。断面はすべてデモ用仮定で、配筋・地盤・支持力・耐震性・排水は今後の設計事項です。",
     "元の玄関ポーチと上段を保持し、支持部と下段を追加します。入口の高さは-500、-330、-160、-25、0 mm、段差は170、170、135、25 mmの仮定です。バリアフリーや通行に関する法規は未検証です。",
     "南側は並列2台、各2800 × 5000 mm、車両出入口は5675 mm、歩行者出入口は1800 mmと仮定します。実車の旋回、道路への接続、駐車許可は未検証です。",
     "金属フェンスは地上高さ1200 mm、支柱幅50 mmと仮定します。24枚のパネルは各9段の幅80 mm横格子と40 mmの隙間を備え、26か所の柱脚は概念表示です。接合・構造は未設計です。",
     "フェンス柱脚は300 × 300 mm、Z=-950〜-550 mmと仮定し、支柱の埋込み用に開口を設けます。地盤層と面層も対応箇所をくり抜き、各ソリッドは境界でのみ接します。実際の施工構成は未設定です。",
-    "東・西・北に細い芝生を保持し、前庭の芝生を2台目の駐車区画に変更、低木は全て撤去します。基礎・庭・玄関アプローチ・フェンスは個別に表示でき、両階の平面図と外構にR18の反転座標を使用します。",
+    "東・西・北に細い芝生を保持し、前庭の芝生を2台目の駐車区画に変更、低木は全て撤去します。基礎・庭・玄関アプローチ・フェンスは個別に表示でき、両階の平面図と外構にR19の反転座標を使用します。",
     "実際の所在地・測量・地盤調査・木材等級・荷重条件が未提供のため、構造配置はデモ案に限ります。",
     "木材・合板・コンクリートの断面寸法はすべてデモ入力で、検証による部材選定結果ではありません。",
     "柱は両階共通の閉じた壁部分に沿って上下を揃えます。2階の間仕切りだけを理由にLDKの室内有効空間へ柱を追加しません。",
@@ -108,7 +108,7 @@ const modelTemplates = {
   ],
   "en": [
     "The {width} × {depth} mm outline, {storeyHeight} mm storey height, north direction and south entrance are demonstration assumptions.",
-    "R18 mirrored clear room boundaries and door/window plan positions are reused directly. Toilets align between the two floors.",
+    "R19 mirrored clear room boundaries and door/window plan positions are reused directly. Toilets align between the two floors.",
     "South living glazing uses FL+{southWindowSill}/H{southWindowHeight}; bedroom doors are H2100. South balcony: {balconyWidth} × {balconyDepth} mm overall, {balconyClearArea} m² clear geometric area, reached separately through the two south bedrooms. Both ends align with the east/west walls; no separate entry canopy is fitted. Three support posts and their separate footings are removed. The 130{southWindowSill} mm entrance porch projects 30{southWindowSill} mm beyond the balcony, with no separate canopy. Cantilever capacity, connections, waterproofing, guards and drainage remain unengineered.",
     "Finished-floor datums are Z=0 and {storeyHeight} mm. The provisional {slabThickness} mm slabs sit below the finished floors; clear wall height is {clearHeight} mm.",
     "The second-floor slab retains an opening across the full 1900 × 2720 mm stairwell. The attic uses an assumed 24 mm subfloor, 18 mm finish and a separate beam/joist structural proposal.",
@@ -128,7 +128,7 @@ const modelTemplates = {
     "The timber entry leaf, handle, frame, porch and single step are demonstration accessories. Entry opening width, height and plan position remain unchanged.",
     "The original {roofPitch}-degree roof pitch, {roofOverhang} mm eaves and {roofThickness} mm vertical thickness are retained, with added standing seams, ridge cap, bargeboards, soffits, gutters and floor-specific downpipes.",
     "All siding, rainwater and entry-accessory dimensions are demonstration assumptions. Actual layers, drainage, structure, fire safety, ground levels and application requirements have not been verified.",
-    "The R18 attic is a storage-only demonstration concept. R18 second-floor layout and the R18 gable envelope remain; the first-floor WC access and under-stair storage are revised. With no specified site, it has neither approved floor-area exemption nor habitable third-storey classification.",
+    "The R19 attic is a storage-only demonstration concept. R19 second-floor layout and the R19 gable envelope remain; the first-floor WC access and under-stair storage are revised. With no specified site, it has neither approved floor-area exemption nor habitable third-storey classification.",
     "The previous 200 mm concept ceiling panel is replaced by an assumed 24 mm subfloor at Z=5576–5600 mm. A clear 1200 × 650 mm hatch passes through it and the 18 mm finish at Z=5618 mm. Subfloor thickness alone does not establish load capacity.",
     "The attic finish spans 3680 × 6880 mm. Its geometric projection excluding the hatch is 24.5384 m²; this does not establish a statutory or application area.",
     "A physical flat ceiling and side sloped linings limit finished clear height to 1350 mm. The flat ceiling underside is Z=6968 mm, its thickness is 50 mm, and deck-edge headroom is approximately 1233.93 mm. The 1350 mm limit is a demonstration target, not a local code-compliance conclusion.",
@@ -140,12 +140,12 @@ const modelTemplates = {
     "Separate timber members illustrate a load-path proposal only. They are not checks of beams, columns, floor capacity, joints, foundations or regulations. Site, soil, loads, materials and final sizes require review by a Japanese architect. All added dimensions are demonstration assumptions.",
     "The new plot is assumed to be 10190 × 13780 mm (approximately 140.42 m²; 1000 mm east/west/north margins). The building placement and south entrances are demonstration assumptions without actual survey or road information.",
     "The yard finished level is assumed to be Z=-500 mm, with a 50 mm display surface layer and a 100 mm concept soil layer below. Gravel, paving and lawn materials and thicknesses are adjustable.",
-    "The concept raft retains a 150 mm slab and 140 mm perimeter stem walls. R18 adds internal support ribs aligned with the structural proposal columns. All sizes remain demonstration assumptions; reinforcement, soil, bearing capacity, seismic performance and drainage require design.",
+    "The concept raft retains a 150 mm slab and 140 mm perimeter stem walls. R19 adds internal support ribs aligned with the structural proposal columns. All sizes remain demonstration assumptions; reinforcement, soil, bearing capacity, seismic performance and drainage require design.",
     "The existing porch and upper step are retained, with added supports and a lower step. Entrance levels are -500, -330, -160, -25 and 0 mm; rises of 170, 170, 135 and 25 mm are demonstration values. Accessibility and passage regulations have not been verified.",
     "The south has two side-by-side parking bays, each assumed 2800 × 5000 mm, with a 5675 mm vehicle opening and an 1800 mm pedestrian opening. Actual vehicle turning, road access and parking permissions have not been verified.",
     "The metal fence is assumed to be 1200 mm above ground with 50 mm-wide posts. Each of 24 panels contains nine 80 mm horizontal slats with 40 mm gaps; 26 post bases are concept representations. Connections and structural performance have not been designed.",
     "Fence footings are assumed to be 300 × 300 mm at Z=-950 to -550 mm, with openings for embedded posts. Corresponding openings are cut in the soil and surface layers so solids meet only at boundaries. Actual construction details are not specified.",
-    "Three narrow lawns remain; the front lawn becomes the second parking bay and all shrubs are removed. Foundation, yard, entrance path and fence groups can be viewed separately; plans and site use the R18 reflection.",
+    "Three narrow lawns remain; the front lawn becomes the second parking bay and all shrubs are removed. Foundation, yard, entrance path and fence groups can be viewed separately; plans and site use the R19 reflection.",
     "No actual building location, survey, ground investigation, timber grade or load conditions were provided; the structural layout is a demonstration proposal only.",
     "Every timber, plywood and concrete section size is a demonstration input, not a member selection derived from calculations.",
     "Columns align vertically along shared closed wall segments. Upstairs partitions alone do not justify additional columns in the clear LDK space.",
@@ -161,8 +161,8 @@ const modelTemplates = {
   ],
   "zh": [
     "{width} × {depth} mm 外轮廓、{storeyHeight} mm 层高及北向/南入口是演示假设。",
-    "R18按用户要求镜像室内布局；南侧全宽阳台与取消独立雨棚的设置保留。",
-    "R18南侧阳台外形{balconyWidth} × {balconyDepth} mm，净空间{balconyClearWidth} × 90{southWindowSill} mm、净几何面积{balconyClearArea}㎡；由两间南向卧室进入，两端与东西外墙齐平；南侧客厅落地窗H{southWindowHeight}/FL+{southWindowSill}，卧室阳台推拉门H2100（宽2100/1600/1800），三根支柱及独立基础已移除；130{southWindowSill} mm玄关平台外沿30{southWindowSill} mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
+    "R19按用户要求镜像室内布局；南侧全宽阳台与取消独立雨棚的设置保留。",
+    "R19南侧阳台外形{balconyWidth} × {balconyDepth} mm，净空间{balconyClearWidth} × 90{southWindowSill} mm、净几何面积{balconyClearArea}㎡；由两间南向卧室进入，两端与东西外墙齐平；南侧客厅落地窗H{southWindowHeight}/FL+{southWindowSill}，卧室阳台推拉门H2100（宽2100/1600/1800），三根支柱及独立基础已移除；130{southWindowSill} mm玄关平台外沿30{southWindowSill} mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、{storeyHeight} mm；楼板暂定厚{slabThickness} mm并位于完成面以下，墙净高{clearHeight} mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
     "门洞高{doorHeight} mm；门扇厚{doorLeafThickness} mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
@@ -175,13 +175,13 @@ const modelTemplates = {
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
     "暖白外壁、木色入户门、深灰立缝金属切妻屋顶及黑色窗框为风格示意，不对应已选定产品。",
-    "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R18主体完成外轮廓为{width} × {depth} mm。",
+    "外饰面厚20 mm和背后2 mm示意间隙均在180 mm墙厚范围内置换，R19主体完成外轮廓为{width} × {depth} mm。",
     "外饰面连续包住200 mm楼板与顶板外缘；仅退让外侧22 mm墙厚带，确认后的室内净边界和梯间洞口不变。",
     "窗框向外调整到70 mm厚外側墙带，原平面洞口、窗宽、窗台及窗高不变；外框和窗台为独立可编辑实体。",
-    "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R18保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
+    "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R19保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
     "屋面原坡度{roofPitch}度、{roofOverhang} mm出檐与{roofThickness} mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R18阁楼采用纯储物用途的演示方案，保留R18重新分配的二层房间，并调整一层厕所入口及楼梯下收纳及 R18 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R19阁楼采用纯储物用途的演示方案，保留R19重新分配的二层房间，并调整一层厕所入口及楼梯下收纳及 R19 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
     "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -191,14 +191,14 @@ const modelTemplates = {
     "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
     "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
     "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
-    "R18用地沿用R11，暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
+    "R19用地沿用R11，暂定10190 × 13780 mm（约140.42㎡），东、西、北侧余量各1000 mm、南侧5500 mm，房屋在用地内的位置和南侧出入口均为演示假设，未依据实际测量或道路资料。",
     "院子完成面暂定Z=-500 mm；下设50 mm展示面层及100 mm概念土层，砂石、铺装和草坪的材质与厚度均可调整。",
-    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R18重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
+    "新增贝塔基础仍以150 mm底板和140 mm周圈立上り表达；R19重排与结构草案柱线对应的内部支承肋，全部截面仍为演示假设，配筋、地盘、承载、抗震及排水待设计。",
     "保留原门廊与上阶并增设支承和下阶；入口标高依次为-500、-330、-160、-25、0 mm，高差170、170、135、25 mm为演示值，未验证无障碍或通行法规。",
     "南侧并列2个停车位，每位暂定2800 × 5000 mm，车辆开口5675 mm、行人开口1800 mm；1800 × 4500 mm车辆包络仅作静态空间检查；未验证具体车辆转弯、道路接入或停车许可。",
     "金属围栏暂定地上高1200 mm、柱宽50 mm；24片面板各含9道80 mm横栅和40 mm空隙，26个柱脚为概念展示，未完成连接或结构设计。",
     "围栏柱脚暂定300 × 300 mm、Z=-950至-550 mm，并为柱嵌入留孔；土层和面层对应挖孔，各实体仅在边界接触，未配置实际施工构造。",
-    "三侧窄草坪保留，前院草坪改为第二车位，所有灌木移除；基础、院子、入口与围栏分组可独立查看，两层平面及外构采用R18镜像坐标。",
+    "三侧窄草坪保留，前院草坪改为第二车位，所有灌木移除；基础、院子、入口与围栏分组可独立查看，两层平面及外构采用R19镜像坐标。",
     "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
     "木构件、胶合板和混凝土的全部截面尺寸都是演示输入，不是验算选型结果。",
     "柱位沿两层共同的封闭墙段上下对齐；不因二层隔墙而在LDK净空间内擅自增柱。",
@@ -215,9 +215,9 @@ const modelTemplates = {
 };
 
 const r14Notes = {
-  zh: ['R18按用户要求镜像两层：玄关位于西南、楼梯位于西北；东侧客厅及两个临东卧室设窗，西侧仅保留楼梯窗。', '対面式厨房工作台2550×650 mm、主要后方通道900 mm；新增冰箱、微波炉、电器柜及吸油烟机；排烟与设备选型待设计。', '阁楼北侧600×300 mm上悬换气窗、窗台FL+850 mm均为演示假设，排烟、通风及承载尚未设计。'],
-  ja: ['R18は両階を左右反転。玄関は南西、階段は北西。東側LDKと東側2寝室に窓を設け、西側は階段窓のみ。', '対面式キッチン2550×650 mm、主要背面通路900 mm。冷蔵庫・電子レンジ・カップボード・レンジフードを追加。排気と製品選定は未設計。', '小屋裏北側に600×300 mmの上吊り外開き換気窓、窓台FL+850 mm。全寸法はデモ仮定で、排気・換気・耐力は未設計。'],
-  en: ['R18 reflects both floors: southwest entrance, northwest stairs, east windows for the LDK and both east bedrooms, and stair windows only on the west.', 'Facing kitchen 2550×650 mm with a 900 mm main rear aisle; refrigerator, microwave, appliance cupboard and extractor hood added; exhaust and products remain undesigned.', 'North attic ventilation window 600×300 mm, sill FL+850 mm. All dimensions are demonstration assumptions; exhaust, ventilation and capacity remain undesigned.'],
+  zh: ['R19按用户要求镜像两层：玄关位于西南、楼梯位于西北；东侧客厅及两个临东卧室设窗，西侧仅保留楼梯窗。', '対面式厨房工作台2550×650 mm、主要后方通道900 mm；新增冰箱、微波炉、电器柜及吸油烟机；排烟与设备选型待设计。', '阁楼北侧600×300 mm固定铝百叶换气口（洞口0.18㎡）、窗台FL+850 mm均为演示假设，排烟、通风及承载尚未设计。'],
+  ja: ['R19は両階を左右反転。玄関は南西、階段は北西。東側LDKと東側2寝室に窓を設け、西側は階段窓のみ。', '対面式キッチン2550×650 mm、主要背面通路900 mm。冷蔵庫・電子レンジ・カップボード・レンジフードを追加。排気と製品選定は未設計。', '小屋裏北側に600×300 mmの固定アルミガラリ（洞口0.18 m²）、窓台FL+850 mm。全寸法はデモ仮定で、排気・換気・耐力は未設計。'],
+  en: ['R19 reflects both floors: southwest entrance, northwest stairs, east windows for the LDK and both east bedrooms, and stair windows only on the west.', 'Facing kitchen 2550×650 mm with a 900 mm main rear aisle; refrigerator, microwave, appliance cupboard and extractor hood added; exhaust and products remain undesigned.', 'North attic fixed aluminium louver 600×300 mm (gross aperture 0.18 m²), sill FL+850 mm. All dimensions are demonstration assumptions; exhaust, ventilation and capacity remain undesigned.'],
 };
 
 const r15InteriorNotes = {
@@ -226,27 +226,33 @@ const r15InteriorNotes = {
   en: ['The entry handle is on the left when viewed from outside.', 'The separate first-floor WC lobby is integrated into the LDK; the WC stays 900×1820 mm.', 'Under-stair storage has 800×1760 mm clear dimensions, a 700 mm door and a sloping low ceiling; capacity and fire separation are unengineered.', 'Four-seat L sofa 2600×1550 mm faces the south-wall TV; coffee table 950×550 mm and dining table 1600×850 mm with four chairs.', 'Side-by-side refrigerator 900×750 mm and 900 mm kitchen rear aisle. All dimensions are demonstration assumptions.'],
 };
 
+const r19Notes = {
+ zh: ['北侧居中600×300 mm固定铝百叶，洞口0.18㎡。东京仅按江户川区例、大阪市按约0.2㎡百叶条件参照；京都和名古屋数值取扱待核定。有效通风、防火及审批未确认。'],
+ ja: ['北側中央600×300 mm固定アルミガラリ、洞口0.18 m²。東京は江戸川区例、大阪市は約0.2 m²とガラリ条件を参照。京都・名古屋の数値取扱い、有効換気・防火・確認は未確定。'],
+ en: ['Centered north fixed aluminium louver, 600×300 mm gross aperture / 0.18 m². Tokyo uses an Edogawa example; Osaka references approximately 0.2 m² and louvers. Kyoto/Nagoya numerical treatment, effective ventilation, fire details and approval remain pending.'],
+} as const;
+
 const r18Notes = {
- zh: ['R18阁楼北窗沿屋脊中心布置，北侧示意支柱改为窗两侧支柱、过梁及上部屋脊柱；阁楼南北各一盏短吊灯位于默认剖切线下，室内灯光统一开关。构件与照明均为未验算的演示参数。'],
- ja: ['R18は小屋裏北窓を棟中心に配置。北側の概念柱を窓両側の柱・まぐさ・上部棟柱へ変更。南北2灯の短い吊灯は標準断面より下に置き、室内照明スイッチで一括操作。部材・照明は未計算のデモ仮定。'],
- en: ['R18 centres the north attic window on the ridge, with paired jamb posts, a header and an upper ridge post in the uncalculated frame. Two short attic pendants sit below the default cut plane and share the indoor switch. Members and lighting remain demonstration inputs.'],
+ zh: ['R19阁楼北窗沿屋脊中心布置，北侧示意支柱改为窗两侧支柱、过梁及上部屋脊柱；阁楼南北各一盏短吊灯位于默认剖切线下，室内灯光统一开关。构件与照明均为未验算的演示参数。'],
+ ja: ['R19は小屋裏北窓を棟中心に配置。北側の概念柱を窓両側の柱・まぐさ・上部棟柱へ変更。南北2灯の短い吊灯は標準断面より下に置き、室内照明スイッチで一括操作。部材・照明は未計算のデモ仮定。'],
+ en: ['R19 centres the north attic window on the ridge, with paired jamb posts, a header and an upper ridge post in the uncalculated frame. Two short attic pendants sit below the default cut plane and share the indoor switch. Members and lighting remain demonstration inputs.'],
 } as const;
 
 const r17Notes = {
- zh: ['R18两层厕所南墙与一层洗面区齐平，厕所净尺寸900×1820 mm；尺寸均为演示假设。', '二层衣柜隔墙取消，开放衣类收纳并入主卧（净几何面积14.760㎡）；主卧和北卧室在公共厅转角各设750 mm推拉门，卧室之间的分隔墙保留。'],
- ja: ['R18は両階トイレの南壁を1階洗面室に揃え、内法900×1820 mm。寸法はデモ仮定です。', '2階収納の囲い壁を撤去し、オープン収納を主寝室（内法幾何面積14.760㎡）へ統合。共用ホールの角に主寝室・北寝室それぞれ750 mmの引戸を設け、寝室間の間仕切りは保持。'],
- en: ['R18 aligns both WC south walls with the first-floor washroom; clear WC size 900×1820 mm. Dimensions are demonstration assumptions.', 'The enclosed F2 wardrobe becomes open storage within the 14.760 m² master bedroom. Separate 750 mm sliders enter the master and north bedroom at the hall corner; the bedroom separation wall remains.'],
+ zh: ['R19两层厕所南墙与一层洗面区齐平，厕所净尺寸900×1820 mm；尺寸均为演示假设。', '二层衣柜隔墙取消，开放衣类收纳并入主卧（净几何面积14.760㎡）；主卧和北卧室在公共厅转角各设750 mm推拉门，卧室之间的分隔墙保留。'],
+ ja: ['R19は両階トイレの南壁を1階洗面室に揃え、内法900×1820 mm。寸法はデモ仮定です。', '2階収納の囲い壁を撤去し、オープン収納を主寝室（内法幾何面積14.760㎡）へ統合。共用ホールの角に主寝室・北寝室それぞれ750 mmの引戸を設け、寝室間の間仕切りは保持。'],
+ en: ['R19 aligns both WC south walls with the first-floor washroom; clear WC size 900×1820 mm. Dimensions are demonstration assumptions.', 'The enclosed F2 wardrobe becomes open storage within the 14.760 m² master bedroom. Separate 750 mm sliders enter the master and north bedroom at the hall corner; the bedroom separation wall remains.'],
 } as const;
 
 const r16Notes = {
- zh: ['R18取消二层中央长走廊，将面积分给两间南向卧室；阳台由两间卧室的双扇推拉门进入。', '二层厕所前厅并入公共厅，凹入式洗手区设600×450 mm盆柜与镜子；北卧室北窗600 mm、东窗1800 mm，三卧室配书桌、椅子和床边桌。', '各室及阁楼设原创灯具，室内灯光一键开关并独立于室外灯及家具；尺寸、亮度为演示假设，照度、电气和防水等级待设计。'],
- ja: ['R18は2階中央の長い廊下を南側2寝室に統合。各室の引違い戸からバルコニーへ出ます。', 'トイレ前室を共用ホールに統合し、600×450 mmの手洗い・鏡の凹部を追加。北寝室は北窓600 mm・東窓1800 mm、3寝室にデスク・椅子・ベッドサイドを配置。', '各室・小屋裏にオリジナル灯具を設置。一括スイッチは屋外灯・家具とは独立。寸法・明るさはデモ仮定、照度・電気・防水は未設計。'],
- en: ['R18 merges the long central second-floor passage into both south bedrooms. Each room has its own glazed balcony slider.', 'The WC forecourt joins the shared hall with a recessed 600×450 mm wash basin and mirror. North bedroom windows: north 600 mm, east 1800 mm. Each bedroom has a desk, chair and bedside table.', 'Original lights serve every room and the attic. One indoor switch is independent of outdoor lights and furniture. Sizes and intensity are illustrative; photometry, electrical and wet-area design remain pending.'],
+ zh: ['R19取消二层中央长走廊，将面积分给两间南向卧室；阳台由两间卧室的双扇推拉门进入。', '二层厕所前厅并入公共厅，凹入式洗手区设600×450 mm盆柜与镜子；北卧室北窗600 mm、东窗1800 mm，三卧室配书桌、椅子和床边桌。', '各室及阁楼设原创灯具，室内灯光一键开关并独立于室外灯及家具；尺寸、亮度为演示假设，照度、电气和防水等级待设计。'],
+ ja: ['R19は2階中央の長い廊下を南側2寝室に統合。各室の引違い戸からバルコニーへ出ます。', 'トイレ前室を共用ホールに統合し、600×450 mmの手洗い・鏡の凹部を追加。北寝室は北窓600 mm・東窓1800 mm、3寝室にデスク・椅子・ベッドサイドを配置。', '各室・小屋裏にオリジナル灯具を設置。一括スイッチは屋外灯・家具とは独立。寸法・明るさはデモ仮定、照度・電気・防水は未設計。'],
+ en: ['R19 merges the long central second-floor passage into both south bedrooms. Each room has its own glazed balcony slider.', 'The WC forecourt joins the shared hall with a recessed 600×450 mm wash basin and mirror. North bedroom windows: north 600 mm, east 1800 mm. Each bedroom has a desk, chair and bedside table.', 'Original lights serve every room and the attic. One indoor switch is independent of outdoor lights and furniture. Sizes and intensity are illustrative; photometry, electrical and wet-area design remain pending.'],
 };
 
 export function houseAssumptionsForFacts(facts: HouseFacts) {
   return Object.fromEntries((['zh', 'ja', 'en'] as const).map(locale => [locale,
-    [...r18Notes[locale], ...r17Notes[locale], ...r16Notes[locale], ...r15InteriorNotes[locale], ...r14Notes[locale], ...planTemplates[locale], ...modelTemplates[locale]].map(text => renderFacts(text, facts)),
+    [...r19Notes[locale], ...r18Notes[locale], ...r17Notes[locale], ...r16Notes[locale], ...r15InteriorNotes[locale], ...r14Notes[locale], ...planTemplates[locale], ...modelTemplates[locale]].map(text => renderFacts(text, facts)),
   ])) as Record<'zh' | 'ja' | 'en', string[]>;
 }
 export const houseAssumptions = houseAssumptionsForFacts(createHouseFacts(model));

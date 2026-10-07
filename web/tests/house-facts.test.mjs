@@ -8,7 +8,7 @@ test('all languages use actual CAD storage heights and derived balcony clear are
   const facts = createHouseFacts(model), copy = houseAssumptionsForFacts(facts);
   assert.equal(facts.balconyClearArea, 7.191);
   for (const locale of ['zh', 'ja', 'en']) {
-    assert.match(copy[locale][14 + 11], /1800.*2000/);
+    assert.ok(copy[locale].some(line => /1800.*2000/.test(line)));
     assert.ok(copy[locale].some(line => line.includes('7.191')));
     assert.ok(copy[locale].every(line => !/\{\w+\}/.test(line)));
   }
@@ -20,9 +20,9 @@ test('modified source facts propagate into all translations without editing stri
   const facts = createHouseFacts(changed), copy = houseAssumptionsForFacts(facts);
   assert.equal(facts.balconyClearArea, 8.789);
   for (const locale of ['zh', 'ja', 'en']) {
-    assert.match(copy[locale][14 + 11], /1950/);
-    assert.match(copy[locale][5], /2300\/1600\/1800/);
-    assert.match(copy[locale][14 + 7], /80/);
+    assert.ok(copy[locale].some(line => /1800.*1950/.test(line)));
+    assert.ok(copy[locale].some(line => /2300\/1600\/1800/.test(line)));
+    assert.ok(copy[locale].some(line => /80/.test(line) && /窗框|窓枠|Window frames/.test(line)));
   }
 });
 test('missing or invalid CAD facts cannot silently substitute stale constants', () => {

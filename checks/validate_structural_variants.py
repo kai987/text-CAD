@@ -14,7 +14,8 @@ sys.path.insert(0,str(ROOT/'src'))
 from cadgen import build123d as bd, read_scene
 from lib.attic_geometry import A
 from lib.house_geometry import G
-from lib.house_plan import P, dimensions
+from lib.house_plan import P, dimensions, floor_plan
+from lib.orientation import bounds as reflect_bounds
 from lib.structural_variants import _overlap, geometry_coordination, shape_bounds, solid_box
 from lib.contact_geometry import ContactGeometry
 
@@ -102,14 +103,20 @@ def main():
             post=native['structure:F1:column_C01'];p=record['parameters'];b=shape_bounds(post)
             width=p['exterior_column_width'];t=p['column_wall_thickness']
             close('S:hollow_column_true_material_volume',post.volume,(width*width-(width-2*t)**2)*(b[5]-b[2]),.1)
-            check('S:hollow_column_centre_is_void',not post.is_inside((90,90,1000)))
-            check('S:hollow_column_2_3mm_wall_is_material',post.is_inside((149,90,1000)))
+            check('S:hollow_column_centre_is_void',not post.is_inside(((b[0]+b[3])/2,(b[1]+b[4])/2,1000)))
+            check('S:hollow_column_2_3mm_wall_is_material',post.is_inside((b[3]-1,(b[1]+b[4])/2,1000)))
             check('S:has_actual_straps_gussets_and_baseplates',all(any(kind in name for name in native) for kind in (':strap_brace_',':gusset_',':base_plate_')))
             check('S:sloped_purlins_are_connected_hollow_sections',all(len(shape.solids())==1 for name,shape in native.items() if ':purlin_' in name))
         if system=='RC':
             slab=native['structure:F2:slab_floor'];attic=native['structure:attic:slab_storage']
-            stair_tool=solid_box((dimensions(P)['sx']+.1,dimensions(P)['sy']+.1,2620.1,dimensions(P)['xmax']-.1,dimensions(P)['ymax']-.1,2799.9),'stair_tool','#FFFFFF')
-            hatch_tool=solid_box((A.hatch_x+.1,A.hatch_y+.1,5420.1,A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9),'hatch_tool','#FFFFFF')
+            sb=next(r.shape.bounds for r in floor_plan(2).rooms if r.id=='stairs')
+            stair_tool=solid_box((sb[0]+.1,sb[1]+.1,2620.1,sb[2]-.1,sb[3]-.1,2799.9),'stair_tool','#FFFFFF')
+            hb=(A.hatch_x+.1,A.hatch_y+.1,5420.1,A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9)
+            hatch_tool=solid_box(reflect_bounds(hb,P.width) if P.mirror_layout else hb,'hatch_tool','#FFFFFF')
+            vent=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_bounds_mm']
+            gable=native['structure:roof:gable_shear_north'];gb=shape_bounds(gable)
+            probe=solid_box((vent[0]+40,gb[1]+.1,vent[2]+40,vent[3]-40,gb[4]-.1,vent[5]-40),'north_vent_probe','#FFFFFF')
+            close('RC:north_attic_vent_is_true_gable_void_mm3',_overlap(gable,probe),0,.1)
             close('RC:stair_is_true_slab_void_mm3',_overlap(slab,stair_tool),0,.1)
             close('RC:attic_hatch_is_true_slab_void_mm3',_overlap(attic,hatch_tool),0,.1)
             check('RC:floor_and_attic_material_exist_beside_holes',slab.is_inside((3600,3600,2700)) and attic.is_inside((2500,3800,5500)))

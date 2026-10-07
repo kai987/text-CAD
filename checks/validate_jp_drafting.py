@@ -201,7 +201,7 @@ def validate_dxf(number):
     check("title_block_eight_residential_fields", all(any(s.startswith(label) for s in titletexts) for label in required_fields),
           {"required_labels": required_fields, "title_texts": titletexts}, number)
     check("title_block_revision_date_scale_sheet", any("令和8年10月7日" in s for s in titletexts)
-          and any("1:50" in s for s in titletexts) and any("R13" in text(e) for e in ptexts)
+          and any("1:50" in s for s in titletexts) and any("R14" in text(e) for e in ptexts)
           and f"{number:03d}" in titletexts and "全2枚" in titletexts,
           {"title_texts": titletexts}, number)
     invalid_paper_heights = [{"value": text(e), "height_paper_mm": height(e)} for e in ptexts
@@ -227,7 +227,7 @@ def validate_dxf(number):
           {"scanned_text_entities": len(all_texts), "invalid": disallowed}, number)
     metadata = doc.ezdxf_metadata()
     meta = {key: metadata.get(key, "") for key in ("REVISION", "STANDARD", "SCOPE", "SCALE")}
-    check("document_standard_metadata", meta["REVISION"] == "R13" and "東京都" in meta["STANDARD"]
+    check("document_standard_metadata", meta["REVISION"] == "R14" and "東京都" in meta["STANDARD"]
           and "住宅" in meta["SCOPE"] and ("準用" in meta["SCOPE"] or "准用" in meta["SCOPE"])
           and meta["SCALE"] == "1:50", meta, number)
 
@@ -244,9 +244,9 @@ def validate_pdf():
         check("pdf_A3_landscape", close(width, 420, 1e-4) and close(height_mm, 297, 1e-4),
               {"paper_mm": [width, height_mm]}, index)
         value = (page.extract_text() or "").replace(",", "")
-        check("pdf_standard_revision_date_and_demo_notes", "R13" in value and "1:50" in value
+        check("pdf_standard_revision_date_and_demo_notes", "R14" in value and "1:50" in value
               and "令和8年10月7日" in value and "8190" in value and "7280" in value and "2800" in value,
-              {"R10": "R13" in value, "scale": "1:50" in value,
+              {"R10": "R14" in value, "scale": "1:50" in value,
                "wareki": "令和8年10月7日" in value, "outer": "7280" in value,
                "storey": "2800" in value}, index)
 
@@ -267,7 +267,7 @@ def main():
         ROOT / "docs/tokyo_cad_standard_mapping_R02.md", ROOT / "src/generate_plans.py",
         ROOT / "src/lib/jp_sheet.py"]
     report = {
-        "revision": "R13", "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
+        "revision": "R14", "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
         "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
         "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
         "checked_at": datetime.now(ZoneInfo("Asia/Tokyo")).isoformat(),

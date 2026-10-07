@@ -7,6 +7,8 @@ soil capacity, statutory exemption or construction fitness is asserted.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from dataclasses import asdict, dataclass
 from math import ceil, radians, tan
 
@@ -54,6 +56,7 @@ def _attic():
     return A
 
 
+@orient_record
 def foundation_support_segments(p):
     """R10 load-path axes, all uncalculated; no obsolete LDK pillar retained."""
     d=dimensions(p);e=p.external_wall/2;t=p.internal_wall
@@ -68,6 +71,7 @@ def foundation_support_segments(p):
     ]
 
 
+@orient_record
 def _beam_segments(p, t=T):
     e = p.external_wall/2
     r = t.perimeter_beam_width/2
@@ -88,6 +92,7 @@ def _beam_segments(p, t=T):
     return segments
 
 
+@orient_record
 def floor_beam_segments(number,p,t=T):
     """R10 attic opening transfer perimeter, with assumed connection details."""
     segments=_beam_segments(p,t)
@@ -108,6 +113,7 @@ def attic_beam_opening(p,z1,z2):
                  a.hatch_y+a.hatch_width,z2+1),'attic_beam_opening','#FFFFFF')
 
 
+@orient_record
 def column_layout(p,t=T):
     """Posts in shared closed wall segments, avoiding every R10 aperture.
 
@@ -146,6 +152,7 @@ def column_layout(p,t=T):
     return records
 
 
+@orient_record
 def bearing_wall_candidates(p, t=T):
     """Closed wall spans with explicit posts; a geometry list, never wall credit."""
     d=dimensions(p); e=p.external_wall/2
@@ -221,6 +228,7 @@ def _positions(start,end,maximum):
     return [start+(end-start)*i/count for i in range(count+1)]
 
 
+@orient_record
 def structure_dimensions(p,g,t=T):
     a=_attic()
     attic_top=2*p.storey_height-t.floor_board_allowance
@@ -307,6 +315,7 @@ def _attic_members(p,g,d,roof_posts,t=T):
     return joists,headers
 
 
+@orient_shape
 def structure_group(p,g,t=T):
     d=structure_dimensions(p,g,t);segments=_beam_segments(p,t)
     columns=[];beams=[];panels=[]
@@ -343,6 +352,7 @@ def structure_group(p,g,t=T):
         ("attic_headers",headers),("roof_framing",roof),("bearing_walls",panels))],label="structure")
 
 
+@orient_record
 def structure_manifest(p,g,t=T):
     d=structure_dimensions(p,g,t)
     return {"revision":"R10-STRUCTURE","units":"mm","status":"demonstration_candidate_not_engineered",

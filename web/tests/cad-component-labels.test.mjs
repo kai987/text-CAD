@@ -33,6 +33,7 @@ function originalCategory(name) {
   if (siteCategory) return `${siteCategory[1]}:${siteCategory[2]}`;
   if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
   if (/^attic:(?:lining|knee_wall|gable_lining):/.test(name)) return 'attic:partition_walls';
+  if (/^attic:north_vent:/.test(name)) return 'attic:windows';
   if (/^attic:storage:/.test(name)) return 'attic:storage_fixtures';
   if (/^attic:guardrail:/.test(name)) return 'attic:guardrails';
   const floor = /^(F[12]):/.exec(name)?.[1];

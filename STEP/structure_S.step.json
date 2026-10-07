@@ -1,1 +1,1 @@
-{"animation": {"language": "javascript", "source": "export const clips = {named_parts: {label: \"Named structural alternative\", duration: 1, loop: false, update(t, m) {}}};"}, "documentHash": "571d7dce02b6b5f5a0598a317f1fd48a81aa98a76d65bf443fd9b27006800d6d", "schemaVersion": 9}
+{"animation": {"language": "javascript", "source": "export const clips = {named_parts: {label: \"Named structural alternative\", duration: 1, loop: false, update(t, m) {}}};"}, "documentHash": "85fa1826a282521f8a17a156294162bafefa8228cf9dbe85001c30205719dae3", "schemaVersion": 9}

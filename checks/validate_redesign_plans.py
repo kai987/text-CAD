@@ -8,6 +8,7 @@ from pathlib import Path
 
 import ezdxf
 import fitz
+from shapely.affinity import scale
 from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
 
@@ -67,9 +68,11 @@ def run():
                 graph[d.a].add(d.b);graph[d.b].add(d.a)
             if d.kind=='slide':
                 s=d.start+d.direction*d.width
-                panel=box(s,d.at+15,s+d.width,d.at+45) if d.axis=='h' else box(d.at-45,s,d.at-15,s+d.width)
+                panel=box(s,d.at+15,s+d.width,d.at+45) if d.axis=='h' else (box(d.at+15,s,d.at+45,s+d.width) if P.mirror_layout else box(d.at-45,s,d.at-15,s+d.width))
             elif d.kind=='swing':
-                points=[(d.start,d.at)]+[(d.start+d.width*math.cos(i*math.pi/360),
+                hinge=d.start+d.width if d.hinge_at_end else d.start
+                sign=-1 if d.hinge_at_end else 1
+                points=[(hinge,d.at)]+[(hinge+sign*d.width*math.cos(i*math.pi/360),
                          d.at+d.direction*d.width*math.sin(i*math.pi/360)) for i in range(181)]
                 panel=Polygon(points).difference(cut)
             elif d.kind=='bifold':
@@ -119,11 +122,12 @@ def run():
         # Independent occupied-room routes; 600 mm demonstration corridor swept
         # around the centreline. This is not an accessibility or legal test.
         routes=([('entry_stairs',[(6800,950),(6800,3100),(6560,3700),(6560,4500)]),
-                 ('entry_wc',[(6800,3100),(5560,3500),(5560,4800),(5560,5800)]),
-                 ('ldk_wash',[(5560,3900),(3500,3900),(3550,5700)])] if f.number==1 else
+                 ('entry_wc',[(6800,3100),(6800,3700),(5560,3700),(5560,5800)]),
+                 ('ldk_wash',[(5560,3900),(4600,3900),(3900,4200),(3550,4900),(3550,5700)])] if f.number==1 else
                 [('stairs_balcony',[(7560,4500),(7560,3830),(3830,3830),(3830,-450)]),
                  ('stairs_wc',[(7560,3830),(5560,3830),(5560,5800)])])
         for name,points in routes:
+            if P.mirror_layout:points=[(P.width-x,y) for x,y in points]
             swept=LineString(points).buffer(300,cap_style='flat',join_style='mitre')
             conflict=swept.intersection(unary_union([f.walls,obstacles])).area
             check(prefix+'route/'+name,conflict<.01,{'width_mm':600,'collision_mm2':conflict})
@@ -140,6 +144,21 @@ def run():
         check(prefix+'DXF/high_contrast',not badcolors,badcolors)
         check(prefix+'DXF/viewport_scale',all(abs(v.dxf.view_height/v.dxf.height-50)<1e-6
               for v in doc.layouts.get('JP_A3_1_50').query('VIEWPORT') if v.dxf.status>1),50)
+    # R14 world-space contract: reflect room topology without changing area.
+    for f in floors:
+        stairs=next(r.shape for r in f.rooms if r.id=='stairs')
+        check(f'R14/F{f.number}/stairs_west',stairs.bounds[2]<P.width/2,stairs.bounds)
+        west=[w for w in f.windows if w[0]=='v' and w[1]<P.width/2]
+        east=[w for w in f.windows if w[0]=='v' and w[1]>P.width/2]
+        check(f'R14/F{f.number}/west_only_stair_window',len(west)==1 and stairs.covers(Point(P.external_wall+1,west[0][2]+west[0][3]/2)),west)
+        expected=['ldk'] if f.number==1 else ['master','bed3']
+        owners=[r.id for w in east for r in f.rooms if r.shape.covers(Point(P.width-P.external_wall-1,w[2]+w[3]/2))]
+        check(f'R14/F{f.number}/east_room_windows',sorted(owners)==sorted(expected),owners)
+    entry=next(d for d in floors[0].doors if d.a=='outside')
+    check('R14/entrance_southwest',entry.start+entry.width<P.width/2,[entry.start,entry.start+entry.width])
+    kitchen=next(b for name,b in floors[0].fixtures if name=='対面キッチン')
+    cupboard=next(b for name,b in floors[0].fixtures if name=='カップボード')
+    check('R14/kitchen_main_rear_aisle_900',cupboard[1]-kitchen[3]==900,{'counter':kitchen,'cupboard':cupboard})
     # R10 changes only the balcony outside the approved R09 indoor rooms.
     previous=json.loads((ROOT/'output/review/house_redesign_R09.json').read_text())
     for f in floors:
@@ -147,7 +166,7 @@ def run():
         for room in f.rooms:
             if room.id!='balcony':
                 check(f'{f.number}F/R09_room_preserved/{room.id}',
-                      room.shape.symmetric_difference(Polygon(old[room.id]['polygon_mm'])).area<.01,
+                      room.shape.symmetric_difference(scale(Polygon(old[room.id]['polygon_mm']),xfact=-1 if P.mirror_layout else 1,origin=(P.width/2,0))).area<.01,
                       room.shape.bounds)
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
     check('R10/balcony_left_fixed',dimensions()['bx']==0,dimensions()['bx'])

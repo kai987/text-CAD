@@ -1,19 +1,19 @@
 {
-  "revision": "R13",
+  "revision": "R14",
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-07T13:10:19.641292+09:00",
+  "checked_at": "2026-10-07T15:36:38.441235+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9",
-    "DXF/house_2f_plan.dxf": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b",
-    "DXF/001D0PL2-1FPLAN.DXF": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9",
-    "DXF/002D0PL2-2FPLAN.DXF": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "8688ef483a94cd4a99239114a6962281941a32cc7d12c3650a75aed762b14d0b",
-    "checks/validate_jp_drafting.py": "7ce0e2eb6876daa84857273adf5dd4b5c84235c4f1ffcafa0c603ff8aefb8abd",
+    "DXF/house_1f_plan.dxf": "77176ac3a9f654c6c965564793f57133d1980a0d4fa38f824b965338f60f24f8",
+    "DXF/house_2f_plan.dxf": "9916556af509f3d99c33ada81e42a9aaacd0445510da798f823d8f5cb55104f0",
+    "DXF/001D0PL2-1FPLAN.DXF": "77176ac3a9f654c6c965564793f57133d1980a0d4fa38f824b965338f60f24f8",
+    "DXF/002D0PL2-2FPLAN.DXF": "9916556af509f3d99c33ada81e42a9aaacd0445510da798f823d8f5cb55104f0",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "ee8d2c2a518d5097cb247198a8476cd4880b8956a12d4d40884184974dfeebc0",
+    "checks/validate_jp_drafting.py": "9da2c5862b0f0caa911800b5b622737adc3bdf1b4086dfcebf3ce34b521ccf6e",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
-    "src/generate_plans.py": "b503222ad82a97eb32357f2e7f05b3632a0cf1387887e59f2a2d3c20df5f2850",
-    "src/lib/jp_sheet.py": "8297744ecc964234e8c2aa82e155b63fa7b84130880974078614b78ea1a78a7c"
+    "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
+    "src/lib/jp_sheet.py": "ea8201c6f05ce677ded9a45f85ac37a8bdc9d885afcb5e476a0cf49a0567a45c"
   },
   "summary": {
     "checks": 230,
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9",
-        "canonical_sha256": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9"
+        "alias_sha256": "77176ac3a9f654c6c965564793f57133d1980a0d4fa38f824b965338f60f24f8",
+        "canonical_sha256": "77176ac3a9f654c6c965564793f57133d1980a0d4fa38f824b965338f60f24f8"
       },
       "floor": 1
     },
@@ -80,8 +80,8 @@
         "model_entity_counts": {
           "D-STR-WALL": 88,
           "D-STR-WIND": 18,
-          "D-STR-TXT": 38,
-          "D-BYP-FIXT": 11,
+          "D-STR-TXT": 40,
+          "D-BYP-FIXT": 13,
           "D-STR-DOOR": 10,
           "D-STR-STAI": 23,
           "D-STR-DIM": 5,
@@ -557,7 +557,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 329,
+        "graphic_entities_checked": 333,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -587,7 +587,7 @@
       "evidence": {
         "model_to_paper": "height / 50",
         "paper_height_counts": {
-          "1.8": 12,
+          "1.8": 14,
           "2.5": 19,
           "3.5": 7
         },
@@ -1129,7 +1129,7 @@
       "check": "no_disallowed_example_characters",
       "status": "pass",
       "evidence": {
-        "scanned_text_entities": 187,
+        "scanned_text_entities": 191,
         "invalid": []
       },
       "floor": 1
@@ -1138,9 +1138,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R13",
+        "REVISION": "R14",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R13室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 1
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b",
-        "canonical_sha256": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b"
+        "alias_sha256": "9916556af509f3d99c33ada81e42a9aaacd0445510da798f823d8f5cb55104f0",
+        "canonical_sha256": "9916556af509f3d99c33ada81e42a9aaacd0445510da798f823d8f5cb55104f0"
       },
       "floor": 2
     },
@@ -1202,8 +1202,8 @@
           "D-DOC-TXT": 13
         },
         "model_entity_counts": {
-          "D-STR-WALL": 105,
-          "D-STR-WIND": 18,
+          "D-STR-WALL": 109,
+          "D-STR-WIND": 21,
           "D-STR-TXT": 43,
           "D-BYP-FIXT": 8,
           "D-STR-DOOR": 14,
@@ -1681,7 +1681,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 382,
+        "graphic_entities_checked": 389,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -2396,9 +2396,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R13",
+        "REVISION": "R14",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R13室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 2

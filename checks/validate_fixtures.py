@@ -42,7 +42,7 @@ def validate():
                       bb.min.X >= x1-tol and bb.max.X <= x2+tol and
                       bb.min.Y >= y1-tol and bb.max.Y <= y2+tol,
                       [round(v, 3) for v in [bb.min.X, bb.min.Y, bb.max.X, bb.max.Y]])
-                check(f'{tag}:{kind}:floor_datum', bb.min.Z >= z and bb.max.Z < z+2000)
+                check(f'{tag}:{kind}:floor_datum', bb.min.Z >= z and bb.max.Z < z+(2600 if name=='対面キッチン' else 2000))
                 for leaf in fixture.children:
                     solids = leaf.solids()
                     check(f'{tag}:{leaf.label}:one_valid_closed_solid',
@@ -76,7 +76,7 @@ def validate():
                     check(f'{tag}:washer:recognizable_details',
                           {'porthole_chrome', 'washer_glass', 'drum_steel', 'dial_chrome', 'control_screen'} <= parts.keys())
                 elif kind == 'kitchen':
-                    sx, sy = x1+(x2-x1)*.285, y1+(y2-y1)*.465
+                    sx, sy = x1+(x2-x1)*.285, y1+(y2-y1)*(.535 if name=='対面キッチン' else .465)
                     check(f'{tag}:kitchen:real_inset_sink', not parts['sink_steel'].solids()[0].is_inside((sx, sy, z+770)))
                     check(f'{tag}:kitchen:counter_sink_opening', not parts['counter_stone'].solids()[0].is_inside((sx, sy, z+835)))
                     check(f'{tag}:kitchen:three_hob_rings', all(f'hob_ring_{i}_steel' in parts for i in (1, 2, 3)))

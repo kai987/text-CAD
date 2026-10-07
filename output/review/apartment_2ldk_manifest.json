@@ -30,6 +30,7 @@
           "depth": 850,
           "rotation": 270,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             6700.0,
             1000.0,
@@ -47,6 +48,7 @@
           "depth": 450,
           "rotation": 90,
           "height": 380,
+          "mirror_local_x": false,
           "footprint_mm": [
             5700.0,
             1250.0,
@@ -64,6 +66,7 @@
           "depth": 350,
           "rotation": 90,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             4900.0,
             1150.0,
@@ -81,6 +84,7 @@
           "depth": 650,
           "rotation": 0,
           "height": 730,
+          "mirror_local_x": false,
           "footprint_mm": [
             1050.0,
             1000.0,
@@ -98,6 +102,7 @@
           "depth": 420,
           "rotation": 90,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             580.0,
             1050.0,
@@ -115,6 +120,7 @@
           "depth": 420,
           "rotation": 270,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             2300.0,
             1050.0,
@@ -132,6 +138,7 @@
           "depth": 2020,
           "rotation": 0,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             1450.0,
             6040.0,
@@ -149,6 +156,7 @@
           "depth": 2020,
           "rotation": 270,
           "height": 0,
+          "mirror_local_x": false,
           "footprint_mm": [
             5200.0,
             7120.0,
@@ -279,7 +287,8 @@
       "start": 3800,
       "width": 900,
       "kind": "swing",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D02",
@@ -290,7 +299,8 @@
       "start": 3400,
       "width": 1400,
       "kind": "open",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D03",
@@ -301,7 +311,8 @@
       "start": 5550,
       "width": 800,
       "kind": "slide",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D04",
@@ -312,7 +323,8 @@
       "start": 5550,
       "width": 800,
       "kind": "slide",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D05",
@@ -323,7 +335,8 @@
       "start": 3500,
       "width": 800,
       "kind": "slide",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D06",
@@ -334,7 +347,8 @@
       "start": 3400,
       "width": 750,
       "kind": "slide",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D07",
@@ -345,7 +359,8 @@
       "start": 3500,
       "width": 700,
       "kind": "slide",
-      "direction": 1
+      "direction": 1,
+      "hinge_at_end": false
     },
     {
       "id": "D08",
@@ -356,7 +371,8 @@
       "start": 6300,
       "width": 800,
       "kind": "slide",
-      "direction": -1
+      "direction": -1,
+      "hinge_at_end": false
     }
   ],
   "connections": [

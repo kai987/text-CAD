@@ -1,9 +1,9 @@
-"""Active R13 layout: approved rooms with a 1000 mm unsupported balcony proposal.
+"""Active R14 layout: reflected rooms, east glazing and a facing kitchen.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
 """
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 
 from shapely.geometry import Polygon, box
 from shapely.ops import unary_union
@@ -13,6 +13,11 @@ from lib.house_plan_r01 import Door, Floor, Room, rectangle
 
 @dataclass(frozen=True)
 class RedesignParameters:
+    mirror_layout: bool = True
+    kitchen_width: float = 2550
+    kitchen_depth: float = 650
+    kitchen_south: float = 3180
+    kitchen_wall_gap: float = 820
     width: float = 8190
     depth: float = 7280
     storey_height: float = 2800
@@ -44,7 +49,7 @@ class RedesignParameters:
 
 
 P = RedesignParameters()
-REVISION = 'R13'
+REVISION = 'R14'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -85,6 +90,9 @@ def south_floor_window(window,p=P):
     return axis=='h' and abs(at-p.external_wall/2)<1e-6 and width>1000
 
 
+from .orientation import orient_record
+
+@orient_record
 def balcony_drying_bounds(p=P):
     """Move the 1900 mm rack east of the unchanged 800 mm balcony-door swing."""
     left=p.access_left+p.hall_width+200
@@ -97,7 +105,7 @@ def balcony_drying_bounds(p=P):
     return bounds
 
 
-def floor_plan(number, p=P):
+def _canonical_floor_plan(number, p=P):
     if number not in (1, 2):
         raise ValueError('Two-storey proposal only')
     d=dimensions(p)
@@ -128,8 +136,10 @@ def floor_plan(number, p=P):
                  ('h',ym+e/2,700,600),('h',ym+e/2,3000,900),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
         fixtures=[('靴収納',(xm-400,350,xm,1450)),
-                  ('キッチン',(450,wb-800,3000,wb-t-100)),
-                  ('ダイニング',(3500,2700,4900,3500)),
+                  ('対面キッチン',(e+p.kitchen_wall_gap,p.kitchen_south,e+p.kitchen_wall_gap+p.kitchen_width,p.kitchen_south+p.kitchen_depth)),
+                  ('冷蔵庫',(e+20,wb-t-750,e+720,wb-t)),
+                  ('カップボード',(1000,wb-t-450,2750,wb-t)),
+                  ('ダイニング',(3900,2500,5300,3300)),
                   ('ソファ',(650,850,2450,1700)),('TV',(e,2300,e+400,3500)),
                   ('食品収納',(4200,wb-700,wcl-t,wb-t)),
                   ('浴槽',(330,ym-850,br-150,ym-150)),
@@ -159,7 +169,7 @@ def floor_plan(number, p=P):
                Door('O22','hall','stairs','h',sy-t/2,sx+p.stair_width+t,900,'open'),
                Door('D26','hall','balcony','h',e/2,p.access_left+50,800,'swing',-1)]
         windows=[('h',e/2,650,p.south_master_window_width),('h',e/2,5200,p.south_bedroom_window_width),
-                 ('v',e/2,700,1200),('h',ym+e/2,650,1800),
+                 ('v',e/2,700,1200),('v',e/2,5400,1000),('h',ym+e/2,650,1800),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
         fixtures=[('ベッド 1400',(430,950,2430,2350)),
                   ('衣類棚',(e+100,sy-t-600,p.access_left-t-100,sy-t)),
@@ -185,8 +195,29 @@ def floor_plan(number, p=P):
     return Floor(number,rooms,doors,walls.difference(unary_union(cuts)),windows,fixtures)
 
 
+def floor_plan(number, p=P):
+    """World-space plan; the west entry is a reflection of the authoring topology."""
+    from shapely.affinity import scale
+    from .orientation import canonical, bounds
+    f=_canonical_floor_plan(number,canonical(p))
+    if not p.mirror_layout:return f
+    reflect=lambda geom:scale(geom,xfact=-1,yfact=1,origin=(p.width/2,0))
+    for r in f.rooms:
+        r.shape=reflect(r.shape);r.label=(p.width-r.label[0],r.label[1])
+    for d in f.doors:
+        if d.axis=='h':
+            d.start=p.width-d.start-d.width
+            d.hinge_at_end=d.kind=='swing'
+            if d.kind=='slide':d.direction=-d.direction
+        else:d.at=p.width-d.at
+    f.walls=reflect(f.walls)
+    f.windows=[(axis,p.width-at,start,w) if axis=='v' else (axis,at,p.width-start-w,w) for axis,at,start,w in f.windows]
+    f.fixtures=[(name,tuple(bounds(b,p.width))) for name,b in f.fixtures]
+    return f
+
+
 def manifest(p=P):
-    return {'revision':REVISION,'stage':'floor_plan_approved','approved_on':'2026-10-07','units':'mm',
+    return {'revision':REVISION,'stage':'user_requested_mirror_layout','approved_on':'2026-10-07','units':'mm',
             'parameters':asdict(p),'sources':SOURCES,
             'assumptions':[
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
@@ -202,7 +233,8 @@ def manifest(p=P):
                 'R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
                 'R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
-                'User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R13 keeps the room layout.'],
+                'R14 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.',
+                '2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm, 700 x 750 mm fridge and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending.'],
             'floors':[{'floor':n,'outline_area_m2':p.width*p.depth/1e6,
                        'rooms':[{'id':r.id,'name':r.name,'area_m2':round(r.area,4),
                                  'polygon_mm':list(r.shape.exterior.coords),'size_note':r.size_note}

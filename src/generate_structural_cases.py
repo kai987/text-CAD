@@ -89,7 +89,7 @@ def generate():
                     "The same uncalculated material-system geometry is shared across cities. "
                     "Official regional reference parameters are not site-specific design loads. "
                     "Sizing must be recalculated after the actual site and load conditions are known."),
-                "architectural_geometry_baseline": "R13-3D; approved indoor room boundaries retained; south glazing and balcony revised",
+                "architectural_geometry_baseline": "R14-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
                 "architectural_coordination_result": None,
                 "capacity_results": None, "statutory_compliance_result": None,
                 "building_confirmation_result": None,

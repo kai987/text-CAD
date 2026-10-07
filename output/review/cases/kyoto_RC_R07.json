@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "0a5b745171c699b9ae4abdb5edf0d4655ef83988ce5136c648086986ef7622b1",
-    "step": "894d32b00a7235d84e9371b401fde70f4ee666893ef12f9d8d7f4219c8e86c7a"
+    "glb": "557e15224c0f8901cef410ed27a8243e70d782b0fe3cfd8269d8e626d8433b5b",
+    "step": "294a0b310e48f8cbb5b352e6627689e7b4685b14cee9d3792f2eb6fd00bb0220"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -306,10 +306,10 @@
       {
         "name": "structure:F1:column_C01",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           -120.0,
           -200.0,
-          180.0,
+          8310.0,
           180.0,
           2220.0
         ],
@@ -319,10 +319,10 @@
       {
         "name": "structure:F1:column_C02",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           -120.0,
           -200.0,
-          8310.0,
+          180.0,
           180.0,
           2220.0
         ],
@@ -332,19 +332,6 @@
       {
         "name": "structure:F1:column_C03",
         "bounds_mm": [
-          -120.0,
-          7100.0,
-          -200.0,
-          180.0,
-          7400.0,
-          2220.0
-        ],
-        "volume_mm3": 217800000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:column_C04",
-        "bounds_mm": [
           8010.0,
           7100.0,
           -200.0,
@@ -356,12 +343,25 @@
         "solid_count": 1
       },
       {
+        "name": "structure:F1:column_C04",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          -200.0,
+          180.0,
+          7400.0,
+          2220.0
+        ],
+        "volume_mm3": 217800000.0,
+        "solid_count": 1
+      },
+      {
         "name": "structure:F1:column_C05",
         "bounds_mm": [
-          2970.0,
+          4920.0,
           -120.0,
           -200.0,
-          3270.0,
+          5220.0,
           180.0,
           2220.0
         ],
@@ -384,10 +384,10 @@
       {
         "name": "structure:F1:column_C07",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           3850.0,
           -200.0,
-          180.0,
+          8310.0,
           4150.0,
           2220.0
         ],
@@ -397,10 +397,10 @@
       {
         "name": "structure:F1:column_C08",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           3850.0,
           -200.0,
-          8310.0,
+          180.0,
           4150.0,
           2220.0
         ],
@@ -410,10 +410,10 @@
       {
         "name": "structure:F2:column_C01",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           -120.0,
           2620.0,
-          180.0,
+          8310.0,
           180.0,
           5020.0
         ],
@@ -423,10 +423,10 @@
       {
         "name": "structure:F2:column_C02",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           -120.0,
           2620.0,
-          8310.0,
+          180.0,
           180.0,
           5020.0
         ],
@@ -436,19 +436,6 @@
       {
         "name": "structure:F2:column_C03",
         "bounds_mm": [
-          -120.0,
-          7100.0,
-          2620.0,
-          180.0,
-          7400.0,
-          5020.0
-        ],
-        "volume_mm3": 216000000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:column_C04",
-        "bounds_mm": [
           8010.0,
           7100.0,
           2620.0,
@@ -460,12 +447,25 @@
         "solid_count": 1
       },
       {
+        "name": "structure:F2:column_C04",
+        "bounds_mm": [
+          -120.0,
+          7100.0,
+          2620.0,
+          180.0,
+          7400.0,
+          5020.0
+        ],
+        "volume_mm3": 216000000.0,
+        "solid_count": 1
+      },
+      {
         "name": "structure:F2:column_C05",
         "bounds_mm": [
-          2970.0,
+          4920.0,
           -120.0,
           2620.0,
-          3270.0,
+          5220.0,
           180.0,
           5020.0
         ],
@@ -488,10 +488,10 @@
       {
         "name": "structure:F2:column_C07",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           3850.0,
           2620.0,
-          180.0,
+          8310.0,
           4150.0,
           5020.0
         ],
@@ -501,10 +501,10 @@
       {
         "name": "structure:F2:column_C08",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           3850.0,
           2620.0,
-          8310.0,
+          180.0,
           4150.0,
           5020.0
         ],
@@ -540,10 +540,10 @@
       {
         "name": "structure:F1:beam_B03",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           180.0,
           2220.0,
-          180.0,
+          8310.0,
           7100.0,
           2620.0
         ],
@@ -553,10 +553,10 @@
       {
         "name": "structure:F1:beam_B04",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           180.0,
           2220.0,
-          8310.0,
+          180.0,
           7100.0,
           2620.0
         ],
@@ -592,10 +592,10 @@
       {
         "name": "structure:F2:beam_B03",
         "bounds_mm": [
-          -120.0,
+          8010.0,
           180.0,
           5020.0,
-          180.0,
+          8310.0,
           7100.0,
           5420.0
         ],
@@ -605,10 +605,10 @@
       {
         "name": "structure:F2:beam_B04",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           180.0,
           5020.0,
-          8310.0,
+          180.0,
           7100.0,
           5420.0
         ],
@@ -657,10 +657,10 @@
       {
         "name": "structure:F1:shear_wall_SW01",
         "bounds_mm": [
-          5000.0,
+          180.0,
           7100.0,
           -200.0,
-          8010.0,
+          3190.0,
           7400.0,
           2220.0
         ],
@@ -670,10 +670,10 @@
       {
         "name": "structure:F1:shear_wall_SW02",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           180.0,
           -200.0,
-          8310.0,
+          180.0,
           1400.0,
           2220.0
         ],
@@ -683,10 +683,10 @@
       {
         "name": "structure:F2:shear_wall_SW01",
         "bounds_mm": [
-          5000.0,
+          180.0,
           7100.0,
           2620.0,
-          8010.0,
+          3190.0,
           7400.0,
           5020.0
         ],
@@ -696,10 +696,10 @@
       {
         "name": "structure:F2:shear_wall_SW02",
         "bounds_mm": [
-          8010.0,
+          -120.0,
           180.0,
           2620.0,
-          8310.0,
+          180.0,
           1400.0,
           5020.0
         ],
@@ -707,35 +707,35 @@
         "solid_count": 1
       },
       {
-        "name": "structure:roof:slab_west",
-        "bounds_mm": [
-          -450.00000000000006,
-          -450.0,
-          5340.192378864668,
-          4095.0,
-          7730.0,
-          8084.249352331517
-        ],
-        "volume_mm3": 4461372000.000004,
-        "solid_count": 1
-      },
-      {
         "name": "structure:roof:slab_east",
         "bounds_mm": [
-          4095.0,
+          4094.9999999999995,
           -450.0,
           5340.192378864668,
           8640.0,
           7730.0,
           8084.249352331517
         ],
-        "volume_mm3": 4461371999.999994,
+        "volume_mm3": 4461372000.000005,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:slab_west",
+        "bounds_mm": [
+          -450.0000000000006,
+          -450.0,
+          5340.192378864668,
+          4095.0000000000005,
+          7730.0,
+          8084.249352331517
+        ],
+        "volume_mm3": 4461371999.999996,
         "solid_count": 1
       },
       {
         "name": "structure:roof:gable_shear_south",
         "bounds_mm": [
-          -2.0352781577886064e-13,
+          0.0,
           -120.0,
           5420.0,
           8190.0,
@@ -748,14 +748,14 @@
       {
         "name": "structure:roof:gable_shear_north",
         "bounds_mm": [
-          -2.0352781577886064e-13,
+          0.0,
           7100.0,
           5420.0,
           8190.0,
-          7400.0,
+          7400.000000000002,
           7964.249352331517
         ],
-        "volume_mm3": 3346740329.339268,
+        "volume_mm3": 3292740329.339268,
         "solid_count": 1
       },
       {
@@ -813,10 +813,10 @@
       {
         "name": "foundation:internal_supports:I03",
         "bounds_mm": [
-          4910.0,
+          2980.0,
           4480.0,
           -900.0,
-          5210.0,
+          3280.0,
           7100.0,
           -200.0
         ],
@@ -826,10 +826,10 @@
       {
         "name": "foundation:internal_supports:I04",
         "bounds_mm": [
-          5910.0,
+          1980.0,
           4480.0,
           -900.0,
-          6210.0,
+          2280.0,
           7100.0,
           -200.0
         ],
@@ -839,10 +839,10 @@
       {
         "name": "foundation:internal_supports:I05",
         "bounds_mm": [
-          5210.0,
+          2280.0,
           5080.0,
           -900.0,
-          5910.0,
+          2980.0,
           5380.0,
           -200.0
         ],
@@ -852,10 +852,10 @@
       {
         "name": "foundation:internal_supports:I06",
         "bounds_mm": [
-          3180.0,
+          4710.0,
           180.0,
           -900.0,
-          3480.0,
+          5010.0,
           4180.0,
           -200.0
         ],
@@ -865,10 +865,10 @@
       {
         "name": "foundation:internal_supports:I07",
         "bounds_mm": [
-          4180.0,
+          3710.0,
           180.0,
           -900.0,
-          4480.0,
+          4010.0,
           4180.0,
           -200.0
         ],
@@ -889,7 +889,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm approved R10 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm R14 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "300 mm perimeter columns/beam bands extend 120 mm outside each architectural face; structural perimeter is 8430 x 7520 mm and exterior/site/area coordination remains pending.",
@@ -897,7 +897,7 @@
       "RC self-weight, attic/storage loading, concrete/rebar strengths, reinforcing layout, punching shear, deflection and seismic detailing require an independent RC calculation, not timber load inheritance.",
       "The two shear piers are spatial candidates only; their quantity, distribution, ductility, diaphragm anchorage and torsional performance are unresolved.",
       "The sloped concrete roof/cantilever eaves and storage-attic slab require dedicated checks; hatch depth differs from the timber hatch hardware and product coordination is pending.",
-      "The north-east stair slab void extends through the outer wall band to the separate perimeter beams, avoiding an invalid point-contact slab corner. The approved stair travel footprint remains clear; slab edges and beam/slab anchorage are unengineered.",
+      "The north-west stair slab void extends through the outer wall band to the separate perimeter beams, avoiding an invalid point-contact slab corner. The approved stair travel footprint remains clear; slab edges and beam/slab anchorage are unengineered.",
       "No reinforcing bars are rendered, avoiding an appearance of a designed reinforcing cage."
     ],
     "coordination": {
@@ -1043,6 +1043,11 @@
           "id": "F2:W06",
           "kind": "window",
           "overlaps": []
+        },
+        {
+          "id": "F2:W07",
+          "kind": "window",
+          "overlaps": []
         }
       ],
       "aperture_collisions": [],
@@ -1073,10 +1078,10 @@
           "member": "structure:F1:column_C01",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            -120.0,
+            8010.0,
             -120.0,
             -200.0,
-            180.0,
+            8310.0,
             180.0,
             2220.0
           ]
@@ -1085,10 +1090,10 @@
           "member": "structure:F1:column_C02",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             -120.0,
             -200.0,
-            8310.0,
+            180.0,
             180.0,
             2220.0
           ]
@@ -1097,18 +1102,6 @@
           "member": "structure:F1:column_C03",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            -120.0,
-            7100.0,
-            -200.0,
-            180.0,
-            7400.0,
-            2220.0
-          ]
-        },
-        {
-          "member": "structure:F1:column_C04",
-          "outside_original_outline_mm2": 57600.0,
-          "bounds_mm": [
             8010.0,
             7100.0,
             -200.0,
@@ -1118,13 +1111,25 @@
           ]
         },
         {
+          "member": "structure:F1:column_C04",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            -200.0,
+            180.0,
+            7400.0,
+            2220.0
+          ]
+        },
+        {
           "member": "structure:F1:column_C05",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            2970.0,
+            4920.0,
             -120.0,
             -200.0,
-            3270.0,
+            5220.0,
             180.0,
             2220.0
           ]
@@ -1145,10 +1150,10 @@
           "member": "structure:F1:column_C07",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            -120.0,
+            8010.0,
             3850.0,
             -200.0,
-            180.0,
+            8310.0,
             4150.0,
             2220.0
           ]
@@ -1157,10 +1162,10 @@
           "member": "structure:F1:column_C08",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             3850.0,
             -200.0,
-            8310.0,
+            180.0,
             4150.0,
             2220.0
           ]
@@ -1169,10 +1174,10 @@
           "member": "structure:F2:column_C01",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            -120.0,
+            8010.0,
             -120.0,
             2620.0,
-            180.0,
+            8310.0,
             180.0,
             5020.0
           ]
@@ -1181,10 +1186,10 @@
           "member": "structure:F2:column_C02",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             -120.0,
             2620.0,
-            8310.0,
+            180.0,
             180.0,
             5020.0
           ]
@@ -1193,18 +1198,6 @@
           "member": "structure:F2:column_C03",
           "outside_original_outline_mm2": 57600.0,
           "bounds_mm": [
-            -120.0,
-            7100.0,
-            2620.0,
-            180.0,
-            7400.0,
-            5020.0
-          ]
-        },
-        {
-          "member": "structure:F2:column_C04",
-          "outside_original_outline_mm2": 57600.0,
-          "bounds_mm": [
             8010.0,
             7100.0,
             2620.0,
@@ -1214,13 +1207,25 @@
           ]
         },
         {
+          "member": "structure:F2:column_C04",
+          "outside_original_outline_mm2": 57600.0,
+          "bounds_mm": [
+            -120.0,
+            7100.0,
+            2620.0,
+            180.0,
+            7400.0,
+            5020.0
+          ]
+        },
+        {
           "member": "structure:F2:column_C05",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            2970.0,
+            4920.0,
             -120.0,
             2620.0,
-            3270.0,
+            5220.0,
             180.0,
             5020.0
           ]
@@ -1241,10 +1246,10 @@
           "member": "structure:F2:column_C07",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            -120.0,
+            8010.0,
             3850.0,
             2620.0,
-            180.0,
+            8310.0,
             4150.0,
             5020.0
           ]
@@ -1253,10 +1258,10 @@
           "member": "structure:F2:column_C08",
           "outside_original_outline_mm2": 36000.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             3850.0,
             2620.0,
-            8310.0,
+            180.0,
             4150.0,
             5020.0
           ]
@@ -1289,10 +1294,10 @@
           "member": "structure:F1:beam_B03",
           "outside_original_outline_mm2": 830400.0,
           "bounds_mm": [
-            -120.0,
+            8010.0,
             180.0,
             2220.0,
-            180.0,
+            8310.0,
             7100.0,
             2620.0
           ]
@@ -1301,10 +1306,10 @@
           "member": "structure:F1:beam_B04",
           "outside_original_outline_mm2": 830400.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             180.0,
             2220.0,
-            8310.0,
+            180.0,
             7100.0,
             2620.0
           ]
@@ -1337,6 +1342,18 @@
           "member": "structure:F2:beam_B03",
           "outside_original_outline_mm2": 830400.0,
           "bounds_mm": [
+            8010.0,
+            180.0,
+            5020.0,
+            8310.0,
+            7100.0,
+            5420.0
+          ]
+        },
+        {
+          "member": "structure:F2:beam_B04",
+          "outside_original_outline_mm2": 830400.0,
+          "bounds_mm": [
             -120.0,
             180.0,
             5020.0,
@@ -1346,25 +1363,13 @@
           ]
         },
         {
-          "member": "structure:F2:beam_B04",
-          "outside_original_outline_mm2": 830400.0,
-          "bounds_mm": [
-            8010.0,
-            180.0,
-            5020.0,
-            8310.0,
-            7100.0,
-            5420.0
-          ]
-        },
-        {
           "member": "structure:F1:shear_wall_SW01",
           "outside_original_outline_mm2": 361200.0,
           "bounds_mm": [
-            5000.0,
+            180.0,
             7100.0,
             -200.0,
-            8010.0,
+            3190.0,
             7400.0,
             2220.0
           ]
@@ -1373,10 +1378,10 @@
           "member": "structure:F1:shear_wall_SW02",
           "outside_original_outline_mm2": 146400.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             180.0,
             -200.0,
-            8310.0,
+            180.0,
             1400.0,
             2220.0
           ]
@@ -1385,10 +1390,10 @@
           "member": "structure:F2:shear_wall_SW01",
           "outside_original_outline_mm2": 361200.0,
           "bounds_mm": [
-            5000.0,
+            180.0,
             7100.0,
             2620.0,
-            8010.0,
+            3190.0,
             7400.0,
             5020.0
           ]
@@ -1397,10 +1402,10 @@
           "member": "structure:F2:shear_wall_SW02",
           "outside_original_outline_mm2": 146400.0,
           "bounds_mm": [
-            8010.0,
+            -120.0,
             180.0,
             2620.0,
-            8310.0,
+            180.0,
             1400.0,
             5020.0
           ]
@@ -1463,7 +1468,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R13-3D; approved indoor room boundaries retained; south glazing and balcony revised",
+  "architectural_geometry_baseline": "R14-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

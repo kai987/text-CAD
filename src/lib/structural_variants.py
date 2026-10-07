@@ -9,6 +9,8 @@ drawing input; material grades, connections, loads and results remain unset.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from dataclasses import asdict, dataclass
 from math import ceil, radians, sqrt, tan
 
@@ -354,14 +356,19 @@ def concrete_variant(p=P,g=G,c=RC):
                   (ridge,top(ridge)),(0,zbase)]
     for side,y in (("south",-projection),("north",p.depth-p.external_wall)):
         face=bd.Face(bd.Wire.make_polygon([(x,y,z) for x,z in gable_points]))
-        roof.append(named(bd.extrude(face,amount=c.column_width,dir=(0,1,0)),
-                          f"structure:roof:gable_shear_{side}","#B2B5B1"))
+        gable=bd.extrude(face,amount=c.column_width,dir=(0,1,0))
+        if side=='north':
+            from .attic_geometry import north_vent_bounds
+            v=north_vent_bounds(p,g)
+            gable=gable.cut(solid_box((v[0],y-1,v[2],v[3],y+c.column_width+1,v[5]),'vent_tool','#FFFFFF'))
+        roof.append(named(gable,f"structure:roof:gable_shear_{side}","#B2B5B1"))
     frame=bd.Compound(children=[bd.Compound(children=items,label=f"structure:{category}") for category,items in
         (("columns",columns),("beams",beams),("bearing_walls",shears),("roof_framing",roof))],label="structure")
     return bd.Compound(children=[frame,_foundation(p,c.foundation_stem_width,c.foundation_raft_top_z,
                 c.foundation_raft_thickness,c.foundation_top_z,projection)],label="variant_RC")
 
 
+@orient_shape
 def build_variant(system,p=P,g=G):
     return {"W":timber_variant,"S":steel_variant,"RC":concrete_variant}[system](p,g)
 
@@ -389,8 +396,11 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
             opening_queries.append((n,f"F{n}:W{index:02d}",'window',tool))
     stair=next(r.shape for r in floors[2].rooms if r.id=='stairs')
     stair_tool=extruded_polygon(stair.buffer(-.1),.1,p.storey_height+200)
-    hatch_tool=solid_box((A.hatch_x+.1,A.hatch_y+.1,2*p.storey_height-450,
-                 A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,2*p.storey_height-.1),"hatch","#FFFFFF")
+    hatch_bounds=(A.hatch_x+.1,A.hatch_y+.1,2*p.storey_height-450,
+                 A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,2*p.storey_height-.1)
+    from .orientation import bounds
+    if p.mirror_layout:hatch_bounds=bounds(hatch_bounds,p.width)
+    hatch_tool=solid_box(hatch_bounds,"hatch","#FFFFFF")
     # Broad-phase candidates are ordered by the original member index. Exact
     # native solid intersections still decide every reported collision.
     tools=[query[3] for query in opening_queries]+[stair_tool,hatch_tool]
@@ -421,7 +431,7 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
         area=profile.difference(box(0,0,p.width,p.depth)).area
         if area>.01:envelope.append({"member":m.label,"outside_original_outline_mm2":round(area,4),"bounds_mm":b})
     summary={
-        "W":{"zh":"按 R10 平面重排木结构演示架构；截面、节点与基础均未验算。","ja":"R10の間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。","en":"Timber concept rearranged for the R10 layout; sections, connections and foundations are uncalculated."},
+        "W":{"zh":"按 R14 镜像平面重排木结构演示架构；截面、节点与基础均未验算。","ja":"R14の左右反転間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。","en":"Timber concept rearranged for the R14 mirrored layout; sections, connections and foundations are uncalculated."},
         "S":{"zh":"薄壁空心钢构件、交叉钢带及节点板为示意；制造等级、板厚适用性与连接承载力待核定。","ja":"薄肉中空鋼材・交差ストラップ・ガセットの概念案。製造等級、板厚適用性、接合耐力は未確定。","en":"Thin-wall hollow steel, crossed straps and gussets are conceptual; manufacturing grade, thickness suitability and connection capacities are pending."},
         "RC":{"zh":"300×300 mm 混凝土柱及300×400 mm梁保持原有室内边界，向原外轮廓各侧伸出 120 mm；外墙及建筑面积需重新协调。未绘制或验算配筋。","ja":"300×300 mmのRC柱と300×400 mmの梁は室内境界を保持し、元の外形から各面 120 mm 突出。外壁・建築面積の再調整が必要。配筋図・配筋計算は未実施。","en":"300×300 mm RC columns and 300×400 mm beams retain the interior perimeter faces but project 120 mm outside each original face; façade and building area need coordination. Reinforcement is neither drawn nor calculated."},
     }[system]
@@ -442,7 +452,7 @@ def variant_manifest(system,assembly,p=P,g=G):
         "RC":{"zh":"钢筋混凝土结构（RC造）","ja":"鉄筋コンクリート造（RC造）","en":"Reinforced concrete (RC)"}}
     assumptions=["Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
         "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-        "The 8190 x 7280 mm approved R10 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+        "The 8190 x 7280 mm R14 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
         "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
         "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction."]
     if system=='S':assumptions.extend([
@@ -455,7 +465,7 @@ def variant_manifest(system,assembly,p=P,g=G):
         "RC self-weight, attic/storage loading, concrete/rebar strengths, reinforcing layout, punching shear, deflection and seismic detailing require an independent RC calculation, not timber load inheritance.",
         "The two shear piers are spatial candidates only; their quantity, distribution, ductility, diaphragm anchorage and torsional performance are unresolved.",
         "The sloped concrete roof/cantilever eaves and storage-attic slab require dedicated checks; hatch depth differs from the timber hatch hardware and product coordination is pending.",
-        "The north-east stair slab void extends through the outer wall band to the separate perimeter beams, avoiding an invalid point-contact slab corner. The approved stair travel footprint remains clear; slab edges and beam/slab anchorage are unengineered.",
+        "The north-west stair slab void extends through the outer wall band to the separate perimeter beams, avoiding an invalid point-contact slab corner. The approved stair travel footprint remains clear; slab edges and beam/slab anchorage are unengineered.",
         "No reinforcing bars are rendered, avoiding an appearance of a designed reinforcing cage."])
     if system=='W':assumptions.extend(structure_manifest(p,g)['assumptions'])
     members=[{"name":item.label,"bounds_mm":shape_bounds(item),"volume_mm3":round(item.volume,6),"solid_count":len(item.solids())}

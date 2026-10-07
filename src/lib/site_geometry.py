@@ -6,6 +6,8 @@ The approved building, porch and upper entrance step remain unchanged.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from dataclasses import asdict, dataclass
 from math import ceil
 
@@ -73,6 +75,7 @@ def _helpers():
     return cuboid, extruded_polygon, named, polygons
 
 
+@orient_record
 def site_dimensions(p, g, s=S):
     """Coordinates shared by the editable model, proposal drawing and manifest."""
     from .house_plan import floor_plan
@@ -110,7 +113,11 @@ def site_dimensions(p, g, s=S):
     }
 
 
-def fence_layout(s=S):
+def fence_layout(s=S, p=None):
+    from .house_plan import P
+    from .orientation import canonical, record
+    p=P if p is None else p
+    if getattr(p,"mirror_layout",False):return record(fence_layout(s,canonical(p)),p.width)
     """Deduplicated corner posts and spans retaining the exact clear openings."""
     half = s.fence_post_width / 2
     segments = [
@@ -153,6 +160,7 @@ def _extrude_profile(profile, bottom, top, label, color):
     return named(shape, label, color)
 
 
+@orient_shape
 def foundation_group(p, g, s=S):
     from .exterior_geometry import plinth_parts
     cuboid, _, _, _ = _helpers()
@@ -209,6 +217,7 @@ def internal_support_profiles(p):
     return profiles
 
 
+@orient_shape
 def internal_support_group(p, g, s=S):
     d = site_dimensions(p, g, s)
     top = -g.slab_thickness
@@ -219,7 +228,7 @@ def internal_support_group(p, g, s=S):
 
 
 def _terrain_profiles(p, g, s=S):
-    d, fence = site_dimensions(p, g, s), fence_layout(s)
+    d, fence = site_dimensions(p, g, s), fence_layout(s,p)
     occupied = unary_union([_box_profile(d["building"]), _box_profile(d["entrance"])])
     half_foot, half_post = s.fence_footing_width / 2, s.fence_post_width / 2
     footing_profiles = [box(post["x"] - half_foot, post["y"] - half_foot,
@@ -245,6 +254,7 @@ def _terrain_profiles(p, g, s=S):
             "lawns": lawns, "gravel": gravel}
 
 
+@orient_shape
 def yard_group(p, g, s=S):
     cuboid, _, named, _ = _helpers()
     d, profiles = site_dimensions(p, g, s), _terrain_profiles(p, g, s)
@@ -322,9 +332,13 @@ def _fence_panel(panel, s=S):
     return named(fused, f"fence:panels:{panel['id']}", "site_metal")
 
 
-def fence_group(s=S):
+def fence_group(s=S, p=None):
+    from .house_plan import P
+    from .orientation import canonical, shape
+    p=P if p is None else p
+    if getattr(p,"mirror_layout",False):return shape(fence_group(s,canonical(p)),p.width)
     cuboid, _, named, _ = _helpers()
-    layout = fence_layout(s)
+    layout = fence_layout(s,p)
     half_post, half_foot = s.fence_post_width / 2, s.fence_footing_width / 2
     bottom, top = s.ground_z - s.fence_post_embedment, s.ground_z + s.fence_height
     posts, footings = [], []
@@ -344,10 +358,11 @@ def fence_group(s=S):
                                  bd.Compound(children=footings, label="fence:footings")], label="fence")
 
 
+@orient_record
 def site_manifest(p, g, s=S):
-    d, layout, profiles = site_dimensions(p, g, s), fence_layout(s), _terrain_profiles(p, g, s)
+    d, layout, profiles = site_dimensions(p, g, s), fence_layout(s,p), _terrain_profiles(p, g, s)
     return {
-        "revision": "R13-SITE",
+        "revision": "R14-SITE",
         "parameters": asdict(s),
         "lot_bounds_mm": list(d["lot"]),
         "lot_dimensions_mm": [s.lot_east - s.lot_west, s.lot_north - s.lot_south],

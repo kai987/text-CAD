@@ -11,7 +11,8 @@ from math import sqrt
 from cadgen import build123d as bd, srgb
 
 FIXTURE_KINDS = {'浴槽': 'bath', '洗面': 'vanity', 'WC': 'toilet',
-                 '洗濯': 'washer', '洗濯機': 'washer', 'キッチン': 'kitchen'}
+                 '洗濯': 'washer', '洗濯機': 'washer', 'キッチン': 'kitchen',
+                 '対面キッチン': 'kitchen', '冷蔵庫': 'fridge', 'カップボード': 'cupboard'}
 COLORS = {'ceramic': '#F6F3EA', 'chrome': '#ADB7BD', 'wood': '#B69876',
           'counter': '#E4E0D7', 'dark': '#333D43', 'rubber': '#313A40',
           'glass': '#9DBAC7', 'mirror': '#BCD2D8', 'steel': '#929DA2',
@@ -211,11 +212,57 @@ def _kitchen(w, d, prefix, model_id):
     return parts
 
 
+def _fridge(w, d, prefix, model_id):
+    parts=[_named(_round(w-20,d-30,1790,18,w/2,d/2+10,10),prefix+':body_white','white')]
+    for i,(bottom,height) in enumerate(((25,430),(465,400),(875,900)),1):
+        parts.append(_named(_panel(w-36,height,20,w/2,25,bottom,10),f'{prefix}:door_{i}_white','white'))
+        parts.append(_named(_panel(w-140,14,13,w/2,18,bottom+height-60,4),f'{prefix}:handle_{i}_chrome','chrome'))
+    parts.append(_named(_panel(110,55,4,w*.72,4,1530,4),prefix+':control_screen','screen'))
+    return parts
+
+
+def _cupboard(w, d, prefix, model_id):
+    parts=[_named(_box(8,25,80,w-8,d-8,850),prefix+':cabinet_wood','wood'),
+           _named(_round(w,d,30,8,w/2,d/2,850),prefix+':counter_stone','counter')]
+    for i in range(3):
+        cx=w*(i+.5)/3
+        parts.append(_named(_panel(w/3-12,735,16,cx,25,100,5),f'{prefix}:front_{i+1}_wood','wood'))
+        parts.append(_named(_panel(100,12,8,cx,10,780,3),f'{prefix}:handle_{i+1}_chrome','chrome'))
+    mw,md,mh=500,350,350;mx=w/2;my=d/2
+    body=_round(mw,md,mh,10,mx,my,900).cut(_box(mx-210,my-md/2-1,940,mx+150,my+80,1210))
+    parts.append(_named(body,prefix+':microwave_body_steel','steel'))
+    parts.append(_named(_panel(360,255,7,mx-28,my-md/2-2,937,7),prefix+':microwave_glass','glass',.55))
+    parts.append(_named(_panel(42,100,5,mx+210,my-md/2-3,1030,4),prefix+':microwave_screen','screen'))
+    return parts
+
+
+def _facing_kitchen(w,d,prefix,model_id):
+    parts=_kitchen(w,d,prefix,model_id)
+    hx,hy=w*.79,d*.5
+    hood_w,hood_d=850,600
+    canopy=_box(hx-hood_w/2,hy-hood_d/2,1850,hx+hood_w/2,hy+hood_d/2,2000)
+    cavity=_box(hx-hood_w/2+25,hy-hood_d/2+25,1849,hx+hood_w/2-25,hy+hood_d/2-25,1975)
+    parts.append(_named(canopy.cut(cavity),prefix+':range_hood_steel','steel'))
+    parts.append(_named(_box(hx-360,hy-230,1870,hx+360,hy+230,1878),prefix+':hood_filter_dark','dark'))
+    parts.append(_named(_box(hx-170,hy-120,2000,hx+170,hy+120,2550),prefix+':hood_duct_cover_steel','steel'))
+    parts.append(_named(_box(hx-250,hy-270,1878,hx+250,hy-255,1890),prefix+':hood_light_white','white'))
+    axis=bd.Axis((w/2,d/2,0),(0,0,1))
+    rotated=[]
+    for leaf in parts:
+        result=leaf.rotate(axis,180);result.label=leaf.label;result.color=leaf.color;rotated.append(result)
+    return rotated
+
+
 _BUILDERS = {'bath': _bath, 'vanity': _vanity, 'toilet': _toilet,
-             'washer': _washer, 'kitchen': _kitchen}
+             'washer': _washer, 'kitchen': _kitchen, 'fridge':_fridge,'cupboard':_cupboard}
 
 
 def fixture_group(floor, p, model_id='house'):
+    if model_id=='house' and getattr(p,'mirror_layout',False):
+        from .orientation import canonical, shape
+        from .house_redesign_plan import floor_plan
+        q=canonical(p)
+        return shape(fixture_group(floor_plan(floor.number,q),q,'house'),p.width)
     """Return F#:fixtures with exact approved footprint bounds and floor datum.
 
     Storage and loose furniture are intentionally excluded. A type's base shape
@@ -230,7 +277,8 @@ def fixture_group(floor, p, model_id='house'):
             continue
         x1, y1, x2, y2 = bounds
         prefix = f'F{floor.number}:fixture_{index:02d}_{kind}'
-        leaves = _BUILDERS[kind](x2-x1, y2-y1, prefix, model_id)
+        builder=_facing_kitchen if name=='対面キッチン' else _BUILDERS[kind]
+        leaves = builder(x2-x1, y2-y1, prefix, model_id)
         for leaf in leaves:
             leaf.move(bd.Location((x1, y1, z)))
         children.append(bd.Compound(children=leaves, label=prefix))

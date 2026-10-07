@@ -6,6 +6,8 @@ rating, product selection or electrical design is implied.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from math import sqrt
@@ -64,6 +66,7 @@ def _glb_direction(direction):
     return [direction[0], direction[2], -direction[1]]
 
 
+@orient_record
 def fixture_layout(p, g, s=S, l=L):
     """Named fixture locations derived from the unchanged entrance/site layout."""
     from .house_plan import floor_plan
@@ -96,7 +99,7 @@ def fixture_layout(p, g, s=S, l=L):
             "light_position_mm": light, "target_mm": target, "beam_angle_degrees": 48,
             "visual_intensity": 2.2, "visual_range_m": 3.4,
             "mount_to": "yard:ground_surfaces:gravel"})
-    posts = fence_layout(s)["posts"]
+    posts = fence_layout(s,p)["posts"]
     for i, desired_x in enumerate((s.pedestrian_opening_west-s.fence_post_width/2,
                                     s.pedestrian_opening_east+s.fence_post_width/2), 1):
         post = next(q for q in posts if q["x"] == desired_x and q["y"] == s.fence_south)
@@ -188,6 +191,7 @@ def _gate_parts(fixture, l=L):
     ]
 
 
+@orient_shape
 def outdoor_lighting_group(p, g, s=S, l=L):
     builders = {"wall": _wall_parts, "path": _bollard_parts, "garden": _garden_parts, "gate": _gate_parts}
     categories = {}
@@ -199,6 +203,7 @@ def outdoor_lighting_group(p, g, s=S, l=L):
                                   for category, groups in categories.items()], label="lighting")
 
 
+@orient_record
 def outdoor_lighting_manifest(p, g, s=S, l=L):
     fixtures = fixture_layout(p, g, s, l)
     return {

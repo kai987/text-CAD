@@ -56,6 +56,7 @@ class Door:
     width: float
     kind: str = "slide"
     direction: int = 1
+    hinge_at_end: bool = False
 
     def opening(self, thickness):
         half = thickness / 2 + 1

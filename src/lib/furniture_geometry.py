@@ -13,7 +13,7 @@ the generated furniture, not a claim that an off-the-shelf product will fit.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from math import cos, pi, sin
 
 from cadgen import build123d as bd, srgb
@@ -43,6 +43,7 @@ class Placement:
     depth: float
     rotation: float = 0
     height: float = 0
+    mirror_local_x: bool = False
 
     def footprint(self):
         shape=affinity.rotate(box(0,0,self.width,self.depth),self.rotation,origin=(0,0))
@@ -141,6 +142,11 @@ def television(prefix,w=1200,d=350):
 
 def furniture_placements(floor,model_id,p):
     """Stable placements derived from the supplied approved room boundaries."""
+    if model_id=='house' and getattr(p,'mirror_layout',False):
+        from .orientation import canonical, side_name
+        from .house_redesign_plan import floor_plan
+        q=canonical(p)
+        return [replace(item,id=side_name(item.id),x=p.width-item.footprint().bounds[2],rotation=-item.rotation,mirror_local_x=True) for item in furniture_placements(floor_plan(floor.number,q),model_id,q)]
     rooms={r.id:r for r in floor.rooms}
     result=[]
     def put(id,room,kind,x,y,w,d,angle=0,height=0):
@@ -155,8 +161,8 @@ def furniture_placements(floor,model_id,p):
             put('television','ldk','television',x,y,y2-y,x2-x,90)
             x,y,x2,y2=fixtures['ダイニング']
             put('dining_table','ldk','table',x,y,x2-x,y2-y,0,730)
-            put('dining_chair_west','ldk','chair',2980,2700,450,420,90)
-            put('dining_chair_east','ldk','chair',5000,2700,450,420,270)
+            put('dining_chair_west','ldk','chair',x-530,y+200,450,420,90)
+            put('dining_chair_east','ldk','chair',x2+200,y+200,450,420,270)
         else:
             beds=[bounds for name,bounds in floor.fixtures if name.startswith('ベッド')]
             for room,bounds in zip(('master','bed2','bed3'),beds):
@@ -183,6 +189,11 @@ def furniture_placements(floor,model_id,p):
 
 
 def furniture_group(floor,model_id,p):
+    if model_id=='house' and getattr(p,'mirror_layout',False):
+        from .orientation import canonical, shape
+        from .house_redesign_plan import floor_plan
+        q=canonical(p)
+        return shape(furniture_group(floor_plan(floor.number,q),'house',q),p.width)
     """Return the named F#:furniture assembly; preserve every object/part name."""
     children=[];z=(floor.number-1)*p.storey_height
     for item in furniture_placements(floor,model_id,p):
@@ -207,6 +218,11 @@ def door_sweep(door):
 
 def clearance_zones(floor,model_id,p):
     """Named project-layout targets; 650 mm is a design target, not a code claim."""
+    if model_id=='house' and getattr(p,'mirror_layout',False):
+        from .orientation import canonical, side_name
+        from .house_redesign_plan import floor_plan
+        q=canonical(p)
+        return [(side_name(name),affinity.scale(geom,xfact=-1,yfact=1,origin=(p.width/2,0))) for name,geom in clearance_zones(floor_plan(floor.number,q),model_id,q)]
     rooms={r.id:r for r in floor.rooms};zones=[]
     # A full-width 650 mm approach on the furnished room side of every doorway.
     furnished={item.room for item in furniture_placements(floor,model_id,p)}
@@ -238,12 +254,14 @@ def clearance_zones(floor,model_id,p):
     if 'ldk' in rooms:
         room=rooms['ldk'].shape;x,y,x2,y2=room.bounds
         for name,bounds in floor.fixtures:
+            if name=='対面キッチン':
+                a,b,c,d=bounds;zones.append(('kitchen:900mm_working_rear',box(a,d,c,d+900)))
             if name=='キッチン':
                 a,b,c,d=bounds;zones.append(('kitchen:900mm_working_front',box(a,b-900,c,b)))
         if model_id=='house':
             routes=[[(6800,3100),(6560,3700),(6560,4500)],
-                    [(6800,3100),(5560,3500),(5560,4800),(5560,5800)],
-                    [(5560,3900),(3500,3900),(3550,5700)]]
+                    [(6800,3100),(6800,3700),(5560,3700),(5560,5800)],
+                    [(5560,3900),(4600,3900),(3900,4200),(3550,4900),(3550,5700)]]
         else:
             routes=[[(4100,y2-20),(4100,600),(1500,600),(1500,y+10)],
                     [(4100,600),(5900,600),(5900,y+10)],

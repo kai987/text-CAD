@@ -1,11 +1,11 @@
 {
-  "revision": "R13-3D",
+  "revision": "R14-3D",
   "units": "native STEP mm; GLB m/Y-up",
   "summary": {
     "checks": 725,
     "passed": 725,
     "failed": 0,
-    "saved_native_leaves": 891,
+    "saved_native_leaves": 925,
     "new_site_leaves": 107
   },
   "baseline": null,
@@ -26,8 +26,8 @@
     {
       "check": "revision:house_R10_with_site_R11",
       "pass": true,
-      "actual": "R13-3D",
-      "expected": "R13-3D"
+      "actual": "R14-3D",
+      "expected": "R14-3D"
     },
     {
       "check": "R10:house_and_balcony_labels_present",
@@ -159,10 +159,10 @@
       "check": "foundation:raft:entrance_footing:inside_demo_lot",
       "pass": true,
       "actual": [
-        6010.0,
+        680.0,
         -1900.0,
         -800.0,
-        7510.0,
+        2180.0,
         0.0,
         -650.0
       ],
@@ -228,30 +228,6 @@
       "expected": null
     },
     {
-      "check": "foundation:stem_walls:west:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        0.0,
-        140.0,
-        -650.0,
-        140.0,
-        7140.0,
-        -500.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "foundation:stem_walls:west:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "foundation:stem_walls:east:inside_demo_lot",
       "pass": true,
       "actual": [
@@ -271,6 +247,30 @@
     },
     {
       "check": "foundation:stem_walls:east:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "foundation:stem_walls:west:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        0.0,
+        140.0,
+        -650.0,
+        140.0,
+        7140.0,
+        -500.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "foundation:stem_walls:west:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -327,10 +327,10 @@
       "check": "foundation:internal_supports:I03:inside_demo_lot",
       "pass": true,
       "actual": [
-        4990.0,
+        3060.0,
         4400.0,
         -650.0,
-        5130.0,
+        3200.0,
         7140.0,
         -200.0
       ],
@@ -351,10 +351,10 @@
       "check": "foundation:internal_supports:I04:inside_demo_lot",
       "pass": true,
       "actual": [
-        5990.0,
+        2060.0,
         4400.0,
         -650.0,
-        6130.0,
+        2200.0,
         7140.0,
         -200.0
       ],
@@ -375,10 +375,10 @@
       "check": "foundation:internal_supports:I05:inside_demo_lot",
       "pass": true,
       "actual": [
-        5130.0,
+        2200.0,
         5160.0,
         -650.0,
-        5990.0,
+        3060.0,
         5300.0,
         -200.0
       ],
@@ -399,10 +399,10 @@
       "check": "foundation:internal_supports:I06:inside_demo_lot",
       "pass": true,
       "actual": [
-        3260.0,
+        4790.0,
         140.0,
         -650.0,
-        3400.0,
+        4930.0,
         4260.0,
         -200.0
       ],
@@ -423,10 +423,10 @@
       "check": "foundation:internal_supports:I07:inside_demo_lot",
       "pass": true,
       "actual": [
-        4260.0,
+        3790.0,
         140.0,
         -650.0,
-        4400.0,
+        3930.0,
         4260.0,
         -200.0
       ],
@@ -447,10 +447,10 @@
       "check": "foundation:entrance_supports:porch:inside_demo_lot",
       "pass": true,
       "actual": [
-        6010.0,
+        680.0,
         -1300.0,
         -650.0,
-        7510.0,
+        2180.0,
         0.0,
         -200.0
       ],
@@ -471,10 +471,10 @@
       "check": "foundation:entrance_supports:upper_step:inside_demo_lot",
       "pass": true,
       "actual": [
-        6010.0,
+        680.0,
         -1600.0,
         -650.0,
-        7510.0,
+        2180.0,
         -1300.0,
         -300.0
       ],
@@ -543,10 +543,10 @@
       "check": "yard:entrance_path:paving:inside_demo_lot",
       "pass": true,
       "actual": [
-        6010.0,
+        680.0,
         -5500.0,
         -550.0,
-        7510.0,
+        2180.0,
         -1900.0,
         -500.0
       ],
@@ -567,10 +567,10 @@
       "check": "yard:entrance_path:lower_step:inside_demo_lot",
       "pass": true,
       "actual": [
-        6010.0,
+        680.0,
         -1900.0,
         -650.0,
-        7510.0,
+        2180.0,
         -1600.0,
         -330.0
       ],
@@ -591,10 +591,10 @@
       "check": "yard:parking:paving:inside_demo_lot",
       "pass": true,
       "actual": [
-        -750.0,
+        3340.0,
         -5500.0,
         -550.0,
-        4850.0,
+        8940.0,
         -200.0,
         -500.0
       ],
@@ -615,10 +615,10 @@
       "check": "yard:parking:line_left:inside_demo_lot",
       "pass": true,
       "actual": [
-        -750.0,
+        8890.0,
         -5200.0,
         -500.0,
-        -700.0,
+        8940.0,
         -200.0,
         -498.0
       ],
@@ -639,10 +639,10 @@
       "check": "yard:parking:line_right:inside_demo_lot",
       "pass": true,
       "actual": [
-        4800.0,
+        3340.0,
         -5200.0,
         -500.0,
-        4850.0,
+        3390.0,
         -200.0,
         -498.0
       ],
@@ -663,10 +663,10 @@
       "check": "yard:parking:line_back:inside_demo_lot",
       "pass": true,
       "actual": [
-        -700.0,
+        3390.0,
         -250.0,
         -500.0,
-        4800.0,
+        8890.0,
         -200.0,
         -498.0
       ],
@@ -687,10 +687,10 @@
       "check": "yard:parking:line_divider_1:inside_demo_lot",
       "pass": true,
       "actual": [
-        2025.0,
+        6115.0,
         -5200.0,
         -500.0,
-        2075.0,
+        6165.0,
         -250.0,
         -498.0
       ],
@@ -711,10 +711,10 @@
       "check": "yard:parking:bay_1_wheel_stop_left:inside_demo_lot",
       "pass": true,
       "actual": [
-        -450.0,
+        8140.0,
         -550.0,
         -500.0,
-        50.0,
+        8640.0,
         -450.0,
         -400.0
       ],
@@ -735,10 +735,10 @@
       "check": "yard:parking:bay_1_wheel_stop_right:inside_demo_lot",
       "pass": true,
       "actual": [
-        1250.0,
+        6440.0,
         -550.0,
         -500.0,
-        1750.0,
+        6940.0,
         -450.0,
         -400.0
       ],
@@ -759,10 +759,10 @@
       "check": "yard:parking:bay_2_wheel_stop_left:inside_demo_lot",
       "pass": true,
       "actual": [
-        2350.0,
+        5340.0,
         -550.0,
         -500.0,
-        2850.0,
+        5840.0,
         -450.0,
         -400.0
       ],
@@ -783,10 +783,10 @@
       "check": "yard:parking:bay_2_wheel_stop_right:inside_demo_lot",
       "pass": true,
       "actual": [
-        4050.0,
+        3640.0,
         -550.0,
         -500.0,
-        4550.0,
+        4140.0,
         -450.0,
         -400.0
       ],
@@ -828,38 +828,14 @@
       "expected": null
     },
     {
-      "check": "yard:planting:lawn_east:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        8440.0,
-        500.0,
-        -550.0,
-        8840.0,
-        6780.0,
-        -500.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "yard:planting:lawn_east:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "yard:planting:lawn_west:inside_demo_lot",
       "pass": true,
       "actual": [
         -650.0,
-        700.0,
+        500.0,
         -550.0,
         -250.0,
-        6580.0,
+        6780.0,
         -500.0
       ],
       "expected": [
@@ -876,13 +852,37 @@
       "expected": null
     },
     {
+      "check": "yard:planting:lawn_east:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        8440.0,
+        700.0,
+        -550.0,
+        8840.0,
+        6580.0,
+        -500.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "yard:planting:lawn_east:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "fence:posts:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -825.0,
+        8965.0,
         8055.0,
         -750.0,
-        -775.0,
+        9015.0,
         8105.0,
         700.0
       ],
@@ -903,10 +903,10 @@
       "check": "fence:posts:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        806.66666666666,
+        7333.3333333336595,
         8055.0,
         -750.0,
-        856.66666666666,
+        7383.3333333336595,
         8105.0,
         700.0
       ],
@@ -927,10 +927,10 @@
       "check": "fence:posts:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        2438.333333333,
+        5701.666666666,
         8055.0,
         -750.0,
-        2488.333333333,
+        5751.666666666,
         8105.0,
         700.0
       ],
@@ -975,10 +975,10 @@
       "check": "fence:posts:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        5701.666666667,
+        2438.3333333339997,
         8055.0,
         -750.0,
-        5751.666666667,
+        2488.3333333339997,
         8105.0,
         700.0
       ],
@@ -999,10 +999,10 @@
       "check": "fence:posts:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        7333.333333333,
+        806.6666666660003,
         8055.0,
         -750.0,
-        7383.333333333,
+        856.6666666660003,
         8105.0,
         700.0
       ],
@@ -1023,10 +1023,10 @@
       "check": "fence:posts:north_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        8965.0,
+        -825.0,
         8055.0,
         -750.0,
-        9015.0,
+        -775.0,
         8105.0,
         700.0
       ],
@@ -1039,198 +1039,6 @@
     },
     {
       "check": "fence:posts:north_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_01:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        -5325.0,
-        -750.0,
-        -775.0,
-        -5275.0,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        -3652.5,
-        -750.0,
-        -775.0,
-        -3602.5,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        -1980.0,
-        -750.0,
-        -775.0,
-        -1930.0,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_04:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        -307.5,
-        -750.0,
-        -775.0,
-        -257.5,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_04:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_05:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        1365.0,
-        -750.0,
-        -775.0,
-        1415.0,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_05:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_06:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        3037.5,
-        -750.0,
-        -775.0,
-        3087.5,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_06:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_07:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        4710.0,
-        -750.0,
-        -775.0,
-        4760.0,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:posts:west_08:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -825.0,
-        6382.5,
-        -750.0,
-        -775.0,
-        6432.5,
-        700.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:posts:west_08:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1428,13 +1236,205 @@
       "expected": null
     },
     {
+      "check": "fence:posts:west_01:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        -5325.0,
+        -750.0,
+        -775.0,
+        -5275.0,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_01:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_02:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        -3652.5,
+        -750.0,
+        -775.0,
+        -3602.5,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_02:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_03:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        -1980.0,
+        -750.0,
+        -775.0,
+        -1930.0,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_03:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_04:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        -307.5,
+        -750.0,
+        -775.0,
+        -257.5,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_04:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_05:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        1365.0,
+        -750.0,
+        -775.0,
+        1415.0,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_05:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_06:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        3037.5,
+        -750.0,
+        -775.0,
+        3087.5,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_06:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_07:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        4710.0,
+        -750.0,
+        -775.0,
+        4760.0,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_07:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:posts:west_08:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -825.0,
+        6382.5,
+        -750.0,
+        -775.0,
+        6432.5,
+        700.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:posts:west_08:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "fence:posts:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        4900.0,
+        3240.0,
         -5325.0,
         -750.0,
-        4950.0,
+        3290.0,
         -5275.0,
         700.0
       ],
@@ -1455,10 +1455,10 @@
       "check": "fence:posts:south_middle_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        5810.0,
+        2330.0,
         -5325.0,
         -750.0,
-        5860.0,
+        2380.0,
         -5275.0,
         700.0
       ],
@@ -1476,13 +1476,13 @@
       "expected": null
     },
     {
-      "check": "fence:posts:south_east_01:inside_demo_lot",
+      "check": "fence:posts:south_west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        7660.0,
+        480.0,
         -5325.0,
         -750.0,
-        7710.0,
+        530.0,
         -5275.0,
         700.0
       ],
@@ -1494,7 +1494,7 @@
       ]
     },
     {
-      "check": "fence:posts:south_east_01:valid_positive_saved_solids",
+      "check": "fence:posts:south_west_01:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1503,10 +1503,10 @@
       "check": "fence:panels:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -775.0000000000001,
+        7383.333333333,
         8070.0,
         -420.0,
-        806.6666666666601,
+        8965.0,
         8090.0,
         620.0
       ],
@@ -1527,10 +1527,10 @@
       "check": "fence:panels:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        856.66666666666,
+        5751.666666667,
         8070.0,
         -420.0,
-        2438.333333333,
+        7333.333333333,
         8090.0,
         620.0
       ],
@@ -1551,10 +1551,10 @@
       "check": "fence:panels:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        2488.333333333,
+        4120.0,
         8070.0,
         -420.0,
-        4070.0,
+        5701.666666667,
         8090.0,
         620.0
       ],
@@ -1575,10 +1575,10 @@
       "check": "fence:panels:north_04:inside_demo_lot",
       "pass": true,
       "actual": [
-        4120.0,
+        2488.333333333,
         8070.0,
         -420.0,
-        5701.666666667,
+        4070.0,
         8090.0,
         620.0
       ],
@@ -1599,10 +1599,10 @@
       "check": "fence:panels:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        5751.666666667,
+        856.66666666666,
         8070.0,
         -420.0,
-        7333.333333333,
+        2438.333333333,
         8090.0,
         620.0
       ],
@@ -1623,10 +1623,10 @@
       "check": "fence:panels:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        7383.333333333,
+        -775.0000000000001,
         8070.0,
         -420.0,
-        8965.0,
+        806.6666666666601,
         8090.0,
         620.0
       ],
@@ -1639,198 +1639,6 @@
     },
     {
       "check": "fence:panels:north_06:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_01:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        -5275.0,
-        -420.0,
-        -790.0,
-        -3652.5,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        -3602.5,
-        -420.0,
-        -790.0,
-        -1980.0,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        -1930.0,
-        -420.0,
-        -790.0,
-        -307.5,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_04:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        -257.5,
-        -420.0,
-        -790.0,
-        1365.0,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_04:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_05:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        1415.0,
-        -420.0,
-        -790.0,
-        3037.5,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_05:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_06:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        3087.5,
-        -420.0,
-        -790.0,
-        4710.0,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_06:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_07:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        4760.0,
-        -420.0,
-        -790.0,
-        6382.5,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:panels:west_08:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -810.0,
-        6432.5,
-        -420.0,
-        -790.0,
-        8055.0,
-        620.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:panels:west_08:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -2028,13 +1836,205 @@
       "expected": null
     },
     {
+      "check": "fence:panels:west_01:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        -5275.0,
+        -420.0,
+        -790.0,
+        -3652.5,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_01:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_02:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        -3602.5,
+        -420.0,
+        -790.0,
+        -1980.0,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_02:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_03:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        -1930.0,
+        -420.0,
+        -790.0,
+        -307.5,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_03:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_04:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        -257.5,
+        -420.0,
+        -790.0,
+        1365.0,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_04:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_05:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        1415.0,
+        -420.0,
+        -790.0,
+        3037.5,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_05:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_06:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        3087.5,
+        -420.0,
+        -790.0,
+        4710.0,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_06:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_07:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        4760.0,
+        -420.0,
+        -790.0,
+        6382.5,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_07:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:panels:west_08:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -810.0,
+        6432.5,
+        -420.0,
+        -790.0,
+        8055.0,
+        620.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:panels:west_08:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "fence:panels:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        4950.0,
+        2380.0,
         -5310.0,
         -420.0,
-        5810.0,
+        3240.0,
         -5290.0,
         620.0
       ],
@@ -2052,13 +2052,13 @@
       "expected": null
     },
     {
-      "check": "fence:panels:south_east_01:inside_demo_lot",
+      "check": "fence:panels:south_west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        7710.0,
+        -775.0,
         -5310.0,
         -420.0,
-        8965.0,
+        480.0,
         -5290.0,
         620.0
       ],
@@ -2070,7 +2070,7 @@
       ]
     },
     {
-      "check": "fence:panels:south_east_01:valid_positive_saved_solids",
+      "check": "fence:panels:south_west_01:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -2079,10 +2079,10 @@
       "check": "fence:footings:north_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        -950.0,
+        8840.0,
         7930.0,
         -950.0,
-        -650.0,
+        9140.0,
         8230.0,
         -550.0
       ],
@@ -2103,10 +2103,10 @@
       "check": "fence:footings:north_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        681.66666666666,
+        7208.333333333,
         7930.0,
         -950.0,
-        981.66666666666,
+        7508.333333333,
         8230.0,
         -550.0
       ],
@@ -2127,10 +2127,10 @@
       "check": "fence:footings:north_03:inside_demo_lot",
       "pass": true,
       "actual": [
-        2313.333333333,
+        5576.666666667,
         7930.0,
         -950.0,
-        2613.333333333,
+        5876.666666667,
         8230.0,
         -550.0
       ],
@@ -2175,10 +2175,10 @@
       "check": "fence:footings:north_05:inside_demo_lot",
       "pass": true,
       "actual": [
-        5576.666666667,
+        2313.333333333,
         7930.0,
         -950.0,
-        5876.666666667,
+        2613.333333333,
         8230.0,
         -550.0
       ],
@@ -2199,10 +2199,10 @@
       "check": "fence:footings:north_06:inside_demo_lot",
       "pass": true,
       "actual": [
-        7208.333333333,
+        681.66666666666,
         7930.0,
         -950.0,
-        7508.333333333,
+        981.66666666666,
         8230.0,
         -550.0
       ],
@@ -2223,10 +2223,10 @@
       "check": "fence:footings:north_07:inside_demo_lot",
       "pass": true,
       "actual": [
-        8840.0,
+        -950.0,
         7930.0,
         -950.0,
-        9140.0,
+        -650.0,
         8230.0,
         -550.0
       ],
@@ -2239,198 +2239,6 @@
     },
     {
       "check": "fence:footings:north_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_01:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        -5450.0,
-        -950.0,
-        -650.0,
-        -5150.0,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_01:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_02:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        -3777.5,
-        -950.0,
-        -650.0,
-        -3477.5,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_02:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_03:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        -2105.0,
-        -950.0,
-        -650.0,
-        -1805.0,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_03:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_04:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        -432.5,
-        -950.0,
-        -650.0,
-        -132.5,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_04:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_05:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        1240.0,
-        -950.0,
-        -650.0,
-        1540.0,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_05:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_06:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        2912.5,
-        -950.0,
-        -650.0,
-        3212.5,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_06:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_07:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        4585.0,
-        -950.0,
-        -650.0,
-        4885.0,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_07:valid_positive_saved_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "fence:footings:west_08:inside_demo_lot",
-      "pass": true,
-      "actual": [
-        -950.0,
-        6257.5,
-        -950.0,
-        -650.0,
-        6557.5,
-        -550.0
-      ],
-      "expected": [
-        -1000,
-        -5500,
-        9190,
-        8280
-      ]
-    },
-    {
-      "check": "fence:footings:west_08:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -2628,13 +2436,205 @@
       "expected": null
     },
     {
+      "check": "fence:footings:west_01:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        -5450.0,
+        -950.0,
+        -650.0,
+        -5150.0,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_01:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_02:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        -3777.5,
+        -950.0,
+        -650.0,
+        -3477.5,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_02:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_03:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        -2105.0,
+        -950.0,
+        -650.0,
+        -1805.0,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_03:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_04:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        -432.5,
+        -950.0,
+        -650.0,
+        -132.5,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_04:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_05:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        1240.0,
+        -950.0,
+        -650.0,
+        1540.0,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_05:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_06:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        2912.5,
+        -950.0,
+        -650.0,
+        3212.5,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_06:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_07:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        4585.0,
+        -950.0,
+        -650.0,
+        4885.0,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_07:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "fence:footings:west_08:inside_demo_lot",
+      "pass": true,
+      "actual": [
+        -950.0,
+        6257.5,
+        -950.0,
+        -650.0,
+        6557.5,
+        -550.0
+      ],
+      "expected": [
+        -1000,
+        -5500,
+        9190,
+        8280
+      ]
+    },
+    {
+      "check": "fence:footings:west_08:valid_positive_saved_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "fence:footings:south_middle_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        4775.0,
+        3115.0,
         -5450.0,
         -950.0,
-        5075.0,
+        3415.0,
         -5150.0,
         -550.0
       ],
@@ -2655,10 +2655,10 @@
       "check": "fence:footings:south_middle_02:inside_demo_lot",
       "pass": true,
       "actual": [
-        5685.0,
+        2205.0,
         -5450.0,
         -950.0,
-        5985.0,
+        2505.0,
         -5150.0,
         -550.0
       ],
@@ -2676,13 +2676,13 @@
       "expected": null
     },
     {
-      "check": "fence:footings:south_east_01:inside_demo_lot",
+      "check": "fence:footings:south_west_01:inside_demo_lot",
       "pass": true,
       "actual": [
-        7535.0,
+        355.0,
         -5450.0,
         -950.0,
-        7835.0,
+        655.0,
         -5150.0,
         -550.0
       ],
@@ -2694,7 +2694,7 @@
       ]
     },
     {
-      "check": "fence:footings:south_east_01:valid_positive_saved_solids",
+      "check": "fence:footings:south_west_01:valid_positive_saved_solids",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3205,8 +3205,8 @@
     {
       "check": "fence:north_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
+      "actual": 8990.0,
+      "expected": 8990.0
     },
     {
       "check": "fence:north_01:post_matches_footing_center_Y_mm",
@@ -3253,8 +3253,8 @@
     {
       "check": "fence:north_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 831.666667,
-      "expected": 831.66666666666
+      "actual": 7358.333333,
+      "expected": 7358.333333333
     },
     {
       "check": "fence:north_02:post_matches_footing_center_Y_mm",
@@ -3301,8 +3301,8 @@
     {
       "check": "fence:north_03:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 2463.333333,
-      "expected": 2463.333333333
+      "actual": 5726.666667,
+      "expected": 5726.666666667
     },
     {
       "check": "fence:north_03:post_matches_footing_center_Y_mm",
@@ -3397,8 +3397,8 @@
     {
       "check": "fence:north_05:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 5726.666667,
-      "expected": 5726.666666667
+      "actual": 2463.333333,
+      "expected": 2463.333333333
     },
     {
       "check": "fence:north_05:post_matches_footing_center_Y_mm",
@@ -3445,8 +3445,8 @@
     {
       "check": "fence:north_06:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 7358.333333,
-      "expected": 7358.333333333
+      "actual": 831.666667,
+      "expected": 831.66666666666
     },
     {
       "check": "fence:north_06:post_matches_footing_center_Y_mm",
@@ -3493,8 +3493,8 @@
     {
       "check": "fence:north_07:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 8990.0,
-      "expected": 8990.0
+      "actual": -800.0,
+      "expected": -800.0
     },
     {
       "check": "fence:north_07:post_matches_footing_center_Y_mm",
@@ -3504,390 +3504,6 @@
     },
     {
       "check": "fence:north_07:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_01:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_01:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_01:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_01:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_01:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_01:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_01:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -5300.0,
-      "expected": -5300.0
-    },
-    {
-      "check": "fence:west_01:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_02:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_02:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_02:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_02:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_02:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_02:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_02:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -3627.5,
-      "expected": -3627.5
-    },
-    {
-      "check": "fence:west_02:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_03:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_03:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_03:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_03:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_03:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_03:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_03:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -1955.0,
-      "expected": -1955.0
-    },
-    {
-      "check": "fence:west_03:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_04:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_04:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_04:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_04:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_04:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_04:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_04:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": -282.5,
-      "expected": -282.5
-    },
-    {
-      "check": "fence:west_04:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_05:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_05:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_05:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_05:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_05:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_05:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_05:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": 1390.0,
-      "expected": 1390.0
-    },
-    {
-      "check": "fence:west_05:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_06:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_06:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_06:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_06:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_06:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_06:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_06:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": 3062.5,
-      "expected": 3062.5
-    },
-    {
-      "check": "fence:west_06:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_07:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_07:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_07:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_07:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_07:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_07:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_07:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": 4735.0,
-      "expected": 4735.0
-    },
-    {
-      "check": "fence:west_07:post_and_cut_footing_touch_mm",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_08:post_height_above_grade_mm",
-      "pass": true,
-      "actual": 1200.0,
-      "expected": 1200
-    },
-    {
-      "check": "fence:west_08:post_embedment_below_grade_mm",
-      "pass": true,
-      "actual": 250.0,
-      "expected": 250
-    },
-    {
-      "check": "fence:west_08:footing_width_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_08:footing_depth_mm",
-      "pass": true,
-      "actual": 300.0,
-      "expected": 300
-    },
-    {
-      "check": "fence:west_08:footing_volume_retains_post_pocket_mm3",
-      "pass": true,
-      "actual": 35500000.0,
-      "expected": 35500000
-    },
-    {
-      "check": "fence:west_08:post_matches_footing_center_X_mm",
-      "pass": true,
-      "actual": -800.0,
-      "expected": -800.0
-    },
-    {
-      "check": "fence:west_08:post_matches_footing_center_Y_mm",
-      "pass": true,
-      "actual": 6407.5,
-      "expected": 6407.5
-    },
-    {
-      "check": "fence:west_08:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4277,6 +3893,390 @@
       "expected": 0
     },
     {
+      "check": "fence:west_01:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_01:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_01:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_01:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_01:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_01:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_01:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": -5300.0,
+      "expected": -5300.0
+    },
+    {
+      "check": "fence:west_01:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_02:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_02:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_02:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_02:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_02:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_02:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_02:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": -3627.5,
+      "expected": -3627.5
+    },
+    {
+      "check": "fence:west_02:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_03:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_03:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_03:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_03:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_03:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_03:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_03:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": -1955.0,
+      "expected": -1955.0
+    },
+    {
+      "check": "fence:west_03:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_04:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_04:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_04:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_04:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_04:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_04:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_04:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": -282.5,
+      "expected": -282.5
+    },
+    {
+      "check": "fence:west_04:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_05:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_05:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_05:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_05:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_05:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_05:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_05:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": 1390.0,
+      "expected": 1390.0
+    },
+    {
+      "check": "fence:west_05:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_06:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_06:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_06:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_06:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_06:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_06:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_06:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": 3062.5,
+      "expected": 3062.5
+    },
+    {
+      "check": "fence:west_06:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_07:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_07:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_07:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_07:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_07:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_07:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_07:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": 4735.0,
+      "expected": 4735.0
+    },
+    {
+      "check": "fence:west_07:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_08:post_height_above_grade_mm",
+      "pass": true,
+      "actual": 1200.0,
+      "expected": 1200
+    },
+    {
+      "check": "fence:west_08:post_embedment_below_grade_mm",
+      "pass": true,
+      "actual": 250.0,
+      "expected": 250
+    },
+    {
+      "check": "fence:west_08:footing_width_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_08:footing_depth_mm",
+      "pass": true,
+      "actual": 300.0,
+      "expected": 300
+    },
+    {
+      "check": "fence:west_08:footing_volume_retains_post_pocket_mm3",
+      "pass": true,
+      "actual": 35500000.0,
+      "expected": 35500000
+    },
+    {
+      "check": "fence:west_08:post_matches_footing_center_X_mm",
+      "pass": true,
+      "actual": -800.0,
+      "expected": -800.0
+    },
+    {
+      "check": "fence:west_08:post_matches_footing_center_Y_mm",
+      "pass": true,
+      "actual": 6407.5,
+      "expected": 6407.5
+    },
+    {
+      "check": "fence:west_08:post_and_cut_footing_touch_mm",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
       "check": "fence:south_middle_01:post_height_above_grade_mm",
       "pass": true,
       "actual": 1200.0,
@@ -4309,8 +4309,8 @@
     {
       "check": "fence:south_middle_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 4925.0,
-      "expected": 4925.0
+      "actual": 3265.0,
+      "expected": 3265.0
     },
     {
       "check": "fence:south_middle_01:post_matches_footing_center_Y_mm",
@@ -4357,8 +4357,8 @@
     {
       "check": "fence:south_middle_02:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 5835.0,
-      "expected": 5835.0
+      "actual": 2355.0,
+      "expected": 2355.0
     },
     {
       "check": "fence:south_middle_02:post_matches_footing_center_Y_mm",
@@ -4373,49 +4373,49 @@
       "expected": 0
     },
     {
-      "check": "fence:south_east_01:post_height_above_grade_mm",
+      "check": "fence:south_west_01:post_height_above_grade_mm",
       "pass": true,
       "actual": 1200.0,
       "expected": 1200
     },
     {
-      "check": "fence:south_east_01:post_embedment_below_grade_mm",
+      "check": "fence:south_west_01:post_embedment_below_grade_mm",
       "pass": true,
       "actual": 250.0,
       "expected": 250
     },
     {
-      "check": "fence:south_east_01:footing_width_mm",
+      "check": "fence:south_west_01:footing_width_mm",
       "pass": true,
       "actual": 300.0,
       "expected": 300
     },
     {
-      "check": "fence:south_east_01:footing_depth_mm",
+      "check": "fence:south_west_01:footing_depth_mm",
       "pass": true,
       "actual": 300.0,
       "expected": 300
     },
     {
-      "check": "fence:south_east_01:footing_volume_retains_post_pocket_mm3",
+      "check": "fence:south_west_01:footing_volume_retains_post_pocket_mm3",
       "pass": true,
       "actual": 35500000.0,
       "expected": 35500000
     },
     {
-      "check": "fence:south_east_01:post_matches_footing_center_X_mm",
+      "check": "fence:south_west_01:post_matches_footing_center_X_mm",
       "pass": true,
-      "actual": 7685.0,
-      "expected": 7685.0
+      "actual": 505.0,
+      "expected": 505.0
     },
     {
-      "check": "fence:south_east_01:post_matches_footing_center_Y_mm",
+      "check": "fence:south_west_01:post_matches_footing_center_Y_mm",
       "pass": true,
       "actual": -5300.0,
       "expected": -5300.0
     },
     {
-      "check": "fence:south_east_01:post_and_cut_footing_touch_mm",
+      "check": "fence:south_west_01:post_and_cut_footing_touch_mm",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4506,102 +4506,6 @@
     },
     {
       "check": "fence:north_06:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_01:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_01:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_02:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_02:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_03:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_03:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_04:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_04:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_05:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_05:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_06:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_06:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_07:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_07:actual_40mm_slat_gap_remains_open_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:west_08:actual_slat_midspan_is_solid_mm3",
-      "pass": true,
-      "actual": 1000.0,
-      "expected": 1000
-    },
-    {
-      "check": "fence:west_08:actual_40mm_slat_gap_remains_open_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4703,6 +4607,102 @@
       "expected": 0
     },
     {
+      "check": "fence:west_01:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_01:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_02:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_02:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_03:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_03:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_04:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_04:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_05:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_05:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_06:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_06:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_07:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_07:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:west_08:actual_slat_midspan_is_solid_mm3",
+      "pass": true,
+      "actual": 1000.0,
+      "expected": 1000
+    },
+    {
+      "check": "fence:west_08:actual_40mm_slat_gap_remains_open_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
       "check": "fence:south_middle_01:actual_slat_midspan_is_solid_mm3",
       "pass": true,
       "actual": 1000.0,
@@ -4715,13 +4715,13 @@
       "expected": 0
     },
     {
-      "check": "fence:south_east_01:actual_slat_midspan_is_solid_mm3",
+      "check": "fence:south_west_01:actual_slat_midspan_is_solid_mm3",
       "pass": true,
       "actual": 1000.0,
       "expected": 1000
     },
     {
-      "check": "fence:south_east_01:actual_40mm_slat_gap_remains_open_mm3",
+      "check": "fence:south_west_01:actual_40mm_slat_gap_remains_open_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5015,18 +5015,6 @@
       "expected": 0
     },
     {
-      "check": "fence:footings:south_east_01:fence:posts:south_east_01:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:footings:south_east_01:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "fence:footings:south_middle_01:fence:posts:south_middle_01:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
@@ -5046,6 +5034,18 @@
     },
     {
       "check": "fence:footings:south_middle_02:yard:soil:base:no_positive_native_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:footings:south_west_01:fence:posts:south_west_01:no_positive_native_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:footings:south_west_01:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5327,18 +5327,6 @@
       "expected": 0
     },
     {
-      "check": "fence:posts:south_east_01:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "fence:posts:south_east_01:yard:soil:base:no_positive_native_overlap_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "fence:posts:south_middle_01:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
@@ -5358,6 +5346,18 @@
     },
     {
       "check": "fence:posts:south_middle_02:yard:soil:base:no_positive_native_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:posts:south_west_01:yard:ground_surfaces:gravel:no_positive_native_overlap_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "fence:posts:south_west_01:yard:soil:base:no_positive_native_overlap_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

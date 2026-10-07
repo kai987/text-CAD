@@ -7,6 +7,8 @@ by the house module; no load rating or statutory classification is implied.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from dataclasses import asdict, dataclass
 from math import cos, radians, sin, tan
 
@@ -17,6 +19,10 @@ from .exterior_geometry import wall_setback
 
 @dataclass(frozen=True)
 class AtticParameters:
+    north_vent_width: float = 600
+    north_vent_height: float = 300
+    north_vent_sill: float = 850
+    north_vent_offset_from_ridge: float = 600
     deck_width: float = 3680
     deck_end_inset: float = 200
     deck_thickness: float = 18
@@ -62,6 +68,34 @@ class AtticParameters:
 
 
 A = AtticParameters()
+
+
+def north_vent_bounds(p,g,a=A):
+    center=p.width/2+a.north_vent_offset_from_ridge
+    z=2*p.storey_height+a.deck_thickness+a.north_vent_sill
+    return (center-a.north_vent_width/2,p.depth-p.external_wall-a.gable_lining_thickness-1,z,
+            center+a.north_vent_width/2,p.depth+1,z+a.north_vent_height)
+
+
+def north_vent_tool(p,g,a=A):
+    cuboid,_,_=_helpers()
+    return cuboid(north_vent_bounds(p,g,a))
+
+
+def _north_vent_group(p,g,a=A):
+    cuboid,named,_=_helpers();x1,_,z1,x2,_,z2=north_vent_bounds(p,g,a)
+    y=p.depth-35;fw=35;leaves=[]
+    for i,b in enumerate([(x1,y-35,z1,x2,y+15,z1+fw),(x1,y-35,z2-fw,x2,y+15,z2),
+                          (x1,y-35,z1+fw,x1+fw,y+15,z2-fw),(x2-fw,y-35,z1+fw,x2,y+15,z2-fw)],1):
+        leaves.append(named(cuboid(b),f'attic:north_vent:frame_{i}','frame'))
+    # Top-hung sash is tilted outward 15 degrees, so the aperture is genuinely open.
+    sash=cuboid((x1+fw,y-6,z1+fw,x2-fw,y+6,z2-fw))
+    hinge=bd.Axis((x1,y,z2-fw),(1,0,0))
+    sash=sash.rotate(hinge,15)
+    leaves.append(named(sash,'attic:north_vent:open_glass','glass',.35))
+    leaves.append(named(cuboid((x1-20,p.depth,z1-30,x2+20,p.depth+35,z1-15)),
+                        'attic:north_vent:sill','charcoal'))
+    return bd.Compound(children=leaves,label='attic:windows')
 
 
 def _helpers():
@@ -183,7 +217,9 @@ def _partition_group(p, g, a=A):
                     (d["ceiling_left"], d["ceiling_bottom_z"]),
                     (left, roof_underside_z(left, p, g) - offset)]
     for side, y in [("south", south), ("north", p.depth - south - a.gable_lining_thickness)]:
-        leaves.append(named(section_extrusion(gable_points, y, a.gable_lining_thickness),
+        lining=section_extrusion(gable_points,y,a.gable_lining_thickness)
+        if side=='north':lining=lining.cut(north_vent_tool(p,g,a))
+        leaves.append(named(lining,
                             f"attic:gable_lining:{side}", "attic_lining"))
     return bd.Compound(children=leaves, label="attic:partition_walls")
 
@@ -252,11 +288,13 @@ def _guardrail_group(p, g, a=A):
     return bd.Compound(children=leaves, label="attic:guardrails")
 
 
+@orient_shape
 def attic_group(p, g, a=A):
     return bd.Compound(children=[_floor_group(p, g, a), _partition_group(p, g, a),
-                                 _storage_group(p, g, a), _guardrail_group(p, g, a)], label="attic")
+                                 _storage_group(p, g, a), _guardrail_group(p, g, a),_north_vent_group(p,g,a)], label="attic")
 
 
+@orient_shape
 def attic_access_group(p, g, a=A):
     cuboid, named, section_extrusion = _helpers()
     d = attic_dimensions(p, g, a)
@@ -311,6 +349,7 @@ def attic_access_group(p, g, a=A):
     return bd.Compound(children=leaves, label="attic_access")
 
 
+@orient_record
 def attic_manifest(p, g, a=A):
     d = attic_dimensions(p, g, a)
     theta = radians(a.ladder_angle_degrees)
@@ -331,11 +370,13 @@ def attic_manifest(p, g, a=A):
     ]
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R10",
+        "revision": "R14",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
-        "unchanged": ["approved R10 F1/F2 room boundaries", "R10 roof geometry and exterior silhouette"],
+        "north_vent_bounds_mm": list(north_vent_bounds(p,g,a)),
+        "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
+        "unchanged": ["R14 reflected F1/F2 room topology and areas", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],

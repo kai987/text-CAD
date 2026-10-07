@@ -66,6 +66,7 @@ const componentLabels = {
   'attic:guardrail:post_southeast': label('阁楼开口东南侧护栏立柱', '小屋裏開口・南東の手すり支柱', 'Attic hatch guardrail southeast post'),
   'attic:guardrail:post_northwest': label('阁楼开口西北侧护栏立柱', '小屋裏開口・北西の手すり支柱', 'Attic hatch guardrail northwest post'),
   'attic:guardrail:post_northeast': label('阁楼开口东北侧护栏立柱', '小屋裏開口・北東の手すり支柱', 'Attic hatch guardrail northeast post'),
+  'attic:guardrail:east_rail': label('阁楼开口东侧护栏横杆', '小屋裏開口・東側の手すり横桟', 'Attic hatch east guardrail rail'),
   'attic:guardrail:west_rail': label('阁楼开口西侧护栏横杆', '小屋裏開口・西側の手すり横桟', 'Attic hatch west guardrail rail'),
   'attic:guardrail:south_rail': label('阁楼开口南侧护栏横杆', '小屋裏開口・南側の手すり横桟', 'Attic hatch south guardrail rail'),
   'attic:guardrail:north_rail': label('阁楼开口北侧护栏横杆', '小屋裏開口・北側の手すり横桟', 'Attic hatch north guardrail rail'),
@@ -323,8 +324,10 @@ function furnitureDetail(locale: Locale, kind: FurnitureKind, suffix: string): s
   return Number(numbered[2]) <= detail.count ? `${detail.name[locale]} ${numbered[2]}` : null;
 }
 
-type FixtureKind = 'kitchen' | 'bath' | 'vanity' | 'washer' | 'toilet';
+type FixtureKind = 'kitchen' | 'bath' | 'vanity' | 'washer' | 'toilet' | 'fridge' | 'cupboard';
 const fixtureNames = {
+  fridge: label('冰箱', '冷蔵庫', 'Refrigerator'),
+  cupboard: label('电器收纳柜', 'カップボード', 'Appliance cupboard'),
   kitchen: label('整体厨房', 'システムキッチン', 'Kitchen unit'),
   bath: label('浴缸与淋浴', '浴槽・シャワー', 'Bath and shower'),
   vanity: label('洗面台', '洗面台', 'Vanity'),
@@ -344,11 +347,17 @@ const cabinetDetails = {
 } satisfies Catalog;
 
 const fixtureDetails = {
+  fridge: { body_white: label('冰箱机身', '冷蔵庫本体', 'Refrigerator body'), control_screen: label('温控面板', '温度操作パネル', 'Temperature control') },
+  cupboard: { ...cabinetDetails, counter_stone: label('电器柜台面', 'カップボード天板', 'Appliance counter'), microwave_body_steel: label('微波炉', '電子レンジ', 'Microwave'), microwave_glass: label('微波炉门玻璃', 'レンジ扉ガラス', 'Microwave door glass'), microwave_screen: label('微波炉操作面板', 'レンジ操作パネル', 'Microwave control') },
   kitchen: {
     ...faucetDetails, ...cabinetDetails,
     counter_stone: label('台面', 'カウンター天板', 'Countertop'),
     sink_steel: label('厨房水槽', 'キッチンシンク', 'Kitchen sink'),
     sink_rim_steel: label('水槽边缘', 'シンク縁', 'Sink rim'),
+    range_hood_steel: label('吸油烟机', 'レンジフード', 'Extractor hood'),
+    hood_filter_dark: label('油烟机滤网', 'フードフィルター', 'Hood filter'),
+    hood_duct_cover_steel: label('排烟管罩', '排気ダクトカバー', 'Exhaust duct cover'),
+    hood_light_white: label('灶台灯', 'コンロ照明', 'Cooktop light'),
     hob_dark: label('灶台', 'コンロ', 'Cooktop'),
   },
   bath: {
@@ -390,6 +399,8 @@ const fixtureDetails = {
 } satisfies Record<FixtureKind, Catalog>;
 
 const numberedFixtureDetails: Record<FixtureKind, Readonly<Record<string, NumberedDetail>>> = {
+  fridge: { door_white: { name: label('冰箱门', '冷蔵庫扉', 'Refrigerator door'), count: 3 }, handle_chrome: { name: label('冰箱把手', '冷蔵庫取っ手', 'Refrigerator handle'), count: 3 } },
+  cupboard: { front_wood: { name: label('柜门面板', '扉パネル', 'Cupboard front'), count: 3 }, handle_chrome: { name: label('柜把手', '取っ手', 'Cupboard handle'), count: 3 } },
   kitchen: {
     front_wood: { name: label('橱柜前面板', 'キャビネット前面パネル', 'Cabinet front'), count: 5 },
     handle_chrome: { name: label('把手', '取っ手', 'Handle'), count: 5 },
@@ -407,7 +418,7 @@ const numberedFixtureDetails: Record<FixtureKind, Readonly<Record<string, Number
 function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): string | null {
   const exact = lookup(fixtureDetails[kind], suffix, locale);
   if (exact) return exact;
-  const numbered = /^(front|door|handle|hob_ring)_([1-9]\d*)_(wood|chrome|steel)$/.exec(suffix);
+  const numbered = /^(front|door|handle|hob_ring)_([1-9]\d*)_(wood|chrome|steel|white)$/.exec(suffix);
   if (!numbered) return null;
   const catalog = numberedFixtureDetails[kind];
   const key = `${numbered[1]}_${numbered[3]}`;
@@ -429,6 +440,11 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
   }
   if (name === 'F2:D26_door_glass') return label('阳台门玻璃', 'バルコニー扉のガラス', 'Balcony door glazing')[locale];
   if (name === 'F2:D24_door_bifold') return label('衣柜折门 D24', '収納折戸 D24', 'Closet bifold door D24')[locale];
+  const vent = /^attic:north_vent:(frame_[1-4]|open_glass|sill)$/.exec(name);
+  if (vent) {
+    const detail = vent[1] === 'open_glass' ? label('上悬玻璃', '外倒しガラス', 'Top-hung glass') : vent[1] === 'sill' ? windowDetails.sill : windowDetails[vent[1] as keyof typeof windowDetails];
+    return `${label('阁楼北侧换气窗', '小屋裏北側換気窓', 'North attic ventilation window')[locale]} · ${detail[locale]}`;
+  }
   const fixed = lookup(componentLabels, name, locale);
   if (fixed) return fixed;
   const outdoor = /^lighting:(?:wall|path|garden|gate):([^:]+):([^:]+)$/.exec(name);
@@ -504,7 +520,7 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
     return detail ? `${room} · ${object.name[locale]} · ${detail}` : null;
   }
 
-  const fixture = /^F[12]:fixture_(\d{2})_(kitchen|bath|vanity|washer|toilet):([^:]+)$/.exec(name);
+  const fixture = /^F[12]:fixture_(\d{2})_(kitchen|bath|vanity|washer|toilet|fridge|cupboard):([^:]+)$/.exec(name);
   if (fixture) {
     const kind = fixture[2] as FixtureKind;
     const detail = fixtureDetail(locale, kind, fixture[3]);

@@ -11,8 +11,8 @@
     {
       "check": "saved:revision_R06",
       "pass": true,
-      "actual": "R13-3D",
-      "expected": "R13-3D"
+      "actual": "R14-3D",
+      "expected": "R14-3D"
     },
     {
       "check": "GLB:valid_container",
@@ -29,8 +29,8 @@
     {
       "check": "GLB:all_saved_structure_names_preserved",
       "pass": true,
-      "actual": 239,
-      "expected": 239
+      "actual": 237,
+      "expected": 237
     },
     {
       "check": "GLB:independent_structure_categories",
@@ -843,13 +843,13 @@
       "expected": null
     },
     {
-      "check": "structure:attic:trimmer_west:valid_positive_solid",
+      "check": "structure:attic:trimmer_east:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:attic:trimmer_east:valid_positive_solid",
+      "check": "structure:attic:trimmer_west:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -867,37 +867,19 @@
       "expected": null
     },
     {
-      "check": "structure:roof:purlin_west:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "structure:roof:purlin_east:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
+      "check": "structure:roof:purlin_west:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:roof:ridge_beam:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P01:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P02:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P03:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -921,6 +903,24 @@
       "expected": null
     },
     {
+      "check": "structure:roof:post_west_P01:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P02:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P03:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
       "check": "structure:roof:post_ridge_P01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -933,19 +933,13 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R01:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "structure:roof:rafter_east_R01:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R02:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R01:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -957,7 +951,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R03:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R02:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -969,7 +963,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R04:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R03:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -981,7 +975,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R05:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R04:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -993,7 +987,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R06:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R05:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1005,7 +999,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R07:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R06:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1017,7 +1011,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R08:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R07:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1029,7 +1023,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R09:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R08:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1041,7 +1035,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R10:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R09:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1053,7 +1047,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R11:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R10:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1065,7 +1059,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R12:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R11:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1077,7 +1071,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R13:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R12:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1089,7 +1083,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R14:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R13:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1101,7 +1095,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R15:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R14:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1113,7 +1107,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R16:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R15:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1125,7 +1119,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R17:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R16:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1137,7 +1131,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R18:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R17:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1149,13 +1143,25 @@
       "expected": null
     },
     {
-      "check": "structure:roof:rafter_west_R19:valid_positive_solid",
+      "check": "structure:roof:rafter_west_R18:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
       "check": "structure:roof:rafter_east_R19:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:rafter_west_R19:valid_positive_solid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "structure:F1:bearing_wall_BW21:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1186,12 +1192,6 @@
     },
     {
       "check": "structure:F1:bearing_wall_BW26:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW27:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1317,7 +1317,7 @@
       "expected": null
     },
     {
-      "check": "structure:F1:bearing_wall_BW21:valid_positive_solid",
+      "check": "structure:F2:bearing_wall_BW21:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1348,12 +1348,6 @@
     },
     {
       "check": "structure:F2:bearing_wall_BW26:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW27:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -1474,12 +1468,6 @@
     },
     {
       "check": "structure:F2:bearing_wall_BW20:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW21:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -4101,13 +4089,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW13:C25:actual_positive_panel_post_face",
+      "check": "F1:BW13:C26:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW13:C26:actual_positive_panel_post_face",
+      "check": "F1:BW13:C10:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4119,13 +4107,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW14:C26:actual_positive_panel_post_face",
+      "check": "F1:BW14:C09:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW14:C10:actual_positive_panel_post_face",
+      "check": "F1:BW14:C27:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4137,13 +4125,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW15:C09:actual_positive_panel_post_face",
+      "check": "F1:BW15:C27:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW15:C27:actual_positive_panel_post_face",
+      "check": "F1:BW15:C28:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4155,13 +4143,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW16:C27:actual_positive_panel_post_face",
+      "check": "F1:BW16:C28:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW16:C28:actual_positive_panel_post_face",
+      "check": "F1:BW16:C29:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4173,13 +4161,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW17:C28:actual_positive_panel_post_face",
+      "check": "F1:BW17:C29:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW17:C29:actual_positive_panel_post_face",
+      "check": "F1:BW17:C30:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4191,13 +4179,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW18:C29:actual_positive_panel_post_face",
+      "check": "F1:BW18:C30:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW18:C30:actual_positive_panel_post_face",
+      "check": "F1:BW18:C31:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4209,13 +4197,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW19:C30:actual_positive_panel_post_face",
+      "check": "F1:BW19:C31:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW19:C31:actual_positive_panel_post_face",
+      "check": "F1:BW19:C32:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4227,13 +4215,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW20:C31:actual_positive_panel_post_face",
+      "check": "F1:BW20:C32:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
     },
     {
-      "check": "F1:BW20:C32:actual_positive_panel_post_face",
+      "check": "F1:BW20:C33:actual_positive_panel_post_face",
       "pass": true,
       "actual": 153360.0,
       "expected": null
@@ -4245,15 +4233,15 @@
       "expected": null
     },
     {
-      "check": "F1:BW21:C32:actual_positive_panel_post_face",
+      "check": "F1:BW21:C39:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 153360.0,
+      "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW21:C33:actual_positive_panel_post_face",
+      "check": "F1:BW21:C40:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 153360.0,
+      "actual": 115020.0,
       "expected": null
     },
     {
@@ -4263,13 +4251,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW22:C39:actual_positive_panel_post_face",
+      "check": "F1:BW22:C40:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW22:C40:actual_positive_panel_post_face",
+      "check": "F1:BW22:C41:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
@@ -4281,15 +4269,15 @@
       "expected": null
     },
     {
-      "check": "F1:BW23:C40:actual_positive_panel_post_face",
+      "check": "F1:BW23:C41:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW23:C41:actual_positive_panel_post_face",
+      "check": "F1:BW23:C42:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 115020.0,
+      "actual": 12780.0,
       "expected": null
     },
     {
@@ -4299,15 +4287,15 @@
       "expected": null
     },
     {
-      "check": "F1:BW24:C41:actual_positive_panel_post_face",
+      "check": "F1:BW24:C35:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW24:C42:actual_positive_panel_post_face",
+      "check": "F1:BW24:C36:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 12780.0,
+      "actual": 115020.0,
       "expected": null
     },
     {
@@ -4317,13 +4305,13 @@
       "expected": null
     },
     {
-      "check": "F1:BW25:C35:actual_positive_panel_post_face",
+      "check": "F1:BW25:C36:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW25:C36:actual_positive_panel_post_face",
+      "check": "F1:BW25:C37:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
@@ -4335,37 +4323,19 @@
       "expected": null
     },
     {
-      "check": "F1:BW26:C36:actual_positive_panel_post_face",
-      "pass": true,
-      "actual": 115020.0,
-      "expected": null
-    },
-    {
       "check": "F1:BW26:C37:actual_positive_panel_post_face",
       "pass": true,
       "actual": 115020.0,
       "expected": null
     },
     {
-      "check": "F1:BW26:wall_multiplier_and_connection_capacity_unassigned",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:BW27:C37:actual_positive_panel_post_face",
-      "pass": true,
-      "actual": 115020.0,
-      "expected": null
-    },
-    {
-      "check": "F1:BW27:C38:actual_positive_panel_post_face",
+      "check": "F1:BW26:C38:actual_positive_panel_post_face",
       "pass": true,
       "actual": 12780.0,
       "expected": null
     },
     {
-      "check": "F1:BW27:wall_multiplier_and_connection_capacity_unassigned",
+      "check": "F1:BW26:wall_multiplier_and_connection_capacity_unassigned",
       "pass": true,
       "actual": null,
       "expected": null
@@ -4450,6 +4420,12 @@
     },
     {
       "check": "F2:W06:structure_keeps_actual_window_opening_clear_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F2:W07:structure_keeps_actual_window_opening_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -4671,13 +4647,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW13:C25:actual_positive_panel_post_face",
+      "check": "F2:BW13:C26:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW13:C26:actual_positive_panel_post_face",
+      "check": "F2:BW13:C10:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4689,13 +4665,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW14:C26:actual_positive_panel_post_face",
+      "check": "F2:BW14:C09:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW14:C10:actual_positive_panel_post_face",
+      "check": "F2:BW14:C27:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4707,13 +4683,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW15:C09:actual_positive_panel_post_face",
+      "check": "F2:BW15:C27:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW15:C27:actual_positive_panel_post_face",
+      "check": "F2:BW15:C28:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4725,13 +4701,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW16:C27:actual_positive_panel_post_face",
+      "check": "F2:BW16:C28:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW16:C28:actual_positive_panel_post_face",
+      "check": "F2:BW16:C29:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4743,13 +4719,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW17:C28:actual_positive_panel_post_face",
+      "check": "F2:BW17:C29:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW17:C29:actual_positive_panel_post_face",
+      "check": "F2:BW17:C30:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4761,13 +4737,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW18:C29:actual_positive_panel_post_face",
+      "check": "F2:BW18:C30:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW18:C30:actual_positive_panel_post_face",
+      "check": "F2:BW18:C31:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4779,13 +4755,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW19:C30:actual_positive_panel_post_face",
+      "check": "F2:BW19:C31:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW19:C31:actual_positive_panel_post_face",
+      "check": "F2:BW19:C32:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4797,13 +4773,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW20:C31:actual_positive_panel_post_face",
+      "check": "F2:BW20:C32:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
     },
     {
-      "check": "F2:BW20:C32:actual_positive_panel_post_face",
+      "check": "F2:BW20:C33:actual_positive_panel_post_face",
       "pass": true,
       "actual": 139200.0,
       "expected": null
@@ -4815,15 +4791,15 @@
       "expected": null
     },
     {
-      "check": "F2:BW21:C32:actual_positive_panel_post_face",
+      "check": "F2:BW21:C39:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 139200.0,
+      "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW21:C33:actual_positive_panel_post_face",
+      "check": "F2:BW21:C40:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 139200.0,
+      "actual": 104400.0,
       "expected": null
     },
     {
@@ -4833,13 +4809,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW22:C39:actual_positive_panel_post_face",
+      "check": "F2:BW22:C40:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW22:C40:actual_positive_panel_post_face",
+      "check": "F2:BW22:C41:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
@@ -4851,15 +4827,15 @@
       "expected": null
     },
     {
-      "check": "F2:BW23:C40:actual_positive_panel_post_face",
+      "check": "F2:BW23:C41:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW23:C41:actual_positive_panel_post_face",
+      "check": "F2:BW23:C42:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 104400.0,
+      "actual": 11600.0,
       "expected": null
     },
     {
@@ -4869,15 +4845,15 @@
       "expected": null
     },
     {
-      "check": "F2:BW24:C41:actual_positive_panel_post_face",
+      "check": "F2:BW24:C35:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW24:C42:actual_positive_panel_post_face",
+      "check": "F2:BW24:C36:actual_positive_panel_post_face",
       "pass": true,
-      "actual": 11600.0,
+      "actual": 104400.0,
       "expected": null
     },
     {
@@ -4887,13 +4863,13 @@
       "expected": null
     },
     {
-      "check": "F2:BW25:C35:actual_positive_panel_post_face",
+      "check": "F2:BW25:C36:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW25:C36:actual_positive_panel_post_face",
+      "check": "F2:BW25:C37:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
@@ -4905,37 +4881,19 @@
       "expected": null
     },
     {
-      "check": "F2:BW26:C36:actual_positive_panel_post_face",
-      "pass": true,
-      "actual": 104400.0,
-      "expected": null
-    },
-    {
       "check": "F2:BW26:C37:actual_positive_panel_post_face",
       "pass": true,
       "actual": 104400.0,
       "expected": null
     },
     {
-      "check": "F2:BW26:wall_multiplier_and_connection_capacity_unassigned",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:BW27:C37:actual_positive_panel_post_face",
-      "pass": true,
-      "actual": 104400.0,
-      "expected": null
-    },
-    {
-      "check": "F2:BW27:C38:actual_positive_panel_post_face",
+      "check": "F2:BW26:C38:actual_positive_panel_post_face",
       "pass": true,
       "actual": 11600.0,
       "expected": null
     },
     {
-      "check": "F2:BW27:wall_multiplier_and_connection_capacity_unassigned",
+      "check": "F2:BW26:wall_multiplier_and_connection_capacity_unassigned",
       "pass": true,
       "actual": null,
       "expected": null
@@ -5109,18 +5067,6 @@
       "expected": null
     },
     {
-      "check": "structure:attic:trimmer_west:top_matches_real_subfloor_bottom_mm",
-      "pass": true,
-      "actual": 5576.0,
-      "expected": 5576
-    },
-    {
-      "check": "structure:attic:trimmer_west:positive_face_to_attic_support_beam",
-      "pass": true,
-      "actual": 63300.0,
-      "expected": null
-    },
-    {
       "check": "structure:attic:trimmer_east:top_matches_real_subfloor_bottom_mm",
       "pass": true,
       "actual": 5576.0,
@@ -5129,43 +5075,19 @@
     {
       "check": "structure:attic:trimmer_east:positive_face_to_attic_support_beam",
       "pass": true,
+      "actual": 63300.0,
+      "expected": null
+    },
+    {
+      "check": "structure:attic:trimmer_west:top_matches_real_subfloor_bottom_mm",
+      "pass": true,
+      "actual": 5576.0,
+      "expected": 5576
+    },
+    {
+      "check": "structure:attic:trimmer_west:positive_face_to_attic_support_beam",
+      "pass": true,
       "actual": 131850.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P01:positive_face_to_lower_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P01:positive_face_to_roof_beam",
-      "pass": true,
-      "actual": 9353.074,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P02:positive_face_to_lower_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P02:positive_face_to_roof_beam",
-      "pass": true,
-      "actual": 9353.074,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P03:positive_face_to_lower_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_west_P03:positive_face_to_roof_beam",
-      "pass": true,
-      "actual": 9353.074,
       "expected": null
     },
     {
@@ -5205,6 +5127,42 @@
       "expected": null
     },
     {
+      "check": "structure:roof:post_west_P01:positive_face_to_lower_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P01:positive_face_to_roof_beam",
+      "pass": true,
+      "actual": 9353.074,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P02:positive_face_to_lower_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P02:positive_face_to_roof_beam",
+      "pass": true,
+      "actual": 9353.074,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P03:positive_face_to_lower_beam",
+      "pass": true,
+      "actual": 8100.0,
+      "expected": null
+    },
+    {
+      "check": "structure:roof:post_west_P03:positive_face_to_roof_beam",
+      "pass": true,
+      "actual": 9353.074,
+      "expected": null
+    },
+    {
       "check": "structure:roof:post_ridge_P01:positive_face_to_lower_beam",
       "pass": true,
       "actual": 8100.0,
@@ -5235,13 +5193,13 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B01:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B02:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B02:structure:F1:bearing_wall_BW13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5283,7 +5241,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B05:structure:F1:bearing_wall_BW17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5295,7 +5253,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW19:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B06:structure:F1:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5307,7 +5265,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:beam_B09:structure:F1:bearing_wall_BW25:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:beam_B09:structure:F1:bearing_wall_BW24:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5325,13 +5283,13 @@
       "expected": 0
     },
     {
-      "check": "structure:F1:bearing_wall_BW04:structure:F1:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:bearing_wall_BW04:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F1:bearing_wall_BW05:structure:F1:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F1:bearing_wall_BW05:structure:F1:bearing_wall_BW13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5355,13 +5313,13 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B01:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B02:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B02:structure:F2:bearing_wall_BW13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5403,7 +5361,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B05:structure:F2:bearing_wall_BW17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5415,7 +5373,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW19:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B06:structure:F2:bearing_wall_BW18:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5427,7 +5385,7 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:beam_B09:structure:F2:bearing_wall_BW25:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:beam_B09:structure:F2:bearing_wall_BW24:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -5457,709 +5415,721 @@
       "expected": 0
     },
     {
-      "check": "structure:F2:bearing_wall_BW04:structure:F2:bearing_wall_BW15:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:bearing_wall_BW04:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:F2:bearing_wall_BW05:structure:F2:bearing_wall_BW14:no_duplicate_structural_volume_mm3",
+      "check": "structure:F2:bearing_wall_BW05:structure:F2:bearing_wall_BW13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J01:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J01:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J02:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J02:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J03:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J03:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J04:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J04:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_south:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J06_south:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_north:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_north:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J07_south:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J07_south:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J09:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J09:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R04:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R04:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R05:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R05:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R06:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R06:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R07:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R07:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R08:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R08:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R09:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R09:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R10:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R10:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R11:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R11:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R12:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R13:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R13:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R14:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R14:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R15:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R15:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R16:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R16:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J10:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
+      "check": "structure:attic:joist_J10:structure:roof:rafter_west_R17:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:trimmer_east:structure:roof:post_ridge_P01:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "structure:attic:trimmer_east:structure:roof:post_ridge_P02:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -6250,18 +6220,6 @@
     },
     {
       "check": "structure:attic:trimmer_east:structure:roof:rafter_east_R17:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:attic:trimmer_west:structure:roof:post_ridge_P01:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:attic:trimmer_west:structure:roof:post_ridge_P02:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

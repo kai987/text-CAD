@@ -1,5 +1,5 @@
 {
-  "revision": "R13",
+  "revision": "R14",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -22,7 +22,7 @@
       "evidence": {
         "area_m2": 33.05,
         "label": [
-          3500,
+          4690,
           2250
         ]
       }
@@ -38,7 +38,7 @@
       "evidence": {
         "area_m2": 3.04,
         "label": [
-          6910,
+          1280,
           850
         ]
       }
@@ -54,7 +54,7 @@
       "evidence": {
         "area_m2": 3.3124,
         "label": [
-          1200,
+          6990,
           5880
         ]
       }
@@ -70,7 +70,7 @@
       "evidence": {
         "area_m2": 5.2962,
         "label": [
-          3555.0,
+          4635.0,
           6030
         ]
       }
@@ -86,7 +86,7 @@
       "evidence": {
         "area_m2": 1.53,
         "label": [
-          5560.0,
+          2630.0,
           6050
         ]
       }
@@ -102,7 +102,7 @@
       "evidence": {
         "area_m2": 0.828,
         "label": [
-          5560.0,
+          2630.0,
           4840.0
         ]
       }
@@ -118,7 +118,7 @@
       "evidence": {
         "area_m2": 5.168,
         "label": [
-          7060.0,
+          1130.0,
           5740.0
         ]
       }
@@ -141,7 +141,21 @@
       ]
     },
     {
-      "name": "1F/fixture/キッチン",
+      "name": "1F/fixture/対面キッチン",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/冷蔵庫",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "1F/fixture/カップボード",
       "passed": true,
       "evidence": [
         "ldk"
@@ -327,10 +341,10 @@
         ],
         "owners": [
           [
-            "bath"
+            "wash"
           ],
           [
-            "wash"
+            "bath"
           ]
         ]
       }
@@ -517,7 +531,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R13"
+        "revision": "R14"
       }
     },
     {
@@ -526,7 +540,9 @@
       "evidence": [
         "掃出し窓 W2100 / H2200 / FL+0",
         "靴収納",
-        "キッチン",
+        "対面キッチン",
+        "冷蔵庫",
+        "カップボード",
         "ダイニング",
         "ソファ",
         "TV",
@@ -600,7 +616,7 @@
       "evidence": {
         "area_m2": 9.61,
         "label": [
-          2820,
+          5370,
           1300
         ]
       }
@@ -616,7 +632,7 @@
       "evidence": {
         "area_m2": 2.79,
         "label": [
-          1700,
+          6490,
           3530
         ]
       }
@@ -632,7 +648,7 @@
       "evidence": {
         "area_m2": 11.253,
         "label": [
-          7350,
+          840,
           1450
         ]
       }
@@ -648,7 +664,7 @@
       "evidence": {
         "area_m2": 13.1376,
         "label": [
-          3000,
+          5190,
           5500
         ]
       }
@@ -664,7 +680,7 @@
       "evidence": {
         "area_m2": 7.047,
         "label": [
-          5400,
+          2790,
           3820
         ]
       }
@@ -680,7 +696,7 @@
       "evidence": {
         "area_m2": 1.53,
         "label": [
-          5560.0,
+          2630.0,
           6050
         ]
       }
@@ -696,7 +712,7 @@
       "evidence": {
         "area_m2": 0.828,
         "label": [
-          5560.0,
+          2630.0,
           4840.0
         ]
       }
@@ -712,7 +728,7 @@
       "evidence": {
         "area_m2": 5.168,
         "label": [
-          7060.0,
+          1130.0,
           5740.0
         ]
       }
@@ -728,7 +744,7 @@
       "evidence": {
         "area_m2": 7.191,
         "label": [
-          7340,
+          850,
           -450
         ]
       }
@@ -814,10 +830,10 @@
         ],
         "owners": [
           [
-            "master"
+            "hall"
           ],
           [
-            "hall"
+            "master"
           ]
         ]
       }
@@ -850,10 +866,10 @@
         ],
         "owners": [
           [
-            "hall"
+            "bed2"
           ],
           [
-            "bed2"
+            "hall"
           ]
         ]
       }
@@ -1088,6 +1104,11 @@
       "evidence": 0.0
     },
     {
+      "name": "2F/window/6/clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
       "name": "2F/whole_outline_assigned",
       "passed": true,
       "evidence": 0.0
@@ -1145,7 +1166,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R13"
+        "revision": "R14"
       }
     },
     {
@@ -1213,6 +1234,91 @@
       "evidence": 50
     },
     {
+      "name": "R14/F1/stairs_west",
+      "passed": true,
+      "evidence": [
+        180.0,
+        4380.0,
+        2080.0,
+        7100.0
+      ]
+    },
+    {
+      "name": "R14/F1/west_only_stair_window",
+      "passed": true,
+      "evidence": [
+        [
+          "v",
+          90.0,
+          6200,
+          600
+        ]
+      ]
+    },
+    {
+      "name": "R14/F1/east_room_windows",
+      "passed": true,
+      "evidence": [
+        "ldk"
+      ]
+    },
+    {
+      "name": "R14/F2/stairs_west",
+      "passed": true,
+      "evidence": [
+        180.0,
+        4380.0,
+        2080.0,
+        7100.0
+      ]
+    },
+    {
+      "name": "R14/F2/west_only_stair_window",
+      "passed": true,
+      "evidence": [
+        [
+          "v",
+          90.0,
+          6200,
+          600
+        ]
+      ]
+    },
+    {
+      "name": "R14/F2/east_room_windows",
+      "passed": true,
+      "evidence": [
+        "master",
+        "bed3"
+      ]
+    },
+    {
+      "name": "R14/entrance_southwest",
+      "passed": true,
+      "evidence": [
+        980,
+        1880
+      ]
+    },
+    {
+      "name": "R14/kitchen_main_rear_aisle_900",
+      "passed": true,
+      "evidence": {
+        "counter": [
+          4640,
+          3180,
+          7190,
+          3830
+        ],
+        "cupboard": [
+          5440,
+          4730,
+          7190,
+          5180
+        ]
+      }
+    },
+    {
       "name": "1F/R09_room_preserved/ldk",
       "passed": true,
       "evidence": [
@@ -1226,9 +1332,9 @@
       "name": "1F/R09_room_preserved/foyer",
       "passed": true,
       "evidence": [
-        6110.0,
         180.0,
-        8010.0,
+        180.0,
+        2080.0,
         1780.0
       ]
     },
@@ -1236,9 +1342,9 @@
       "name": "1F/R09_room_preserved/bath",
       "passed": true,
       "evidence": [
-        180.0,
+        6190.0,
         5280.0,
-        2000.0,
+        8010.0,
         7100.0
       ]
     },
@@ -1246,9 +1352,9 @@
       "name": "1F/R09_room_preserved/wash",
       "passed": true,
       "evidence": [
-        2100.0,
+        3180.0,
         5280.0,
-        5010.0,
+        6090.0,
         7100.0
       ]
     },
@@ -1256,9 +1362,9 @@
       "name": "1F/R09_room_preserved/wc",
       "passed": true,
       "evidence": [
-        5110.0,
+        2180.0,
         5400.0,
-        6010.0,
+        3080.0,
         7100.0
       ]
     },
@@ -1266,9 +1372,9 @@
       "name": "1F/R09_room_preserved/wc_hall",
       "passed": true,
       "evidence": [
-        5110.0,
+        2180.0,
         4380.0,
-        6010.0,
+        3080.0,
         5300.0
       ]
     },
@@ -1276,9 +1382,9 @@
       "name": "1F/R09_room_preserved/stairs",
       "passed": true,
       "evidence": [
-        6110.0,
+        180.0,
         4380.0,
-        8010.0,
+        2080.0,
         7100.0
       ]
     },
@@ -1286,9 +1392,9 @@
       "name": "2F/R09_room_preserved/master",
       "passed": true,
       "evidence": [
+        4910.0,
         180.0,
-        180.0,
-        3280.0,
+        8010.0,
         3280.0
       ]
     },
@@ -1296,9 +1402,9 @@
       "name": "2F/R09_room_preserved/closet",
       "passed": true,
       "evidence": [
-        180.0,
+        4910.0,
         3380.0,
-        3280.0,
+        8010.0,
         4280.0
       ]
     },
@@ -1306,9 +1412,9 @@
       "name": "2F/R09_room_preserved/bed2",
       "passed": true,
       "evidence": [
-        4380.0,
         180.0,
-        8010.0,
+        180.0,
+        3810.0,
         3280.0
       ]
     },
@@ -1316,9 +1422,9 @@
       "name": "2F/R09_room_preserved/bed3",
       "passed": true,
       "evidence": [
-        180.0,
+        3180.0,
         4380.0,
-        5010.0,
+        8010.0,
         7100.0
       ]
     },
@@ -1326,9 +1432,9 @@
       "name": "2F/R09_room_preserved/hall",
       "passed": true,
       "evidence": [
-        3380.0,
         180.0,
-        8010.0,
+        180.0,
+        4810.0,
         4280.0
       ]
     },
@@ -1336,9 +1442,9 @@
       "name": "2F/R09_room_preserved/wc",
       "passed": true,
       "evidence": [
-        5110.0,
+        2180.0,
         5400.0,
-        6010.0,
+        3080.0,
         7100.0
       ]
     },
@@ -1346,9 +1452,9 @@
       "name": "2F/R09_room_preserved/wc_hall",
       "passed": true,
       "evidence": [
-        5110.0,
+        2180.0,
         4380.0,
-        6010.0,
+        3080.0,
         5300.0
       ]
     },
@@ -1356,9 +1462,9 @@
       "name": "2F/R09_room_preserved/stairs",
       "passed": true,
       "evidence": [
-        6110.0,
+        180.0,
         4380.0,
-        8010.0,
+        2080.0,
         7100.0
       ]
     },
@@ -1391,9 +1497,9 @@
       "name": "R12/porch_outer_300mm_exposed",
       "passed": true,
       "evidence": [
-        6010.0,
+        680.0,
         -1300.0,
-        7510.0,
+        2180.0,
         0.0
       ]
     },
@@ -1406,9 +1512,9 @@
       "name": "vertical_alignment/stairs",
       "passed": true,
       "evidence": [
-        6110.0,
+        180.0,
         4380.0,
-        8010.0,
+        2080.0,
         7100.0
       ]
     },
@@ -1416,9 +1522,9 @@
       "name": "vertical_alignment/wc",
       "passed": true,
       "evidence": [
-        5110.0,
+        2180.0,
         5400.0,
-        6010.0,
+        3080.0,
         7100.0
       ]
     },
@@ -1434,8 +1540,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "8688ef483a94cd4a99239114a6962281941a32cc7d12c3650a75aed762b14d0b",
-    "DXF/house_redesign_R10_1f.dxf": "8100c3df6099775f741d024e1e541ee8af302a7efbcdc077d4551216aca31ff9",
-    "DXF/house_redesign_R10_2f.dxf": "53b8bdba70c71dcf18325a6131b7700449de31e8c281e25bcf2ab79336c6e06b"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "ee8d2c2a518d5097cb247198a8476cd4880b8956a12d4d40884184974dfeebc0",
+    "DXF/house_redesign_R10_1f.dxf": "77176ac3a9f654c6c965564793f57133d1980a0d4fa38f824b965338f60f24f8",
+    "DXF/house_redesign_R10_2f.dxf": "9916556af509f3d99c33ada81e42a9aaacd0445510da798f823d8f5cb55104f0"
   }
 }

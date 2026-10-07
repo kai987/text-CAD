@@ -52,6 +52,7 @@ export const parts: ModelPart[] = [
   { id: 'attic:floor_slab', group: 'attic', label: '楼板' },
   { id: 'attic:partition_walls', group: 'attic', label: '内隔墙' },
   { id: 'attic:storage_fixtures', group: 'attic', label: '收纳柜' },
+  { id: 'attic:windows', group: 'attic', label: '换气窗' },
   { id: 'attic:guardrails', group: 'attic', label: '防护栏' },
   { id: 'structure:columns', group: 'structure', label: '柱' },
   { id: 'structure:beams', group: 'structure', label: '梁' },

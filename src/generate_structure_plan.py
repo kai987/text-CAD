@@ -23,11 +23,15 @@ from lib.structure_geometry import T, structure_manifest, structure_dimensions
 from lib.jp_drafting import LAYERS
 from shapely.geometry import box
 
+from lib.orientation import canonical
+P=canonical(P)
+
 ROOT=Path(__file__).resolve().parents[1]
 
 
 class StructureDrawing(Drawing):
     def dim(self,p1,p2,base,angle=0):
+        p1,p2,base=self.orient_dim(p1,p2,base,angle)
         # Dimension lettering remains 2.5 mm on paper on BOTH 1:50 and 1:75
         # sheets. The inherited architectural drawing method fixes 1:50.
         ratio=mm/self.scale
@@ -64,10 +68,10 @@ def generate():
     path.parent.mkdir(parents=True,exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     pdf=canvas.Canvas(str(path),pagesize=(420*mm,297*mm),invariant=1)
-    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R10 / Demonstration only')
+    pdf.setTitle('木造軸組・基礎・小屋裏 候補構造図 R14 / Demonstration only')
     pdf.setAuthor('text-CAD')
     d=StructureDrawing(pdf)
-    d.doc.ezdxf_metadata()['REVISION']='R10-STRUCTURE'
+    d.doc.ezdxf_metadata()['REVISION']='R14-STRUCTURE'
     d.doc.ezdxf_metadata()['SCOPE']='構造候補の説明図。断面はデモ入力。構造計算・施工図・法規判定ではない。'
     d.doc.ezdxf_metadata()['SCALE']='Sheet 01 1:50; Sheet 02 1:75; labelled foundation section 1:25'
     d.doc.header['$PSLTSCALE']=0
@@ -112,13 +116,14 @@ def generate():
         pdf.rect(x-width*d.scale/2-padding,y-height*d.scale*.55-padding,
                  width*d.scale+2*padding,height*d.scale*1.1+2*padding,fill=1,stroke=0)
         d.write_dxf=False;d.text(value,at,height);d.write_dxf=True
-        m=d.msp.add_mtext(value,dxfattribs={'insert':at,'char_height':height,'width':width+height*.3,
+        m=d.msp.add_mtext(value,dxfattribs={'insert':d.orient_point(at),'char_height':height,'width':width+height*.3,
             'style':'HOUSE_UNICODE','attachment_point':5,'layer':LAYERS['TEXT']})
         m.set_bg_color('canvas',scale=1.2)
 
     # Sheet 01: frame plans keep the architectural wall outlines as context.
     for floor,xoff in ((1,0),(2,9000)):
-        f=floor_plan(floor)
+        d.mirror_width=P.width;d.mirror_origin=xoff
+        f=floor_plan(floor,P)
         d.text(f'0{floor} {floor}階 柱・梁・耐力壁候補 / 1:50',(xoff+3640,9400),175)
         walls=list(f.walls.geoms) if hasattr(f.walls,'geoms') else [f.walls]
         for wall in walls:
@@ -159,7 +164,8 @@ def generate():
         d.dim((xoff,0),(xoff,P.depth),(xoff-700,0),90)
         d.text(f'柱: 外周120角 / 内部90角 / 梁: 120・90・180 × H300',(xoff+3640,-650),100)
         d.text('断面寸法はデモ入力。材種・等級・壁倍率・接合耐力は未設定。',(xoff+3640,-950),100)
-    d.text('木造軸組 候補構造図 / R10',(0,10800),250,align='left')
+    d.mirror_width=None
+    d.text('木造軸組 候補構造図 / R14',(0,10800),250,align='left')
     d.text('単位 mm / A3 / 確認済み平面を保持 / 演示方案・構造計算未実施 / 2026-10-07',(0,10300),125,align='left')
     for i,text in enumerate([
         'C：柱 / B：梁 / BW：耐力壁候補（倍率未設定）。必要壁量・偏心・耐震等級を示さない。',
@@ -175,10 +181,11 @@ def generate():
     def line(a,b,layer='FURNITURE'):d.line((a[0],a[1]+offset),(b[0],b[1]+offset),layer)
     def rect(bounds,layer='FURNITURE'):d.rect(shifted(bounds,0,offset),layer)
     def dim(a,b,base,angle=0):d.dim((a[0],a[1]+offset),(b[0],b[1]+offset),(base[0],base[1]+offset),angle)
-    text('基礎支持線・小屋裏床組 候補図 / R10',(0,10800),375,align='left')
+    text('基礎支持線・小屋裏床組 候補図 / R14',(0,10800),375,align='left')
     text('単位 mm / A3 / 平面・断面1:75 / 基礎参考断面のみ1:25 / 全寸法はデモ入力',(0,10000),187.5,align='left')
     text('01 基礎支持線候補 / 1:75',(3640,8500),262.5)
     text('02 小屋裏床組・検修口 / 1:75',(14140,8500),262.5)
+    d.mirror_width=P.width;d.mirror_origin=0
     rect((0,0,P.width,P.depth),'WALL')
     # Actual root foundation width is a recorded drawing input, never rebar.
     from lib.exterior_geometry import E
@@ -194,6 +201,7 @@ def generate():
     text('I01～I07：内側支持肋 / 幅140 / 上端Z=-200（仮定）',(3640,-500),180)
     text('地盤・反力・配筋・沈下を計算して断面を決める。',(3640,-850),165)
     sx=10500;ad=attic_dimensions(P,G)
+    d.mirror_origin=sx
     rect((sx+sd['deck_left'],A.deck_end_inset,sx+sd['deck_right'],P.depth-A.deck_end_inset),'WALL')
     # Read the real candidate native members to show all splits and trimmers.
     from lib.structure_geometry import _attic_members
@@ -210,6 +218,7 @@ def generate():
     text('根太60×H180・間隔≤455 / 開口両側120幅',(sx+3640,-500),180)
     text('開口補強梁60×H180 / 全て断面未計算',(sx+3640,-850),165)
 
+    d.mirror_width=None
     # True-height roof/attic cross-section, local datum Z5396, at 1:75.
     sy=-5300;zref=sd['F2_beam_top_z']
     text('03 東西参考断面 / 1:75（Zは実座標）',(0,sy+3300),262.5,align='left')

@@ -1,9 +1,14 @@
 {
-  "revision": "R13",
-  "stage": "floor_plan_approved",
+  "revision": "R14",
+  "stage": "user_requested_mirror_layout",
   "approved_on": "2026-10-07",
   "units": "mm",
   "parameters": {
+    "mirror_layout": true,
+    "kitchen_width": 2550,
+    "kitchen_depth": 650,
+    "kitchen_south": 3180,
+    "kitchen_wall_gap": 820,
     "width": 8190,
     "depth": 7280,
     "storey_height": 2800,
@@ -64,7 +69,8 @@
     "R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.",
     "R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.",
     "No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.",
-    "User approved R09 rooms on 2026-10-07 and requested an east-extended balcony, then a 1000 mm depth with no support posts; R13 keeps the room layout."
+    "R14 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.",
+    "2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm, 700 x 750 mm fridge and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending."
   ],
   "floors": [
     {
@@ -77,39 +83,39 @@
           "area_m2": 33.05,
           "polygon_mm": [
             [
-              180.0,
+              8010.0,
               180.0
             ],
             [
-              6010.0,
+              2180.0,
               180.0
             ],
             [
-              6010.0,
+              2180.0,
               1880.0
             ],
             [
-              8010.0,
+              180.0,
               1880.0
             ],
             [
+              180.0,
+              4280.0
+            ],
+            [
+              3180.0,
+              4280.0
+            ],
+            [
+              3180.0,
+              5180.0
+            ],
+            [
               8010.0,
-              4280.0
-            ],
-            [
-              5010.0,
-              4280.0
-            ],
-            [
-              5010.0,
               5180.0
             ],
             [
-              180.0,
-              5180.0
-            ],
-            [
-              180.0,
+              8010.0,
               180.0
             ]
           ],
@@ -121,23 +127,23 @@
           "area_m2": 3.04,
           "polygon_mm": [
             [
-              8010.0,
+              180.0,
               180.0
             ],
             [
-              8010.0,
+              180.0,
               1780.0
             ],
             [
-              6110.0,
+              2080.0,
               1780.0
             ],
             [
-              6110.0,
+              2080.0,
               180.0
             ],
             [
-              8010.0,
+              180.0,
               180.0
             ]
           ],
@@ -149,23 +155,23 @@
           "area_m2": 3.3124,
           "polygon_mm": [
             [
-              2000.0,
+              6190.0,
               5280.0
             ],
             [
-              2000.0,
+              6190.0,
               7100.0
             ],
             [
-              180.0,
+              8010.0,
               7100.0
             ],
             [
-              180.0,
+              8010.0,
               5280.0
             ],
             [
-              2000.0,
+              6190.0,
               5280.0
             ]
           ],
@@ -177,23 +183,23 @@
           "area_m2": 5.2962,
           "polygon_mm": [
             [
-              5010.0,
+              3180.0,
               5280.0
             ],
             [
-              5010.0,
+              3180.0,
               7100.0
             ],
             [
-              2100.0,
+              6090.0,
               7100.0
             ],
             [
-              2100.0,
+              6090.0,
               5280.0
             ],
             [
-              5010.0,
+              3180.0,
               5280.0
             ]
           ],
@@ -205,23 +211,23 @@
           "area_m2": 1.53,
           "polygon_mm": [
             [
-              6010.0,
+              2180.0,
               5400.0
             ],
             [
-              6010.0,
+              2180.0,
               7100.0
             ],
             [
-              5110.0,
+              3080.0,
               7100.0
             ],
             [
-              5110.0,
+              3080.0,
               5400.0
             ],
             [
-              6010.0,
+              2180.0,
               5400.0
             ]
           ],
@@ -233,23 +239,23 @@
           "area_m2": 0.828,
           "polygon_mm": [
             [
-              6010.0,
+              2180.0,
               4380.0
             ],
             [
-              6010.0,
+              2180.0,
               5300.0
             ],
             [
-              5110.0,
+              3080.0,
               5300.0
             ],
             [
-              5110.0,
+              3080.0,
               4380.0
             ],
             [
-              6010.0,
+              2180.0,
               4380.0
             ]
           ],
@@ -261,23 +267,23 @@
           "area_m2": 5.168,
           "polygon_mm": [
             [
-              8010.0,
+              180.0,
               4380.0
             ],
             [
-              8010.0,
+              180.0,
               7100.0
             ],
             [
-              6110.0,
+              2080.0,
               7100.0
             ],
             [
-              6110.0,
+              2080.0,
               4380.0
             ],
             [
-              8010.0,
+              180.0,
               4380.0
             ]
           ],
@@ -291,10 +297,11 @@
           "b": "foyer",
           "axis": "h",
           "at": 90.0,
-          "start": 6310,
+          "start": 980,
           "width": 900,
           "kind": "swing",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": true
         },
         {
           "id": "D02",
@@ -302,10 +309,11 @@
           "b": "ldk",
           "axis": "h",
           "at": 1830.0,
-          "start": 6360,
+          "start": 930,
           "width": 900,
           "kind": "swing",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": true
         },
         {
           "id": "D03",
@@ -313,21 +321,23 @@
           "b": "wash",
           "axis": "h",
           "at": 5230.0,
-          "start": 3150,
+          "start": 4240,
           "width": 800,
           "kind": "slide",
-          "direction": -1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "D04",
           "a": "wash",
           "b": "bath",
           "axis": "v",
-          "at": 2050.0,
+          "at": 6140.0,
           "start": 5430,
           "width": 750,
           "kind": "slide",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "O01",
@@ -335,10 +345,11 @@
           "b": "wc_hall",
           "axis": "h",
           "at": 4330.0,
-          "start": 5110,
+          "start": 2180,
           "width": 900,
           "kind": "open",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "D05",
@@ -346,10 +357,11 @@
           "b": "wc",
           "axis": "h",
           "at": 5350.0,
-          "start": 5210,
+          "start": 2280,
           "width": 700,
           "kind": "swing",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": true
         },
         {
           "id": "O02",
@@ -357,10 +369,11 @@
           "b": "stairs",
           "axis": "h",
           "at": 4330.0,
-          "start": 6110,
+          "start": 1180,
           "width": 900,
           "kind": "open",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": false
         }
       ]
     },
@@ -374,23 +387,23 @@
           "area_m2": 9.61,
           "polygon_mm": [
             [
-              3280.0,
+              4910.0,
               180.0
             ],
             [
-              3280.0,
+              4910.0,
               3280.0
             ],
             [
-              180.0,
+              8010.0,
               3280.0
             ],
             [
-              180.0,
+              8010.0,
               180.0
             ],
             [
-              3280.0,
+              4910.0,
               180.0
             ]
           ],
@@ -402,23 +415,23 @@
           "area_m2": 2.79,
           "polygon_mm": [
             [
-              3280.0,
+              4910.0,
               3380.0
             ],
             [
-              3280.0,
+              4910.0,
               4280.0
             ],
             [
-              180.0,
+              8010.0,
               4280.0
             ],
             [
-              180.0,
+              8010.0,
               3380.0
             ],
             [
-              3280.0,
+              4910.0,
               3380.0
             ]
           ],
@@ -430,23 +443,23 @@
           "area_m2": 11.253,
           "polygon_mm": [
             [
-              8010.0,
+              180.0,
               180.0
             ],
             [
-              8010.0,
+              180.0,
               3280.0
             ],
             [
-              4380.0,
+              3810.0,
               3280.0
             ],
             [
-              4380.0,
+              3810.0,
               180.0
             ],
             [
-              8010.0,
+              180.0,
               180.0
             ]
           ],
@@ -458,23 +471,23 @@
           "area_m2": 13.1376,
           "polygon_mm": [
             [
-              5010.0,
+              3180.0,
               4380.0
             ],
             [
-              5010.0,
+              3180.0,
               7100.0
             ],
             [
-              180.0,
+              8010.0,
               7100.0
             ],
             [
-              180.0,
+              8010.0,
               4380.0
             ],
             [
-              5010.0,
+              3180.0,
               4380.0
             ]
           ],
@@ -486,35 +499,35 @@
           "area_m2": 7.047,
           "polygon_mm": [
             [
-              4280.0,
+              3910.0,
               180.0
             ],
             [
-              3380.0,
+              4810.0,
               180.0
             ],
             [
-              3380.0,
+              4810.0,
               3380.0
             ],
             [
-              3380.0,
+              4810.0,
               4280.0
             ],
             [
-              8010.0,
+              180.0,
               4280.0
             ],
             [
-              8010.0,
+              180.0,
               3380.0
             ],
             [
-              4280.0,
+              3910.0,
               3380.0
             ],
             [
-              4280.0,
+              3910.0,
               180.0
             ]
           ],
@@ -526,23 +539,23 @@
           "area_m2": 1.53,
           "polygon_mm": [
             [
-              6010.0,
+              2180.0,
               5400.0
             ],
             [
-              6010.0,
+              2180.0,
               7100.0
             ],
             [
-              5110.0,
+              3080.0,
               7100.0
             ],
             [
-              5110.0,
+              3080.0,
               5400.0
             ],
             [
-              6010.0,
+              2180.0,
               5400.0
             ]
           ],
@@ -554,23 +567,23 @@
           "area_m2": 0.828,
           "polygon_mm": [
             [
-              6010.0,
+              2180.0,
               4380.0
             ],
             [
-              6010.0,
+              2180.0,
               5300.0
             ],
             [
-              5110.0,
+              3080.0,
               5300.0
             ],
             [
-              5110.0,
+              3080.0,
               4380.0
             ],
             [
-              6010.0,
+              2180.0,
               4380.0
             ]
           ],
@@ -582,23 +595,23 @@
           "area_m2": 5.168,
           "polygon_mm": [
             [
-              8010.0,
+              180.0,
               4380.0
             ],
             [
-              8010.0,
+              180.0,
               7100.0
             ],
             [
-              6110.0,
+              2080.0,
               7100.0
             ],
             [
-              6110.0,
+              2080.0,
               4380.0
             ],
             [
-              8010.0,
+              180.0,
               4380.0
             ]
           ],
@@ -610,23 +623,23 @@
           "area_m2": 7.191,
           "polygon_mm": [
             [
-              8090.0,
+              100.0,
               -900.0
-            ],
-            [
-              8090.0,
-              0.0
             ],
             [
               100.0,
               0.0
             ],
             [
-              100.0,
-              -900.0
+              8090.0,
+              0.0
             ],
             [
               8090.0,
+              -900.0
+            ],
+            [
+              100.0,
               -900.0
             ]
           ],
@@ -639,22 +652,24 @@
           "a": "hall",
           "b": "master",
           "axis": "v",
-          "at": 3330.0,
+          "at": 4860.0,
           "start": 1900,
           "width": 800,
           "kind": "slide",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": false
         },
         {
           "id": "D22",
           "a": "hall",
           "b": "bed2",
           "axis": "v",
-          "at": 4330.0,
+          "at": 3860.0,
           "start": 1900,
           "width": 800,
           "kind": "slide",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": false
         },
         {
           "id": "D23",
@@ -662,10 +677,11 @@
           "b": "bed3",
           "axis": "h",
           "at": 4330.0,
-          "start": 3430,
+          "start": 3960,
           "width": 800,
           "kind": "slide",
-          "direction": -1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "D24",
@@ -673,10 +689,11 @@
           "b": "closet",
           "axis": "h",
           "at": 3330.0,
-          "start": 430,
+          "start": 5160,
           "width": 2600,
           "kind": "bifold",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": false
         },
         {
           "id": "O21",
@@ -684,10 +701,11 @@
           "b": "wc_hall",
           "axis": "h",
           "at": 4330.0,
-          "start": 5110,
+          "start": 2180,
           "width": 900,
           "kind": "open",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "D25",
@@ -695,10 +713,11 @@
           "b": "wc",
           "axis": "h",
           "at": 5350.0,
-          "start": 5210,
+          "start": 2280,
           "width": 700,
           "kind": "swing",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": true
         },
         {
           "id": "O22",
@@ -706,10 +725,11 @@
           "b": "stairs",
           "axis": "h",
           "at": 4330.0,
-          "start": 7110,
+          "start": 180,
           "width": 900,
           "kind": "open",
-          "direction": 1
+          "direction": 1,
+          "hinge_at_end": false
         },
         {
           "id": "D26",
@@ -717,15 +737,16 @@
           "b": "balcony",
           "axis": "h",
           "at": 90.0,
-          "start": 3430,
+          "start": 3960,
           "width": 800,
           "kind": "swing",
-          "direction": -1
+          "direction": -1,
+          "hinge_at_end": true
         }
       ]
     }
   ],
-  "drawing_revision": "R13",
+  "drawing_revision": "R14",
   "comparison": {
     "old_outline_m2_per_floor": 52.9984,
     "new_outline_m2_per_floor": 59.6232,

@@ -22,6 +22,7 @@ from lib.house_geometry import G, cuboid
 from lib.house_plan import P, floor_plan
 from lib.outdoor_lighting import outdoor_lighting_manifest
 from lib.site_geometry import S, site_dimensions
+from lib.orientation import bounds as mirror_bounds
 
 
 def bounds(shape):
@@ -152,9 +153,13 @@ def main():
         check(f"{prefix}:one_saved_diffuser", lens in leaves and sum(name.endswith(":diffuser") for name in leaves) == 1)
         check(f"{prefix}:GLB_diffuser_runtime_metadata_exact", nodes[lens]["extras"]["outdoorLight"] == fixture)
         p, target, direction = fixture["light_position_mm"], fixture["target_mm"], fixture["direction_cad"]
-        check(f"{prefix}:runtime_coordinate_transform", fixture["light_position_glb_m"] == [p[0]/1000, p[2]/1000, -p[1]/1000]
-              and fixture["target_glb_m"] == [target[0]/1000, target[2]/1000, -target[1]/1000]
-              and fixture["direction_glb"] == [direction[0], direction[2], -direction[1]])
+        # Mirroring in metres and converting mirrored millimetres differ by
+        # machine epsilon; independently verify all three vectors numerically.
+        vectors = ((fixture["light_position_glb_m"], [p[0]/1000, p[2]/1000, -p[1]/1000]),
+                   (fixture["target_glb_m"], [target[0]/1000, target[2]/1000, -target[1]/1000]),
+                   (fixture["direction_glb"], [direction[0], direction[2], -direction[1]]))
+        check(f"{prefix}:runtime_coordinate_transform", all(
+            abs(actual-expected) <= 1e-12 for a, b in vectors for actual, expected in zip(a, b)))
         close(f"{prefix}:unit_light_direction", sqrt(sum(q*q for q in direction)), 1, 1e-8)
         check(f"{prefix}:warm_3000K_visual_only", fixture["color_temperature_K"] == 3000
               and 0 < fixture["visual_intensity"] <= 3 and 0 < fixture["visual_range_m"] <= 5)
@@ -175,11 +180,11 @@ def main():
         "entrance_path_1500mm": cuboid((x1, y1, S.ground_z+.1, x2, y2, 2200)),
         "parking_bay_2800x5000": cuboid((*d["parking_bay"][:2], S.ground_z+.1,
                                         *d["parking_bay"][2:], 2200)),
-        "pedestrian_fence_opening_1800mm": cuboid((S.pedestrian_opening_west, -5400, -499,
-                                                  S.pedestrian_opening_east, -5200, 2200)),
-        "car_fence_opening_3000mm": cuboid((S.car_opening_west, -5400, -499,
-                                          S.car_opening_east, -5200, 2200)),
     }
+    for name, west, east in (("pedestrian_fence_opening_1800mm", S.pedestrian_opening_west, S.pedestrian_opening_east),
+                             ("car_fence_opening_5675mm", S.car_opening_west, S.car_opening_east)):
+        canonical_probe = (west, -5400, -499, east, -5200, 2200)
+        probes[name] = cuboid(mirror_bounds(canonical_probe, P.width) if P.mirror_layout else canonical_probe)
     door = next(q for q in floor_plan(1).doors if q.a == "outside")
     probes["actual_entrance_door_900mm"] = cuboid((door.start, -1400, -.1, door.start+door.width, 120, G.door_height))
     for name, probe in probes.items():

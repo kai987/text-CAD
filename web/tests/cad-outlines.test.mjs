@@ -115,15 +115,16 @@ test('actual house wall cores and exterior cladding keep window edges without fa
   assert.equal(walls.size, 4, 'both floors have a recessed wall core and separate exterior cladding');
   for (const [name, wall] of walls) {
     const base = name.startsWith('F2:') ? 2.8 : 0;
+    const reflectedX = x => 8.19-x;
     const bounds = new Box3().setFromObject(wall);
     const lines = segments(createCadOutlineGeometry(wall.geometry), wall.matrixWorld);
     // The skin stays on the facade footprint while its core is recessed. Read
     // each actual face from its own bounds instead of assuming it is at 7280.
     for (const z of [bounds.min.z, bounds.max.z]) {
-      assert.equal(covers(lines, [4.5, base + 2.2, z]), false, `${name}: no window-to-window seam`);
-      assert.equal(covers(lines, [1.0, base + 2.2, z]), true, `${name}: small window head retained`);
-      assert.equal(covers(lines, [1.8, base + 2.2, z]), true, `${name}: larger window head retained`);
-      assert.equal(covers(lines, [.65, base + 1.8, z]), true, `${name}: window jamb retained`);
+      assert.equal(covers(lines, [reflectedX(4.5), base + 2.2, z]), false, `${name}: no window-to-window seam`);
+      assert.equal(covers(lines, [reflectedX(1.0), base + 2.2, z]), true, `${name}: small window head retained`);
+      assert.equal(covers(lines, [reflectedX(1.8), base + 2.2, z]), true, `${name}: larger window head retained`);
+      assert.equal(covers(lines, [reflectedX(.65), base + 1.8, z]), true, `${name}: window jamb retained`);
       assert.equal(covers(lines, [bounds.max.x, base + 1.2, z]), true, `${name}: outer corner retained`);
       assert.equal(covers(lines, [bounds.min.x, base + 1.2, z]), true, `${name}: opposite corner retained`);
     }

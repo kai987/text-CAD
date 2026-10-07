@@ -30,6 +30,8 @@ class Drawing:
     """Write each primitive to editable DXF and to the review PDF."""
     def __init__(self, pdf):
         self.pdf=pdf
+        self.mirror_width=None
+        self.mirror_origin=0
         self.doc=ezdxf.new('R2018',setup=True)
         self.doc.units=ezdxf.units.MM
         self.doc.header['$MEASUREMENT']=1
@@ -52,16 +54,25 @@ class Drawing:
         self.scale=mm/SCALE
         self.ox,self.oy=38*mm,55*mm
 
+    def orient_point(self,p):
+        return (2*self.mirror_origin+self.mirror_width-p[0],p[1]) if self.mirror_width is not None else p
+
+    def orient_dim(self,p1,p2,base,angle):
+        p1,p2,base=map(self.orient_point,(p1,p2,base))
+        if angle==0 and p1[0]>p2[0]:p1,p2=p2,p1
+        return p1,p2,base
+
     def xy(self,p):
         return self.ox+p[0]*self.scale,self.oy+p[1]*self.scale
 
     def line(self,a,b,layer='FURNITURE'):
+        a,b=self.orient_point(a),self.orient_point(b)
         if self.write_dxf:self.msp.add_line(a,b,dxfattribs={'layer':LAYERS[layer]})
         self.pdf.setStrokeColor(HexColor(COLORS[layer])); self.pdf.setLineWidth(PENS_MM[layer]*mm)
         self.pdf.line(*self.xy(a),*self.xy(b))
 
     def poly(self,points,layer='FURNITURE',fill=None,dxf=True):
-        pts=list(points)
+        pts=[self.orient_point(p) for p in points]
         if pts[-1]==pts[0]: pts=pts[:-1]
         if dxf:
             if layer=='WALL':
@@ -83,6 +94,7 @@ class Drawing:
         self.poly([(x1,y1),(x2,y1),(x2,y2),(x1,y2)],layer,fill)
 
     def text(self,value,at,height=125,layer='TEXT',align='center'):
+        at=self.orient_point(at)
         if self.write_dxf:
             entity=self.msp.add_text(value,dxfattribs={'height':height,'style':'HOUSE_UNICODE','layer':LAYERS['TEXT']})
             entity.set_placement(at,align=TextEntityAlignment.MIDDLE_CENTER if align=='center' else TextEntityAlignment.MIDDLE_LEFT)
@@ -92,6 +104,8 @@ class Drawing:
         (self.pdf.drawCentredString if align=='center' else self.pdf.drawString)(x,y-height*self.scale*.32,value)
 
     def arc(self,center,radius,start,end):
+        center=self.orient_point(center)
+        if self.mirror_width is not None:start,end=(180-end)%360,(180-start)%360
         self.msp.add_arc(center,radius,start,end,dxfattribs={'layer':LAYERS['DOOR']})
         pts=[(center[0]+radius*math.cos(math.radians(start+(end-start)*i/24)),
               center[1]+radius*math.sin(math.radians(start+(end-start)*i/24))) for i in range(25)]
@@ -101,6 +115,7 @@ class Drawing:
         self.pdf.drawPath(path)
 
     def dim(self,p1,p2,base,angle=0):
+        p1,p2,base=self.orient_dim(p1,p2,base,angle)
         dim=self.msp.add_linear_dim(base=base,p1=p1,p2=p2,angle=angle,
             dimstyle='EZDXF',override={'dimtxt':TEXT_MM['value']*SCALE,'dimasz':100,'dimgap':75,
               'dimexo':75,'dimexe':75,'dimclrd':7,'dimclre':7,'dimclrt':7,

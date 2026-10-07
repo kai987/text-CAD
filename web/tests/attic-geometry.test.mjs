@@ -28,7 +28,7 @@ function boxInCadMillimetres(mesh) {
     b.max.x * 1000, -b.min.z * 1000, b.max.y * 1000];
 }
 
-test('the R09 GLB includes named balcony geometry and stores the attic inside the coordinated roof', async () => {
+test('the R14 GLB includes named balcony geometry and stores the attic inside the coordinated roof', async () => {
   const { gltf, nodes } = await loadHouse();
   const meshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));
@@ -39,7 +39,7 @@ test('the R09 GLB includes named balcony geometry and stores the attic inside th
   assert.ok(meshes.some(node => node.name === 'balcony:slab'));
   assert.ok(meshes.some(node => node.name === 'balcony:drying_rail'));
   assert.equal(meshes.length, manifest.glb_export.named_mesh_nodes);
-  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 31);
+  assert.equal(added.filter(node => node.name.startsWith('attic:')).length, 37);
   assert.equal(added.filter(node => node.name.startsWith('attic_access:')).length, a.ladder_treads + 6);
   const floor = nodes.get('attic:floor_slab');
   assert.equal(nodes.get('roof:attic_ceiling_slab').parent, floor);
@@ -54,7 +54,7 @@ test('the R09 GLB includes named balcony geometry and stores the attic inside th
       const vertex = new Vector3().fromBufferAttribute(position, index).applyMatrix4(mesh.matrixWorld);
       assert.ok([vertex.x, vertex.y, vertex.z].every(Number.isFinite), `${node.name}: finite geometry`);
       const x = vertex.x * 1000, y = -vertex.z * 1000, z = vertex.y * 1000;
-      assert.ok(x >= -.02 && x <= p.width + .02 && y >= -.02 && y <= p.depth + .02,
+      assert.ok(x >= -.02 && x <= p.width + .02 && y >= -.02 && y <= p.depth + (node.name.startsWith('attic:north_vent:') ? 65 : 0) + .02,
         `${node.name}: the attic stays within the existing plan outline`);
       assert.ok(z <= 2 * p.storey_height + Math.min(x, p.width - x) * slope + .02,
         `${node.name}: the attic never protrudes through the gable roof`);
@@ -189,14 +189,14 @@ test('TS and Rust/WASM floor sections preserve the actual through-hatch after vi
   }
 });
 
-test('the deployed access ladder joins the second-floor datum to the open east side of the attic', async () => {
+test('the deployed access ladder joins the second-floor datum to the open west side of the attic', async () => {
   const { nodes } = await loadHouse();
   const left = boxInCadMillimetres(nodes.get('attic_access:left_stringer'));
   const right = boxInCadMillimetres(nodes.get('attic_access:right_stringer'));
   for (const bounds of [left, right]) {
-    near(bounds[0], attic.ladder.foot_mm[0], .02);
+    near(bounds[0], Math.min(attic.ladder.foot_mm[0], attic.ladder.top_mm[0]), .02);
     near(bounds[2], p.storey_height, .02);
-    near(bounds[3], attic.hatch_bounds_mm[3], .02);
+    near(bounds[3], Math.max(attic.ladder.foot_mm[0], attic.ladder.top_mm[0]), .02);
     near(bounds[5], attic.deck_bounds_mm[5], .02);
   }
   near(right[4] - left[1], a.ladder_width, .02);
@@ -208,7 +208,7 @@ test('the deployed access ladder joins the second-floor datum to the open east s
     near(bounds[5], p.storey_height + index * attic.ladder.riser_mm, .02);
     near(bounds[4] - bounds[1], a.ladder_width - 2 * a.ladder_stringer_width, .02);
   }
-  assert.equal(nodes.has('attic:guardrail:east_rail'), false, 'the top entry side remains open');
+  assert.equal(nodes.has('attic:guardrail:west_rail'), false, 'the top entry side remains open');
   const hatch = attic.hatch_bounds_mm;
   for (const [name, mesh] of nodes) {
     if (!name.startsWith('attic:guardrail:') || !mesh.isMesh) continue;

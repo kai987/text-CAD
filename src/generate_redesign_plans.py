@@ -11,6 +11,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from generate_plans import Drawing, FONT
 from lib.house_plan_r01 import floor_plan as original_plan
+from lib.orientation import canonical
 from lib.house_redesign_plan import P, REVISION, dimensions, floor_plan, manifest
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -114,12 +115,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R13 balcony revision - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R14 mirrored layout and facing kitchen - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
-        f=floor_plan(n);draw_pdf_sheet(c,f)
-        g=Drawing(c);g.ox=37*mm;g.oy=76*mm
+        f=floor_plan(n,canonical(P));draw_pdf_sheet(c,f)
+        g=Drawing(c);g.mirror_width=P.width if P.mirror_layout else None;g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R13室内平面確認済み・バルコニー変更・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

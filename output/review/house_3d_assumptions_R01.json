@@ -1,9 +1,14 @@
 {
-  "revision": "R13-3D",
+  "revision": "R14-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
   "plan_parameters": {
+    "mirror_layout": true,
+    "kitchen_width": 2550,
+    "kitchen_depth": 650,
+    "kitchen_south": 3180,
+    "kitchen_wall_gap": 820,
     "width": 8190,
     "depth": 7280,
     "storey_height": 2800,
@@ -115,10 +120,14 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R10",
+    "revision": "R14",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
+      "north_vent_width": 600,
+      "north_vent_height": 300,
+      "north_vent_sill": 850,
+      "north_vent_offset_from_ridge": 600,
       "deck_width": 3680,
       "deck_end_inset": 200,
       "deck_thickness": 18,
@@ -128,7 +137,7 @@
       "lining_vertical_allowance": 50,
       "knee_wall_thickness": 50,
       "gable_lining_thickness": 20,
-      "hatch_x": 4100,
+      "hatch_x": 2890,
       "hatch_y": 3505,
       "hatch_length": 1200,
       "hatch_width": 650,
@@ -162,8 +171,17 @@
       "ladder_tread_thickness": 25,
       "ladder_bottom_landing_depth": 600
     },
+    "north_vent_bounds_mm": [
+      3195.0,
+      7079,
+      6468,
+      3795.0,
+      7281,
+      6768
+    ],
+    "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
     "unchanged": [
-      "approved R10 F1/F2 room boundaries",
+      "R14 reflected F1/F2 room topology and areas",
       "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
@@ -185,10 +203,10 @@
       5618
     ],
     "hatch_bounds_mm": [
-      4100,
+      2890,
       3505,
       5576,
-      5300,
+      4090,
       4155,
       5618
     ],
@@ -203,19 +221,19 @@
     ],
     "finished_ceiling_profile_xz_mm": [
       [
-        2255.0,
+        5935.0,
         6851.9248570226055
-      ],
-      [
-        2456.0480451326684,
-        6968
       ],
       [
         5733.951954867332,
         6968
       ],
       [
-        5935.0,
+        2456.0480451326684,
+        6968
+      ],
+      [
+        2255.0,
         6851.9248570226055
       ]
     ],
@@ -228,12 +246,12 @@
     "ladder": {
       "state": "deployed concept, independently hideable",
       "top_mm": [
-        5300,
+        2890,
         3830.0,
         5618
       ],
       "foot_mm": [
-        3985.945019319214,
+        4204.054980680786,
         3830.0,
         2800
       ],
@@ -244,21 +262,21 @@
       "tread_count": 10,
       "riser_mm": 256.1818181818182,
       "deployed_plan_bounds_mm": [
-        3985.945019319214,
+        2890,
         3530.0,
-        5300,
+        4204.054980680786,
         4130.0
       ],
       "bottom_landing_bounds_mm": [
-        3385.945019319214,
+        4204.054980680786,
         3505,
-        3985.945019319214,
+        4804.054980680786,
         4155
       ],
       "upper_landing_bounds_mm": [
-        5300,
+        2290,
         3505,
-        5900,
+        2890,
         4155
       ],
       "upper_landing_min_clear_height_mm": 1254.1321164442425,
@@ -281,10 +299,10 @@
     ]
   },
   "site": {
-    "revision": "R13-SITE",
+    "revision": "R14-SITE",
     "parameters": {
-      "lot_west": -1000,
       "lot_east": 9190,
+      "lot_west": -1000,
       "lot_south": -5500,
       "lot_north": 8280,
       "ground_z": -500,
@@ -294,8 +312,8 @@
       "raft_thickness": 150,
       "entrance_lower_step_depth": 300,
       "entrance_lower_step_top_z": -330,
-      "parking_west": -750,
-      "parking_east": 4850,
+      "parking_east": 8940,
+      "parking_west": 3340,
       "parking_south": -5500,
       "parking_north": -200,
       "parking_mark_south": -5200,
@@ -304,8 +322,8 @@
       "wheel_stop_width": 500,
       "wheel_stop_depth": 100,
       "wheel_stop_height": 100,
-      "fence_west": -800,
       "fence_east": 8990,
+      "fence_west": -800,
       "fence_south": -5300,
       "fence_north": 8080,
       "fence_height": 1200,
@@ -321,10 +339,10 @@
       "fence_footing_width": 300,
       "fence_footing_bottom_z": -950,
       "fence_footing_top_z": -550,
-      "car_opening_west": -775,
-      "car_opening_east": 4900,
-      "pedestrian_opening_west": 5860,
-      "pedestrian_opening_east": 7660,
+      "car_opening_east": 8965,
+      "car_opening_west": 3290,
+      "pedestrian_opening_east": 2330,
+      "pedestrian_opening_west": 530,
       "parking_count": 2,
       "shrubs_enabled": false,
       "shrub_center_z": -100
@@ -388,9 +406,9 @@
         {
           "id": "I03",
           "plan_bounds_mm": [
-            4990.0,
+            3060.0,
             4400.0,
-            5130.0,
+            3200.0,
             7140.0
           ],
           "plan_area_mm2": 383600.0
@@ -398,9 +416,9 @@
         {
           "id": "I04",
           "plan_bounds_mm": [
-            5990.0,
+            2060.0,
             4400.0,
-            6130.0,
+            2200.0,
             7140.0
           ],
           "plan_area_mm2": 383600.0
@@ -408,9 +426,9 @@
         {
           "id": "I05",
           "plan_bounds_mm": [
-            5130.0,
+            2200.0,
             5160.0,
-            5990.0,
+            3060.0,
             5300.0
           ],
           "plan_area_mm2": 120400.0
@@ -418,9 +436,9 @@
         {
           "id": "I06",
           "plan_bounds_mm": [
-            3260.0,
+            4790.0,
             140.0,
-            3400.0,
+            4930.0,
             4260.0
           ],
           "plan_area_mm2": 557200.0
@@ -428,9 +446,9 @@
         {
           "id": "I07",
           "plan_bounds_mm": [
-            4260.0,
+            3790.0,
             140.0,
-            4400.0,
+            3930.0,
             4260.0
           ],
           "plan_area_mm2": 557200.0
@@ -440,15 +458,15 @@
     },
     "entrance": {
       "footprint_mm": [
-        6010,
+        680,
         -1900,
-        7510,
+        2180,
         0
       ],
       "path_bounds_mm": [
-        6010,
+        680,
         -5500,
-        7510,
+        2180,
         -1900
       ],
       "path_width_mm": 1500,
@@ -469,15 +487,15 @@
     },
     "parking": {
       "surface_bounds_mm": [
-        -750,
+        3340,
         -5500,
-        4850,
+        8940,
         -200
       ],
       "bay_bounds_mm": [
-        -750,
+        3340,
         -5200,
-        4850,
+        8940,
         -200
       ],
       "count": 2,
@@ -487,29 +505,29 @@
       ],
       "bays_bounds_mm": [
         [
-          -750.0,
+          6140.0,
           -5200,
-          2050.0,
+          8940.0,
           -200
         ],
         [
-          2050.0,
+          3340.0,
           -5200,
-          4850.0,
+          6140.0,
           -200
         ]
       ],
       "vehicle_envelopes_mm": [
         [
-          -250.0,
+          6640.0,
           -5100,
-          1550.0,
+          8440.0,
           -600
         ],
         [
-          2550.0,
+          3840.0,
           -5100,
-          4350.0,
+          5640.0,
           -600
         ]
       ],
@@ -529,27 +547,27 @@
       ],
       "slat_gap_mm": 40,
       "car_clear_opening_mm": [
-        -775,
-        4900
+        3290,
+        8965
       ],
       "pedestrian_clear_opening_mm": [
-        5860,
-        7660
+        530,
+        2330
       ],
       "posts": [
         {
           "id": "north_01",
-          "x": -800.0,
+          "x": 8990.0,
           "y": 8080
         },
         {
           "id": "north_02",
-          "x": 831.6666666666667,
+          "x": 7358.333333333333,
           "y": 8080
         },
         {
           "id": "north_03",
-          "x": 2463.3333333333335,
+          "x": 5726.666666666666,
           "y": 8080
         },
         {
@@ -559,58 +577,18 @@
         },
         {
           "id": "north_05",
-          "x": 5726.666666666667,
+          "x": 2463.333333333333,
           "y": 8080
         },
         {
           "id": "north_06",
-          "x": 7358.333333333333,
+          "x": 831.666666666667,
           "y": 8080
         },
         {
           "id": "north_07",
-          "x": 8990.0,
+          "x": -800.0,
           "y": 8080
-        },
-        {
-          "id": "west_01",
-          "x": -800,
-          "y": -5300.0
-        },
-        {
-          "id": "west_02",
-          "x": -800,
-          "y": -3627.5
-        },
-        {
-          "id": "west_03",
-          "x": -800,
-          "y": -1955.0
-        },
-        {
-          "id": "west_04",
-          "x": -800,
-          "y": -282.5
-        },
-        {
-          "id": "west_05",
-          "x": -800,
-          "y": 1390.0
-        },
-        {
-          "id": "west_06",
-          "x": -800,
-          "y": 3062.5
-        },
-        {
-          "id": "west_07",
-          "x": -800,
-          "y": 4735.0
-        },
-        {
-          "id": "west_08",
-          "x": -800,
-          "y": 6407.5
         },
         {
           "id": "east_01",
@@ -653,18 +631,58 @@
           "y": 6407.5
         },
         {
+          "id": "west_01",
+          "x": -800,
+          "y": -5300.0
+        },
+        {
+          "id": "west_02",
+          "x": -800,
+          "y": -3627.5
+        },
+        {
+          "id": "west_03",
+          "x": -800,
+          "y": -1955.0
+        },
+        {
+          "id": "west_04",
+          "x": -800,
+          "y": -282.5
+        },
+        {
+          "id": "west_05",
+          "x": -800,
+          "y": 1390.0
+        },
+        {
+          "id": "west_06",
+          "x": -800,
+          "y": 3062.5
+        },
+        {
+          "id": "west_07",
+          "x": -800,
+          "y": 4735.0
+        },
+        {
+          "id": "west_08",
+          "x": -800,
+          "y": 6407.5
+        },
+        {
           "id": "south_middle_01",
-          "x": 4925.0,
+          "x": 3265.0,
           "y": -5300
         },
         {
           "id": "south_middle_02",
-          "x": 5835.0,
+          "x": 2355.0,
           "y": -5300
         },
         {
-          "id": "south_east_01",
-          "x": 7685.0,
+          "id": "south_west_01",
+          "x": 505.0,
           "y": -5300
         }
       ],
@@ -673,113 +691,49 @@
           "id": "north_01",
           "axis": "h",
           "at": 8080,
-          "start": -775.0,
-          "end": 806.6666666666667,
+          "start": 7383.333333333333,
+          "end": 8965.0,
           "post_center_span": 1631.6666666666667
         },
         {
           "id": "north_02",
           "axis": "h",
           "at": 8080,
-          "start": 856.6666666666667,
-          "end": 2438.3333333333335,
+          "start": 5751.666666666666,
+          "end": 7333.333333333333,
           "post_center_span": 1631.6666666666667
         },
         {
           "id": "north_03",
           "axis": "h",
           "at": 8080,
-          "start": 2488.3333333333335,
-          "end": 4070.0,
+          "start": 4120.0,
+          "end": 5701.666666666666,
           "post_center_span": 1631.6666666666665
         },
         {
           "id": "north_04",
           "axis": "h",
           "at": 8080,
-          "start": 4120.0,
-          "end": 5701.666666666667,
+          "start": 2488.333333333333,
+          "end": 4070.0,
           "post_center_span": 1631.666666666667
         },
         {
           "id": "north_05",
           "axis": "h",
           "at": 8080,
-          "start": 5751.666666666667,
-          "end": 7333.333333333333,
+          "start": 856.666666666667,
+          "end": 2438.333333333333,
           "post_center_span": 1631.666666666666
         },
         {
           "id": "north_06",
           "axis": "h",
           "at": 8080,
-          "start": 7383.333333333333,
-          "end": 8965.0,
+          "start": -775.0,
+          "end": 806.666666666667,
           "post_center_span": 1631.666666666667
-        },
-        {
-          "id": "west_01",
-          "axis": "v",
-          "at": -800,
-          "start": -5275.0,
-          "end": -3652.5,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_02",
-          "axis": "v",
-          "at": -800,
-          "start": -3602.5,
-          "end": -1980.0,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_03",
-          "axis": "v",
-          "at": -800,
-          "start": -1930.0,
-          "end": -307.5,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_04",
-          "axis": "v",
-          "at": -800,
-          "start": -257.5,
-          "end": 1365.0,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_05",
-          "axis": "v",
-          "at": -800,
-          "start": 1415.0,
-          "end": 3037.5,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_06",
-          "axis": "v",
-          "at": -800,
-          "start": 3087.5,
-          "end": 4710.0,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_07",
-          "axis": "v",
-          "at": -800,
-          "start": 4760.0,
-          "end": 6382.5,
-          "post_center_span": 1672.5
-        },
-        {
-          "id": "west_08",
-          "axis": "v",
-          "at": -800,
-          "start": 6432.5,
-          "end": 8055.0,
-          "post_center_span": 1672.5
         },
         {
           "id": "east_01",
@@ -846,19 +800,83 @@
           "post_center_span": 1672.5
         },
         {
+          "id": "west_01",
+          "axis": "v",
+          "at": -800,
+          "start": -5275.0,
+          "end": -3652.5,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_02",
+          "axis": "v",
+          "at": -800,
+          "start": -3602.5,
+          "end": -1980.0,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_03",
+          "axis": "v",
+          "at": -800,
+          "start": -1930.0,
+          "end": -307.5,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_04",
+          "axis": "v",
+          "at": -800,
+          "start": -257.5,
+          "end": 1365.0,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_05",
+          "axis": "v",
+          "at": -800,
+          "start": 1415.0,
+          "end": 3037.5,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_06",
+          "axis": "v",
+          "at": -800,
+          "start": 3087.5,
+          "end": 4710.0,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_07",
+          "axis": "v",
+          "at": -800,
+          "start": 4760.0,
+          "end": 6382.5,
+          "post_center_span": 1672.5
+        },
+        {
+          "id": "west_08",
+          "axis": "v",
+          "at": -800,
+          "start": 6432.5,
+          "end": 8055.0,
+          "post_center_span": 1672.5
+        },
+        {
           "id": "south_middle_01",
           "axis": "h",
           "at": -5300,
-          "start": 4950.0,
-          "end": 5810.0,
+          "start": 2380.0,
+          "end": 3240.0,
           "post_center_span": 910.0
         },
         {
-          "id": "south_east_01",
+          "id": "south_west_01",
           "axis": "h",
           "at": -5300,
-          "start": 7710.0,
-          "end": 8965.0,
+          "start": -775.0,
+          "end": 480.0,
           "post_center_span": 1305.0
         }
       ]
@@ -871,8 +889,8 @@
       "parking_paving_area_mm2": 29680000.0,
       "lawns_area_mm2": {
         "north": 2956000.0,
-        "east": 2512000.0,
-        "west": 2352000.0
+        "west": 2512000.0,
+        "east": 2352000.0
       },
       "lawn_bounds_mm": {
         "north": [
@@ -881,13 +899,13 @@
           7790,
           7930
         ],
-        "east": [
+        "west": [
           8440,
           500,
           8840,
           6780
         ],
-        "west": [
+        "east": [
           -650,
           700,
           -250,
@@ -953,16 +971,16 @@
       "deck_left": 2255.0,
       "deck_right": 5935.0,
       "hatch": [
-        4100,
+        2890,
         3505,
-        5300,
+        4090,
         4155
       ]
     },
     "columns": [
       {
         "id": "C01",
-        "x": 90.0,
+        "x": 8100.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -973,7 +991,7 @@
       },
       {
         "id": "C02",
-        "x": 585.0,
+        "x": 7605.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -984,7 +1002,7 @@
       },
       {
         "id": "C03",
-        "x": 2815.0,
+        "x": 5375.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -995,7 +1013,7 @@
       },
       {
         "id": "C04",
-        "x": 3365.0,
+        "x": 4825.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1006,7 +1024,7 @@
       },
       {
         "id": "C05",
-        "x": 4295.0,
+        "x": 3895.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1017,7 +1035,7 @@
       },
       {
         "id": "C06",
-        "x": 4540.0,
+        "x": 3650.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1028,7 +1046,7 @@
       },
       {
         "id": "C07",
-        "x": 5135.0,
+        "x": 3055.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1039,7 +1057,7 @@
       },
       {
         "id": "C08",
-        "x": 7275.0,
+        "x": 915.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1050,7 +1068,7 @@
       },
       {
         "id": "C09",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1061,7 +1079,7 @@
       },
       {
         "id": "C10",
-        "x": 90.0,
+        "x": 8100.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1072,7 +1090,7 @@
       },
       {
         "id": "C11",
-        "x": 585.0,
+        "x": 7605.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1083,7 +1101,7 @@
       },
       {
         "id": "C12",
-        "x": 2515.0,
+        "x": 5675.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1094,7 +1112,7 @@
       },
       {
         "id": "C13",
-        "x": 2760.0,
+        "x": 5430.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1105,7 +1123,7 @@
       },
       {
         "id": "C14",
-        "x": 2935.0,
+        "x": 5255.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1116,7 +1134,7 @@
       },
       {
         "id": "C15",
-        "x": 3965.0,
+        "x": 4225.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1127,7 +1145,7 @@
       },
       {
         "id": "C16",
-        "x": 4540.0,
+        "x": 3650.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1138,7 +1156,7 @@
       },
       {
         "id": "C17",
-        "x": 5265.0,
+        "x": 2925.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1149,7 +1167,7 @@
       },
       {
         "id": "C18",
-        "x": 5845.0,
+        "x": 2345.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1160,7 +1178,7 @@
       },
       {
         "id": "C19",
-        "x": 6320.0,
+        "x": 1870.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1171,7 +1189,7 @@
       },
       {
         "id": "C20",
-        "x": 7210.0,
+        "x": 980.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1182,7 +1200,7 @@
       },
       {
         "id": "C21",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1193,7 +1211,7 @@
       },
       {
         "id": "C22",
-        "x": 90.0,
+        "x": 8100.0,
         "y": 635.0,
         "width": 120,
         "floors": [
@@ -1204,7 +1222,7 @@
       },
       {
         "id": "C23",
-        "x": 90.0,
+        "x": 8100.0,
         "y": 3565.0,
         "width": 120,
         "floors": [
@@ -1215,7 +1233,7 @@
       },
       {
         "id": "C24",
-        "x": 90.0,
+        "x": 8100.0,
         "y": 4527.5,
         "width": 120,
         "floors": [
@@ -1226,8 +1244,8 @@
       },
       {
         "id": "C25",
-        "x": 90.0,
-        "y": 5415.0,
+        "x": 8100.0,
+        "y": 5335.0,
         "width": 120,
         "floors": [
           1,
@@ -1237,8 +1255,8 @@
       },
       {
         "id": "C26",
-        "x": 90.0,
-        "y": 6302.5,
+        "x": 8100.0,
+        "y": 6465.0,
         "width": 120,
         "floors": [
           1,
@@ -1248,7 +1266,7 @@
       },
       {
         "id": "C27",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 977.5,
         "width": 120,
         "floors": [
@@ -1259,7 +1277,7 @@
       },
       {
         "id": "C28",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 1865.0,
         "width": 120,
         "floors": [
@@ -1270,7 +1288,7 @@
       },
       {
         "id": "C29",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 2752.5,
         "width": 120,
         "floors": [
@@ -1281,7 +1299,7 @@
       },
       {
         "id": "C30",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 3640.0,
         "width": 120,
         "floors": [
@@ -1292,7 +1310,7 @@
       },
       {
         "id": "C31",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 4527.5,
         "width": 120,
         "floors": [
@@ -1303,7 +1321,7 @@
       },
       {
         "id": "C32",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 5415.0,
         "width": 120,
         "floors": [
@@ -1314,7 +1332,7 @@
       },
       {
         "id": "C33",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 6135.0,
         "width": 120,
         "floors": [
@@ -1325,7 +1343,7 @@
       },
       {
         "id": "C34",
-        "x": 8100.0,
+        "x": 90.0,
         "y": 6865.0,
         "width": 120,
         "floors": [
@@ -1336,7 +1354,7 @@
       },
       {
         "id": "C35",
-        "x": 5060.0,
+        "x": 3130.0,
         "y": 4460,
         "width": 90,
         "floors": [
@@ -1347,7 +1365,7 @@
       },
       {
         "id": "C36",
-        "x": 5060.0,
+        "x": 3130.0,
         "y": 5370.0,
         "width": 90,
         "floors": [
@@ -1358,7 +1376,7 @@
       },
       {
         "id": "C37",
-        "x": 5060.0,
+        "x": 3130.0,
         "y": 6280.0,
         "width": 90,
         "floors": [
@@ -1369,7 +1387,7 @@
       },
       {
         "id": "C38",
-        "x": 5060.0,
+        "x": 3130.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1380,7 +1398,7 @@
       },
       {
         "id": "C39",
-        "x": 6060.0,
+        "x": 2130.0,
         "y": 4460,
         "width": 90,
         "floors": [
@@ -1391,7 +1409,7 @@
       },
       {
         "id": "C40",
-        "x": 6060.0,
+        "x": 2130.0,
         "y": 5370.0,
         "width": 90,
         "floors": [
@@ -1402,7 +1420,7 @@
       },
       {
         "id": "C41",
-        "x": 6060.0,
+        "x": 2130.0,
         "y": 6280.0,
         "width": 90,
         "floors": [
@@ -1413,7 +1431,7 @@
       },
       {
         "id": "C42",
-        "x": 6060.0,
+        "x": 2130.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1424,7 +1442,7 @@
       },
       {
         "id": "C43",
-        "x": 7060.0,
+        "x": 1130.0,
         "y": 4330.0,
         "width": 90,
         "floors": [
@@ -1454,7 +1472,7 @@
       {
         "id": "B03",
         "axis": "v",
-        "at": 90.0,
+        "at": 8100.0,
         "start": 150.0,
         "end": 7130.0,
         "width": 120.0
@@ -1462,7 +1480,7 @@
       {
         "id": "B04",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 150.0,
         "end": 7130.0,
         "width": 120.0
@@ -1486,7 +1504,7 @@
       {
         "id": "B07",
         "axis": "v",
-        "at": 5060.0,
+        "at": 3130.0,
         "start": 4330.0,
         "end": 7130.0,
         "width": 90
@@ -1494,7 +1512,7 @@
       {
         "id": "B08",
         "axis": "v",
-        "at": 6060.0,
+        "at": 2130.0,
         "start": 4330.0,
         "end": 7130.0,
         "width": 90
@@ -1503,14 +1521,14 @@
         "id": "B09",
         "axis": "h",
         "at": 5230.0,
-        "start": 5060.0,
-        "end": 6060.0,
+        "start": 2130.0,
+        "end": 3130.0,
         "width": 90
       },
       {
         "id": "B10",
         "axis": "v",
-        "at": 3330.0,
+        "at": 4860.0,
         "start": 150.0,
         "end": 4330.0,
         "width": 90
@@ -1518,7 +1536,7 @@
       {
         "id": "B11",
         "axis": "v",
-        "at": 4330.0,
+        "at": 3860.0,
         "start": 150.0,
         "end": 4330.0,
         "width": 90
@@ -1545,7 +1563,7 @@
         {
           "id": "B03",
           "axis": "v",
-          "at": 90.0,
+          "at": 8100.0,
           "start": 150.0,
           "end": 7130.0,
           "width": 120.0
@@ -1553,7 +1571,7 @@
         {
           "id": "B04",
           "axis": "v",
-          "at": 8100.0,
+          "at": 90.0,
           "start": 150.0,
           "end": 7130.0,
           "width": 120.0
@@ -1577,7 +1595,7 @@
         {
           "id": "B07",
           "axis": "v",
-          "at": 5060.0,
+          "at": 3130.0,
           "start": 4330.0,
           "end": 7130.0,
           "width": 90
@@ -1585,7 +1603,7 @@
         {
           "id": "B08",
           "axis": "v",
-          "at": 6060.0,
+          "at": 2130.0,
           "start": 4330.0,
           "end": 7130.0,
           "width": 90
@@ -1594,14 +1612,14 @@
           "id": "B09",
           "axis": "h",
           "at": 5230.0,
-          "start": 5060.0,
-          "end": 6060.0,
+          "start": 2130.0,
+          "end": 3130.0,
           "width": 90
         },
         {
           "id": "B10",
           "axis": "v",
-          "at": 3330.0,
+          "at": 4860.0,
           "start": 150.0,
           "end": 4330.0,
           "width": 90
@@ -1609,7 +1627,7 @@
         {
           "id": "B11",
           "axis": "v",
-          "at": 4330.0,
+          "at": 3860.0,
           "start": 150.0,
           "end": 4330.0,
           "width": 90
@@ -1635,7 +1653,7 @@
         {
           "id": "B03",
           "axis": "v",
-          "at": 90.0,
+          "at": 8100.0,
           "start": 150.0,
           "end": 7130.0,
           "width": 120.0
@@ -1643,7 +1661,7 @@
         {
           "id": "B04",
           "axis": "v",
-          "at": 8100.0,
+          "at": 90.0,
           "start": 150.0,
           "end": 7130.0,
           "width": 120.0
@@ -1667,7 +1685,7 @@
         {
           "id": "B07",
           "axis": "v",
-          "at": 5060.0,
+          "at": 3130.0,
           "start": 4330.0,
           "end": 7130.0,
           "width": 90
@@ -1675,7 +1693,7 @@
         {
           "id": "B08",
           "axis": "v",
-          "at": 6060.0,
+          "at": 2130.0,
           "start": 4330.0,
           "end": 7130.0,
           "width": 90
@@ -1684,14 +1702,14 @@
           "id": "B09",
           "axis": "h",
           "at": 5230.0,
-          "start": 5060.0,
-          "end": 6060.0,
+          "start": 2130.0,
+          "end": 3130.0,
           "width": 90
         },
         {
           "id": "B10",
           "axis": "v",
-          "at": 3330.0,
+          "at": 4860.0,
           "start": 150.0,
           "end": 4330.0,
           "width": 90
@@ -1699,7 +1717,7 @@
         {
           "id": "B11",
           "axis": "v",
-          "at": 4330.0,
+          "at": 3860.0,
           "start": 150.0,
           "end": 4330.0,
           "width": 90
@@ -1708,22 +1726,22 @@
           "id": "B12",
           "axis": "h",
           "at": 3460.0,
-          "start": 3375.0,
-          "end": 5390,
+          "start": 2800,
+          "end": 4815.0,
           "width": 90
         },
         {
           "id": "B13",
           "axis": "h",
           "at": 4200.0,
-          "start": 3375.0,
-          "end": 5390,
+          "start": 2800,
+          "end": 4815.0,
           "width": 90
         },
         {
           "id": "B14",
           "axis": "v",
-          "at": 5345.0,
+          "at": 2845.0,
           "start": 3505,
           "end": 4155,
           "width": 90
@@ -1735,8 +1753,8 @@
         "id": "BW01",
         "axis": "h",
         "at": 90.0,
-        "start": 90.0,
-        "end": 585.0,
+        "start": 7605.0,
+        "end": 8100.0,
         "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 375.0,
@@ -1752,8 +1770,8 @@
         "id": "BW02",
         "axis": "h",
         "at": 90.0,
-        "start": 2815.0,
-        "end": 3365.0,
+        "start": 4825.0,
+        "end": 5375.0,
         "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 430.0,
@@ -1769,8 +1787,8 @@
         "id": "BW03",
         "axis": "h",
         "at": 90.0,
-        "start": 4540.0,
-        "end": 5135.0,
+        "start": 3055.0,
+        "end": 3650.0,
         "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 475.0,
@@ -1786,8 +1804,8 @@
         "id": "BW04",
         "axis": "h",
         "at": 90.0,
-        "start": 7275.0,
-        "end": 8100.0,
+        "start": 90.0,
+        "end": 915.0,
         "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 705.0,
@@ -1803,8 +1821,8 @@
         "id": "BW05",
         "axis": "h",
         "at": 7190.0,
-        "start": 90.0,
-        "end": 585.0,
+        "start": 7605.0,
+        "end": 8100.0,
         "normal_start": 7121.0,
         "thickness": 9,
         "clear_span": 375.0,
@@ -1820,8 +1838,8 @@
         "id": "BW06",
         "axis": "h",
         "at": 7190.0,
-        "start": 3965.0,
-        "end": 4540.0,
+        "start": 3650.0,
+        "end": 4225.0,
         "normal_start": 7121.0,
         "thickness": 9,
         "clear_span": 455.0,
@@ -1837,8 +1855,8 @@
         "id": "BW07",
         "axis": "h",
         "at": 7190.0,
-        "start": 4540.0,
-        "end": 5060.0,
+        "start": 3130.0,
+        "end": 3650.0,
         "normal_start": 7121.0,
         "thickness": 9,
         "clear_span": 400.0,
@@ -1854,8 +1872,8 @@
         "id": "BW08",
         "axis": "h",
         "at": 7190.0,
-        "start": 6320.0,
-        "end": 7210.0,
+        "start": 980.0,
+        "end": 1870.0,
         "normal_start": 7121.0,
         "thickness": 9,
         "clear_span": 770.0,
@@ -1871,8 +1889,8 @@
         "id": "BW09",
         "axis": "h",
         "at": 7190.0,
-        "start": 7210.0,
-        "end": 8100.0,
+        "start": 90.0,
+        "end": 980.0,
         "normal_start": 7121.0,
         "thickness": 9,
         "clear_span": 770.0,
@@ -1887,10 +1905,10 @@
       {
         "id": "BW10",
         "axis": "v",
-        "at": 90.0,
+        "at": 8100.0,
         "start": 90.0,
         "end": 635.0,
-        "normal_start": 150.0,
+        "normal_start": 8031.0,
         "thickness": 9,
         "clear_span": 425.0,
         "external": true,
@@ -1904,10 +1922,10 @@
       {
         "id": "BW11",
         "axis": "v",
-        "at": 90.0,
+        "at": 8100.0,
         "start": 3565.0,
         "end": 4527.5,
-        "normal_start": 150.0,
+        "normal_start": 8031.0,
         "thickness": 9,
         "clear_span": 842.5,
         "external": true,
@@ -1921,12 +1939,12 @@
       {
         "id": "BW12",
         "axis": "v",
-        "at": 90.0,
+        "at": 8100.0,
         "start": 4527.5,
-        "end": 5415.0,
-        "normal_start": 150.0,
+        "end": 5335.0,
+        "normal_start": 8031.0,
         "thickness": 9,
-        "clear_span": 767.5,
+        "clear_span": 687.5,
         "external": true,
         "end_columns": [
           "C24",
@@ -1938,29 +1956,12 @@
       {
         "id": "BW13",
         "axis": "v",
-        "at": 90.0,
-        "start": 5415.0,
-        "end": 6302.5,
-        "normal_start": 150.0,
-        "thickness": 9,
-        "clear_span": 767.5,
-        "external": true,
-        "end_columns": [
-          "C25",
-          "C26"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW14",
-        "axis": "v",
-        "at": 90.0,
-        "start": 6302.5,
+        "at": 8100.0,
+        "start": 6465.0,
         "end": 7190.0,
-        "normal_start": 150.0,
+        "normal_start": 8031.0,
         "thickness": 9,
-        "clear_span": 767.5,
+        "clear_span": 605.0,
         "external": true,
         "end_columns": [
           "C26",
@@ -1970,12 +1971,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW15",
+        "id": "BW14",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 90.0,
         "end": 977.5,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -1987,12 +1988,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW16",
+        "id": "BW15",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 977.5,
         "end": 1865.0,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -2004,12 +2005,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW17",
+        "id": "BW16",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 1865.0,
         "end": 2752.5,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -2021,12 +2022,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW18",
+        "id": "BW17",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 2752.5,
         "end": 3640.0,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -2038,12 +2039,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW19",
+        "id": "BW18",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 3640.0,
         "end": 4527.5,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -2055,12 +2056,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW20",
+        "id": "BW19",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 4527.5,
         "end": 5415.0,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 767.5,
         "external": true,
@@ -2072,12 +2073,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW21",
+        "id": "BW20",
         "axis": "v",
-        "at": 8100.0,
+        "at": 90.0,
         "start": 5415.0,
         "end": 6135.0,
-        "normal_start": 8031.0,
+        "normal_start": 150.0,
         "thickness": 9,
         "clear_span": 600.0,
         "external": true,
@@ -2089,12 +2090,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW22",
+        "id": "BW21",
         "axis": "v",
-        "at": 6060.0,
+        "at": 2130.0,
         "start": 4460,
         "end": 5370.0,
-        "normal_start": 6105.0,
+        "normal_start": 2080.0,
         "thickness": 5,
         "clear_span": 820.0,
         "external": false,
@@ -2106,12 +2107,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW23",
+        "id": "BW22",
         "axis": "v",
-        "at": 6060.0,
+        "at": 2130.0,
         "start": 5370.0,
         "end": 6280.0,
-        "normal_start": 6105.0,
+        "normal_start": 2080.0,
         "thickness": 5,
         "clear_span": 820.0,
         "external": false,
@@ -2123,12 +2124,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW24",
+        "id": "BW23",
         "axis": "v",
-        "at": 6060.0,
+        "at": 2130.0,
         "start": 6280.0,
         "end": 7190.0,
-        "normal_start": 6105.0,
+        "normal_start": 2080.0,
         "thickness": 5,
         "clear_span": 805.0,
         "external": false,
@@ -2140,12 +2141,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW25",
+        "id": "BW24",
         "axis": "v",
-        "at": 5060.0,
+        "at": 3130.0,
         "start": 4460,
         "end": 5370.0,
-        "normal_start": 5105.0,
+        "normal_start": 3080.0,
         "thickness": 5,
         "clear_span": 820.0,
         "external": false,
@@ -2157,12 +2158,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW26",
+        "id": "BW25",
         "axis": "v",
-        "at": 5060.0,
+        "at": 3130.0,
         "start": 5370.0,
         "end": 6280.0,
-        "normal_start": 5105.0,
+        "normal_start": 3080.0,
         "thickness": 5,
         "clear_span": 820.0,
         "external": false,
@@ -2174,12 +2175,12 @@
         "connection_capacity": null
       },
       {
-        "id": "BW27",
+        "id": "BW26",
         "axis": "v",
-        "at": 5060.0,
+        "at": 3130.0,
         "start": 6280.0,
         "end": 7190.0,
-        "normal_start": 5105.0,
+        "normal_start": 3080.0,
         "thickness": 5,
         "clear_span": 805.0,
         "external": false,
@@ -2209,14 +2210,14 @@
       {
         "id": "I03",
         "axis": "v",
-        "at": 5060.0,
+        "at": 3130.0,
         "start": 4330.0,
         "end": 7190.0
       },
       {
         "id": "I04",
         "axis": "v",
-        "at": 6060.0,
+        "at": 2130.0,
         "start": 4330.0,
         "end": 7190.0
       },
@@ -2224,20 +2225,20 @@
         "id": "I05",
         "axis": "h",
         "at": 5230.0,
-        "start": 5060.0,
-        "end": 6060.0
+        "start": 2130.0,
+        "end": 3130.0
       },
       {
         "id": "I06",
         "axis": "v",
-        "at": 3330.0,
+        "at": 4860.0,
         "start": 90.0,
         "end": 4330.0
       },
       {
         "id": "I07",
         "axis": "v",
-        "at": 4330.0,
+        "at": 3860.0,
         "start": 90.0,
         "end": 4330.0
       }
@@ -2315,17 +2316,17 @@
         "category": "wall",
         "id": "entrance_01",
         "mount_center_mm": [
-          7420,
+          770,
           0,
           1520
         ],
         "light_position_mm": [
-          7420,
+          770,
           -88,
           1500
         ],
         "target_mm": [
-          6760.0,
+          1430.0,
           -1000,
           -25
         ],
@@ -2336,22 +2337,22 @@
         "group": "lighting:wall:entrance_01",
         "diffuser_label": "lighting:wall:entrance_01:diffuser",
         "direction_cad": [
-          -0.3481907267159145,
+          0.3481907267159145,
           -0.48113627691653643,
           -0.8045316033966207
         ],
         "light_position_glb_m": [
-          7.42,
+          0.7699999999999996,
           1.5,
           0.088
         ],
         "target_glb_m": [
-          6.76,
+          1.4299999999999997,
           -0.025,
           1.0
         ],
         "direction_glb": [
-          -0.3481907267159145,
+          0.3481907267159145,
           -0.8045316033966207,
           0.48113627691653643
         ],
@@ -2362,17 +2363,17 @@
         "category": "path",
         "id": "path_01",
         "mount_center_mm": [
-          5730,
+          2460,
           -4050,
           -500
         ],
         "light_position_mm": [
-          5786,
+          2404,
           -4050,
           230
         ],
         "target_mm": [
-          6760.0,
+          1430.0,
           -4050,
           -500
         ],
@@ -2383,22 +2384,22 @@
         "group": "lighting:path:path_01",
         "diffuser_label": "lighting:path:path_01:diffuser",
         "direction_cad": [
-          0.8001971306337118,
+          -0.8001971306337118,
           0.0,
           -0.5997370691607902
         ],
         "light_position_glb_m": [
-          5.786,
+          2.404,
           0.23,
           4.05
         ],
         "target_glb_m": [
-          6.76,
+          1.4299999999999997,
           -0.5,
           4.05
         ],
         "direction_glb": [
-          0.8001971306337118,
+          -0.8001971306337118,
           -0.5997370691607902,
           -0.0
         ],
@@ -2409,17 +2410,17 @@
         "category": "path",
         "id": "path_02",
         "mount_center_mm": [
-          5730,
+          2460,
           -2550,
           -500
         ],
         "light_position_mm": [
-          5786,
+          2404,
           -2550,
           230
         ],
         "target_mm": [
-          6760.0,
+          1430.0,
           -2550,
           -500
         ],
@@ -2430,22 +2431,22 @@
         "group": "lighting:path:path_02",
         "diffuser_label": "lighting:path:path_02:diffuser",
         "direction_cad": [
-          0.8001971306337118,
+          -0.8001971306337118,
           0.0,
           -0.5997370691607902
         ],
         "light_position_glb_m": [
-          5.786,
+          2.404,
           0.23,
           2.55
         ],
         "target_glb_m": [
-          6.76,
+          1.4299999999999997,
           -0.5,
           2.55
         ],
         "direction_glb": [
-          0.8001971306337118,
+          -0.8001971306337118,
           -0.5997370691607902,
           -0.0
         ],
@@ -2456,22 +2457,22 @@
         "category": "garden",
         "id": "garden_01",
         "mount_center_mm": [
-          5400,
+          2790,
           -4450,
           -500
         ],
         "head_origin_mm": [
-          5400,
+          2790,
           -4450,
           -340
         ],
         "light_position_mm": [
-          5296.905382807324,
+          2893.094617192676,
           -4415.635127602442,
           -348.4590455132452
         ],
         "target_mm": [
-          3450,
+          4740,
           -3800,
           -500
         ],
@@ -2482,22 +2483,22 @@
         "group": "lighting:garden:garden_01",
         "diffuser_label": "lighting:garden:garden_01:diffuser",
         "direction_cad": [
-          -0.9458221760795943,
+          0.9458221760795943,
           0.31527405869319824,
           -0.07760592213986416
         ],
         "light_position_glb_m": [
-          5.296905382807323,
+          2.893094617192676,
           -0.3484590455132452,
           4.4156351276024415
         ],
         "target_glb_m": [
-          3.45,
+          4.739999999999999,
           -0.5,
           3.8
         ],
         "direction_glb": [
-          -0.9458221760795943,
+          0.9458221760795943,
           -0.07760592213986416,
           -0.31527405869319824
         ],
@@ -2508,22 +2509,22 @@
         "category": "garden",
         "id": "garden_02",
         "mount_center_mm": [
-          5400,
+          2790,
           -2450,
           -500
         ],
         "head_origin_mm": [
-          5400,
+          2790,
           -2450,
           -340
         ],
         "light_position_mm": [
-          5291.158112918625,
+          2898.841887081375,
           -2445.417183701837,
           -343.6662530385305
         ],
         "target_mm": [
-          650,
+          7540,
           -2250,
           -500
         ],
@@ -2534,22 +2535,22 @@
         "group": "lighting:garden:garden_02",
         "diffuser_label": "lighting:garden:garden_02:diffuser",
         "direction_cad": [
-          -0.9985494227649069,
+          0.9985494227649069,
           0.04204418622168034,
           -0.033635348977344236
         ],
         "light_position_glb_m": [
-          5.291158112918625,
+          2.8988418870813746,
           -0.3436662530385305,
           2.4454171837018372
         ],
         "target_glb_m": [
-          0.65,
+          7.539999999999999,
           -0.5,
           2.25
         ],
         "direction_glb": [
-          -0.9985494227649069,
+          0.9985494227649069,
           -0.033635348977344236,
           -0.04204418622168034
         ],
@@ -2560,17 +2561,17 @@
         "category": "gate",
         "id": "gate_01",
         "mount_center_mm": [
-          5835.0,
+          2355.0,
           -5325.0,
           550
         ],
         "light_position_mm": [
-          5835.0,
+          2355.0,
           -5384.0,
           550
         ],
         "target_mm": [
-          5835.0,
+          2355.0,
           -5500,
           -500
         ],
@@ -2581,22 +2582,22 @@
         "group": "lighting:gate:gate_01",
         "diffuser_label": "lighting:gate:gate_01:diffuser",
         "direction_cad": [
-          0.0,
+          -0.0,
           -0.1098081193186233,
           -0.9939528041771938
         ],
         "light_position_glb_m": [
-          5.835,
+          2.3549999999999995,
           0.55,
           5.384
         ],
         "target_glb_m": [
-          5.835,
+          2.3549999999999995,
           -0.5,
           5.5
         ],
         "direction_glb": [
-          0.0,
+          -0.0,
           -0.9939528041771938,
           0.1098081193186233
         ],
@@ -2607,43 +2608,43 @@
         "category": "gate",
         "id": "gate_02",
         "mount_center_mm": [
-          7685.0,
+          505.0,
           -5325.0,
           550
         ],
         "light_position_mm": [
-          7685.0,
+          505.0,
           -5384.0,
           550
         ],
         "target_mm": [
-          7685.0,
+          505.0,
           -5500,
           -500
         ],
         "beam_angle_degrees": 80,
         "visual_intensity": 0.8,
         "visual_range_m": 2.5,
-        "mount_to": "fence:posts:south_east_01",
+        "mount_to": "fence:posts:south_west_01",
         "group": "lighting:gate:gate_02",
         "diffuser_label": "lighting:gate:gate_02:diffuser",
         "direction_cad": [
-          0.0,
+          -0.0,
           -0.1098081193186233,
           -0.9939528041771938
         ],
         "light_position_glb_m": [
-          7.685,
+          0.5049999999999999,
           0.55,
           5.384
         ],
         "target_glb_m": [
-          7.685,
+          0.5049999999999999,
           -0.5,
           5.5
         ],
         "direction_glb": [
-          0.0,
+          -0.0,
           -0.9939528041771938,
           0.1098081193186233
         ],
@@ -2680,8 +2681,10 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
+    "R14按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+    "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "保留2026-10-07确认的R09室内平面；R10按用户要求向东延长阳台并取消独立玄关雨棚。",
+    "R14左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
     "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
@@ -2752,16 +2755,17 @@
           "id": "sofa",
           "room": "ldk",
           "kind": "sofa",
-          "x": 650,
+          "x": 5740.0,
           "y": 850,
           "width": 1800,
           "depth": 850,
           "rotation": 0,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            650.0,
+            5740.0,
             850.0,
-            2450.0,
+            7540.0,
             1700.0
           ]
         },
@@ -2769,16 +2773,17 @@
           "id": "coffee_table",
           "room": "ldk",
           "kind": "table",
-          "x": 1100,
+          "x": 6190.0,
           "y": 2000,
           "width": 900,
           "depth": 500,
           "rotation": 0,
           "height": 380,
+          "mirror_local_x": true,
           "footprint_mm": [
-            1100.0,
+            6190.0,
             2000.0,
-            2000.0,
+            7090.0,
             2500.0
           ]
         },
@@ -2786,16 +2791,17 @@
           "id": "television",
           "room": "ldk",
           "kind": "television",
-          "x": 180,
+          "x": 7610.0,
           "y": 2300,
           "width": 1200,
           "depth": 400,
-          "rotation": 90,
+          "rotation": -90,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            180.0,
+            7610.0,
             2300.0,
-            580.0,
+            8010.0,
             3500.0
           ]
         },
@@ -2803,50 +2809,53 @@
           "id": "dining_table",
           "room": "ldk",
           "kind": "table",
-          "x": 3500,
-          "y": 2700,
+          "x": 2890.0,
+          "y": 2500,
           "width": 1400,
           "depth": 800,
           "rotation": 0,
           "height": 730,
+          "mirror_local_x": true,
           "footprint_mm": [
-            3500.0,
-            2700.0,
-            4900.0,
-            3500.0
-          ]
-        },
-        {
-          "id": "dining_chair_west",
-          "room": "ldk",
-          "kind": "chair",
-          "x": 2980,
-          "y": 2700,
-          "width": 450,
-          "depth": 420,
-          "rotation": 90,
-          "height": 0,
-          "footprint_mm": [
-            2980.0,
-            2700.0,
-            3400.0,
-            3150.0
+            2890.0,
+            2500.0,
+            4290.0,
+            3300.0
           ]
         },
         {
           "id": "dining_chair_east",
           "room": "ldk",
           "kind": "chair",
-          "x": 5000,
+          "x": 4400.0,
           "y": 2700,
           "width": 450,
           "depth": 420,
-          "rotation": 270,
+          "rotation": -90,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            5000.0,
+            4400.0,
             2700.0,
-            5420.0,
+            4820.0,
+            3150.0
+          ]
+        },
+        {
+          "id": "dining_chair_west",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 2270.0,
+          "y": 2700,
+          "width": 450,
+          "depth": 420,
+          "rotation": -270,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            2270.0,
+            2700.0,
+            2690.0,
             3150.0
           ]
         }
@@ -2869,16 +2878,17 @@
           "id": "bed",
           "room": "master",
           "kind": "bed",
-          "x": 430,
+          "x": 5760.0,
           "y": 950,
           "width": 1400,
           "depth": 2000,
-          "rotation": 90,
+          "rotation": -90,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            430.0,
+            5760.0,
             950.0,
-            2430.0,
+            7760.0,
             2350.0
           ]
         },
@@ -2886,16 +2896,17 @@
           "id": "bed",
           "room": "bed2",
           "kind": "bed",
-          "x": 5500,
+          "x": 1690.0,
           "y": 850,
           "width": 1000,
           "depth": 2000,
           "rotation": 0,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            5500.0,
+            1690.0,
             850.0,
-            6500.0,
+            2690.0,
             2850.0
           ]
         },
@@ -2903,16 +2914,17 @@
           "id": "bed",
           "room": "bed3",
           "kind": "bed",
-          "x": 500,
+          "x": 6690.0,
           "y": 4680,
           "width": 1000,
           "depth": 2000,
           "rotation": 0,
           "height": 0,
+          "mirror_local_x": true,
           "footprint_mm": [
-            500.0,
+            6690.0,
             4680.0,
-            1500.0,
+            7690.0,
             6680.0
           ]
         }
@@ -2924,7 +2936,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 891,
-    "all_nodes": 998
+    "named_mesh_nodes": 925,
+    "all_nodes": 1037
   }
 }

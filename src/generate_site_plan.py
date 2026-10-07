@@ -20,6 +20,9 @@ from lib.house_geometry import G
 from lib.exterior_geometry import E
 from lib.site_geometry import S, site_dimensions, fence_layout
 
+from lib.orientation import canonical
+P=canonical(P)
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -29,7 +32,7 @@ class SiteDrawing(Drawing):
         self.scale = mm / 100
         self.ox, self.oy = 70 * mm, 105 * mm
         metadata = self.doc.ezdxf_metadata()
-        metadata['REVISION'] = 'R13-SITE'
+        metadata['REVISION'] = 'R14-SITE'
         metadata['SCALE'] = '1:100; labelled conceptual foundation section 1:25'
         metadata['SCOPE'] = '外構・基礎のデモ補足計画。敷地測量・構造設計・施工図ではない。'
         self.doc.header['$PSLTSCALE'] = 0
@@ -37,6 +40,7 @@ class SiteDrawing(Drawing):
             'description': '2/1 mm paper at 1:100', 'pattern': [300, 200, -100]})
 
     def dim(self, p1, p2, base, angle=0):
+        p1,p2,base=self.orient_dim(p1,p2,base,angle)
         dim = self.msp.add_linear_dim(base=base, p1=p1, p2=p2, angle=angle,
             dimstyle='EZDXF', override={
                 'dimtxt': 250, 'dimasz': 150, 'dimgap': 150, 'dimexo': 100,
@@ -69,6 +73,7 @@ class SiteDrawing(Drawing):
                 self.pdf.restoreState()
 
     def circle(self, at, radius):
+        at=self.orient_point(at)
         self.msp.add_circle(at, radius, dxfattribs={'layer': LAYERS['FURNITURE']})
         self.pdf.setLineWidth(PENS_MM['FURNITURE'] * mm)
         self.pdf.circle(*self.xy(at), radius * self.scale, stroke=1, fill=0)
@@ -79,15 +84,16 @@ def generate():
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420 * mm, 297 * mm), invariant=1)
-    pdf.setTitle('外構・基礎 補足計画図 R13 / Site and foundation demonstration')
+    pdf.setTitle('外構・基礎 補足計画図 R14 / Site and foundation demonstration')
     pdf.setAuthor('text-CAD')
     d = site_dimensions(P, G)
-    fence = fence_layout()
+    fence = fence_layout(p=P)
     drawing = SiteDrawing(pdf)
-    drawing.text('外構・基礎 補足計画図 / R13', (-4500, 15500), 500, align='left')
+    drawing.text('外構・基礎 補足計画図 / R14', (-4500, 15500), 500, align='left')
     drawing.text('単位 mm / 配置 1:100 / A3 / 全寸法・方位・敷地はデモ仮定 / 2026-10-07',
                  (-4500, 14600), 250, align='left')
     drawing.text('01 配置図', (-2000, 11500), 350, align='left')
+    drawing.mirror_width=P.width
     drawing.rect(d['lot'], 'WALL')
     drawing.rect(d['building'], 'WALL')
     drawing.text('一戸建て（確認済み平面）', (P.width/2, 4300), 300)
@@ -106,7 +112,7 @@ def generate():
 
     for part in ('porch', 'upper_step', 'lower_step', 'path'):
         drawing.rect(d[part], 'DOOR')
-    entrance=next(door for door in floor_plan(1).doors if door.a=='outside')
+    entrance=next(door for door in floor_plan(1,P).doors if door.a=='outside')
     entry_x=entrance.start+entrance.width/2
     drawing.line((entrance.start, 0), (entrance.start+entrance.width, 0), 'DOOR')
     drawing.text('入口', (entry_x, 650), 250)
@@ -158,6 +164,7 @@ def generate():
     drawing.line((nx,ny-550),(nx-200,ny-900),'NORTH')
     drawing.line((nx,ny-550),(nx+200,ny-900),'NORTH')
 
+    drawing.mirror_width=None
     drawing.text('02 基礎参考断面 / 1:25（模式図）', (12600, 11500), 350, align='left')
     sx, sy, enlarged = 13900, 9000, 4
     def section_box(bounds, layer='WALL', fill=None):
@@ -198,7 +205,7 @@ def generate():
         '玄関ポーチ先端300は陽台の外（仮定）。',
         '本図は施工図・構造計算・測量図ではない。',
     ]): drawing.text(text, (12600, -1200-i*550), 250, align='left')
-    drawing.text('text-CAD / R13-SITE / 参考デモ', (12600, -6900), 250, align='left')
+    drawing.text('text-CAD / R14-SITE / 参考デモ', (12600, -6900), 250, align='left')
 
     pdf.setLineWidth(.7 * mm); pdf.rect(7.5*mm, 7.5*mm, 405*mm, 282*mm)
     drawing.doc.layers.new('D-TTL-FRAM', dxfattribs={'color':7, 'lineweight':70})

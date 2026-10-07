@@ -64,7 +64,7 @@ test('attic floor and access ladder are selectable independently of the roof and
   assert.ok(slab?.isMesh && finish?.isMesh && tread?.isMesh);
   assert.equal(selectionFor(slab).id, 'attic:floor_slab', 'the preserved CAD slab belongs to the attic');
   assert.equal(selectionFor(finish).id, 'attic:floor_slab');
-  assert.equal(selectionFor(nodes.get('attic:guardrail:west_rail')).id, 'attic:guardrails');
+  assert.equal(selectionFor(nodes.get('attic:guardrail:east_rail')).id, 'attic:guardrails');
   assert.equal(selectionFor(nodes.get('attic:storage:west_shelf:middle')).id, 'attic:storage_fixtures');
   assert.equal(selectionFor(tread).id, 'attic_access');
   for (const group of ['F1', 'F2', 'roof', 'stairs']) nodes.get(group).visible = false;

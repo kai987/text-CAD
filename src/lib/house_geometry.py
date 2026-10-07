@@ -5,6 +5,8 @@ datums. This is a concept model, not a structural or statutory design.
 """
 from __future__ import annotations
 
+from .orientation import orient_shape, orient_record
+
 from dataclasses import asdict, dataclass
 from math import radians, tan
 
@@ -221,6 +223,7 @@ def window_group(floor, p=P, g=G):
     return bd.Compound(children=windows, label=f"F{floor.number}:windows")
 
 
+@orient_shape
 def stair_group(p=P, g=G):
     d = dimensions(p)
     sx, sy, xm, ym = (d[k] for k in ("sx", "sy", "xmax", "ymax"))
@@ -278,7 +281,8 @@ def roof_group(p=P, g=G):
     gable_section = [(0, zbase), (p.width, zbase), (ridge_x, peak)]
     setback = wall_setback()
     south = section_extrusion(gable_section, setback, p.external_wall-setback)
-    north = section_extrusion(gable_section, p.depth-p.external_wall, p.external_wall-setback)
+    from .attic_geometry import north_vent_tool
+    north = section_extrusion(gable_section, p.depth-p.external_wall, p.external_wall-setback).cut(north_vent_tool(p,g))
     return bd.Compound(children=[named(west, "roof:west_plane", "roof"),
                                   named(east, "roof:east_plane", "roof"),
                                   named(south, "roof:south_gable_wall", "external"),
@@ -300,6 +304,7 @@ def storage_group(floor, p=P):
     return bd.Compound(children=storage, label=f"F{floor.number}:storage_fixtures")
 
 
+@orient_shape
 def house_assembly(p=P, g=G, include_roof=True):
     from .furniture_geometry import furniture_group
     from .fixture_geometry import fixture_group
@@ -320,7 +325,7 @@ def house_assembly(p=P, g=G, include_roof=True):
     if include_roof:
         children.append(roof_group(p, g))
     children += [attic_group(p, g), attic_access_group(p, g)]
-    children += [foundation_group(p, g), yard_group(p, g), fence_group()]
+    children += [foundation_group(p, g), yard_group(p, g), fence_group(p=p)]
     children.append(structure_group(p, g))
     children.append(outdoor_lighting_group(p, g))
     return bd.Compound(children=children, label="house_3d")
@@ -339,7 +344,7 @@ def geometry_manifest(p=P, g=G):
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R13-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R14-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -357,8 +362,10 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
+            "R14按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+            "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "保留2026-10-07确认的R09室内平面；R10按用户要求向东延长阳台并取消独立玄关雨棚。",
+            "R14左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
             "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",

@@ -142,7 +142,7 @@ test('fence footing cavities stay open around real embedded posts in both sectio
 
 test('soil and separate finishes preserve real foundation and post exclusions in both cut engines', async () => {
   const { gltf, nodes } = await loadHouse();
-  const point = (x, y, height) => new Vector3(x / 1000 + gltf.scene.position.x,
+  const point = (x, y, height) => new Vector3((8190-x) / 1000 + gltf.scene.position.x,
     height, -y / 1000 + gltf.scene.position.z);
   const firstFooting = new Box3().setFromObject(meshesIn(nodes.get('fence:footings'))[0]);
   const footingCenter = firstFooting.getCenter(new Vector3());

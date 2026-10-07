@@ -10,7 +10,7 @@ test('localized part searches retain group hierarchy and never modify model stat
   for (const [locale,word] of [['zh','窗'],['ja','窓'],['en','WINDOWS']]) {
     const state=settingsForPreset('exterior');const snapshot=JSON.stringify(state);
     const result=search(locale,word);
-    assert.equal(result.length,2);assert.ok(result.every(group=>group.children.every(part=>part.id.endsWith(':windows'))));
+    assert.equal(result.length,3);assert.ok(result.every(group=>group.children.every(part=>part.id.endsWith(':windows'))));
     assert.equal(JSON.stringify(state),snapshot);
   }
 });

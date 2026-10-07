@@ -1,6 +1,6 @@
-"""Active user-approved R10 layout; historical R01 data is in house_plan_r01.
+"""Active user-requested R14 reflected layout; historical R01 data is in house_plan_r01.
 
-Compatibility dimension names describe new partitions. All values are demo inputs.
+Compatibility dimension names describe canonical authoring partitions; public floor plans are world-space. Normalize p with orientation.canonical before creating nested builders. All values are demo inputs.
 """
 from .house_plan_r01 import Door, Floor, Room, rectangle
 from .house_redesign_plan import P, RedesignParameters as Parameters, floor_plan, manifest
@@ -18,5 +18,5 @@ def dimensions(p=P):
 
 def design_manifest(p=P):
     data=manifest(p)
-    data['drawing_revision']='R13'
+    data['drawing_revision']='R14'
     return data

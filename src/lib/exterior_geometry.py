@@ -220,9 +220,10 @@ def roof_detail_parts(p, g, e=E):
     leaves = []
     # Gable finish is inside the approved finished wall face, matching the skin below.
     triangle = [(0, h), (p.width, h), (xmid, peak)]
+    from .attic_geometry import north_vent_tool
     leaves.extend([
         named(section_extrusion(triangle, 0, e.cladding_thickness), "roof:cladding:south_gable", "exterior"),
-        named(section_extrusion(triangle, p.depth-e.cladding_thickness, e.cladding_thickness),
+        named(section_extrusion(triangle, p.depth-e.cladding_thickness, e.cladding_thickness).cut(north_vent_tool(p,g)),
               "roof:cladding:north_gable", "exterior"),
     ])
     # Standing seams follow the fall of each roof, with nineteen ribs per side for the default plan.

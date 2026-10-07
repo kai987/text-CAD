@@ -166,7 +166,7 @@ def _title_block(sheet, floor):
 def _draw_sheet(sheet, floor):
     sheet.rect(FRAME_BOUNDS, .7, FRAME_LAYER, "frame")
     sheet.text(f"{floor.number}階平面図", (112.8, 260), 5.0, "center", TITLE_TEXT_LAYER)
-    sheet.text("R13参考平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
+    sheet.text("R14参考平面　1:50　単位 mm", (112.8, 249), 2.5, "center")
     sheet.text("室別面積表（内法）", (230, 262), 3.5)
 
     left, right, divide, top, row_h = 230, 400, 352, 250, 7
@@ -187,11 +187,11 @@ def _draw_sheet(sheet, floor):
     notes = [
         f"建物外形 {P.width:,.0f}×{P.depth:,.0f}、階高 {P.storey_height:,.0f} mm はデモ用の仮定寸法。",
         f"外壁 {P.external_wall:.0f}、内壁 {P.internal_wall:.0f} mm。家具・建具の寸法は計画上の仮定。",
-        "方位と南側玄関は仮定。敷地・道路・配置条件は未設定。",
+        "R14左右反転：南西玄関・北西階段。東側採光、西側は階段窓のみ。",
         "面積は壁内法の概算で家具占有分を含む。建築確認申請の面積ではない。",
         "廊下面積は階段を除く。階段面積は階段室の確保範囲を示す。",
         f"階段：{P.risers}R×{P.storey_height/P.risers:.0f}、T{P.tread:.0f}、階段幅 {P.stair_width:.0f}、踊場 {P.stair_landing:.0f} mm。",
-        "2階の階段室は床開口。踏板・手すりの詳細は別途設計。",
+        "対面キッチン2550×650・背面通路900。小屋裏北側換気窓600×300は仮定。",
         "南側LDK・2寝室は掃出し窓H2200/FL+0。ガラス・建具・防水・耐力は未設計。",
         "便所：内法 900×1,700 mm。出入口 700 mm は枠厚を控除する前の寸法。",
         "構造・防火・耐震・法令適合は未検証。施工図として使用不可。",
@@ -211,7 +211,7 @@ def _draw_sheet(sheet, floor):
         ("実線：壁・建具・家具の平面輪郭", 87),
         ("寸法線：壁内法・建物外形・建具開口幅", 81),
         ("D01 等：建具番号　UP：上り方向", 75),
-        ("北矢印：仮定方位　R13：室内確認済み・バルコニー変更・構造未計算", 69),
+        ("北矢印：仮定方位　R14：左右反転・対面キッチン・北側換気窓・構造未計算", 69),
     ):
         sheet.text(value, (230, y), 2.5)
     _title_block(sheet, floor)

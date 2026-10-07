@@ -4,7 +4,17 @@ Three south living/main-bedroom/bedroom-2 windows now extend from FL+0 to FL+220
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-## Current scheme (R13 balcony revision)
+## Current proposal R14: mirrored floors and facing kitchen
+
+Both floors are reflected left/right: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only. Existing north/south windows and the full-width 8190×1000 mm south balcony remain. A 600×300 mm top-hung ventilation window is added to the north attic gable, sill at attic FL+850 mm.
+
+The facing kitchen has a 2550×650 mm counter and a 900 mm main rear working aisle, with refrigerator, extractor hood, microwave and appliance cupboard. Foundation supports, entrance path, parking, lights and W/S/RC overlays share the same reflection. Three bedroom areas, the 8190×7280 mm footprint and 2800 mm storey heights remain. All dimensions are demonstration assumptions; products, exhaust ducts, ventilation, capacity and regulatory suitability remain undesigned.
+
+[First-floor DXF](DXF/house_1f_plan.dxf) · [Second-floor DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) · [Parameters](src/lib/house_redesign_plan.py)
+
+R13 and earlier sections below are historical; R14 and the current exported files take precedence.
+
+## Earlier scheme (R13 balcony revision)
 
 R13 retains the approved three-bedroom interiors and changes the south balcony to **8190 × 1000 mm**, with **7990 × 900 mm clear space (7.191 m²)**. Three support posts and their separate footings are removed; the drying rack moves east, clear of the door swing. The 1300 mm-deep entrance porch now projects 300 mm beyond the balcony, with no separate canopy. The R11 lot of 140.4182 m² and two side-by-side parking bays remain. Cantilever capacity, connections, waterproofing and drainage are unengineered; all dimensions are demonstration assumptions.
 
@@ -293,7 +303,7 @@ These files form a parametric concept model. The actual site, structural system,
 
 ### CAD release checks and model recovery
 
-The geometry revision remains R13. Building, room, balcony and opening positions are preserved. Key measurements in all three languages are rendered from exported model parameters, including storage heights, stairs, floor-height glazing, wall thicknesses and clear balcony area.
+This earlier optimization used R13; R14 subsequently reflects the layout. Key measurements in all three languages are rendered from exported model parameters, including storage heights, stairs, floor-height glazing, wall thicknesses and clear balcony area.
 
 - Rebuild the current house/apartment catalog and validate it: `.venv/bin/python src/cad_pipeline.py --regenerate`.
 - Check source/output provenance before validating saved artifacts: `.venv/bin/python src/cad_pipeline.py --validate`.

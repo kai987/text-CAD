@@ -202,7 +202,7 @@ for number in (1, 2):
             close(f"F{number}:W{i:02d}:unchanged_aperture_and_flush_frame_bound_{coordinate}", wb[coordinate], expected)
 
 
-for number,index,width in ((1,1,2100),(2,1,1600),(2,2,1800)):
+for number,index,width in ((1,1,2100),):
     frame=bounds(native[f'F{number}:W{index:02d}:frame_5'])
     close(f'R13:F{number}:W{index:02d}:floor_level_frame_bottom_mm',
           bounds(native[f'F{number}:W{index:02d}:frame_1'])[2],(number-1)*2800)
@@ -215,6 +215,15 @@ for number,index,width in ((1,1,2100),(2,1,1600),(2,2,1800)):
             close(f'R13:W{index:02d}:{name}:balcony_finish_clear_mm3',
                   overlap([native[f'F2:W{index:02d}:{name}']],native['balcony:finish']),0)
 
+for door_id,width in (('D26',1600),('D27',1800)):
+    for i in (1,2):
+        frame=native[f'F2:{door_id}_slider_frame_{i}'];glass=native[f'F2:{door_id}_slider_glass_{i}']
+        b=bounds(frame)
+        close(f'R16:{door_id}:{i}:frame_floor_gap_mm',b[2],2810)
+        close(f'R16:{door_id}:{i}:head_elevation_mm',b[5],4890)
+        close(f'R16:{door_id}:{i}:balcony_finish_clear_mm3',overlap([frame,glass],native['balcony:finish']),0)
+    check(f'R16:{door_id}:two_independent_glazed_leaves',all(f'F2:{door_id}_slider_glass_{i}' in native for i in (1,2)))
+
 d = dimensions(P)
 stair_footprint = next(r.shape for r in floor_plan(2).rooms if r.id == "stairs")
 x1, y1, x2, y2 = stair_footprint.bounds
@@ -225,7 +234,7 @@ close("F2:complete_stairwell_opening_volume_mm3", overlap([slab2], opening), 0)
 close("F2:slab_net_volume_mm3", slab2.volume,
       ((P.width-2*setback)*(P.depth-2*setback)-stair_footprint.area)*G.slab_thickness, 0.1)
 stair_shapes = [shape for label, shape in native.items() if label.startswith("stairs:")]
-close("stairs:no_F2_slab_overlap_mm3", overlap(stair_shapes, slab2.solids()[0]), 0)
+close("stairs:no_F2_slab_overlap_mm3", overlap([s for label,s in native.items() if label.startswith("stairs:") and "stringer" not in label], slab2.solids()[0]), 0)
 check("stairs:no_final_riser_consuming_tread", "stairs:upper_final_riser" not in native)
 rise = P.storey_height/P.risers
 close("stairs:specified_rise_mm", rise, 175)
@@ -240,13 +249,20 @@ for flight, base_top in [("lower", 0), ("upper", P.storey_height/2)]:
         close(f"{label}:width_mm", sb[3]-sb[0], P.stair_width)
         close(f"{label}:tread_depth_mm", sb[4]-sb[1], P.tread)
         close(f"{label}:top_elevation_mm", sb[5], base_top+i*rise)
-        if flight=='upper':close(f'{label}:R15_thickness_mm',sb[5]-sb[2],200)
+        close(f'{label}:R16_thickness_mm',sb[5]-sb[2],60)
+for side in ('lower','upper'):
+    rails=[v for k,v in native.items() if k.startswith(f'stairs:{side}_stringer_')]
+    check(f'R16:{side}:two_stringers',len(rails)==2)
+    for i in range(1,8):
+        tread=native[f'stairs:{side}_tread_{i:02d}']
+        check(f'R16:{side}:tread_{i}:supported_by_both_stringers',all(overlap([rail],tread.solids()[0])>0 for rail in rails))
+        close(f'R16:{side}:open_riser_gap_mm',rise-G.stair_tread_thickness,115)
 last_top = bounds(native["stairs:upper_tread_07"])[5]
 close("stairs:final_floor_rise_mm", bounds(slab2)[5]-last_top, rise)
 for side in ("lower", "upper"):
     end = native[f"stairs:{side}_tread_{'07' if side == 'lower' else '01'}"]
     landing = native["stairs:mid_landing"]
-    close(f"stairs:{side}_landing_connection_distance_mm", end.distance_to(landing), 0)
+    close(f"stairs:{side}_landing_connection_distance_mm", min(s.distance_to(landing) for label,s in native.items() if label.startswith(f'stairs:{side}_stringer_')), 0)
 wc1 = next(r.shape for r in floor_plan(1).rooms if r.id == "wc")
 wc2 = next(r.shape for r in floor_plan(2).rooms if r.id == "wc")
 check("WC:upper_lower_footprints_aligned", wc1.equals(wc2), list(wc1.bounds))
@@ -328,8 +344,8 @@ rb=balcony_drying_bounds(P)
 for name in ("balcony:drying_post_1","balcony:drying_post_2","balcony:drying_rail"):
     b=bounds(native[name])
     check(f"R13:{name}_within_slab",bs[0]<b[0] and b[3]<bs[3] and bs[1]<b[1] and b[4]<bs[4])
-    check(f"R13:{name}_east_of_balcony_door",(b[3]<next(d.start for d in floor_plan(2).doors if d.id=='D26') if P.mirror_layout else b[0]>P.access_left+50+800))
-check("attic:new_named_leaf_contract", len(attic_leaves) == 37, len(attic_leaves), 37)
+    check(f"R13:{name}_east_of_balcony_door",all(b[3]<=door.start or b[0]>=door.start+door.width for door in floor_plan(2).doors if door.kind=='bypass'))
+check("attic:new_named_leaf_contract", len(attic_leaves) == 39, len(attic_leaves), 39)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
 
@@ -496,7 +512,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R15-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R16-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

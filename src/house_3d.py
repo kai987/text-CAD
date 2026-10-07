@@ -83,7 +83,7 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["scenes"] = [{"name": "house_3d", "nodes": [insert(root) for root in scene.roots]}]
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
-                                    "source": "Named CADgen STEP assembly; R15 1000 mm cantilever balcony proposal with approved interiors"}
+                                    "source": "Named CADgen STEP assembly; R16 1000 mm cantilever balcony proposal with approved interiors"}
     apply_interior_materials(document)
     bin_offset = 20+json_size
     bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)
@@ -91,6 +91,8 @@ def restore_glb_hierarchy(step_path, glb_path):
         raise ValueError("CADgen GLB second chunk is not BIN")
     binary = apply_exterior_materials(document, data[bin_offset+8:bin_offset+8+bin_size])
     apply_outdoor_lighting_materials(document, P, G)
+    from lib.indoor_lighting import apply_indoor_lighting_metadata
+    apply_indoor_lighting_metadata(document,P,G)
     encoded = json.dumps(document, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     encoded += b" "*((-len(encoded)) % 4)
     remaining_chunks = struct.pack("<II", len(binary), bin_kind)+binary

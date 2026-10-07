@@ -86,7 +86,7 @@ test('attic interior uses its own cut plane, hides the roof and preserves the fu
   assert.equal(activePreset({ ...attic, heightMm: 6600 }), undefined, 'a moved attic plane is a custom view');
   assert.equal(activePreset({ ...exterior, heightMm: 6600 }), 'exterior', 'uncut presets do not constrain an unused height');
   assert.deepEqual(parts.filter(part => part.group === 'attic').map(part => part.id), [
-    'attic:floor_slab', 'attic:partition_walls', 'attic:storage_fixtures', 'attic:windows', 'attic:guardrails',
+    'attic:indoor_lights', 'attic:floor_slab', 'attic:partition_walls', 'attic:storage_fixtures', 'attic:windows', 'attic:guardrails',
   ]);
   assert.ok(parts.filter(part => part.group !== 'attic').every(part => !part.id.endsWith(':guardrails')));
   const hiddenLadder = setGroupVisible(attic, 'attic_access', false);

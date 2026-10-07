@@ -33,7 +33,7 @@ export default function App() {
     try { saveSceneLighting(window.localStorage, settings); }
     catch { /* Embedded browsers can block access to localStorage itself. */ }
     history.replaceState(null, '', sceneLightingUrl(location.href, settings));
-  }, [settings.environment, settings.outdoorLights]);
+  }, [settings.environment, settings.outdoorLights, settings.indoorLights]);
   useEffect(() => {
     document.title = `${copy.app.title} · text-CAD`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', copy.app.description);

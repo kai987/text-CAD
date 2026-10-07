@@ -33,6 +33,7 @@ function originalCategory(name) {
   if (siteCategory) return `${siteCategory[1]}:${siteCategory[2]}`;
   if (name === 'roof:attic_ceiling_slab' || name === 'attic:deck_finish') return 'attic:floor_slab';
   if (/^attic:(?:lining|knee_wall|gable_lining):/.test(name)) return 'attic:partition_walls';
+  if (/^attic:indoor_light:/.test(name)) return 'attic:indoor_lights';
   if (/^attic:north_vent:/.test(name)) return 'attic:windows';
   if (/^attic:storage:/.test(name)) return 'attic:storage_fixtures';
   if (/^attic:guardrail:/.test(name)) return 'attic:guardrails';
@@ -42,6 +43,8 @@ function originalCategory(name) {
   if (/^F[12]:wall_external_/.test(name)) return `${floor}:external_walls`;
   if (/^F[12]:exterior:(?:cladding|foundation|entry_panel|downpipe):/.test(name)) return `${floor}:external_walls`;
   if (/^F[12]:wall_partition_/.test(name)) return `${floor}:partition_walls`;
+  if (/^F[12]:indoor_light:/.test(name)) return `${floor}:indoor_lights`;
+  if (/^F[12]:D\d+_slider_/.test(name)) return `${floor}:doors`;
   if (/^F[12]:D\d+_door_/.test(name)) return `${floor}:doors`;
   if (/^F[12]:D\d+:(?:canopy|porch|porch_step|frame|handle|threshold)$/.test(name)) return `${floor}:doors`;
   if (/^F[12]:W\d+:/.test(name)) return `${floor}:windows`;

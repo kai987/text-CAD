@@ -1,5 +1,5 @@
 {
-  "revision": "R15-3D",
+  "revision": "R16-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -53,6 +53,9 @@
     "roof_pitch_degrees": 30,
     "roof_vertical_thickness": 150,
     "landing_thickness": 200,
+    "stair_tread_thickness": 60,
+    "stair_stringer_width": 40,
+    "stair_stringer_depth": 200,
     "shoe_cabinet_height": 1800,
     "storage_cabinet_height": 2000
   },
@@ -120,7 +123,7 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R15",
+    "revision": "R16",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
@@ -181,7 +184,7 @@
     ],
     "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
     "unchanged": [
-      "R15 reflected F1/F2 room topology and areas",
+      "R16 coordinated layout; stairwell and WC remain vertically aligned",
       "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
@@ -286,7 +289,7 @@
       "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "R10阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R10 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "R10阁楼采用纯储物用途的演示方案，采用R16重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
       "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
       "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -1013,7 +1016,7 @@
       },
       {
         "id": "C04",
-        "x": 4825.0,
+        "x": 4540.0,
         "y": 90.0,
         "width": 120,
         "floors": [
@@ -1024,17 +1027,6 @@
       },
       {
         "id": "C05",
-        "x": 3895.0,
-        "y": 90.0,
-        "width": 120,
-        "floors": [
-          1,
-          2
-        ],
-        "support": "aligned_column_or_beam"
-      },
-      {
-        "id": "C06",
         "x": 3650.0,
         "y": 90.0,
         "width": 120,
@@ -1045,7 +1037,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C07",
+        "id": "C06",
         "x": 3055.0,
         "y": 90.0,
         "width": 120,
@@ -1056,7 +1048,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C08",
+        "id": "C07",
         "x": 915.0,
         "y": 90.0,
         "width": 120,
@@ -1067,7 +1059,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C09",
+        "id": "C08",
         "x": 90.0,
         "y": 90.0,
         "width": 120,
@@ -1078,7 +1070,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C10",
+        "id": "C09",
         "x": 8100.0,
         "y": 7190.0,
         "width": 120,
@@ -1089,7 +1081,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C11",
+        "id": "C10",
         "x": 7605.0,
         "y": 7190.0,
         "width": 120,
@@ -1100,8 +1092,19 @@
         "support": "aligned_column_or_beam"
       },
       {
+        "id": "C11",
+        "x": 6825.0,
+        "y": 7190.0,
+        "width": 120,
+        "floors": [
+          1,
+          2
+        ],
+        "support": "aligned_column_or_beam"
+      },
+      {
         "id": "C12",
-        "x": 5675.0,
+        "x": 6320.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1245,7 +1248,7 @@
       {
         "id": "C25",
         "x": 8100.0,
-        "y": 5335.0,
+        "y": 4935.0,
         "width": 120,
         "floors": [
           1,
@@ -1256,7 +1259,7 @@
       {
         "id": "C26",
         "x": 8100.0,
-        "y": 6465.0,
+        "y": 6865.0,
         "width": 120,
         "floors": [
           1,
@@ -1759,11 +1762,11 @@
         "id": "BW02",
         "axis": "h",
         "at": 90.0,
-        "start": 4825.0,
+        "start": 4540.0,
         "end": 5375.0,
         "normal_start": 150.0,
         "thickness": 9,
-        "clear_span": 430.0,
+        "clear_span": 715.0,
         "external": true,
         "end_columns": [
           "C03",
@@ -1776,6 +1779,23 @@
         "id": "BW03",
         "axis": "h",
         "at": 90.0,
+        "start": 3650.0,
+        "end": 4540.0,
+        "normal_start": 150.0,
+        "thickness": 9,
+        "clear_span": 770.0,
+        "external": true,
+        "end_columns": [
+          "C04",
+          "C05"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW04",
+        "axis": "h",
+        "at": 90.0,
         "start": 3055.0,
         "end": 3650.0,
         "normal_start": 150.0,
@@ -1783,14 +1803,14 @@
         "clear_span": 475.0,
         "external": true,
         "end_columns": [
-          "C06",
-          "C07"
+          "C05",
+          "C06"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
-        "id": "BW04",
+        "id": "BW05",
         "axis": "h",
         "at": 90.0,
         "start": 90.0,
@@ -1800,14 +1820,14 @@
         "clear_span": 705.0,
         "external": true,
         "end_columns": [
-          "C08",
-          "C09"
+          "C07",
+          "C08"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
-        "id": "BW05",
+        "id": "BW06",
         "axis": "h",
         "at": 7190.0,
         "start": 7605.0,
@@ -1817,14 +1837,48 @@
         "clear_span": 375.0,
         "external": true,
         "end_columns": [
-          "C10",
-          "C11"
+          "C09",
+          "C10"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
-        "id": "BW06",
+        "id": "BW07",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 6320.0,
+        "end": 6825.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 385.0,
+        "external": true,
+        "end_columns": [
+          "C11",
+          "C12"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW08",
+        "axis": "h",
+        "at": 7190.0,
+        "start": 5430.0,
+        "end": 6320.0,
+        "normal_start": 7121.0,
+        "thickness": 9,
+        "clear_span": 770.0,
+        "external": true,
+        "end_columns": [
+          "C12",
+          "C13"
+        ],
+        "wall_multiplier": null,
+        "connection_capacity": null
+      },
+      {
+        "id": "BW09",
         "axis": "h",
         "at": 7190.0,
         "start": 3650.0,
@@ -1841,7 +1895,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW07",
+        "id": "BW10",
         "axis": "h",
         "at": 7190.0,
         "start": 3130.0,
@@ -1858,7 +1912,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW08",
+        "id": "BW11",
         "axis": "h",
         "at": 7190.0,
         "start": 980.0,
@@ -1875,7 +1929,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW09",
+        "id": "BW12",
         "axis": "h",
         "at": 7190.0,
         "start": 90.0,
@@ -1892,7 +1946,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW10",
+        "id": "BW13",
         "axis": "v",
         "at": 8100.0,
         "start": 90.0,
@@ -1909,7 +1963,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW11",
+        "id": "BW14",
         "axis": "v",
         "at": 8100.0,
         "start": 3565.0,
@@ -1926,41 +1980,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW12",
-        "axis": "v",
-        "at": 8100.0,
-        "start": 4527.5,
-        "end": 5335.0,
-        "normal_start": 8031.0,
-        "thickness": 9,
-        "clear_span": 687.5,
-        "external": true,
-        "end_columns": [
-          "C24",
-          "C25"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW13",
-        "axis": "v",
-        "at": 8100.0,
-        "start": 6465.0,
-        "end": 7190.0,
-        "normal_start": 8031.0,
-        "thickness": 9,
-        "clear_span": 605.0,
-        "external": true,
-        "end_columns": [
-          "C26",
-          "C10"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW14",
+        "id": "BW15",
         "axis": "v",
         "at": 90.0,
         "start": 90.0,
@@ -1970,14 +1990,14 @@
         "clear_span": 767.5,
         "external": true,
         "end_columns": [
-          "C09",
+          "C08",
           "C27"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
       },
       {
-        "id": "BW15",
+        "id": "BW16",
         "axis": "v",
         "at": 90.0,
         "start": 977.5,
@@ -1994,7 +2014,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW16",
+        "id": "BW17",
         "axis": "v",
         "at": 90.0,
         "start": 1865.0,
@@ -2011,7 +2031,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW17",
+        "id": "BW18",
         "axis": "v",
         "at": 90.0,
         "start": 2752.5,
@@ -2028,7 +2048,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW18",
+        "id": "BW19",
         "axis": "v",
         "at": 90.0,
         "start": 3640.0,
@@ -2045,7 +2065,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW19",
+        "id": "BW20",
         "axis": "v",
         "at": 90.0,
         "start": 4527.5,
@@ -2062,7 +2082,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW20",
+        "id": "BW21",
         "axis": "v",
         "at": 90.0,
         "start": 5415.0,
@@ -2079,7 +2099,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW21",
+        "id": "BW22",
         "axis": "v",
         "at": 2130.0,
         "start": 4460,
@@ -2096,7 +2116,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW22",
+        "id": "BW23",
         "axis": "v",
         "at": 2130.0,
         "start": 5370.0,
@@ -2113,7 +2133,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW23",
+        "id": "BW24",
         "axis": "v",
         "at": 2130.0,
         "start": 6280.0,
@@ -2130,7 +2150,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW24",
+        "id": "BW25",
         "axis": "v",
         "at": 3130.0,
         "start": 5370.0,
@@ -2147,7 +2167,7 @@
         "connection_capacity": null
       },
       {
-        "id": "BW25",
+        "id": "BW26",
         "axis": "v",
         "at": 3130.0,
         "start": 6280.0,
@@ -2645,6 +2665,433 @@
       "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。"
     ]
   },
+  "indoor_lighting": {
+    "revision": "R16",
+    "fixtures": [
+      {
+        "id": "indoor_F1_ldk",
+        "category": "indoor",
+        "room": "ldk",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:ldk",
+        "diffuser_label": "F1:indoor_light:ldk:diffuser",
+        "mount_center_mm": [
+          4095.0,
+          3080.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          4.095,
+          2.28,
+          -3.08
+        ],
+        "target_glb_m": [
+          4.095,
+          0.65,
+          -3.08
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 3.0,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_foyer",
+        "category": "indoor",
+        "room": "foyer",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:foyer",
+        "diffuser_label": "F1:indoor_light:foyer:diffuser",
+        "mount_center_mm": [
+          1130.0,
+          980.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          1.13,
+          2.28,
+          -0.98
+        ],
+        "target_glb_m": [
+          1.13,
+          0.65,
+          -0.98
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_bath",
+        "category": "indoor",
+        "room": "bath",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:bath",
+        "diffuser_label": "F1:indoor_light:bath:diffuser",
+        "mount_center_mm": [
+          7100.0,
+          6190.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          7.1,
+          2.28,
+          -6.19
+        ],
+        "target_glb_m": [
+          7.1,
+          0.65,
+          -6.19
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_wash",
+        "category": "indoor",
+        "room": "wash",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:wash",
+        "diffuser_label": "F1:indoor_light:wash:diffuser",
+        "mount_center_mm": [
+          4635.0,
+          6190.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          4.635,
+          2.28,
+          -6.19
+        ],
+        "target_glb_m": [
+          4.635,
+          0.65,
+          -6.19
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_wc",
+        "category": "indoor",
+        "room": "wc",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:wc",
+        "diffuser_label": "F1:indoor_light:wc:diffuser",
+        "mount_center_mm": [
+          2630.0,
+          6250.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          2.63,
+          2.28,
+          -6.25
+        ],
+        "target_glb_m": [
+          2.63,
+          0.65,
+          -6.25
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_stairs",
+        "category": "indoor",
+        "room": "stairs",
+        "floor": 1,
+        "style": "wall",
+        "group": "F1:indoor_light:stairs",
+        "diffuser_label": "F1:indoor_light:stairs:diffuser",
+        "mount_center_mm": [
+          630.0,
+          7050.0,
+          2600
+        ],
+        "light_position_glb_m": [
+          0.6299999999999999,
+          2.5,
+          -7.05
+        ],
+        "target_glb_m": [
+          0.6299999999999999,
+          0.65,
+          -7.05
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F1_under_stairs",
+        "category": "indoor",
+        "room": "under_stairs",
+        "floor": 1,
+        "style": "pendant",
+        "group": "F1:indoor_light:under_stairs",
+        "diffuser_label": "F1:indoor_light:under_stairs:diffuser",
+        "mount_center_mm": [
+          630.0,
+          5030,
+          1902.5
+        ],
+        "light_position_glb_m": [
+          0.6299999999999999,
+          1.5825,
+          -5.03
+        ],
+        "target_glb_m": [
+          0.6299999999999999,
+          0.65,
+          -5.03
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_master",
+        "category": "indoor",
+        "room": "master",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:master",
+        "diffuser_label": "F2:indoor_light:master:diffuser",
+        "mount_center_mm": [
+          6210.0,
+          1730.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          6.209999999999999,
+          5.08,
+          -1.73
+        ],
+        "target_glb_m": [
+          6.209999999999999,
+          3.45,
+          -1.73
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 3.0,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_closet",
+        "category": "indoor",
+        "room": "closet",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:closet",
+        "diffuser_label": "F2:indoor_light:closet:diffuser",
+        "mount_center_mm": [
+          6910.0,
+          3830.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          6.909999999999999,
+          5.08,
+          -3.83
+        ],
+        "target_glb_m": [
+          6.909999999999999,
+          3.45,
+          -3.83
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_bed2",
+        "category": "indoor",
+        "room": "bed2",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:bed2",
+        "diffuser_label": "F2:indoor_light:bed2:diffuser",
+        "mount_center_mm": [
+          2245.0,
+          1730.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          2.244999999999999,
+          5.08,
+          -1.73
+        ],
+        "target_glb_m": [
+          2.244999999999999,
+          3.45,
+          -1.73
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 3.0,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_bed3",
+        "category": "indoor",
+        "room": "bed3",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:bed3",
+        "diffuser_label": "F2:indoor_light:bed3:diffuser",
+        "mount_center_mm": [
+          5595.0,
+          6250.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          5.594999999999999,
+          5.08,
+          -6.25
+        ],
+        "target_glb_m": [
+          5.594999999999999,
+          3.45,
+          -6.25
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 3.0,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_hall",
+        "category": "indoor",
+        "room": "hall",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:hall",
+        "diffuser_label": "F2:indoor_light:hall:diffuser",
+        "mount_center_mm": [
+          2190,
+          3800,
+          5400
+        ],
+        "light_position_glb_m": [
+          2.1899999999999995,
+          5.08,
+          -3.8
+        ],
+        "target_glb_m": [
+          2.1899999999999995,
+          3.45,
+          -3.8
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_wc",
+        "category": "indoor",
+        "room": "wc",
+        "floor": 2,
+        "style": "pendant",
+        "group": "F2:indoor_light:wc",
+        "diffuser_label": "F2:indoor_light:wc:diffuser",
+        "mount_center_mm": [
+          2630.0,
+          6250.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          2.63,
+          5.08,
+          -6.25
+        ],
+        "target_glb_m": [
+          2.63,
+          3.45,
+          -6.25
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_F2_stairs",
+        "category": "indoor",
+        "room": "stairs",
+        "floor": 2,
+        "style": "wall",
+        "group": "F2:indoor_light:stairs",
+        "diffuser_label": "F2:indoor_light:stairs:diffuser",
+        "mount_center_mm": [
+          630.0,
+          7050.0,
+          5400
+        ],
+        "light_position_glb_m": [
+          0.6299999999999999,
+          5.3,
+          -7.05
+        ],
+        "target_glb_m": [
+          0.6299999999999999,
+          3.45,
+          -7.05
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.2,
+        "visual_range_m": 4.8
+      },
+      {
+        "id": "indoor_attic",
+        "category": "indoor",
+        "room": "attic",
+        "floor": 3,
+        "group": "attic:indoor_light:attic",
+        "diffuser_label": "attic:indoor_light:attic:diffuser",
+        "mount_center_mm": [
+          4095.0,
+          5980,
+          6968
+        ],
+        "light_position_glb_m": [
+          4.095,
+          6.908,
+          -5.98
+        ],
+        "target_glb_m": [
+          4.095,
+          5.918,
+          -5.98
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.5,
+        "visual_range_m": 3.0
+      }
+    ],
+    "assumptions": [
+      "R16室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
+    ]
+  },
   "engineering_status": {
     "site": "demonstration; municipality and actual parcel unspecified",
     "structural_calculation": "not performed",
@@ -2653,21 +3100,21 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
-    "R15玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm阶梯顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-    "R15四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-    "R15按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+    "R16玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+    "R16四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+    "R16按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
     "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "R15左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
-    "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
+    "R16左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+    "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
     "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
-    "南侧客厅与两卧室三樘落地窗窗台0/高2200 mm，保留原宽；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
+    "南侧客厅落地窗窗台0/高2200 mm，二层两扇阳台双扇推拉门高2100 mm、宽1600/1800 mm；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
     "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
     "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
-    "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
-    "上跑踏步采用200 mm概念厚度，形成储物间阶梯状顶；与平台保持接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
+    "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。开放踢面栏护及防跌落构造尚未深化。",
+    "两跑踏步采用60 mm概念厚度、115 mm开口及40×200 mm侧梁，储物间斜顶低于侧梁；侧梁与踏步、平台及楼板接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
     "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
@@ -2678,7 +3125,7 @@
     "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R13保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R10阁楼采用纯储物用途的演示方案，保留已确认的一、二层房间净边界及 R10 切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R10阁楼采用纯储物用途的演示方案，采用R16重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
     "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -2707,7 +3154,8 @@
     "R08新增7盏原创室外灯具：1盏玄关壁灯、2盏步道灯、2盏庭院射灯及2盏门柱灯；位置、安装高度、外壳尺寸和3000K暖白色均为演示假设。",
     "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
     "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与5675 mm车辆开口。",
-    "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。"
+    "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。",
+    "R16室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -2888,36 +3336,36 @@
           "id": "bed",
           "room": "master",
           "kind": "bed",
-          "x": 5760.0,
-          "y": 950,
+          "x": 6610.0,
+          "y": 850,
           "width": 1400,
           "depth": 2000,
-          "rotation": -90,
+          "rotation": 0,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            5760.0,
-            950.0,
-            7760.0,
-            2350.0
+            6610.0,
+            850.0,
+            8010.0,
+            2850.0
           ]
         },
         {
           "id": "bed",
           "room": "bed2",
           "kind": "bed",
-          "x": 1690.0,
-          "y": 850,
+          "x": 1440.0,
+          "y": 1100,
           "width": 1000,
           "depth": 2000,
-          "rotation": 0,
+          "rotation": -90,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            1690.0,
-            850.0,
-            2690.0,
-            2850.0
+            1440.0,
+            1100.0,
+            3440.0,
+            2100.0
           ]
         },
         {
@@ -2937,6 +3385,168 @@
             7690.0,
             6680.0
           ]
+        },
+        {
+          "id": "desk",
+          "room": "master",
+          "kind": "table",
+          "x": 4690.0,
+          "y": 1000,
+          "width": 1100,
+          "depth": 550,
+          "rotation": 0,
+          "height": 730,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            4690.0,
+            1000.0,
+            5790.0,
+            1550.0
+          ]
+        },
+        {
+          "id": "desk_chair",
+          "room": "master",
+          "kind": "chair",
+          "x": 5015.0,
+          "y": 500,
+          "width": 450,
+          "depth": 420,
+          "rotation": -180,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            5015.0,
+            500.0,
+            5465.0,
+            920.0
+          ]
+        },
+        {
+          "id": "desk",
+          "room": "bed2",
+          "kind": "table",
+          "x": 2940.0,
+          "y": 2700,
+          "width": 1200,
+          "depth": 550,
+          "rotation": 0,
+          "height": 730,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            2940.0,
+            2700.0,
+            4140.0,
+            3250.0
+          ]
+        },
+        {
+          "id": "desk_chair",
+          "room": "bed2",
+          "kind": "chair",
+          "x": 3315.0,
+          "y": 2200,
+          "width": 450,
+          "depth": 420,
+          "rotation": -180,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            3315.0,
+            2200.0,
+            3765.0,
+            2620.0
+          ]
+        },
+        {
+          "id": "desk",
+          "room": "bed3",
+          "kind": "table",
+          "x": 4490.0,
+          "y": 5200,
+          "width": 1200,
+          "depth": 550,
+          "rotation": 0,
+          "height": 730,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            4490.0,
+            5200.0,
+            5690.0,
+            5750.0
+          ]
+        },
+        {
+          "id": "desk_chair",
+          "room": "bed3",
+          "kind": "chair",
+          "x": 4865.0,
+          "y": 4700,
+          "width": 450,
+          "depth": 420,
+          "rotation": -180,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            4865.0,
+            4700.0,
+            5315.0,
+            5120.0
+          ]
+        },
+        {
+          "id": "bedside_table",
+          "room": "master",
+          "kind": "table",
+          "x": 6090.0,
+          "y": 2200,
+          "width": 400,
+          "depth": 400,
+          "rotation": 0,
+          "height": 500,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            6090.0,
+            2200.0,
+            6490.0,
+            2600.0
+          ]
+        },
+        {
+          "id": "bedside_table",
+          "room": "bed2",
+          "kind": "table",
+          "x": 3490.0,
+          "y": 1400,
+          "width": 400,
+          "depth": 400,
+          "rotation": 0,
+          "height": 500,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            3490.0,
+            1400.0,
+            3890.0,
+            1800.0
+          ]
+        },
+        {
+          "id": "bedside_table",
+          "room": "bed3",
+          "kind": "table",
+          "x": 6240.0,
+          "y": 6250,
+          "width": 400,
+          "depth": 400,
+          "rotation": 0,
+          "height": 500,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            6240.0,
+            6250.0,
+            6640.0,
+            6650.0
+          ]
         }
       ]
     }
@@ -2946,7 +3556,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 962,
-    "all_nodes": 1076
+    "named_mesh_nodes": 1084,
+    "all_nodes": 1222
   }
 }

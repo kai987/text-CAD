@@ -10,7 +10,7 @@ from __future__ import annotations
 from math import sqrt
 from cadgen import build123d as bd, srgb
 
-FIXTURE_KINDS = {'浴槽': 'bath', '洗面': 'vanity', 'WC': 'toilet',
+FIXTURE_KINDS = {'浴槽': 'bath', '洗面': 'vanity', '手洗い': 'vanity', 'WC': 'toilet',
                  '洗濯': 'washer', '洗濯機': 'washer', 'キッチン': 'kitchen',
                  '対面キッチン': 'kitchen', '冷蔵庫': 'fridge', 'カップボード': 'cupboard'}
 COLORS = {'ceramic': '#F6F3EA', 'chrome': '#ADB7BD', 'wood': '#B69876',
@@ -279,7 +279,9 @@ def fixture_group(floor, p, model_id='house'):
         x1, y1, x2, y2 = bounds
         prefix = f'F{floor.number}:fixture_{index:02d}_{kind}'
         builder=_facing_kitchen if name=='対面キッチン' else _BUILDERS[kind]
-        leaves = builder(x2-x1, y2-y1, prefix, model_id)
+        leaves = builder(y2-y1,x2-x1,prefix,model_id) if name=='手洗い' else builder(x2-x1,y2-y1,prefix,model_id)
+        if name=='手洗い':
+            leaves=[leaf.rotate(bd.Axis.Z,90).moved(bd.Location((x2-x1,0,0))) for leaf in leaves]
         for leaf in leaves:
             leaf.move(bd.Location((x1, y1, z)))
         children.append(bd.Compound(children=leaves, label=prefix))

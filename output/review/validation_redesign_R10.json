@@ -1,5 +1,5 @@
 {
-  "revision": "R15",
+  "revision": "R16",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -541,7 +541,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R15"
+        "revision": "R16"
       }
     },
     {
@@ -622,7 +622,6 @@
         "bed3",
         "hall",
         "wc",
-        "wc_hall",
         "stairs",
         "balcony"
       ]
@@ -631,10 +630,10 @@
       "name": "2F/master/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 9.61,
+        "area_m2": 11.16,
         "label": [
-          5370,
-          1300
+          5390,
+          2300
         ]
       }
     },
@@ -647,10 +646,10 @@
       "name": "2F/closet/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 2.79,
+        "area_m2": 1.98,
         "label": [
-          6490,
-          3530
+          6990,
+          3830
         ]
       }
     },
@@ -663,10 +662,10 @@
       "name": "2F/bed2/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 11.253,
+        "area_m2": 12.803,
         "label": [
-          840,
-          1450
+          1290,
+          1500
         ]
       }
     },
@@ -679,9 +678,9 @@
       "name": "2F/bed3/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 13.1376,
+        "area_m2": 12.8316,
         "label": [
-          5190,
+          6290,
           5500
         ]
       }
@@ -695,9 +694,9 @@
       "name": "2F/hall/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 7.047,
+        "area_m2": 6.201,
         "label": [
-          2790,
+          3490,
           3820
         ]
       }
@@ -720,22 +719,6 @@
     },
     {
       "name": "2F/wc/no_wall_overlap",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
-      "name": "2F/wc_hall/valid",
-      "passed": true,
-      "evidence": {
-        "area_m2": 0.828,
-        "label": [
-          2630.0,
-          4840.0
-        ]
-      }
-    },
-    {
-      "name": "2F/wc_hall/no_wall_overlap",
       "passed": true,
       "evidence": 0.0
     },
@@ -826,6 +809,13 @@
       ]
     },
     {
+      "name": "2F/fixture/手洗い",
+      "passed": true,
+      "evidence": [
+        "hall"
+      ]
+    },
+    {
       "name": "2F/fixture/物干し",
       "passed": true,
       "evidence": [
@@ -847,10 +837,10 @@
         ],
         "owners": [
           [
-            "hall"
+            "master"
           ],
           [
-            "master"
+            "hall"
           ]
         ]
       }
@@ -979,39 +969,16 @@
       "evidence": 0.0
     },
     {
-      "name": "2F/O21/full_width_adjacency",
-      "passed": true,
-      "evidence": {
-        "declared": [
-          "hall",
-          "wc_hall"
-        ],
-        "owners": [
-          [
-            "hall"
-          ],
-          [
-            "wc_hall"
-          ]
-        ]
-      }
-    },
-    {
-      "name": "2F/O21/opening_clear",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
       "name": "2F/D25/full_width_adjacency",
       "passed": true,
       "evidence": {
         "declared": [
-          "wc_hall",
+          "hall",
           "wc"
         ],
         "owners": [
           [
-            "wc_hall"
+            "hall"
           ],
           [
             "wc"
@@ -1062,7 +1029,7 @@
       "passed": true,
       "evidence": {
         "declared": [
-          "hall",
+          "master",
           "balcony"
         ],
         "owners": [
@@ -1070,7 +1037,7 @@
             "balcony"
           ],
           [
-            "hall"
+            "master"
           ]
         ]
       }
@@ -1081,12 +1048,25 @@
       "evidence": 0.0
     },
     {
-      "name": "2F/D26/leaf_clear_of_fixtures",
+      "name": "2F/D27/full_width_adjacency",
       "passed": true,
-      "evidence": 0.0
+      "evidence": {
+        "declared": [
+          "bed2",
+          "balcony"
+        ],
+        "owners": [
+          [
+            "balcony"
+          ],
+          [
+            "bed2"
+          ]
+        ]
+      }
     },
     {
-      "name": "2F/D26/leaf_clear_of_walls",
+      "name": "2F/D27/opening_clear",
       "passed": true,
       "evidence": 0.0
     },
@@ -1116,16 +1096,6 @@
       "evidence": 0.0
     },
     {
-      "name": "2F/window/5/clear",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
-      "name": "2F/window/6/clear",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
       "name": "2F/whole_outline_assigned",
       "passed": true,
       "evidence": 0.0
@@ -1142,23 +1112,59 @@
           "hall",
           "master",
           "stairs",
-          "wc",
-          "wc_hall"
+          "wc"
         ]
       }
     },
     {
-      "name": "2F/balcony_without_bedroom_transit",
+      "name": "R16/balcony_from_both_bedrooms",
       "passed": true,
-      "evidence": [
-        "balcony",
-        "hall",
-        "stairs",
-        "wc_hall"
-      ]
+      "evidence": {
+        "master": [
+          "balcony",
+          "closet",
+          "hall"
+        ],
+        "closet": [
+          "master"
+        ],
+        "bed2": [
+          "balcony",
+          "hall"
+        ],
+        "bed3": [
+          "hall"
+        ],
+        "hall": [
+          "bed2",
+          "bed3",
+          "master",
+          "stairs",
+          "wc"
+        ],
+        "wc": [
+          "hall"
+        ],
+        "stairs": [
+          "hall"
+        ],
+        "balcony": [
+          "bed2",
+          "master"
+        ],
+        "outside": []
+      }
     },
     {
-      "name": "2F/route/stairs_balcony",
+      "name": "2F/route/stairs_master",
+      "passed": true,
+      "evidence": {
+        "width_mm": 600,
+        "collision_mm2": 0.0
+      }
+    },
+    {
+      "name": "2F/route/master_balcony",
       "passed": true,
       "evidence": {
         "width_mm": 600,
@@ -1183,48 +1189,55 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R15"
+        "revision": "R16"
       }
     },
     {
       "name": "2F/DXF/room_labels",
       "passed": true,
       "evidence": [
-        "掃出し窓 W1600 / H2200 / FL+0",
-        "掃出し窓 W1800 / H2200 / FL+0",
-        "ベッド 1400",
         "衣類棚",
-        "ベッド 1000",
         "CL",
-        "ベッド 1000",
         "CL",
         "WC",
+        "手洗い",
         "物干し",
+        "ベッド",
+        "ベッド",
+        "ベッド",
+        "デスク",
+        "椅子",
+        "デスク",
+        "椅子",
+        "デスク",
+        "椅子",
+        "ベッドサイド",
+        "ベッドサイド",
+        "ベッドサイド",
         "D21 / 800",
         "D22 / 800",
         "D23 / 800",
-        "D24 / 2600 折戸",
+        "D24 / 700 折戸",
         "D25 / 700",
-        "D26 / 800",
+        "D26 / W1600 引違い",
+        "D27 / W1800 引違い",
         "主寝室",
-        "9.61 m2",
-        "3100 × 3100",
+        "11.16 m2",
+        "3600 × 3100",
         "収納",
-        "2.79 m2",
-        "3100 × 900",
+        "1.98 m2",
+        "2200 × 900",
         "洋室 2",
-        "11.25 m2",
-        "3630 × 3100",
+        "12.80 m2",
+        "4130 × 3100",
         "洋室 3",
-        "13.14 m2",
-        "4830 × 2720",
-        "ホール / 物干し通路",
-        "7.05 m2",
+        "12.83 m2",
+        "L型 / 寸法線参照",
+        "ホール / 洗面",
+        "6.20 m2",
         "トイレ",
         "1.53 m2",
         "900 × 1700",
-        "ホール",
-        "0.83 m2",
         "バルコニー",
         "7.19 m2",
         "7990 × 900",
@@ -1238,7 +1251,7 @@
     {
       "name": "2F/DXF/native_editable_dimensions",
       "passed": true,
-      "evidence": 7
+      "evidence": 6
     },
     {
       "name": "2F/DXF/high_contrast",
@@ -1376,56 +1389,6 @@
       ]
     },
     {
-      "name": "2F/R09_room_preserved/master",
-      "passed": true,
-      "evidence": [
-        4910.0,
-        180.0,
-        8010.0,
-        3280.0
-      ]
-    },
-    {
-      "name": "2F/R09_room_preserved/closet",
-      "passed": true,
-      "evidence": [
-        4910.0,
-        3380.0,
-        8010.0,
-        4280.0
-      ]
-    },
-    {
-      "name": "2F/R09_room_preserved/bed2",
-      "passed": true,
-      "evidence": [
-        180.0,
-        180.0,
-        3810.0,
-        3280.0
-      ]
-    },
-    {
-      "name": "2F/R09_room_preserved/bed3",
-      "passed": true,
-      "evidence": [
-        3180.0,
-        4380.0,
-        8010.0,
-        7100.0
-      ]
-    },
-    {
-      "name": "2F/R09_room_preserved/hall",
-      "passed": true,
-      "evidence": [
-        180.0,
-        180.0,
-        4810.0,
-        4280.0
-      ]
-    },
-    {
       "name": "2F/R09_room_preserved/wc",
       "passed": true,
       "evidence": [
@@ -1433,16 +1396,6 @@
         5400.0,
         3080.0,
         7100.0
-      ]
-    },
-    {
-      "name": "2F/R09_room_preserved/wc_hall",
-      "passed": true,
-      "evidence": [
-        2180.0,
-        4380.0,
-        3080.0,
-        5300.0
       ]
     },
     {
@@ -1563,8 +1516,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "46964623c16fe7a8492a13c062d2a77ba029157694696755509e3b031bf8d9de",
-    "DXF/house_redesign_R10_1f.dxf": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
-    "DXF/house_redesign_R10_2f.dxf": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "5f5652061dbdde85a9ddde2e9b573247b9059cecb4b829115667bd41fd777c84",
+    "DXF/house_redesign_R10_1f.dxf": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
+    "DXF/house_redesign_R10_2f.dxf": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419"
   }
 }

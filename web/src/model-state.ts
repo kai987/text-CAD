@@ -5,7 +5,7 @@ export type PartGroupId = FloorId | 'foundation' | 'yard' | 'fence' | 'lighting'
 export type PartKind = 'floor_slab' | 'external_walls' | 'partition_walls' | 'doors' | 'windows' | 'storage_fixtures' | 'fixtures' | 'furniture' | 'guardrails'
   | 'columns' | 'beams' | 'sills' | 'attic_joists' | 'attic_headers' | 'roof_framing' | 'bearing_walls'
   | 'existing_plinth' | 'internal_supports' | 'raft' | 'stem_walls' | 'entrance_supports' | 'soil' | 'ground_surfaces' | 'entrance_path' | 'parking' | 'planting' | 'posts' | 'panels' | 'footings'
-  | 'wall' | 'path' | 'garden' | 'gate';
+  | 'wall' | 'path' | 'garden' | 'gate' | 'indoor_lights';
 export type PartId = `${PartGroupId}:${PartKind}`;
 export type ModelPartId = PartId | GroupId;
 export type PresetId = 'exterior' | 'first' | 'second' | 'attic' | 'interior' | 'structure';
@@ -18,6 +18,7 @@ export interface ModelSettings {
   heightMm: number;
   environment: SceneEnvironment;
   outdoorLights: boolean;
+  indoorLights: boolean;
 }
 interface ModelGroup { id: GroupId; label: string }
 interface ModelPart { id: PartId; group: PartGroupId; label: string }
@@ -44,11 +45,12 @@ const partKinds: { id: PartKind; label: string }[] = [
   { id: 'floor_slab', label: '楼板' }, { id: 'external_walls', label: '外墙' },
   { id: 'partition_walls', label: '内隔墙' }, { id: 'doors', label: '门' },
   { id: 'windows', label: '窗' }, { id: 'storage_fixtures', label: '收纳柜' },
-  { id: 'fixtures', label: '厨卫设备' }, { id: 'furniture', label: '家具' },
+  { id: 'indoor_lights', label: '室内灯具' }, { id: 'fixtures', label: '厨卫设备' }, { id: 'furniture', label: '家具' },
 ];
 export const parts: ModelPart[] = [
   ...(['F1', 'F2'] as const)
     .flatMap(group => partKinds.map(kind => ({ id: `${group}:${kind.id}` as PartId, group, label: kind.label }))),
+  { id: 'attic:indoor_lights', group: 'attic', label: '室内灯具' },
   { id: 'attic:floor_slab', group: 'attic', label: '楼板' },
   { id: 'attic:partition_walls', group: 'attic', label: '内隔墙' },
   { id: 'attic:storage_fixtures', group: 'attic', label: '收纳柜' },
@@ -161,7 +163,7 @@ export function settingsForPreset(id: PresetId, layout = modelLayouts.house, pre
     if (part.id.endsWith(':furniture')) partVisibility[part.id] = previous.partVisibility[part.id] ?? true;
   }
   return { visibility: { ...preset.visibility }, partVisibility, cutaway: preset.cutaway ?? false, heightMm: preset.heightMm ?? layout.defaultCutHeight,
-    environment: previous?.environment ?? 'day', outdoorLights: previous?.outdoorLights ?? true };
+    environment: previous?.environment ?? 'day', outdoorLights: previous?.outdoorLights ?? true, indoorLights: previous?.indoorLights ?? true };
 }
 export function activePreset(s: ModelSettings, layout = modelLayouts.house): PresetId | undefined {
   if (layout.parts.some(part => !part.id.endsWith(':furniture') && !s.partVisibility[part.id])) return undefined;

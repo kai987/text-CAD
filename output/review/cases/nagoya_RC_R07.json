@@ -987,11 +987,6 @@
           "overlaps": []
         },
         {
-          "id": "F2:O21",
-          "kind": "door",
-          "overlaps": []
-        },
-        {
           "id": "F2:D25",
           "kind": "door",
           "overlaps": []
@@ -1003,6 +998,11 @@
         },
         {
           "id": "F2:D26",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D27",
           "kind": "door",
           "overlaps": []
         },
@@ -1028,16 +1028,6 @@
         },
         {
           "id": "F2:W05",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W06",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W07",
           "kind": "window",
           "overlaps": []
         }

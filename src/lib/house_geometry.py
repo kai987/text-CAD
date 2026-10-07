@@ -34,6 +34,9 @@ class GeometryParameters:
     roof_pitch_degrees: float = 30
     roof_vertical_thickness: float = 150
     landing_thickness: float = 200
+    stair_tread_thickness: float = 60
+    stair_stringer_width: float = 40
+    stair_stringer_depth: float = 200
     shoe_cabinet_height: float = 1800
     storage_cabinet_height: float = 2000
 
@@ -163,6 +166,17 @@ def door_group(floor, p=P, g=G):
     for door in floor.doors:
         if door.kind == 'open':
             continue
+        if door.kind=='bypass':
+            for i in range(2):
+                start=door.start+10+i*(door.width-30)/2
+                width=(door.width-30)/2+10
+                at=door.at+(-20 if i==0 else 20)
+                frame=opening_box('h',at,start,width,32,z+10,z+g.door_height-10)
+                glass=opening_box('h',at,start+45,width-90,8,z+75,z+g.door_height-55)
+                tool=opening_box('h',at,start+45,width-90,36,z+75,z+g.door_height-55)
+                leaves.extend([named(frame.cut(tool),f'F{floor.number}:{door.id}_slider_frame_{i+1}','frame'),
+                               named(glass,f'F{floor.number}:{door.id}_slider_glass_{i+1}','glass',.45)])
+            continue
         leaf = opening_box(door.axis, door.at, door.start+10, door.width-20,
                            g.door_leaf_thickness-2, z+10, z+g.door_height-10)
         if 'balcony' in (door.a,door.b):
@@ -239,19 +253,35 @@ def stair_group(p=P, g=G):
     half_z = per_flight*rise
     lower, upper = [], []
     for i in range(per_flight-1):
-        lower.append(cuboid((sx, sy+i*p.tread, 0,
+        lower.append(cuboid((sx, sy+i*p.tread, (i+1)*rise-g.stair_tread_thickness,
                               sx+p.stair_width, sy+(i+1)*p.tread, (i+1)*rise),
                              f"stairs:lower_tread_{i+1:02d}", "stairs"))
-        upper.append(cuboid((xm-p.stair_width, landing_y-(i+1)*p.tread, half_z+(i+1)*rise-g.landing_thickness,
+        upper.append(cuboid((xm-p.stair_width, landing_y-(i+1)*p.tread, half_z+(i+1)*rise-g.stair_tread_thickness,
                               xm, landing_y-i*p.tread, half_z+(i+1)*rise),
                              f"stairs:upper_tread_{i+1:02d}", "stairs"))
     # The F2 slab's own south opening edge forms the eighth return-flight
     # riser. No extra panel consumes any of the final 260 mm tread.
     landing = cuboid((sx, landing_y, half_z-g.landing_thickness,
                        xm, ym, half_z), "stairs:mid_landing", "stairs")
+    # Two side stringers per flight leave the middle open. Their illustrative
+    # intersections express support continuity only, not verified connections.
+    stringers=[]
+    def rail(label,x,y0,y1,z0,z1):
+        from shapely.geometry import Polygon
+        profile=Polygon([(y0,z0),(y1,z1),(y1,z1-g.stair_stringer_depth),
+                         (y0,z0-g.stair_stringer_depth)]).intersection(box(y0,0,y1,p.storey_height))
+        wire=bd.Wire.make_polygon([(x,y,z) for y,z in profile.exterior.coords])
+        stringers.append(named(bd.extrude(bd.Face(wire),amount=g.stair_stringer_width,dir=(1,0,0)),label,'stairs'))
+    for side,x in enumerate((sx,sx+p.stair_width-g.stair_stringer_width),1):
+        rail(f'stairs:lower_stringer_{side}',x,sy,landing_y+p.tread,
+             -g.stair_tread_thickness+20,half_z-g.stair_tread_thickness+20)
+    for side,x in enumerate((xm-p.stair_width,xm-g.stair_stringer_width),1):
+        rail(f'stairs:upper_stringer_{side}',x,sy-p.tread,landing_y,
+             p.storey_height-g.stair_tread_thickness+20,half_z-g.stair_tread_thickness+20)
     return bd.Compound(children=[
-        bd.Compound(children=lower, label="stairs:lower_flight"), landing,
-        bd.Compound(children=upper, label="stairs:upper_flight")], label="stairs")
+        bd.Compound(children=lower,label='stairs:lower_flight'),landing,
+        bd.Compound(children=upper,label='stairs:upper_flight'),*stringers],label='stairs')
+
 
 
 def slab_for_floor(number, p=P, g=G):
@@ -310,14 +340,19 @@ def storage_group(floor, p=P, g=G):
     if floor.number==1:
         d=dimensions(p);x1=d['xmax']-p.stair_width;x2=d['xmax'];sy=d['sy']
         landing_y=sy+(p.risers//2-1)*p.tread;rise=p.storey_height/p.risers
+        def yz_panel(points,x,width,label):
+            wire=bd.Wire.make_polygon([(x,y,z) for y,z in points])
+            return named(bd.extrude(bd.Face(wire),amount=width,dir=(1,0,0)),label,'internal')
         for i in range(p.risers//2-1):
             ya=landing_y-(i+1)*p.tread;yb=landing_y-i*p.tread
-            underside=p.storey_height/2+(i+1)*rise-g.landing_thickness
+            underside=p.storey_height/2+(i+1)*rise-g.stair_tread_thickness
+            za=underside+20-g.stair_stringer_depth-10;zb=za-rise
             prefix=f'F1:under_stairs:section_{i+1}'
-            storage.extend([cuboid((x1,ya,0,x1+50,yb,underside-40),prefix+':side','internal'),
-                            cuboid((x1+50,ya,underside-40,x2-50,yb,underside-5),prefix+':ceiling','internal')])
-        rear_height=p.storey_height/2+rise-g.landing_thickness-40
-        storage.append(cuboid((x1+50,landing_y-60,0,x2-50,landing_y,rear_height),'F1:under_stairs:back','internal'))
+            storage.extend([yz_panel([(ya,0),(yb,0),(yb,zb-35),(ya,za-35)],x1,50,prefix+':side'),
+                            yz_panel([(ya,za-35),(yb,zb-35),(yb,zb),(ya,za)],x1+50,p.stair_width-100,prefix+':ceiling')])
+        rear_height=p.storey_height/2-g.stair_tread_thickness+20-g.stair_stringer_depth-10-35
+        storage.append(yz_panel([(landing_y-60,0),(landing_y,0),(landing_y,rear_height),
+                                 (landing_y-60,rear_height+60/p.tread*rise)],x1+50,p.stair_width-100,'F1:under_stairs:back'))
         for i,zs in enumerate((400,800),1):
             storage.append(cuboid((x1+65,landing_y-400,zs,x2-65,landing_y-70,zs+25),
                                   f'F1:under_stairs:shelf_{i}','storage'))
@@ -327,6 +362,7 @@ def storage_group(floor, p=P, g=G):
 @orient_shape
 def house_assembly(p=P, g=G, include_roof=True):
     from .furniture_geometry import furniture_group
+    from .indoor_lighting import indoor_lighting_group
     from .fixture_geometry import fixture_group
     from .attic_geometry import attic_access_group, attic_group
     from .site_geometry import foundation_group, yard_group, fence_group
@@ -340,11 +376,16 @@ def house_assembly(p=P, g=G, include_roof=True):
         floors.append(bd.Compound(children=[slab_for_floor(number, p, g), external, internal,
                                             door_group(plan, p, g), window_group(plan, p, g),
                                             storage_group(plan, p, g), fixture_group(plan, p, "house"),
-                                            furniture_group(plan, "house", p)], label=f"F{number}"))
+                                            furniture_group(plan, "house", p),indoor_lighting_group(number,p,g)], label=f"F{number}"))
     children = floors+[stair_group(p, g),balcony_group(p,g)]
     if include_roof:
         children.append(roof_group(p, g))
-    children += [attic_group(p, g), attic_access_group(p, g)]
+    attic=attic_group(p,g)
+    from .indoor_lighting import indoor_lighting_group
+    lamp=indoor_lighting_group(3,p,g)
+    # Keep the attic light under its equipment category and floor visibility.
+    attic.children=tuple(attic.children)+(lamp,)
+    children += [attic, attic_access_group(p, g)]
     children += [foundation_group(p, g), yard_group(p, g), fence_group(p=p)]
     children.append(structure_group(p, g))
     children.append(outdoor_lighting_group(p, g))
@@ -363,8 +404,10 @@ def geometry_manifest(p=P, g=G):
     site = site_manifest(p, g)
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
+    from .indoor_lighting import indoor_lighting_manifest
+    indoor=indoor_lighting_manifest(p,g)
     return {
-        "revision": "R15-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R16-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -374,6 +417,7 @@ def geometry_manifest(p=P, g=G):
         "site": site,
         "structure": structure,
         "outdoor_lighting": lighting,
+        "indoor_lighting": indoor,
         "engineering_status": {
             "site": "demonstration; municipality and actual parcel unspecified",
             "structural_calculation": "not performed",
@@ -382,25 +426,25 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
-            "R15玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm阶梯顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-            "R15四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-            "R15按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+            "R16玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+            "R16四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+            "R16按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
             "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "R15左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
-            "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
+            "R16左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+            "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
             "门洞高2100 mm；门扇厚36 mm，以关闭位置表达，侧边及上下留10 mm示意间隙。",
-            "南侧客厅与两卧室三樘落地窗窗台0/高2200 mm，保留原宽；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
+            "南侧客厅落地窗窗台0/高2200 mm，二层两扇阳台双扇推拉门高2100 mm、宽1600/1800 mm；其他大窗窗台900/高1300 mm，小窗窗台1500/高600 mm。",
             "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
-            "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
-            "上跑踏步采用200 mm概念厚度，形成储物间阶梯状顶；与平台保持接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
+            "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。开放踢面栏护及防跌落构造尚未深化。",
+            "两跑踏步采用60 mm概念厚度、115 mm开口及40×200 mm侧梁，储物间斜顶低于侧梁；侧梁与踏步、平台及楼板接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
             "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
-        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"] + lighting["assumptions"],
+        ] + exterior["assumptions"] + attic["assumptions"] + site["assumptions"] + structure["assumptions"] + lighting["assumptions"] + indoor["assumptions"],
         "interior_reference": "references/interior-furnishings.md",
         "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
         "furnishings": [furniture_manifest(floor_plan(n, p), "house", p) for n in (1, 2)],

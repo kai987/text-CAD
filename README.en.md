@@ -1,5 +1,11 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R16 Second-floor redesign and indoor lighting
+
+The long central passage joins the two south bedrooms (11.160/12.803 m²). Each bedroom has its own balcony slider. The WC forecourt joins the shared hall with a recessed basin and mirror. North bedroom windows are north 600 mm/east 1800 mm. All bedrooms have a desk, chair and bedside table. Open stairs use 60 mm treads and side stringers, retaining under-stair storage; reduced solid fill does not automatically reduce their footprint.
+
+Fifteen indoor lamps (pendants, stair wall lamps, attic ceiling lamp) have one master switch, independent of furniture, outdoor lights and time of day. Hidden or clipped lamps stop illuminating. Dimensions and brightness are demonstration assumptions; capacity, connections, guards, fire safety, photometry and electrical installation remain unengineered. [R16 details / 中文 / 日本語](docs/interior_R16.md). R15 and earlier sections below are historical; current R16 exports take precedence.
+
 ## R15 Under-stair storage and four-person furnishings
 
 The entry handle moves to the left as seen from outside. The enclosed first-floor WC lobby becomes part of the LDK. An 800×1760 mm storage room with a stepped ceiling fits below the upper stair flight. A 2600×1550 mm four-seat L sofa faces the south-wall TV, with a 950×550 mm coffee table, 1600×850 mm dining table and four chairs. The refrigerator is a 900×750 mm side-by-side model. Second-floor rooms and west stair windows remain. All dimensions are demo assumptions; stair capacity, connections and fire separation are unengineered.

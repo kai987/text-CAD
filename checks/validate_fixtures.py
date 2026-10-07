@@ -28,9 +28,10 @@ def validate():
             planned = [(i, name, bounds) for i, (name, bounds) in enumerate(floor.fixtures, 1)
                        if name in FIXTURE_KINDS]
             check(f'{tag}:group_name', group.label == f'F{floor.number}:fixtures')
-            check(f'{tag}:every_plan_fixture', len(group.children) == len(planned))
+            equipment=[child for child in group.children if ':fixture_' in child.label]
+            check(f'{tag}:every_plan_fixture', len(equipment) == len(planned))
             labels = set()
-            for fixture, (index, name, bounds) in zip(group.children, planned):
+            for fixture, (index, name, bounds) in zip(equipment, planned):
                 kind = FIXTURE_KINDS[name]
                 prefix = f'F{floor.number}:fixture_{index:02d}_{kind}'
                 x1, y1, x2, y2 = bounds
@@ -66,6 +67,8 @@ def validate():
                 elif kind == 'vanity':
                     basin = parts['basin_ceramic'].solids()[0]
                     bowl_y = y1+(y2-y1)*.46
+                    if name=='手洗い':cx, bowl_y=x2-(x2-x1)*.46,(y1+y2)/2
+                    if name=='手洗い' and getattr(p,'mirror_layout',False):cx=x1+(x2-x1)*.46
                     check(f'{tag}:vanity:hollow_basin', not basin.is_inside((cx, bowl_y, z+750)))
                     check(f'{tag}:vanity:sealed_basin_floor', basin.is_inside((cx, bowl_y, z+660)))
                     check(f'{tag}:vanity:mirror_below_high_window', parts['mirror'].bounding_box().max.Z < z+1500)

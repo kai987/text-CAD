@@ -52,15 +52,17 @@ def draw(g,f):
             _,at,start,width=window
             g.text(f'掃出し窓 W{width:g} / H{P.south_window_height:g} / FL+{P.south_window_sill:g}',(start+width/2,330),90)
     for name,b in f.fixtures:
-        if f.number==1 and name in ('ソファ','ダイニング','TV'):continue
+        if name in ('ソファ','ダイニング','TV') or name.startswith('ベッド'):continue
         g.rect(b,'FURNITURE');g.text(name,((b[0]+b[2])/2,(b[1]+b[3])/2),90)
-    if f.number==1:
+    if f.number in (1,2):
         from lib.furniture_geometry import furniture_placements
         for item in furniture_placements(f,'house',canonical(P)):
             geom=item.footprint();g.poly(geom.exterior.coords,'FURNITURE')
             c=geom.representative_point()
-            name={'corner_sofa':'4人 Lソファ','table':'4人ダイニング' if item.id=='dining_table' else 'ローテーブル',
+            name={'bed':'ベッド','corner_sofa':'4人 Lソファ','table':'4人ダイニング' if item.id=='dining_table' else 'ローテーブル',
                   'television':'TV','chair':'椅子'}[item.kind]
+            if item.id=='desk':name='デスク'
+            if item.id=='bedside_table':name='ベッドサイド'
             g.text(name,(c.x,c.y),90)
     for door in f.doors:
         if door.kind=='open':
@@ -73,6 +75,9 @@ def draw(g,f):
                 g.line((edge,a),mid,'DOOR')
                 g.line(mid,(edge+sign*w/4,a),'DOOR')
             g.text(f'{door.id} / {w:.0f} 折戸',(s+w/2,a-180),125)
+        elif door.kind=='bypass':
+            g.line((s,a-20),(s+w*.55,a-20),'DOOR');g.line((s+w*.45,a+20),(s+w,a+20),'DOOR')
+            g.text(f'{door.id} / W{w:.0f} 引違い',(s+w/2,a+350),125)
         elif door.kind=='slide':
             parked=s+door.direction*w
             if door.axis=='h':
@@ -97,7 +102,7 @@ def draw(g,f):
         if r.id=='wc_hall':
             g.text(r.name,(x,y+125),175);g.text(f'{r.area:.2f} m2',(x,y-125),125);continue
         if r.id=='closet':
-            g.text(r.name,(750,y),175);g.text(f'{r.area:.2f} m2',(1450,y),125);g.text(r.size_note,(2500,y),125);continue
+            g.text(r.name,(750,3520),175);g.text(f'{r.area:.2f} m2',(1600,3520),125);g.text(r.size_note,(1300,3650),125);continue
         g.text(r.name,(x,y+180),175)
         g.text(f'{r.area:.2f} m2',(x,y-25),125)
         if r.id not in ('ldk','hall'):
@@ -111,9 +116,9 @@ def draw(g,f):
     else:
         bx=d['bx'];g.dim((bx,-P.balcony_depth),(bx+P.balcony_width,-P.balcony_depth),(0,-2200))
         g.dim((bx+P.balcony_width,-P.balcony_depth),(bx+P.balcony_width,0),(bx+P.balcony_width+650,0),90)
-        g.dim((180,180),(P.access_left-100,180),(0,-1750))
-        g.dim((P.access_left,180),(d['ar'],180),(0,-1750))
-        g.dim((d['ar']+100,180),(d['xm'],180),(0,-1750))
+        split=P.access_left+P.hall_width/2
+        g.dim((180,180),(split-50,180),(0,-1750))
+        g.dim((split+50,180),(d['xm'],180),(0,-1750))
     g.dim((0,P.depth),(P.width,P.depth),(0,P.depth+1000))
     g.dim((0,0),(0,P.depth),(-650,0),90)
     g.text('北 N (仮定)',(P.width+750,P.depth-500),125)
@@ -128,12 +133,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R15 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R16 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n,canonical(P));draw_pdf_sheet(c,f)
         g=Drawing(c);g.mirror_width=P.width if P.mirror_layout else None;g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

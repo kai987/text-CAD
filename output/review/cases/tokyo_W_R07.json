@@ -15,8 +15,8 @@
     "step": "STEP/structure_W.step"
   },
   "model_hashes_sha256": {
-    "glb": "98c634fa6d28b22e6347d585f74e7214930dfe0e9b8ec34b4ae55b235ef19f04",
-    "step": "ffcbe4f489d64079e0372c5aa8d9a25b6949dad41bd2217faada7ad79b37b384"
+    "glb": "30faaa9e8ad3eb4827f52496666b087e2a5d0cea9b1dd5b68e1c1b9d95144050",
+    "step": "4eea4b59f303a3244ea0ba1309ad803b15e4f97cf3ad72de165e0092e07a37a1"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -349,10 +349,10 @@
       {
         "name": "structure:F1:column_C04",
         "bounds_mm": [
-          4765.0,
+          4480.0,
           30.0,
           -80.0,
-          4885.0,
+          4600.0,
           150.0,
           2476.0
         ],
@@ -361,19 +361,6 @@
       },
       {
         "name": "structure:F1:column_C05",
-        "bounds_mm": [
-          3835.0,
-          30.0,
-          -80.0,
-          3955.0,
-          150.0,
-          2476.0
-        ],
-        "volume_mm3": 36806400.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:column_C06",
         "bounds_mm": [
           3590.0,
           30.0,
@@ -386,7 +373,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C07",
+        "name": "structure:F1:column_C06",
         "bounds_mm": [
           2995.0,
           30.0,
@@ -399,7 +386,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C08",
+        "name": "structure:F1:column_C07",
         "bounds_mm": [
           855.0,
           30.0,
@@ -412,7 +399,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C09",
+        "name": "structure:F1:column_C08",
         "bounds_mm": [
           30.0,
           30.0,
@@ -425,7 +412,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C10",
+        "name": "structure:F1:column_C09",
         "bounds_mm": [
           8040.0,
           7130.0,
@@ -438,7 +425,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C11",
+        "name": "structure:F1:column_C10",
         "bounds_mm": [
           7545.0,
           7130.0,
@@ -451,12 +438,25 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C12",
+        "name": "structure:F1:column_C11",
         "bounds_mm": [
-          5615.0,
+          6765.0,
           7130.0,
           -80.0,
-          5735.0,
+          6885.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 36806400.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C12",
+        "bounds_mm": [
+          6260.0,
+          7130.0,
+          -80.0,
+          6380.0,
           7250.0,
           2476.0
         ],
@@ -623,10 +623,10 @@
         "name": "structure:F1:column_C25",
         "bounds_mm": [
           8040.0,
-          5275.0,
+          4875.0,
           -80.0,
           8160.0,
-          5395.0,
+          4995.0,
           2476.0
         ],
         "volume_mm3": 36806400.0,
@@ -636,10 +636,10 @@
         "name": "structure:F1:column_C26",
         "bounds_mm": [
           8040.0,
-          6405.0,
+          6805.0,
           -80.0,
           8160.0,
-          6525.0,
+          6925.0,
           2476.0
         ],
         "volume_mm3": 36806400.0,
@@ -895,10 +895,10 @@
       {
         "name": "structure:F2:column_C04",
         "bounds_mm": [
-          4765.0,
+          4480.0,
           30.0,
           2776.0,
-          4885.0,
+          4600.0,
           150.0,
           5096.0
         ],
@@ -907,19 +907,6 @@
       },
       {
         "name": "structure:F2:column_C05",
-        "bounds_mm": [
-          3835.0,
-          30.0,
-          2776.0,
-          3955.0,
-          150.0,
-          5096.0
-        ],
-        "volume_mm3": 33408000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:column_C06",
         "bounds_mm": [
           3590.0,
           30.0,
@@ -932,7 +919,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C07",
+        "name": "structure:F2:column_C06",
         "bounds_mm": [
           2995.0,
           30.0,
@@ -945,7 +932,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C08",
+        "name": "structure:F2:column_C07",
         "bounds_mm": [
           855.0,
           30.0,
@@ -958,7 +945,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C09",
+        "name": "structure:F2:column_C08",
         "bounds_mm": [
           30.0,
           30.0,
@@ -971,7 +958,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C10",
+        "name": "structure:F2:column_C09",
         "bounds_mm": [
           8040.0,
           7130.0,
@@ -984,7 +971,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C11",
+        "name": "structure:F2:column_C10",
         "bounds_mm": [
           7545.0,
           7130.0,
@@ -997,12 +984,25 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C12",
+        "name": "structure:F2:column_C11",
         "bounds_mm": [
-          5615.0,
+          6765.0,
           7130.0,
           2776.0,
-          5735.0,
+          6885.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 33408000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C12",
+        "bounds_mm": [
+          6260.0,
+          7130.0,
+          2776.0,
+          6380.0,
           7250.0,
           5096.0
         ],
@@ -1169,10 +1169,10 @@
         "name": "structure:F2:column_C25",
         "bounds_mm": [
           8040.0,
-          5275.0,
+          4875.0,
           2776.0,
           8160.0,
-          5395.0,
+          4995.0,
           5096.0
         ],
         "volume_mm3": 33408000.0,
@@ -1182,10 +1182,10 @@
         "name": "structure:F2:column_C26",
         "bounds_mm": [
           8040.0,
-          6405.0,
+          6805.0,
           2776.0,
           8160.0,
-          6525.0,
+          6925.0,
           5096.0
         ],
         "volume_mm3": 33408000.0,
@@ -2687,7 +2687,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW21",
+        "name": "structure:F1:bearing_wall_BW22",
         "bounds_mm": [
           2080.0,
           4460.0,
@@ -2700,7 +2700,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW22",
+        "name": "structure:F1:bearing_wall_BW23",
         "bounds_mm": [
           2080.0,
           5370.0,
@@ -2713,7 +2713,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW23",
+        "name": "structure:F1:bearing_wall_BW24",
         "bounds_mm": [
           2080.0,
           6280.0,
@@ -2726,7 +2726,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW24",
+        "name": "structure:F1:bearing_wall_BW25",
         "bounds_mm": [
           3080.0,
           5370.0,
@@ -2739,7 +2739,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW25",
+        "name": "structure:F1:bearing_wall_BW26",
         "bounds_mm": [
           3080.0,
           6280.0,
@@ -2767,18 +2767,31 @@
       {
         "name": "structure:F1:bearing_wall_BW02",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           -80.0,
           5375.0,
           159.0,
           2776.0
         ],
-        "volume_mm3": 13921200.0,
+        "volume_mm3": 21219840.0,
         "solid_count": 1
       },
       {
         "name": "structure:F1:bearing_wall_BW03",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          -80.0,
+          4540.0,
+          159.0,
+          2776.0
+        ],
+        "volume_mm3": 22633560.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW04",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -2791,7 +2804,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW04",
+        "name": "structure:F1:bearing_wall_BW05",
         "bounds_mm": [
           90.0,
           150.0,
@@ -2804,7 +2817,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW05",
+        "name": "structure:F1:bearing_wall_BW06",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -2817,7 +2830,33 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW06",
+        "name": "structure:F1:bearing_wall_BW07",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          -80.0,
+          6825.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 12980520.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW08",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          -80.0,
+          6320.0,
+          7130.0,
+          2776.0
+        ],
+        "volume_mm3": 22876560.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:bearing_wall_BW09",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -2830,7 +2869,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW07",
+        "name": "structure:F1:bearing_wall_BW10",
         "bounds_mm": [
           3130.0,
           7121.0,
@@ -2843,7 +2882,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW08",
+        "name": "structure:F1:bearing_wall_BW11",
         "bounds_mm": [
           980.0,
           7121.0,
@@ -2856,7 +2895,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW09",
+        "name": "structure:F1:bearing_wall_BW12",
         "bounds_mm": [
           90.0,
           7121.0,
@@ -2869,7 +2908,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW10",
+        "name": "structure:F1:bearing_wall_BW13",
         "bounds_mm": [
           8031.0,
           90.0,
@@ -2882,7 +2921,7 @@
         "solid_count": 2
       },
       {
-        "name": "structure:F1:bearing_wall_BW11",
+        "name": "structure:F1:bearing_wall_BW14",
         "bounds_mm": [
           8031.0,
           3565.0,
@@ -2895,33 +2934,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW12",
-        "bounds_mm": [
-          8031.0,
-          4527.5,
-          -80.0,
-          8040.0,
-          5335.0,
-          2776.0
-        ],
-        "volume_mm3": 20755980.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:bearing_wall_BW13",
-        "bounds_mm": [
-          8031.0,
-          6465.0,
-          -80.0,
-          8040.0,
-          7190.0,
-          2776.0
-        ],
-        "volume_mm3": 18242064.0,
-        "solid_count": 2
-      },
-      {
-        "name": "structure:F1:bearing_wall_BW14",
+        "name": "structure:F1:bearing_wall_BW15",
         "bounds_mm": [
           150.0,
           90.0,
@@ -2934,7 +2947,7 @@
         "solid_count": 2
       },
       {
-        "name": "structure:F1:bearing_wall_BW15",
+        "name": "structure:F1:bearing_wall_BW16",
         "bounds_mm": [
           150.0,
           977.5,
@@ -2947,7 +2960,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW16",
+        "name": "structure:F1:bearing_wall_BW17",
         "bounds_mm": [
           150.0,
           1865.0,
@@ -2960,7 +2973,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW17",
+        "name": "structure:F1:bearing_wall_BW18",
         "bounds_mm": [
           150.0,
           2752.5,
@@ -2973,7 +2986,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW18",
+        "name": "structure:F1:bearing_wall_BW19",
         "bounds_mm": [
           150.0,
           3640.0,
@@ -2986,7 +2999,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW19",
+        "name": "structure:F1:bearing_wall_BW20",
         "bounds_mm": [
           150.0,
           4527.5,
@@ -2999,7 +3012,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW20",
+        "name": "structure:F1:bearing_wall_BW21",
         "bounds_mm": [
           150.0,
           5415.0,
@@ -3012,7 +3025,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW21",
+        "name": "structure:F2:bearing_wall_BW22",
         "bounds_mm": [
           2080.0,
           4460.0,
@@ -3025,7 +3038,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW22",
+        "name": "structure:F2:bearing_wall_BW23",
         "bounds_mm": [
           2080.0,
           5370.0,
@@ -3038,7 +3051,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW23",
+        "name": "structure:F2:bearing_wall_BW24",
         "bounds_mm": [
           2080.0,
           6280.0,
@@ -3051,7 +3064,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW24",
+        "name": "structure:F2:bearing_wall_BW25",
         "bounds_mm": [
           3080.0,
           5370.0,
@@ -3064,7 +3077,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW25",
+        "name": "structure:F2:bearing_wall_BW26",
         "bounds_mm": [
           3080.0,
           6280.0,
@@ -3092,18 +3105,31 @@
       {
         "name": "structure:F2:bearing_wall_BW02",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           2776.0,
           5375.0,
           159.0,
           5396.0
         ],
-        "volume_mm3": 12753000.0,
+        "volume_mm3": 19446300.0,
         "solid_count": 1
       },
       {
         "name": "structure:F2:bearing_wall_BW03",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          2776.0,
+          4540.0,
+          159.0,
+          5396.0
+        ],
+        "volume_mm3": 20743200.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW04",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -3116,7 +3142,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW04",
+        "name": "structure:F2:bearing_wall_BW05",
         "bounds_mm": [
           90.0,
           150.0,
@@ -3129,7 +3155,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW05",
+        "name": "structure:F2:bearing_wall_BW06",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -3142,7 +3168,33 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW06",
+        "name": "structure:F2:bearing_wall_BW07",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          2776.0,
+          6825.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 11907900.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW08",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          2776.0,
+          6320.0,
+          7130.0,
+          5396.0
+        ],
+        "volume_mm3": 20986200.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:bearing_wall_BW09",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -3155,7 +3207,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW07",
+        "name": "structure:F2:bearing_wall_BW10",
         "bounds_mm": [
           3130.0,
           7121.0,
@@ -3168,7 +3220,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW08",
+        "name": "structure:F2:bearing_wall_BW11",
         "bounds_mm": [
           980.0,
           7121.0,
@@ -3181,7 +3233,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW09",
+        "name": "structure:F2:bearing_wall_BW12",
         "bounds_mm": [
           90.0,
           7121.0,
@@ -3194,7 +3246,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW10",
+        "name": "structure:F2:bearing_wall_BW13",
         "bounds_mm": [
           8031.0,
           90.0,
@@ -3207,7 +3259,7 @@
         "solid_count": 2
       },
       {
-        "name": "structure:F2:bearing_wall_BW11",
+        "name": "structure:F2:bearing_wall_BW14",
         "bounds_mm": [
           8031.0,
           3565.0,
@@ -3220,33 +3272,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW12",
-        "bounds_mm": [
-          8031.0,
-          4527.5,
-          2776.0,
-          8040.0,
-          5335.0,
-          5396.0
-        ],
-        "volume_mm3": 19040850.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:bearing_wall_BW13",
-        "bounds_mm": [
-          8031.0,
-          6465.0,
-          2776.0,
-          8040.0,
-          7190.0,
-          5396.0
-        ],
-        "volume_mm3": 16721280.0,
-        "solid_count": 2
-      },
-      {
-        "name": "structure:F2:bearing_wall_BW14",
+        "name": "structure:F2:bearing_wall_BW15",
         "bounds_mm": [
           150.0,
           90.0,
@@ -3259,7 +3285,7 @@
         "solid_count": 2
       },
       {
-        "name": "structure:F2:bearing_wall_BW15",
+        "name": "structure:F2:bearing_wall_BW16",
         "bounds_mm": [
           150.0,
           977.5,
@@ -3272,7 +3298,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW16",
+        "name": "structure:F2:bearing_wall_BW17",
         "bounds_mm": [
           150.0,
           1865.0,
@@ -3285,7 +3311,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW17",
+        "name": "structure:F2:bearing_wall_BW18",
         "bounds_mm": [
           150.0,
           2752.5,
@@ -3298,7 +3324,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW18",
+        "name": "structure:F2:bearing_wall_BW19",
         "bounds_mm": [
           150.0,
           3640.0,
@@ -3311,7 +3337,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW19",
+        "name": "structure:F2:bearing_wall_BW20",
         "bounds_mm": [
           150.0,
           4527.5,
@@ -3324,7 +3350,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW20",
+        "name": "structure:F2:bearing_wall_BW21",
         "bounds_mm": [
           150.0,
           5415.0,
@@ -3584,7 +3610,7 @@
         "solid_count": 1
       }
     ],
-    "member_count": 252,
+    "member_count": 254,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -3704,11 +3730,6 @@
           "overlaps": []
         },
         {
-          "id": "F2:O21",
-          "kind": "door",
-          "overlaps": []
-        },
-        {
           "id": "F2:D25",
           "kind": "door",
           "overlaps": []
@@ -3720,6 +3741,11 @@
         },
         {
           "id": "F2:D26",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D27",
           "kind": "door",
           "overlaps": []
         },
@@ -3745,16 +3771,6 @@
         },
         {
           "id": "F2:W05",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W06",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W07",
           "kind": "window",
           "overlaps": []
         }
@@ -3788,8 +3804,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 252,
-      "all_nodes": 267
+      "named_mesh_nodes": 254,
+      "all_nodes": 269
     }
   },
   "project_inputs": {

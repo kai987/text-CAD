@@ -18,7 +18,7 @@ export function format(template: string, values: Record<string, string | number>
 
 const zh = {
   models: { label: '户型方案', house: '日本两层一户建', apartment: '日本公寓 2LDK · 约 65㎡', note: '所有方案尺寸均为演示假设' },
-  sceneLighting: { label: '模型昼夜', day: '白天', night: '夜晚', outdoor: '室外灯光', help: '模型昼夜独立于页面颜色模式。', fixtureHelp: '夜晚时为可见的室外灯具点灯；在部件树中可分别隐藏灯具。' },
+  sceneLighting: { label: '模型昼夜', day: '白天', night: '夜晚', indoor: '室内灯光', indoorHelp: '一键开关所有可见房间的灯；隐藏或剖切掉的灯不再照明，独立于家具与室外灯。亮度仅为演示。', outdoor: '室外灯光', help: '模型昼夜独立于页面颜色模式。', fixtureHelp: '夜晚时为可见的室外灯具点灯；在部件树中可分别隐藏灯具。' },
   theme: { label: '颜色模式', system: '系统', light: '浅色', dark: '深色', help: '选择系统可跟随设备的明暗设置。' },
   app: { skip: '跳到查看区域', home: 'text-CAD 首页', nav: '房屋模型与图纸', language: '界面语言',
     title: '日本两层一户建', description: '查看日本两层一户建的参数化方案模型、平面图和可下载 CAD 文件。',
@@ -34,7 +34,7 @@ const zh = {
   parameters: { title: '方案参数', units: '单位', millimetres: '毫米', outline: '外轮廓', storey: '层高', clearHeight: '净高', outlineArea: '外轮廓面积', interiorArea: '室内净面积合计', balconyArea: '阳台面积',
     note: '尺寸与结构截面均为演示假设。荷载、连接件、地基承载与法规用途待核定。' },
   groups: { structure: '结构方案', F1: '一层', F2: '二层', attic: '储物阁楼', attic_access: '阁楼检修梯（展开）', stairs: '楼梯', roof: '屋顶', foundation: '建筑基础', yard: '院子', fence: '围栏', lighting: '室外灯具', ceiling: '顶板', balcony: '阳台' },
-  partKinds: { columns: '柱', beams: '梁', sills: '土台', attic_joists: '阁楼搁栅', attic_headers: '阁楼开口边梁', roof_framing: '屋架', bearing_walls: '候选承重墙', existing_plinth: '周圈基座', internal_supports: '内部基础支承', floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏',
+  partKinds: { indoor_lights: '室内灯具', columns: '柱', beams: '梁', sills: '土台', attic_joists: '阁楼搁栅', attic_headers: '阁楼开口边梁', roof_framing: '屋架', bearing_walls: '候选承重墙', existing_plinth: '周圈基座', internal_supports: '内部基础支承', floor_slab: '楼板', external_walls: '外墙', partition_walls: '内隔墙', doors: '门', windows: '窗', storage_fixtures: '收纳柜', fixtures: '厨卫设备', furniture: '家具', guardrails: '防护栏',
     raft: '基础底板', stem_walls: '基础立上墙', entrance_supports: '玄关支承', soil: '场地土层', ground_surfaces: '砾石地面', entrance_path: '入户步道', parking: '停车位', planting: '绿化', posts: '围栏立柱', panels: '围栏面板', footings: '围栏独立基础', wall: '外墙灯', path: '步道灯', garden: '庭院灯', gate: '门口灯' },
   tree: { show: '显示{label}', collapse: '收起{label}部件', expand: '展开{label}部件', highlight: '高亮{label}',
     search: '搜索部件', expandAll: '全部展开', collapseAll: '全部折叠', clearSearch: '清除搜索', noResults: '没有匹配的部件。', searchHelp: '搜索仅筛选部件列表，不改变模型显示；楼层勾选仍作用于整个楼层。',
@@ -58,7 +58,7 @@ const zh = {
     drafting: '平面图采用東京都建設局 CAD 製图基准的共通项目用于住宅方案，保留可编辑标注；本次输出包含 DXF、STEP、GLB、PDF，未包含 SXF 电子纳品。',
     files: {
       engineeringSource: { title: '结构与法规输入 Python 源码', detail: '可编辑的演示设计任务书；待核定输入保留为空值。' },
-      engineering: { title: '结构与法规待定输入', detail: 'R15 演示参数、结构计算所需输入和所在地待核定项；不包含已完成计算。' },
+      engineering: { title: '结构与法规待定输入', detail: 'R16 演示参数、结构计算所需输入和所在地待核定项；不包含已完成计算。' },
       structure: { title: '可编辑结构布置方案', detail: '日文柱梁、搁栅、开口边梁和基础支承示意；截面与承载尚未计算。' },
       structurePdf: { title: '结构布置方案 PDF', detail: '补充图，标明结构方案、演示截面及待核定项目。' },
       glb: { title: 'GLB 三维模型', detail: '保留楼层与部件名称，可用于 Blender、Three.js。' },
@@ -80,7 +80,7 @@ export type Messages = Strings<typeof zh>;
 
 const ja: Messages = {
   models: { label: '間取りプラン', house: '日本の2階建て戸建住宅', apartment: '日本のマンション 2LDK · 約65㎡', note: 'すべての寸法はデモ用の仮定です' },
-  sceneLighting: { label: 'モデルの昼夜', day: '昼', night: '夜', outdoor: '屋外照明', help: 'モデルの昼夜はページの表示モードとは別に切り替えます。', fixtureHelp: '夜は表示中の屋外灯を点灯します。器具は部材ツリーで個別に非表示にできます。' },
+  sceneLighting: { label: 'モデルの昼夜', day: '昼', night: '夜', indoor: '室内照明', indoorHelp: '表示中の全室の照明を一括操作。非表示・切断された灯具は消灯。家具・屋外照明とは独立。明るさはデモ設定。', outdoor: '屋外照明', help: 'モデルの昼夜はページの表示モードとは別に切り替えます。', fixtureHelp: '夜は表示中の屋外灯を点灯します。器具は部材ツリーで個別に非表示にできます。' },
   theme: { label: '表示モード', system: '自動', light: 'ライト', dark: 'ダーク', help: '自動を選ぶと端末の明暗設定に連動します。' },
   app: { skip: '閲覧エリアへ移動', home: 'text-CAD ホーム', nav: '住宅モデルと図面', language: '表示言語',
     title: '日本の2階建て戸建住宅', description: '日本の2階建て戸建住宅のパラメトリックな計画モデル、平面図、CADファイルを閲覧できます。',
@@ -96,7 +96,7 @@ const ja: Messages = {
   parameters: { title: '計画パラメータ', units: '単位', millimetres: 'ミリメートル', outline: '外形寸法', storey: '階高', clearHeight: '天井高', outlineArea: '外形面積', interiorArea: '室内有効面積の合計', balconyArea: 'バルコニー面積',
     note: '寸法と部材断面はデモ用の仮定です。荷重・接合・基礎支持力・法規上の用途は未確定です。' },
   groups: { structure: '構造案', F1: '1階', F2: '2階', attic: '小屋裏収納', attic_access: '小屋裏点検はしご（展開）', stairs: '階段', roof: '屋根', foundation: '建物基礎', yard: '庭', fence: 'フェンス', lighting: '屋外照明器具', ceiling: '天井スラブ', balcony: 'バルコニー' },
-  partKinds: { columns: '柱', beams: '梁', sills: '土台', attic_joists: '小屋裏根太', attic_headers: '小屋裏開口補強梁', roof_framing: '小屋組', bearing_walls: '耐力壁候補', existing_plinth: '外周の基壇', internal_supports: '内部基礎支持部', floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり',
+  partKinds: { indoor_lights: '室内照明器具', columns: '柱', beams: '梁', sills: '土台', attic_joists: '小屋裏根太', attic_headers: '小屋裏開口補強梁', roof_framing: '小屋組', bearing_walls: '耐力壁候補', existing_plinth: '外周の基壇', internal_supports: '内部基礎支持部', floor_slab: '床スラブ', external_walls: '外壁', partition_walls: '間仕切り壁', doors: '建具・扉', windows: '窓', storage_fixtures: '収納家具', fixtures: '住宅設備', furniture: '家具', guardrails: '手すり',
     raft: '基礎底盤', stem_walls: '基礎立上り', entrance_supports: '玄関支持部', soil: '地盤層', ground_surfaces: '砂利敷き', entrance_path: '玄関アプローチ', parking: '駐車スペース', planting: '植栽', posts: 'フェンス支柱', panels: 'フェンスパネル', footings: 'フェンス独立基礎', wall: '外壁灯', path: 'アプローチ灯', garden: '庭園灯', gate: '門灯' },
   tree: { show: '{label}を表示', collapse: '{label}の部材を折りたたむ', expand: '{label}の部材を展開', highlight: '{label}を強調表示',
     search: '部材を検索', expandAll: 'すべて展開', collapseAll: 'すべて折りたたむ', clearSearch: '検索をクリア', noResults: '一致する部材がありません。', searchHelp: '検索は部材一覧だけを絞り込みます。モデル表示は変わりません。階のチェックは階全体に適用されます。',
@@ -120,7 +120,7 @@ const ja: Messages = {
     drafting: '住宅計画に東京都建設局CAD製図基準の共通項目を適用し、編集可能な注記を保持しています。出力はDXF・STEP・GLB・PDFで、SXFによる電子納品は含みません。',
     files: {
       engineeringSource: { title: '構造・法規入力の Python ソース', detail: '編集可能なデモ設計要件。未確定入力は空値のまま保持します。' },
-      engineering: { title: '構造・法規の未確定入力', detail: 'R15の仮定、構造計算に必要な入力、所在地での未確定事項。計算済みの成果ではありません。' },
+      engineering: { title: '構造・法規の未確定入力', detail: 'R16の仮定、構造計算に必要な入力、所在地での未確定事項。計算済みの成果ではありません。' },
       structure: { title: '編集可能な構造配置案', detail: '柱梁・根太・開口補強梁・基礎支持部の日本語概念図。断面・耐荷力は未計算です。' },
       structurePdf: { title: '構造配置案 PDF', detail: '補足図。構造案・仮断面・未確定事項を記載します。' },
       glb: { title: 'GLB 3Dモデル', detail: '階・部材名を保持。BlenderやThree.jsで利用できます。' },
@@ -139,7 +139,7 @@ const ja: Messages = {
 
 const en: Messages = {
   models: { label: 'Layout', house: 'Japanese two-storey house', apartment: 'Japanese apartment 2LDK · approx. 65 m²', note: 'All plan dimensions are demonstration assumptions' },
-  sceneLighting: { label: 'Model time of day', day: 'Day', night: 'Night', outdoor: 'Outdoor lights', help: 'Model time of day is independent of the page color mode.', fixtureHelp: 'Lights visible outdoor fixtures at night. Hide fixtures separately in the component tree.' },
+  sceneLighting: { label: 'Model time of day', day: 'Day', night: 'Night', indoor: 'Indoor lights', indoorHelp: 'Switch lights in all visible rooms together. Hidden or clipped fixtures stop illuminating; independent of furniture and outdoor lights. Brightness is illustrative.', outdoor: 'Outdoor lights', help: 'Model time of day is independent of the page color mode.', fixtureHelp: 'Lights visible outdoor fixtures at night. Hide fixtures separately in the component tree.' },
   theme: { label: 'Color mode', system: 'Auto', light: 'Light', dark: 'Dark', help: 'Auto follows your device’s light or dark appearance.' },
   app: { skip: 'Skip to viewer', home: 'text-CAD home', nav: 'House model and drawings', language: 'Interface language',
     title: 'Japanese two-storey house', description: 'Explore a parametric concept model, floor plans and downloadable CAD files for a Japanese two-storey house.',
@@ -155,7 +155,7 @@ const en: Messages = {
   parameters: { title: 'Concept parameters', units: 'Units', millimetres: 'Millimetres', outline: 'Building outline', storey: 'Storey height', clearHeight: 'Clear height', outlineArea: 'Outline area', interiorArea: 'Total net interior area', balconyArea: 'Balcony area',
     note: 'Dimensions and member sizes are demonstration assumptions. Loads, connections, foundation capacity and regulatory use remain pending.' },
   groups: { structure: 'Structural scheme', F1: 'First floor', F2: 'Second floor', attic: 'Attic storage', attic_access: 'Attic access ladder (deployed)', stairs: 'Stairs', roof: 'Roof', foundation: 'Building foundation', yard: 'Yard', fence: 'Fence', lighting: 'Outdoor light fixtures', ceiling: 'Ceiling slab', balcony: 'Balcony' },
-  partKinds: { columns: 'Columns', beams: 'Beams', sills: 'Sills', attic_joists: 'Attic joists', attic_headers: 'Attic hatch headers', roof_framing: 'Roof framing', bearing_walls: 'Candidate bearing walls', existing_plinth: 'Perimeter plinth', internal_supports: 'Internal foundation supports', floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails',
+  partKinds: { indoor_lights: 'Indoor light fixtures', columns: 'Columns', beams: 'Beams', sills: 'Sills', attic_joists: 'Attic joists', attic_headers: 'Attic hatch headers', roof_framing: 'Roof framing', bearing_walls: 'Candidate bearing walls', existing_plinth: 'Perimeter plinth', internal_supports: 'Internal foundation supports', floor_slab: 'Floor slab', external_walls: 'External walls', partition_walls: 'Partitions', doors: 'Doors', windows: 'Windows', storage_fixtures: 'Storage cabinets', fixtures: 'Kitchen and bathroom fixtures', furniture: 'Furniture', guardrails: 'Guardrails',
     raft: 'Foundation slabs', stem_walls: 'Stem walls', entrance_supports: 'Entrance supports', soil: 'Soil layer', ground_surfaces: 'Gravel surface', entrance_path: 'Entrance path', parking: 'Parking space', planting: 'Planting', posts: 'Fence posts', panels: 'Fence panels', footings: 'Fence footings', wall: 'Wall lights', path: 'Path lights', garden: 'Garden lights', gate: 'Gate lights' },
   tree: { show: 'Show {label}', collapse: 'Collapse {label} components', expand: 'Expand {label} components', highlight: 'Highlight {label}',
     search: 'Search components', expandAll: 'Expand all', collapseAll: 'Collapse all', clearSearch: 'Clear search', noResults: 'No matching components.', searchHelp: 'Search filters the list only. Model visibility stays unchanged; floor checkboxes still apply to the whole floor.',
@@ -179,7 +179,7 @@ const en: Messages = {
     drafting: 'The residential concept uses the common provisions of the Tokyo Metropolitan Government Bureau of Construction CAD drafting standard and retains editable annotations. Outputs include DXF, STEP, GLB and PDF; SXF electronic submission is not included.',
     files: {
       engineeringSource: { title: 'Structural and regulatory input Python source', detail: 'Editable demonstration design brief. Pending inputs remain null.' },
-      engineering: { title: 'Pending structural and regulatory inputs', detail: 'R15 assumptions, inputs required for structural calculations and pending local decisions. No completed calculation is included.' },
+      engineering: { title: 'Pending structural and regulatory inputs', detail: 'R16 assumptions, inputs required for structural calculations and pending local decisions. No completed calculation is included.' },
       structure: { title: 'Editable structural layout scheme', detail: 'Japanese concept drawings of columns, beams, joists, hatch headers and foundation supports. Sizes and capacity are uncalculated.' },
       structurePdf: { title: 'Structural layout scheme PDF', detail: 'Supplementary drawing with the structural proposal, assumed sizes and pending verification items.' },
       glb: { title: 'GLB 3D model', detail: 'Retains floor and component names for use in Blender and Three.js.' },

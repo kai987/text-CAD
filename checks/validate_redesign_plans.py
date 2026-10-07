@@ -114,17 +114,14 @@ def run():
                 seen.add(target);todo.append(target)
         check(prefix+'all_rooms_reachable',set(rooms)<=seen,{'reachable':sorted(seen)})
         if f.number==2:
-            public={'stairs','hall','wc_hall','balcony'};seen={'stairs'};todo=['stairs']
-            while todo:
-                for target in (graph[todo.pop()] & public)-seen:
-                    seen.add(target);todo.append(target)
-            check('2F/balcony_without_bedroom_transit','balcony' in seen,sorted(seen))
+            check('R16/balcony_from_both_bedrooms',all('balcony' in graph[r] for r in ('master','bed2')),{k:sorted(v) for k,v in graph.items()})
         # Independent occupied-room routes; 600 mm demonstration corridor swept
         # around the centreline. This is not an accessibility or legal test.
         routes=([('entry_stairs',[(6800,950),(6800,3100),(6560,3700),(6560,4500)]),
                  ('entry_wc',[(6800,3100),(6800,3700),(5560,3700),(5560,5800)]),
                  ('ldk_wash',[(5560,3900),(4600,3900),(3900,4200),(3550,4900),(3550,5700)])] if f.number==1 else
-                [('stairs_balcony',[(7560,4500),(7560,3830),(3830,3830),(3830,-450)]),
+                [('stairs_master',[(7560,4500),(7560,3830),(3150,3830),(3150,2800)]),
+                 ('master_balcony',[(3150,2800),(2450,2800),(2450,1875),(2000,1875),(2000,500),(1450,500),(1450,-450)]),
                  ('stairs_wc',[(7560,3830),(5560,3830),(5560,5800)])])
         for name,points in routes:
             if P.mirror_layout:points=[(P.width-x,y) for x,y in points]
@@ -165,6 +162,7 @@ def run():
         old={r['id']:r for r in previous['floors'][f.number-1]['rooms']}
         for room in f.rooms:
             if f.number==1 and room.id in ('ldk','stairs','under_stairs'):continue
+            if f.number==2 and room.id in ('master','bed2','bed3','closet','hall'):continue
             if room.id!='balcony':
                 check(f'{f.number}F/R09_room_preserved/{room.id}',
                       room.shape.symmetric_difference(scale(Polygon(old[room.id]['polygon_mm']),xfact=-1 if P.mirror_layout else 1,origin=(P.width/2,0))).area<.01,

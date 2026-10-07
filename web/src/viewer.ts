@@ -21,7 +21,7 @@ import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
 import { structuralObjectVisible } from './structural-design';
 import type { StructuralOverlayState, StructuralSystem } from './structural-design';
-import { createOutdoorLighting, nightScenePalette } from './scene-lighting';
+import { createOutdoorLighting, createIndoorLighting, nightScenePalette } from './scene-lighting';
 import { createGeometryWorkerClient } from './geometry-worker-client';
 
 export interface ViewerCameraState { mode: 'iso' | 'top'; position: number[]; target: number[]; up: number[]; zoom: number }
@@ -92,6 +92,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const sun = new DirectionalLight(0xffffff, 2.0);
   sun.position.set(-8, 16, 12); scene.add(sun);
   const outdoorLighting = createOutdoorLighting(scene);
+  const indoorLighting = createIndoorLighting(scene);
   renderer.shadowMap.type = PCFShadowMap;
   renderer.shadowMap.autoUpdate = false;
   const camera = new OrthographicCamera(-8, 8, 8, -8, 0.1, 100);
@@ -155,6 +156,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     renderer.toneMapping = night ? ACESFilmicToneMapping : NoToneMapping;
     renderer.toneMappingExposure = night ? 1.1 : 1;
     const lighting = outdoorLighting.update(settings);
+    const indoor = indoorLighting.update(settings);
+    renderer.domElement.dataset.indoorLights = String(settings.indoorLights);
+    renderer.domElement.dataset.indoorLightFixtures = String(indoor.total);
+    renderer.domElement.dataset.activeIndoorLights = String(indoor.active);
+    renderer.domElement.dataset.activeIndoorLightIds = JSON.stringify(indoor.activeIds);
     renderer.shadowMap.enabled = night && lighting.shadowLights > 0;
     renderer.shadowMap.needsUpdate = true;
     renderer.domElement.dataset.sceneEnvironment = settings.environment;
@@ -538,7 +544,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
       groupObjects.set(group.id, object);
     }
-    scene.add(root); outdoorLighting.register(root); apply(settings); fit(); onReady();
+    scene.add(root); outdoorLighting.register(root); indoorLighting.register(root); apply(settings); fit(); onReady();
     },
   });
   resize();
@@ -568,6 +574,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       renderer.domElement.removeEventListener('keydown', keyDown);
       clearHighlight();
       outdoorLighting.dispose();
+      indoorLighting.dispose();
       if (root) disposeObject(root, true);
       outlineMaterials.clear();
       environment.dispose();

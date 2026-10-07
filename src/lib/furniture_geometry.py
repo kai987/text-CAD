@@ -190,10 +190,18 @@ def furniture_placements(floor,model_id,p):
             beds=[bounds for name,bounds in floor.fixtures if name.startswith('ベッド')]
             for room,bounds in zip(('master','bed2','bed3'),beds):
                 x,y,x2,y2=bounds
-                if room=='master' and x2-x>y2-y:
+                if x2-x>y2-y:
                     put('bed',room,'bed',x,y,y2-y,x2-x,90)
                 else:
                     put('bed',room,'bed',x,y,x2-x,y2-y)
+            for room,x,y,w,d in [('master',2400,1000,1100,550),
+                                  ('bed2',4050,2700,1200,550),
+                                  ('bed3',2500,5200,1200,550)]:
+                put('desk',room,'table',x,y,w,d,0,730)
+                put('desk_chair',room,'chair',x+(w-450)/2,y-500,450,420,180)
+            for room,x,y in [('master',1700,2200),('bed2',4300,1400),('bed3',1550,6250)]:
+                put('bedside_table',room,'table',x,y,400,400,0,500)
+
     elif model_id=='apartment':
         x,y,x2,y2=rooms['ldk'].shape.bounds
         put('sofa','ldk','sofa',x2-900,y+800,1500,850,270)
@@ -297,6 +305,11 @@ def clearance_zones(floor,model_id,p):
                     zones.append((f'balcony_slider_{start:g}:800mm_landing',box(start,y,start+width,y+800)))
         for i,path in enumerate(routes,1):
             zones.append((f'ldk:route_{i}:650mm',LineString(path).buffer(325,cap_style='flat').intersection(room)))
+    if model_id=='house' and floor.number==2:
+        routes=[('master_balcony',[(3150,2800),(2450,2800),(2450,1875),(2000,1875),(2000,500),(1450,500),(1450,-450)]),
+                ('bed2_balcony',[(6000,3830),(6000,2700),(7080,2700),(7080,700),(6100,700),(6100,-450)]),
+                ('shared_WC',[(7560,3830),(5560,3830),(5560,5800)])]
+        for name,path in routes:zones.append((f'{name}:650mm_route',LineString(path).buffer(325,cap_style='flat',join_style='mitre')))
     if model_id=='house':
         from .house_redesign_plan import south_floor_window
         for axis,at,start,width in floor.windows:

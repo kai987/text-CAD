@@ -15,7 +15,7 @@ export const nightScenePalette = {
  */
 export interface OutdoorLightSpec {
   id: string;
-  category: 'wall' | 'path' | 'garden' | 'gate';
+  category: 'wall' | 'path' | 'garden' | 'gate' | 'indoor';
   diffuser_label: string;
   light_position_glb_m: [number, number, number];
   target_glb_m: [number, number, number];
@@ -29,7 +29,7 @@ export function outdoorLightSpec(value: unknown): OutdoorLightSpec | null {
   if (!value || typeof value !== 'object') return null;
   const spec = value as OutdoorLightSpec;
   const vector = (v: unknown): v is [number, number, number] => Array.isArray(v) && v.length === 3 && v.every(Number.isFinite);
-  if (typeof spec.id !== 'string' || !['wall', 'path', 'garden', 'gate'].includes(spec.category)
+  if (typeof spec.id !== 'string' || !['wall', 'path', 'garden', 'gate', 'indoor'].includes(spec.category)
     || typeof spec.diffuser_label !== 'string' || !spec.diffuser_label.endsWith(':diffuser')
     || !vector(spec.light_position_glb_m) || !vector(spec.target_glb_m)
     || !/^#[0-9a-f]{6}$/i.test(spec.color_hex)
@@ -66,8 +66,8 @@ interface Fixture {
 }
 
 /** Effects are siblings of the CAD root, so they never affect picking, fit or section caps. */
-export function createOutdoorLighting(scene: Scene) {
-  const effects = new Group(); effects.name = 'outdoor-lighting-effects'; scene.add(effects);
+export function createOutdoorLighting(scene: Scene, channel: 'outdoor' | 'indoor' = 'outdoor') {
+  const effects = new Group(); effects.name = `${channel}-lighting-effects`; scene.add(effects);
   const texture = glowTexture();
   const glowMaterial = new SpriteMaterial({ map: texture, color: '#ffddb2', opacity: 0.35,
     transparent: true, blending: AdditiveBlending, depthWrite: false, depthTest: true });
@@ -79,7 +79,7 @@ export function createOutdoorLighting(scene: Scene) {
     root = model;
     model.traverse(object => {
       if (!(object instanceof Mesh)) return;
-      const spec = outdoorLightSpec(object.userData.outdoorLight);
+      const spec = outdoorLightSpec(object.userData[channel === 'indoor' ? 'indoorLight' : 'outdoorLight']);
       if (!spec) return;
       const original = object.material;
       // GLB materials may be shared; only this actual emitter should become emissive.
@@ -112,7 +112,8 @@ export function createOutdoorLighting(scene: Scene) {
       light.position.copy(root.localToWorld(new Vector3(...spec.light_position_glb_m)));
       light.target.position.copy(root.localToWorld(new Vector3(...spec.target_glb_m)));
       glow.position.copy(light.position);
-      const active = outdoorLightEnabled(diffuser, settings, light.position.y);
+      const active = channel === 'outdoor' ? outdoorLightEnabled(diffuser, settings, light.position.y)
+        : settings.indoorLights && isObjectVisible(diffuser) && (!settings.cutaway || light.position.y <= settings.heightMm / 1000 - 0.00005);
       // Keep the fixed light count to avoid recompiling every model material on each switch.
       light.intensity = active ? spec.visual_intensity : 0;
       glow.visible = active;
@@ -137,3 +138,5 @@ export function createOutdoorLighting(scene: Scene) {
   }
   return { register, update, dispose };
 }
+
+export const createIndoorLighting = (scene: Scene) => createOutdoorLighting(scene, 'indoor');

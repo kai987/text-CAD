@@ -9,16 +9,16 @@ import {
 } from '../src/model-state.ts';
 import { locales, messages, selectionLabel } from '../src/localization.ts';
 
-const defaultLighting = { environment: 'day', outdoorLights: true };
+const defaultLighting = { environment: 'day', outdoorLights: true, indoorLights: true };
 const storageWith = value => ({ getItem(key) { assert.equal(key, sceneLightingStorageKey); return value; } });
 
 test('saved model illumination remains separate from the page theme and rejects malformed data', () => {
   assert.deepEqual(initialSceneLighting(''), defaultLighting);
-  const value = { environment: 'night', outdoorLights: false };
+  const value = { environment: 'night', outdoorLights: false, indoorLights: true };
   let saved;
   saveSceneLighting({ setItem(key, item) { assert.equal(key, sceneLightingStorageKey); saved = item; } }, value);
   assert.deepEqual(readSceneLighting(storageWith(saved)), value);
-  assert.deepEqual(Object.keys(JSON.parse(saved)).sort(), ['environment', 'outdoorLights', 'version']);
+  assert.deepEqual(Object.keys(JSON.parse(saved)).sort(), ['environment', 'indoorLights', 'outdoorLights', 'version']);
   for (const invalid of [null, '', '{', 'null', '[]', '"night"', '{"version":2,"environment":"night","outdoorLights":false}',
     '{"version":1,"environment":"dark","outdoorLights":true}',
     '{"version":1,"environment":"night","outdoorLights":"false"}']) {
@@ -31,16 +31,16 @@ test('saved model illumination remains separate from the page theme and rejects 
 test('explicit shared day/night and lamp state takes precedence over saved preferences independently', () => {
   const storage = storageWith('{"version":1,"environment":"night","outdoorLights":false}');
   assert.deepEqual(initialSceneLighting('?view=3d&environment=day&lights=on', storage), defaultLighting);
-  assert.deepEqual(initialSceneLighting('?environment=day', storage), { environment: 'day', outdoorLights: false });
-  assert.deepEqual(initialSceneLighting('?lights=on', storage), { environment: 'night', outdoorLights: true });
+  assert.deepEqual(initialSceneLighting('?environment=day', storage), { environment: 'day', outdoorLights: false, indoorLights: true });
+  assert.deepEqual(initialSceneLighting('?lights=on', storage), { environment: 'night', outdoorLights: true, indoorLights: true });
   for (const invalid of ['environment=dark&lights=false', 'environment=__proto__&lights=1']) {
-    assert.deepEqual(initialSceneLighting(`?${invalid}`, storage), { environment: 'night', outdoorLights: false });
+    assert.deepEqual(initialSceneLighting(`?${invalid}`, storage), { environment: 'night', outdoorLights: false, indoorLights: true });
   }
 });
 
 test('illumination URL updates and house/apartment page links retain structural, section and model inputs', () => {
   const current = 'https://example.com/text-CAD/?view=3d&mode=structure&city=kyoto&system=RC&section=wasm&revision=R07';
-  const url = new URL(sceneLightingUrl(current, { environment: 'night', outdoorLights: false }));
+  const url = new URL(sceneLightingUrl(current, { environment: 'night', outdoorLights: false, indoorLights: true }));
   assert.equal(url.searchParams.get('city'), 'kyoto');
   assert.equal(url.searchParams.get('system'), 'RC');
   assert.equal(url.searchParams.get('mode'), 'structure');

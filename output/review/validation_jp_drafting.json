@@ -1,23 +1,23 @@
 {
-  "revision": "R15",
+  "revision": "R16",
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-07T17:20:05.321467+09:00",
+  "checked_at": "2026-10-07T18:21:21.498322+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
-    "DXF/house_2f_plan.dxf": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
-    "DXF/001D0PL2-1FPLAN.DXF": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
-    "DXF/002D0PL2-2FPLAN.DXF": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "46964623c16fe7a8492a13c062d2a77ba029157694696755509e3b031bf8d9de",
-    "checks/validate_jp_drafting.py": "fac168ae7ec694ddfedb97714f1eadd9f7a80a460a31c24918f7f0251c96315f",
+    "DXF/house_1f_plan.dxf": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
+    "DXF/house_2f_plan.dxf": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
+    "DXF/001D0PL2-1FPLAN.DXF": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
+    "DXF/002D0PL2-2FPLAN.DXF": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "5f5652061dbdde85a9ddde2e9b573247b9059cecb4b829115667bd41fd777c84",
+    "checks/validate_jp_drafting.py": "c092f3fdc54b5d7046081a5f97d34f01c3d7d22fad24ac95ffb8a323cf4e0f25",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
-    "src/lib/jp_sheet.py": "92ecb060f0e163c6ef4f17a0a05f08fe5166b0057a1d3ca169c84fa1369f51c1"
+    "src/lib/jp_sheet.py": "16459029a975737a5743d0382d2db9dc1130ffef1473a3cea0fa5330497ac6eb"
   },
   "summary": {
-    "checks": 230,
-    "passed": 230,
+    "checks": 224,
+    "passed": 224,
     "failed": 0
   },
   "checks": [
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
-        "canonical_sha256": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d"
+        "alias_sha256": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
+        "canonical_sha256": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd"
       },
       "floor": 1
     },
@@ -1138,9 +1138,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R15",
+        "REVISION": "R16",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 1
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
-        "canonical_sha256": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84"
+        "alias_sha256": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
+        "canonical_sha256": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419"
       },
       "floor": 2
     },
@@ -1202,13 +1202,13 @@
           "D-DOC-TXT": 13
         },
         "model_entity_counts": {
-          "D-STR-WALL": 109,
-          "D-STR-WIND": 21,
-          "D-STR-TXT": 43,
-          "D-BYP-FIXT": 8,
-          "D-STR-DOOR": 14,
+          "D-STR-WALL": 100,
+          "D-STR-WIND": 15,
+          "D-BYP-FIXT": 18,
+          "D-STR-TXT": 50,
+          "D-STR-DOOR": 16,
           "D-STR-STAI": 23,
-          "D-STR-DIM": 7,
+          "D-STR-DIM": 6,
           "D-BMK-NORT": 3
         }
       },
@@ -1681,7 +1681,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 389,
+        "graphic_entities_checked": 378,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -1711,9 +1711,9 @@
       "evidence": {
         "model_to_paper": "height / 50",
         "paper_height_counts": {
-          "1.8": 10,
+          "1.8": 18,
           "2.5": 24,
-          "3.5": 9
+          "3.5": 8
         },
         "invalid": []
       },
@@ -1733,9 +1733,9 @@
       "check": "room/master/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 9.61,
+        "area_m2": 11.16,
         "matches": [
-          "9.61 m2"
+          "11.16 m2"
         ],
         "heights_mm": [
           125.0
@@ -1757,9 +1757,9 @@
       "check": "room/closet/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 2.79,
+        "area_m2": 1.98,
         "matches": [
-          "2.79 m2"
+          "1.98 m2"
         ],
         "heights_mm": [
           125.0
@@ -1781,9 +1781,9 @@
       "check": "room/bed2/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 11.253,
+        "area_m2": 12.803,
         "matches": [
-          "11.25 m2"
+          "12.80 m2"
         ],
         "heights_mm": [
           125.0
@@ -1805,9 +1805,9 @@
       "check": "room/bed3/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 13.1376,
+        "area_m2": 12.8316,
         "matches": [
-          "13.14 m2"
+          "12.83 m2"
         ],
         "heights_mm": [
           125.0
@@ -1819,7 +1819,7 @@
       "check": "room/hall/name_height",
       "status": "pass",
       "evidence": {
-        "room": "ホール / 物干し通路",
+        "room": "ホール / 洗面",
         "found": 1,
         "model_height": 175.0
       },
@@ -1829,9 +1829,9 @@
       "check": "room/hall/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 7.047,
+        "area_m2": 6.201,
         "matches": [
-          "7.05 m2"
+          "6.20 m2"
         ],
         "heights_mm": [
           125.0
@@ -1856,30 +1856,6 @@
         "area_m2": 1.53,
         "matches": [
           "1.53 m2"
-        ],
-        "heights_mm": [
-          125.0
-        ]
-      },
-      "floor": 2
-    },
-    {
-      "check": "room/wc_hall/name_height",
-      "status": "pass",
-      "evidence": {
-        "room": "ホール",
-        "found": 1,
-        "model_height": 175.0
-      },
-      "floor": 2
-    },
-    {
-      "check": "room/wc_hall/area_height",
-      "status": "pass",
-      "evidence": {
-        "area_m2": 0.828,
-        "matches": [
-          "0.83 m2"
         ],
         "heights_mm": [
           125.0
@@ -1915,7 +1891,7 @@
       "check": "native_dimensions_present",
       "status": "pass",
       "evidence": {
-        "native_dimension_count": 7
+        "native_dimension_count": 6
       },
       "floor": 2
     },
@@ -2007,8 +1983,8 @@
       "check": "dimension/2/actual_measurement",
       "status": "pass",
       "evidence": {
-        "measurement_mm": 3100.0,
-        "projected_definition_points_mm": 3100.0,
+        "measurement_mm": 3600.0,
+        "projected_definition_points_mm": 3600.0,
         "display_text": "<>"
       },
       "floor": 2
@@ -2037,7 +2013,7 @@
       "evidence": {
         "block": "*D3",
         "text": [
-          "3100"
+          "3600"
         ],
         "paper_heights_mm": [
           2.5
@@ -2049,8 +2025,8 @@
       "check": "dimension/3/actual_measurement",
       "status": "pass",
       "evidence": {
-        "measurement_mm": 900.0,
-        "projected_definition_points_mm": 900.0,
+        "measurement_mm": 4130.0,
+        "projected_definition_points_mm": 4130.0,
         "display_text": "<>"
       },
       "floor": 2
@@ -2079,7 +2055,7 @@
       "evidence": {
         "block": "*D4",
         "text": [
-          "900"
+          "4130"
         ],
         "paper_heights_mm": [
           2.5
@@ -2091,8 +2067,8 @@
       "check": "dimension/4/actual_measurement",
       "status": "pass",
       "evidence": {
-        "measurement_mm": 3630.0,
-        "projected_definition_points_mm": 3630.0,
+        "measurement_mm": 8190.0,
+        "projected_definition_points_mm": 8190.0,
         "display_text": "<>"
       },
       "floor": 2
@@ -2121,7 +2097,7 @@
       "evidence": {
         "block": "*D5",
         "text": [
-          "3630"
+          "8190"
         ],
         "paper_heights_mm": [
           2.5
@@ -2133,8 +2109,8 @@
       "check": "dimension/5/actual_measurement",
       "status": "pass",
       "evidence": {
-        "measurement_mm": 8190.0,
-        "projected_definition_points_mm": 8190.0,
+        "measurement_mm": 7280.0,
+        "projected_definition_points_mm": 7280.0,
         "display_text": "<>"
       },
       "floor": 2
@@ -2163,48 +2139,6 @@
       "evidence": {
         "block": "*D6",
         "text": [
-          "8190"
-        ],
-        "paper_heights_mm": [
-          2.5
-        ]
-      },
-      "floor": 2
-    },
-    {
-      "check": "dimension/6/actual_measurement",
-      "status": "pass",
-      "evidence": {
-        "measurement_mm": 7280.0,
-        "projected_definition_points_mm": 7280.0,
-        "display_text": "<>"
-      },
-      "floor": 2
-    },
-    {
-      "check": "dimension/6/scale_and_style",
-      "status": "pass",
-      "evidence": {
-        "DIMLFAC": 1.0,
-        "DIMTXT_model_mm": 125.0
-      },
-      "floor": 2
-    },
-    {
-      "check": "dimension/6/lineweight",
-      "status": "pass",
-      "evidence": {
-        "DIMLWD": 13,
-        "DIMLWE": 13
-      },
-      "floor": 2
-    },
-    {
-      "check": "dimension/6/editable_block_text",
-      "status": "pass",
-      "evidence": {
-        "block": "*D7",
-        "text": [
           "7280"
         ],
         "paper_heights_mm": [
@@ -2220,9 +2154,8 @@
         "native_measurements_mm": [
           8190.0,
           1000.0,
-          3100.0,
-          900.0,
-          3630.0,
+          3600.0,
+          4130.0,
           8190.0,
           7280.0
         ]
@@ -2351,7 +2284,7 @@
       "evidence": {
         "paper_height_counts": {
           "5.0": 1,
-          "2.5": 39,
+          "2.5": 37,
           "3.5": 3,
           "1.8": 14
         },
@@ -2387,7 +2320,7 @@
       "check": "no_disallowed_example_characters",
       "status": "pass",
       "evidence": {
-        "scanned_text_entities": 207,
+        "scanned_text_entities": 216,
         "invalid": []
       },
       "floor": 2
@@ -2396,9 +2329,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R15",
+        "REVISION": "R16",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 2

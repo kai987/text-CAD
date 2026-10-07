@@ -34,6 +34,13 @@ export default function SceneLightingControls({ settings, setSettings, ready }: 
         <span className="switch-track" aria-hidden="true" />
       </span>
     </label> : null}
+    {layout.id === 'house' ? <label className="scene-outdoor-lights" title={copy.sceneLighting.indoorHelp}>
+      <span>{copy.sceneLighting.indoor}</span><span className="switch-control">
+        <input type="checkbox" role="switch" aria-label={copy.sceneLighting.indoor} checked={settings.indoorLights} disabled={!ready}
+          onChange={event => setSettings(previous => ({ ...previous, indoorLights: event.target.checked }))} />
+        <span className="switch-track" aria-hidden="true" />
+      </span>
+    </label> : null}
     <p className="scene-lighting-help">{layout.id === 'house' ? copy.sceneLighting.fixtureHelp : copy.sceneLighting.help}</p>
   </div>;
 }

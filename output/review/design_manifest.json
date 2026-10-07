@@ -1,6 +1,6 @@
 {
-  "revision": "R15",
-  "stage": "user_requested_storage_and_four_person_furnishings",
+  "revision": "R16",
+  "stage": "user_requested_second_floor_and_indoor_lighting",
   "requested_on": "2026-10-07",
   "units": "mm",
   "parameters": {
@@ -59,9 +59,9 @@
     "User permits footprint adjustment and requires three bedrooms and a drying balcony.",
     "8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.",
     "South entrance / south balcony / north direction are assumptions without site survey.",
-    "8190 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; both ends align with the external walls and retains no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.",
+    "8190 x 1000 balcony is outside the main outline; net space excludes 100 mm railing footprint; both ends align with the external walls and retain no separate entry canopy; the 1300 mm porch projects 300 mm beyond the balcony.",
     "Walls 180/100 mm and all doors, windows and furniture are demonstration placeholders.",
-    "Three south living/bedroom windows retain 2100/1600/1800 mm widths, with 0 mm sill and 2200 mm height; glazing, opening mechanism, waterproofing and structural headers remain pending.",
+    "South living window is 2100 x 2200 mm, sill zero; bedroom balcony sliders are 1600/1800 mm wide and 2100 mm high; glazing, opening mechanism, waterproofing and structural headers remain pending.",
     "Toilets remain 900 x 1700 mm, now vertically aligned beside stairs; not wheelchair adapted.",
     "16 risers x 175, tread 260, clear flights/landing 900 mm; slab and headroom not evaluated.",
     "Room areas include fixtures/storage within each room. Stairwell is an opening reservation.",
@@ -70,8 +70,10 @@
     "R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.",
     "No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.",
     "R15 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.",
-    "R15 removes the F1 enclosed WC forecourt and opens this area to the LDK; the 900 x 1700 mm WC and F2 rooms stay fixed.",
-    "R15 adds an 800 x 1760 mm stair-under storage room with a 700 mm door, stepped low ceiling, and shelves. Upper stair treads use a 200 mm illustrative thickness; load capacity, connections and fire separation remain uncalculated.",
+    "R16 merges the F2 south corridor into the two bedrooms; each bedroom has a two-leaf glazed balcony slider. Balcony access now passes through bedrooms.",
+    "R16 merges the F2 WC forecourt into the hall and adds a 600 x 450 mm recessed wash basin and mirror; WC doors open inward, toilets remain vertically aligned.",
+    "R16 north bedroom has a 600 mm north window and 1800 mm east window; desks, chairs and bedside tables are conceptual furniture.",
+    "R15 adds an 800 x 1760 mm stair-under storage room with a 700 mm door, sloping low ceiling, and shelves. Stair treads use a 60 mm illustrative thickness with side stringers; load capacity, connections and fire separation remain uncalculated.",
     "R15 uses a four-seat 2600 x 1550 mm L sofa, opposing south-wall TV, coffee table, 1600 x 850 mm dining table with four chairs, and 900 x 750 mm side-by-side refrigerator. Furniture clearances are demo design targets.",
     "2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending."
   ],
@@ -403,14 +405,14 @@
         {
           "id": "master",
           "name": "主寝室",
-          "area_m2": 9.61,
+          "area_m2": 11.16,
           "polygon_mm": [
             [
-              4910.0,
+              4410.0,
               180.0
             ],
             [
-              4910.0,
+              4410.0,
               3280.0
             ],
             [
@@ -422,23 +424,23 @@
               180.0
             ],
             [
-              4910.0,
+              4410.0,
               180.0
             ]
           ],
-          "size_note": "3100 × 3100"
+          "size_note": "3600 × 3100"
         },
         {
           "id": "closet",
           "name": "収納",
-          "area_m2": 2.79,
+          "area_m2": 1.98,
           "polygon_mm": [
             [
-              4910.0,
+              5810.0,
               3380.0
             ],
             [
-              4910.0,
+              5810.0,
               4280.0
             ],
             [
@@ -450,16 +452,16 @@
               3380.0
             ],
             [
-              4910.0,
+              5810.0,
               3380.0
             ]
           ],
-          "size_note": "3100 × 900"
+          "size_note": "2200 × 900"
         },
         {
           "id": "bed2",
           "name": "洋室 2",
-          "area_m2": 11.253,
+          "area_m2": 12.803,
           "polygon_mm": [
             [
               180.0,
@@ -470,11 +472,11 @@
               3280.0
             ],
             [
-              3810.0,
+              4310.0,
               3280.0
             ],
             [
-              3810.0,
+              4310.0,
               180.0
             ],
             [
@@ -482,58 +484,50 @@
               180.0
             ]
           ],
-          "size_note": "3630 × 3100"
+          "size_note": "4130 × 3100"
         },
         {
           "id": "bed3",
           "name": "洋室 3",
-          "area_m2": 13.1376,
+          "area_m2": 12.8316,
           "polygon_mm": [
             [
-              3180.0,
+              8010.0,
               4380.0
-            ],
-            [
-              3180.0,
-              7100.0
             ],
             [
               8010.0,
               7100.0
             ],
             [
-              8010.0,
-              4380.0
+              3180.0,
+              7100.0
             ],
             [
               3180.0,
+              5400.0
+            ],
+            [
+              3480.0,
+              5400.0
+            ],
+            [
+              3480.0,
+              4380.0
+            ],
+            [
+              8010.0,
               4380.0
             ]
           ],
-          "size_note": "4830 × 2720"
+          "size_note": "L型 / 寸法線参照"
         },
         {
           "id": "hall",
-          "name": "ホール / 物干し通路",
-          "area_m2": 7.047,
+          "name": "ホール / 洗面",
+          "area_m2": 6.201,
           "polygon_mm": [
             [
-              3910.0,
-              180.0
-            ],
-            [
-              4810.0,
-              180.0
-            ],
-            [
-              4810.0,
-              3380.0
-            ],
-            [
-              4810.0,
-              4280.0
-            ],
-            [
               180.0,
               4280.0
             ],
@@ -542,15 +536,35 @@
               3380.0
             ],
             [
-              3910.0,
+              5710.0,
               3380.0
             ],
             [
-              3910.0,
-              180.0
+              5710.0,
+              4280.0
+            ],
+            [
+              3380.0,
+              4280.0
+            ],
+            [
+              3380.0,
+              5300.0
+            ],
+            [
+              2180.0,
+              5300.0
+            ],
+            [
+              2180.0,
+              4280.0
+            ],
+            [
+              180.0,
+              4280.0
             ]
           ],
-          "size_note": "通路幅 900"
+          "size_note": "主通路幅 900"
         },
         {
           "id": "wc",
@@ -579,34 +593,6 @@
             ]
           ],
           "size_note": "900 × 1700"
-        },
-        {
-          "id": "wc_hall",
-          "name": "ホール",
-          "area_m2": 0.828,
-          "polygon_mm": [
-            [
-              2180.0,
-              4380.0
-            ],
-            [
-              2180.0,
-              5300.0
-            ],
-            [
-              3080.0,
-              5300.0
-            ],
-            [
-              3080.0,
-              4380.0
-            ],
-            [
-              2180.0,
-              4380.0
-            ]
-          ],
-          "size_note": "900 × 920"
         },
         {
           "id": "stairs",
@@ -670,9 +656,9 @@
           "id": "D21",
           "a": "hall",
           "b": "master",
-          "axis": "v",
-          "at": 4860.0,
-          "start": 1900,
+          "axis": "h",
+          "at": 3330.0,
+          "start": 4640,
           "width": 800,
           "kind": "slide",
           "direction": -1,
@@ -682,9 +668,9 @@
           "id": "D22",
           "a": "hall",
           "b": "bed2",
-          "axis": "v",
-          "at": 3860.0,
-          "start": 1900,
+          "axis": "h",
+          "at": 3330.0,
+          "start": 1790,
           "width": 800,
           "kind": "slide",
           "direction": -1,
@@ -708,34 +694,22 @@
           "b": "closet",
           "axis": "h",
           "at": 3330.0,
-          "start": 5160,
-          "width": 2600,
+          "start": 5910,
+          "width": 700,
           "kind": "bifold",
           "direction": -1,
           "hinge_at_end": false
         },
         {
-          "id": "O21",
-          "a": "hall",
-          "b": "wc_hall",
-          "axis": "h",
-          "at": 4330.0,
-          "start": 2180,
-          "width": 900,
-          "kind": "open",
-          "direction": 1,
-          "hinge_at_end": false
-        },
-        {
           "id": "D25",
-          "a": "wc_hall",
+          "a": "hall",
           "b": "wc",
           "axis": "h",
           "at": 5350.0,
           "start": 2280,
           "width": 700,
           "kind": "swing",
-          "direction": -1,
+          "direction": 1,
           "hinge_at_end": true
         },
         {
@@ -752,20 +726,32 @@
         },
         {
           "id": "D26",
-          "a": "hall",
+          "a": "master",
           "b": "balcony",
           "axis": "h",
           "at": 90.0,
-          "start": 3960,
-          "width": 800,
-          "kind": "swing",
-          "direction": -1,
-          "hinge_at_end": true
+          "start": 5940,
+          "width": 1600,
+          "kind": "bypass",
+          "direction": 1,
+          "hinge_at_end": false
+        },
+        {
+          "id": "D27",
+          "a": "bed2",
+          "b": "balcony",
+          "axis": "h",
+          "at": 90.0,
+          "start": 1190,
+          "width": 1800,
+          "kind": "bypass",
+          "direction": 1,
+          "hinge_at_end": false
         }
       ]
     }
   ],
-  "drawing_revision": "R15",
+  "drawing_revision": "R16",
   "comparison": {
     "old_outline_m2_per_floor": 52.9984,
     "new_outline_m2_per_floor": 59.6232,

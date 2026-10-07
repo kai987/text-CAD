@@ -15,8 +15,8 @@
     "step": "STEP/structure_S.step"
   },
   "model_hashes_sha256": {
-    "glb": "7203c192f0a243e03d22feaf35f5c43d6143fe98abd1d74312df83cc2a282ad8",
-    "step": "e677785a1cb234286c8f750affc2ca6d62c6acf39aa2c553840bd248c36d52ae"
+    "glb": "b35890c42800926394d4bda549f0fd55b6a8dc489ddf21802f3ff4fbfe3bd8aa",
+    "step": "277825b83a1e80dfab117527d9e8944b7b047aacf5115d112df98bb06aa2c11a"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -350,10 +350,10 @@
       {
         "name": "structure:F1:column_C04",
         "bounds_mm": [
-          4765.0,
+          4480.0,
           30.0,
           -64.0,
-          4885.0,
+          4600.0,
           150.0,
           2476.0
         ],
@@ -362,19 +362,6 @@
       },
       {
         "name": "structure:F1:column_C05",
-        "bounds_mm": [
-          3835.0,
-          30.0,
-          -64.0,
-          3955.0,
-          150.0,
-          2476.0
-        ],
-        "volume_mm3": 2750413.6,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:column_C06",
         "bounds_mm": [
           3590.0,
           30.0,
@@ -387,7 +374,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C07",
+        "name": "structure:F1:column_C06",
         "bounds_mm": [
           2995.0,
           30.0,
@@ -400,7 +387,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C08",
+        "name": "structure:F1:column_C07",
         "bounds_mm": [
           855.0,
           30.0,
@@ -413,7 +400,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C09",
+        "name": "structure:F1:column_C08",
         "bounds_mm": [
           30.0,
           30.0,
@@ -426,7 +413,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C10",
+        "name": "structure:F1:column_C09",
         "bounds_mm": [
           8040.0,
           7130.0,
@@ -439,7 +426,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C11",
+        "name": "structure:F1:column_C10",
         "bounds_mm": [
           7545.0,
           7130.0,
@@ -452,12 +439,25 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C12",
+        "name": "structure:F1:column_C11",
         "bounds_mm": [
-          5615.0,
+          6765.0,
           7130.0,
           -64.0,
-          5735.0,
+          6885.0,
+          7250.0,
+          2476.0
+        ],
+        "volume_mm3": 2750413.6,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:column_C12",
+        "bounds_mm": [
+          6260.0,
+          7130.0,
+          -64.0,
+          6380.0,
           7250.0,
           2476.0
         ],
@@ -624,10 +624,10 @@
         "name": "structure:F1:column_C25",
         "bounds_mm": [
           8040.0,
-          5275.0,
+          4875.0,
           -64.0,
           8160.0,
-          5395.0,
+          4995.0,
           2476.0
         ],
         "volume_mm3": 2750413.6,
@@ -637,10 +637,10 @@
         "name": "structure:F1:column_C26",
         "bounds_mm": [
           8040.0,
-          6405.0,
+          6805.0,
           -64.0,
           8160.0,
-          6525.0,
+          6925.0,
           2476.0
         ],
         "volume_mm3": 2750413.6,
@@ -896,10 +896,10 @@
       {
         "name": "structure:F2:column_C04",
         "bounds_mm": [
-          4765.0,
+          4480.0,
           30.0,
           2776.0,
-          4885.0,
+          4600.0,
           150.0,
           5096.0
         ],
@@ -908,19 +908,6 @@
       },
       {
         "name": "structure:F2:column_C05",
-        "bounds_mm": [
-          3835.0,
-          30.0,
-          2776.0,
-          3955.0,
-          150.0,
-          5096.0
-        ],
-        "volume_mm3": 2512188.8,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:column_C06",
         "bounds_mm": [
           3590.0,
           30.0,
@@ -933,7 +920,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C07",
+        "name": "structure:F2:column_C06",
         "bounds_mm": [
           2995.0,
           30.0,
@@ -946,7 +933,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C08",
+        "name": "structure:F2:column_C07",
         "bounds_mm": [
           855.0,
           30.0,
@@ -959,7 +946,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C09",
+        "name": "structure:F2:column_C08",
         "bounds_mm": [
           30.0,
           30.0,
@@ -972,7 +959,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C10",
+        "name": "structure:F2:column_C09",
         "bounds_mm": [
           8040.0,
           7130.0,
@@ -985,7 +972,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C11",
+        "name": "structure:F2:column_C10",
         "bounds_mm": [
           7545.0,
           7130.0,
@@ -998,12 +985,25 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C12",
+        "name": "structure:F2:column_C11",
         "bounds_mm": [
-          5615.0,
+          6765.0,
           7130.0,
           2776.0,
-          5735.0,
+          6885.0,
+          7250.0,
+          5096.0
+        ],
+        "volume_mm3": 2512188.8,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:column_C12",
+        "bounds_mm": [
+          6260.0,
+          7130.0,
+          2776.0,
+          6380.0,
           7250.0,
           5096.0
         ],
@@ -1170,10 +1170,10 @@
         "name": "structure:F2:column_C25",
         "bounds_mm": [
           8040.0,
-          5275.0,
+          4875.0,
           2776.0,
           8160.0,
-          5395.0,
+          4995.0,
           5096.0
         ],
         "volume_mm3": 2512188.8,
@@ -1183,10 +1183,10 @@
         "name": "structure:F2:column_C26",
         "bounds_mm": [
           8040.0,
-          6405.0,
+          6805.0,
           2776.0,
           8160.0,
-          6525.0,
+          6925.0,
           5096.0
         ],
         "volume_mm3": 2512188.8,
@@ -1767,10 +1767,10 @@
       {
         "name": "structure:F1:base_plate_C04",
         "bounds_mm": [
-          4745.0,
+          4460.0,
           10.0,
           -200.0,
-          4905.0,
+          4620.0,
           170.0,
           -184.0
         ],
@@ -1779,19 +1779,6 @@
       },
       {
         "name": "structure:F1:base_plate_C05",
-        "bounds_mm": [
-          3815.0,
-          10.0,
-          -200.0,
-          3975.0,
-          170.0,
-          -184.0
-        ],
-        "volume_mm3": 409600.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:base_plate_C06",
         "bounds_mm": [
           3570.0,
           10.0,
@@ -1804,7 +1791,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C07",
+        "name": "structure:F1:base_plate_C06",
         "bounds_mm": [
           2975.0,
           10.0,
@@ -1817,7 +1804,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C08",
+        "name": "structure:F1:base_plate_C07",
         "bounds_mm": [
           835.0,
           10.0,
@@ -1830,7 +1817,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C09",
+        "name": "structure:F1:base_plate_C08",
         "bounds_mm": [
           10.0,
           10.0,
@@ -1843,7 +1830,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C10",
+        "name": "structure:F1:base_plate_C09",
         "bounds_mm": [
           8020.0,
           7110.0,
@@ -1856,7 +1843,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C11",
+        "name": "structure:F1:base_plate_C10",
         "bounds_mm": [
           7525.0,
           7110.0,
@@ -1869,12 +1856,25 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:base_plate_C12",
+        "name": "structure:F1:base_plate_C11",
         "bounds_mm": [
-          5595.0,
+          6745.0,
           7110.0,
           -200.0,
-          5755.0,
+          6905.0,
+          7270.0,
+          -184.0
+        ],
+        "volume_mm3": 409600.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:base_plate_C12",
+        "bounds_mm": [
+          6240.0,
+          7110.0,
+          -200.0,
+          6400.0,
           7270.0,
           -184.0
         ],
@@ -2041,10 +2041,10 @@
         "name": "structure:F1:base_plate_C25",
         "bounds_mm": [
           8020.0,
-          5255.0,
+          4855.0,
           -200.0,
           8180.0,
-          5415.0,
+          5015.0,
           -184.0
         ],
         "volume_mm3": 409600.0,
@@ -2054,10 +2054,10 @@
         "name": "structure:F1:base_plate_C26",
         "bounds_mm": [
           8020.0,
-          6385.0,
+          6785.0,
           -200.0,
           8180.0,
-          6545.0,
+          6945.0,
           -184.0
         ],
         "volume_mm3": 409600.0,
@@ -3314,27 +3314,27 @@
       {
         "name": "structure:F1:strap_brace_BW02_A",
         "bounds_mm": [
-          4824.999999999999,
+          4539.999999999999,
           150.0,
-          -64.0,
+          -64.00000000000011,
           5375.0,
           152.0,
           2476.0
         ],
-        "volume_mm3": 303161.32538,
+        "volume_mm3": 314780.258997,
         "solid_count": 1
       },
       {
         "name": "structure:F1:strap_brace_BW02_B",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           152.5,
-          -64.0,
+          -64.00000000000011,
           5375.000000000001,
           154.5,
           2476.0
         ],
-        "volume_mm3": 303161.32538,
+        "volume_mm3": 314780.258997,
         "solid_count": 1
       },
       {
@@ -3353,10 +3353,10 @@
       {
         "name": "structure:F1:gusset_BW02_SE",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           -64.0,
-          4925.0,
+          4640.0,
           154.0,
           36.0
         ],
@@ -3379,10 +3379,10 @@
       {
         "name": "structure:F1:gusset_BW02_NE",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           2376.0,
-          4925.0,
+          4640.0,
           154.0,
           2476.0
         ],
@@ -3391,6 +3391,84 @@
       },
       {
         "name": "structure:F1:strap_brace_BW03_A",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          -64.00000000000095,
+          4540.0,
+          152.0,
+          2476.0000000000005
+        ],
+        "volume_mm3": 317201.684928,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW03_B",
+        "bounds_mm": [
+          3650.0,
+          152.5,
+          -64.00000000000053,
+          4540.0,
+          154.5,
+          2476.0000000000005
+        ],
+        "volume_mm3": 317201.684928,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW03_SW",
+        "bounds_mm": [
+          4440.0,
+          150.0,
+          -64.0,
+          4540.0,
+          154.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW03_SE",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          -64.0,
+          3750.0,
+          154.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW03_NW",
+        "bounds_mm": [
+          4440.0,
+          150.0,
+          2376.0,
+          4540.0,
+          154.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW03_NE",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          2376.0,
+          3750.0,
+          154.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW04_A",
         "bounds_mm": [
           3054.999999999999,
           150.0,
@@ -3403,7 +3481,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW03_B",
+        "name": "structure:F1:strap_brace_BW04_B",
         "bounds_mm": [
           3055.0,
           152.5,
@@ -3416,7 +3494,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW03_SW",
+        "name": "structure:F1:gusset_BW04_SW",
         "bounds_mm": [
           3550.0,
           150.0,
@@ -3429,7 +3507,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW03_SE",
+        "name": "structure:F1:gusset_BW04_SE",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -3442,7 +3520,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW03_NW",
+        "name": "structure:F1:gusset_BW04_NW",
         "bounds_mm": [
           3550.0,
           150.0,
@@ -3455,7 +3533,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW03_NE",
+        "name": "structure:F1:gusset_BW04_NE",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -3468,7 +3546,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW04_A",
+        "name": "structure:F1:strap_brace_BW05_A",
         "bounds_mm": [
           89.99999999999997,
           150.0,
@@ -3481,7 +3559,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW04_B",
+        "name": "structure:F1:strap_brace_BW05_B",
         "bounds_mm": [
           90.0,
           152.5,
@@ -3494,7 +3572,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW04_SW",
+        "name": "structure:F1:gusset_BW05_SW",
         "bounds_mm": [
           815.0,
           150.0,
@@ -3507,7 +3585,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW04_SE",
+        "name": "structure:F1:gusset_BW05_SE",
         "bounds_mm": [
           90.0,
           150.0,
@@ -3520,7 +3598,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW04_NW",
+        "name": "structure:F1:gusset_BW05_NW",
         "bounds_mm": [
           815.0,
           150.0,
@@ -3533,7 +3611,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW04_NE",
+        "name": "structure:F1:gusset_BW05_NE",
         "bounds_mm": [
           90.0,
           150.0,
@@ -3546,7 +3624,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW05_A",
+        "name": "structure:F1:strap_brace_BW06_A",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -3559,7 +3637,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW05_B",
+        "name": "structure:F1:strap_brace_BW06_B",
         "bounds_mm": [
           7605.0,
           7123.5,
@@ -3572,7 +3650,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW05_SW",
+        "name": "structure:F1:gusset_BW06_SW",
         "bounds_mm": [
           8000.0,
           7121.0,
@@ -3585,7 +3663,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW05_SE",
+        "name": "structure:F1:gusset_BW06_SE",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -3598,7 +3676,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW05_NW",
+        "name": "structure:F1:gusset_BW06_NW",
         "bounds_mm": [
           8000.0,
           7121.0,
@@ -3611,7 +3689,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW05_NE",
+        "name": "structure:F1:gusset_BW06_NE",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -3624,7 +3702,163 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW06_A",
+        "name": "structure:F1:strap_brace_BW07_A",
+        "bounds_mm": [
+          6319.999999999998,
+          7121.0,
+          -64.0000000000004,
+          6825.0,
+          7123.000000000001,
+          2476.0000000000005
+        ],
+        "volume_mm3": 301354.488875,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW07_B",
+        "bounds_mm": [
+          6320.0,
+          7123.499999999999,
+          -64.0000000000004,
+          6825.0,
+          7125.5,
+          2476.0000000000005
+        ],
+        "volume_mm3": 301354.488875,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW07_SW",
+        "bounds_mm": [
+          6725.0,
+          7121.0,
+          -64.0,
+          6825.0,
+          7125.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW07_SE",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          -64.0,
+          6420.0,
+          7125.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW07_NW",
+        "bounds_mm": [
+          6725.0,
+          7121.0,
+          2376.0,
+          6825.0,
+          7125.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW07_NE",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          2376.0,
+          6420.0,
+          7125.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW08_A",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          -64.00000000000095,
+          6320.0,
+          7123.0,
+          2476.0000000000005
+        ],
+        "volume_mm3": 317201.684928,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW08_B",
+        "bounds_mm": [
+          5430.0,
+          7123.5,
+          -64.00000000000053,
+          6320.0,
+          7125.5,
+          2476.0000000000005
+        ],
+        "volume_mm3": 317201.684928,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW08_SW",
+        "bounds_mm": [
+          6220.0,
+          7121.0,
+          -64.0,
+          6320.0,
+          7125.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW08_SE",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          -64.0,
+          5530.0,
+          7125.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW08_NW",
+        "bounds_mm": [
+          6220.0,
+          7121.0,
+          2376.0,
+          6320.0,
+          7125.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW08_NE",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          2376.0,
+          5530.0,
+          7125.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW09_A",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -3637,7 +3871,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW06_B",
+        "name": "structure:F1:strap_brace_BW09_B",
         "bounds_mm": [
           3650.0,
           7123.5,
@@ -3650,7 +3884,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW06_SW",
+        "name": "structure:F1:gusset_BW09_SW",
         "bounds_mm": [
           4125.0,
           7121.0,
@@ -3663,7 +3897,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW06_SE",
+        "name": "structure:F1:gusset_BW09_SE",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -3676,7 +3910,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW06_NW",
+        "name": "structure:F1:gusset_BW09_NW",
         "bounds_mm": [
           4125.0,
           7121.0,
@@ -3689,7 +3923,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW06_NE",
+        "name": "structure:F1:gusset_BW09_NE",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -3702,7 +3936,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW07_A",
+        "name": "structure:F1:strap_brace_BW10_A",
         "bounds_mm": [
           3129.999999999999,
           7121.0,
@@ -3715,7 +3949,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW07_B",
+        "name": "structure:F1:strap_brace_BW10_B",
         "bounds_mm": [
           3130.0,
           7123.499999999999,
@@ -3728,7 +3962,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW07_SW",
+        "name": "structure:F1:gusset_BW10_SW",
         "bounds_mm": [
           3550.0,
           7121.0,
@@ -3741,7 +3975,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW07_SE",
+        "name": "structure:F1:gusset_BW10_SE",
         "bounds_mm": [
           3130.0,
           7121.0,
@@ -3754,7 +3988,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW07_NW",
+        "name": "structure:F1:gusset_BW10_NW",
         "bounds_mm": [
           3550.0,
           7121.0,
@@ -3767,7 +4001,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW07_NE",
+        "name": "structure:F1:gusset_BW10_NE",
         "bounds_mm": [
           3130.0,
           7121.0,
@@ -3780,7 +4014,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW08_A",
+        "name": "structure:F1:strap_brace_BW11_A",
         "bounds_mm": [
           979.9999999999999,
           7121.0,
@@ -3793,7 +4027,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW08_B",
+        "name": "structure:F1:strap_brace_BW11_B",
         "bounds_mm": [
           980.0,
           7123.5,
@@ -3806,7 +4040,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW08_SW",
+        "name": "structure:F1:gusset_BW11_SW",
         "bounds_mm": [
           1770.0,
           7121.0,
@@ -3819,7 +4053,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW08_SE",
+        "name": "structure:F1:gusset_BW11_SE",
         "bounds_mm": [
           980.0,
           7121.0,
@@ -3832,7 +4066,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW08_NW",
+        "name": "structure:F1:gusset_BW11_NW",
         "bounds_mm": [
           1770.0,
           7121.0,
@@ -3845,7 +4079,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW08_NE",
+        "name": "structure:F1:gusset_BW11_NE",
         "bounds_mm": [
           980.0,
           7121.0,
@@ -3858,7 +4092,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW09_A",
+        "name": "structure:F1:strap_brace_BW12_A",
         "bounds_mm": [
           89.99999999999993,
           7121.0,
@@ -3871,7 +4105,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW09_B",
+        "name": "structure:F1:strap_brace_BW12_B",
         "bounds_mm": [
           89.99999999999999,
           7123.5,
@@ -3884,7 +4118,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW09_SW",
+        "name": "structure:F1:gusset_BW12_SW",
         "bounds_mm": [
           880.0,
           7121.0,
@@ -3897,7 +4131,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW09_SE",
+        "name": "structure:F1:gusset_BW12_SE",
         "bounds_mm": [
           90.0,
           7121.0,
@@ -3910,7 +4144,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW09_NW",
+        "name": "structure:F1:gusset_BW12_NW",
         "bounds_mm": [
           880.0,
           7121.0,
@@ -3923,7 +4157,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW09_NE",
+        "name": "structure:F1:gusset_BW12_NE",
         "bounds_mm": [
           90.0,
           7121.0,
@@ -3936,7 +4170,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW10_A",
+        "name": "structure:F1:strap_brace_BW13_A",
         "bounds_mm": [
           8038.0,
           90.0,
@@ -3949,7 +4183,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW10_B",
+        "name": "structure:F1:strap_brace_BW13_B",
         "bounds_mm": [
           8035.5,
           90.0,
@@ -3962,7 +4196,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW10_SW",
+        "name": "structure:F1:gusset_BW13_SW",
         "bounds_mm": [
           8036.0,
           90.0,
@@ -3975,7 +4209,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW10_SE",
+        "name": "structure:F1:gusset_BW13_SE",
         "bounds_mm": [
           8036.0,
           535.0,
@@ -3988,7 +4222,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW10_NW",
+        "name": "structure:F1:gusset_BW13_NW",
         "bounds_mm": [
           8036.0,
           90.0,
@@ -4001,7 +4235,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW10_NE",
+        "name": "structure:F1:gusset_BW13_NE",
         "bounds_mm": [
           8036.0,
           535.0,
@@ -4014,7 +4248,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW11_A",
+        "name": "structure:F1:strap_brace_BW14_A",
         "bounds_mm": [
           8038.0,
           3565.0,
@@ -4027,7 +4261,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW11_B",
+        "name": "structure:F1:strap_brace_BW14_B",
         "bounds_mm": [
           8035.5,
           3565.0,
@@ -4040,7 +4274,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW11_SW",
+        "name": "structure:F1:gusset_BW14_SW",
         "bounds_mm": [
           8036.0,
           3565.0,
@@ -4053,7 +4287,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW11_SE",
+        "name": "structure:F1:gusset_BW14_SE",
         "bounds_mm": [
           8036.0,
           4427.5,
@@ -4066,7 +4300,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW11_NW",
+        "name": "structure:F1:gusset_BW14_NW",
         "bounds_mm": [
           8036.0,
           3565.0,
@@ -4079,7 +4313,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW11_NE",
+        "name": "structure:F1:gusset_BW14_NE",
         "bounds_mm": [
           8036.0,
           4427.5,
@@ -4092,163 +4326,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW12_A",
-        "bounds_mm": [
-          8038.0,
-          4527.5,
-          -64.0000000000001,
-          8040.0,
-          5335.0,
-          2476.0
-        ],
-        "volume_mm3": 313598.058042,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:strap_brace_BW12_B",
-        "bounds_mm": [
-          8035.5,
-          4527.5,
-          -64.0000000000001,
-          8037.5,
-          5335.0,
-          2476.0
-        ],
-        "volume_mm3": 313598.058042,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW12_SW",
-        "bounds_mm": [
-          8036.0,
-          4527.5,
-          -64.0,
-          8040.0,
-          4627.5,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW12_SE",
-        "bounds_mm": [
-          8036.0,
-          5235.0,
-          -64.0,
-          8040.0,
-          5335.0,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW12_NW",
-        "bounds_mm": [
-          8036.0,
-          4527.5,
-          2376.0,
-          8040.0,
-          4627.5,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW12_NE",
-        "bounds_mm": [
-          8036.0,
-          5235.0,
-          2376.0,
-          8040.0,
-          5335.0,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:strap_brace_BW13_A",
-        "bounds_mm": [
-          8038.0,
-          6465.0,
-          -64.0000000000003,
-          8040.0,
-          7190.000000000001,
-          2476.0
-        ],
-        "volume_mm3": 310153.261658,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:strap_brace_BW13_B",
-        "bounds_mm": [
-          8035.5,
-          6465.0,
-          -64.0000000000003,
-          8037.5,
-          7190.0,
-          2476.0
-        ],
-        "volume_mm3": 310153.261658,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW13_SW",
-        "bounds_mm": [
-          8036.0,
-          6465.0,
-          -64.0,
-          8040.0,
-          6565.0,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW13_SE",
-        "bounds_mm": [
-          8036.0,
-          7090.0,
-          -64.0,
-          8040.0,
-          7190.0,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW13_NW",
-        "bounds_mm": [
-          8036.0,
-          6465.0,
-          2376.0,
-          8040.0,
-          6565.0,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW13_NE",
-        "bounds_mm": [
-          8036.0,
-          7090.0,
-          2376.0,
-          8040.0,
-          7190.0,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:strap_brace_BW14_A",
+        "name": "structure:F1:strap_brace_BW15_A",
         "bounds_mm": [
           157.0,
           90.0,
@@ -4261,7 +4339,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW14_B",
+        "name": "structure:F1:strap_brace_BW15_B",
         "bounds_mm": [
           154.5,
           89.99999999999997,
@@ -4274,7 +4352,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW14_SW",
+        "name": "structure:F1:gusset_BW15_SW",
         "bounds_mm": [
           155.0,
           90.0,
@@ -4287,7 +4365,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW14_SE",
+        "name": "structure:F1:gusset_BW15_SE",
         "bounds_mm": [
           155.0,
           877.5,
@@ -4300,7 +4378,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW14_NW",
+        "name": "structure:F1:gusset_BW15_NW",
         "bounds_mm": [
           155.0,
           90.0,
@@ -4313,7 +4391,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW14_NE",
+        "name": "structure:F1:gusset_BW15_NE",
         "bounds_mm": [
           155.0,
           877.5,
@@ -4326,7 +4404,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW15_A",
+        "name": "structure:F1:strap_brace_BW16_A",
         "bounds_mm": [
           157.0,
           977.5,
@@ -4339,7 +4417,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW15_B",
+        "name": "structure:F1:strap_brace_BW16_B",
         "bounds_mm": [
           154.5,
           977.4999999999999,
@@ -4352,7 +4430,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW15_SW",
+        "name": "structure:F1:gusset_BW16_SW",
         "bounds_mm": [
           155.0,
           977.5,
@@ -4365,7 +4443,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW15_SE",
+        "name": "structure:F1:gusset_BW16_SE",
         "bounds_mm": [
           155.0,
           1765.0,
@@ -4378,7 +4456,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW15_NW",
+        "name": "structure:F1:gusset_BW16_NW",
         "bounds_mm": [
           155.0,
           977.5,
@@ -4391,7 +4469,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW15_NE",
+        "name": "structure:F1:gusset_BW16_NE",
         "bounds_mm": [
           155.0,
           1765.0,
@@ -4404,7 +4482,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW16_A",
+        "name": "structure:F1:strap_brace_BW17_A",
         "bounds_mm": [
           157.0,
           1865.0,
@@ -4417,7 +4495,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW16_B",
+        "name": "structure:F1:strap_brace_BW17_B",
         "bounds_mm": [
           154.5,
           1865.0,
@@ -4430,7 +4508,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW16_SW",
+        "name": "structure:F1:gusset_BW17_SW",
         "bounds_mm": [
           155.0,
           1865.0,
@@ -4443,7 +4521,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW16_SE",
+        "name": "structure:F1:gusset_BW17_SE",
         "bounds_mm": [
           155.0,
           2652.5,
@@ -4456,7 +4534,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW16_NW",
+        "name": "structure:F1:gusset_BW17_NW",
         "bounds_mm": [
           155.0,
           1865.0,
@@ -4469,7 +4547,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW16_NE",
+        "name": "structure:F1:gusset_BW17_NE",
         "bounds_mm": [
           155.0,
           2652.5,
@@ -4482,7 +4560,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW17_A",
+        "name": "structure:F1:strap_brace_BW18_A",
         "bounds_mm": [
           157.0,
           2752.5,
@@ -4495,7 +4573,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW17_B",
+        "name": "structure:F1:strap_brace_BW18_B",
         "bounds_mm": [
           154.5,
           2752.5,
@@ -4508,7 +4586,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW17_SW",
+        "name": "structure:F1:gusset_BW18_SW",
         "bounds_mm": [
           155.0,
           2752.5,
@@ -4521,7 +4599,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW17_SE",
+        "name": "structure:F1:gusset_BW18_SE",
         "bounds_mm": [
           155.0,
           3540.0,
@@ -4534,7 +4612,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW17_NW",
+        "name": "structure:F1:gusset_BW18_NW",
         "bounds_mm": [
           155.0,
           2752.5,
@@ -4547,7 +4625,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW17_NE",
+        "name": "structure:F1:gusset_BW18_NE",
         "bounds_mm": [
           155.0,
           3540.0,
@@ -4560,7 +4638,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW18_A",
+        "name": "structure:F1:strap_brace_BW19_A",
         "bounds_mm": [
           157.0,
           3640.0,
@@ -4573,7 +4651,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW18_B",
+        "name": "structure:F1:strap_brace_BW19_B",
         "bounds_mm": [
           154.5,
           3640.0,
@@ -4586,7 +4664,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW18_SW",
+        "name": "structure:F1:gusset_BW19_SW",
         "bounds_mm": [
           155.0,
           3640.0,
@@ -4599,7 +4677,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW18_SE",
+        "name": "structure:F1:gusset_BW19_SE",
         "bounds_mm": [
           155.0,
           4427.5,
@@ -4612,7 +4690,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW18_NW",
+        "name": "structure:F1:gusset_BW19_NW",
         "bounds_mm": [
           155.0,
           3640.0,
@@ -4625,7 +4703,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW18_NE",
+        "name": "structure:F1:gusset_BW19_NE",
         "bounds_mm": [
           155.0,
           4427.5,
@@ -4638,7 +4716,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW19_A",
+        "name": "structure:F1:strap_brace_BW20_A",
         "bounds_mm": [
           157.0,
           4527.5,
@@ -4651,7 +4729,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW19_B",
+        "name": "structure:F1:strap_brace_BW20_B",
         "bounds_mm": [
           154.5,
           4527.5,
@@ -4664,7 +4742,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW19_SW",
+        "name": "structure:F1:gusset_BW20_SW",
         "bounds_mm": [
           155.0,
           4527.5,
@@ -4677,7 +4755,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW19_SE",
+        "name": "structure:F1:gusset_BW20_SE",
         "bounds_mm": [
           155.0,
           5315.0,
@@ -4690,7 +4768,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW19_NW",
+        "name": "structure:F1:gusset_BW20_NW",
         "bounds_mm": [
           155.0,
           4527.5,
@@ -4703,7 +4781,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW19_NE",
+        "name": "structure:F1:gusset_BW20_NE",
         "bounds_mm": [
           155.0,
           5315.0,
@@ -4716,7 +4794,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW20_A",
+        "name": "structure:F1:strap_brace_BW21_A",
         "bounds_mm": [
           157.0,
           5415.0,
@@ -4729,7 +4807,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW20_B",
+        "name": "structure:F1:strap_brace_BW21_B",
         "bounds_mm": [
           154.5,
           5415.0,
@@ -4742,7 +4820,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW20_SW",
+        "name": "structure:F1:gusset_BW21_SW",
         "bounds_mm": [
           155.0,
           5415.0,
@@ -4755,7 +4833,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW20_SE",
+        "name": "structure:F1:gusset_BW21_SE",
         "bounds_mm": [
           155.0,
           6035.0,
@@ -4768,7 +4846,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW20_NW",
+        "name": "structure:F1:gusset_BW21_NW",
         "bounds_mm": [
           155.0,
           5415.0,
@@ -4781,7 +4859,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW20_NE",
+        "name": "structure:F1:gusset_BW21_NE",
         "bounds_mm": [
           155.0,
           6035.0,
@@ -4794,7 +4872,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW21_A",
+        "name": "structure:F1:strap_brace_BW22_A",
         "bounds_mm": [
           2083.0,
           4460.0,
@@ -4807,91 +4885,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW21_B",
-        "bounds_mm": [
-          2080.5,
-          4460.0,
-          -64.00000000000009,
-          2082.5,
-          5370.0,
-          2476.0000000000005
-        ],
-        "volume_mm3": 318101.972491,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW21_SW",
-        "bounds_mm": [
-          2081.0,
-          4460.0,
-          -64.0,
-          2085.0,
-          4560.0,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW21_SE",
-        "bounds_mm": [
-          2081.0,
-          5270.0,
-          -64.0,
-          2085.0,
-          5370.0,
-          36.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW21_NW",
-        "bounds_mm": [
-          2081.0,
-          4460.0,
-          2376.0,
-          2085.0,
-          4560.0,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:gusset_BW21_NE",
-        "bounds_mm": [
-          2081.0,
-          5270.0,
-          2376.0,
-          2085.0,
-          5370.0,
-          2476.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:strap_brace_BW22_A",
-        "bounds_mm": [
-          2083.0,
-          5370.0,
-          -64.00000000000009,
-          2085.0,
-          6280.000000000001,
-          2476.0000000000005
-        ],
-        "volume_mm3": 318101.972491,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F1:strap_brace_BW22_B",
         "bounds_mm": [
           2080.5,
-          5370.0,
+          4460.0,
           -64.00000000000009,
           2082.5,
-          6280.0,
+          5370.0,
           2476.0000000000005
         ],
         "volume_mm3": 318101.972491,
@@ -4901,10 +4901,10 @@
         "name": "structure:F1:gusset_BW22_SW",
         "bounds_mm": [
           2081.0,
-          5370.0,
+          4460.0,
           -64.0,
           2085.0,
-          5470.0,
+          4560.0,
           36.0
         ],
         "volume_mm3": 40000.0,
@@ -4914,6 +4914,84 @@
         "name": "structure:F1:gusset_BW22_SE",
         "bounds_mm": [
           2081.0,
+          5270.0,
+          -64.0,
+          2085.0,
+          5370.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW22_NW",
+        "bounds_mm": [
+          2081.0,
+          4460.0,
+          2376.0,
+          2085.0,
+          4560.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW22_NE",
+        "bounds_mm": [
+          2081.0,
+          5270.0,
+          2376.0,
+          2085.0,
+          5370.0,
+          2476.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW23_A",
+        "bounds_mm": [
+          2083.0,
+          5370.0,
+          -64.00000000000009,
+          2085.0,
+          6280.000000000001,
+          2476.0000000000005
+        ],
+        "volume_mm3": 318101.972491,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:strap_brace_BW23_B",
+        "bounds_mm": [
+          2080.5,
+          5370.0,
+          -64.00000000000009,
+          2082.5,
+          6280.0,
+          2476.0000000000005
+        ],
+        "volume_mm3": 318101.972491,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW23_SW",
+        "bounds_mm": [
+          2081.0,
+          5370.0,
+          -64.0,
+          2085.0,
+          5470.0,
+          36.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F1:gusset_BW23_SE",
+        "bounds_mm": [
+          2081.0,
           6180.0,
           -64.0,
           2085.0,
@@ -4924,7 +5002,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW22_NW",
+        "name": "structure:F1:gusset_BW23_NW",
         "bounds_mm": [
           2081.0,
           5370.0,
@@ -4937,7 +5015,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW22_NE",
+        "name": "structure:F1:gusset_BW23_NE",
         "bounds_mm": [
           2081.0,
           6180.0,
@@ -4950,7 +5028,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW23_A",
+        "name": "structure:F1:strap_brace_BW24_A",
         "bounds_mm": [
           2083.0,
           6280.0,
@@ -4963,7 +5041,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW23_B",
+        "name": "structure:F1:strap_brace_BW24_B",
         "bounds_mm": [
           2080.5,
           6280.0,
@@ -4976,7 +5054,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW23_SW",
+        "name": "structure:F1:gusset_BW24_SW",
         "bounds_mm": [
           2081.0,
           6280.0,
@@ -4989,7 +5067,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW23_SE",
+        "name": "structure:F1:gusset_BW24_SE",
         "bounds_mm": [
           2081.0,
           7090.0,
@@ -5002,7 +5080,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW23_NW",
+        "name": "structure:F1:gusset_BW24_NW",
         "bounds_mm": [
           2081.0,
           6280.0,
@@ -5015,7 +5093,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW23_NE",
+        "name": "structure:F1:gusset_BW24_NE",
         "bounds_mm": [
           2081.0,
           7090.0,
@@ -5028,7 +5106,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW24_A",
+        "name": "structure:F1:strap_brace_BW25_A",
         "bounds_mm": [
           3083.0,
           5370.0,
@@ -5041,7 +5119,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW24_B",
+        "name": "structure:F1:strap_brace_BW25_B",
         "bounds_mm": [
           3080.5,
           5370.0,
@@ -5054,7 +5132,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW24_SW",
+        "name": "structure:F1:gusset_BW25_SW",
         "bounds_mm": [
           3081.0,
           5370.0,
@@ -5067,7 +5145,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW24_SE",
+        "name": "structure:F1:gusset_BW25_SE",
         "bounds_mm": [
           3081.0,
           6180.0,
@@ -5080,7 +5158,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW24_NW",
+        "name": "structure:F1:gusset_BW25_NW",
         "bounds_mm": [
           3081.0,
           5370.0,
@@ -5093,7 +5171,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW24_NE",
+        "name": "structure:F1:gusset_BW25_NE",
         "bounds_mm": [
           3081.0,
           6180.0,
@@ -5106,7 +5184,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW25_A",
+        "name": "structure:F1:strap_brace_BW26_A",
         "bounds_mm": [
           3083.0,
           6280.0,
@@ -5119,7 +5197,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:strap_brace_BW25_B",
+        "name": "structure:F1:strap_brace_BW26_B",
         "bounds_mm": [
           3080.5,
           6280.0,
@@ -5132,7 +5210,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW25_SW",
+        "name": "structure:F1:gusset_BW26_SW",
         "bounds_mm": [
           3081.0,
           6280.0,
@@ -5145,7 +5223,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW25_SE",
+        "name": "structure:F1:gusset_BW26_SE",
         "bounds_mm": [
           3081.0,
           7090.0,
@@ -5158,7 +5236,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW25_NW",
+        "name": "structure:F1:gusset_BW26_NW",
         "bounds_mm": [
           3081.0,
           6280.0,
@@ -5171,7 +5249,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:gusset_BW25_NE",
+        "name": "structure:F1:gusset_BW26_NE",
         "bounds_mm": [
           3081.0,
           7090.0,
@@ -5264,27 +5342,27 @@
       {
         "name": "structure:F2:strap_brace_BW02_A",
         "bounds_mm": [
-          4825.0,
+          4539.999999999999,
           150.0,
           2776.0,
           5375.0,
-          152.00000000000003,
+          152.0,
           5096.0
         ],
-        "volume_mm3": 278096.888563,
+        "volume_mm3": 290233.704614,
         "solid_count": 1
       },
       {
         "name": "structure:F2:strap_brace_BW02_B",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           152.5,
           2776.0,
-          5375.0,
+          5375.000000000001,
           154.5,
           5096.0
         ],
-        "volume_mm3": 278096.888563,
+        "volume_mm3": 290233.704614,
         "solid_count": 1
       },
       {
@@ -5303,10 +5381,10 @@
       {
         "name": "structure:F2:gusset_BW02_SE",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           2776.0,
-          4925.0,
+          4640.0,
           154.0,
           2876.0
         ],
@@ -5329,10 +5407,10 @@
       {
         "name": "structure:F2:gusset_BW02_NE",
         "bounds_mm": [
-          4825.0,
+          4540.0,
           150.0,
           4996.0,
-          4925.0,
+          4640.0,
           154.0,
           5096.0
         ],
@@ -5341,6 +5419,84 @@
       },
       {
         "name": "structure:F2:strap_brace_BW03_A",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          2776.0,
+          4540.0,
+          152.0,
+          5096.0
+        ],
+        "volume_mm3": 292799.842383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW03_B",
+        "bounds_mm": [
+          3649.9999999999995,
+          152.5,
+          2776.0,
+          4540.0,
+          154.5,
+          5096.0
+        ],
+        "volume_mm3": 292799.842383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW03_SW",
+        "bounds_mm": [
+          4440.0,
+          150.0,
+          2776.0,
+          4540.0,
+          154.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW03_SE",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          2776.0,
+          3750.0,
+          154.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW03_NW",
+        "bounds_mm": [
+          4440.0,
+          150.0,
+          4996.0,
+          4540.0,
+          154.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW03_NE",
+        "bounds_mm": [
+          3650.0,
+          150.0,
+          4996.0,
+          3750.0,
+          154.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW04_A",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -5353,7 +5509,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW03_B",
+        "name": "structure:F2:strap_brace_BW04_B",
         "bounds_mm": [
           3055.0,
           152.5,
@@ -5366,7 +5522,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW03_SW",
+        "name": "structure:F2:gusset_BW04_SW",
         "bounds_mm": [
           3550.0,
           150.0,
@@ -5379,7 +5535,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW03_SE",
+        "name": "structure:F2:gusset_BW04_SE",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -5392,7 +5548,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW03_NW",
+        "name": "structure:F2:gusset_BW04_NW",
         "bounds_mm": [
           3550.0,
           150.0,
@@ -5405,7 +5561,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW03_NE",
+        "name": "structure:F2:gusset_BW04_NE",
         "bounds_mm": [
           3055.0,
           150.0,
@@ -5418,7 +5574,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW04_A",
+        "name": "structure:F2:strap_brace_BW05_A",
         "bounds_mm": [
           89.99999999999906,
           150.0,
@@ -5431,7 +5587,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW04_B",
+        "name": "structure:F2:strap_brace_BW05_B",
         "bounds_mm": [
           90.0,
           152.5,
@@ -5444,7 +5600,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW04_SW",
+        "name": "structure:F2:gusset_BW05_SW",
         "bounds_mm": [
           815.0,
           150.0,
@@ -5457,7 +5613,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW04_SE",
+        "name": "structure:F2:gusset_BW05_SE",
         "bounds_mm": [
           90.0,
           150.0,
@@ -5470,7 +5626,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW04_NW",
+        "name": "structure:F2:gusset_BW05_NW",
         "bounds_mm": [
           815.0,
           150.0,
@@ -5483,7 +5639,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW04_NE",
+        "name": "structure:F2:gusset_BW05_NE",
         "bounds_mm": [
           90.0,
           150.0,
@@ -5496,7 +5652,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW05_A",
+        "name": "structure:F2:strap_brace_BW06_A",
         "bounds_mm": [
           7604.999999999996,
           7121.0,
@@ -5509,7 +5665,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW05_B",
+        "name": "structure:F2:strap_brace_BW06_B",
         "bounds_mm": [
           7605.0,
           7123.499999999999,
@@ -5522,7 +5678,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW05_SW",
+        "name": "structure:F2:gusset_BW06_SW",
         "bounds_mm": [
           8000.0,
           7121.0,
@@ -5535,7 +5691,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW05_SE",
+        "name": "structure:F2:gusset_BW06_SE",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -5548,7 +5704,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW05_NW",
+        "name": "structure:F2:gusset_BW06_NW",
         "bounds_mm": [
           8000.0,
           7121.0,
@@ -5561,7 +5717,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW05_NE",
+        "name": "structure:F2:gusset_BW06_NE",
         "bounds_mm": [
           7605.0,
           7121.0,
@@ -5574,7 +5730,163 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW06_A",
+        "name": "structure:F2:strap_brace_BW07_A",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          2775.9999999999995,
+          6825.0,
+          7123.0,
+          5096.0
+        ],
+        "volume_mm3": 276258.02915,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW07_B",
+        "bounds_mm": [
+          6320.0,
+          7123.5,
+          2775.9999999999995,
+          6825.0,
+          7125.500000000001,
+          5096.0
+        ],
+        "volume_mm3": 276258.02915,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW07_SW",
+        "bounds_mm": [
+          6725.0,
+          7121.0,
+          2776.0,
+          6825.0,
+          7125.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW07_SE",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          2776.0,
+          6420.0,
+          7125.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW07_NW",
+        "bounds_mm": [
+          6725.0,
+          7121.0,
+          4996.0,
+          6825.0,
+          7125.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW07_NE",
+        "bounds_mm": [
+          6320.0,
+          7121.0,
+          4996.0,
+          6420.0,
+          7125.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW08_A",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          2776.0,
+          6320.0,
+          7123.0,
+          5096.0
+        ],
+        "volume_mm3": 292799.842383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW08_B",
+        "bounds_mm": [
+          5430.0,
+          7123.499999999999,
+          2776.0,
+          6320.0,
+          7125.5,
+          5096.0
+        ],
+        "volume_mm3": 292799.842383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW08_SW",
+        "bounds_mm": [
+          6220.0,
+          7121.0,
+          2776.0,
+          6320.0,
+          7125.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW08_SE",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          2776.0,
+          5530.0,
+          7125.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW08_NW",
+        "bounds_mm": [
+          6220.0,
+          7121.0,
+          4996.0,
+          6320.0,
+          7125.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW08_NE",
+        "bounds_mm": [
+          5430.0,
+          7121.0,
+          4996.0,
+          5530.0,
+          7125.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW09_A",
         "bounds_mm": [
           3649.999999999999,
           7121.0,
@@ -5587,7 +5899,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW06_B",
+        "name": "structure:F2:strap_brace_BW09_B",
         "bounds_mm": [
           3650.0,
           7123.499999999997,
@@ -5600,7 +5912,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW06_SW",
+        "name": "structure:F2:gusset_BW09_SW",
         "bounds_mm": [
           4125.0,
           7121.0,
@@ -5613,7 +5925,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW06_SE",
+        "name": "structure:F2:gusset_BW09_SE",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -5626,7 +5938,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW06_NW",
+        "name": "structure:F2:gusset_BW09_NW",
         "bounds_mm": [
           4125.0,
           7121.0,
@@ -5639,7 +5951,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW06_NE",
+        "name": "structure:F2:gusset_BW09_NE",
         "bounds_mm": [
           3650.0,
           7121.0,
@@ -5652,7 +5964,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW07_A",
+        "name": "structure:F2:strap_brace_BW10_A",
         "bounds_mm": [
           3129.9999999999973,
           7121.0,
@@ -5665,7 +5977,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW07_B",
+        "name": "structure:F2:strap_brace_BW10_B",
         "bounds_mm": [
           3130.0,
           7123.5,
@@ -5678,247 +5990,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW07_SW",
-        "bounds_mm": [
-          3550.0,
-          7121.0,
-          2776.0,
-          3650.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW07_SE",
-        "bounds_mm": [
-          3130.0,
-          7121.0,
-          2776.0,
-          3230.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW07_NW",
-        "bounds_mm": [
-          3550.0,
-          7121.0,
-          4996.0,
-          3650.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW07_NE",
-        "bounds_mm": [
-          3130.0,
-          7121.0,
-          4996.0,
-          3230.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW08_A",
-        "bounds_mm": [
-          980.0,
-          7121.0,
-          2775.9999999999995,
-          1870.0,
-          7123.0,
-          5096.0
-        ],
-        "volume_mm3": 292799.842383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW08_B",
-        "bounds_mm": [
-          980.0,
-          7123.499999999999,
-          2776.0,
-          1870.0,
-          7125.5,
-          5096.0
-        ],
-        "volume_mm3": 292799.842383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW08_SW",
-        "bounds_mm": [
-          1770.0,
-          7121.0,
-          2776.0,
-          1870.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW08_SE",
-        "bounds_mm": [
-          980.0,
-          7121.0,
-          2776.0,
-          1080.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW08_NW",
-        "bounds_mm": [
-          1770.0,
-          7121.0,
-          4996.0,
-          1870.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW08_NE",
-        "bounds_mm": [
-          980.0,
-          7121.0,
-          4996.0,
-          1080.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW09_A",
-        "bounds_mm": [
-          90.0,
-          7121.0,
-          2775.9999999999995,
-          980.0,
-          7123.0,
-          5096.0
-        ],
-        "volume_mm3": 292799.842383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW09_B",
-        "bounds_mm": [
-          90.0,
-          7123.499999999999,
-          2776.0,
-          980.0,
-          7125.5,
-          5096.0
-        ],
-        "volume_mm3": 292799.842383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW09_SW",
-        "bounds_mm": [
-          880.0,
-          7121.0,
-          2776.0,
-          980.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW09_SE",
-        "bounds_mm": [
-          90.0,
-          7121.0,
-          2776.0,
-          190.0,
-          7125.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW09_NW",
-        "bounds_mm": [
-          880.0,
-          7121.0,
-          4996.0,
-          980.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW09_NE",
-        "bounds_mm": [
-          90.0,
-          7121.0,
-          4996.0,
-          190.0,
-          7125.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW10_A",
-        "bounds_mm": [
-          8038.0,
-          90.0,
-          2776.0,
-          8040.0,
-          635.0,
-          5096.0
-        ],
-        "volume_mm3": 277893.300514,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW10_B",
-        "bounds_mm": [
-          8035.5,
-          90.0,
-          2776.0,
-          8037.5,
-          635.0,
-          5096.0
-        ],
-        "volume_mm3": 277893.300514,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:gusset_BW10_SW",
         "bounds_mm": [
-          8036.0,
-          90.0,
+          3550.0,
+          7121.0,
           2776.0,
-          8040.0,
-          190.0,
+          3650.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -5927,11 +6005,11 @@
       {
         "name": "structure:F2:gusset_BW10_SE",
         "bounds_mm": [
-          8036.0,
-          535.0,
+          3130.0,
+          7121.0,
           2776.0,
-          8040.0,
-          635.0,
+          3230.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -5940,11 +6018,11 @@
       {
         "name": "structure:F2:gusset_BW10_NW",
         "bounds_mm": [
-          8036.0,
-          90.0,
+          3550.0,
+          7121.0,
           4996.0,
-          8040.0,
-          190.0,
+          3650.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -5953,11 +6031,11 @@
       {
         "name": "structure:F2:gusset_BW10_NE",
         "bounds_mm": [
-          8036.0,
-          535.0,
+          3130.0,
+          7121.0,
           4996.0,
-          8040.0,
-          635.0,
+          3230.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -5966,37 +6044,37 @@
       {
         "name": "structure:F2:strap_brace_BW11_A",
         "bounds_mm": [
-          8038.0,
-          3565.0,
-          2776.0,
-          8040.0,
-          4527.5,
+          980.0,
+          7121.0,
+          2775.9999999999995,
+          1870.0,
+          7123.0,
           5096.0
         ],
-        "volume_mm3": 296322.577139,
+        "volume_mm3": 292799.842383,
         "solid_count": 1
       },
       {
         "name": "structure:F2:strap_brace_BW11_B",
         "bounds_mm": [
-          8035.5,
-          3565.0,
+          980.0,
+          7123.499999999999,
           2776.0,
-          8037.5,
-          4527.5,
+          1870.0,
+          7125.5,
           5096.0
         ],
-        "volume_mm3": 296322.577139,
+        "volume_mm3": 292799.842383,
         "solid_count": 1
       },
       {
         "name": "structure:F2:gusset_BW11_SW",
         "bounds_mm": [
-          8036.0,
-          3565.0,
+          1770.0,
+          7121.0,
           2776.0,
-          8040.0,
-          3665.0,
+          1870.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6005,11 +6083,11 @@
       {
         "name": "structure:F2:gusset_BW11_SE",
         "bounds_mm": [
-          8036.0,
-          4427.5,
+          980.0,
+          7121.0,
           2776.0,
-          8040.0,
-          4527.5,
+          1080.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6018,11 +6096,11 @@
       {
         "name": "structure:F2:gusset_BW11_NW",
         "bounds_mm": [
-          8036.0,
-          3565.0,
+          1770.0,
+          7121.0,
           4996.0,
-          8040.0,
-          3665.0,
+          1870.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6031,11 +6109,11 @@
       {
         "name": "structure:F2:gusset_BW11_NE",
         "bounds_mm": [
-          8036.0,
-          4427.5,
+          980.0,
+          7121.0,
           4996.0,
-          8040.0,
-          4527.5,
+          1080.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6044,37 +6122,37 @@
       {
         "name": "structure:F2:strap_brace_BW12_A",
         "bounds_mm": [
-          8038.0,
-          4527.5,
-          2776.0,
-          8040.0,
-          5335.0,
+          90.0,
+          7121.0,
+          2775.9999999999995,
+          980.0,
+          7123.0,
           5096.0
         ],
-        "volume_mm3": 288983.537547,
+        "volume_mm3": 292799.842383,
         "solid_count": 1
       },
       {
         "name": "structure:F2:strap_brace_BW12_B",
         "bounds_mm": [
-          8035.5,
-          4527.5,
+          90.0,
+          7123.499999999999,
           2776.0,
-          8037.5,
-          5335.0,
+          980.0,
+          7125.5,
           5096.0
         ],
-        "volume_mm3": 288983.537547,
+        "volume_mm3": 292799.842383,
         "solid_count": 1
       },
       {
         "name": "structure:F2:gusset_BW12_SW",
         "bounds_mm": [
-          8036.0,
-          4527.5,
+          880.0,
+          7121.0,
           2776.0,
-          8040.0,
-          4627.5,
+          980.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6083,11 +6161,11 @@
       {
         "name": "structure:F2:gusset_BW12_SE",
         "bounds_mm": [
-          8036.0,
-          5235.0,
+          90.0,
+          7121.0,
           2776.0,
-          8040.0,
-          5335.0,
+          190.0,
+          7125.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6096,11 +6174,11 @@
       {
         "name": "structure:F2:gusset_BW12_NW",
         "bounds_mm": [
-          8036.0,
-          4527.5,
+          880.0,
+          7121.0,
           4996.0,
-          8040.0,
-          4627.5,
+          980.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6109,11 +6187,11 @@
       {
         "name": "structure:F2:gusset_BW12_NE",
         "bounds_mm": [
-          8036.0,
-          5235.0,
+          90.0,
+          7121.0,
           4996.0,
-          8040.0,
-          5335.0,
+          190.0,
+          7125.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6123,36 +6201,36 @@
         "name": "structure:F2:strap_brace_BW13_A",
         "bounds_mm": [
           8038.0,
-          6465.0,
-          2775.9999999999995,
+          90.0,
+          2776.0,
           8040.0,
-          7190.000000000002,
+          635.0,
           5096.0
         ],
-        "volume_mm3": 285354.650288,
+        "volume_mm3": 277893.300514,
         "solid_count": 1
       },
       {
         "name": "structure:F2:strap_brace_BW13_B",
         "bounds_mm": [
           8035.5,
-          6465.0,
-          2775.9999999999995,
+          90.0,
+          2776.0,
           8037.5,
-          7190.0,
+          635.0,
           5096.0
         ],
-        "volume_mm3": 285354.650288,
+        "volume_mm3": 277893.300514,
         "solid_count": 1
       },
       {
         "name": "structure:F2:gusset_BW13_SW",
         "bounds_mm": [
           8036.0,
-          6465.0,
+          90.0,
           2776.0,
           8040.0,
-          6565.0,
+          190.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6162,10 +6240,10 @@
         "name": "structure:F2:gusset_BW13_SE",
         "bounds_mm": [
           8036.0,
-          7090.0,
+          535.0,
           2776.0,
           8040.0,
-          7190.0,
+          635.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6175,10 +6253,10 @@
         "name": "structure:F2:gusset_BW13_NW",
         "bounds_mm": [
           8036.0,
-          6465.0,
+          90.0,
           4996.0,
           8040.0,
-          6565.0,
+          190.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6188,10 +6266,10 @@
         "name": "structure:F2:gusset_BW13_NE",
         "bounds_mm": [
           8036.0,
-          7090.0,
+          535.0,
           4996.0,
           8040.0,
-          7190.0,
+          635.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6199,6 +6277,84 @@
       },
       {
         "name": "structure:F2:strap_brace_BW14_A",
+        "bounds_mm": [
+          8038.0,
+          3565.0,
+          2776.0,
+          8040.0,
+          4527.5,
+          5096.0
+        ],
+        "volume_mm3": 296322.577139,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW14_B",
+        "bounds_mm": [
+          8035.5,
+          3565.0,
+          2776.0,
+          8037.5,
+          4527.5,
+          5096.0
+        ],
+        "volume_mm3": 296322.577139,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW14_SW",
+        "bounds_mm": [
+          8036.0,
+          3565.0,
+          2776.0,
+          8040.0,
+          3665.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW14_SE",
+        "bounds_mm": [
+          8036.0,
+          4427.5,
+          2776.0,
+          8040.0,
+          4527.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW14_NW",
+        "bounds_mm": [
+          8036.0,
+          3565.0,
+          4996.0,
+          8040.0,
+          3665.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW14_NE",
+        "bounds_mm": [
+          8036.0,
+          4427.5,
+          4996.0,
+          8040.0,
+          4527.5,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW15_A",
         "bounds_mm": [
           156.9999999999991,
           89.99999999999994,
@@ -6211,91 +6367,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW14_B",
-        "bounds_mm": [
-          154.5,
-          90.0,
-          2776.0,
-          156.5,
-          977.5,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW14_SW",
-        "bounds_mm": [
-          155.0,
-          90.0,
-          2776.0,
-          159.0,
-          190.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW14_SE",
-        "bounds_mm": [
-          155.0,
-          877.5,
-          2776.0,
-          159.0,
-          977.5,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW14_NW",
-        "bounds_mm": [
-          155.0,
-          90.0,
-          4996.0,
-          159.0,
-          190.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW14_NE",
-        "bounds_mm": [
-          155.0,
-          877.5,
-          4996.0,
-          159.0,
-          977.5,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW15_A",
-        "bounds_mm": [
-          156.9999999999991,
-          977.5,
-          2776.0,
-          159.0,
-          1865.0,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:strap_brace_BW15_B",
         "bounds_mm": [
           154.5,
-          977.5,
+          90.0,
           2776.0,
           156.5,
-          1865.0,
+          977.5,
           5096.0
         ],
         "volume_mm3": 292681.245383,
@@ -6305,10 +6383,10 @@
         "name": "structure:F2:gusset_BW15_SW",
         "bounds_mm": [
           155.0,
-          977.5,
+          90.0,
           2776.0,
           159.0,
-          1077.5,
+          190.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6318,6 +6396,84 @@
         "name": "structure:F2:gusset_BW15_SE",
         "bounds_mm": [
           155.0,
+          877.5,
+          2776.0,
+          159.0,
+          977.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW15_NW",
+        "bounds_mm": [
+          155.0,
+          90.0,
+          4996.0,
+          159.0,
+          190.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW15_NE",
+        "bounds_mm": [
+          155.0,
+          877.5,
+          4996.0,
+          159.0,
+          977.5,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW16_A",
+        "bounds_mm": [
+          156.9999999999991,
+          977.5,
+          2776.0,
+          159.0,
+          1865.0,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW16_B",
+        "bounds_mm": [
+          154.5,
+          977.5,
+          2776.0,
+          156.5,
+          1865.0,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW16_SW",
+        "bounds_mm": [
+          155.0,
+          977.5,
+          2776.0,
+          159.0,
+          1077.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW16_SE",
+        "bounds_mm": [
+          155.0,
           1765.0,
           2776.0,
           159.0,
@@ -6328,7 +6484,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW15_NW",
+        "name": "structure:F2:gusset_BW16_NW",
         "bounds_mm": [
           155.0,
           977.5,
@@ -6341,7 +6497,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW15_NE",
+        "name": "structure:F2:gusset_BW16_NE",
         "bounds_mm": [
           155.0,
           1765.0,
@@ -6354,91 +6510,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW16_A",
-        "bounds_mm": [
-          156.9999999999991,
-          1865.0,
-          2776.0,
-          159.0,
-          2752.5,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW16_B",
-        "bounds_mm": [
-          154.5,
-          1865.0,
-          2776.0,
-          156.5,
-          2752.5,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW16_SW",
-        "bounds_mm": [
-          155.0,
-          1865.0,
-          2776.0,
-          159.0,
-          1965.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW16_SE",
-        "bounds_mm": [
-          155.0,
-          2652.5,
-          2776.0,
-          159.0,
-          2752.5,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW16_NW",
-        "bounds_mm": [
-          155.0,
-          1865.0,
-          4996.0,
-          159.0,
-          1965.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW16_NE",
-        "bounds_mm": [
-          155.0,
-          2652.5,
-          4996.0,
-          159.0,
-          2752.5,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:strap_brace_BW17_A",
         "bounds_mm": [
           156.9999999999991,
-          2752.5,
+          1865.0,
           2776.0,
           159.0,
-          3640.0,
+          2752.5,
           5096.0
         ],
         "volume_mm3": 292681.245383,
@@ -6448,10 +6526,10 @@
         "name": "structure:F2:strap_brace_BW17_B",
         "bounds_mm": [
           154.5,
-          2752.5,
+          1865.0,
           2776.0,
           156.5,
-          3640.0,
+          2752.5,
           5096.0
         ],
         "volume_mm3": 292681.245383,
@@ -6461,10 +6539,10 @@
         "name": "structure:F2:gusset_BW17_SW",
         "bounds_mm": [
           155.0,
-          2752.5,
+          1865.0,
           2776.0,
           159.0,
-          2852.5,
+          1965.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6474,6 +6552,84 @@
         "name": "structure:F2:gusset_BW17_SE",
         "bounds_mm": [
           155.0,
+          2652.5,
+          2776.0,
+          159.0,
+          2752.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW17_NW",
+        "bounds_mm": [
+          155.0,
+          1865.0,
+          4996.0,
+          159.0,
+          1965.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW17_NE",
+        "bounds_mm": [
+          155.0,
+          2652.5,
+          4996.0,
+          159.0,
+          2752.5,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW18_A",
+        "bounds_mm": [
+          156.9999999999991,
+          2752.5,
+          2776.0,
+          159.0,
+          3640.0,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW18_B",
+        "bounds_mm": [
+          154.5,
+          2752.5,
+          2776.0,
+          156.5,
+          3640.0,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW18_SW",
+        "bounds_mm": [
+          155.0,
+          2752.5,
+          2776.0,
+          159.0,
+          2852.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW18_SE",
+        "bounds_mm": [
+          155.0,
           3540.0,
           2776.0,
           159.0,
@@ -6484,7 +6640,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW17_NW",
+        "name": "structure:F2:gusset_BW18_NW",
         "bounds_mm": [
           155.0,
           2752.5,
@@ -6497,7 +6653,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW17_NE",
+        "name": "structure:F2:gusset_BW18_NE",
         "bounds_mm": [
           155.0,
           3540.0,
@@ -6510,91 +6666,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW18_A",
-        "bounds_mm": [
-          156.9999999999991,
-          3640.0,
-          2776.0,
-          159.0,
-          4527.5,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW18_B",
-        "bounds_mm": [
-          154.5,
-          3640.0,
-          2776.0,
-          156.5,
-          4527.5,
-          5096.0
-        ],
-        "volume_mm3": 292681.245383,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW18_SW",
-        "bounds_mm": [
-          155.0,
-          3640.0,
-          2776.0,
-          159.0,
-          3740.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW18_SE",
-        "bounds_mm": [
-          155.0,
-          4427.5,
-          2776.0,
-          159.0,
-          4527.5,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW18_NW",
-        "bounds_mm": [
-          155.0,
-          3640.0,
-          4996.0,
-          159.0,
-          3740.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW18_NE",
-        "bounds_mm": [
-          155.0,
-          4427.5,
-          4996.0,
-          159.0,
-          4527.5,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:strap_brace_BW19_A",
         "bounds_mm": [
           156.9999999999991,
-          4527.5,
+          3640.0,
           2776.0,
           159.0,
-          5415.0,
+          4527.5,
           5096.0
         ],
         "volume_mm3": 292681.245383,
@@ -6604,6 +6682,84 @@
         "name": "structure:F2:strap_brace_BW19_B",
         "bounds_mm": [
           154.5,
+          3640.0,
+          2776.0,
+          156.5,
+          4527.5,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW19_SW",
+        "bounds_mm": [
+          155.0,
+          3640.0,
+          2776.0,
+          159.0,
+          3740.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW19_SE",
+        "bounds_mm": [
+          155.0,
+          4427.5,
+          2776.0,
+          159.0,
+          4527.5,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW19_NW",
+        "bounds_mm": [
+          155.0,
+          3640.0,
+          4996.0,
+          159.0,
+          3740.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW19_NE",
+        "bounds_mm": [
+          155.0,
+          4427.5,
+          4996.0,
+          159.0,
+          4527.5,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW20_A",
+        "bounds_mm": [
+          156.9999999999991,
+          4527.5,
+          2776.0,
+          159.0,
+          5415.0,
+          5096.0
+        ],
+        "volume_mm3": 292681.245383,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW20_B",
+        "bounds_mm": [
+          154.5,
           4527.5,
           2776.0,
           156.5,
@@ -6614,7 +6770,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW19_SW",
+        "name": "structure:F2:gusset_BW20_SW",
         "bounds_mm": [
           155.0,
           4527.5,
@@ -6627,7 +6783,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW19_SE",
+        "name": "structure:F2:gusset_BW20_SE",
         "bounds_mm": [
           155.0,
           5315.0,
@@ -6640,7 +6796,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW19_NW",
+        "name": "structure:F2:gusset_BW20_NW",
         "bounds_mm": [
           155.0,
           4527.5,
@@ -6653,7 +6809,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW19_NE",
+        "name": "structure:F2:gusset_BW20_NE",
         "bounds_mm": [
           155.0,
           5315.0,
@@ -6666,7 +6822,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW20_A",
+        "name": "structure:F2:strap_brace_BW21_A",
         "bounds_mm": [
           157.0,
           5415.0,
@@ -6679,7 +6835,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW20_B",
+        "name": "structure:F2:strap_brace_BW21_B",
         "bounds_mm": [
           154.5,
           5415.0,
@@ -6692,91 +6848,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW20_SW",
-        "bounds_mm": [
-          155.0,
-          5415.0,
-          2776.0,
-          159.0,
-          5515.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW20_SE",
-        "bounds_mm": [
-          155.0,
-          6035.0,
-          2776.0,
-          159.0,
-          6135.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW20_NW",
-        "bounds_mm": [
-          155.0,
-          5415.0,
-          4996.0,
-          159.0,
-          5515.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW20_NE",
-        "bounds_mm": [
-          155.0,
-          6035.0,
-          4996.0,
-          159.0,
-          6135.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW21_A",
-        "bounds_mm": [
-          2083.0,
-          4460.0,
-          2776.0,
-          2085.0,
-          5370.0,
-          5096.0
-        ],
-        "volume_mm3": 293755.451936,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW21_B",
-        "bounds_mm": [
-          2080.5,
-          4460.0,
-          2776.0,
-          2082.5,
-          5370.0,
-          5096.0
-        ],
-        "volume_mm3": 293755.451936,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:gusset_BW21_SW",
         "bounds_mm": [
-          2081.0,
-          4460.0,
+          155.0,
+          5415.0,
           2776.0,
-          2085.0,
-          4560.0,
+          159.0,
+          5515.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6785,11 +6863,11 @@
       {
         "name": "structure:F2:gusset_BW21_SE",
         "bounds_mm": [
-          2081.0,
-          5270.0,
+          155.0,
+          6035.0,
           2776.0,
-          2085.0,
-          5370.0,
+          159.0,
+          6135.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -6798,11 +6876,11 @@
       {
         "name": "structure:F2:gusset_BW21_NW",
         "bounds_mm": [
-          2081.0,
-          4460.0,
+          155.0,
+          5415.0,
           4996.0,
-          2085.0,
-          4560.0,
+          159.0,
+          5515.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6811,11 +6889,11 @@
       {
         "name": "structure:F2:gusset_BW21_NE",
         "bounds_mm": [
-          2081.0,
-          5270.0,
+          155.0,
+          6035.0,
           4996.0,
-          2085.0,
-          5370.0,
+          159.0,
+          6135.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -6825,6 +6903,84 @@
         "name": "structure:F2:strap_brace_BW22_A",
         "bounds_mm": [
           2083.0,
+          4460.0,
+          2776.0,
+          2085.0,
+          5370.0,
+          5096.0
+        ],
+        "volume_mm3": 293755.451936,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW22_B",
+        "bounds_mm": [
+          2080.5,
+          4460.0,
+          2776.0,
+          2082.5,
+          5370.0,
+          5096.0
+        ],
+        "volume_mm3": 293755.451936,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW22_SW",
+        "bounds_mm": [
+          2081.0,
+          4460.0,
+          2776.0,
+          2085.0,
+          4560.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW22_SE",
+        "bounds_mm": [
+          2081.0,
+          5270.0,
+          2776.0,
+          2085.0,
+          5370.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW22_NW",
+        "bounds_mm": [
+          2081.0,
+          4460.0,
+          4996.0,
+          2085.0,
+          4560.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW22_NE",
+        "bounds_mm": [
+          2081.0,
+          5270.0,
+          4996.0,
+          2085.0,
+          5370.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW23_A",
+        "bounds_mm": [
+          2083.0,
           5370.0,
           2776.0,
           2085.0,
@@ -6835,7 +6991,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW22_B",
+        "name": "structure:F2:strap_brace_BW23_B",
         "bounds_mm": [
           2080.5,
           5370.0,
@@ -6848,7 +7004,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW22_SW",
+        "name": "structure:F2:gusset_BW23_SW",
         "bounds_mm": [
           2081.0,
           5370.0,
@@ -6861,7 +7017,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW22_SE",
+        "name": "structure:F2:gusset_BW23_SE",
         "bounds_mm": [
           2081.0,
           6180.0,
@@ -6874,7 +7030,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW22_NW",
+        "name": "structure:F2:gusset_BW23_NW",
         "bounds_mm": [
           2081.0,
           5370.0,
@@ -6887,7 +7043,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW22_NE",
+        "name": "structure:F2:gusset_BW23_NE",
         "bounds_mm": [
           2081.0,
           6180.0,
@@ -6900,7 +7056,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW23_A",
+        "name": "structure:F2:strap_brace_BW24_A",
         "bounds_mm": [
           2083.0,
           6280.0,
@@ -6913,7 +7069,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW23_B",
+        "name": "structure:F2:strap_brace_BW24_B",
         "bounds_mm": [
           2080.5,
           6280.0,
@@ -6926,91 +7082,13 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW23_SW",
-        "bounds_mm": [
-          2081.0,
-          6280.0,
-          2776.0,
-          2085.0,
-          6380.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW23_SE",
-        "bounds_mm": [
-          2081.0,
-          7090.0,
-          2776.0,
-          2085.0,
-          7190.0,
-          2876.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW23_NW",
-        "bounds_mm": [
-          2081.0,
-          6280.0,
-          4996.0,
-          2085.0,
-          6380.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:gusset_BW23_NE",
-        "bounds_mm": [
-          2081.0,
-          7090.0,
-          4996.0,
-          2085.0,
-          7190.0,
-          5096.0
-        ],
-        "volume_mm3": 40000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW24_A",
-        "bounds_mm": [
-          3083.0,
-          5370.0,
-          2776.0,
-          3085.0,
-          6280.0,
-          5096.0
-        ],
-        "volume_mm3": 293755.451936,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:strap_brace_BW24_B",
-        "bounds_mm": [
-          3080.5,
-          5370.0,
-          2776.0,
-          3082.5,
-          6280.0,
-          5096.0
-        ],
-        "volume_mm3": 293755.451936,
-        "solid_count": 1
-      },
-      {
         "name": "structure:F2:gusset_BW24_SW",
         "bounds_mm": [
-          3081.0,
-          5370.0,
+          2081.0,
+          6280.0,
           2776.0,
-          3085.0,
-          5470.0,
+          2085.0,
+          6380.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -7019,11 +7097,11 @@
       {
         "name": "structure:F2:gusset_BW24_SE",
         "bounds_mm": [
-          3081.0,
-          6180.0,
+          2081.0,
+          7090.0,
           2776.0,
-          3085.0,
-          6280.0,
+          2085.0,
+          7190.0,
           2876.0
         ],
         "volume_mm3": 40000.0,
@@ -7032,11 +7110,11 @@
       {
         "name": "structure:F2:gusset_BW24_NW",
         "bounds_mm": [
-          3081.0,
-          5370.0,
+          2081.0,
+          6280.0,
           4996.0,
-          3085.0,
-          5470.0,
+          2085.0,
+          6380.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -7045,11 +7123,11 @@
       {
         "name": "structure:F2:gusset_BW24_NE",
         "bounds_mm": [
-          3081.0,
-          6180.0,
+          2081.0,
+          7090.0,
           4996.0,
-          3085.0,
-          6280.0,
+          2085.0,
+          7190.0,
           5096.0
         ],
         "volume_mm3": 40000.0,
@@ -7059,6 +7137,84 @@
         "name": "structure:F2:strap_brace_BW25_A",
         "bounds_mm": [
           3083.0,
+          5370.0,
+          2776.0,
+          3085.0,
+          6280.0,
+          5096.0
+        ],
+        "volume_mm3": 293755.451936,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW25_B",
+        "bounds_mm": [
+          3080.5,
+          5370.0,
+          2776.0,
+          3082.5,
+          6280.0,
+          5096.0
+        ],
+        "volume_mm3": 293755.451936,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW25_SW",
+        "bounds_mm": [
+          3081.0,
+          5370.0,
+          2776.0,
+          3085.0,
+          5470.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW25_SE",
+        "bounds_mm": [
+          3081.0,
+          6180.0,
+          2776.0,
+          3085.0,
+          6280.0,
+          2876.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW25_NW",
+        "bounds_mm": [
+          3081.0,
+          5370.0,
+          4996.0,
+          3085.0,
+          5470.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:gusset_BW25_NE",
+        "bounds_mm": [
+          3081.0,
+          6180.0,
+          4996.0,
+          3085.0,
+          6280.0,
+          5096.0
+        ],
+        "volume_mm3": 40000.0,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:F2:strap_brace_BW26_A",
+        "bounds_mm": [
+          3083.0,
           6280.0,
           2776.0,
           3085.0,
@@ -7069,7 +7225,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:strap_brace_BW25_B",
+        "name": "structure:F2:strap_brace_BW26_B",
         "bounds_mm": [
           3080.5,
           6280.0,
@@ -7082,7 +7238,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW25_SW",
+        "name": "structure:F2:gusset_BW26_SW",
         "bounds_mm": [
           3081.0,
           6280.0,
@@ -7095,7 +7251,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW25_SE",
+        "name": "structure:F2:gusset_BW26_SE",
         "bounds_mm": [
           3081.0,
           7090.0,
@@ -7108,7 +7264,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW25_NW",
+        "name": "structure:F2:gusset_BW26_NW",
         "bounds_mm": [
           3081.0,
           6280.0,
@@ -7121,7 +7277,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:gusset_BW25_NE",
+        "name": "structure:F2:gusset_BW26_NE",
         "bounds_mm": [
           3081.0,
           7090.0,
@@ -7251,7 +7407,7 @@
         "solid_count": 2
       }
     ],
-    "member_count": 534,
+    "member_count": 546,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -7366,11 +7522,6 @@
           "overlaps": []
         },
         {
-          "id": "F2:O21",
-          "kind": "door",
-          "overlaps": []
-        },
-        {
           "id": "F2:D25",
           "kind": "door",
           "overlaps": []
@@ -7382,6 +7533,11 @@
         },
         {
           "id": "F2:D26",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F2:D27",
           "kind": "door",
           "overlaps": []
         },
@@ -7407,16 +7563,6 @@
         },
         {
           "id": "F2:W05",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W06",
-          "kind": "window",
-          "overlaps": []
-        },
-        {
-          "id": "F2:W07",
           "kind": "window",
           "overlaps": []
         }
@@ -7450,8 +7596,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 534,
-      "all_nodes": 547
+      "named_mesh_nodes": 546,
+      "all_nodes": 559
     }
   },
   "project_inputs": {

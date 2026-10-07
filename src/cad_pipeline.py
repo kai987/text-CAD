@@ -22,7 +22,7 @@ VALIDATORS = ['checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.
               'checks/validate_structural_variants.py', 'checks/validate_structural_cases.py',
               'checks/validate_apartment.py', 'checks/validate_fixtures.py',
               'checks/validate_furniture.py', 'checks/validate_outdoor_lighting.py',
-              'checks/validate_glb_native.py']
+              'checks/validate_glb_native.py', 'checks/validate_indoor_lighting.py']
 
 
 def run(paths: list[str]) -> None:

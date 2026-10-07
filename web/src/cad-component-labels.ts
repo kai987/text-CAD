@@ -239,6 +239,7 @@ const windowDetails = {
 } satisfies Catalog;
 
 const roomLabels = {
+  bath:label('浴室','浴室','Bathroom'), wash:label('洗面脱衣室','洗面脱衣室','Wash and changing room'),
   ldk: label('LDK', 'LDK', 'Living / dining / kitchen'),
   master: label('主卧', '主寝室', 'Main bedroom'),
   bed2: label('卧室 2', '洋室 2', 'Bedroom 2'),
@@ -248,6 +249,9 @@ const apartmentBedroom1 = label('卧室 1', '洋室 1', 'Bedroom 1');
 
 type FurnitureKind = 'bed' | 'sofa' | 'table' | 'chair' | 'television';
 const furnitureObjects = {
+  desk: { kind: 'table', name: label('书桌','デスク','Desk') },
+  desk_chair: { kind: 'chair', name: label('书桌椅','デスクチェア','Desk chair') },
+  bedside_table: { kind: 'table', name: label('床头柜','ベッドサイドテーブル','Bedside table') },
   bed: { kind: 'bed', name: label('床', 'ベッド', 'Bed') },
   sofa: { kind: 'sofa', name: label('沙发', 'ソファ', 'Sofa') },
   coffee_table: { kind: 'table', name: label('茶几', 'ローテーブル', 'Coffee table') },
@@ -439,6 +443,16 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
  * allowing the caller to use its localized category title or component fallback.
  */
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
+  const lamp=/^(F[12]|attic):indoor_light:([^:]+):(mount|stem|shade|diffuser)$/.exec(name);
+  if(lamp) {
+    const room=lookup(roomLabels,lamp[2],locale) ?? (lamp[2]==='attic' ? label('阁楼','小屋裏','Attic')[locale] : lamp[2]==='under_stairs' ? label('楼梯下储物间','階段下収納','Under-stair storage')[locale] : lamp[2]==='stairs' ? label('楼梯','階段','Stairs')[locale] : lamp[2]==='closet' ? label('衣柜收纳','収納','Closet')[locale] : lamp[2]==='hall' ? label('公共厅','ホール','Hall')[locale] : lamp[2]==='wc' ? label('厕所','トイレ','WC')[locale] : lamp[2]==='foyer' ? label('玄关','玄関','Entrance')[locale] : lamp[2]);
+    const detail={mount:label('底座','取付台','Mount'),stem:label('吊杆','吊り棒','Stem'),shade:label('灯罩','シェード','Shade'),diffuser:label('发光罩','拡散カバー','Diffuser')}[lamp[3] as 'mount'];
+    return `${room} · ${label('室内灯','室内灯','Indoor light')[locale]} · ${detail[locale]}`;
+  }
+  const slider=/^F2:(D2[67])_slider_(frame|glass)_([12])$/.exec(name);
+  if(slider) return `${label('阳台双扇推拉门','バルコニー引違い戸','Balcony sliding door')[locale]} ${slider[1]} · ${slider[2]==='frame' ? label('框','枠','Frame')[locale] : label('玻璃','ガラス','Glass')[locale]} ${slider[3]}`;
+  const stringer=/^stairs:(lower|upper)_stringer_([12])$/.exec(name);
+  if(stringer) return `${stringer[1]==='lower' ? label('下跑','下側','Lower flight')[locale] : label('上跑','上側','Upper flight')[locale]} · ${label('侧梁','ささら桁','Stringer')[locale]} ${stringer[2]}`;
   const balcony = /^balcony:(south|west|east)_(rail_lower|rail_top|bar_\d+)$/.exec(name);
   if (balcony) {
     const side = directions[balcony[1] as keyof typeof directions][locale];
@@ -505,7 +519,7 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
   const stairStore = /^F1:under_stairs:(?:section_(\d+):(side|ceiling)|(back)|shelf_(\d+))$/.exec(name);
   if (stairStore) {
     const base = label('楼梯下储物间', '階段下収納', 'Under-stair storage')[locale];
-    const detail = stairStore[2] ? (stairStore[2] === 'side' ? label('侧墙', '側壁', 'Side wall') : label('阶梯顶板', '段状天井', 'Stepped ceiling')) : stairStore[3] ? label('后墙', '奥壁', 'Back wall') : label('搁板', '棚板', 'Shelf');
+    const detail = stairStore[2] ? (stairStore[2] === 'side' ? label('侧墙', '側壁', 'Side wall') : label('斜顶板', '斜め天井', 'Sloping ceiling')) : stairStore[3] ? label('后墙', '奥壁', 'Back wall') : label('搁板', '棚板', 'Shelf');
     return `${base} · ${detail[locale]} ${stairStore[1] ?? stairStore[4] ?? ''}`.trim();
   }
   const entry = /^F1:(D01):(canopy|porch|porch_step|frame|handle|threshold)$/.exec(name);

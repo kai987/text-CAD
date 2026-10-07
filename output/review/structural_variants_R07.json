@@ -2608,42 +2608,42 @@
             4285.0,
             5396.0
           ],
-          "volume_mm3": 89235000.0,
-          "solid_count": 3
+          "volume_mm3": 106785000.0,
+          "solid_count": 2
         },
         {
           "name": "structure:F2:beam_B12",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             3420.0,
             5096.0,
             4815.0,
             3505.0,
             5396.0
           ],
-          "volume_mm3": 49087500.0,
+          "volume_mm3": 62730000.0,
           "solid_count": 2
         },
         {
           "name": "structure:F2:beam_B13",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             4155.0,
             5096.0,
             4815.0,
             4245.0,
             5396.0
           ],
-          "volume_mm3": 51975000.0,
+          "volume_mm3": 66420000.0,
           "solid_count": 2
         },
         {
           "name": "structure:F2:beam_B14",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             3505.0,
             5096.0,
-            2890.0,
+            2355.0,
             4155.0,
             5396.0
           ],
@@ -2809,10 +2809,10 @@
         {
           "name": "structure:attic:joist_J02",
           "bounds_mm": [
-            5436.25,
+            5493.333333333334,
             90.0,
             5396.0,
-            5496.25,
+            5553.333333333334,
             7190.0,
             5576.0
           ],
@@ -2822,10 +2822,10 @@
         {
           "name": "structure:attic:joist_J03",
           "bounds_mm": [
-            4997.5,
+            5111.666666666666,
             90.0,
             5396.0,
-            5057.5,
+            5171.666666666666,
             7190.0,
             5576.0
           ],
@@ -2835,10 +2835,10 @@
         {
           "name": "structure:attic:joist_J04",
           "bounds_mm": [
-            4558.75,
+            4730.0,
             90.0,
             5396.0,
-            4618.75,
+            4790.0,
             7190.0,
             5576.0
           ],
@@ -2846,12 +2846,38 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J06_south",
+          "name": "structure:attic:joist_J05",
           "bounds_mm": [
-            3680.0,
+            4348.333333333333,
             90.0,
             5396.0,
-            3740.0,
+            4408.333333333333,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 76680000.0,
+          "solid_count": 1
+        },
+        {
+          "name": "structure:attic:joist_J06",
+          "bounds_mm": [
+            3966.666666666667,
+            90.0,
+            5396.0,
+            4026.666666666667,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 76680000.0,
+          "solid_count": 1
+        },
+        {
+          "name": "structure:attic:joist_J08_south",
+          "bounds_mm": [
+            3145.0,
+            90.0,
+            5396.0,
+            3205.0,
             3445.0,
             5576.0
           ],
@@ -2859,12 +2885,12 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J06_north",
+          "name": "structure:attic:joist_J08_north",
           "bounds_mm": [
-            3680.0,
+            3145.0,
             4215.0,
             5396.0,
-            3740.0,
+            3205.0,
             7190.0,
             5576.0
           ],
@@ -2872,12 +2898,12 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J07_south",
+          "name": "structure:attic:joist_J09_south",
           "bounds_mm": [
-            3240.0,
+            2705.0,
             90.0,
             5396.0,
-            3300.0,
+            2765.0,
             3445.0,
             5576.0
           ],
@@ -2885,64 +2911,25 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J07_north",
+          "name": "structure:attic:joist_J09_north",
           "bounds_mm": [
-            3240.0,
+            2705.0,
             4215.0,
             5396.0,
-            3300.0,
+            2765.0,
             7190.0,
             5576.0
           ],
           "volume_mm3": 32130000.0,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:joist_J09",
-          "bounds_mm": [
-            2527.5,
-            90.0,
-            5396.0,
-            2587.5,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 76680000.0,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:joist_J10",
-          "bounds_mm": [
-            2255.0,
-            90.0,
-            5396.0,
-            2315.0,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 76680000.0,
           "solid_count": 1
         },
         {
           "name": "structure:attic:trimmer_east",
           "bounds_mm": [
-            4090.0,
+            3555.0,
             90.0,
             5396.0,
-            4210.0,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 152550000.0,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:trimmer_west",
-          "bounds_mm": [
-            2770.0,
-            90.0,
-            5396.0,
-            2890.0,
+            3675.0,
             7190.0,
             5576.0
           ],
@@ -2950,12 +2937,25 @@
           "solid_count": 1
         },
         {
+          "name": "structure:attic:trimmer_west",
+          "bounds_mm": [
+            2235.0,
+            90.0,
+            5396.0,
+            2355.0,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 153198000.0,
+          "solid_count": 1
+        },
+        {
           "name": "structure:attic:header_south",
           "bounds_mm": [
-            2890.0,
+            2355.0,
             3445.0,
             5396.0,
-            4090.0,
+            3555.0,
             3505.0,
             5576.0
           ],
@@ -2965,10 +2965,10 @@
         {
           "name": "structure:attic:header_north",
           "bounds_mm": [
-            2890.0,
+            2355.0,
             4155.0,
             5396.0,
-            4090.0,
+            3555.0,
             4215.0,
             5576.0
           ],
@@ -6138,42 +6138,42 @@
             4330.0,
             5396.0
           ],
-          "volume_mm3": 8518652.416,
-          "solid_count": 7
+          "volume_mm3": 10114428.415999,
+          "solid_count": 6
         },
         {
           "name": "structure:F2:beam_B12",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             3415.0,
             5096.0,
             4815.0,
             3505.0,
             5396.0
           ],
-          "volume_mm3": 3995824.8,
+          "volume_mm3": 5072244.8,
           "solid_count": 6
         },
         {
           "name": "structure:F2:beam_B13",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             4155.0,
             5096.0,
             4815.0,
             4245.0,
             5396.0
           ],
-          "volume_mm3": 4883039.744,
+          "volume_mm3": 6196486.144,
           "solid_count": 4
         },
         {
           "name": "structure:F2:beam_B14",
           "bounds_mm": [
-            2800.0,
+            2265.0,
             3505.0,
             5096.0,
-            2890.0,
+            2355.0,
             4155.0,
             5396.0
           ],
@@ -6885,10 +6885,10 @@
         {
           "name": "structure:attic:joist_J02",
           "bounds_mm": [
-            5436.25,
+            5493.333333333334,
             90.0,
             5396.0,
-            5496.25,
+            5553.333333333334,
             7190.0,
             5576.0
           ],
@@ -6898,10 +6898,10 @@
         {
           "name": "structure:attic:joist_J03",
           "bounds_mm": [
-            4997.5,
+            5111.666666666666,
             90.0,
             5396.0,
-            5057.5,
+            5171.666666666666,
             7190.0,
             5576.0
           ],
@@ -6911,10 +6911,10 @@
         {
           "name": "structure:attic:joist_J04",
           "bounds_mm": [
-            4558.75,
+            4730.0,
             90.0,
             5396.0,
-            4618.75,
+            4790.0,
             7190.0,
             5576.0
           ],
@@ -6922,12 +6922,38 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J06_south",
+          "name": "structure:attic:joist_J05",
           "bounds_mm": [
-            3680.0,
+            4348.333333333333,
             90.0,
             5396.0,
-            3740.0,
+            4408.333333333333,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 7688164.000001,
+          "solid_count": 1
+        },
+        {
+          "name": "structure:attic:joist_J06",
+          "bounds_mm": [
+            3966.666666666667,
+            90.0,
+            5396.0,
+            4026.666666666667,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 7688164.000001,
+          "solid_count": 1
+        },
+        {
+          "name": "structure:attic:joist_J08_south",
+          "bounds_mm": [
+            3145.0,
+            90.0,
+            5396.0,
+            3205.0,
             3445.0,
             5576.0
           ],
@@ -6935,12 +6961,12 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J06_north",
+          "name": "structure:attic:joist_J08_north",
           "bounds_mm": [
-            3680.0,
+            3145.0,
             4215.0,
             5396.0,
-            3740.0,
+            3205.0,
             7190.0,
             5576.0
           ],
@@ -6948,12 +6974,12 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J07_south",
+          "name": "structure:attic:joist_J09_south",
           "bounds_mm": [
-            3240.0,
+            2705.0,
             90.0,
             5396.0,
-            3300.0,
+            2765.0,
             3445.0,
             5576.0
           ],
@@ -6961,64 +6987,25 @@
           "solid_count": 1
         },
         {
-          "name": "structure:attic:joist_J07_north",
+          "name": "structure:attic:joist_J09_north",
           "bounds_mm": [
-            3240.0,
+            2705.0,
             4215.0,
             5396.0,
-            3300.0,
+            2765.0,
             7190.0,
             5576.0
           ],
           "volume_mm3": 3221449.0,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:joist_J09",
-          "bounds_mm": [
-            2527.5,
-            90.0,
-            5396.0,
-            2587.5,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 7688164.000001,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:joist_J10",
-          "bounds_mm": [
-            2255.0,
-            90.0,
-            5396.0,
-            2315.0,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 7688164.000001,
           "solid_count": 1
         },
         {
           "name": "structure:attic:trimmer_east",
           "bounds_mm": [
-            4090.0,
+            3555.0,
             90.0,
             5396.0,
-            4210.0,
-            7190.0,
-            5576.0
-          ],
-          "volume_mm3": 9590756.200001,
-          "solid_count": 1
-        },
-        {
-          "name": "structure:attic:trimmer_west",
-          "bounds_mm": [
-            2770.0,
-            90.0,
-            5396.0,
-            2890.0,
+            3675.0,
             7190.0,
             5576.0
           ],
@@ -7026,12 +7013,25 @@
           "solid_count": 1
         },
         {
+          "name": "structure:attic:trimmer_west",
+          "bounds_mm": [
+            2235.0,
+            90.0,
+            5396.0,
+            2355.0,
+            7190.0,
+            5576.0
+          ],
+          "volume_mm3": 9571008.400001,
+          "solid_count": 1
+        },
+        {
           "name": "structure:attic:header_south",
           "bounds_mm": [
-            2890.0,
+            2355.0,
             3445.0,
             5396.0,
-            4090.0,
+            3555.0,
             3505.0,
             5576.0
           ],
@@ -7041,10 +7041,10 @@
         {
           "name": "structure:attic:header_north",
           "bounds_mm": [
-            2890.0,
+            2355.0,
             4155.0,
             5396.0,
-            4090.0,
+            3555.0,
             4215.0,
             5576.0
           ],

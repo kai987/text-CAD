@@ -59,7 +59,7 @@ def generate():
     house=json.loads((REVIEW / "house_3d_assumptions_R01.json").read_text())
     attic=house['attic']; opening=attic['north_vent_opening']
     regulations['attic_opening_checked_at']=CHECKED_AT
-    regulations['attic_opening_revision']='R20'
+    regulations['attic_opening_revision']='R21'
     regulations['demonstration_geometry']['outline_mm']=[house['plan_parameters']['width'],house['plan_parameters']['depth']]
     existing={item['id'] for item in regulations['sources']}
     regulations['sources'].extend(item for item in SOURCES if item['id'] not in existing)
@@ -103,7 +103,7 @@ def generate():
                     "The same uncalculated material-system geometry is shared across cities. "
                     "Official regional reference parameters are not site-specific design loads. "
                     "Sizing must be recalculated after the actual site and load conditions are known."),
-                "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
+                "architectural_geometry_baseline": "R21-3D; current coordinated layout and fixed aluminium north attic louver",
                 "attic_opening_review": profile["attic_opening_review"],
                 "architectural_coordination_result": None,
                 "capacity_results": None, "statutory_compliance_result": None,

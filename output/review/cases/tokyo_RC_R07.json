@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "6bbd724da936d337c96799c2b3366eda1a43775b4902e6f0c897ae68000908e3",
-    "step": "444a67a11357f93bb11a9dfca885b78c3bcacadade8b2e87486f7fd26b8cb865"
+    "glb": "8b891e98d60eeb821d456d279e1c81cd5cab687677a2a015559c08bb35209e1e",
+    "step": "71eada4569d478a88c9edfcc051c7b9a7cfa20038a8adb07e74806a40ceec24d"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -1493,7 +1493,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R21-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Edogawa example only; actual Tokyo municipality unspecified",

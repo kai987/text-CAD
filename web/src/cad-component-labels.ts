@@ -447,9 +447,11 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
  * allowing the caller to use its localized category title or component fallback.
  */
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
+  const bedroomSlider=/^F2:(D21|D23)_slide_(track|pull)$/.exec(name);
+  if(bedroomSlider) return `${label('卧室推拉门','寝室の引き戸','Bedroom sliding door')[locale]} ${bedroomSlider[1]} · ${bedroomSlider[2]==='track' ? label('轨道','レール','Track')[locale] : label('拉手','引き手','Pull')[locale]}`;
   const lamp=/^(F[12]|attic):indoor_light:([^:]+):(mount|stem|shade|diffuser)$/.exec(name);
   if(lamp) {
-    const room=lookup(roomLabels,lamp[2],locale) ?? (lamp[2]==='attic' ? label('阁楼北侧','小屋裏北側','North attic')[locale] : lamp[2]==='attic_south' ? label('阁楼南侧','小屋裏南側','South attic')[locale] : lamp[2]==='under_stairs' ? label('楼梯下储物间','階段下収納','Under-stair storage')[locale] : lamp[2]==='stairs' ? label('楼梯','階段','Stairs')[locale] : lamp[2]==='closet' ? label('衣柜收纳','収納','Closet')[locale] : lamp[2]==='hall' ? label('公共厅','ホール','Hall')[locale] : lamp[2]==='wc' ? label('厕所','トイレ','WC')[locale] : lamp[2]==='foyer' ? label('玄关','玄関','Entrance')[locale] : lamp[2]);
+    const room=lookup(roomLabels,lamp[2],locale) ?? (lamp[2]==='hall_vanity' ? label('二层洗面墙灯','2階洗面壁灯','F2 vanity wall light')[locale] : lamp[2]==='attic' ? label('阁楼北侧','小屋裏北側','North attic')[locale] : lamp[2]==='attic_south' ? label('阁楼南侧','小屋裏南側','South attic')[locale] : lamp[2]==='under_stairs' ? label('楼梯下储物间','階段下収納','Under-stair storage')[locale] : lamp[2]==='stairs' ? label('楼梯','階段','Stairs')[locale] : lamp[2]==='closet' ? label('衣柜收纳','収納','Closet')[locale] : lamp[2]==='hall' ? label('公共厅','ホール','Hall')[locale] : lamp[2]==='wc' ? label('厕所','トイレ','WC')[locale] : lamp[2]==='foyer' ? label('玄关','玄関','Entrance')[locale] : lamp[2]);
     const detail={mount:label('底座','取付台','Mount'),stem:label('吊杆','吊り棒','Stem'),shade:label('灯罩','シェード','Shade'),diffuser:label('发光罩','拡散カバー','Diffuser')}[lamp[3] as 'mount'];
     return `${room} · ${label('室内灯','室内灯','Indoor light')[locale]} · ${detail[locale]}`;
   }

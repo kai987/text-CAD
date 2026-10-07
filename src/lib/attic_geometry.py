@@ -39,7 +39,7 @@ class AtticParameters:
     lining_vertical_allowance: float = 50
     knee_wall_thickness: float = 50
     gable_lining_thickness: float = 20
-    hatch_x: float = 4100
+    hatch_x: float = 4635  # Reflected world X=2355: 100 mm from west deck wall.
     hatch_y: float = 3505
     hatch_length: float = 1200
     hatch_width: float = 650
@@ -380,7 +380,7 @@ def attic_manifest(p, g, a=A):
     bottom=[d['ladder_foot_x'],a.hatch_y,d['ladder_foot_x']+a.ladder_bottom_landing_depth,d['hatch_north']] if a.ladder_mirrored else [d['ladder_foot_x']-a.ladder_bottom_landing_depth,a.hatch_y,d['ladder_foot_x'],d['hatch_north']]
     upper=[d['ladder_top_x']-a.ladder_bottom_landing_depth,a.hatch_y,d['ladder_top_x'],d['hatch_north']] if a.ladder_mirrored else [d['ladder_top_x'],a.hatch_y,d['ladder_top_x']+a.ladder_bottom_landing_depth,d['hatch_north']]
     assumptions = [
-        "R10阁楼采用纯储物用途的演示方案，采用R20重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+        "R10阁楼采用纯储物用途的演示方案，采用R21重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
         "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
         "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
         "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -391,13 +391,15 @@ def attic_manifest(p, g, a=A):
         "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
         "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
     ]
-    assumptions.append("R20北侧屋脊柱左右各200×450 mm固定铝百叶，洞口合计0.18㎡；单扇备选300×600 mm。北侧恢复单根居中支柱，检修梯与盖板、护栏入口局部镜像；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。")
+    assumptions.append("R21检修口向西移动535 mm，距储物板面西侧100 mm；阁楼床板、边框、检修梯、盖板及护栏同步移动，二层走廊吊灯避让新开口。所有间隙为演示假设。")
+    assumptions.append("R21北侧屋脊柱左右各200×450 mm固定铝百叶，洞口合计0.18㎡；单扇备选300×600 mm。北侧恢复单根居中支柱，检修梯与盖板、护栏入口局部镜像；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。")
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R20",
+        "revision": "R21",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
+        "hatch_west_deck_gap_mm": d["deck_right"]-d["hatch_right"],
         "north_vent_openings": windows,
         "north_vent_bounds_mm": [w['bounds_mm'] for w in windows],
         "north_vent_status": "Two vertical fixed aluminium louvers flanking one centred ridge post; quantity interpretation and product/fire specification pending",
@@ -408,7 +410,7 @@ def attic_manifest(p, g, a=A):
             "single_opening_fallback_mm": [a.north_vent_single_width,a.north_vent_single_height],
             "effective_ventilation_area_m2": None, "certified_free_area_m2": None,
             "area_basis": "Total gross wall apertures including frames; not louver aerodynamic free area"},
-        "unchanged": ["R20 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
+        "unchanged": ["R21 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],

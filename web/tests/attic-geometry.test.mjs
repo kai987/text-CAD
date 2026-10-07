@@ -181,7 +181,9 @@ test('TS and Rust/WASM floor sections preserve the actual through-hatch after vi
             hatch[1] + ratioY * (hatch[4] - hatch[1]), height)), false,
           `${backend}: ${name} must not seal the ladder opening at ${ratioX}, ${ratioY}`);
         }
-        assert.ok(covered(triangles, point(hatch[0] - 200, (hatch[1] + hatch[4]) / 2, height)),
+        const floorBounds=name==='attic:deck_finish' ? attic.deck_bounds_mm : attic.slab_bounds_mm;
+        assert.ok(hatch[0]>floorBounds[0], 'positive floor strip remains west of hatch');
+        assert.ok(covered(triangles, point((hatch[0]+floorBounds[0])/2, (hatch[1] + hatch[4]) / 2, height)),
           `${backend}: adjacent floor remains solid`);
       } finally { geometry.dispose(); }
     }

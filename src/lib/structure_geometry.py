@@ -292,7 +292,11 @@ def _attic_members(p,g,d,roof_posts,t=T):
                        _positions(east,d["deck_right"]-half,t.attic_joist_max_spacing)))
     joists=[];headers=[]
     for index,x in enumerate(centers,1):
-        if abs(x-west)<.01 or abs(x-east)<.01:continue
+        # Near a deck edge, a grid endpoint can fall inside the full trimmer
+        # width without sharing its centre. The trimmer owns that strip.
+        if any(x+half>left+.001 and x-half<right-.001 for left,right in
+               ((a.hatch_x-t.hatch_trimmer_width,a.hatch_x),
+                (hatch[2],hatch[2]+t.hatch_trimmer_width))):continue
         ranges=[("",y1,y2)]
         if x+half>hatch[0] and x-half<hatch[2]:
             ranges=[("_south",y1,a.hatch_y-t.hatch_header_width),("_north",hatch[3]+t.hatch_header_width,y2)]
@@ -360,7 +364,7 @@ def structure_manifest(p,g,t=T):
             "columns":column_layout(p,t),"beam_axes":_beam_segments(p,t),
             "floor_beam_axes":{f"F{n}":floor_beam_segments(n,p,t) for n in (1,2)},
             "bearing_wall_candidates":bearing_wall_candidates(p,t),"foundation_support_axes":foundation_support_segments(p),
-            "roof_posts":{"north_vent_transfer_frame":"R20 single centred north ridge post retained; vertical vents flank the post; uncalculated", "gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
+            "roof_posts":{"north_vent_transfer_frame":"R21 single centred north ridge post retained; vertical vents flank the post; uncalculated", "gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
                           "purlin_x":[d["deck_left"]-t.roof_purlin_width/2,d["deck_right"]+t.roof_purlin_width/2],
                           "middle_y":dimensions(p)["sy"]-p.internal_wall/2},
             "capacity_results":None,"statutory_compliance_result":None,"material_grade":None,

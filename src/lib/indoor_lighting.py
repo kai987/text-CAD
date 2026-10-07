@@ -1,4 +1,4 @@
-"""R20 original room luminaires. Sizes, colour and intensity are demo inputs.
+"""R21 original room luminaires. Sizes, colour and intensity are demo inputs.
 
 No product selection, photometry, wiring, wet-area rating or installation design.
 Lamps belong to the floor's equipment layer, independent of loose furniture.
@@ -16,7 +16,7 @@ def indoor_fixture_layout(p,g):
             if room.kind=='outside':continue
             # Use known clear positions rather than the bedroom labels or beds.
             point=room.shape.representative_point();x,y=point.x,point.y
-            if room.id=='hall':x,y=6000,3800  # Outside deployed attic ladder envelope.
+            if room.id=='hall':x,y=6500,3800  # West of relocated hatch and lower standing zone.
             if room.id=='under_stairs':x,y=room.label
             if room.id=='stairs':x,y=room.shape.bounds[2]-450,room.shape.bounds[3]-50
             z=(n-1)*p.storey_height
@@ -36,6 +36,15 @@ def indoor_fixture_layout(p,g):
                 'color_hex':'#FFE1B8','beam_angle_degrees':130,
                 'visual_intensity':3.0 if room.id in ('ldk','master','bed2','bed3') else 1.2,
                 'visual_range_m':4.8})
+    from .house_redesign_plan import hall_basin_bounds
+    x1,y1,x2,y2=hall_basin_bounds(p);x=x1;y=(y1+y2)/2;z=p.storey_height
+    prefix='F2:indoor_light:hall_vanity'
+    fixtures.append({'id':'indoor_F2_hall_vanity','category':'indoor','room':'hall','floor':2,
+        'style':'wall_vanity','group':prefix,'diffuser_label':prefix+':diffuser',
+        'mount_center_mm':[x,y,z+1750],
+        'light_position_glb_m':[(x+70)/1000,(z+1650)/1000,-y/1000],
+        'target_glb_m':[(x+600)/1000,(z+1000)/1000,-y/1000],
+        'color_hex':'#FFE1B8','beam_angle_degrees':120,'visual_intensity':1.2,'visual_range_m':2.0})
     # Short pendants remain below the 6900 mm attic interior cut plane.
     from .attic_geometry import attic_dimensions
     d=attic_dimensions(p,g);x=p.width/2;z=d['deck_top_z']
@@ -53,6 +62,12 @@ def indoor_fixture_layout(p,g):
 def _lamp(f):
     from .house_geometry import cuboid
     x,y,top=f['mount_center_mm'];prefix=f['group'];attic=f['floor']==3
+    if f.get('style')=='wall_vanity':
+        body=cuboid((x+2,y-150,top-200,x+60,y+150,top))
+        diffuser=cuboid((x+60,y-135,top-185,x+65,y+135,top-15))
+        body.label=prefix+':shade';body.color=srgb('#30363B')
+        diffuser.label=prefix+':diffuser';diffuser.color=srgb('#FFE7C6')
+        return bd.Compound(children=[body,diffuser],label=prefix)
     if f.get('style')=='wall':
         body=cuboid((x-80,y-30,top-200,x+80,y+50,top))
         diffuser=cuboid((x-65,y-35,top-180,x+65,y-30,top-20))
@@ -82,9 +97,9 @@ def apply_indoor_lighting_metadata(document,p,g):
     fixtures={f['diffuser_label']:f for f in indoor_fixture_layout(p,g)}
     for node in document['nodes']:
         if node.get('name') in fixtures:node.setdefault('extras',{})['indoorLight']=fixtures[node['name']]
-    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R20','fixtures':list(fixtures.values())}
+    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R21','fixtures':list(fixtures.values())}
 
 
 def indoor_lighting_manifest(p,g):
-    return {'revision':'R20','fixtures':indoor_fixture_layout(p,g),
-            'assumptions':['R20室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}
+    return {'revision':'R21','fixtures':indoor_fixture_layout(p,g),
+            'assumptions':['R21室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}

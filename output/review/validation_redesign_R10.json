@@ -1,5 +1,5 @@
 {
-  "revision": "R20",
+  "revision": "R21",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -541,7 +541,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R20"
+        "revision": "R21"
       }
     },
     {
@@ -569,8 +569,8 @@
         "椅子",
         "D01 / 900",
         "D02 / 900",
-        "D03 / 800",
-        "D04 / 750",
+        "D03 / 800 引戸",
+        "D04 / 750 引戸",
         "D05 / 700",
         "D07 / 700",
         "LDK",
@@ -1066,7 +1066,7 @@
       }
     },
     {
-      "name": "R20/balcony_from_both_bedrooms",
+      "name": "R21/balcony_from_both_bedrooms",
       "passed": true,
       "evidence": {
         "master": [
@@ -1134,7 +1134,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R20"
+        "revision": "R21"
       }
     },
     {
@@ -1159,9 +1159,9 @@
         "ベッドサイド",
         "ベッドサイド",
         "ベッドサイド",
-        "D21 / 750",
-        "D22 / 800",
-        "D23 / 750",
+        "D21 / 750 引戸",
+        "D22 / 800 引戸",
+        "D23 / 750 引戸",
         "D25 / 700",
         "D26 / W1600 引違い",
         "D27 / W1800 引違い",
@@ -1366,7 +1366,7 @@
       ]
     },
     {
-      "name": "R20/F1/WC_south_wall_flush_with_washroom",
+      "name": "R21/F1/WC_south_wall_flush_with_washroom",
       "passed": true,
       "evidence": [
         2180.0,
@@ -1376,12 +1376,12 @@
       ]
     },
     {
-      "name": "R20/F1/WC_clear_900x1820",
+      "name": "R21/F1/WC_clear_900x1820",
       "passed": true,
       "evidence": 1.638
     },
     {
-      "name": "R20/F2/WC_south_wall_flush_with_washroom",
+      "name": "R21/F2/WC_south_wall_flush_with_washroom",
       "passed": true,
       "evidence": [
         2180.0,
@@ -1391,12 +1391,12 @@
       ]
     },
     {
-      "name": "R20/F2/WC_clear_900x1820",
+      "name": "R21/F2/WC_clear_900x1820",
       "passed": true,
       "evidence": 1.638
     },
     {
-      "name": "R20/open_wardrobe_in_master",
+      "name": "R21/open_wardrobe_in_master",
       "passed": true,
       "evidence": [
         4410.0,
@@ -1406,7 +1406,7 @@
       ]
     },
     {
-      "name": "R20/master_door_at_hall_corner",
+      "name": "R21/master_door_at_hall_corner",
       "passed": true,
       "evidence": {
         "id": "D21",
@@ -1422,7 +1422,7 @@
       }
     },
     {
-      "name": "R20/north_bedroom_door_at_hall_corner",
+      "name": "R21/north_bedroom_door_at_hall_corner",
       "passed": true,
       "evidence": {
         "id": "D23",
@@ -1438,7 +1438,7 @@
       }
     },
     {
-      "name": "R20/no_enclosed_closet_door",
+      "name": "R21/no_enclosed_closet_door",
       "passed": true,
       "evidence": [
         "D21",
@@ -1451,7 +1451,7 @@
       ]
     },
     {
-      "name": "R20/bedrooms_still_separate",
+      "name": "R21/bedrooms_still_separate",
       "passed": true,
       "evidence": true
     },
@@ -1527,8 +1527,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "593ef3c0914a8cf655ef380d72b25eefb91a401e51fe1d8656295e3a0ae4af32",
-    "DXF/house_redesign_R10_1f.dxf": "1e02671efee8839d31802bcdac91697899b45bbdc0848444c0958177eadb1e3d",
-    "DXF/house_redesign_R10_2f.dxf": "4f048d051ebfb26d24aa2d79f2a3f3e7b1156d8189931c337b6693222ab9c329"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "a326f9411169cbc78a9dd71c1e43f4552aefb1606f36cb0f0399bc46c5cfc273",
+    "DXF/house_redesign_R10_1f.dxf": "d214b84b02edd3ed41cf64b21ff3bfdead17e1ea622abfbac5b6ea2bd8178486",
+    "DXF/house_redesign_R10_2f.dxf": "d22cab9de19d0b913610250389e174e16e8516e4c6e12d361a8960f8a5946b9e"
   }
 }

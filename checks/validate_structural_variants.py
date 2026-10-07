@@ -121,7 +121,11 @@ def main():
                 close('RC:'+window['id']+':north_attic_vent_is_true_gable_void_mm3',_overlap(gable,probe),0,.1)
             close('RC:stair_is_true_slab_void_mm3',_overlap(slab,stair_tool),0,.1)
             close('RC:attic_hatch_is_true_slab_void_mm3',_overlap(attic,hatch_tool),0,.1)
-            check('RC:floor_and_attic_material_exist_beside_holes',slab.is_inside((3600,3600,2700)) and attic.is_inside((2500,3800,5500)))
+            # Sample the actual deck beside the hatch; its position is parameterized.
+            probe_bounds=(A.hatch_x+A.hatch_length+50,A.hatch_y,5500,
+                          A.hatch_x+A.hatch_length+50,A.hatch_y,5500)
+            if P.mirror_layout:probe_bounds=reflect_bounds(probe_bounds,P.width)
+            check('RC:floor_and_attic_material_exist_beside_holes',slab.is_inside((3600,3600,2700)) and attic.is_inside(probe_bounds[:3]))
             check('RC:outward_projection_explicitly_pending',coordination['status']=='architectural_coordination_pending' and coordination['actual_exterior_frame_outline_mm']==[-120,-120,P.width+120,P.depth+120] and bool(coordination['exterior_outline_projections']))
             check('RC:reinforcing_bars_not_invented',not any('rebar' in name for name in native))
         geometries[system]=sorted((name,round(shape.volume,3),tuple(round(v,3) for v in shape_bounds(shape))) for name,shape in native.items())

@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadGlbGeometry } from './helpers/load-glb-geometry.mjs';
 import { cadComponentLabel } from '../src/cad-component-labels.ts';
+
+test('R21 bedroom slider hardware and vanity wall light have trilingual names', () => {
+  for (const locale of ['zh','ja','en']) {
+    for (const name of ['F2:D21_slide_track','F2:D23_slide_pull','F2:indoor_light:hall_vanity:diffuser']) {
+      const label = cadComponentLabel(locale,name);
+      assert.ok(label?.trim(),`${locale}: ${name}`);
+      assert.ok(!label.includes('hall_vanity'),label);
+    }
+  }
+});
 import { locales, messages } from '../src/localization.ts';
 import { modelCopy } from '../src/model-copy.ts';
 import { modelLayouts } from '../src/model-state.ts';
@@ -45,6 +55,7 @@ function originalCategory(name) {
   if (/^F[12]:wall_partition_/.test(name)) return `${floor}:partition_walls`;
   if (/^F[12]:indoor_light:/.test(name)) return `${floor}:indoor_lights`;
   if (/^F[12]:D\d+_slider_/.test(name)) return `${floor}:doors`;
+  if (/^F[12]:D\d+_slide_(?:track|pull)$/.test(name)) return `${floor}:doors`;
   if (/^F[12]:D\d+_door_/.test(name)) return `${floor}:doors`;
   if (/^F[12]:D\d+:(?:canopy|porch|porch_step|frame|handle|threshold)$/.test(name)) return `${floor}:doors`;
   if (/^F[12]:W\d+:/.test(name)) return `${floor}:windows`;

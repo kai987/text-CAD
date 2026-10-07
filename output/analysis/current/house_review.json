@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "source_binding": {
+    "revision": "R21",
+    "source_sha256": {
+      "output/review/design_manifest.json": "d7d3d1fe8fde1675d8ea39f740781564f82438a427bdafa9ff0377535900e582",
+      "output/review/engineering_inputs_R06.json": "2fff4e09d1848f2b92b74b6eedf6b9e709c0f4ddd0b9f8a195fdace79efca7e5",
+      "output/review/house_3d_assumptions_R01.json": "dbe171a4e1529558e2551f45ac3bd10cf6319ca4c975c93d7d29a016e317fb69"
+    }
+  },
+  "analysis_code_sha256": "49a8dc1fe7a6660865d81843c69221fda78e7661e1a3c26cf7e601191c19e800",
+  "input_sha256": "7e68287471d35e778da9da913affbfcee3422af1399327b53b6719fa9873a68f",
+  "status": "concept_review_only",
+  "structural_capacity_result": null,
+  "statutory_compliance_result": null,
+  "missing_engineering_inputs": [
+    "site_inputs.municipality",
+    "site_inputs.survey_and_road_information",
+    "site_inputs.zoning_and_fire_district",
+    "site_inputs.ground_investigation",
+    "site_inputs.allowable_ground_bearing_kN_m2",
+    "site_inputs.settlement",
+    "site_inputs.snow_depth_mm",
+    "site_inputs.basic_wind_speed_m_s",
+    "site_inputs.seismic_site_conditions",
+    "material_inputs.timber_species_and_grade",
+    "material_inputs.moisture_and_design_strengths",
+    "material_inputs.sheathing_specification",
+    "material_inputs.wall_resistance_specification",
+    "material_inputs.connection_products_and_capacities",
+    "material_inputs.concrete_grade",
+    "material_inputs.rebar_grade",
+    "load_inputs.roof_dead_load_kN_m2",
+    "load_inputs.wall_and_floor_dead_load_kN_m2",
+    "load_inputs.residential_live_load_kN_m2",
+    "load_inputs.attic_storage_live_load_kN_m2",
+    "load_inputs.shelf_and_box_concentrated_loads_kN",
+    "load_inputs.future_roof_equipment"
+  ],
+  "engineering_inputs": {
+    "site_inputs": {
+      "municipality": null,
+      "survey_and_road_information": null,
+      "zoning_and_fire_district": null,
+      "ground_investigation": null,
+      "allowable_ground_bearing_kN_m2": null,
+      "settlement": null,
+      "snow_depth_mm": null,
+      "basic_wind_speed_m_s": null,
+      "seismic_site_conditions": null
+    },
+    "material_inputs": {
+      "timber_species_and_grade": null,
+      "moisture_and_design_strengths": null,
+      "sheathing_specification": null,
+      "wall_resistance_specification": null,
+      "connection_products_and_capacities": null,
+      "concrete_grade": null,
+      "rebar_grade": null
+    },
+    "load_inputs": {
+      "roof_dead_load_kN_m2": null,
+      "wall_and_floor_dead_load_kN_m2": null,
+      "residential_live_load_kN_m2": null,
+      "attic_storage_live_load_kN_m2": null,
+      "shelf_and_box_concentrated_loads_kN": null,
+      "future_roof_equipment": null
+    }
+  },
+  "system_specific_missing_inputs": {
+    "W": [
+      "species_grade_design_values",
+      "wall_and_connector_capacities",
+      "creep_and_duration"
+    ],
+    "S": [
+      "steel_grade_sections",
+      "local_and_global_buckling",
+      "connection_design"
+    ],
+    "RC": [
+      "concrete_rebar_design_values",
+      "reinforcement_and_cover",
+      "cracked_stiffness_and_creep"
+    ]
+  },
+  "system_specific_inputs": {
+    "W": {
+      "species_grade_design_values": null,
+      "wall_and_connector_capacities": null,
+      "creep_and_duration": null
+    },
+    "S": {
+      "steel_grade_sections": null,
+      "local_and_global_buckling": null,
+      "connection_design": null
+    },
+    "RC": {
+      "concrete_rebar_design_values": null,
+      "reinforcement_and_cover": null,
+      "cracked_stiffness_and_creep": null
+    }
+  },
+  "pending_global_checks": [
+    "gravity/wind/snow/seismic combinations and actual tributary load paths",
+    "wall resistance/distribution/torsion, diaphragm and storey drift",
+    "column stability, shear, vibration and long-term deformation",
+    "joints, anchorage, uplift, balcony backspan and connection rotation",
+    "attic hatch reinforcement and concentrated storage/support loads",
+    "foundation reactions, soil bearing/settlement and reinforcement",
+    "fire, site/road/zoning and statutory floor/storey classification"
+  ],
+  "member_cases": [
+    {
+      "id": "ldk_transfer_beam",
+      "system": "W",
+      "support": "simple",
+      "missing_inputs": [
+        "span_mm",
+        "uniform_load_kN_m",
+        "point_load_kN",
+        "E_N_mm2",
+        "I_mm4",
+        "W_mm3",
+        "load_and_material_reference",
+        "support_and_member_reference",
+        "assumptions_reviewed"
+      ],
+      "input": {
+        "id": "ldk_transfer_beam",
+        "system": "W",
+        "support": "simple",
+        "assumptions_reviewed": false,
+        "load_and_material_reference": null,
+        "support_and_member_reference": null,
+        "values": {
+          "span_mm": null,
+          "uniform_load_kN_m": null,
+          "point_load_kN": null,
+          "E_N_mm2": null,
+          "I_mm4": null,
+          "W_mm3": null,
+          "allowable_bending_N_mm2": null,
+          "deflection_limit_mm": null
+        }
+      },
+      "elastic_demand": null,
+      "structural_capacity_result": null,
+      "status": "awaiting_inputs"
+    },
+    {
+      "id": "balcony_candidate",
+      "system": "W",
+      "support": "cantilever",
+      "missing_inputs": [
+        "span_mm",
+        "uniform_load_kN_m",
+        "point_load_kN",
+        "E_N_mm2",
+        "I_mm4",
+        "W_mm3",
+        "load_and_material_reference",
+        "support_and_member_reference",
+        "assumptions_reviewed"
+      ],
+      "input": {
+        "id": "balcony_candidate",
+        "system": "W",
+        "support": "cantilever",
+        "assumptions_reviewed": false,
+        "load_and_material_reference": null,
+        "support_and_member_reference": null,
+        "values": {
+          "span_mm": null,
+          "uniform_load_kN_m": null,
+          "point_load_kN": null,
+          "E_N_mm2": null,
+          "I_mm4": null,
+          "W_mm3": null,
+          "allowable_bending_N_mm2": null,
+          "deflection_limit_mm": null
+        }
+      },
+      "elastic_demand": null,
+      "structural_capacity_result": null,
+      "status": "awaiting_inputs"
+    },
+    {
+      "id": "attic_joist_or_header",
+      "system": "W",
+      "support": "simple",
+      "missing_inputs": [
+        "span_mm",
+        "uniform_load_kN_m",
+        "point_load_kN",
+        "E_N_mm2",
+        "I_mm4",
+        "W_mm3",
+        "load_and_material_reference",
+        "support_and_member_reference",
+        "assumptions_reviewed"
+      ],
+      "input": {
+        "id": "attic_joist_or_header",
+        "system": "W",
+        "support": "simple",
+        "assumptions_reviewed": false,
+        "load_and_material_reference": null,
+        "support_and_member_reference": null,
+        "values": {
+          "span_mm": null,
+          "uniform_load_kN_m": null,
+          "point_load_kN": null,
+          "E_N_mm2": null,
+          "I_mm4": null,
+          "W_mm3": null,
+          "allowable_bending_N_mm2": null,
+          "deflection_limit_mm": null
+        }
+      },
+      "elastic_demand": null,
+      "structural_capacity_result": null,
+      "status": "awaiting_inputs"
+    }
+  ],
+  "space": {
+    "basis": "Room polygon union / exterior-outline projection; millimetres squared / 1e6",
+    "floors": [
+      {
+        "floor": 1,
+        "outline_projection_m2": 59.6232,
+        "assigned_indoor_projection_m2": 52.1746,
+        "stairs_projection_m2": 3.53,
+        "assigned_excluding_stairs_m2": 48.6446,
+        "assigned_ratio_percent": 87.50721195776141,
+        "excluding_stairs_ratio_percent": 81.586697795489,
+        "unassigned_outline_projection_m2": 7.448599999999999,
+        "rooms": [
+          {
+            "id": "ldk",
+            "name": "LDK",
+            "polygon_area_m2": 33.95
+          },
+          {
+            "id": "foyer",
+            "name": "玄関",
+            "polygon_area_m2": 3.04
+          },
+          {
+            "id": "bath",
+            "name": "浴室",
+            "polygon_area_m2": 3.3124
+          },
+          {
+            "id": "wash",
+            "name": "洗面・脱衣 / 洗濯",
+            "polygon_area_m2": 5.2962
+          },
+          {
+            "id": "wc",
+            "name": "トイレ",
+            "polygon_area_m2": 1.638
+          },
+          {
+            "id": "stairs",
+            "name": "階段",
+            "polygon_area_m2": 3.53
+          },
+          {
+            "id": "under_stairs",
+            "name": "階段下収納",
+            "polygon_area_m2": 1.408
+          }
+        ],
+        "external_rooms_excluded": []
+      },
+      {
+        "floor": 2,
+        "outline_projection_m2": 59.6232,
+        "assigned_indoor_projection_m2": 52.0336,
+        "stairs_projection_m2": 5.168,
+        "assigned_excluding_stairs_m2": 46.8656,
+        "assigned_ratio_percent": 87.27072683116639,
+        "excluding_stairs_ratio_percent": 78.60295992164126,
+        "unassigned_outline_projection_m2": 7.589599999999997,
+        "rooms": [
+          {
+            "id": "master",
+            "name": "主寝室",
+            "polygon_area_m2": 14.76
+          },
+          {
+            "id": "bed2",
+            "name": "洋室 2",
+            "polygon_area_m2": 12.803
+          },
+          {
+            "id": "bed3",
+            "name": "洋室 3",
+            "polygon_area_m2": 12.8676
+          },
+          {
+            "id": "hall",
+            "name": "ホール / 洗面",
+            "polygon_area_m2": 4.797
+          },
+          {
+            "id": "wc",
+            "name": "トイレ",
+            "polygon_area_m2": 1.638
+          },
+          {
+            "id": "stairs",
+            "name": "階段",
+            "polygon_area_m2": 5.168
+          }
+        ],
+        "external_rooms_excluded": [
+          {
+            "id": "balcony",
+            "name": "バルコニー",
+            "polygon_area_m2": 7.191
+          }
+        ]
+      }
+    ],
+    "combined": {
+      "outline_projection_m2": 119.2464,
+      "assigned_indoor_projection_m2": 104.2082,
+      "stairs_projection_m2": 8.698,
+      "assigned_excluding_stairs_m2": 95.5102,
+      "assigned_ratio_percent": 87.3889693944639,
+      "excluding_stairs_ratio_percent": 80.09482885856514,
+      "ldk_and_bedrooms_m2": 74.3806
+    },
+    "attic_separate": {
+      "storage_projection_m2": 24.5384,
+      "maximum_clear_height_mm": 1350
+    },
+    "statutory_floor_area_m2": null,
+    "walkable_unobstructed_area_m2": null,
+    "limitations": [
+      "Not statutory wall-centre floor area; attic/balcony excluded from two-floor totals",
+      "Stairs include projected stairwell/opening; not all solid walkable floor",
+      "Furniture, fixtures, low clearances and door operating space are not deducted",
+      "Unassigned remainder includes wall strips/thresholds/gaps; not a wall-only area",
+      "No efficiency grade or W/S/RC net-area equivalence is inferred"
+    ]
+  }
+}

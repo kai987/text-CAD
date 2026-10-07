@@ -4089,8 +4089,8 @@
     {
       "check": "W:structure:F2:beam_B11:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 89235000.0,
-      "expected": 89235000.0
+      "actual": 106785000.0,
+      "expected": 106785000.0
     },
     {
       "check": "W:structure:F2:beam_B11:native_bounds_match_saved_record",
@@ -4107,8 +4107,8 @@
     {
       "check": "W:structure:F2:beam_B12:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 49087500.0,
-      "expected": 49087500.0
+      "actual": 62730000.0,
+      "expected": 62730000.0
     },
     {
       "check": "W:structure:F2:beam_B12:native_bounds_match_saved_record",
@@ -4125,8 +4125,8 @@
     {
       "check": "W:structure:F2:beam_B13:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 51975000.0,
-      "expected": 51975000.0
+      "actual": 66420000.0,
+      "expected": 66420000.0
     },
     {
       "check": "W:structure:F2:beam_B13:native_bounds_match_saved_record",
@@ -4423,109 +4423,109 @@
       "expected": null
     },
     {
-      "check": "W:structure:attic:joist_J06_south:finite_valid_positive_native_solids",
+      "check": "W:structure:attic:joist_J05:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "W:structure:attic:joist_J06_south:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 36234000.0,
-      "expected": 36234000.0
-    },
-    {
-      "check": "W:structure:attic:joist_J06_south:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J06_north:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J06_north:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 32130000.0,
-      "expected": 32130000.0
-    },
-    {
-      "check": "W:structure:attic:joist_J06_north:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J07_south:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J07_south:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 36234000.0,
-      "expected": 36234000.0
-    },
-    {
-      "check": "W:structure:attic:joist_J07_south:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J07_north:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J07_north:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 32130000.0,
-      "expected": 32130000.0
-    },
-    {
-      "check": "W:structure:attic:joist_J07_north:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J09:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:attic:joist_J09:native_volume_matches_saved_record",
+      "check": "W:structure:attic:joist_J05:native_volume_matches_saved_record",
       "pass": true,
       "actual": 76680000.0,
       "expected": 76680000.0
     },
     {
-      "check": "W:structure:attic:joist_J09:native_bounds_match_saved_record",
+      "check": "W:structure:attic:joist_J05:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "W:structure:attic:joist_J10:finite_valid_positive_native_solids",
+      "check": "W:structure:attic:joist_J06:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "W:structure:attic:joist_J10:native_volume_matches_saved_record",
+      "check": "W:structure:attic:joist_J06:native_volume_matches_saved_record",
       "pass": true,
       "actual": 76680000.0,
       "expected": 76680000.0
     },
     {
-      "check": "W:structure:attic:joist_J10:native_bounds_match_saved_record",
+      "check": "W:structure:attic:joist_J06:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J08_south:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J08_south:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 36234000.0,
+      "expected": 36234000.0
+    },
+    {
+      "check": "W:structure:attic:joist_J08_south:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J08_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J08_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 32130000.0,
+      "expected": 32130000.0
+    },
+    {
+      "check": "W:structure:attic:joist_J08_north:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J09_south:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J09_south:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 36234000.0,
+      "expected": 36234000.0
+    },
+    {
+      "check": "W:structure:attic:joist_J09_south:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J09_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:attic:joist_J09_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 32130000.0,
+      "expected": 32130000.0
+    },
+    {
+      "check": "W:structure:attic:joist_J09_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -4539,8 +4539,8 @@
     {
       "check": "W:structure:attic:trimmer_east:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 152550000.0,
-      "expected": 152550000.0
+      "actual": 153360000.0,
+      "expected": 153360000.0
     },
     {
       "check": "W:structure:attic:trimmer_east:native_bounds_match_saved_record",
@@ -4557,8 +4557,8 @@
     {
       "check": "W:structure:attic:trimmer_west:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 153360000.0,
-      "expected": 153360000.0
+      "actual": 153198000.0,
+      "expected": 153198000.0
     },
     {
       "check": "W:structure:attic:trimmer_west:native_bounds_match_saved_record",
@@ -8958,7 +8958,7 @@
       "check": "W:structure:F2:beam_B12:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -3.505000114440918,
         4.815000057220459,
@@ -8966,7 +8966,7 @@
         -3.4200000762939453
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -3.505,
         4.815,
@@ -8978,7 +8978,7 @@
       "check": "W:structure:F2:beam_B13:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -4.244999885559082,
         4.815000057220459,
@@ -8986,7 +8986,7 @@
         -4.15500020980835
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -4.245,
         4.815,
@@ -8998,18 +8998,18 @@
       "check": "W:structure:F2:beam_B14:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -4.15500020980835,
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -3.505000114440918
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -4.155,
-        2.89,
+        2.355,
         5.396,
         -3.505
       ]
@@ -9258,18 +9258,18 @@
       "check": "W:structure:attic:joist_J02:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        5.43625020980835,
+        5.493333339691162,
         5.395999908447266,
         -7.190000057220459,
-        5.496250152587891,
+        5.553333282470703,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        5.43625,
+        5.493333333333999,
         5.396,
         -7.19,
-        5.49625,
+        5.553333333334,
         5.576,
         -0.09
       ]
@@ -9278,18 +9278,18 @@
       "check": "W:structure:attic:joist_J03:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.997499942779541,
+        5.111666679382324,
         5.395999908447266,
         -7.190000057220459,
-        5.057499885559082,
+        5.171666622161865,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.9975,
+        5.111666666666,
         5.396,
         -7.19,
-        5.0575,
+        5.171666666666001,
         5.576,
         -0.09
       ]
@@ -9298,158 +9298,158 @@
       "check": "W:structure:attic:joist_J04:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.558750152587891,
+        4.730000019073486,
         5.395999908447266,
         -7.190000057220459,
-        4.618750095367432,
+        4.789999961853027,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.55875,
+        4.73,
         5.396,
         -7.19,
-        4.61875,
+        4.79,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "W:structure:attic:joist_J06_south:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:attic:joist_J05:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.680000066757202,
+        4.348333358764648,
         5.395999908447266,
-        -3.444999933242798,
-        3.740000009536743,
+        -7.190000057220459,
+        4.4083333015441895,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        3.68,
+        4.34833333333366,
         5.396,
-        -3.445,
-        3.74,
+        -7.19,
+        4.408333333333659,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "W:structure:attic:joist_J06_north:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:attic:joist_J06:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.680000066757202,
+        3.9666666984558105,
         5.395999908447266,
         -7.190000057220459,
-        3.740000009536743,
+        4.026666641235352,
+        5.576000213623047,
+        -0.09000000357627869
+      ],
+      "expected": [
+        3.9666666666664,
+        5.396,
+        -7.19,
+        4.0266666666664,
+        5.576,
+        -0.09
+      ]
+    },
+    {
+      "check": "W:structure:attic:joist_J08_south:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.1449999809265137,
+        5.395999908447266,
+        -3.444999933242798,
+        3.2049999237060547,
+        5.576000213623047,
+        -0.09000000357627869
+      ],
+      "expected": [
+        3.145,
+        5.396,
+        -3.445,
+        3.205,
+        5.576,
+        -0.09
+      ]
+    },
+    {
+      "check": "W:structure:attic:joist_J08_north:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.1449999809265137,
+        5.395999908447266,
+        -7.190000057220459,
+        3.2049999237060547,
         5.576000213623047,
         -4.215000152587891
       ],
       "expected": [
-        3.68,
+        3.145,
         5.396,
         -7.19,
-        3.74,
+        3.205,
         5.576,
         -4.215
       ]
     },
     {
-      "check": "W:structure:attic:joist_J07_south:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:attic:joist_J09_south:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.240000009536743,
+        2.7049999237060547,
         5.395999908447266,
         -3.444999933242798,
-        3.299999952316284,
+        2.765000104904175,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        3.24,
+        2.705,
         5.396,
         -3.445,
-        3.3,
+        2.765,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "W:structure:attic:joist_J07_north:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:attic:joist_J09_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.240000009536743,
+        2.7049999237060547,
         5.395999908447266,
         -7.190000057220459,
-        3.299999952316284,
+        2.765000104904175,
         5.576000213623047,
         -4.215000152587891
       ],
       "expected": [
-        3.24,
+        2.705,
         5.396,
         -7.19,
-        3.3,
+        2.765,
         5.576,
         -4.215
-      ]
-    },
-    {
-      "check": "W:structure:attic:joist_J09:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        2.5274999141693115,
-        5.395999908447266,
-        -7.190000057220459,
-        2.5875000953674316,
-        5.576000213623047,
-        -0.09000000357627869
-      ],
-      "expected": [
-        2.5275,
-        5.396,
-        -7.19,
-        2.5875,
-        5.576,
-        -0.09
-      ]
-    },
-    {
-      "check": "W:structure:attic:joist_J10:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        2.255000114440918,
-        5.395999908447266,
-        -7.190000057220459,
-        2.315000057220459,
-        5.576000213623047,
-        -0.09000000357627869
-      ],
-      "expected": [
-        2.255,
-        5.396,
-        -7.19,
-        2.315,
-        5.576,
-        -0.09
       ]
     },
     {
       "check": "W:structure:attic:trimmer_east:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.090000152587891,
+        3.555000066757202,
         5.395999908447266,
         -7.190000057220459,
-        4.210000038146973,
+        3.674999952316284,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.09,
+        3.555,
         5.396,
         -7.19,
-        4.21,
+        3.675,
         5.576,
         -0.09
       ]
@@ -9458,18 +9458,18 @@
       "check": "W:structure:attic:trimmer_west:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.7699999809265137,
+        2.234999895095825,
         5.395999908447266,
         -7.190000057220459,
-        2.890000104904175,
+        2.3550000190734863,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        2.77,
+        2.235,
         5.396,
         -7.19,
-        2.89,
+        2.355,
         5.576,
         -0.09
       ]
@@ -9478,18 +9478,18 @@
       "check": "W:structure:attic:header_south:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -3.505000114440918,
-        4.090000152587891,
+        3.555000066757202,
         5.576000213623047,
         -3.444999933242798
       ],
       "expected": [
-        2.89,
+        2.355,
         5.396,
         -3.505,
-        4.09,
+        3.555,
         5.576,
         -3.445
       ]
@@ -9498,18 +9498,18 @@
       "check": "W:structure:attic:header_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -4.215000152587891,
-        4.090000152587891,
+        3.555000066757202,
         5.576000213623047,
         -4.15500020980835
       ],
       "expected": [
-        2.89,
+        2.355,
         5.396,
         -4.215,
-        4.09,
+        3.555,
         5.576,
         -4.155
       ]
@@ -15019,8 +15019,8 @@
     {
       "check": "S:structure:F2:beam_B11:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 8518652.416,
-      "expected": 8518652.416
+      "actual": 10114428.415999,
+      "expected": 10114428.415999
     },
     {
       "check": "S:structure:F2:beam_B11:native_bounds_match_saved_record",
@@ -15037,8 +15037,8 @@
     {
       "check": "S:structure:F2:beam_B12:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 3995824.8,
-      "expected": 3995824.8
+      "actual": 5072244.8,
+      "expected": 5072244.8
     },
     {
       "check": "S:structure:F2:beam_B12:native_bounds_match_saved_record",
@@ -15055,8 +15055,8 @@
     {
       "check": "S:structure:F2:beam_B13:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 4883039.744,
-      "expected": 4883039.744
+      "actual": 6196486.144,
+      "expected": 6196486.144
     },
     {
       "check": "S:structure:F2:beam_B13:native_bounds_match_saved_record",
@@ -16109,109 +16109,109 @@
       "expected": null
     },
     {
-      "check": "S:structure:attic:joist_J06_south:finite_valid_positive_native_solids",
+      "check": "S:structure:attic:joist_J05:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "S:structure:attic:joist_J06_south:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 3632928.2,
-      "expected": 3632928.2
-    },
-    {
-      "check": "S:structure:attic:joist_J06_south:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J06_north:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J06_north:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 3221449.0,
-      "expected": 3221449.0
-    },
-    {
-      "check": "S:structure:attic:joist_J06_north:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J07_south:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J07_south:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 3632928.2,
-      "expected": 3632928.2
-    },
-    {
-      "check": "S:structure:attic:joist_J07_south:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J07_north:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J07_north:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 3221449.0,
-      "expected": 3221449.0
-    },
-    {
-      "check": "S:structure:attic:joist_J07_north:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J09:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:attic:joist_J09:native_volume_matches_saved_record",
+      "check": "S:structure:attic:joist_J05:native_volume_matches_saved_record",
       "pass": true,
       "actual": 7688164.000001,
       "expected": 7688164.000001
     },
     {
-      "check": "S:structure:attic:joist_J09:native_bounds_match_saved_record",
+      "check": "S:structure:attic:joist_J05:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "S:structure:attic:joist_J10:finite_valid_positive_native_solids",
+      "check": "S:structure:attic:joist_J06:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "S:structure:attic:joist_J10:native_volume_matches_saved_record",
+      "check": "S:structure:attic:joist_J06:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 7688164.000001,
+      "actual": 7688164.0,
       "expected": 7688164.000001
     },
     {
-      "check": "S:structure:attic:joist_J10:native_bounds_match_saved_record",
+      "check": "S:structure:attic:joist_J06:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J08_south:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J08_south:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 3632928.2,
+      "expected": 3632928.2
+    },
+    {
+      "check": "S:structure:attic:joist_J08_south:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J08_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J08_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 3221449.0,
+      "expected": 3221449.0
+    },
+    {
+      "check": "S:structure:attic:joist_J08_north:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J09_south:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J09_south:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 3632928.2,
+      "expected": 3632928.2
+    },
+    {
+      "check": "S:structure:attic:joist_J09_south:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J09_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:attic:joist_J09_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 3221449.0,
+      "expected": 3221449.0
+    },
+    {
+      "check": "S:structure:attic:joist_J09_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -16225,8 +16225,8 @@
     {
       "check": "S:structure:attic:trimmer_east:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 9590756.200001,
-      "expected": 9590756.200001
+      "actual": 9647764.000001,
+      "expected": 9647764.000001
     },
     {
       "check": "S:structure:attic:trimmer_east:native_bounds_match_saved_record",
@@ -16243,8 +16243,8 @@
     {
       "check": "S:structure:attic:trimmer_west:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 9647764.000001,
-      "expected": 9647764.000001
+      "actual": 9571008.400001,
+      "expected": 9571008.400001
     },
     {
       "check": "S:structure:attic:trimmer_west:native_bounds_match_saved_record",
@@ -25144,7 +25144,7 @@
       "check": "S:structure:F2:beam_B12:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -3.505000114440918,
         4.815000057220459,
@@ -25152,7 +25152,7 @@
         -3.4149999618530273
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -3.505,
         4.815,
@@ -25164,7 +25164,7 @@
       "check": "S:structure:F2:beam_B13:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -4.244999885559082,
         4.815000057220459,
@@ -25172,7 +25172,7 @@
         -4.15500020980835
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -4.245,
         4.815,
@@ -25184,18 +25184,18 @@
       "check": "S:structure:F2:beam_B14:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.799999952316284,
+        2.265000104904175,
         5.0960001945495605,
         -4.15500020980835,
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -3.505000114440918
       ],
       "expected": [
-        2.8,
+        2.265,
         5.096,
         -4.155,
-        2.89,
+        2.355,
         5.396,
         -3.505
       ]
@@ -26284,18 +26284,18 @@
       "check": "S:structure:attic:joist_J02:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        5.43625020980835,
+        5.493333339691162,
         5.395999908447266,
         -7.190000057220459,
-        5.496250152587891,
+        5.553333282470703,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        5.43625,
+        5.493333333333,
         5.396,
         -7.19,
-        5.49625,
+        5.553333333333,
         5.576,
         -0.09
       ]
@@ -26304,18 +26304,18 @@
       "check": "S:structure:attic:joist_J03:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.997499942779541,
+        5.111666679382324,
         5.395999908447266,
         -7.190000057220459,
-        5.057499885559082,
+        5.171666622161865,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.9975,
+        5.111666666666999,
         5.396,
         -7.19,
-        5.0575,
+        5.171666666667,
         5.576,
         -0.09
       ]
@@ -26324,158 +26324,158 @@
       "check": "S:structure:attic:joist_J04:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.558750152587891,
+        4.730000019073486,
         5.395999908447266,
         -7.190000057220459,
-        4.618750095367432,
+        4.789999961853027,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.55875,
+        4.73,
         5.396,
         -7.19,
-        4.61875,
+        4.79,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "S:structure:attic:joist_J06_south:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:attic:joist_J05:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.680000066757202,
+        4.348333358764648,
         5.395999908447266,
-        -3.444999933242798,
-        3.740000009536743,
+        -7.190000057220459,
+        4.4083333015441895,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        3.68,
+        4.3483333333330005,
         5.396,
-        -3.445,
-        3.74,
+        -7.19,
+        4.408333333333,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "S:structure:attic:joist_J06_north:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:attic:joist_J06:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.680000066757202,
+        3.9666666984558105,
         5.395999908447266,
         -7.190000057220459,
-        3.740000009536743,
+        4.026666641235352,
+        5.576000213623047,
+        -0.09000000357627869
+      ],
+      "expected": [
+        3.966666666667,
+        5.396,
+        -7.19,
+        4.0266666666669995,
+        5.576,
+        -0.09
+      ]
+    },
+    {
+      "check": "S:structure:attic:joist_J08_south:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.1449999809265137,
+        5.395999908447266,
+        -3.444999933242798,
+        3.2049999237060547,
+        5.576000213623047,
+        -0.09000000357627869
+      ],
+      "expected": [
+        3.145,
+        5.396,
+        -3.445,
+        3.205,
+        5.576,
+        -0.09
+      ]
+    },
+    {
+      "check": "S:structure:attic:joist_J08_north:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.1449999809265137,
+        5.395999908447266,
+        -7.190000057220459,
+        3.2049999237060547,
         5.576000213623047,
         -4.215000152587891
       ],
       "expected": [
-        3.68,
+        3.145,
         5.396,
         -7.19,
-        3.74,
+        3.205,
         5.576,
         -4.215
       ]
     },
     {
-      "check": "S:structure:attic:joist_J07_south:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:attic:joist_J09_south:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.240000009536743,
+        2.7049999237060547,
         5.395999908447266,
         -3.444999933242798,
-        3.299999952316284,
+        2.765000104904175,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        3.24,
+        2.705,
         5.396,
         -3.445,
-        3.3,
+        2.765,
         5.576,
         -0.09
       ]
     },
     {
-      "check": "S:structure:attic:joist_J07_north:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:attic:joist_J09_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        3.240000009536743,
+        2.7049999237060547,
         5.395999908447266,
         -7.190000057220459,
-        3.299999952316284,
+        2.765000104904175,
         5.576000213623047,
         -4.215000152587891
       ],
       "expected": [
-        3.24,
+        2.705,
         5.396,
         -7.19,
-        3.3,
+        2.765,
         5.576,
         -4.215
-      ]
-    },
-    {
-      "check": "S:structure:attic:joist_J09:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        2.5274999141693115,
-        5.395999908447266,
-        -7.190000057220459,
-        2.5875000953674316,
-        5.576000213623047,
-        -0.09000000357627869
-      ],
-      "expected": [
-        2.5275,
-        5.396,
-        -7.19,
-        2.5875,
-        5.576,
-        -0.09
-      ]
-    },
-    {
-      "check": "S:structure:attic:joist_J10:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        2.255000114440918,
-        5.395999908447266,
-        -7.190000057220459,
-        2.315000057220459,
-        5.576000213623047,
-        -0.09000000357627869
-      ],
-      "expected": [
-        2.255,
-        5.396,
-        -7.19,
-        2.315,
-        5.576,
-        -0.09
       ]
     },
     {
       "check": "S:structure:attic:trimmer_east:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        4.090000152587891,
+        3.555000066757202,
         5.395999908447266,
         -7.190000057220459,
-        4.210000038146973,
+        3.674999952316284,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        4.09,
+        3.555,
         5.396,
         -7.19,
-        4.21,
+        3.675,
         5.576,
         -0.09
       ]
@@ -26484,18 +26484,18 @@
       "check": "S:structure:attic:trimmer_west:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.7699999809265137,
+        2.234999895095825,
         5.395999908447266,
         -7.190000057220459,
-        2.890000104904175,
+        2.3550000190734863,
         5.576000213623047,
         -0.09000000357627869
       ],
       "expected": [
-        2.77,
+        2.235,
         5.396,
         -7.19,
-        2.89,
+        2.355,
         5.576,
         -0.09
       ]
@@ -26504,18 +26504,18 @@
       "check": "S:structure:attic:header_south:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -3.505000114440918,
-        4.090000152587891,
+        3.555000066757202,
         5.576000213623047,
         -3.444999933242798
       ],
       "expected": [
-        2.89,
+        2.355,
         5.396,
         -3.505,
-        4.09,
+        3.555,
         5.576,
         -3.445
       ]
@@ -26524,18 +26524,18 @@
       "check": "S:structure:attic:header_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
-        2.890000104904175,
+        2.3550000190734863,
         5.395999908447266,
         -4.215000152587891,
-        4.090000152587891,
+        3.555000066757202,
         5.576000213623047,
         -4.15500020980835
       ],
       "expected": [
-        2.89,
+        2.355,
         5.396,
         -4.215,
-        4.09,
+        3.555,
         5.576,
         -4.155
       ]

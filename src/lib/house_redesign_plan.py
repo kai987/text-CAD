@@ -1,4 +1,4 @@
-"""Active R20 layout: reflected rooms, east glazing and a facing kitchen.
+"""Active R21 layout: reflected rooms, east glazing and a facing kitchen.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
@@ -49,7 +49,7 @@ class RedesignParameters:
 
 
 P = RedesignParameters()
-REVISION = 'R20'
+REVISION = 'R21'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -88,6 +88,13 @@ def south_floor_window(window,p=P):
     """Only the three wide south living/bedroom apertures are floor-height."""
     axis,at,_,width=window
     return axis=='h' and abs(at-p.external_wall/2)<1e-6 and width>1000
+
+
+def hall_basin_bounds(p=P):
+    """Canonical niche basin, centred along its 800 mm wall face."""
+    d=dimensions(p)
+    centre=(d['sy']+d['ym']-p.toilet_depth-p.internal_wall)/2
+    return (d['wcl']-300,centre-300,d['wcl']+150,centre+300)
 
 
 from .orientation import orient_record
@@ -185,7 +192,7 @@ def _canonical_floor_plan(number, p=P):
                   ('ベッド 1000',(500,sy+300,1500,sy+2300)),
                   ('CL',(2500,ym-600,4800,ym)),
                   ('WC',(wcl+200,ym-800,wcr-200,ym-150)),
-                  ('手洗い',(wcl-300,4530,wcl+150,5130)),
+                  ('手洗い',hall_basin_bounds(p)),
                   ('物干し',balcony_drying_bounds(p))]
     building=box(0,0,p.width,p.depth)
     interior_rooms=[r.shape for r in rooms if r.kind!='outside']
@@ -225,12 +232,14 @@ def floor_plan(number, p=P):
 
 
 def manifest(p=P):
-    return {'revision':REVISION,'stage':'wall_alignment_open_storage_bedroom_doors_visible_room_lights','requested_on':'2026-10-07','units':'mm',
+    return {'revision':REVISION,'stage':'centred_vanity_sliding_bedroom_doors_west_attic_hatch_coordinated_lights','requested_on':'2026-10-07','units':'mm',
             'parameters':asdict(p),'sources':SOURCES,
             'assumptions':[
-                'R20 centres the north attic ventilation window and uses an uncalculated paired-post/header opening frame; two short attic pendants remain visible below the default interior cut height.',
-                'R20 aligns the two WC south walls with the first-floor washroom, using 900 x 1820 mm clear WC rooms; all dimensions are demonstration assumptions.',
-                'R20 removes the enclosed F2 closet, incorporates open clothes storage into the master and moves D21/D23 to the annotated corner partitions; the north/south bedroom separation remains.',
+                'R21 retains two 200 x 450 mm north attic vents beside one central ridge post. Window opening rules, structural capacity and approval remain pending.',
+                'R21 centres the 600 x 450 mm F2 basin along its 800 mm niche wall, with 100 mm at either end; D21/D23 are face-mounted sliders shown retracted with tracks and pulls.',
+                'R21 moves the 1200 x 650 mm attic hatch 535 mm west, 100 mm from the storage deck west edge; deck/ceiling openings and access assembly move together. The F2 hall pendant shifts 500 mm west and a vanity wall light joins the indoor switch.',
+                'R21 aligns the two WC south walls with the first-floor washroom, using 900 x 1820 mm clear WC rooms; all dimensions are demonstration assumptions.',
+                'R21 removes the enclosed F2 closet, incorporates open clothes storage into the master and moves D21/D23 to the annotated corner partitions; the north/south bedroom separation remains.',
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
                 '8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.',
                 'South entrance / south balcony / north direction are assumptions without site survey.',
@@ -245,9 +254,9 @@ def manifest(p=P):
                 'R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
                 'R15 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.',
-                'R20 merges the F2 south corridor into the two bedrooms; each bedroom has a two-leaf glazed balcony slider. Balcony access now passes through bedrooms.',
-                'R20 merges the F2 WC forecourt into the hall and adds a 600 x 450 mm recessed wash basin and mirror; WC doors open inward, toilets remain vertically aligned.',
-                'R20 north bedroom has a 600 mm north window and 1800 mm east window; desks, chairs and bedside tables are conceptual furniture.',
+                'R21 merges the F2 south corridor into the two bedrooms; each bedroom has a two-leaf glazed balcony slider. Balcony access now passes through bedrooms.',
+                'R21 merges the F2 WC forecourt into the hall and adds a 600 x 450 mm recessed wash basin and mirror; WC doors open inward, toilets remain vertically aligned.',
+                'R21 north bedroom has a 600 mm north window and 1800 mm east window; desks, chairs and bedside tables are conceptual furniture.',
                 'R15 adds an 800 x 1760 mm stair-under storage room with a 700 mm door, sloping low ceiling, and shelves. Stair treads use a 60 mm illustrative thickness with side stringers; load capacity, connections and fire separation remain uncalculated.',
                 'R15 uses a four-seat 2600 x 1550 mm L sofa, opposing south-wall TV, coffee table, 1600 x 850 mm dining table with four chairs, and 900 x 750 mm side-by-side refrigerator. Furniture clearances are demo design targets.',
                 '2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending.'],

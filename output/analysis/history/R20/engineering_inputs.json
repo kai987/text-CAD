@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "source_binding": {
+    "revision": "R20",
+    "source_sha256": {
+      "output/review/design_manifest.json": "c9579990d44c258fbbdaa46e7d18db2c626f8892a498dbb793b13a509cd44209",
+      "output/review/engineering_inputs_R06.json": "3dbc71517b1603e01875b94ec7bdfde8e44fed524c079180cd9b47eb7b6a0e65",
+      "output/review/house_3d_assumptions_R01.json": "0820da5aaccea4628c37917319af6874835a4afabe7a540e167d62ac1eff277e"
+    }
+  },
+  "scope": "Unfilled engineering handoff; demonstration geometry is not engineering input",
+  "site_inputs": {
+    "municipality": null,
+    "survey_and_road_information": null,
+    "zoning_and_fire_district": null,
+    "ground_investigation": null,
+    "allowable_ground_bearing_kN_m2": null,
+    "settlement": null,
+    "snow_depth_mm": null,
+    "basic_wind_speed_m_s": null,
+    "seismic_site_conditions": null
+  },
+  "material_inputs": {
+    "timber_species_and_grade": null,
+    "moisture_and_design_strengths": null,
+    "sheathing_specification": null,
+    "wall_resistance_specification": null,
+    "connection_products_and_capacities": null,
+    "concrete_grade": null,
+    "rebar_grade": null
+  },
+  "load_inputs": {
+    "roof_dead_load_kN_m2": null,
+    "wall_and_floor_dead_load_kN_m2": null,
+    "residential_live_load_kN_m2": null,
+    "attic_storage_live_load_kN_m2": null,
+    "shelf_and_box_concentrated_loads_kN": null,
+    "future_roof_equipment": null
+  },
+  "system_specific_inputs": {
+    "W": {
+      "species_grade_design_values": null,
+      "wall_and_connector_capacities": null,
+      "creep_and_duration": null
+    },
+    "S": {
+      "steel_grade_sections": null,
+      "local_and_global_buckling": null,
+      "connection_design": null
+    },
+    "RC": {
+      "concrete_rebar_design_values": null,
+      "reinforcement_and_cover": null,
+      "cracked_stiffness_and_creep": null
+    }
+  },
+  "member_cases": [
+    {
+      "id": "ldk_transfer_beam",
+      "system": "W",
+      "support": "simple",
+      "assumptions_reviewed": false,
+      "load_and_material_reference": null,
+      "support_and_member_reference": null,
+      "values": {
+        "span_mm": null,
+        "uniform_load_kN_m": null,
+        "point_load_kN": null,
+        "E_N_mm2": null,
+        "I_mm4": null,
+        "W_mm3": null,
+        "allowable_bending_N_mm2": null,
+        "deflection_limit_mm": null
+      }
+    },
+    {
+      "id": "balcony_candidate",
+      "system": "W",
+      "support": "cantilever",
+      "assumptions_reviewed": false,
+      "load_and_material_reference": null,
+      "support_and_member_reference": null,
+      "values": {
+        "span_mm": null,
+        "uniform_load_kN_m": null,
+        "point_load_kN": null,
+        "E_N_mm2": null,
+        "I_mm4": null,
+        "W_mm3": null,
+        "allowable_bending_N_mm2": null,
+        "deflection_limit_mm": null
+      }
+    },
+    {
+      "id": "attic_joist_or_header",
+      "system": "W",
+      "support": "simple",
+      "assumptions_reviewed": false,
+      "load_and_material_reference": null,
+      "support_and_member_reference": null,
+      "values": {
+        "span_mm": null,
+        "uniform_load_kN_m": null,
+        "point_load_kN": null,
+        "E_N_mm2": null,
+        "I_mm4": null,
+        "W_mm3": null,
+        "allowable_bending_N_mm2": null,
+        "deflection_limit_mm": null
+      }
+    }
+  ]
+}

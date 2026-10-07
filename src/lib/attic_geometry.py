@@ -22,7 +22,7 @@ class AtticParameters:
     north_vent_width: float = 600
     north_vent_height: float = 300
     north_vent_sill: float = 850
-    north_vent_offset_from_ridge: float = 600
+    north_vent_offset_from_ridge: float = 0
     deck_width: float = 3680
     deck_end_inset: float = 200
     deck_thickness: float = 18
@@ -357,7 +357,7 @@ def attic_manifest(p, g, a=A):
     ladder_y0 = d["ladder_center_y"] - a.ladder_width / 2
     ladder_y1 = ladder_y0 + a.ladder_width
     assumptions = [
-        "R10阁楼采用纯储物用途的演示方案，采用R17重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+        "R10阁楼采用纯储物用途的演示方案，采用R18重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
         "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
         "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
         "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -370,13 +370,13 @@ def attic_manifest(p, g, a=A):
     ]
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R17",
+        "revision": "R18",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
         "north_vent_bounds_mm": list(north_vent_bounds(p,g,a)),
         "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
-        "unchanged": ["R17 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
+        "unchanged": ["R18 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],

@@ -15,8 +15,8 @@
     "step": "STEP/structure_S.step"
   },
   "model_hashes_sha256": {
-    "glb": "b35890c42800926394d4bda549f0fd55b6a8dc489ddf21802f3ff4fbfe3bd8aa",
-    "step": "277825b83a1e80dfab117527d9e8944b7b047aacf5115d112df98bb06aa2c11a"
+    "glb": "a780dfe2793143ec798190755749bfa7f71080739063457e2ae627c07ed57b02",
+    "step": "edd01b9f034ab49ed734361d0849db86f541fcd485e8dc0f650faf241e3f7824"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -2489,7 +2489,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 3221449.0,
+        "volume_mm3": 3193980.1,
         "solid_count": 1
       },
       {
@@ -2554,7 +2554,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 9590756.200001,
+        "volume_mm3": 9619260.100001,
         "solid_count": 1
       },
       {
@@ -2633,6 +2633,19 @@
           8024.249352331517
         ],
         "volume_mm3": 6599951.200001,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:vent_header_north",
+        "bounds_mm": [
+          3695.0,
+          7145.0,
+          6828.0,
+          4495.0,
+          7235.0,
+          6918.0
+        ],
+        "volume_mm3": 645472.0,
         "solid_count": 1
       },
       {
@@ -2727,16 +2740,42 @@
         "solid_count": 1
       },
       {
-        "name": "structure:roof:post_ridge_P02",
+        "name": "structure:roof:post_vent_left",
+        "bounds_mm": [
+          4405.0,
+          7145.0,
+          5396.0,
+          4495.0,
+          7235.0,
+          6828.0
+        ],
+        "volume_mm3": 1155394.88,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_vent_right",
+        "bounds_mm": [
+          3695.0,
+          7145.0,
+          5396.0,
+          3785.0,
+          7235.0,
+          6828.0
+        ],
+        "volume_mm3": 1155394.88,
+        "solid_count": 1
+      },
+      {
+        "name": "structure:roof:post_vent_king_north",
         "bounds_mm": [
           4050.0,
           7145.0,
-          5396.0,
+          6918.0,
           4140.0,
           7235.0,
           7964.249352331517
         ],
-        "volume_mm3": 2072166.307435,
+        "volume_mm3": 844155.827435,
         "solid_count": 1
       },
       {
@@ -7407,7 +7446,7 @@
         "solid_count": 2
       }
     ],
-    "member_count": 546,
+    "member_count": 549,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -7591,8 +7630,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 546,
-      "all_nodes": 559
+      "named_mesh_nodes": 549,
+      "all_nodes": 562
     }
   },
   "project_inputs": {

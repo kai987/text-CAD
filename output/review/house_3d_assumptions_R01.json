@@ -1,5 +1,5 @@
 {
-  "revision": "R17-3D",
+  "revision": "R18-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -123,14 +123,14 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R17",
+    "revision": "R18",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
       "north_vent_width": 600,
       "north_vent_height": 300,
       "north_vent_sill": 850,
-      "north_vent_offset_from_ridge": 600,
+      "north_vent_offset_from_ridge": 0,
       "deck_width": 3680,
       "deck_end_inset": 200,
       "deck_thickness": 18,
@@ -175,16 +175,16 @@
       "ladder_bottom_landing_depth": 600
     },
     "north_vent_bounds_mm": [
-      3195.0,
+      3795.0,
       7079,
       6468,
-      3795.0,
+      4395.0,
       7281,
       6768
     ],
     "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
     "unchanged": [
-      "R17 coordinated layout; stairwell and WC remain vertically aligned",
+      "R18 coordinated layout; stairwell and WC remain vertically aligned",
       "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
@@ -289,7 +289,7 @@
       "lid_to_ladder_back_vertical_gap_mm": 20.0
     },
     "assumptions": [
-      "R10阁楼采用纯储物用途的演示方案，采用R17重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+      "R10阁楼采用纯储物用途的演示方案，采用R18重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
       "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
       "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
       "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -2236,6 +2236,7 @@
       }
     ],
     "roof_posts": {
+      "north_vent_transfer_frame": "R18 centred opening with paired jamb posts, header and upper ridge post; uncalculated",
       "gable_y": [
         90.0,
         7190.0
@@ -2666,7 +2667,7 @@
     ]
   },
   "indoor_lighting": {
-    "revision": "R17",
+    "revision": "R18",
     "fixtures": [
       {
         "id": "indoor_F1_ldk",
@@ -3037,6 +3038,7 @@
         "category": "indoor",
         "room": "attic",
         "floor": 3,
+        "style": "short_pendant",
         "group": "attic:indoor_light:attic",
         "diffuser_label": "attic:indoor_light:attic:diffuser",
         "mount_center_mm": [
@@ -3046,7 +3048,7 @@
         ],
         "light_position_glb_m": [
           4.095,
-          6.908,
+          6.808,
           -5.98
         ],
         "target_glb_m": [
@@ -3058,10 +3060,38 @@
         "beam_angle_degrees": 130,
         "visual_intensity": 1.5,
         "visual_range_m": 3.0
+      },
+      {
+        "id": "indoor_attic_south",
+        "category": "indoor",
+        "room": "attic",
+        "floor": 3,
+        "style": "short_pendant",
+        "group": "attic:indoor_light:attic_south",
+        "diffuser_label": "attic:indoor_light:attic_south:diffuser",
+        "mount_center_mm": [
+          4095.0,
+          1300,
+          6968
+        ],
+        "light_position_glb_m": [
+          4.095,
+          6.808,
+          -1.3
+        ],
+        "target_glb_m": [
+          4.095,
+          5.918,
+          -1.3
+        ],
+        "color_hex": "#FFE1B8",
+        "beam_angle_degrees": 130,
+        "visual_intensity": 1.5,
+        "visual_range_m": 3.0
       }
     ],
     "assumptions": [
-      "R17室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
+      "R18室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
     ]
   },
   "engineering_status": {
@@ -3072,12 +3102,12 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
-    "R17玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
-    "R17四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
-    "R17按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+    "R18玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm斜顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+    "R18四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+    "R18按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
     "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "R17左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+    "R18左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
     "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；由两间南侧卧室进入，两端与东西外墙齐平；南侧客厅落地窗高2200，卧室阳台推拉门高2100（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
@@ -3097,7 +3127,7 @@
     "玄关木色外扇、拉手、门框、平台及单级踏步为演示附件；R13保留无独立挑檐，1000 mm阳台覆盖入口但1300 mm平台外沿300 mm露出；门洞宽高和玄关位置不变。",
     "屋面原坡度30度、450 mm出檐与150 mm竖向厚度不变，另加立缝、棟包、破风、檐底、檐沟及按楼层拆分的雨水管。",
     "饰面、雨樋和玄关附件全部尺寸为演示假设，未验证实际构造层次、排水、结构、防火、地面标高或申报要求。",
-    "R10阁楼采用纯储物用途的演示方案，采用R17重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+    "R10阁楼采用纯储物用途的演示方案，采用R18重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
     "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
     "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
     "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
@@ -3127,7 +3157,7 @@
     "玄关壁灯背板接触南侧外墙，门柱灯背板接触现有围栏柱；地面灯底座接触院子完成面Z=-500 mm，不改动原土层或基础。",
     "两盏步道灯位于1500 mm入口通道西侧；门柱灯宽45 mm，小于50 mm柱宽，保留1800 mm行人开口与5675 mm车辆开口。",
     "昼夜光照和发光扩散罩仅供模型查看；未完成照度、眩光、邻地溢光、灯具防水等级、电路、接地或施工安装设计。",
-    "R17室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
+    "R18室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。"
   ],
   "interior_reference": "references/interior-furnishings.md",
   "interior_model": "Original parametric furniture and fixtures; visual dimensions are assumptions, not manufacturer CAD.",
@@ -3528,7 +3558,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 1078,
-    "all_nodes": 1215
+    "named_mesh_nodes": 1087,
+    "all_nodes": 1225
   }
 }

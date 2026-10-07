@@ -1,4 +1,4 @@
-"""R17 original room luminaires. Sizes, colour and intensity are demo inputs.
+"""R18 original room luminaires. Sizes, colour and intensity are demo inputs.
 
 No product selection, photometry, wiring, wet-area rating or installation design.
 Lamps belong to the floor's equipment layer, independent of loose furniture.
@@ -36,14 +36,17 @@ def indoor_fixture_layout(p,g):
                 'color_hex':'#FFE1B8','beam_angle_degrees':130,
                 'visual_intensity':3.0 if room.id in ('ldk','master','bed2','bed3') else 1.2,
                 'visual_range_m':4.8})
-    # Attic fixture is below the low roof centre, independent of house floors.
-    from .attic_geometry import A,attic_dimensions
-    d=attic_dimensions(p,g);x=p.width/2;y=p.depth-1300;z=d['deck_top_z']
-    fixtures.append({'id':'indoor_attic','category':'indoor','room':'attic','floor':3,
-        'group':'attic:indoor_light:attic','diffuser_label':'attic:indoor_light:attic:diffuser',
-        'mount_center_mm':[x,y,d['ceiling_bottom_z']], 'light_position_glb_m':[x/1000,(d['ceiling_bottom_z']-60)/1000,-y/1000],
-        'target_glb_m':[x/1000,(z+300)/1000,-y/1000],'color_hex':'#FFE1B8',
-        'beam_angle_degrees':130,'visual_intensity':1.5,'visual_range_m':3.0})
+    # Short pendants remain below the 6900 mm attic interior cut plane.
+    from .attic_geometry import attic_dimensions
+    d=attic_dimensions(p,g);x=p.width/2;z=d['deck_top_z']
+    for ident,suffix,y in [('indoor_attic','attic',p.depth-1300),('indoor_attic_south','attic_south',1300)]:
+        prefix='attic:indoor_light:'+suffix
+        fixtures.append({'id':ident,'category':'indoor','room':'attic','floor':3,'style':'short_pendant',
+            'group':prefix,'diffuser_label':prefix+':diffuser',
+            'mount_center_mm':[x,y,d['ceiling_bottom_z']],
+            'light_position_glb_m':[x/1000,(d['ceiling_bottom_z']-160)/1000,-y/1000],
+            'target_glb_m':[x/1000,(z+300)/1000,-y/1000],'color_hex':'#FFE1B8',
+            'beam_angle_degrees':130,'visual_intensity':1.5,'visual_range_m':3.0})
     return fixtures
 
 
@@ -56,9 +59,9 @@ def _lamp(f):
         body.label=prefix+':shade';body.color=srgb('#30363B')
         diffuser.label=prefix+':diffuser';diffuser.color=srgb('#FFE7C6')
         return bd.Compound(children=[body,diffuser],label=prefix)
-    bottom=top-(55 if attic else 320)
+    bottom=top-(155 if attic else 320)
     parts=[(cuboid((x-45,y-45,top-12,x+45,y+45,top)),':mount','#30363B'),
-           (cuboid((x-4,y-4,bottom+55,x+4,y+4,top-12)),':stem','#30363B')] if not attic else []
+           (cuboid((x-4,y-4,bottom+55,x+4,y+4,top-12)),':stem','#30363B')]
     outer=bd.Solid.make_cylinder(105,55,bd.Plane(origin=(x,y,bottom)))
     bore=bd.Solid.make_cylinder(97,55,bd.Plane(origin=(x,y,bottom)))
     parts.extend([(outer.cut(bore),':shade','#F1EEE7'),
@@ -79,9 +82,9 @@ def apply_indoor_lighting_metadata(document,p,g):
     fixtures={f['diffuser_label']:f for f in indoor_fixture_layout(p,g)}
     for node in document['nodes']:
         if node.get('name') in fixtures:node.setdefault('extras',{})['indoorLight']=fixtures[node['name']]
-    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R17','fixtures':list(fixtures.values())}
+    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R18','fixtures':list(fixtures.values())}
 
 
 def indoor_lighting_manifest(p,g):
-    return {'revision':'R17','fixtures':indoor_fixture_layout(p,g),
-            'assumptions':['R17室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}
+    return {'revision':'R18','fixtures':indoor_fixture_layout(p,g),
+            'assumptions':['R18室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}

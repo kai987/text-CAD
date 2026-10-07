@@ -2,7 +2,7 @@
   "version": 1,
   "source": {
     "path": "output/pdf/house_floor_plans_R10_JP.pdf",
-    "sha256": "ac9bcb458bd45bfb8dc76f989b45d4b15de90633a6448374884c2e9a5e869795",
+    "sha256": "db2fdb0d5e182984c55c72e88ed58f8e18ff7bba2ebe37844fa77f79299e1049",
     "pages": 2
   },
   "generator": {
@@ -23,7 +23,7 @@
       "page": 1,
       "path": "output/vector/house_1f_plan.svg",
       "bytes": 417077,
-      "sha256": "ee2ef618061a101efcb4ef3e155582fc72d7e3d0db3533e519ce168dcfd20390",
+      "sha256": "f329e695ad45dd41b8d0f99846d4faffcbcf408d15e65787b630efc294f13fc7",
       "fullViewBox": [
         0,
         0,
@@ -512,7 +512,7 @@
       "page": 2,
       "path": "output/vector/house_2f_plan.svg",
       "bytes": 397666,
-      "sha256": "db8be477c9ef14a8bb3c599551b5dc21ed2bfbd9408eef293670288cb8a2d9d0",
+      "sha256": "0a37f62db0c0c2b76a8e5a9b177adb127e87e1042882fc96d3d9227cac686522",
       "fullViewBox": [
         0,
         0,

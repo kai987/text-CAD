@@ -268,8 +268,22 @@ def _roof(p,g,d,t=T):
                        "structure:roof:ridge_beam","#AC7545"))
     for i,y in enumerate((yposts[0],yposts[-1]),1):
         h=t.roof_post_width/2
-        posts.append(_box((ridge-h,y-h,d["F2_beam_top_z"],ridge+h,y+h,peak),
-                          f"structure:roof:post_ridge_P{i:02d}","#AC7545"))
+        if i==2 and abs(_attic().north_vent_offset_from_ridge)<1e-8:
+            # Demonstration transfer frame keeps the centred window aperture
+            # clear. Member sizes and connections have no capacity calculation.
+            a=_attic();header_bottom=2*p.storey_height+a.deck_thickness+a.north_vent_sill+a.north_vent_height+60
+            header_top=header_bottom+t.roof_post_width
+            dx=a.north_vent_width/2+h+10
+            for side,x in [('left',ridge-dx),('right',ridge+dx)]:
+                posts.append(_box((x-h,y-h,d['F2_beam_top_z'],x+h,y+h,header_bottom),
+                                  f'structure:roof:post_vent_{side}',"#AC7545"))
+            pieces.append(_box((ridge-dx-h,y-h,header_bottom,ridge+dx+h,y+h,header_top),
+                               'structure:roof:vent_header_north',"#AC7545"))
+            posts.append(_box((ridge-h,y-h,header_top,ridge+h,y+h,peak),
+                              'structure:roof:post_vent_king_north',"#AC7545"))
+        else:
+            posts.append(_box((ridge-h,y-h,d["F2_beam_top_z"],ridge+h,y+h,peak),
+                              f"structure:roof:post_ridge_P{i:02d}","#AC7545"))
     rafters=[]
     for i,y in enumerate(_positions(-g.roof_overhang+t.roof_rafter_width/2,
                                     p.depth+g.roof_overhang-t.roof_rafter_width/2,t.roof_rafter_max_spacing),1):
@@ -360,7 +374,7 @@ def structure_manifest(p,g,t=T):
             "columns":column_layout(p,t),"beam_axes":_beam_segments(p,t),
             "floor_beam_axes":{f"F{n}":floor_beam_segments(n,p,t) for n in (1,2)},
             "bearing_wall_candidates":bearing_wall_candidates(p,t),"foundation_support_axes":foundation_support_segments(p),
-            "roof_posts":{"gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
+            "roof_posts":{"north_vent_transfer_frame":"R18 centred opening with paired jamb posts, header and upper ridge post; uncalculated", "gable_y":[p.external_wall/2,p.depth-p.external_wall/2],
                           "purlin_x":[d["deck_left"]-t.roof_purlin_width/2,d["deck_right"]+t.roof_purlin_width/2],
                           "middle_y":dimensions(p)["sy"]-p.internal_wall/2},
             "capacity_results":None,"statutory_compliance_result":None,"material_grade":None,

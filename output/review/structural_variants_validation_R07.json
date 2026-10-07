@@ -3,8 +3,8 @@
   "pass": true,
   "member_counts": {
     "RC": 44,
-    "W": 254,
-    "S": 546
+    "W": 257,
+    "S": 549
   },
   "checks": [
     {
@@ -4443,8 +4443,8 @@
     {
       "check": "W:structure:attic:joist_J06_north:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 32130000.0,
-      "expected": 32130000.0
+      "actual": 31765500.0,
+      "expected": 31765500.0
     },
     {
       "check": "W:structure:attic:joist_J06_north:native_bounds_match_saved_record",
@@ -4533,8 +4533,8 @@
     {
       "check": "W:structure:attic:trimmer_east:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 152550000.0,
-      "expected": 152550000.0
+      "actual": 152955000.0,
+      "expected": 152955000.0
     },
     {
       "check": "W:structure:attic:trimmer_east:native_bounds_match_saved_record",
@@ -4646,6 +4646,24 @@
     },
     {
       "check": "W:structure:roof:ridge_beam:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:vent_header_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:vent_header_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 6480000.0,
+      "expected": 6480000.0
+    },
+    {
+      "check": "W:structure:roof:vent_header_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -4777,19 +4795,55 @@
       "expected": null
     },
     {
-      "check": "W:structure:roof:post_ridge_P02:finite_valid_positive_native_solids",
+      "check": "W:structure:roof:post_vent_left:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "W:structure:roof:post_ridge_P02:native_volume_matches_saved_record",
+      "check": "W:structure:roof:post_vent_left:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 20802819.753889,
-      "expected": 20802819.753885
+      "actual": 11599200.0,
+      "expected": 11599200.0
     },
     {
-      "check": "W:structure:roof:post_ridge_P02:native_bounds_match_saved_record",
+      "check": "W:structure:roof:post_vent_left:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:post_vent_right:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:post_vent_right:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 11599200.0,
+      "expected": 11599200.0
+    },
+    {
+      "check": "W:structure:roof:post_vent_right:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:post_vent_king_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "W:structure:roof:post_vent_king_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 8474619.753889,
+      "expected": 8474619.753885
+    },
+    {
+      "check": "W:structure:roof:post_vent_king_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -9569,6 +9623,26 @@
       ]
     },
     {
+      "check": "W:structure:roof:vent_header_north:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.694999933242798,
+        6.828000068664551,
+        -7.235000133514404,
+        4.494999885559082,
+        6.918000221252441,
+        -7.144999980926514
+      ],
+      "expected": [
+        3.695,
+        6.828,
+        -7.235,
+        4.495,
+        6.918,
+        -7.145
+      ]
+    },
+    {
       "check": "W:structure:roof:post_east_P01:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
@@ -9709,19 +9783,59 @@
       ]
     },
     {
-      "check": "W:structure:roof:post_ridge_P02:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:roof:post_vent_left:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        4.40500020980835,
+        5.395999908447266,
+        -7.235000133514404,
+        4.494999885559082,
+        6.828000068664551,
+        -7.144999980926514
+      ],
+      "expected": [
+        4.405,
+        5.396,
+        -7.235,
+        4.495,
+        6.828,
+        -7.145
+      ]
+    },
+    {
+      "check": "W:structure:roof:post_vent_right:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.694999933242798,
+        5.395999908447266,
+        -7.235000133514404,
+        3.7850000858306885,
+        6.828000068664551,
+        -7.144999980926514
+      ],
+      "expected": [
+        3.695,
+        5.396,
+        -7.235,
+        3.785,
+        6.828,
+        -7.145
+      ]
+    },
+    {
+      "check": "W:structure:roof:post_vent_king_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         4.050000190734863,
-        5.395999908447266,
+        6.918000221252441,
         -7.235000133514404,
         4.139999866485596,
-        7.964249134063721,
+        7.964249610900879,
         -7.144999980926514
       ],
       "expected": [
         4.05,
-        5.396,
+        6.918,
         -7.235,
         4.14,
         7.964249352332,
@@ -16129,8 +16243,8 @@
     {
       "check": "S:structure:attic:joist_J06_north:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 3221449.0,
-      "expected": 3221449.0
+      "actual": 3193980.1,
+      "expected": 3193980.1
     },
     {
       "check": "S:structure:attic:joist_J06_north:native_bounds_match_saved_record",
@@ -16219,8 +16333,8 @@
     {
       "check": "S:structure:attic:trimmer_east:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 9590756.200001,
-      "expected": 9590756.200001
+      "actual": 9619260.100001,
+      "expected": 9619260.100001
     },
     {
       "check": "S:structure:attic:trimmer_east:native_bounds_match_saved_record",
@@ -16332,6 +16446,24 @@
     },
     {
       "check": "S:structure:roof:ridge_beam:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:vent_header_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:vent_header_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 645472.0,
+      "expected": 645472.0
+    },
+    {
+      "check": "S:structure:roof:vent_header_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -16463,19 +16595,55 @@
       "expected": null
     },
     {
-      "check": "S:structure:roof:post_ridge_P02:finite_valid_positive_native_solids",
+      "check": "S:structure:roof:post_vent_left:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "S:structure:roof:post_ridge_P02:native_volume_matches_saved_record",
+      "check": "S:structure:roof:post_vent_left:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2072166.307436,
-      "expected": 2072166.307435
+      "actual": 1155394.88,
+      "expected": 1155394.88
     },
     {
-      "check": "S:structure:roof:post_ridge_P02:native_bounds_match_saved_record",
+      "check": "S:structure:roof:post_vent_left:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:post_vent_right:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:post_vent_right:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 1155394.88,
+      "expected": 1155394.88
+    },
+    {
+      "check": "S:structure:roof:post_vent_right:native_bounds_match_saved_record",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:post_vent_king_north:finite_valid_positive_native_solids",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "S:structure:roof:post_vent_king_north:native_volume_matches_saved_record",
+      "pass": true,
+      "actual": 844155.827436,
+      "expected": 844155.827435
+    },
+    {
+      "check": "S:structure:roof:post_vent_king_north:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -26595,6 +26763,26 @@
       ]
     },
     {
+      "check": "S:structure:roof:vent_header_north:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.694999933242798,
+        6.828000068664551,
+        -7.235000133514404,
+        4.494999885559082,
+        6.918000221252441,
+        -7.144999980926514
+      ],
+      "expected": [
+        3.695,
+        6.828,
+        -7.235,
+        4.495,
+        6.918,
+        -7.145
+      ]
+    },
+    {
       "check": "S:structure:roof:post_east_P01:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
@@ -26735,11 +26923,51 @@
       ]
     },
     {
-      "check": "S:structure:roof:post_ridge_P02:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:roof:post_vent_left:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        4.40500020980835,
+        5.395999908447266,
+        -7.235000133514404,
+        4.494999885559082,
+        6.828000068664551,
+        -7.144999980926514
+      ],
+      "expected": [
+        4.405,
+        5.396,
+        -7.235,
+        4.495,
+        6.828,
+        -7.145
+      ]
+    },
+    {
+      "check": "S:structure:roof:post_vent_right:GLB_mm_to_Yup_metres_preserves_location",
+      "pass": true,
+      "actual": [
+        3.694999933242798,
+        5.395999908447266,
+        -7.235000133514404,
+        3.7850000858306885,
+        6.828000068664551,
+        -7.144999980926514
+      ],
+      "expected": [
+        3.695,
+        5.396,
+        -7.235,
+        3.785,
+        6.828,
+        -7.145
+      ]
+    },
+    {
+      "check": "S:structure:roof:post_vent_king_north:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         4.050000190734863,
-        5.395999908447266,
+        6.918000221252441,
         -7.235000133514404,
         4.139999866485596,
         7.964249610900879,
@@ -26747,7 +26975,7 @@
       ],
       "expected": [
         4.05,
-        5.396,
+        6.918,
         -7.235,
         4.14,
         7.964249352332,
@@ -35535,8 +35763,8 @@
       "pass": true,
       "actual": {
         "RC": 44,
-        "W": 254,
-        "S": 546
+        "W": 257,
+        "S": 549
       },
       "expected": null
     },

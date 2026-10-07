@@ -71,7 +71,7 @@ else:
     native={label:shape for label,shape in all_native.items() if label.startswith('structure:')}
     saved=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())
     check('saved:structure_manifest_matches_parameters',saved['structure']==record)
-    check('saved:revision_R06',saved['revision']=='R17-3D',saved['revision'],'R17-3D')
+    check('saved:revision_R06',saved['revision']=='R18-3D',saved['revision'],'R18-3D')
     raw=(ROOT/'GLB/house_3d.glb').read_bytes()
     magic,version,size=struct.unpack_from('<4sII',raw)
     check('GLB:valid_container',magic==b'glTF' and version==2 and size==len(raw))
@@ -146,10 +146,10 @@ for label,shape in native.items():
         area=sum(shared_face_area(shape,beam) for beam in contacts.candidates(shape,beams) if shape.distance_to(beam)<.001)
         check(f'{label}:positive_face_to_attic_support_beam',area>1,round(area,3))
     if ':roof:post_' in label:
-        beams=[s for name,s in native.items() if name.startswith('structure:F2:beam_')]
+        beams=([native['structure:roof:vent_header_north']] if label.endswith('post_vent_king_north') else [s for name,s in native.items() if name.startswith('structure:F2:beam_')])
         area=sum(shared_face_area(shape,s) for s in contacts.candidates(shape,beams) if shape.distance_to(s)<.001)
         check(f'{label}:positive_face_to_lower_beam',area>1,round(area,3))
-        roof_members=[s for name,s in native.items() if ':roof:purlin_' in name or name=='structure:roof:ridge_beam']
+        roof_members=[s for name,s in native.items() if ':roof:purlin_' in name or name in ('structure:roof:ridge_beam','structure:roof:vent_header_north')]
         area=sum(shared_face_area(shape,s) for s in contacts.candidates(shape,roof_members) if shape.distance_to(s)<.001)
         check(f'{label}:positive_face_to_roof_beam',area>1,round(area,3))
 

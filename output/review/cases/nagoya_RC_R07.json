@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "3aa558740093d83dae3cd4c10187de25d7569511b10462a8e2ad08da28aec998",
-    "step": "294a0b310e48f8cbb5b352e6627689e7b4685b14cee9d3792f2eb6fd00bb0220"
+    "glb": "75c6f5783f7eb3da9beffafabc54da32c831e9d5b66ffb09d120c299cfb991ac",
+    "step": "5c95d67c32961828d33d570cff22925fba997934d4abed093cda8a7e2a25480b"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",

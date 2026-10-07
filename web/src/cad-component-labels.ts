@@ -44,6 +44,10 @@ const componentLabels = {
   'yard:planting:lawn_west': label('西侧草坪', '西側の芝生', 'West yard lawn'),
   'roof:west_plane': label('西侧屋面', '西側の屋根面', 'West roof plane'),
   'roof:east_plane': label('东侧屋面', '東側の屋根面', 'East roof plane'),
+  'structure:roof:post_vent_left': label('阁楼北窗侧柱 1', '小屋裏北窓の側柱1', 'North attic window jamb post 1'),
+  'structure:roof:post_vent_right': label('阁楼北窗侧柱 2', '小屋裏北窓の側柱2', 'North attic window jamb post 2'),
+  'structure:roof:vent_header_north': label('阁楼北窗上方过梁', '小屋裏北窓のまぐさ', 'North attic window header'),
+  'structure:roof:post_vent_king_north': label('阁楼北窗上部屋脊柱', '小屋裏北窓上部の棟柱', 'Upper ridge post above north attic window'),
   'structure:roof:slab_west': label('西侧 RC 屋面板示意', '西側RC屋根スラブ参考形状', 'Concept west RC roof slab'),
   'structure:roof:slab_east': label('东侧 RC 屋面板示意', '東側RC屋根スラブ参考形状', 'Concept east RC roof slab'),
   'structure:roof:gable_shear_south': label('南侧 RC 山墙候选', '南側RC妻壁候補', 'Candidate south RC gable wall'),
@@ -445,7 +449,7 @@ function fixtureDetail(locale: Locale, kind: FixtureKind, suffix: string): strin
 export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId = 'house'): string | null {
   const lamp=/^(F[12]|attic):indoor_light:([^:]+):(mount|stem|shade|diffuser)$/.exec(name);
   if(lamp) {
-    const room=lookup(roomLabels,lamp[2],locale) ?? (lamp[2]==='attic' ? label('阁楼','小屋裏','Attic')[locale] : lamp[2]==='under_stairs' ? label('楼梯下储物间','階段下収納','Under-stair storage')[locale] : lamp[2]==='stairs' ? label('楼梯','階段','Stairs')[locale] : lamp[2]==='closet' ? label('衣柜收纳','収納','Closet')[locale] : lamp[2]==='hall' ? label('公共厅','ホール','Hall')[locale] : lamp[2]==='wc' ? label('厕所','トイレ','WC')[locale] : lamp[2]==='foyer' ? label('玄关','玄関','Entrance')[locale] : lamp[2]);
+    const room=lookup(roomLabels,lamp[2],locale) ?? (lamp[2]==='attic' ? label('阁楼北侧','小屋裏北側','North attic')[locale] : lamp[2]==='attic_south' ? label('阁楼南侧','小屋裏南側','South attic')[locale] : lamp[2]==='under_stairs' ? label('楼梯下储物间','階段下収納','Under-stair storage')[locale] : lamp[2]==='stairs' ? label('楼梯','階段','Stairs')[locale] : lamp[2]==='closet' ? label('衣柜收纳','収納','Closet')[locale] : lamp[2]==='hall' ? label('公共厅','ホール','Hall')[locale] : lamp[2]==='wc' ? label('厕所','トイレ','WC')[locale] : lamp[2]==='foyer' ? label('玄关','玄関','Entrance')[locale] : lamp[2]);
     const detail={mount:label('底座','取付台','Mount'),stem:label('吊杆','吊り棒','Stem'),shade:label('灯罩','シェード','Shade'),diffuser:label('发光罩','拡散カバー','Diffuser')}[lamp[3] as 'mount'];
     return `${room} · ${label('室内灯','室内灯','Indoor light')[locale]} · ${detail[locale]}`;
   }

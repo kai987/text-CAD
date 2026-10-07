@@ -276,7 +276,7 @@ def steel_variant(p=P,g=G,s=S):
             face=bd.Face(section(x1,x2,0),[section(x1+t,x2-t,vertical_offset)])
             roof.append(named(bd.extrude(face,amount=b[4]-b[1],dir=(0,1,0)),label,"#8C9CA7"))
         else:
-            roof.append(named(_axis_tube(b,"v",s.roof_wall_thickness,label).intersect(item),label,"#8C9CA7"))
+            roof.append(named(_axis_tube(b,"h" if label.endswith("vent_header_north") else "v",s.roof_wall_thickness,label).intersect(item),label,"#8C9CA7"))
     # Gussets/straps are deliberate overlapping connection illustrations; tube
     # intersections are trimmed so no architectural aperture is obscured.
     frame=bd.Compound(children=[bd.Compound(children=items,label=f"structure:{category}")

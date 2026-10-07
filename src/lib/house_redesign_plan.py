@@ -1,4 +1,4 @@
-"""Active R17 layout: reflected rooms, east glazing and a facing kitchen.
+"""Active R18 layout: reflected rooms, east glazing and a facing kitchen.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
@@ -49,7 +49,7 @@ class RedesignParameters:
 
 
 P = RedesignParameters()
-REVISION = 'R17'
+REVISION = 'R18'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -228,8 +228,9 @@ def manifest(p=P):
     return {'revision':REVISION,'stage':'wall_alignment_open_storage_bedroom_doors_visible_room_lights','requested_on':'2026-10-07','units':'mm',
             'parameters':asdict(p),'sources':SOURCES,
             'assumptions':[
-                'R17 aligns the two WC south walls with the first-floor washroom, using 900 x 1820 mm clear WC rooms; all dimensions are demonstration assumptions.',
-                'R17 removes the enclosed F2 closet, incorporates open clothes storage into the master and moves D21/D23 to the annotated corner partitions; the north/south bedroom separation remains.',
+                'R18 centres the north attic ventilation window and uses an uncalculated paired-post/header opening frame; two short attic pendants remain visible below the default interior cut height.',
+                'R18 aligns the two WC south walls with the first-floor washroom, using 900 x 1820 mm clear WC rooms; all dimensions are demonstration assumptions.',
+                'R18 removes the enclosed F2 closet, incorporates open clothes storage into the master and moves D21/D23 to the annotated corner partitions; the north/south bedroom separation remains.',
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
                 '8190 x 7280 mm replaces the earlier 7280 x 7280 demo outline; heights remain 2800 mm.',
                 'South entrance / south balcony / north direction are assumptions without site survey.',
@@ -244,9 +245,9 @@ def manifest(p=P):
                 'R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
                 'R15 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.',
-                'R17 merges the F2 south corridor into the two bedrooms; each bedroom has a two-leaf glazed balcony slider. Balcony access now passes through bedrooms.',
-                'R17 merges the F2 WC forecourt into the hall and adds a 600 x 450 mm recessed wash basin and mirror; WC doors open inward, toilets remain vertically aligned.',
-                'R17 north bedroom has a 600 mm north window and 1800 mm east window; desks, chairs and bedside tables are conceptual furniture.',
+                'R18 merges the F2 south corridor into the two bedrooms; each bedroom has a two-leaf glazed balcony slider. Balcony access now passes through bedrooms.',
+                'R18 merges the F2 WC forecourt into the hall and adds a 600 x 450 mm recessed wash basin and mirror; WC doors open inward, toilets remain vertically aligned.',
+                'R18 north bedroom has a 600 mm north window and 1800 mm east window; desks, chairs and bedside tables are conceptual furniture.',
                 'R15 adds an 800 x 1760 mm stair-under storage room with a 700 mm door, sloping low ceiling, and shelves. Stair treads use a 60 mm illustrative thickness with side stringers; load capacity, connections and fire separation remain uncalculated.',
                 'R15 uses a four-seat 2600 x 1550 mm L sofa, opposing south-wall TV, coffee table, 1600 x 850 mm dining table with four chairs, and 900 x 750 mm side-by-side refrigerator. Furniture clearances are demo design targets.',
                 '2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending.'],

@@ -1,5 +1,5 @@
 {
-  "revision": "R17",
+  "revision": "R18",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -541,7 +541,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R17"
+        "revision": "R18"
       }
     },
     {
@@ -1066,7 +1066,7 @@
       }
     },
     {
-      "name": "R17/balcony_from_both_bedrooms",
+      "name": "R18/balcony_from_both_bedrooms",
       "passed": true,
       "evidence": {
         "master": [
@@ -1134,7 +1134,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R17"
+        "revision": "R18"
       }
     },
     {
@@ -1366,7 +1366,7 @@
       ]
     },
     {
-      "name": "R17/F1/WC_south_wall_flush_with_washroom",
+      "name": "R18/F1/WC_south_wall_flush_with_washroom",
       "passed": true,
       "evidence": [
         2180.0,
@@ -1376,12 +1376,12 @@
       ]
     },
     {
-      "name": "R17/F1/WC_clear_900x1820",
+      "name": "R18/F1/WC_clear_900x1820",
       "passed": true,
       "evidence": 1.638
     },
     {
-      "name": "R17/F2/WC_south_wall_flush_with_washroom",
+      "name": "R18/F2/WC_south_wall_flush_with_washroom",
       "passed": true,
       "evidence": [
         2180.0,
@@ -1391,12 +1391,12 @@
       ]
     },
     {
-      "name": "R17/F2/WC_clear_900x1820",
+      "name": "R18/F2/WC_clear_900x1820",
       "passed": true,
       "evidence": 1.638
     },
     {
-      "name": "R17/open_wardrobe_in_master",
+      "name": "R18/open_wardrobe_in_master",
       "passed": true,
       "evidence": [
         4410.0,
@@ -1406,7 +1406,7 @@
       ]
     },
     {
-      "name": "R17/master_door_at_hall_corner",
+      "name": "R18/master_door_at_hall_corner",
       "passed": true,
       "evidence": {
         "id": "D21",
@@ -1422,7 +1422,7 @@
       }
     },
     {
-      "name": "R17/north_bedroom_door_at_hall_corner",
+      "name": "R18/north_bedroom_door_at_hall_corner",
       "passed": true,
       "evidence": {
         "id": "D23",
@@ -1438,7 +1438,7 @@
       }
     },
     {
-      "name": "R17/no_enclosed_closet_door",
+      "name": "R18/no_enclosed_closet_door",
       "passed": true,
       "evidence": [
         "D21",
@@ -1451,7 +1451,7 @@
       ]
     },
     {
-      "name": "R17/bedrooms_still_separate",
+      "name": "R18/bedrooms_still_separate",
       "passed": true,
       "evidence": true
     },
@@ -1527,8 +1527,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "ac9bcb458bd45bfb8dc76f989b45d4b15de90633a6448374884c2e9a5e869795",
-    "DXF/house_redesign_R10_1f.dxf": "b0b3f119857c0b90162dd81ff8136dc1bb868dd71cef565f22ec5207ca6d224e",
-    "DXF/house_redesign_R10_2f.dxf": "5fd73232f3d497f946618097b236e08765f48a711e80347cf7cc74f75dfcb5ef"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "db2fdb0d5e182984c55c72e88ed58f8e18ff7bba2ebe37844fa77f79299e1049",
+    "DXF/house_redesign_R10_1f.dxf": "d1833a6cdf8c2b2b3d36e17b6bb10bb31d8326da287946dc2eec8aed95de6a84",
+    "DXF/house_redesign_R10_2f.dxf": "a8f0d30ad25673b8341c427b5b7a0dfc524e2c148c94ba1803bb2a99505f34af"
   }
 }

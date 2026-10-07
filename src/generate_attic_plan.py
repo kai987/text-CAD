@@ -1,4 +1,4 @@
-"""Generate a supplemental editable attic plan from the same R17 parameters.
+"""Generate a supplemental editable attic plan from the same R18 parameters.
 
 The approved R02 two-floor sheets are not rewritten. Units are millimetres;
 all attic dimensions and storage purpose are demonstration assumptions.
@@ -29,7 +29,7 @@ def generate():
     out.parent.mkdir(parents=True, exist_ok=True)
     pdfmetrics.registerFont(TTFont('HouseUnicode', str(FONT)))
     pdf = canvas.Canvas(str(out), pagesize=(420*mm, 297*mm))
-    pdf.setTitle('小屋裏収納 補足計画図 R17 / Low storage attic demonstration')
+    pdf.setTitle('小屋裏収納 補足計画図 R18 / Low storage attic demonstration')
     pdf.setAuthor('text-CAD')
     drawing = Drawing(pdf)
     # Paper dash lengths × 50: setup's inch-based defaults are too short here.
@@ -37,14 +37,14 @@ def generate():
     drawing.doc.linetypes.new('ATTIC_HEIGHT', dxfattribs={'description':'1/1 mm at 1:50', 'pattern':[100,50,-50]})
     drawing.doc.linetypes.new('ATTIC_RIDGE', dxfattribs={'description':'3/1/0.5/1 mm at 1:50', 'pattern':[275,150,-50,25,-50]})
     drawing.doc.header['$PSLTSCALE'] = 0
-    drawing.doc.ezdxf_metadata()['REVISION'] = 'R17-ATTIC'
+    drawing.doc.ezdxf_metadata()['REVISION'] = 'R18-ATTIC'
     drawing.doc.ezdxf_metadata()['SCOPE'] = '低天井の収納補足デモ。所在地未定、法定面積・構造安全は未確定。'
     d = attic_dimensions(P, G)
     m = attic_manifest(P, G)
     x0, x1 = d['deck_left'], d['deck_right']
     y0, y1 = A.deck_end_inset, P.depth - A.deck_end_inset
     hatch = (A.hatch_x, A.hatch_y, d['hatch_right'], d['hatch_north'])
-    drawing.text('小屋裏収納 補足計画図 / R17', (0, 10800), 250, align='left')
+    drawing.text('小屋裏収納 補足計画図 / R18', (0, 10800), 250, align='left')
     drawing.text('単位 mm / A3・1:50 / 全寸法はデモ仮定 / 2026-10-07', (0, 10300), 125, align='left')
     drawing.mirror_width=P.width
     drawing.rect((0, 0, P.width, P.depth), 'WALL')
@@ -57,7 +57,15 @@ def generate():
     from lib.attic_geometry import north_vent_bounds
     vb=north_vent_bounds(P,G)
     drawing.rect((vb[0],P.depth-180,vb[3],P.depth),'DOOR')
-    drawing.text('北側換気窓 600×300 / FL+850（仮）',(P.width/2,7450),95)
+    drawing.text('北側中央換気窓 600×300 / FL+850（仮）',(P.width/2,7450),95)
+    from lib.indoor_lighting import indoor_fixture_layout
+    for i,light in enumerate([f for f in indoor_fixture_layout(P,G) if f['floor']==3],1):
+        lx,ly,_=light['mount_center_mm']
+        points=[(lx+105*math.cos(k*math.pi/8),ly+105*math.sin(k*math.pi/8)) for k in range(16)]
+        drawing.poly(points,'FURNITURE')
+        drawing.line((lx-75,ly),(lx+75,ly))
+        drawing.line((lx,ly-75),(lx,ly+75))
+        drawing.text(f'照明 L{i}（仮）',(lx+600,ly),95)
     drawing.text('N', (P.width+420, 7150), 175)
     drawing.line((P.width+420, 6650), (P.width+420, 7000))
     drawing.line((P.width+420, 7000), (P.width+320, 6850))
@@ -127,7 +135,7 @@ def generate():
                 (sx+4700, 0), 90)
     notes = [
         '所在地未定の収納デモ。法規適合の確定ではない。',
-        'R17確認済み平面・屋根外形と整合。',
+        'R18確認済み平面・屋根外形と整合。',
         'CH：板面から実体天井まで。上限1350は仮定。',
         '床基板24・仕上18・平天井厚50は仮定寸法。',
         '検修梯子：幅600・75°・高さ2818・踏板10枚。',
@@ -135,7 +143,7 @@ def generate():
         '上端立位 最低CH約1254。収納用の検修アクセス。',
         '木構部材は概念表示。耐荷重・接合は未検証。',
         '実製品・安全操作・断熱換気・法規は要確認。',
-        'R17平面の公共廊下上に検修口を配置。',
+        'R18平面の公共廊下上に検修口を配置。',
     ]
     for i, note in enumerate(notes):
         drawing.text(note, (9200, 4400-i*350), 125, align='left')

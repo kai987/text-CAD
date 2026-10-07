@@ -12,11 +12,11 @@ test('exported room lights follow power, floor visibility and actual cut height;
  const objects=bindCadNodes(gltf);centerModelAtFloorDatum(gltf.scene,objects);
  const scene=new Scene();scene.add(gltf.scene);const bounds=new Box3().setFromObject(gltf.scene);
  const emitters=[...objects.values()].filter(o=>o.isMesh && o.userData.indoorLight);
- assert.equal(emitters.length,14);assert.equal(new Set(emitters.map(o=>o.userData.indoorLight.id)).size,14);
+ assert.equal(emitters.length,15);assert.equal(new Set(emitters.map(o=>o.userData.indoorLight.id)).size,15);
  const runtime=createIndoorLighting(scene);runtime.register(gltf.scene);runtime.register(gltf.scene);
- const settings=settingsForPreset('exterior');assert.equal(runtime.update(settings).active,14);
- objects.get('F1').visible=false;assert.equal(runtime.update(settings).active,7);
- objects.get('F2').visible=false;assert.equal(runtime.update(settings).active,1);
+ const settings=settingsForPreset('exterior');assert.equal(runtime.update(settings).active,15);
+ objects.get('F1').visible=false;assert.equal(runtime.update(settings).active,8);
+ objects.get('F2').visible=false;assert.equal(runtime.update(settings).active,2);
  objects.get('attic').visible=false;assert.equal(runtime.update(settings).active,0);
  objects.get('F2').visible=true;objects.get('F2:furniture').visible=false;
  assert.equal(runtime.update(settings).active,6);
@@ -55,9 +55,23 @@ test('every pendant and attic diffuser is visible through its shade from above',
   const hit=ray.intersectObject(group,true)[0];
   assert.equal(hit?.object,emitter,fixture.id+' is occluded by its exported shade');examined++;
  }
- assert.equal(examined,12);
+ assert.equal(examined,13);
  runtime.update(settingsForPreset('exterior'));
  assert.ok(emitters.every(o=>o.material.emissiveIntensity>0));
  runtime.update({...settingsForPreset('exterior'),indoorLights:false});
  assert.ok(emitters.every(o=>o.material.emissiveIntensity===0));runtime.dispose();
+});
+
+test('both attic fixtures illuminate in the actual default attic cutaway and power off together',async()=>{
+ const gltf=await loadGlbGeometry(new URL('../../GLB/house_3d.glb',import.meta.url));
+ const objects=bindCadNodes(gltf);centerModelAtFloorDatum(gltf.scene,objects);
+ const scene=new Scene();scene.add(gltf.scene);const settings=settingsForPreset('attic');
+ for(const [key,object] of objects)if(key in settings.visibility)object.visible=settings.visibility[key];
+ const runtime=createIndoorLighting(scene);runtime.register(gltf.scene);
+ const result=runtime.update(settings);assert.equal(result.active,2);
+ assert.deepEqual(result.activeIds.sort(),['indoor_attic','indoor_attic_south']);
+ const lamps=[...objects.values()].filter(o=>o.isMesh && o.userData.indoorLight?.floor===3);
+ assert.equal(lamps.length,2);
+ for(const lamp of lamps){assert.ok(new Box3().setFromObject(lamp).max.y<settings.heightMm/1000);assert.ok(lamp.material.emissiveIntensity>0);}
+ assert.equal(runtime.update({...settings,indoorLights:false}).active,0);runtime.dispose();
 });

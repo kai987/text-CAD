@@ -1,5 +1,9 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R18 centred attic north window and lighting
+
+The north attic window moves to the ridge centre. Paired jamb posts, a header and an upper ridge post keep its opening clear in the concept frame. Two short pendants sit below the default 6900 mm attic cut plane and share the Indoor lights switch. Sections, capacity and lighting remain illustrative; current exports are R18. [R18](docs/attic_window_lighting_R18.md).
+
 ## R17 wall alignment, bedroom entries and visible lights
 
 Both WC south walls align with the first-floor washroom; clear size 900×1820 mm. The F2 wardrobe enclosure is removed and open storage joins the master (14.760 m² net geometric area). Two separate 750 mm sliders at the hall corner enter the master and north bedroom. Their separation wall remains.

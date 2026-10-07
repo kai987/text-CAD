@@ -20,7 +20,7 @@
     "bath_width": 1820,
     "bath_depth": 1820,
     "toilet_width": 900,
-    "toilet_depth": 1700,
+    "toilet_depth": 1820,
     "foyer_depth": 1600,
     "south_room_depth": 3100,
     "hall_width": 900,
@@ -752,11 +752,6 @@
           },
           {
             "id": "F2:D23",
-            "kind": "door",
-            "overlaps": []
-          },
-          {
-            "id": "F2:D24",
             "kind": "door",
             "overlaps": []
           },
@@ -4652,11 +4647,6 @@
           },
           {
             "id": "F2:D23",
-            "kind": "door",
-            "overlaps": []
-          },
-          {
-            "id": "F2:D24",
             "kind": "door",
             "overlaps": []
           },
@@ -11978,11 +11968,6 @@
           },
           {
             "id": "F2:D23",
-            "kind": "door",
-            "overlaps": []
-          },
-          {
-            "id": "F2:D24",
             "kind": "door",
             "overlaps": []
           },

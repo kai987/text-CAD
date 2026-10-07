@@ -1,10 +1,16 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
-## R16 Second-floor redesign and indoor lighting
+## R17 wall alignment, bedroom entries and visible lights
+
+Both WC south walls align with the first-floor washroom; clear size 900×1820 mm. The F2 wardrobe enclosure is removed and open storage joins the master (14.760 m² net geometric area). Two separate 750 mm sliders at the hall corner enter the master and north bedroom. Their separation wall remains.
+
+Open ring shades prevent their top caps from hiding the glowing diffusers in overhead views. All 14 indoor lights retain the shared switch. Dimensions, lighting and structure are illustrative. Current exports are R17; sections below are historical. [R17](docs/wall_lighting_R17.md).
+
+## History: R16 second-floor redesign and indoor lighting
 
 The long central passage joins the two south bedrooms (11.160/12.803 m²). Each bedroom has its own balcony slider. The WC forecourt joins the shared hall with a recessed basin and mirror. North bedroom windows are north 600 mm/east 1800 mm. All bedrooms have a desk, chair and bedside table. Open stairs use 60 mm treads and side stringers, retaining under-stair storage; reduced solid fill does not automatically reduce their footprint.
 
-Fifteen indoor lamps (pendants, stair wall lamps, attic ceiling lamp) have one master switch, independent of furniture, outdoor lights and time of day. Hidden or clipped lamps stop illuminating. Dimensions and brightness are demonstration assumptions; capacity, connections, guards, fire safety, photometry and electrical installation remain unengineered. [R16 details / 中文 / 日本語](docs/interior_R16.md). R15 and earlier sections below are historical; current R16 exports take precedence.
+Fifteen indoor lamps (pendants, stair wall lamps, attic ceiling lamp) have one master switch, independent of furniture, outdoor lights and time of day. Hidden or clipped lamps stop illuminating. Dimensions and brightness are demonstration assumptions; capacity, connections, guards, fire safety, photometry and electrical installation remain unengineered. [R16 details / 中文 / 日本語](docs/interior_R16.md). R15 and earlier sections below are historical; current R17 exports take precedence.
 
 ## R15 Under-stair storage and four-person furnishings
 

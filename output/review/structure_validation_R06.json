@@ -11,8 +11,8 @@
     {
       "check": "saved:revision_R06",
       "pass": true,
-      "actual": "R16-3D",
-      "expected": "R16-3D"
+      "actual": "R17-3D",
+      "expected": "R17-3D"
     },
     {
       "check": "GLB:valid_container",
@@ -4288,12 +4288,6 @@
     },
     {
       "check": "F2:D23:structure_keeps_actual_door_opening_clear_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "F2:D24:structure_keeps_actual_door_opening_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

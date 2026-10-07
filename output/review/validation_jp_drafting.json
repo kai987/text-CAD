@@ -1,23 +1,23 @@
 {
-  "revision": "R16",
+  "revision": "R17",
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-07T18:21:21.498322+09:00",
+  "checked_at": "2026-10-07T19:28:32.094386+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
-    "DXF/house_2f_plan.dxf": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
-    "DXF/001D0PL2-1FPLAN.DXF": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
-    "DXF/002D0PL2-2FPLAN.DXF": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "5f5652061dbdde85a9ddde2e9b573247b9059cecb4b829115667bd41fd777c84",
-    "checks/validate_jp_drafting.py": "c092f3fdc54b5d7046081a5f97d34f01c3d7d22fad24ac95ffb8a323cf4e0f25",
+    "DXF/house_1f_plan.dxf": "b0b3f119857c0b90162dd81ff8136dc1bb868dd71cef565f22ec5207ca6d224e",
+    "DXF/house_2f_plan.dxf": "5fd73232f3d497f946618097b236e08765f48a711e80347cf7cc74f75dfcb5ef",
+    "DXF/001D0PL2-1FPLAN.DXF": "b0b3f119857c0b90162dd81ff8136dc1bb868dd71cef565f22ec5207ca6d224e",
+    "DXF/002D0PL2-2FPLAN.DXF": "5fd73232f3d497f946618097b236e08765f48a711e80347cf7cc74f75dfcb5ef",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "ac9bcb458bd45bfb8dc76f989b45d4b15de90633a6448374884c2e9a5e869795",
+    "checks/validate_jp_drafting.py": "7b2f10d95d9a842cbb7f752751f1757a8d31f3152e87c0d96d61a363ab55a982",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
-    "src/lib/jp_sheet.py": "16459029a975737a5743d0382d2db9dc1130ffef1473a3cea0fa5330497ac6eb"
+    "src/lib/jp_sheet.py": "cb7b5728bdf7ea54b5f9e128c0f1a94f5e6518d7d373bd5367687a0ceaffd0de"
   },
   "summary": {
-    "checks": 224,
-    "passed": 224,
+    "checks": 222,
+    "passed": 222,
     "failed": 0
   },
   "checks": [
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd",
-        "canonical_sha256": "c2602918294fecf0133fe35b96593b9acd95475c37e7b6fed07575b4348702fd"
+        "alias_sha256": "b0b3f119857c0b90162dd81ff8136dc1bb868dd71cef565f22ec5207ca6d224e",
+        "canonical_sha256": "b0b3f119857c0b90162dd81ff8136dc1bb868dd71cef565f22ec5207ca6d224e"
       },
       "floor": 1
     },
@@ -78,7 +78,7 @@
           "D-DOC-TXT": 13
         },
         "model_entity_counts": {
-          "D-STR-WALL": 92,
+          "D-STR-WALL": 91,
           "D-STR-WIND": 18,
           "D-STR-TXT": 47,
           "D-BYP-FIXT": 18,
@@ -557,7 +557,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 342,
+        "graphic_entities_checked": 341,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -609,9 +609,9 @@
       "check": "room/ldk/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 34.07,
+        "area_m2": 33.95,
         "matches": [
-          "34.07 m2"
+          "33.95 m2"
         ],
         "heights_mm": [
           125.0
@@ -705,9 +705,9 @@
       "check": "room/wc/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 1.53,
+        "area_m2": 1.638,
         "matches": [
-          "1.53 m2"
+          "1.64 m2"
         ],
         "heights_mm": [
           125.0
@@ -1138,9 +1138,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R16",
+        "REVISION": "R17",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R17階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 1
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419",
-        "canonical_sha256": "58430a0e8a5ad96c8e602c7cb20faa6df9e016485c29f124495420bd07e41419"
+        "alias_sha256": "5fd73232f3d497f946618097b236e08765f48a711e80347cf7cc74f75dfcb5ef",
+        "canonical_sha256": "5fd73232f3d497f946618097b236e08765f48a711e80347cf7cc74f75dfcb5ef"
       },
       "floor": 2
     },
@@ -1202,11 +1202,11 @@
           "D-DOC-TXT": 13
         },
         "model_entity_counts": {
-          "D-STR-WALL": 100,
+          "D-STR-WALL": 92,
           "D-STR-WIND": 15,
           "D-BYP-FIXT": 18,
-          "D-STR-TXT": 50,
-          "D-STR-DOOR": 16,
+          "D-STR-TXT": 46,
+          "D-STR-DOOR": 12,
           "D-STR-STAI": 23,
           "D-STR-DIM": 6,
           "D-BMK-NORT": 3
@@ -1681,7 +1681,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 378,
+        "graphic_entities_checked": 359,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -1712,8 +1712,8 @@
         "model_to_paper": "height / 50",
         "paper_height_counts": {
           "1.8": 18,
-          "2.5": 24,
-          "3.5": 8
+          "2.5": 21,
+          "3.5": 7
         },
         "invalid": []
       },
@@ -1733,33 +1733,9 @@
       "check": "room/master/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 11.16,
+        "area_m2": 14.76,
         "matches": [
-          "11.16 m2"
-        ],
-        "heights_mm": [
-          125.0
-        ]
-      },
-      "floor": 2
-    },
-    {
-      "check": "room/closet/name_height",
-      "status": "pass",
-      "evidence": {
-        "room": "収納",
-        "found": 1,
-        "model_height": 175.0
-      },
-      "floor": 2
-    },
-    {
-      "check": "room/closet/area_height",
-      "status": "pass",
-      "evidence": {
-        "area_m2": 1.98,
-        "matches": [
-          "1.98 m2"
+          "14.76 m2"
         ],
         "heights_mm": [
           125.0
@@ -1805,9 +1781,9 @@
       "check": "room/bed3/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 12.8316,
+        "area_m2": 12.8676,
         "matches": [
-          "12.83 m2"
+          "12.87 m2"
         ],
         "heights_mm": [
           125.0
@@ -1829,9 +1805,9 @@
       "check": "room/hall/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 6.201,
+        "area_m2": 4.797,
         "matches": [
-          "6.20 m2"
+          "4.80 m2"
         ],
         "heights_mm": [
           125.0
@@ -1853,9 +1829,9 @@
       "check": "room/wc/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 1.53,
+        "area_m2": 1.638,
         "matches": [
-          "1.53 m2"
+          "1.64 m2"
         ],
         "heights_mm": [
           125.0
@@ -2284,7 +2260,7 @@
       "evidence": {
         "paper_height_counts": {
           "5.0": 1,
-          "2.5": 37,
+          "2.5": 35,
           "3.5": 3,
           "1.8": 14
         },
@@ -2320,7 +2296,7 @@
       "check": "no_disallowed_example_characters",
       "status": "pass",
       "evidence": {
-        "scanned_text_entities": 216,
+        "scanned_text_entities": 204,
         "invalid": []
       },
       "floor": 2
@@ -2329,9 +2305,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R16",
+        "REVISION": "R17",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R17階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 2

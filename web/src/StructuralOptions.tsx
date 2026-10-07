@@ -60,7 +60,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
   ]);
   const sources = data?.sources.filter(source => referencedIds.has(source.id)) ?? [];
   return <section className={compact ? 'structural-options compact' : 'structural-options'} aria-label={structuralCopy.title[locale]}>
-    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R16</span></h2> : null}
+    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R17</span></h2> : null}
     {showSelectors ? <div className="structural-selectors">
       <div><label htmlFor={`${controlId}-city`}>{structuralCopy.city[locale]}</label>
         <select id={`${controlId}-city`} value={design.city} onChange={event => {

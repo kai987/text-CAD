@@ -69,7 +69,7 @@ class FurnitureClearanceTests(unittest.TestCase):
 
     def test_all_actual_layouts_keep_every_original_row_name_order_evidence_and_decision(self):
         # R15 additionally checks the refrigerator, cupboard and facing-kitchen aisle.
-        layouts=[('house',floor_plan(1),HOUSE,236),('house',floor_plan(2),HOUSE,318),
+        layouts=[('house',floor_plan(1),HOUSE,236),('house',floor_plan(2),HOUSE,306),
                  ('apartment',apartment_plan()[0],APARTMENT,228)]
         for model,floor,p,count in layouts:
             rows=self.assert_reports_equal(floor,model,p)

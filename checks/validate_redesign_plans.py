@@ -114,13 +114,13 @@ def run():
                 seen.add(target);todo.append(target)
         check(prefix+'all_rooms_reachable',set(rooms)<=seen,{'reachable':sorted(seen)})
         if f.number==2:
-            check('R16/balcony_from_both_bedrooms',all('balcony' in graph[r] for r in ('master','bed2')),{k:sorted(v) for k,v in graph.items()})
+            check('R17/balcony_from_both_bedrooms',all('balcony' in graph[r] for r in ('master','bed2')),{k:sorted(v) for k,v in graph.items()})
         # Independent occupied-room routes; 600 mm demonstration corridor swept
         # around the centreline. This is not an accessibility or legal test.
         routes=([('entry_stairs',[(6800,950),(6800,3100),(6560,3700),(6560,4500)]),
                  ('entry_wc',[(6800,3100),(6800,3700),(5560,3700),(5560,5800)]),
                  ('ldk_wash',[(5560,3900),(4600,3900),(3900,4200),(3550,4900),(3550,5700)])] if f.number==1 else
-                [('stairs_master',[(7560,4500),(7560,3830),(3150,3830),(3150,2800)]),
+                [('stairs_master',[(7560,4500),(7560,3830),(3450,3830),(3450,2800)]),
                  ('master_balcony',[(3150,2800),(2450,2800),(2450,1875),(2000,1875),(2000,500),(1450,500),(1450,-450)]),
                  ('stairs_wc',[(7560,3830),(5560,3830),(5560,5800)])])
         for name,points in routes:
@@ -161,8 +161,8 @@ def run():
     for f in floors:
         old={r['id']:r for r in previous['floors'][f.number-1]['rooms']}
         for room in f.rooms:
-            if f.number==1 and room.id in ('ldk','stairs','under_stairs'):continue
-            if f.number==2 and room.id in ('master','bed2','bed3','closet','hall'):continue
+            if f.number==1 and room.id in ('ldk','stairs','under_stairs','wc'):continue
+            if f.number==2 and room.id in ('master','bed2','bed3','closet','hall','wc'):continue
             if room.id!='balcony':
                 check(f'{f.number}F/R09_room_preserved/{room.id}',
                       room.shape.symmetric_difference(scale(Polygon(old[room.id]['polygon_mm']),xfact=-1 if P.mirror_layout else 1,origin=(P.width/2,0))).area<.01,
@@ -171,6 +171,17 @@ def run():
     check('R15/WC_forecourt_removed','wc_hall' not in first_rooms,list(first_rooms))
     check('R15/WC_direct_from_LDK',any(d.id=='D05' and {d.a,d.b}=={'ldk','wc'} for d in first.doors),[d.id for d in first.doors])
     check('R15/stair_storage_net_dimensions',first_rooms['under_stairs'].shape.bounds[2]-first_rooms['under_stairs'].shape.bounds[0]==800 and abs(first_rooms['under_stairs'].area-1.408)<1e-8,first_rooms['under_stairs'].shape.bounds)
+    second_rooms={r.id:r for r in floors[1].rooms}
+    for f in floors:
+        wc=next(r for r in f.rooms if r.id=='wc')
+        check(f'R17/F{f.number}/WC_south_wall_flush_with_washroom',wc.shape.bounds[1]==first_rooms['wash'].shape.bounds[1],wc.shape.bounds)
+        check(f'R17/F{f.number}/WC_clear_900x1820',abs(wc.area-1.638)<1e-8,wc.area)
+    check('R17/open_wardrobe_in_master','closet' not in second_rooms and abs(second_rooms['master'].area-14.76)<1e-8,second_rooms['master'].shape.bounds)
+    new_doors={d.id:d for d in floors[1].doors}
+    check('R17/master_door_at_hall_corner',new_doors['D21'].axis=='v' and new_doors['D21'].at==4360 and new_doors['D21'].start==3480 and new_doors['D21'].width==750,new_doors['D21'].__dict__)
+    check('R17/north_bedroom_door_at_hall_corner',new_doors['D23'].axis=='h' and new_doors['D23'].at==4330 and new_doors['D23'].start==3510 and new_doors['D23'].width==750,new_doors['D23'].__dict__)
+    check('R17/no_enclosed_closet_door','D24' not in new_doors,list(new_doors))
+    check('R17/bedrooms_still_separate',not second_rooms['master'].shape.intersects(second_rooms['bed3'].shape),True)
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
     check('R10/balcony_left_fixed',dimensions()['bx']==0,dimensions()['bx'])
     check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)

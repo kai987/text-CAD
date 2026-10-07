@@ -1,4 +1,4 @@
-"""R16 original room luminaires. Sizes, colour and intensity are demo inputs.
+"""R17 original room luminaires. Sizes, colour and intensity are demo inputs.
 
 No product selection, photometry, wiring, wet-area rating or installation design.
 Lamps belong to the floor's equipment layer, independent of loose furniture.
@@ -60,7 +60,7 @@ def _lamp(f):
     parts=[(cuboid((x-45,y-45,top-12,x+45,y+45,top)),':mount','#30363B'),
            (cuboid((x-4,y-4,bottom+55,x+4,y+4,top-12)),':stem','#30363B')] if not attic else []
     outer=bd.Solid.make_cylinder(105,55,bd.Plane(origin=(x,y,bottom)))
-    bore=bd.Solid.make_cylinder(97,47,bd.Plane(origin=(x,y,bottom)))
+    bore=bd.Solid.make_cylinder(97,55,bd.Plane(origin=(x,y,bottom)))
     parts.extend([(outer.cut(bore),':shade','#F1EEE7'),
                   (bd.Solid.make_cylinder(97,5,bd.Plane(origin=(x,y,bottom))),':diffuser','#FFE7C6')])
     children=[]
@@ -79,9 +79,9 @@ def apply_indoor_lighting_metadata(document,p,g):
     fixtures={f['diffuser_label']:f for f in indoor_fixture_layout(p,g)}
     for node in document['nodes']:
         if node.get('name') in fixtures:node.setdefault('extras',{})['indoorLight']=fixtures[node['name']]
-    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R16','fixtures':list(fixtures.values())}
+    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R17','fixtures':list(fixtures.values())}
 
 
 def indoor_lighting_manifest(p,g):
-    return {'revision':'R16','fixtures':indoor_fixture_layout(p,g),
-            'assumptions':['R16室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}
+    return {'revision':'R17','fixtures':indoor_fixture_layout(p,g),
+            'assumptions':['R17室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}

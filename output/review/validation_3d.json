@@ -1,23 +1,23 @@
 {
-  "revision": "R16-3D",
+  "revision": "R17-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 3895,
-    "passed": 3895,
+    "checks": 3874,
+    "passed": 3874,
     "failed": 0,
-    "STEP_leaf_occurrences": 1084,
-    "native_solids": 1100,
-    "GLB_mesh_nodes": 1084,
-    "GLB_all_nodes": 1222
+    "STEP_leaf_occurrences": 1078,
+    "native_solids": 1094,
+    "GLB_mesh_nodes": 1078,
+    "GLB_all_nodes": 1215
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 29735885,
-      "sha256": "ef8fc35a091accae8d72d75d2c011cf45a996f7296c5e2884ced02e462dfc056"
+      "bytes": 29617018,
+      "sha256": "660deba4fcdc3d93b9684a518f0c57f4246465057f91155899beee6c7dbc5428"
     },
     "house_3d.glb": {
-      "bytes": 11813692,
-      "sha256": "1f7292e45e00d809f3d88807a4f2769ecf05d9b1be41ac4214bf5eaaa29e252b"
+      "bytes": 11744104,
+      "sha256": "8e56255c6e6a1bf34533605a65eaae4a5dabdf8e74de345af6cb5fe985dd024b"
     }
   },
   "thresholds": {
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 29735885,
+      "actual": 29617018,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 11813692,
+      "actual": 11744104,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 1084,
+      "actual": 1078,
       "expected": null
     },
     {
@@ -285,7 +285,7 @@
     {
       "check": "F1:wall_partition_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 1403500000.0,
+      "actual": 2880900000.0,
       "expected": null
     },
     {
@@ -302,24 +302,6 @@
     },
     {
       "check": "F1:wall_partition_02:solid_1_positive_volume",
-      "pass": true,
-      "actual": 1446200000.0,
-      "expected": null
-    },
-    {
-      "check": "F1:wall_partition_03:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F1:wall_partition_03:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:wall_partition_03:solid_1_positive_volume",
       "pass": true,
       "actual": 747000000.0,
       "expected": null
@@ -4581,7 +4563,7 @@
     {
       "check": "F1:indoor_light:ldk:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -4653,7 +4635,7 @@
     {
       "check": "F1:indoor_light:foyer:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -4725,7 +4707,7 @@
     {
       "check": "F1:indoor_light:bath:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -4797,7 +4779,7 @@
     {
       "check": "F1:indoor_light:wash:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -4869,7 +4851,7 @@
     {
       "check": "F1:indoor_light:wc:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -4977,7 +4959,7 @@
     {
       "check": "F1:indoor_light:under_stairs:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -5211,7 +5193,7 @@
     {
       "check": "F2:wall_partition_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 5539000000.0,
+      "actual": 4771000000.0,
       "expected": null
     },
     {
@@ -5229,7 +5211,7 @@
     {
       "check": "F2:D21_door_slide:solid_1_positive_volume",
       "pass": true,
-      "actual": 58406400.0,
+      "actual": 54662400.0,
       "expected": null
     },
     {
@@ -5265,25 +5247,7 @@
     {
       "check": "F2:D23_door_slide:solid_1_positive_volume",
       "pass": true,
-      "actual": 58406400.0,
-      "expected": null
-    },
-    {
-      "check": "F2:D24_door_bifold:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F2:D24_door_bifold:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:D24_door_bifold:solid_1_positive_volume",
-      "pass": true,
-      "actual": 50918400.0,
+      "actual": 54662400.0,
       "expected": null
     },
     {
@@ -8091,7 +8055,7 @@
     {
       "check": "F2:indoor_light:master:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -8108,78 +8072,6 @@
     },
     {
       "check": "F2:indoor_light:master:diffuser:solid_1_positive_volume",
-      "pass": true,
-      "actual": 147796.226,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:mount:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:mount:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:mount:solid_1_positive_volume",
-      "pass": true,
-      "actual": 97200.0,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:stem:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:stem:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:stem:solid_1_positive_volume",
-      "pass": true,
-      "actual": 16192.0,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:shade:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:shade:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:shade:solid_1_positive_volume",
-      "pass": true,
-      "actual": 515698.717,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:diffuser:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:diffuser:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F2:indoor_light:closet:diffuser:solid_1_positive_volume",
       "pass": true,
       "actual": 147796.226,
       "expected": null
@@ -8235,7 +8127,7 @@
     {
       "check": "F2:indoor_light:bed2:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -8307,7 +8199,7 @@
     {
       "check": "F2:indoor_light:bed3:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -8379,7 +8271,7 @@
     {
       "check": "F2:indoor_light:hall:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -8451,7 +8343,7 @@
     {
       "check": "F2:indoor_light:wc:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -12483,7 +12375,7 @@
     {
       "check": "attic:indoor_light:attic:shade:solid_1_positive_volume",
       "pass": true,
-      "actual": 515698.717,
+      "actual": 279224.755,
       "expected": null
     },
     {
@@ -12519,7 +12411,7 @@
     {
       "check": "attic_access:left_stringer:solid_1_positive_volume",
       "pass": true,
-      "actual": 5162958.391,
+      "actual": 2966733.459,
       "expected": null
     },
     {
@@ -12537,7 +12429,7 @@
     {
       "check": "attic_access:right_stringer:solid_1_positive_volume",
       "pass": true,
-      "actual": 5162958.391,
+      "actual": 2966733.459,
       "expected": null
     },
     {
@@ -12753,7 +12645,7 @@
     {
       "check": "attic_access:hatch_lid:solid_1_positive_volume",
       "pass": true,
-      "actual": 13814183.422,
+      "actual": 13647015.05,
       "expected": null
     },
     {
@@ -12771,7 +12663,7 @@
     {
       "check": "attic_access:hinge_left:solid_1_positive_volume",
       "pass": true,
-      "actual": 92151.049,
+      "actual": 189388.112,
       "expected": null
     },
     {
@@ -12789,7 +12681,7 @@
     {
       "check": "attic_access:hinge_right:solid_1_positive_volume",
       "pass": true,
-      "actual": 92151.049,
+      "actual": 189388.112,
       "expected": null
     },
     {
@@ -20551,12 +20443,6 @@
       "expected": 0
     },
     {
-      "check": "F2:closet:approved_net_room_not_encroached_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "F2:bed2:approved_net_room_not_encroached_mm3",
       "pass": true,
       "actual": 0.0,
@@ -20679,8 +20565,8 @@
     {
       "check": "F2:D21:overdoor_wall_preserved_mm3",
       "pass": true,
-      "actual": 39840000.0,
-      "expected": 39840000.0
+      "actual": 37350000.0,
+      "expected": 37350000.0
     },
     {
       "check": "F2:D22:wall_opening_volume_mm3",
@@ -20703,20 +20589,8 @@
     {
       "check": "F2:D23:overdoor_wall_preserved_mm3",
       "pass": true,
-      "actual": 39840000.0,
-      "expected": 39840000.0
-    },
-    {
-      "check": "F2:D24:wall_opening_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "F2:D24:overdoor_wall_preserved_mm3",
-      "pass": true,
-      "actual": 34860000.0,
-      "expected": 34860000.0
+      "actual": 37350000.0,
+      "expected": 37350000.0
     },
     {
       "check": "F2:D25:wall_opening_volume_mm3",
@@ -21061,85 +20935,85 @@
       "expected": null
     },
     {
-      "check": "R16:D26:1:frame_floor_gap_mm",
+      "check": "R17:D26:1:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R16:D26:1:head_elevation_mm",
+      "check": "R17:D26:1:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R16:D26:1:balcony_finish_clear_mm3",
+      "check": "R17:D26:1:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R16:D26:2:frame_floor_gap_mm",
+      "check": "R17:D26:2:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R16:D26:2:head_elevation_mm",
+      "check": "R17:D26:2:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R16:D26:2:balcony_finish_clear_mm3",
+      "check": "R17:D26:2:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R16:D26:two_independent_glazed_leaves",
+      "check": "R17:D26:two_independent_glazed_leaves",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:D27:1:frame_floor_gap_mm",
+      "check": "R17:D27:1:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R16:D27:1:head_elevation_mm",
+      "check": "R17:D27:1:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R16:D27:1:balcony_finish_clear_mm3",
+      "check": "R17:D27:1:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R16:D27:2:frame_floor_gap_mm",
+      "check": "R17:D27:2:frame_floor_gap_mm",
       "pass": true,
       "actual": 2810.0,
       "expected": 2810
     },
     {
-      "check": "R16:D27:2:head_elevation_mm",
+      "check": "R17:D27:2:head_elevation_mm",
       "pass": true,
       "actual": 4890.0,
       "expected": 4890
     },
     {
-      "check": "R16:D27:2:balcony_finish_clear_mm3",
+      "check": "R17:D27:2:balcony_finish_clear_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R16:D27:two_independent_glazed_leaves",
+      "check": "R17:D27:two_independent_glazed_leaves",
       "pass": true,
       "actual": null,
       "expected": null
@@ -21211,7 +21085,7 @@
       "expected": 175.0
     },
     {
-      "check": "stairs:lower_tread_01:R16_thickness_mm",
+      "check": "stairs:lower_tread_01:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21235,7 +21109,7 @@
       "expected": 350.0
     },
     {
-      "check": "stairs:lower_tread_02:R16_thickness_mm",
+      "check": "stairs:lower_tread_02:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21259,7 +21133,7 @@
       "expected": 525.0
     },
     {
-      "check": "stairs:lower_tread_03:R16_thickness_mm",
+      "check": "stairs:lower_tread_03:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21283,7 +21157,7 @@
       "expected": 700.0
     },
     {
-      "check": "stairs:lower_tread_04:R16_thickness_mm",
+      "check": "stairs:lower_tread_04:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21307,7 +21181,7 @@
       "expected": 875.0
     },
     {
-      "check": "stairs:lower_tread_05:R16_thickness_mm",
+      "check": "stairs:lower_tread_05:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21331,7 +21205,7 @@
       "expected": 1050.0
     },
     {
-      "check": "stairs:lower_tread_06:R16_thickness_mm",
+      "check": "stairs:lower_tread_06:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21355,7 +21229,7 @@
       "expected": 1225.0
     },
     {
-      "check": "stairs:lower_tread_07:R16_thickness_mm",
+      "check": "stairs:lower_tread_07:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21379,7 +21253,7 @@
       "expected": 1575.0
     },
     {
-      "check": "stairs:upper_tread_01:R16_thickness_mm",
+      "check": "stairs:upper_tread_01:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21403,7 +21277,7 @@
       "expected": 1750.0
     },
     {
-      "check": "stairs:upper_tread_02:R16_thickness_mm",
+      "check": "stairs:upper_tread_02:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21427,7 +21301,7 @@
       "expected": 1925.0
     },
     {
-      "check": "stairs:upper_tread_03:R16_thickness_mm",
+      "check": "stairs:upper_tread_03:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21451,7 +21325,7 @@
       "expected": 2100.0
     },
     {
-      "check": "stairs:upper_tread_04:R16_thickness_mm",
+      "check": "stairs:upper_tread_04:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21475,7 +21349,7 @@
       "expected": 2275.0
     },
     {
-      "check": "stairs:upper_tread_05:R16_thickness_mm",
+      "check": "stairs:upper_tread_05:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21499,7 +21373,7 @@
       "expected": 2450.0
     },
     {
-      "check": "stairs:upper_tread_06:R16_thickness_mm",
+      "check": "stairs:upper_tread_06:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
@@ -21523,187 +21397,187 @@
       "expected": 2625.0
     },
     {
-      "check": "stairs:upper_tread_07:R16_thickness_mm",
+      "check": "stairs:upper_tread_07:R17_thickness_mm",
       "pass": true,
       "actual": 60.0,
       "expected": 60
     },
     {
-      "check": "R16:lower:two_stringers",
+      "check": "R17:lower:two_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:tread_1:supported_by_both_stringers",
+      "check": "R17:lower:tread_1:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_2:supported_by_both_stringers",
+      "check": "R17:lower:tread_2:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_3:supported_by_both_stringers",
+      "check": "R17:lower:tread_3:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_4:supported_by_both_stringers",
+      "check": "R17:lower:tread_4:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_5:supported_by_both_stringers",
+      "check": "R17:lower:tread_5:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_6:supported_by_both_stringers",
+      "check": "R17:lower:tread_6:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:lower:tread_7:supported_by_both_stringers",
+      "check": "R17:lower:tread_7:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:lower:open_riser_gap_mm",
+      "check": "R17:lower:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:two_stringers",
+      "check": "R17:upper:two_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:tread_1:supported_by_both_stringers",
+      "check": "R17:upper:tread_1:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_2:supported_by_both_stringers",
+      "check": "R17:upper:tread_2:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_3:supported_by_both_stringers",
+      "check": "R17:upper:tread_3:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_4:supported_by_both_stringers",
+      "check": "R17:upper:tread_4:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_5:supported_by_both_stringers",
+      "check": "R17:upper:tread_5:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_6:supported_by_both_stringers",
+      "check": "R17:upper:tread_6:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
     },
     {
-      "check": "R16:upper:tread_7:supported_by_both_stringers",
+      "check": "R17:upper:tread_7:supported_by_both_stringers",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R16:upper:open_riser_gap_mm",
+      "check": "R17:upper:open_riser_gap_mm",
       "pass": true,
       "actual": 115.0,
       "expected": 115
@@ -21731,7 +21605,7 @@
       "pass": true,
       "actual": [
         2180.0,
-        5400.0,
+        5280.0,
         3080.0,
         7100.0
       ],
@@ -22854,8 +22728,8 @@
     {
       "check": "attic_access:left:top_x_mm",
       "pass": true,
-      "actual": 4204.054981,
-      "expected": 4204.054980680786
+      "actual": 3645.080824,
+      "expected": 3645.0808242709036
     },
     {
       "check": "attic_access:left:top_reaches_finished_deck_mm",
@@ -22884,8 +22758,8 @@
     {
       "check": "attic_access:right:top_x_mm",
       "pass": true,
-      "actual": 4204.054981,
-      "expected": 4204.054980680786
+      "actual": 3645.080824,
+      "expected": 3645.0808242709036
     },
     {
       "check": "attic_access:right:top_reaches_finished_deck_mm",
@@ -22908,8 +22782,8 @@
     {
       "check": "attic_access:inclination_degrees",
       "pass": true,
-      "actual": 65.0,
-      "expected": 65
+      "actual": 75.0,
+      "expected": 75
     },
     {
       "check": "attic_access:tread_01:riser_elevation_mm",
@@ -23220,14 +23094,14 @@
     {
       "check": "attic_access:lid_to_left_stringer_distance_mm",
       "pass": true,
-      "actual": 22.071385,
-      "expected": 22.071384956093993
+      "actual": 34.061244,
+      "expected": 34.06124383381487
     },
     {
       "check": "attic_access:lid_to_right_stringer_distance_mm",
       "pass": true,
-      "actual": 22.071385,
-      "expected": 22.071384956093993
+      "actual": 34.061244,
+      "expected": 34.06124383381487
     },
     {
       "check": "attic_access:left_stringer:open_lid_no_solid_overlap_mm3",
@@ -23394,8 +23268,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 1084,
-      "expected": 1084
+      "actual": 1078,
+      "expected": 1078
     },
     {
       "check": "GLB:named_groups_retained",
@@ -23431,8 +23305,8 @@
       "check": "GLB:numeric_mesh_audit",
       "pass": true,
       "actual": {
-        "vertex_count": 313164,
-        "triangle_count": 491247,
+        "vertex_count": 311072,
+        "triangle_count": 489271,
         "degenerate_count": 90
       },
       "expected": null

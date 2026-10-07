@@ -133,12 +133,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R16 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R17 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n,canonical(P));draw_pdf_sheet(c,f)
         g=Drawing(c);g.mirror_width=P.width if P.mirror_layout else None;g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R16階段下収納・4人家具・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R17階段下収納・4人家具・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

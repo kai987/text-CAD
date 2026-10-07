@@ -71,7 +71,7 @@ else:
     native={label:shape for label,shape in all_native.items() if label.startswith('structure:')}
     saved=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())
     check('saved:structure_manifest_matches_parameters',saved['structure']==record)
-    check('saved:revision_R06',saved['revision']=='R16-3D',saved['revision'],'R16-3D')
+    check('saved:revision_R06',saved['revision']=='R17-3D',saved['revision'],'R17-3D')
     raw=(ROOT/'GLB/house_3d.glb').read_bytes()
     magic,version,size=struct.unpack_from('<4sII',raw)
     check('GLB:valid_container',magic==b'glTF' and version==2 and size==len(raw))

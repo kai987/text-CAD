@@ -15,8 +15,8 @@
     "step": "STEP/structure_S.step"
   },
   "model_hashes_sha256": {
-    "glb": "a780dfe2793143ec798190755749bfa7f71080739063457e2ae627c07ed57b02",
-    "step": "edd01b9f034ab49ed734361d0849db86f541fcd485e8dc0f650faf241e3f7824"
+    "glb": "b35890c42800926394d4bda549f0fd55b6a8dc489ddf21802f3ff4fbfe3bd8aa",
+    "step": "277825b83a1e80dfab117527d9e8944b7b047aacf5115d112df98bb06aa2c11a"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -242,7 +242,7 @@
         "attic-nagoya-city"
       ],
       "opening_area_m2": 0.18,
-      "opening_count": 1,
+      "opening_count": 2,
       "opening_form": "fixed_aluminium_louver",
       "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
       "attic_reference_area_m2": 24.5384,
@@ -250,6 +250,8 @@
       "area_reference_match": null,
       "form_reference_match": null,
       "status": "numeric_opening_treatment_pending_authority",
+      "quantity_reference_match": null,
+      "quantity_status": "Multiple-opening interpretation requires authority confirmation",
       "actual_confirming_authority": null,
       "effective_ventilation_area_m2": null,
       "fire_equipment_specification": null,
@@ -264,8 +266,8 @@
         "ja": "名古屋市例規と県内共通例規を併読。2026年版の小屋裏物置76-78頁に窓面積の数値上限は明記されない。0.18㎡は計画値で、個別の開口取扱いは審査先へ確認。",
         "en": "Read Nagoya City rules with the prefecture-wide Aichi interpretation. Its 2026 attic pages 76-78 state no numerical window-area ceiling. The 0.18 m² area is a project value; local opening treatment still needs confirmation."
       },
-      "width_mm": 600,
-      "height_mm": 300
+      "width_mm": 200,
+      "height_mm": 450
     }
   },
   "national_regulatory_requirements": [
@@ -2531,7 +2533,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 3193980.1,
+        "volume_mm3": 3221449.0,
         "solid_count": 1
       },
       {
@@ -2596,7 +2598,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 9619260.100001,
+        "volume_mm3": 9590756.200001,
         "solid_count": 1
       },
       {
@@ -2675,19 +2677,6 @@
           8024.249352331517
         ],
         "volume_mm3": 6599951.200001,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:vent_header_north",
-        "bounds_mm": [
-          3695.0,
-          7145.0,
-          6828.0,
-          4495.0,
-          7235.0,
-          6918.0
-        ],
-        "volume_mm3": 645472.0,
         "solid_count": 1
       },
       {
@@ -2782,42 +2771,16 @@
         "solid_count": 1
       },
       {
-        "name": "structure:roof:post_vent_left",
-        "bounds_mm": [
-          4405.0,
-          7145.0,
-          5396.0,
-          4495.0,
-          7235.0,
-          6828.0
-        ],
-        "volume_mm3": 1155394.88,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:post_vent_right",
-        "bounds_mm": [
-          3695.0,
-          7145.0,
-          5396.0,
-          3785.0,
-          7235.0,
-          6828.0
-        ],
-        "volume_mm3": 1155394.88,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:post_vent_king_north",
+        "name": "structure:roof:post_ridge_P02",
         "bounds_mm": [
           4050.0,
           7145.0,
-          6918.0,
+          5396.0,
           4140.0,
           7235.0,
           7964.249352331517
         ],
-        "volume_mm3": 844155.827435,
+        "volume_mm3": 2072166.307435,
         "solid_count": 1
       },
       {
@@ -7488,7 +7451,7 @@
         "solid_count": 2
       }
     ],
-    "member_count": 549,
+    "member_count": 546,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -7672,8 +7635,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 549,
-      "all_nodes": 562
+      "named_mesh_nodes": 546,
+      "all_nodes": 559
     }
   },
   "project_inputs": {
@@ -7704,7 +7667,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Nagoya City plus Aichi prefecture-wide common interpretation; individual confirmation pending",
@@ -7714,7 +7677,7 @@
       "attic-nagoya-city"
     ],
     "opening_area_m2": 0.18,
-    "opening_count": 1,
+    "opening_count": 2,
     "opening_form": "fixed_aluminium_louver",
     "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
     "attic_reference_area_m2": 24.5384,
@@ -7722,6 +7685,8 @@
     "area_reference_match": null,
     "form_reference_match": null,
     "status": "numeric_opening_treatment_pending_authority",
+    "quantity_reference_match": null,
+    "quantity_status": "Multiple-opening interpretation requires authority confirmation",
     "actual_confirming_authority": null,
     "effective_ventilation_area_m2": null,
     "fire_equipment_specification": null,
@@ -7736,8 +7701,8 @@
       "ja": "名古屋市例規と県内共通例規を併読。2026年版の小屋裏物置76-78頁に窓面積の数値上限は明記されない。0.18㎡は計画値で、個別の開口取扱いは審査先へ確認。",
       "en": "Read Nagoya City rules with the prefecture-wide Aichi interpretation. Its 2026 attic pages 76-78 state no numerical window-area ceiling. The 0.18 m² area is a project value; local opening treatment still needs confirmation."
     },
-    "width_mm": 600,
-    "height_mm": 300
+    "width_mm": 200,
+    "height_mm": 450
   },
   "architectural_coordination_result": null,
   "capacity_results": null,

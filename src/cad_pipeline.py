@@ -47,7 +47,7 @@ def main() -> None:
     (ROOT/RELEASE).unlink(missing_ok=True)
     run(GENERATORS)
     run(VALIDATORS)
-    subprocess.run([sys.executable, '-m', 'unittest', 'checks/test_cad_release.py', 'checks/test_orientation.py', 'checks/test_step_transport.py', 'checks/test_attic_opening_rules.py', '-v'], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, '-m', 'unittest', 'checks/test_cad_release.py', 'checks/test_orientation.py', 'checks/test_step_transport.py', 'checks/test_attic_opening_rules.py', 'checks/test_attic_layout.py', '-v'], cwd=ROOT, check=True)
     font = Path(os.environ.get('TEXT_CAD_CJK_FONT', '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
     plan = json.loads((ROOT/'output/review/design_manifest.json').read_text())
     model = json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())

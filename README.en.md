@@ -1,5 +1,11 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R20 Paired vertical attic vents and mirrored inspection ladder
+
+Restore one centred north ridge post, flanked by two 200×450 mm fixed aluminium louvers (total gross apertures 0.18 m²). Reflect the deployed ladder, lid, hinges and guardrail entry about the existing hatch centre, retaining the hatch position. Python also retains an offset 300×600 mm single-opening alternative. Opening counts in Osaka and other jurisdictions remain unconfirmed; this is not approval for paired vents. Structure and safe operation remain undesigned. Current exports are R20. [R20 / 中文 / 日本語 / English](docs/attic_layout_R20.md).
+
+R19 and earlier sections below are historical. R20 describes the current exports.
+
 ## R19 Attic opening references
 
 Keep the centered 600 × 300 mm gross aperture (0.18 m²), now a fixed aluminium louver. Tokyo uses a named Edogawa example; Osaka references approximately 0.2 m² and louver specifications. No numerical Kyoto/Nagoya ceiling is invented. Current output is R19; effective ventilation, fire specification and approval remain pending. [R19 / 日本語 / English](docs/attic_opening_rules_R19.md).
@@ -91,7 +97,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 The attic remains inside the R03 gable envelope, with user-confirmed first- and second-floor boundaries unchanged. The attic interior preset shows floors, lining/knee walls, storage and hatch guardrails. Hide the deployed access ladder separately. It occupies the second-floor hall; hiding it does not simulate mechanical folding.
 
-All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 1233.93 mm. Space above the ceiling is excluded from usable storage. The upper standing area has approximately 1254 mm minimum headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
+All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 1233.93 mm. Space above the ceiling is excluded from usable storage. The upper standing area has approximately 1350 mm minimum headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
 
 Parameters are in `src/lib/attic_geometry.py`. Current `DXF/house_attic_plan.dxf` retains editable text and dimensions. The current supplement is `output/pdf/house_attic_plan_R06_JP.pdf`, A3 at 1:50 with an east–west section. The R04 PDF and notes remain historical and do not describe current headroom. The fixed ceiling is only a candidate treatment. Local measurement of the finished ceiling and residual cavity, and storey classification, remain pending; adding a ceiling alone does not establish area or storey exemption. Neither 1350 mm nor 24.5384 m² establishes local regulatory recognition. Approved R02 floor plans are unchanged.
 

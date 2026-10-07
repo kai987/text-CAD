@@ -72,3 +72,8 @@ JSON 中的官方数值是带适用范围和来源的参考资料，不能自动
 
 
 R19 supplement: [current attic opening references, reviewed 2026-10-07](attic_opening_rules_R19.md). This update records the Aichi prefecture-wide common interpretation alongside Nagoya City rules, and keeps unconfirmed numerical opening treatment unfilled. Earlier R07 statements are historical.
+
+
+## R20 开口数量补充 / 開口数 / Opening count
+
+共享双窗各200×450 mm，洞口合计0.18㎡。江户川区例以合计面积控制；大阪、京都、名古屋的数量解释待核定。源码保留300×600 mm单扇备选。详见[R20](attic_layout_R20.md)。

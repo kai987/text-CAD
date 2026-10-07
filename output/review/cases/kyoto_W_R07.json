@@ -15,8 +15,8 @@
     "step": "STEP/structure_W.step"
   },
   "model_hashes_sha256": {
-    "glb": "f87e0ce82f6b49decd37b4224a640b5a663851dd1e93374ebf041d1335fe09ee",
-    "step": "5ac2d3161833e505e1a723c29fd9dd0d787b0c25931193f17b2a9ef8374672ae"
+    "glb": "30faaa9e8ad3eb4827f52496666b087e2a5d0cea9b1dd5b68e1c1b9d95144050",
+    "step": "4eea4b59f303a3244ea0ba1309ad803b15e4f97cf3ad72de165e0092e07a37a1"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -246,7 +246,7 @@
         "attic-kyoto-current"
       ],
       "opening_area_m2": 0.18,
-      "opening_count": 1,
+      "opening_count": 2,
       "opening_form": "fixed_aluminium_louver",
       "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
       "attic_reference_area_m2": 24.5384,
@@ -254,6 +254,8 @@
       "area_reference_match": null,
       "form_reference_match": null,
       "status": "numeric_opening_treatment_pending_authority",
+      "quantity_reference_match": null,
+      "quantity_status": "Multiple-opening interpretation requires authority confirmation",
       "actual_confirming_authority": null,
       "effective_ventilation_area_m2": null,
       "fire_equipment_specification": null,
@@ -268,8 +270,8 @@
         "ja": "京都市の現行総5-6確認頁に窓面積の数値上限は明記されず、居室の有効採光に算入できない。0.18㎡の小型換気口を保持し、面積・仕様は審査先へ確認。",
         "en": "The reviewed Kyoto General 5-6 pages state no numerical window-area ceiling and do not count attic windows as habitable-room daylight. Retain the small 0.18 m² vent; confirm area and specification with the authority."
       },
-      "width_mm": 600,
-      "height_mm": 300
+      "width_mm": 200,
+      "height_mm": 450
     }
   },
   "national_regulatory_requirements": [
@@ -1998,7 +2000,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 31765500.0,
+        "volume_mm3": 32130000.0,
         "solid_count": 1
       },
       {
@@ -2063,7 +2065,7 @@
           7190.0,
           5576.0
         ],
-        "volume_mm3": 152955000.0,
+        "volume_mm3": 152550000.0,
         "solid_count": 1
       },
       {
@@ -2142,19 +2144,6 @@
           8024.249352331517
         ],
         "volume_mm3": 58896000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:vent_header_north",
-        "bounds_mm": [
-          3695.0,
-          7145.0,
-          6828.0,
-          4495.0,
-          7235.0,
-          6918.0
-        ],
-        "volume_mm3": 6480000.0,
         "solid_count": 1
       },
       {
@@ -2249,42 +2238,16 @@
         "solid_count": 1
       },
       {
-        "name": "structure:roof:post_vent_left",
-        "bounds_mm": [
-          4405.0,
-          7145.0,
-          5396.0,
-          4495.0,
-          7235.0,
-          6828.0
-        ],
-        "volume_mm3": 11599200.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:post_vent_right",
-        "bounds_mm": [
-          3695.0,
-          7145.0,
-          5396.0,
-          3785.0,
-          7235.0,
-          6828.0
-        ],
-        "volume_mm3": 11599200.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:roof:post_vent_king_north",
+        "name": "structure:roof:post_ridge_P02",
         "bounds_mm": [
           4050.0,
           7145.0,
-          6918.0,
+          5396.0,
           4140.0,
           7235.0,
           7964.249352331517
         ],
-        "volume_mm3": 8474619.753885,
+        "volume_mm3": 20802819.753885,
         "solid_count": 1
       },
       {
@@ -3705,7 +3668,7 @@
         "solid_count": 1
       }
     ],
-    "member_count": 257,
+    "member_count": 254,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -3894,8 +3857,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 257,
-      "all_nodes": 272
+      "named_mesh_nodes": 254,
+      "all_nodes": 269
     }
   },
   "project_inputs": {
@@ -3926,7 +3889,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Kyoto City current handbook, General 5-6, p48-51",
@@ -3934,7 +3897,7 @@
       "attic-kyoto-current"
     ],
     "opening_area_m2": 0.18,
-    "opening_count": 1,
+    "opening_count": 2,
     "opening_form": "fixed_aluminium_louver",
     "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
     "attic_reference_area_m2": 24.5384,
@@ -3942,6 +3905,8 @@
     "area_reference_match": null,
     "form_reference_match": null,
     "status": "numeric_opening_treatment_pending_authority",
+    "quantity_reference_match": null,
+    "quantity_status": "Multiple-opening interpretation requires authority confirmation",
     "actual_confirming_authority": null,
     "effective_ventilation_area_m2": null,
     "fire_equipment_specification": null,
@@ -3956,8 +3921,8 @@
       "ja": "京都市の現行総5-6確認頁に窓面積の数値上限は明記されず、居室の有効採光に算入できない。0.18㎡の小型換気口を保持し、面積・仕様は審査先へ確認。",
       "en": "The reviewed Kyoto General 5-6 pages state no numerical window-area ceiling and do not count attic windows as habitable-room daylight. Retain the small 0.18 m² vent; confirm area and specification with the authority."
     },
-    "width_mm": 600,
-    "height_mm": 300
+    "width_mm": 200,
+    "height_mm": 450
   },
   "architectural_coordination_result": null,
   "capacity_results": null,

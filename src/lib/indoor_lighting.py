@@ -1,4 +1,4 @@
-"""R19 original room luminaires. Sizes, colour and intensity are demo inputs.
+"""R20 original room luminaires. Sizes, colour and intensity are demo inputs.
 
 No product selection, photometry, wiring, wet-area rating or installation design.
 Lamps belong to the floor's equipment layer, independent of loose furniture.
@@ -82,9 +82,9 @@ def apply_indoor_lighting_metadata(document,p,g):
     fixtures={f['diffuser_label']:f for f in indoor_fixture_layout(p,g)}
     for node in document['nodes']:
         if node.get('name') in fixtures:node.setdefault('extras',{})['indoorLight']=fixtures[node['name']]
-    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R19','fixtures':list(fixtures.values())}
+    document['asset'].setdefault('extras',{})['indoorLighting']={'revision':'R20','fixtures':list(fixtures.values())}
 
 
 def indoor_lighting_manifest(p,g):
-    return {'revision':'R19','fixtures':indoor_fixture_layout(p,g),
-            'assumptions':['R19室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}
+    return {'revision':'R20','fixtures':indoor_fixture_layout(p,g),
+            'assumptions':['R20室内灯具按房间分别命名；吊灯及阁楼灯尺寸、暖白色和相对亮度为演示假设，可独立一键开关；照度、电气、防水等级和施工安装未设计。']}

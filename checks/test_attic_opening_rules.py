@@ -25,6 +25,15 @@ class OpeningReferencesTests(unittest.TestCase):
             self.assertIsNone(result['effective_ventilation_area_m2'])
             if city in ('kyoto','nagoya'):self.assertIsNone(result['area_reference_match'])
 
+    def test_multiple_openings_are_counted_without_assuming_permission(self):
+        for city in ('tokyo','osaka','kyoto','nagoya'):
+            r=review_opening(city,.18,24.5384,'fixed_aluminium_louver',2)
+            self.assertEqual(r['opening_count'],2)
+            if city!='tokyo':self.assertIsNone(r['quantity_reference_match'])
+            self.assertIsNone(r['statutory_compliance_result'])
+        for count in (0,3,True,1.5):
+            with self.assertRaises(ValueError):review_opening('osaka',.18,24,'fixed_aluminium_louver',count)
+
     def test_invalid_values_rejected(self):
         for value in (0,-1,math.inf,math.nan):
             with self.assertRaises(ValueError):review_opening('osaka',value,24,'fixed_aluminium_louver')

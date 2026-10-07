@@ -83,7 +83,7 @@ def restore_glb_hierarchy(step_path, glb_path):
     document["scenes"] = [{"name": "house_3d", "nodes": [insert(root) for root in scene.roots]}]
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
-                                    "source": "Named CADgen STEP assembly; R19 1000 mm cantilever balcony proposal with approved interiors"}
+                                    "source": "Named CADgen STEP assembly; R20 1000 mm cantilever balcony proposal with approved interiors"}
     apply_interior_materials(document)
     bin_offset = 20+json_size
     bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)

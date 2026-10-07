@@ -219,10 +219,10 @@ for door_id,width in (('D26',1600),('D27',1800)):
     for i in (1,2):
         frame=native[f'F2:{door_id}_slider_frame_{i}'];glass=native[f'F2:{door_id}_slider_glass_{i}']
         b=bounds(frame)
-        close(f'R19:{door_id}:{i}:frame_floor_gap_mm',b[2],2810)
-        close(f'R19:{door_id}:{i}:head_elevation_mm',b[5],4890)
-        close(f'R19:{door_id}:{i}:balcony_finish_clear_mm3',overlap([frame,glass],native['balcony:finish']),0)
-    check(f'R19:{door_id}:two_independent_glazed_leaves',all(f'F2:{door_id}_slider_glass_{i}' in native for i in (1,2)))
+        close(f'R20:{door_id}:{i}:frame_floor_gap_mm',b[2],2810)
+        close(f'R20:{door_id}:{i}:head_elevation_mm',b[5],4890)
+        close(f'R20:{door_id}:{i}:balcony_finish_clear_mm3',overlap([frame,glass],native['balcony:finish']),0)
+    check(f'R20:{door_id}:two_independent_glazed_leaves',all(f'F2:{door_id}_slider_glass_{i}' in native for i in (1,2)))
 
 d = dimensions(P)
 stair_footprint = next(r.shape for r in floor_plan(2).rooms if r.id == "stairs")
@@ -249,14 +249,14 @@ for flight, base_top in [("lower", 0), ("upper", P.storey_height/2)]:
         close(f"{label}:width_mm", sb[3]-sb[0], P.stair_width)
         close(f"{label}:tread_depth_mm", sb[4]-sb[1], P.tread)
         close(f"{label}:top_elevation_mm", sb[5], base_top+i*rise)
-        close(f'{label}:R19_thickness_mm',sb[5]-sb[2],60)
+        close(f'{label}:R20_thickness_mm',sb[5]-sb[2],60)
 for side in ('lower','upper'):
     rails=[v for k,v in native.items() if k.startswith(f'stairs:{side}_stringer_')]
-    check(f'R19:{side}:two_stringers',len(rails)==2)
+    check(f'R20:{side}:two_stringers',len(rails)==2)
     for i in range(1,8):
         tread=native[f'stairs:{side}_tread_{i:02d}']
-        check(f'R19:{side}:tread_{i}:supported_by_both_stringers',all(overlap([rail],tread.solids()[0])>0 for rail in rails))
-        close(f'R19:{side}:open_riser_gap_mm',rise-G.stair_tread_thickness,115)
+        check(f'R20:{side}:tread_{i}:supported_by_both_stringers',all(overlap([rail],tread.solids()[0])>0 for rail in rails))
+        close(f'R20:{side}:open_riser_gap_mm',rise-G.stair_tread_thickness,115)
 last_top = bounds(native["stairs:upper_tread_07"])[5]
 close("stairs:final_floor_rise_mm", bounds(slab2)[5]-last_top, rise)
 for side in ("lower", "upper"):
@@ -295,7 +295,7 @@ for side in ("south", "north"):
     close(f"roof:{side}_gable_ridge_mm", bounds(gable)[5],
           2*P.storey_height+(P.width/2)*math.tan(math.radians(G.roof_pitch_degrees)))
     close(f"roof:{side}_gable_backing_volume_mm3", gable.volume,
-          .5*P.width*(P.width/2)*math.tan(math.radians(G.roof_pitch_degrees))*(P.external_wall-setback)-(A.north_vent_width*A.north_vent_height*(P.external_wall-setback) if side=='north' else 0), .1)
+          .5*P.width*(P.width/2)*math.tan(math.radians(G.roof_pitch_degrees))*(P.external_wall-setback)-(A.north_vent_count*A.north_vent_width*A.north_vent_height*(P.external_wall-setback) if side=='north' else 0), .1)
 ceiling = native["roof:attic_ceiling_slab"]
 close("attic:thin_subfloor_native_volume_mm3", ceiling.volume,
       ((P.width-2*setback)*(P.depth-2*setback)-A.hatch_length*A.hatch_width)*A.subfloor_thickness, .1)
@@ -311,23 +311,24 @@ hb,cb=bounds(hob),bounds(hood)
 close('R15:extractor_above_cooktop_x_mm',(hb[0]+hb[3])/2,(cb[0]+cb[3])/2)
 check('R15:extractor_above_cooktop_z',cb[2]>hb[5]+800)
 check('R15:equipment_present',all(any(token in name for name in native) for token in ('_fridge:body_white','_cupboard:microwave_body_steel',':hood_filter_dark',':hood_duct_cover_steel')))
-vent_record=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_bounds_mm']
-vx1,vy1,vz1,vx2,vy2,vz2=vent_record
-vent_probe=cuboid((vx1+40,vy1+1,vz1+40,vx2-40,vy2-1,vz2-40))
+vent_records=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_openings']
 vent_shell=[obj for name,obj in native.items() if name in ('roof:north_gable_wall','roof:cladding:north_gable','attic:gable_lining:north') or name.startswith('structure:roof:post_')]
-close('R15:north_attic_vent_passes_through_shell_mm3',overlap(vent_shell,vent_probe),0,.1)
-close('R19:north_attic_vent_centred_x_mm',(vx1+vx2)/2,P.width/2)
-close('R15:north_attic_vent_width_mm',vx2-vx1,600)
-close('R15:north_attic_vent_height_mm',vz2-vz1,300)
-check('R15:north_attic_vent_all_named_parts',len([name for name in native if name.startswith('attic:north_vent:')])==11)
-
-check('R19:fixed_louver_replaces_glass', 'attic:north_vent:open_glass' not in native and len([n for n in native if n.startswith('attic:north_vent:louver_')])==6)
-blades=[native[n] for n in sorted(native) if n.startswith('attic:north_vent:louver_')]
-for i,(lower,upper) in enumerate(zip(blades,blades[1:])):
-    lb,ub=bounds(lower),bounds(upper)
-    check(f'R19:louver_gap_{i}:positive',ub[2]>lb[5])
-    probe=cuboid((P.width/2-5,vy1+1,lb[5]+1,P.width/2+5,vy2-1,ub[2]-1))
-    close(f'R19:louver_gap_{i}:unobstructed_mm3',overlap(vent_shell+blades,probe),0,.1)
+for vent in vent_records:
+    vx1,vy1,vz1,vx2,vy2,vz2=vent['bounds_mm'];side=vent['id'];prefix=f'attic:north_vent:{side}:'
+    vent_probe=cuboid((vx1+40,vy1+1,vz1+40,vx2-40,vy2-1,vz2-40))
+    close(f'R20:{side}:vent_passes_through_shell_mm3',overlap(vent_shell,vent_probe),0,.1)
+    close(f'R20:{side}:vertical_width_mm',vx2-vx1,200)
+    close(f'R20:{side}:vertical_height_mm',vz2-vz1,450)
+    close(f'R20:{side}:offset_from_ridge_mm',abs((vx1+vx2)/2-P.width/2),350)
+    check(f'R20:{side}:eleven_named_vent_parts',len([n for n in native if n.startswith(prefix)])==11)
+    blades=[native[n] for n in sorted(native) if n.startswith(prefix+'louver_')]
+    for i,(lower,upper) in enumerate(zip(blades,blades[1:])):
+        lb,ub=bounds(lower),bounds(upper)
+        check(f'R20:{side}:louver_gap_{i}:positive',ub[2]>lb[5])
+        probe=cuboid(((vx1+vx2)/2-5,vy1+1,lb[5]+1,(vx1+vx2)/2+5,vy2-1,ub[2]-1))
+        close(f'R20:{side}:louver_gap_{i}:unobstructed_mm3',overlap(vent_shell+blades,probe),0,.1)
+check('R20:north_single_centre_post_restored','structure:roof:post_ridge_P02' in native and not any(':post_vent_' in n or n.endswith('vent_header_north') for n in native))
+close('R20:north_single_post_center_x_mm',sum(bounds(native['structure:roof:post_ridge_P02'])[i] for i in (0,3))/2,P.width/2)
 
 # The R04 attic fits inside the existing roof rather than enlarging its outer
 # envelope. Checks use saved native solids and swept clearance regions; a
@@ -354,7 +355,7 @@ for name in ("balcony:drying_post_1","balcony:drying_post_2","balcony:drying_rai
     b=bounds(native[name])
     check(f"R13:{name}_within_slab",bs[0]<b[0] and b[3]<bs[3] and bs[1]<b[1] and b[4]<bs[4])
     check(f"R13:{name}_east_of_balcony_door",all(b[3]<=door.start or b[0]>=door.start+door.width for door in floor_plan(2).doors if door.kind=='bypass'))
-check("attic:new_named_leaf_contract", len(attic_leaves) == 50, len(attic_leaves), 50)
+check("attic:new_named_leaf_contract", len(attic_leaves) == 61, len(attic_leaves), 61)
 check("attic_access:new_named_leaf_contract", len(access_leaves) == A.ladder_treads+6,
       len(access_leaves), A.ladder_treads+6)
 
@@ -408,9 +409,8 @@ for side, x in (("west", ad["deck_left"]), ("east", ad["deck_right"])):
 f2_hall = next(r.shape for r in floor_plan(2).rooms if r.id == "hall")
 ladder_y1 = ad["ladder_center_y"]-A.ladder_width/2
 ladder_y2 = ladder_y1+A.ladder_width
-ladder_footprint = box(*world_bounds((ad["ladder_foot_x"], ladder_y1, ad["hatch_right"], ladder_y2)))
-lower_landing_footprint = box(*world_bounds((ad["ladder_foot_x"]-A.ladder_bottom_landing_depth,
-                             A.hatch_y, ad["ladder_foot_x"], ad["hatch_north"])))
+ladder_footprint = box(*attic_record['ladder']['deployed_plan_bounds_mm'])
+lower_landing_footprint = box(*attic_record['ladder']['bottom_landing_bounds_mm'])
 check("attic_access:deployed_ladder_footprint_inside_F2_hall", f2_hall.covers(ladder_footprint))
 check("attic_access:bottom_standing_footprint_inside_F2_hall", f2_hall.covers(lower_landing_footprint))
 floor2_obstructions = [shape for label, shape in native.items()
@@ -428,8 +428,8 @@ left_bounds, right_bounds = bounds(left_rail), bounds(right_rail)
 for side, sb in (("left", left_bounds), ("right", right_bounds)):
     close(f"attic_access:{side}:foot_z_mm", sb[2], P.storey_height)
     close(f"attic_access:{side}:top_z_mm", sb[5], ad["deck_top_z"])
-    close(f"attic_access:{side}:foot_x_mm", sb[0], P.width-ad["hatch_right"] if P.mirror_layout else ad["ladder_foot_x"])
-    close(f"attic_access:{side}:top_x_mm", sb[3], P.width-ad["ladder_foot_x"] if P.mirror_layout else ad["hatch_right"])
+    close(f"attic_access:{side}:foot_x_mm", sb[0], min(attic_record["ladder"]["top_mm"][0],attic_record["ladder"]["foot_mm"][0]))
+    close(f"attic_access:{side}:top_x_mm", sb[3], max(attic_record["ladder"]["top_mm"][0],attic_record["ladder"]["foot_mm"][0]))
     close(f"attic_access:{side}:top_reaches_finished_deck_mm", native[f"attic_access:{side}_stringer"].distance_to(deck), 0)
 close("attic_access:overall_ladder_width_mm", right_bounds[4]-left_bounds[1], A.ladder_width)
 close("attic_access:clear_tread_width_mm", right_bounds[1]-left_bounds[4],
@@ -457,8 +457,8 @@ for label, shape in access_leaves.items():
 # Actual ladder/product safety and human-use headroom remain unresolved.
 access_probe_height = A.maximum_finished_clear_height-100
 climb_probe = section_extrusion([(ad["ladder_foot_x"], P.storey_height+1),
-                                 (ad["hatch_right"], ad["deck_top_z"]+1),
-                                 (ad["hatch_right"], ad["deck_top_z"]+access_probe_height),
+                                 (ad["ladder_top_x"], ad["deck_top_z"]+1),
+                                 (ad["ladder_top_x"], ad["deck_top_z"]+access_probe_height),
                                  (ad["ladder_foot_x"], P.storey_height+access_probe_height)],
                                 left_bounds[4]+1, right_bounds[1]-left_bounds[4]-2)
 if P.mirror_layout:climb_probe=reflect_shape(climb_probe,P.width)
@@ -467,8 +467,7 @@ close("attic_access:illustrative_climbing_probe_clear_of_F2_parts_mm3", overlap(
 close("attic_access:illustrative_climbing_probe_clear_of_attic_parts_mm3", overlap(attic_obstructions, climb_probe), 0)
 close("attic_access:illustrative_climbing_probe_clear_of_existing_roof_mm3", overlap(roof_planes, climb_probe), 0)
 upper_bounds = attic_record["ladder"]["upper_landing_bounds_mm"]
-expected_upper_bounds = world_bounds([ad["hatch_right"], A.hatch_y,
-                         min(ad["hatch_right"]+600, ad["deck_right"]), ad["hatch_north"]])
+expected_upper_bounds = world_bounds([A.hatch_x-600,A.hatch_y,A.hatch_x,ad["hatch_north"]])
 for coordinate, (actual, expected) in enumerate(zip(upper_bounds, expected_upper_bounds)):
     close(f"attic_access:recorded_upper_landing_bound_{coordinate}_mm", actual, expected)
 minimum_upper_height = min(attic_clear_height(x, P, G) for x in (upper_bounds[0], upper_bounds[2]))
@@ -521,7 +520,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R19-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R20-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

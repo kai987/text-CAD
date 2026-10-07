@@ -2,15 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const load=path=>JSON.parse(readFileSync(new URL('../../'+path,import.meta.url),'utf8'));
-test('R19 city opening reviews match gross geometry and preserve approval boundaries',()=>{
+test('R20 city opening reviews match gross geometry and preserve approval boundaries',()=>{
  const profiles=load('output/review/regulatory_profiles_R07.json');
  const opening=load('output/review/house_3d_assumptions_R01.json').attic.north_vent_opening;
- assert.equal(opening.gross_area_m2,opening.width_mm*opening.height_mm/1e6);
+ assert.equal(opening.gross_area_m2,opening.count*opening.width_mm*opening.height_mm/1e6);
  assert.equal(opening.form,'fixed_aluminium_louver');
+ assert.equal(opening.count,2);
+ assert.equal(opening.gross_area_m2,.18);
  const ids=new Set(profiles.sources.map(s=>s.id));
  for(const p of profiles.profiles){
   const r=p.attic_opening_review;
   assert.equal(r.opening_area_m2,opening.gross_area_m2);
+  assert.equal(r.opening_count,2);
+  if(p.id!=='tokyo')assert.equal(r.quantity_reference_match,null);
   assert.equal(r.statutory_compliance_result,null);
   assert.equal(r.effective_ventilation_area_m2,null);
   for(const locale of ['zh','ja','en'])assert.ok(r.description[locale].length>20);

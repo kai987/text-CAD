@@ -358,9 +358,10 @@ def concrete_variant(p=P,g=G,c=RC):
         face=bd.Face(bd.Wire.make_polygon([(x,y,z) for x,z in gable_points]))
         gable=bd.extrude(face,amount=c.column_width,dir=(0,1,0))
         if side=='north':
-            from .attic_geometry import north_vent_bounds
-            v=north_vent_bounds(p,g)
-            gable=gable.cut(solid_box((v[0],y-1,v[2],v[3],y+c.column_width+1,v[5]),'vent_tool','#FFFFFF'))
+            from .attic_geometry import north_vent_openings
+            for window in north_vent_openings(p,g):
+                v=window['bounds_mm']
+                gable=gable.cut(solid_box((v[0],y-1,v[2],v[3],y+c.column_width+1,v[5]),'vent_tool','#FFFFFF'))
         roof.append(named(gable,f"structure:roof:gable_shear_{side}","#B2B5B1"))
     frame=bd.Compound(children=[bd.Compound(children=items,label=f"structure:{category}") for category,items in
         (("columns",columns),("beams",beams),("bearing_walls",shears),("roof_framing",roof))],label="structure")

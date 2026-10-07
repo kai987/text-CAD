@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "75c6f5783f7eb3da9beffafabc54da32c831e9d5b66ffb09d120c299cfb991ac",
-    "step": "5c95d67c32961828d33d570cff22925fba997934d4abed093cda8a7e2a25480b"
+    "glb": "6bbd724da936d337c96799c2b3366eda1a43775b4902e6f0c897ae68000908e3",
+    "step": "444a67a11357f93bb11a9dfca885b78c3bcacadade8b2e87486f7fd26b8cb865"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -242,7 +242,7 @@
         "attic-nagoya-city"
       ],
       "opening_area_m2": 0.18,
-      "opening_count": 1,
+      "opening_count": 2,
       "opening_form": "fixed_aluminium_louver",
       "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
       "attic_reference_area_m2": 24.5384,
@@ -250,6 +250,8 @@
       "area_reference_match": null,
       "form_reference_match": null,
       "status": "numeric_opening_treatment_pending_authority",
+      "quantity_reference_match": null,
+      "quantity_status": "Multiple-opening interpretation requires authority confirmation",
       "actual_confirming_authority": null,
       "effective_ventilation_area_m2": null,
       "fire_equipment_specification": null,
@@ -264,8 +266,8 @@
         "ja": "名古屋市例規と県内共通例規を併読。2026年版の小屋裏物置76-78頁に窓面積の数値上限は明記されない。0.18㎡は計画値で、個別の開口取扱いは審査先へ確認。",
         "en": "Read Nagoya City rules with the prefecture-wide Aichi interpretation. Its 2026 attic pages 76-78 state no numerical window-area ceiling. The 0.18 m² area is a project value; local opening treatment still needs confirmation."
       },
-      "width_mm": 600,
-      "height_mm": 300
+      "width_mm": 200,
+      "height_mm": 450
     }
   },
   "national_regulatory_requirements": [
@@ -1495,7 +1497,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Nagoya City plus Aichi prefecture-wide common interpretation; individual confirmation pending",
@@ -1505,7 +1507,7 @@
       "attic-nagoya-city"
     ],
     "opening_area_m2": 0.18,
-    "opening_count": 1,
+    "opening_count": 2,
     "opening_form": "fixed_aluminium_louver",
     "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
     "attic_reference_area_m2": 24.5384,
@@ -1513,6 +1515,8 @@
     "area_reference_match": null,
     "form_reference_match": null,
     "status": "numeric_opening_treatment_pending_authority",
+    "quantity_reference_match": null,
+    "quantity_status": "Multiple-opening interpretation requires authority confirmation",
     "actual_confirming_authority": null,
     "effective_ventilation_area_m2": null,
     "fire_equipment_specification": null,
@@ -1527,8 +1531,8 @@
       "ja": "名古屋市例規と県内共通例規を併読。2026年版の小屋裏物置76-78頁に窓面積の数値上限は明記されない。0.18㎡は計画値で、個別の開口取扱いは審査先へ確認。",
       "en": "Read Nagoya City rules with the prefecture-wide Aichi interpretation. Its 2026 attic pages 76-78 state no numerical window-area ceiling. The 0.18 m² area is a project value; local opening treatment still needs confirmation."
     },
-    "width_mm": 600,
-    "height_mm": 300
+    "width_mm": 200,
+    "height_mm": 450
   },
   "architectural_coordination_result": null,
   "capacity_results": null,

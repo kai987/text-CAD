@@ -15,8 +15,8 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "75c6f5783f7eb3da9beffafabc54da32c831e9d5b66ffb09d120c299cfb991ac",
-    "step": "5c95d67c32961828d33d570cff22925fba997934d4abed093cda8a7e2a25480b"
+    "glb": "6bbd724da936d337c96799c2b3366eda1a43775b4902e6f0c897ae68000908e3",
+    "step": "444a67a11357f93bb11a9dfca885b78c3bcacadade8b2e87486f7fd26b8cb865"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -237,7 +237,7 @@
         "attic-osaka-2026"
       ],
       "opening_area_m2": 0.18,
-      "opening_count": 1,
+      "opening_count": 2,
       "opening_form": "fixed_aluminium_louver",
       "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
       "attic_reference_area_m2": 24.5384,
@@ -245,6 +245,8 @@
       "area_reference_match": true,
       "form_reference_match": true,
       "status": "within_voluntary_ceiling_for_approximate_guidance",
+      "quantity_reference_match": null,
+      "quantity_status": "Multiple-opening interpretation requires authority confirmation",
       "actual_confirming_authority": null,
       "effective_ventilation_area_m2": null,
       "fire_equipment_specification": null,
@@ -259,8 +261,8 @@
         "ja": "大阪市1-18(3)：ロフト以外は原則開口不可。換気用約0.2㎡、固定又は可動ガラリ。計画上限0.2㎡は自主設定で、法定の厳密な上限ではない。",
         "en": "Osaka City 1-18(3): non-loft attic openings are generally restricted; ventilation openings of approximately 0.2 m² use fixed or movable louvers. The 0.2 m² project ceiling is voluntary, not an exact statutory maximum."
       },
-      "width_mm": 600,
-      "height_mm": 300
+      "width_mm": 200,
+      "height_mm": 450
     }
   },
   "national_regulatory_requirements": [
@@ -1490,7 +1492,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R19-3D; current coordinated layout and fixed aluminium north attic louver",
+  "architectural_geometry_baseline": "R20-3D; current coordinated layout and fixed aluminium north attic louver",
   "attic_opening_review": {
     "checked_at": "2026-10-07",
     "scope": "Osaka City storage attic, excluding lofts",
@@ -1498,7 +1500,7 @@
       "attic-osaka-2026"
     ],
     "opening_area_m2": 0.18,
-    "opening_count": 1,
+    "opening_count": 2,
     "opening_form": "fixed_aluminium_louver",
     "area_basis": "Gross wall aperture including frame, not glass area or aerodynamic free area",
     "attic_reference_area_m2": 24.5384,
@@ -1506,6 +1508,8 @@
     "area_reference_match": true,
     "form_reference_match": true,
     "status": "within_voluntary_ceiling_for_approximate_guidance",
+    "quantity_reference_match": null,
+    "quantity_status": "Multiple-opening interpretation requires authority confirmation",
     "actual_confirming_authority": null,
     "effective_ventilation_area_m2": null,
     "fire_equipment_specification": null,
@@ -1520,8 +1524,8 @@
       "ja": "大阪市1-18(3)：ロフト以外は原則開口不可。換気用約0.2㎡、固定又は可動ガラリ。計画上限0.2㎡は自主設定で、法定の厳密な上限ではない。",
       "en": "Osaka City 1-18(3): non-loft attic openings are generally restricted; ventilation openings of approximately 0.2 m² use fixed or movable louvers. The 0.2 m² project ceiling is voluntary, not an exact statutory maximum."
     },
-    "width_mm": 600,
-    "height_mm": 300
+    "width_mm": 200,
+    "height_mm": 450
   },
   "architectural_coordination_result": null,
   "capacity_results": null,

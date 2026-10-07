@@ -75,7 +75,7 @@ def record(value, width, key=''):
             if key=='purlin_x':return sorted(width-v for v in value)
             if key=='finished_ceiling_profile_xz_mm':return point(value,width)
         return [record(v,width,key) for v in value]
-    if isinstance(value,str) and key in ('id','name','member','mount_to','label'):return side_name(value)
+    if isinstance(value,str) and key in ('id','name','member','mount_to','label','entry_side'):return side_name(value)
     return value
 
 

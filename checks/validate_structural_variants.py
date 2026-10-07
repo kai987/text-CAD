@@ -113,10 +113,12 @@ def main():
             stair_tool=solid_box((sb[0]+.1,sb[1]+.1,2620.1,sb[2]-.1,sb[3]-.1,2799.9),'stair_tool','#FFFFFF')
             hb=(A.hatch_x+.1,A.hatch_y+.1,5420.1,A.hatch_x+A.hatch_length-.1,A.hatch_y+A.hatch_width-.1,5599.9)
             hatch_tool=solid_box(reflect_bounds(hb,P.width) if P.mirror_layout else hb,'hatch_tool','#FFFFFF')
-            vent=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_bounds_mm']
+            vents=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_openings']
             gable=native['structure:roof:gable_shear_north'];gb=shape_bounds(gable)
-            probe=solid_box((vent[0]+40,gb[1]+.1,vent[2]+40,vent[3]-40,gb[4]-.1,vent[5]-40),'north_vent_probe','#FFFFFF')
-            close('RC:north_attic_vent_is_true_gable_void_mm3',_overlap(gable,probe),0,.1)
+            for window in vents:
+                vent=window['bounds_mm']
+                probe=solid_box((vent[0]+40,gb[1]+.1,vent[2]+40,vent[3]-40,gb[4]-.1,vent[5]-40),'north_vent_probe','#FFFFFF')
+                close('RC:'+window['id']+':north_attic_vent_is_true_gable_void_mm3',_overlap(gable,probe),0,.1)
             close('RC:stair_is_true_slab_void_mm3',_overlap(slab,stair_tool),0,.1)
             close('RC:attic_hatch_is_true_slab_void_mm3',_overlap(attic,hatch_tool),0,.1)
             check('RC:floor_and_attic_material_exist_beside_holes',slab.is_inside((3600,3600,2700)) and attic.is_inside((2500,3800,5500)))

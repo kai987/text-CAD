@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461321.8644444444
+2461321.881122685
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461321.8644444444
+2461321.881122685
   9
 $TDUUPDATE
  40
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{BA91307D-FC98-414B-96E3-510947037B0B}
+{C7560F14-C01C-44FB-9EB6-13E13B422B2F}
   9
 $VERSIONGUID
   2
-{10EC93E1-D0AA-405E-BFF2-954B89E3FDC7}
+{746CAB5C-61E8-425F-AD77-CAC4692D46BC}
   9
 $EXTNAMES
 290
@@ -1327,9 +1327,9 @@ ISM
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -1343,9 +1343,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -13483,7 +13483,7 @@ AcDbText
  40
 2.5
   1
-R19参考平面　1:50　単位 mm
+R20参考平面　1:50　単位 mm
   7
 HOUSE_UNICODE
  72
@@ -14681,7 +14681,7 @@ AcDbText
  40
 2.5
   1
-03. R19：便所南壁を揃え、収納壁撤去・寝室入口・灯具を修正。
+03. R20：便所南壁を揃え、収納壁撤去・寝室入口・灯具を修正。
   7
 HOUSE_UNICODE
  11
@@ -15269,7 +15269,7 @@ AcDbText
  40
 2.5
   1
-北矢印：仮定方位　R19：左右反転・対面キッチン・北側換気窓・構造未計算
+北矢印：仮定方位　R20：左右反転・対面キッチン・北側換気窓・構造未計算
   7
 HOUSE_UNICODE
  11
@@ -17555,7 +17555,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-07T11:44:48.011215+00:00
+1.4.4 @ 2026-10-07T12:08:49.271741+00:00
   0
 VISUALSTYLE
   5
@@ -24117,7 +24117,7 @@ DictionaryVariables
 280
 0
   1
-R19
+R20
   0
 DICTIONARYVAR
   5
@@ -24141,7 +24141,7 @@ DictionaryVariables
 280
 0
   1
-住宅参考計画に東京都共通製図規定を準用。R19階段下収納・4人家具・構造計算と法規適合は未検証。
+住宅参考計画に東京都共通製図規定を準用。R20階段下収納・4人家具・構造計算と法規適合は未検証。
   0
 DICTIONARYVAR
   5
@@ -24303,7 +24303,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-07T11:44:48.027898+00:00
+1.4.4 @ 2026-10-07T12:08:49.287006+00:00
   0
 ENDSEC
   0

@@ -11,8 +11,8 @@
     {
       "check": "saved:revision_R06",
       "pass": true,
-      "actual": "R19-3D",
-      "expected": "R19-3D"
+      "actual": "R20-3D",
+      "expected": "R20-3D"
     },
     {
       "check": "GLB:valid_container",
@@ -29,8 +29,8 @@
     {
       "check": "GLB:all_saved_structure_names_preserved",
       "pass": true,
-      "actual": 238,
-      "expected": 238
+      "actual": 235,
+      "expected": 235
     },
     {
       "check": "GLB:independent_structure_categories",
@@ -873,12 +873,6 @@
       "expected": null
     },
     {
-      "check": "structure:roof:vent_header_north:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "structure:roof:post_east_P01:valid_positive_solid",
       "pass": true,
       "actual": null,
@@ -921,19 +915,7 @@
       "expected": null
     },
     {
-      "check": "structure:roof:post_vent_left:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_right:valid_positive_solid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_king_north:valid_positive_solid",
+      "check": "structure:roof:post_ridge_P02:valid_positive_solid",
       "pass": true,
       "actual": null,
       "expected": null
@@ -4949,7 +4931,7 @@
     {
       "check": "structure:attic:joist_J06_north:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 8775.0,
+      "actual": 10800.0,
       "expected": null
     },
     {
@@ -5009,7 +4991,7 @@
     {
       "check": "structure:attic:trimmer_east:positive_face_to_attic_support_beam",
       "pass": true,
-      "actual": 65550.0,
+      "actual": 63300.0,
       "expected": null
     },
     {
@@ -5109,39 +5091,15 @@
       "expected": null
     },
     {
-      "check": "structure:roof:post_vent_left:positive_face_to_lower_beam",
+      "check": "structure:roof:post_ridge_P02:positive_face_to_lower_beam",
       "pass": true,
       "actual": 8100.0,
       "expected": null
     },
     {
-      "check": "structure:roof:post_vent_left:positive_face_to_roof_beam",
+      "check": "structure:roof:post_ridge_P02:positive_face_to_roof_beam",
       "pass": true,
       "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_right:positive_face_to_lower_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_right:positive_face_to_roof_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_king_north:positive_face_to_lower_beam",
-      "pass": true,
-      "actual": 8100.0,
-      "expected": null
-    },
-    {
-      "check": "structure:roof:post_vent_king_north:positive_face_to_roof_beam",
-      "pass": true,
-      "actual": 16200.0,
       "expected": null
     },
     {
@@ -5721,12 +5679,6 @@
       "expected": 0
     },
     {
-      "check": "structure:attic:joist_J06_north:structure:roof:post_vent_right:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
       "check": "structure:attic:joist_J06_north:structure:roof:rafter_west_R12:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
@@ -6069,6 +6021,12 @@
       "expected": 0
     },
     {
+      "check": "structure:attic:trimmer_east:structure:roof:post_ridge_P02:no_duplicate_structural_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
       "check": "structure:attic:trimmer_east:structure:roof:rafter_east_R03:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
@@ -6274,18 +6232,6 @@
     },
     {
       "check": "structure:roof:post_east_P03:structure:roof:rafter_east_R18:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:roof:post_vent_left:structure:roof:rafter_east_R18:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:roof:post_vent_right:structure:roof:rafter_west_R18:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -6544,18 +6490,6 @@
     },
     {
       "check": "structure:roof:purlin_west:structure:roof:rafter_west_R19:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:roof:rafter_east_R18:structure:roof:vent_header_north:no_duplicate_structural_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "structure:roof:rafter_west_R18:structure:roof:vent_header_north:no_duplicate_structural_volume_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0

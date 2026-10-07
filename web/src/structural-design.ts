@@ -21,7 +21,7 @@ export interface RegulatoryProfile {
   review_items: ReviewItem[];
   pending_site_inputs: (string | ReviewItem)[];
   attic_opening_review?: {
-    checked_at: string; source_ids: string[]; opening_area_m2: number; width_mm: number; height_mm: number;
+    checked_at: string; source_ids: string[]; opening_area_m2: number; width_mm: number; height_mm: number; opening_count: number;
     description: LocalizedText; statutory_compliance_result: null;
   };
   statutory_compliance_result: null;
@@ -79,7 +79,8 @@ export const systemNames = {
 };
 export const structuralCopy = {
   atticWindow: text('阁楼换气口核查', '小屋裏換気口の確認', 'Attic ventilation opening review'),
-  atticOpening: text('固定铝百叶 · 墙体洞口', '固定アルミガラリ・壁の開口', 'Fixed aluminium louver · Gross wall aperture'),
+  atticQuantity: text('多开口数量取扱待主管机关确认。', '複数開口の取扱いは審査先へ確認。', 'Multiple-opening interpretation requires authority confirmation.'),
+  atticOpening: text('固定铝百叶 · 墙体洞口合计', '固定アルミガラリ・壁開口合計', 'Fixed aluminium louver · Total gross wall apertures'),
   atticPending: text('有效通风面积、防火规格与审批待核定。', '有効換気面積・防火仕様・確認は未確定。', 'Effective ventilation area, fire specification and approval remain pending.'),
   title: text('结构与法规方案', '構造・法規プラン', 'Structure and regulatory concept'),
   city: text('所在地参考', '地域の参照先', 'Jurisdiction reference'),

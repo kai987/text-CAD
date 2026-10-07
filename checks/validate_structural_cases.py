@@ -21,11 +21,11 @@ def check(name, condition):
 profiles = json.loads((REVIEW/"regulatory_profiles_R07.json").read_text())
 house=json.loads((REVIEW/'house_3d_assumptions_R01.json').read_text())
 opening=house['attic']['north_vent_opening']
-check('opening_gross_area_from_parameters',opening['gross_area_m2']==opening['width_mm']*opening['height_mm']/1e6)
+check('opening_gross_area_from_parameters',opening['gross_area_m2']==opening['count']*opening['width_mm']*opening['height_mm']/1e6)
 check('current_outline_not_stale',profiles['demonstration_geometry']['outline_mm']==[house['plan_parameters']['width'],house['plan_parameters']['depth']])
 for profile in profiles['profiles']:
     review=profile['attic_opening_review']
-    check(profile['id']+':opening_matches_geometry',review['opening_area_m2']==opening['gross_area_m2'] and review['opening_form']==opening['form'])
+    check(profile['id']+':opening_matches_geometry',review['opening_area_m2']==opening['gross_area_m2'] and review['opening_form']==opening['form'] and review['opening_count']==opening['count'])
     check(profile['id']+':opening_not_approved',review['statutory_compliance_result'] is None and review['effective_ventilation_area_m2'] is None)
     if profile['id'] in ('kyoto','nagoya'):check(profile['id']+':no_invented_numeric_limit',review['area_reference_match'] is None)
 variants = json.loads((REVIEW/"structural_variants_R07.json").read_text())["variants"]

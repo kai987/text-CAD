@@ -7,9 +7,9 @@ by the house module; no load rating or statutory classification is implied.
 """
 from __future__ import annotations
 
-from .orientation import orient_shape, orient_record
+from .orientation import orient_shape, orient_record, shape as reflect_shape
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from math import cos, radians, sin, tan
 
 from cadgen import build123d as bd
@@ -19,10 +19,13 @@ from .exterior_geometry import wall_setback
 
 @dataclass(frozen=True)
 class AtticParameters:
-    north_vent_width: float = 600
-    north_vent_height: float = 300
-    north_vent_sill: float = 850
-    north_vent_offset_from_ridge: float = 0
+    north_vent_count: int = 2
+    north_vent_width: float = 200
+    north_vent_single_width: float = 300
+    north_vent_single_height: float = 600
+    north_vent_height: float = 450
+    north_vent_sill: float = 650
+    north_vent_offset_from_ridge: float = 350
     north_vent_blade_count: int = 6
     north_vent_blade_depth: float = 24
     north_vent_blade_thickness: float = 3
@@ -61,6 +64,7 @@ class AtticParameters:
     storage_box_lid_thickness: float = 20
     storage_box_side_inset: float = 500
     storage_box_y: float = 650
+    ladder_mirrored: bool = True
     ladder_width: float = 600
     ladder_angle_degrees: float = 75
     ladder_stringer_width: float = 40
@@ -74,33 +78,38 @@ class AtticParameters:
 A = AtticParameters()
 
 
-def north_vent_bounds(p,g,a=A):
-    center=p.width/2+a.north_vent_offset_from_ridge
+def north_vent_openings(p,g,a=A):
+    if a.north_vent_count not in (1,2):
+        raise ValueError('Attic ventilation layout supports one or two openings')
+    width=a.north_vent_single_width if a.north_vent_count==1 else a.north_vent_width
+    height=a.north_vent_single_height if a.north_vent_count==1 else a.north_vent_height
     z=2*p.storey_height+a.deck_thickness+a.north_vent_sill
-    return (center-a.north_vent_width/2,p.depth-p.external_wall-a.gable_lining_thickness-1,z,
-            center+a.north_vent_width/2,p.depth+1,z+a.north_vent_height)
+    offsets=[a.north_vent_offset_from_ridge] if a.north_vent_count==1 else [-a.north_vent_offset_from_ridge,a.north_vent_offset_from_ridge]
+    return [{'id':'west' if offset<0 else 'east','width_mm':width,'height_mm':height,
+             'gross_area_m2':width*height/1e6,
+             'bounds_mm':[p.width/2+offset-width/2,p.depth-p.external_wall-a.gable_lining_thickness-1,z,
+                          p.width/2+offset+width/2,p.depth+1,z+height]} for offset in offsets]
 
 
 def north_vent_tool(p,g,a=A):
     cuboid,_,_=_helpers()
-    return cuboid(north_vent_bounds(p,g,a))
+    return bd.Compound(children=[cuboid(w['bounds_mm']) for w in north_vent_openings(p,g,a)])
 
 
 def _north_vent_group(p,g,a=A):
-    cuboid,named,_=_helpers();x1,_,z1,x2,_,z2=north_vent_bounds(p,g,a)
-    y=p.depth-35;fw=35;leaves=[]
-    for i,b in enumerate([(x1,y-35,z1,x2,y+15,z1+fw),(x1,y-35,z2-fw,x2,y+15,z2),
-                          (x1,y-35,z1+fw,x1+fw,y+15,z2-fw),(x2-fw,y-35,z1+fw,x2,y+15,z2-fw)],1):
-        leaves.append(named(cuboid(b),f'attic:north_vent:frame_{i}','frame'))
-    # Fixed aluminium louver: gross aperture is not certified free ventilation area.
-    pitch=(z2-z1-2*fw)/a.north_vent_blade_count
-    for i in range(a.north_vent_blade_count):
-        z=z1+fw+(i+.5)*pitch
-        blade=cuboid((x1+fw,y-a.north_vent_blade_depth/2,z-a.north_vent_blade_thickness/2,x2-fw,y+a.north_vent_blade_depth/2,z+a.north_vent_blade_thickness/2))
-        blade=blade.rotate(bd.Axis((x1,y,z),(1,0,0)),a.north_vent_blade_angle)
-        leaves.append(named(blade,f'attic:north_vent:louver_{i+1:02d}','frame'))
-    leaves.append(named(cuboid((x1-20,p.depth,z1-30,x2+20,p.depth+35,z1-15)),
-                        'attic:north_vent:sill','charcoal'))
+    cuboid,named,_=_helpers();y=p.depth-35;fw=35;leaves=[]
+    for w in north_vent_openings(p,g,a):
+        x1,_,z1,x2,_,z2=w['bounds_mm'];prefix=f"attic:north_vent:{w['id']}"
+        for i,b in enumerate([(x1,y-35,z1,x2,y+15,z1+fw),(x1,y-35,z2-fw,x2,y+15,z2),
+                              (x1,y-35,z1+fw,x1+fw,y+15,z2-fw),(x2-fw,y-35,z1+fw,x2,y+15,z2-fw)],1):
+            leaves.append(named(cuboid(b),f'{prefix}:frame_{i}','frame'))
+        pitch=(z2-z1-2*fw)/a.north_vent_blade_count
+        for i in range(a.north_vent_blade_count):
+            z=z1+fw+(i+.5)*pitch
+            blade=cuboid((x1+fw,y-a.north_vent_blade_depth/2,z-a.north_vent_blade_thickness/2,x2-fw,y+a.north_vent_blade_depth/2,z+a.north_vent_blade_thickness/2))
+            blade=blade.rotate(bd.Axis((x1,y,z),(1,0,0)),a.north_vent_blade_angle)
+            leaves.append(named(blade,f'{prefix}:louver_{i+1:02d}','frame'))
+        leaves.append(named(cuboid((x1-20,p.depth,z1-30,x2+20,p.depth+35,z1-15)),f'{prefix}:sill','charcoal'))
     return bd.Compound(children=leaves,label='attic:windows')
 
 
@@ -148,7 +157,8 @@ def attic_dimensions(p, g, a=A):
         "hatch_right": hatch_right, "hatch_north": hatch_north,
         "ladder_center_y": a.hatch_y + a.hatch_width / 2,
         "ladder_rise": ladder_rise, "ladder_run": ladder_run,
-        "ladder_foot_x": hatch_right - ladder_run,
+        "ladder_top_x": a.hatch_x if a.ladder_mirrored else hatch_right,
+        "ladder_foot_x": a.hatch_x+ladder_run if a.ladder_mirrored else hatch_right-ladder_run,
     }
 
 
@@ -291,7 +301,8 @@ def _guardrail_group(p, g, a=A):
     }
     leaves += [cuboid(bounds, f"attic:guardrail:{side}_rail", "attic_wood")
                for side, bounds in rails.items()]
-    return bd.Compound(children=leaves, label="attic:guardrails")
+    result=bd.Compound(children=leaves, label="attic:guardrails")
+    return reflect_shape(result,2*a.hatch_x+a.hatch_length) if a.ladder_mirrored else result
 
 
 @orient_shape
@@ -302,6 +313,8 @@ def attic_group(p, g, a=A):
 
 @orient_shape
 def attic_access_group(p, g, a=A):
+    mirror_access=a.ladder_mirrored
+    a=replace(a,ladder_mirrored=False)
     cuboid, named, section_extrusion = _helpers()
     d = attic_dimensions(p, g, a)
     theta = radians(a.ladder_angle_degrees)
@@ -352,7 +365,8 @@ def attic_access_group(p, g, a=A):
                               d["hatch_right"] + a.hinge_mount_width, y + a.hinge_mount_width,
                               mount_top),
                              f"attic_access:hinge_{side}", "frame"))
-    return bd.Compound(children=leaves, label="attic_access")
+    result=bd.Compound(children=leaves, label="attic_access")
+    return reflect_shape(result,2*a.hatch_x+a.hatch_length) if mirror_access else result
 
 
 @orient_record
@@ -362,34 +376,39 @@ def attic_manifest(p, g, a=A):
     finished_depth = p.depth - 2 * a.deck_end_inset
     ladder_y0 = d["ladder_center_y"] - a.ladder_width / 2
     ladder_y1 = ladder_y0 + a.ladder_width
+    windows=north_vent_openings(p,g,a)
+    bottom=[d['ladder_foot_x'],a.hatch_y,d['ladder_foot_x']+a.ladder_bottom_landing_depth,d['hatch_north']] if a.ladder_mirrored else [d['ladder_foot_x']-a.ladder_bottom_landing_depth,a.hatch_y,d['ladder_foot_x'],d['hatch_north']]
+    upper=[d['ladder_top_x']-a.ladder_bottom_landing_depth,a.hatch_y,d['ladder_top_x'],d['hatch_north']] if a.ladder_mirrored else [d['ladder_top_x'],a.hatch_y,d['ladder_top_x']+a.ladder_bottom_landing_depth,d['hatch_north']]
     assumptions = [
-        "R10阁楼采用纯储物用途的演示方案，采用R19重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
+        "R10阁楼采用纯储物用途的演示方案，采用R20重新分配的二层房间边界及原切妻屋顶外形；未指定所在地，不认定为获准免计面积的阁楼或第三层居室。",
         "原厚200 mm概念顶板由24 mm示意基层板替换，Z=5576–5600 mm；净检修口1200 × 650 mm贯穿基层板与18 mm饰面，完成面为 Z=5618 mm。基层板本身不代表承重能力。",
         "阁楼板面净范围3680 × 6880 mm，扣除检修口的几何投影面积为24.5384㎡；该面积不是建筑法规或申报面积结论。",
         "新增实体平顶与两侧斜内衬，完成净高不超过1350 mm，平顶底面Z=6968 mm、实体厚50 mm，两侧板面边缘净高约1233.93 mm；1350 mm是演示设计目标，不是所在地法规合格结论。",
         "斜屋面内衬仍采用50 mm竖向展示预留，平顶上方剩余屋顶空间不作为储物可用空间；真实保温、通风、天花吊挂、防火和构造层次仍待设计。采用固定平顶控制净高仅为候选做法；当地对完成天花及上方残余空腔的计量、楼层认定待确认，不能认定增设天花即可免计面积或楼层。",
         "两侧50 mm厚低墙和南北20 mm厚内衬、650 mm高开放收纳架及450 mm高储物箱均为原创可修改占位参数，未选实际产品。",
         "检修梯以展开状态示意，宽600 mm、角度75度、跨高2818 mm，11等踢高约256.18 mm并显示10级踏步；阁楼板面承担最后一级，不另设遮挡检修口的面板。",
-        "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；上口站位最低净高约1254.13 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
+        "检修梯展开包络及600 mm深底端站位位于二层廊下，展开期间占用廊下通行；镜像后的上口站位最低净高1350 mm，仅表达低净高储物检修关系，未确认实际产品、安全操作或同时通行。",
         "检修口饰框依24 mm基层板底面定位，展开盖板以20 mm最小竖向展示间隙避开踏板及梯梁，并通过独立命名的示意下挂支架连接；不是可施工的折叠机械设计。",
         "独立木构件仅为结构传力方案展示，不构成梁柱、楼面承载、接合、基础或法规验算；所在地、地盘、荷载、材料和最终尺寸均待日本建筑士核定。全部新增尺寸为演示假设。",
     ]
-    assumptions.append("R19北侧居中600×300 mm固定铝百叶，洞口面积0.18㎡；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。")
+    assumptions.append("R20北侧屋脊柱左右各200×450 mm固定铝百叶，洞口合计0.18㎡；单扇备选300×600 mm。北侧恢复单根居中支柱，检修梯与盖板、护栏入口局部镜像；大阪市约0.2㎡为参考而非精确法定上限。东京按江户川区例单列，京都与名古屋开口面积取扱待核定；有效通风、防火和审批未确认。")
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R19",
+        "revision": "R20",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
-        "north_vent_bounds_mm": list(north_vent_bounds(p,g,a)),
-        "north_vent_status": "600 x 300 mm fixed aluminium louver; gross opening 0.18 m2; airflow, weather and fire specification pending",
-        "north_vent_opening": {"count": 1, "width_mm": a.north_vent_width, "height_mm": a.north_vent_height,
-            "gross_area_m2": a.north_vent_width*a.north_vent_height/1e6,
-            "inner_frame_clear_area_m2": (a.north_vent_width-70)*(a.north_vent_height-70)/1e6,
+        "north_vent_openings": windows,
+        "north_vent_bounds_mm": [w['bounds_mm'] for w in windows],
+        "north_vent_status": "Two vertical fixed aluminium louvers flanking one centred ridge post; quantity interpretation and product/fire specification pending",
+        "north_vent_opening": {"count": len(windows), "width_mm": windows[0]['width_mm'], "height_mm": windows[0]['height_mm'],
+            "gross_area_m2": sum(w['gross_area_m2'] for w in windows),
+            "inner_frame_clear_area_m2": sum((w['width_mm']-70)*(w['height_mm']-70)/1e6 for w in windows),
             "form": "fixed_aluminium_louver", "blade_count": a.north_vent_blade_count,
+            "single_opening_fallback_mm": [a.north_vent_single_width,a.north_vent_single_height],
             "effective_ventilation_area_m2": None, "certified_free_area_m2": None,
-            "area_basis": "Gross wall aperture including frame; not louver aerodynamic free area"},
-        "unchanged": ["R19 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
+            "area_basis": "Total gross wall apertures including frames; not louver aerodynamic free area"},
+        "unchanged": ["R20 coordinated layout; stairwell and WC remain vertically aligned", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],
@@ -413,20 +432,18 @@ def attic_manifest(p, g, a=A):
                              "formula": "min(tan(roof_pitch) * min(x, width-x) - lining_vertical_allowance - deck_thickness, maximum_finished_clear_height)"},
         "ladder": {
             "state": "deployed concept, independently hideable",
-            "top_mm": [d["hatch_right"], d["ladder_center_y"], d["deck_top_z"]],
+            "top_mm": [d["ladder_top_x"], d["ladder_center_y"], d["deck_top_z"]],
             "foot_mm": [d["ladder_foot_x"], d["ladder_center_y"], p.storey_height],
             "rise_mm": d["ladder_rise"], "horizontal_run_mm": d["ladder_run"],
             "inclined_length_mm": d["ladder_rise"] / sin(theta),
             "riser_count": a.ladder_treads + 1, "tread_count": a.ladder_treads,
             "riser_mm": d["ladder_rise"] / (a.ladder_treads + 1),
-            "deployed_plan_bounds_mm": [d["ladder_foot_x"], ladder_y0, d["hatch_right"], ladder_y1],
-            "bottom_landing_bounds_mm": [d["ladder_foot_x"] - a.ladder_bottom_landing_depth,
-                                         a.hatch_y, d["ladder_foot_x"], d["hatch_north"]],
-            "upper_landing_bounds_mm": [d["hatch_right"], a.hatch_y,
-                                        d["hatch_right"] + a.ladder_bottom_landing_depth, d["hatch_north"]],
-            "upper_landing_min_clear_height_mm": min(
-                attic_clear_height(x, p, g, a)
-                for x in (d["hatch_right"], d["hatch_right"] + a.ladder_bottom_landing_depth)),
+            "mirrored_about_hatch_center": a.ladder_mirrored,
+            "entry_side": "west" if a.ladder_mirrored else "east",
+            "deployed_plan_bounds_mm": [min(d['ladder_foot_x'],d['ladder_top_x']),ladder_y0,max(d['ladder_foot_x'],d['ladder_top_x']),ladder_y1],
+            "bottom_landing_bounds_mm": bottom,
+            "upper_landing_bounds_mm": upper,
+            "upper_landing_min_clear_height_mm": min(attic_clear_height(x,p,g,a) for x in (upper[0],upper[2])),
             "lid_hinge_z_mm": d["lid_hinge_z"],
             "lid_hinge_drop_below_panel_mm": d["lid_hinge_drop"],
             "lid_to_stringer_gap_mm": (d["deck_top_z"] - a.ladder_stringer_vertical_depth - d["lid_hinge_z"]) * cos(theta),

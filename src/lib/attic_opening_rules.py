@@ -45,27 +45,30 @@ RULES = {
        'Read Nagoya City rules with the prefecture-wide Aichi interpretation. Its 2026 attic pages 76-78 state no numerical window-area ceiling. The 0.18 m² area is a project value; local opening treatment still needs confirmation.')},
 }
 
-def review_opening(city, opening_area_m2, attic_reference_area_m2, opening_form):
+def review_opening(city, opening_area_m2, attic_reference_area_m2, opening_form, opening_count=1):
     """Evaluate a known reference only; never return a building compliance result."""
     if city not in RULES: raise ValueError('Unknown jurisdiction')
     if not all(isinstance(v,(int,float)) and isfinite(v) and v>0 for v in (opening_area_m2,attic_reference_area_m2)):
         raise ValueError('Positive finite opening and reference areas required')
+    if type(opening_count) is not int or opening_count not in (1,2):raise ValueError('Opening count must be one or two')
     rule=RULES[city]
     if rule['numeric_kind']=='edogawa_any':
         area_match=opening_area_m2<attic_reference_area_m2/20 or opening_area_m2<=.6
-        status='reference_example_matches_actual_municipality_pending'
+        status='reference_example_matches_actual_municipality_pending' if area_match else 'reference_example_area_does_not_match'
     elif rule['numeric_kind']=='approximate_guidance':
         area_match=opening_area_m2<=rule['project_ceiling_m2']
-        status='within_voluntary_ceiling_for_approximate_guidance'
+        status='within_voluntary_ceiling_for_approximate_guidance' if area_match else 'outside_voluntary_ceiling'
     else:
         area_match=None;status='numeric_opening_treatment_pending_authority'
     form_match=(opening_form in ('fixed_aluminium_louver','movable_louver')) if rule['required_form'] else None
     return {'checked_at':CHECKED_AT,'scope':rule['scope'],'source_ids':rule['source_ids'],
-       'opening_area_m2':opening_area_m2,'opening_count':1,'opening_form':opening_form,
+       'opening_area_m2':opening_area_m2,'opening_count':opening_count,'opening_form':opening_form,
        'area_basis':'Gross wall aperture including frame, not glass area or aerodynamic free area',
        'attic_reference_area_m2':attic_reference_area_m2,
        'attic_reference_area_status':'Conservative model projection excluding hatch; not approved statutory floor area',
        'area_reference_match':area_match,'form_reference_match':form_match,'status':status,
+       'quantity_reference_match':True if city=='tokyo' else None,
+       'quantity_status':'Edogawa checks the sum of openings; actual municipality pending' if city=='tokyo' else 'Multiple-opening interpretation requires authority confirmation',
        'actual_confirming_authority':None,'effective_ventilation_area_m2':None,
        'fire_equipment_specification':None,'statutory_compliance_result':None,
        'remaining_checks':['Actual confirming authority and storage-attic classification',

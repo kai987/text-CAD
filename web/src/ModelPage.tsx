@@ -10,13 +10,15 @@ import type { ModelSettings } from './model-state';
 import ModelControls from './ModelControls';
 import FurnitureToggle from './FurnitureToggle';
 import SceneLightingControls from './SceneLightingControls';
+import ResponsiveSceneControls from './ResponsiveSceneControls';
+import { mobileControlsCopy } from './mobile-controls-copy';
 import ViewPresets from './ViewPresets';
 import { anyVisible, groupVisibilityState, initialPreset, setGroupVisible, setPartVisible } from './model-state';
 import type { GroupId, ModelPartId, PartId } from './model-state';
 import type { ModelSelection } from './model-scene';
 import StructuralOptions from './StructuralOptions';
 import { useStructuralDesign } from './StructuralDesignContext';
-import { structuralCopy, structuralDesignUrl, structuralPaths } from './structural-design';
+import { cityNames, structuralCopy, structuralDesignUrl, structuralPaths } from './structural-design';
 import type { StructuralOverlayState } from './structural-design';
 
 const ThreeScene = lazy(() => import('./ThreeScene'));
@@ -62,8 +64,11 @@ export default function ModelPage({ settings, setSettings }: Props) {
             setCameraRequest(s => ({ mode: 'iso', seq: s.seq + 1 }))}><RotateCcw size={16} aria-hidden="true" />{copy.model.reset}</button>
         </div>
       </div>
-      <SceneLightingControls settings={settings} setSettings={setSettings} ready={ready} />
-      {layout.id === 'house' ? <StructuralOptions compact showSummary={structuralMode} /> : null}
+      <ResponsiveSceneControls title={mobileControlsCopy[locale].sceneSettings}
+        summary={`${settings.environment === 'day' ? copy.sceneLighting.day : copy.sceneLighting.night}${layout.id === 'house' ? ` · ${cityNames[design.city][locale]} · ${design.system}` : ''}`}>
+        <SceneLightingControls settings={settings} setSettings={setSettings} ready={ready} />
+        {layout.id === 'house' ? <StructuralOptions compact showSummary={structuralMode} /> : null}
+      </ResponsiveSceneControls>
       <ViewPresets settings={settings} setSettings={setSettings} ready={ready} structuralMode={structuralMode} onPreset={preset => {
         setStructuralMode(preset === 'structure');
         const url = new URL(location.href); url.searchParams.set('mode', preset);

@@ -30,6 +30,11 @@ def artifact_paths(root: Path) -> list[str]:
 
 def verify(root: Path = ROOT) -> dict:
     release = json.loads((root/RELEASE).read_text())
+    return verify_snapshot(root, release)
+
+
+def verify_snapshot(root: Path, release: dict) -> dict:
+    """Check an unpublished candidate with exactly the final release's rules."""
     if release.get('schema_version') != 1 or not release.get('validation_commands'):
         raise ValueError('CAD release has no completed validation provenance.')
     if sorted(release['sources']) != source_paths(root):
@@ -39,6 +44,8 @@ def verify(root: Path = ROOT) -> dict:
             path = (root/relative).resolve()
             if not path.is_relative_to(root.resolve()) or not path.is_file() or digest(path) != expected:
                 raise ValueError(f'Stale CAD {section}: {relative}; run src/cad_pipeline.py --regenerate.')
+    if sorted(release['artifacts']) != artifact_paths(root):
+        raise ValueError('CAD artifact set changed; run src/cad_pipeline.py --regenerate.')
     return {'revision': release['drawing_revision'], 'sources': len(release['sources']),
             'artifacts': len(release['artifacts']), 'scope': release['scope']}
 

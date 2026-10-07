@@ -1,12 +1,20 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+The house drawing revision comes from `drawing_revision` in the [drawing manifest](output/review/design_manifest.json), and its model revision from `revision` in the [model manifest](output/review/house_3d_assumptions_R01.json). The [apartment manifest](output/review/apartment_2ldk_manifest.json) records independent revisions. R05/R06/R10 download filenames are compatibility paths; title blocks and manifests identify the actual revision. Structural overlays retain their own concept revisions and do not represent completed capacity calculations.
+
+## Viewer and release maintenance
+
+On phones, Scene settings starts collapsed and contains day/night, lighting, jurisdiction and structural options. Floor presets scroll horizontally. Collapsing the panel, changing language or resizing retains model settings; desktop settings remain visible. UI revisions come from the model manifests. This viewer update retains the R22 architectural concept.
+
+Local generation and CI validation share one Python unit-test catalog. Both Python and the web build verify the CAD artifact set and hashes. Unregistered exports block publication, and the final release manifest is written only after every check passes.
+
 ## R22 Bathroom fixtures and sliding doors
 
 Show upstairs sliding doors closed, retaining tracks and pulls. Use the same 600×450 mm vanity and mirror in the F1 washroom as upstairs. The 1820 mm tub outer length reaches both clear east/west wall faces; move its shower and mixer to the east wall near the south-east tub corner. Keep R21 attic access and lighting positions. All dimensions are illustrative; waterproofing, plumbing and products remain undesigned.
 
 [中文 / 日本語 / English](docs/bathroom_R22.md)
 
-## R21 F2 basin and attic access coordination
+## History: R21 F2 basin and attic access coordination
 
 Centre the F2 basin on its 800 mm wall with 100 mm at each end. Two 750 mm bedroom sliders now show retracted leaves, tracks and pulls. Shift the attic hatch 535 mm west, retaining 100 mm to the west deck edge; coordinate floor/ceiling openings and access/framing parts. Relocate the hall pendant and add a vanity wall light, bringing the indoor total to 16. All dimensions and lighting remain illustrative.
 
@@ -26,23 +34,23 @@ R20 and earlier sections are historical. R22 describes the current exports.
 
 ## R19 Attic opening references
 
-Keep the centered 600 × 300 mm gross aperture (0.18 m²), now a fixed aluminium louver. Tokyo uses a named Edogawa example; Osaka references approximately 0.2 m² and louver specifications. No numerical Kyoto/Nagoya ceiling is invented. Current output is R19; effective ventilation, fire specification and approval remain pending. [R19 / 日本語 / English](docs/attic_opening_rules_R19.md).
+Keep the centered 600 × 300 mm gross aperture (0.18 m²), now a fixed aluminium louver. Tokyo uses a named Edogawa example; Osaka references approximately 0.2 m² and louver specifications. No numerical Kyoto/Nagoya ceiling is invented. This section records the historical R19 scheme; effective ventilation, fire specification and approval remain pending. [R19 / 日本語 / English](docs/attic_opening_rules_R19.md).
 
 ## R18 centred attic north window and lighting
 
-The north attic window moves to the ridge centre. Paired jamb posts, a header and an upper ridge post keep its opening clear in the concept frame. Two short pendants sit below the default 6900 mm attic cut plane and share the Indoor lights switch. Sections, capacity and lighting remain illustrative; current exports are R18. [R18](docs/attic_window_lighting_R18.md).
+The north attic window moves to the ridge centre. Paired jamb posts, a header and an upper ridge post keep its opening clear in the concept frame. Two short pendants sit below the default 6900 mm attic cut plane and share the Indoor lights switch. Sections, capacity and lighting remain illustrative; this section records the historical R18 scheme. [R18](docs/attic_window_lighting_R18.md).
 
 ## R17 wall alignment, bedroom entries and visible lights
 
 Both WC south walls align with the first-floor washroom; clear size 900×1820 mm. The F2 wardrobe enclosure is removed and open storage joins the master (14.760 m² net geometric area). Two separate 750 mm sliders at the hall corner enter the master and north bedroom. Their separation wall remains.
 
-Open ring shades prevent their top caps from hiding the glowing diffusers in overhead views. All 14 indoor lights retain the shared switch. Dimensions, lighting and structure are illustrative. Current exports are R17; sections below are historical. [R17](docs/wall_lighting_R17.md).
+Open ring shades prevent their top caps from hiding the glowing diffusers in overhead views. All 14 indoor lights retain the shared switch. Dimensions, lighting and structure are illustrative. This section records the historical R17 scheme. [R17](docs/wall_lighting_R17.md).
 
 ## History: R16 second-floor redesign and indoor lighting
 
 The long central passage joins the two south bedrooms (11.160/12.803 m²). Each bedroom has its own balcony slider. The WC forecourt joins the shared hall with a recessed basin and mirror. North bedroom windows are north 600 mm/east 1800 mm. All bedrooms have a desk, chair and bedside table. Open stairs use 60 mm treads and side stringers, retaining under-stair storage; reduced solid fill does not automatically reduce their footprint.
 
-Fifteen indoor lamps (pendants, stair wall lamps, attic ceiling lamp) have one master switch, independent of furniture, outdoor lights and time of day. Hidden or clipped lamps stop illuminating. Dimensions and brightness are demonstration assumptions; capacity, connections, guards, fire safety, photometry and electrical installation remain unengineered. [R16 details / 中文 / 日本語](docs/interior_R16.md). R15 and earlier sections below are historical; current R17 exports take precedence.
+Fifteen indoor lamps (pendants, stair wall lamps, attic ceiling lamp) have one master switch, independent of furniture, outdoor lights and time of day. Hidden or clipped lamps stop illuminating. Dimensions and brightness are demonstration assumptions; capacity, connections, guards, fire safety, photometry and electrical installation remain unengineered. [R16 details / 中文 / 日本語](docs/interior_R16.md). R15 and earlier sections below are historical; use the manifests above for current exports.
 
 ## R15 Under-stair storage and four-person furnishings
 
@@ -68,7 +76,7 @@ The facing kitchen has a 2550×650 mm counter and a 900 mm main rear working ais
 
 STEP export losslessly compacts whitespace for the Sites 25 MiB per-file limit. Numbers, named components and appearance metadata are retained and the saved CAD is revalidated.
 
-R13 and earlier sections below are historical; the R15 section above and the current exported files take precedence.
+R13 and earlier sections below are historical; use the revision notes and manifests above for the current scheme.
 
 ## Earlier scheme (R13 balcony revision)
 
@@ -102,7 +110,7 @@ Independent `foundation`, `yard` and `fence` groups add a conceptual raft founda
 
 All added dimensions are **demonstration assumptions**: a **10190 × 13780 mm lot (140.4182 m² geometric area)**, outdoor grade at **Z=-500 mm**, a 150 mm raft, 140 mm perimeter stem walls, and two **2800 × 5000 mm side-by-side parking bays**. The 1200 mm-high fence has 24 open panels, 26 posts and 26 footings, with clear southern vehicle/pedestrian openings of 5675/1800 mm. Grade, lower step, existing step, existing porch and entrance floor are at -500/-330/-160/-25/0 mm. Dimensions, planting and materials are editable in `src/lib/site_geometry.py`; reinforcement, bearing capacity and ground treatment have not been designed.
 
-R05 originally contained 537 named bodies after adding the site. The current export contains 891 named leaf bodies; see export validation for details. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. Approved floor drawings remain; the attic drawing is updated to R06. [Parameters and scope](docs/site_R11.md).
+R05 originally contained 537 named bodies after adding the site. The historical export in this section contained 891 named leaf bodies; see current export validation for today’s count. The supplemental `DXF/house_site_plan.dxf` and `output/pdf/house_site_plan_R05_JP.pdf` use A3, a 1:100 site plan and a labelled 1:25 conceptual foundation section, with editable text and dimensions. This historical revision retained the approved floor drawings and updated the attic drawing to R06. [Parameters and scope](docs/site_R11.md).
 
 ```bash
 .venv/bin/python src/generate_site_plan.py
@@ -117,7 +125,7 @@ The attic remains inside the R03 gable envelope, with user-confirmed first- and 
 
 All dimensions are **demonstration assumptions**: a 3680 × 6880 mm deck, clear 1200 × 650 mm hatch and 24.5384 m² geometric projection after subtracting the opening. The previous 200 mm concept ceiling panel is replaced by a 24 mm subfloor at Z=5576–5600 mm. The 18 mm finish remains at Z=5618 mm. A physical flat ceiling with its underside at Z=6968 mm and 50 mm thickness limits maximum clear height to 1350 mm; deck-edge height is approximately 1233.93 mm. Space above the ceiling is excluded from usable storage. The upper standing area has approximately 1350 mm minimum headroom, showing low storage access only; actual ladder products, safe operation, insulation, ventilation and ceiling suspension remain undesigned.
 
-Parameters are in `src/lib/attic_geometry.py`. Current `DXF/house_attic_plan.dxf` retains editable text and dimensions. The current supplement is `output/pdf/house_attic_plan_R06_JP.pdf`, A3 at 1:50 with an east–west section. The R04 PDF and notes remain historical and do not describe current headroom. The fixed ceiling is only a candidate treatment. Local measurement of the finished ceiling and residual cavity, and storey classification, remain pending; adding a ceiling alone does not establish area or storey exemption. Neither 1350 mm nor 24.5384 m² establishes local regulatory recognition. Approved R02 floor plans are unchanged.
+Parameters are in `src/lib/attic_geometry.py`. Current `DXF/house_attic_plan.dxf` retains editable text and dimensions. The current supplement is `output/pdf/house_attic_plan_R06_JP.pdf`, A3 at 1:50 with an east–west section. The R04 PDF and notes remain historical and do not describe current headroom. The fixed ceiling is only a candidate treatment. Local measurement of the finished ceiling and residual cavity, and storey classification, remain pending; adding a ceiling alone does not establish area or storey exemption. Neither 1350 mm nor 24.5384 m² establishes local regulatory recognition. These attic and floor-plan notes record the earlier scheme; use the manifests above for current revisions.
 
 ```bash
 .venv/bin/python src/generate_attic_plan.py
@@ -238,7 +246,7 @@ uv pip install --python .venv/bin/python PyMuPDF==1.26.7
 .venv/bin/python web/scripts/generate-plan-svg.py
 ```
 
-Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the user-confirmed 7,280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
+Commit `output/vector/house_1f_plan.svg`, `house_2f_plan.svg`, and `web/src/plan-preview-metadata.json`, then rebuild. The current crop and required labels correspond to the user-confirmed 8190 × 7280 mm demonstration design. Recheck the crop and annotations if the plan dimensions or sheet layout change.
 
 On pushes to `main`, `.github/workflows/pages.yml` installs dependencies, runs model-control tests, checks TypeScript, builds the app, verifies file hashes, and publishes to GitHub Pages. Online dimensions remain demonstration assumptions. Outstanding structural and service-design items are listed below.
 

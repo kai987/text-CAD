@@ -1,10 +1,10 @@
 import { useEffect, useId, useState } from 'react';
-import { asset } from './data';
+import { asset, house } from './data';
 import { useLanguage } from './LanguageContext';
 import { useStructuralDesign } from './StructuralDesignContext';
 import { createAsyncResourceCache } from './async-resource-cache';
 import {
-  cityNames, designCities, isDesignCity, isStructuralSystem, structuralCopy, structuralPaths,
+  cityNames, coordinationSummary, designCities, isDesignCity, isStructuralSystem, structuralCopy, structuralPaths,
   structuralSystems, systemNames,
 } from './structural-design';
 import type { RegulatoryProfiles, StructuralVariants } from './structural-design';
@@ -51,7 +51,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
     return () => { alive = false; };
   }, [attempt, compact, showSummary]);
   const profile = data?.profiles.find(item => item.id === design.city);
-  const summary = schemes?.variants[design.system]?.coordination.summary;
+  const summary = coordinationSummary(schemes?.variants[design.system], locale);
   const nationalRequirements = data?.national_requirements.filter(item => item.id !== 'current_timber_rules' || design.system === 'W') ?? [];
   const referencedIds = new Set([
     ...(profile?.attic_opening_review?.source_ids ?? []),
@@ -61,7 +61,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
   ]);
   const sources = data?.sources.filter(source => referencedIds.has(source.id)) ?? [];
   return <section className={compact ? 'structural-options compact' : 'structural-options'} aria-label={structuralCopy.title[locale]}>
-    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R20</span></h2> : null}
+    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">{house.drawingRevision}</span></h2> : null}
     {showSelectors ? <div className="structural-selectors">
       <div><label htmlFor={`${controlId}-city`}>{structuralCopy.city[locale]}</label>
         <select id={`${controlId}-city`} value={design.city} onChange={event => {
@@ -74,7 +74,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
         }}>{structuralSystems.map(system => <option key={system} value={system}>{systemNames[system][locale]}</option>)}</select>
       </div>
     </div> : <p className="structural-chosen">{cityNames[design.city][locale]} · {systemNames[design.system][locale]}</p>}
-    {compact && showSummary && summary ? <p className="structural-explanation">{summary[locale]}</p> : null}
+    {compact && showSummary && summary ? <p className="structural-explanation">{summary}</p> : null}
     {!compact ? <>
       <p className="structural-status">{structuralCopy.status[locale]}</p>
       <p className="structural-explanation">{structuralCopy.introduction[locale]}</p>
@@ -114,7 +114,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
         </>}
         {failed ? <button type="button" className="outline-button" onClick={() => setAttempt(value => value + 1)}>{structuralCopy.retry[locale]}</button> : null}
         <h3>{structuralCopy.coordination[locale]}</h3>
-        <p>{summary?.[locale] ?? structuralCopy.exterior[locale]}</p>
+        <p>{summary ?? structuralCopy.exterior[locale]}</p>
         {summary ? <p>{structuralCopy.exterior[locale]}</p> : null}
       </details>
     </> : null}

@@ -29,6 +29,13 @@ test('the web publication gate rejects source drift, broken CAD and unknown path
   await writeFile(resolve(root, 'src/new.py'), 'new');
   await assert.rejects(validateCadRelease(root), /source set changed/);
   await rm(resolve(root, 'src/new.py'));
+  await writeFile(resolve(root, 'GLB/unregistered.glb'), 'new export');
+  await assert.rejects(validateCadRelease(root), /artifact set changed/);
+  await rm(resolve(root, 'GLB/unregistered.glb'));
+  await writeFile(resolve(root, 'output/review/validation_extra.json'), '{}');
+  await validateCadRelease(root); // Ephemeral validation reports are not CAD exports.
+  release.artifacts = {}; await save();
+  await assert.rejects(validateCadRelease(root), /artifact set changed/);
   release.artifacts = { '../outside': 'bad' }; await save();
   await assert.rejects(validateCadRelease(root), /Invalid CAD release path/);
 });

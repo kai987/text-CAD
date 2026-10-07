@@ -59,6 +59,11 @@ export function structuralPaths(design: StructuralDesign) {
     case: `output/review/cases/${design.city}_${design.system}_R07.json`,
   };
 }
+/** The timber asset's historical revision is not the current architectural revision. */
+export function coordinationSummary(variant: StructuralVariant | undefined, locale: Locale): string | undefined {
+  if (!variant) return undefined;
+  return variant.system === 'W' ? structuralCopy.timberCoordination[locale] : variant.coordination.summary?.[locale];
+}
 /** Visibility uses the selected variant after cut/part edits as well as the preset itself. */
 export function structuralObjectVisible(id: ModelPartId, settings: ModelSettings): boolean {
   if (id === 'structure' || id === 'foundation') return !!settings.visibility[id];
@@ -99,6 +104,7 @@ export const structuralCopy = {
   required: text('必要的地块与计算输入', '必要な敷地・計算入力', 'Required site and calculation inputs'),
   commonInputs: text('准确地址、测量与道路资料、用途与防火区、地盘调查、材料等级、恒载与活载、连接及基础计算。', '所在地・測量・接道、用途地域・防火指定、地盤調査、材料等級、固定荷重・積載荷重、接合部・基礎計算。', 'Exact address, survey and road access, zoning and fire district, ground investigation, material grades, dead/live loads, connections and foundation calculations.'),
   coordination: text('建筑协调待定项', '建築との調整事項', 'Architectural coordination pending'),
+  timberCoordination: text('木结构演示架构沿镜像平面布置；截面、节点与基础均未验算。', '木造概念架構を左右反転の間取りに沿って配置。断面・接合部・基礎は未計算。', 'The timber concept follows the mirrored layout; sections, connections and foundations are uncalculated.'),
   exterior: text('完整外观沿用现有建筑方案；所选体系在「结构方案」视图中显示，尚未完成门窗、室内净空与外轮廓协调。', '建物全体は既存の建築計画です。選択構造は「構造プラン」で表示し、開口・内法・外形の調整は未完了です。', 'Whole-house view retains the architectural concept. The selected system appears in Structural scheme; openings, clearances and the envelope are not fully coordinated.'),
   downloadGlb: text('结构 GLB', '構造GLB', 'Structural GLB'),
   downloadStep: text('结构 STEP', '構造STEP', 'Structural STEP'),

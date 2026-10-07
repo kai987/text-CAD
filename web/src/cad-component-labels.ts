@@ -254,6 +254,10 @@ const furnitureObjects = {
   dining_table: { kind: 'table', name: label('餐桌', 'ダイニングテーブル', 'Dining table') },
   dining_chair_west: { kind: 'chair', name: label('西侧餐椅', '西側のダイニングチェア', 'West dining chair') },
   dining_chair_east: { kind: 'chair', name: label('东侧餐椅', '東側のダイニングチェア', 'East dining chair') },
+  dining_chair_west_1: { kind: 'chair', name: label('西侧餐椅 1', '西側ダイニングチェア 1', 'West dining chair 1') },
+  dining_chair_west_2: { kind: 'chair', name: label('西侧餐椅 2', '西側ダイニングチェア 2', 'West dining chair 2') },
+  dining_chair_east_1: { kind: 'chair', name: label('东侧餐椅 1', '東側ダイニングチェア 1', 'East dining chair 1') },
+  dining_chair_east_2: { kind: 'chair', name: label('东侧餐椅 2', '東側ダイニングチェア 2', 'East dining chair 2') },
   television: { kind: 'television', name: label('电视与电视柜', 'テレビ・テレビ台', 'TV and console') },
 } satisfies Record<string, { kind: FurnitureKind; name: Label }>;
 
@@ -269,6 +273,9 @@ const furnitureDetails = {
     back: label('靠背', '背もたれ', 'Back'),
     arm_left: label('左扶手', '左ひじ掛け', 'Left armrest'),
     arm_right: label('右扶手', '右ひじ掛け', 'Right armrest'),
+    chaise_base: label('转角贵妃位底座', 'カウチ部分の土台', 'Chaise base'),
+    chaise_leg_1: label('贵妃位脚 1', 'カウチ脚 1', 'Chaise leg 1'),
+    chaise_leg_2: label('贵妃位脚 2', 'カウチ脚 2', 'Chaise leg 2'),
   },
   table: { top: label('桌面', '天板', 'Tabletop') },
   chair: {
@@ -299,8 +306,8 @@ type NumberedDetail = { name: Label; count: number };
 const numberedFurnitureDetails: Record<FurnitureKind, Readonly<Record<string, NumberedDetail>>> = {
   bed: { pillow: { name: label('枕头', '枕', 'Pillow'), count: 2 } },
   sofa: {
-    seat: { name: label('坐垫', '座面クッション', 'Seat cushion'), count: 2 },
-    back_cushion: { name: label('靠背垫', '背もたれクッション', 'Back cushion'), count: 2 },
+    seat: { name: label('坐垫', '座面クッション', 'Seat cushion'), count: 4 },
+    back_cushion: { name: label('靠背垫', '背もたれクッション', 'Back cushion'), count: 3 },
   },
   table: {},
   chair: {},
@@ -399,7 +406,7 @@ const fixtureDetails = {
 } satisfies Record<FixtureKind, Catalog>;
 
 const numberedFixtureDetails: Record<FixtureKind, Readonly<Record<string, NumberedDetail>>> = {
-  fridge: { door_white: { name: label('冰箱门', '冷蔵庫扉', 'Refrigerator door'), count: 3 }, handle_chrome: { name: label('冰箱把手', '冷蔵庫取っ手', 'Refrigerator handle'), count: 3 } },
+  fridge: { door_white: { name: label('冰箱门', '冷蔵庫扉', 'Refrigerator door'), count: 2 }, handle_chrome: { name: label('冰箱把手', '冷蔵庫取っ手', 'Refrigerator handle'), count: 2 } },
   cupboard: { front_wood: { name: label('柜门面板', '扉パネル', 'Cupboard front'), count: 3 }, handle_chrome: { name: label('柜把手', '取っ手', 'Cupboard handle'), count: 3 } },
   kitchen: {
     front_wood: { name: label('橱柜前面板', 'キャビネット前面パネル', 'Cabinet front'), count: 5 },
@@ -494,6 +501,12 @@ export function cadComponentLabel(locale: Locale, name: string, modelId: ModelId
     const direction = lookup(directions, seam ? seam[1] : exterior[2], locale);
     const detail = lookup(exteriorDetails, exterior[1], locale);
     return direction && detail ? `${direction} · ${detail}${seam ? ` ${Number(seam[2])}` : ''}` : null;
+  }
+  const stairStore = /^F1:under_stairs:(?:section_(\d+):(side|ceiling)|(back)|shelf_(\d+))$/.exec(name);
+  if (stairStore) {
+    const base = label('楼梯下储物间', '階段下収納', 'Under-stair storage')[locale];
+    const detail = stairStore[2] ? (stairStore[2] === 'side' ? label('侧墙', '側壁', 'Side wall') : label('阶梯顶板', '段状天井', 'Stepped ceiling')) : stairStore[3] ? label('后墙', '奥壁', 'Back wall') : label('搁板', '棚板', 'Shelf');
+    return `${base} · ${detail[locale]} ${stairStore[1] ?? stairStore[4] ?? ''}`.trim();
   }
   const entry = /^F1:(D01):(canopy|porch|porch_step|frame|handle|threshold)$/.exec(name);
   if (entry) return `${entry[1]} · ${entryDetails[entry[2] as keyof typeof entryDetails][locale]}`;

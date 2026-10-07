@@ -240,6 +240,7 @@ for flight, base_top in [("lower", 0), ("upper", P.storey_height/2)]:
         close(f"{label}:width_mm", sb[3]-sb[0], P.stair_width)
         close(f"{label}:tread_depth_mm", sb[4]-sb[1], P.tread)
         close(f"{label}:top_elevation_mm", sb[5], base_top+i*rise)
+        if flight=='upper':close(f'{label}:R15_thickness_mm',sb[5]-sb[2],200)
 last_top = bounds(native["stairs:upper_tread_07"])[5]
 close("stairs:final_floor_rise_mm", bounds(slab2)[5]-last_top, rise)
 for side in ("lower", "upper"):
@@ -249,6 +250,19 @@ for side in ("lower", "upper"):
 wc1 = next(r.shape for r in floor_plan(1).rooms if r.id == "wc")
 wc2 = next(r.shape for r in floor_plan(2).rooms if r.id == "wc")
 check("WC:upper_lower_footprints_aligned", wc1.equals(wc2), list(wc1.bounds))
+entry=next(d for d in floor_plan(1).doors if d.a=='outside')
+handle=bounds(native['F1:D01:handle'])
+check('R15:entry_handle_left_when_viewed_outside',(handle[0]+handle[3])/2<entry.start+entry.width/2,handle)
+storage_parts=[s for name,s in native.items() if name.startswith('F1:under_stairs:')]
+stair_parts=[s for name,s in native.items() if name.startswith('stairs:')]
+close('R15:stair_storage_parts_clear_of_treads_mm3',sum(overlap(storage_parts,tread) for tread in stair_parts),0,.01)
+store=next(r.shape for r in floor_plan(1).rooms if r.id=='under_stairs')
+x1,y1,x2,y2=store.bounds
+probe=cuboid((x1+1,y1+1,1,x2-1,y1+400,2000))
+close('R15:storage_entry_2000mm_headroom_mm3',overlap(storage_parts+stair_parts,probe),0,.01)
+check('R15:storage_shelves_and_stepped_ceiling',len(storage_parts)==17,len(storage_parts))
+fridge_doors=[name for name in native if '_fridge:door_' in name]
+check('R15:fridge_two_side_by_side_doors',len(fridge_doors)==2,fridge_doors)
 
 
 roof = native["roof:west_plane"]
@@ -273,22 +287,22 @@ close("attic:thin_subfloor_thickness_mm", bounds(ceiling)[5]-bounds(ceiling)[2],
 close("roof:ceiling_finished_floor_datum_mm", bounds(ceiling)[5], 2*P.storey_height)
 
 
-# R14 verifies requested equipment and the aperture in the saved native CAD.
+# R15 verifies requested equipment and the aperture in the saved native CAD.
 facing=next((i,b) for i,(name,b) in enumerate(floor_plan(1).fixtures,1) if name=='対面キッチン')
 prefix=f'F1:fixture_{facing[0]:02d}_kitchen'
 hob=native[prefix+':hob_dark'];hood=native[prefix+':range_hood_steel']
 hb,cb=bounds(hob),bounds(hood)
-close('R14:extractor_above_cooktop_x_mm',(hb[0]+hb[3])/2,(cb[0]+cb[3])/2)
-check('R14:extractor_above_cooktop_z',cb[2]>hb[5]+800)
-check('R14:equipment_present',all(any(token in name for name in native) for token in ('_fridge:body_white','_cupboard:microwave_body_steel',':hood_filter_dark',':hood_duct_cover_steel')))
+close('R15:extractor_above_cooktop_x_mm',(hb[0]+hb[3])/2,(cb[0]+cb[3])/2)
+check('R15:extractor_above_cooktop_z',cb[2]>hb[5]+800)
+check('R15:equipment_present',all(any(token in name for name in native) for token in ('_fridge:body_white','_cupboard:microwave_body_steel',':hood_filter_dark',':hood_duct_cover_steel')))
 vent_record=json.loads((ROOT/'output/review/house_3d_assumptions_R01.json').read_text())['attic']['north_vent_bounds_mm']
 vx1,vy1,vz1,vx2,vy2,vz2=vent_record
 vent_probe=cuboid((vx1+40,vy1+1,vz1+40,vx2-40,vy2-1,vz2-40))
 vent_shell=[obj for name,obj in native.items() if name in ('roof:north_gable_wall','roof:cladding:north_gable','attic:gable_lining:north') or name.startswith('structure:roof:post_')]
-close('R14:north_attic_vent_passes_through_shell_mm3',overlap(vent_shell,vent_probe),0,.1)
-close('R14:north_attic_vent_width_mm',vx2-vx1,600)
-close('R14:north_attic_vent_height_mm',vz2-vz1,300)
-check('R14:north_attic_vent_all_named_parts',len([name for name in native if name.startswith('attic:north_vent:')])==6)
+close('R15:north_attic_vent_passes_through_shell_mm3',overlap(vent_shell,vent_probe),0,.1)
+close('R15:north_attic_vent_width_mm',vx2-vx1,600)
+close('R15:north_attic_vent_height_mm',vz2-vz1,300)
+check('R15:north_attic_vent_all_named_parts',len([name for name in native if name.startswith('attic:north_vent:')])==6)
 
 # The R04 attic fits inside the existing roof rather than enlarging its outer
 # envelope. Checks use saved native solids and swept clearance regions; a
@@ -482,7 +496,7 @@ check("GLB:each_node_has_single_parent_or_scene_root", len(children)+len(scene_r
       len(set(children+scene_roots)) == len(nodes))
 
 report = {
-    "revision": "R14-3D", "units": "STEP mm; GLB metres / Y-up",
+    "revision": "R15-3D", "units": "STEP mm; GLB metres / Y-up",
     "summary": {"checks": len(results), "passed": sum(r["pass"] for r in results),
                 "failed": sum(not r["pass"] for r in results), "STEP_leaf_occurrences": len(leaves),
                 "native_solids": solid_count, "GLB_mesh_nodes": len(mesh_nodes), "GLB_all_nodes": len(nodes)},

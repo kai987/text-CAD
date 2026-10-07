@@ -431,7 +431,7 @@ def geometry_coordination(assembly,system,p=P,g=G,*,backend='auto'):
         area=profile.difference(box(0,0,p.width,p.depth)).area
         if area>.01:envelope.append({"member":m.label,"outside_original_outline_mm2":round(area,4),"bounds_mm":b})
     summary={
-        "W":{"zh":"按 R14 镜像平面重排木结构演示架构；截面、节点与基础均未验算。","ja":"R14の左右反転間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。","en":"Timber concept rearranged for the R14 mirrored layout; sections, connections and foundations are uncalculated."},
+        "W":{"zh":"按 R15 镜像平面重排木结构演示架构；截面、节点与基础均未验算。","ja":"R15の左右反転間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。","en":"Timber concept rearranged for the R15 mirrored layout; sections, connections and foundations are uncalculated."},
         "S":{"zh":"薄壁空心钢构件、交叉钢带及节点板为示意；制造等级、板厚适用性与连接承载力待核定。","ja":"薄肉中空鋼材・交差ストラップ・ガセットの概念案。製造等級、板厚適用性、接合耐力は未確定。","en":"Thin-wall hollow steel, crossed straps and gussets are conceptual; manufacturing grade, thickness suitability and connection capacities are pending."},
         "RC":{"zh":"300×300 mm 混凝土柱及300×400 mm梁保持原有室内边界，向原外轮廓各侧伸出 120 mm；外墙及建筑面积需重新协调。未绘制或验算配筋。","ja":"300×300 mmのRC柱と300×400 mmの梁は室内境界を保持し、元の外形から各面 120 mm 突出。外壁・建築面積の再調整が必要。配筋図・配筋計算は未実施。","en":"300×300 mm RC columns and 300×400 mm beams retain the interior perimeter faces but project 120 mm outside each original face; façade and building area need coordination. Reinforcement is neither drawn nor calculated."},
     }[system]
@@ -452,7 +452,7 @@ def variant_manifest(system,assembly,p=P,g=G):
         "RC":{"zh":"钢筋混凝土结构（RC造）","ja":"鉄筋コンクリート造（RC造）","en":"Reinforced concrete (RC)"}}
     assumptions=["Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
         "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-        "The 8190 x 7280 mm R14 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+        "The 8190 x 7280 mm R15 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
         "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
         "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction."]
     if system=='S':assumptions.extend([

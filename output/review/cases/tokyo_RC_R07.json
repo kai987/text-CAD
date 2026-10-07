@@ -15,7 +15,7 @@
     "step": "STEP/structure_RC.step"
   },
   "model_hashes_sha256": {
-    "glb": "557e15224c0f8901cef410ed27a8243e70d782b0fe3cfd8269d8e626d8433b5b",
+    "glb": "3aa558740093d83dae3cd4c10187de25d7569511b10462a8e2ad08da28aec998",
     "step": "294a0b310e48f8cbb5b352e6627689e7b4685b14cee9d3792f2eb6fd00bb0220"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
@@ -879,7 +879,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm R14 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm R15 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "300 mm perimeter columns/beam bands extend 120 mm outside each architectural face; structural perimeter is 8430 x 7520 mm and exterior/site/area coordination remains pending.",
@@ -920,17 +920,17 @@
           "overlaps": []
         },
         {
-          "id": "F1:O01",
-          "kind": "door",
-          "overlaps": []
-        },
-        {
           "id": "F1:D05",
           "kind": "door",
           "overlaps": []
         },
         {
           "id": "F1:O02",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D07",
           "kind": "door",
           "overlaps": []
         },
@@ -1458,7 +1458,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R14-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+  "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

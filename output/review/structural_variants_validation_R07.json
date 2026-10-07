@@ -3,8 +3,8 @@
   "pass": true,
   "member_counts": {
     "RC": 44,
-    "W": 256,
-    "S": 549
+    "W": 252,
+    "S": 534
   },
   "checks": [
     {
@@ -2841,8 +2841,8 @@
     {
       "check": "W:structure:F1:column_C37:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 20703600.0,
-      "expected": 20703600.0
+      "actual": 36806400.0,
+      "expected": 36806400.0
     },
     {
       "check": "W:structure:F1:column_C37:native_bounds_match_saved_record",
@@ -2859,8 +2859,8 @@
     {
       "check": "W:structure:F1:column_C38:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 36806400.0,
-      "expected": 36806400.0
+      "actual": 20703600.0,
+      "expected": 20703600.0
     },
     {
       "check": "W:structure:F1:column_C38:native_bounds_match_saved_record",
@@ -2913,8 +2913,8 @@
     {
       "check": "W:structure:F1:column_C41:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 20703600.0,
-      "expected": 20703600.0
+      "actual": 36806400.0,
+      "expected": 36806400.0
     },
     {
       "check": "W:structure:F1:column_C41:native_bounds_match_saved_record",
@@ -2931,29 +2931,11 @@
     {
       "check": "W:structure:F1:column_C42:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 36806400.0,
-      "expected": 36806400.0
-    },
-    {
-      "check": "W:structure:F1:column_C42:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:column_C43:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:column_C43:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 20703600.0,
       "expected": 20703600.0
     },
     {
-      "check": "W:structure:F1:column_C43:native_bounds_match_saved_record",
+      "check": "W:structure:F1:column_C42:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -3615,8 +3597,8 @@
     {
       "check": "W:structure:F2:column_C37:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 18792000.0,
-      "expected": 18792000.0
+      "actual": 33408000.0,
+      "expected": 33408000.0
     },
     {
       "check": "W:structure:F2:column_C37:native_bounds_match_saved_record",
@@ -3633,8 +3615,8 @@
     {
       "check": "W:structure:F2:column_C38:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 33408000.0,
-      "expected": 33408000.0
+      "actual": 18792000.0,
+      "expected": 18792000.0
     },
     {
       "check": "W:structure:F2:column_C38:native_bounds_match_saved_record",
@@ -3687,8 +3669,8 @@
     {
       "check": "W:structure:F2:column_C41:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 18792000.0,
-      "expected": 18792000.0
+      "actual": 33408000.0,
+      "expected": 33408000.0
     },
     {
       "check": "W:structure:F2:column_C41:native_bounds_match_saved_record",
@@ -3705,29 +3687,11 @@
     {
       "check": "W:structure:F2:column_C42:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 33408000.0,
-      "expected": 33408000.0
-    },
-    {
-      "check": "W:structure:F2:column_C42:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:column_C43:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:column_C43:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 18792000.0,
       "expected": 18792000.0
     },
     {
-      "check": "W:structure:F2:column_C43:native_bounds_match_saved_record",
+      "check": "W:structure:F2:column_C42:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -5577,8 +5541,8 @@
     {
       "check": "W:structure:F1:bearing_wall_BW24:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 12859800.0,
-      "expected": 12859800.0
+      "actual": 12994800.0,
+      "expected": 12994800.0
     },
     {
       "check": "W:structure:F1:bearing_wall_BW24:native_bounds_match_saved_record",
@@ -5595,29 +5559,11 @@
     {
       "check": "W:structure:F1:bearing_wall_BW25:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 12994800.0,
-      "expected": 12994800.0
-    },
-    {
-      "check": "W:structure:F1:bearing_wall_BW25:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:bearing_wall_BW26:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:bearing_wall_BW26:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 12138000.0,
       "expected": 12138000.0
     },
     {
-      "check": "W:structure:F1:bearing_wall_BW26:native_bounds_match_saved_record",
+      "check": "W:structure:F1:bearing_wall_BW25:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -6045,8 +5991,8 @@
     {
       "check": "W:structure:F2:bearing_wall_BW24:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 11786000.0,
-      "expected": 11786000.0
+      "actual": 11921000.0,
+      "expected": 11921000.0
     },
     {
       "check": "W:structure:F2:bearing_wall_BW24:native_bounds_match_saved_record",
@@ -6063,29 +6009,11 @@
     {
       "check": "W:structure:F2:bearing_wall_BW25:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 11921000.0,
-      "expected": 11921000.0
-    },
-    {
-      "check": "W:structure:F2:bearing_wall_BW25:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:bearing_wall_BW26:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:bearing_wall_BW26:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 11135000.0,
       "expected": 11135000.0
     },
     {
-      "check": "W:structure:F2:bearing_wall_BW26:native_bounds_match_saved_record",
+      "check": "W:structure:F2:bearing_wall_BW25:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -7550,26 +7478,6 @@
       "actual": [
         3.0850000381469727,
         -0.07999999821186066,
-        -4.505000114440918,
-        3.174999952316284,
-        2.4760000705718994,
-        -4.414999961853027
-      ],
-      "expected": [
-        3.085,
-        -0.08,
-        -4.505,
-        3.175,
-        2.476,
-        -4.415
-      ]
-    },
-    {
-      "check": "W:structure:F1:column_C36:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0850000381469727,
-        -0.07999999821186066,
         -5.414999961853027,
         3.174999952316284,
         2.4760000705718994,
@@ -7585,7 +7493,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C37:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C36:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0850000381469727,
@@ -7605,7 +7513,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C38:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C37:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.069999933242798,
@@ -7625,7 +7533,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C39:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C38:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -7645,7 +7553,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C40:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C39:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -7665,7 +7573,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C41:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C40:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -7685,7 +7593,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C42:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C41:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.069999933242798,
@@ -7705,7 +7613,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:column_C43:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:column_C42:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         1.0850000381469727,
@@ -8410,26 +8318,6 @@
       "actual": [
         3.0850000381469727,
         2.7760000228881836,
-        -4.505000114440918,
-        3.174999952316284,
-        5.0960001945495605,
-        -4.414999961853027
-      ],
-      "expected": [
-        3.085,
-        2.776,
-        -4.505,
-        3.175,
-        5.096,
-        -4.415
-      ]
-    },
-    {
-      "check": "W:structure:F2:column_C36:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0850000381469727,
-        2.7760000228881836,
         -5.414999961853027,
         3.174999952316284,
         5.0960001945495605,
@@ -8445,7 +8333,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C37:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C36:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0850000381469727,
@@ -8465,7 +8353,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C38:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C37:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.069999933242798,
@@ -8485,7 +8373,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C39:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C38:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -8505,7 +8393,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C40:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C39:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -8525,7 +8413,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C41:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C40:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -8545,7 +8433,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C42:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C41:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.069999933242798,
@@ -8565,7 +8453,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:column_C43:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:column_C42:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         1.0850000381469727,
@@ -10630,26 +10518,6 @@
       "actual": [
         3.0799999237060547,
         -0.07999999821186066,
-        -5.369999885559082,
-        3.0850000381469727,
-        2.7760000228881836,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.08,
-        -0.08,
-        -5.37,
-        3.085,
-        2.776,
-        -4.46
-      ]
-    },
-    {
-      "check": "W:structure:F1:bearing_wall_BW25:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0799999237060547,
-        -0.07999999821186066,
         -6.28000020980835,
         3.0850000381469727,
         2.7760000228881836,
@@ -10665,7 +10533,7 @@
       ]
     },
     {
-      "check": "W:structure:F1:bearing_wall_BW26:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F1:bearing_wall_BW25:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0799999237060547,
@@ -11150,26 +11018,6 @@
       "actual": [
         3.0799999237060547,
         2.7760000228881836,
-        -5.369999885559082,
-        3.0850000381469727,
-        5.395999908447266,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.08,
-        2.776,
-        -5.37,
-        3.085,
-        5.396,
-        -4.46
-      ]
-    },
-    {
-      "check": "W:structure:F2:bearing_wall_BW25:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0799999237060547,
-        2.7760000228881836,
         -6.28000020980835,
         3.0850000381469727,
         5.395999908447266,
@@ -11185,7 +11033,7 @@
       ]
     },
     {
-      "check": "W:structure:F2:bearing_wall_BW26:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "W:structure:F2:bearing_wall_BW25:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0799999237060547,
@@ -12605,25 +12453,25 @@
     {
       "check": "W:structure:F1:column_C37:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F1:column_C37:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F1:column_C38:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 14400.0,
+      "actual": 8100.0,
       "expected": null
     },
     {
       "check": "W:structure:F1:column_C38:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 14400.0,
+      "actual": 8100.0,
       "expected": null
     },
     {
@@ -12653,35 +12501,23 @@
     {
       "check": "W:structure:F1:column_C41:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F1:column_C41:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F1:column_C42:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 14400.0,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:column_C42:positive_native_face_to_lower_support",
-      "pass": true,
-      "actual": 14400.0,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F1:column_C43:positive_native_face_to_upper_beam",
-      "pass": true,
       "actual": 8100.0,
       "expected": null
     },
     {
-      "check": "W:structure:F1:column_C43:positive_native_face_to_lower_support",
+      "check": "W:structure:F1:column_C42:positive_native_face_to_lower_support",
       "pass": true,
       "actual": 8100.0,
       "expected": null
@@ -13121,25 +12957,25 @@
     {
       "check": "W:structure:F2:column_C37:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F2:column_C37:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F2:column_C38:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 14400.0,
+      "actual": 8100.0,
       "expected": null
     },
     {
       "check": "W:structure:F2:column_C38:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 14400.0,
+      "actual": 8100.0,
       "expected": null
     },
     {
@@ -13169,35 +13005,23 @@
     {
       "check": "W:structure:F2:column_C41:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F2:column_C41:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 8100.0,
+      "actual": 14400.0,
       "expected": null
     },
     {
       "check": "W:structure:F2:column_C42:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 14400.0,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:column_C42:positive_native_face_to_lower_support",
-      "pass": true,
-      "actual": 14400.0,
-      "expected": null
-    },
-    {
-      "check": "W:structure:F2:column_C43:positive_native_face_to_upper_beam",
-      "pass": true,
       "actual": 8100.0,
       "expected": null
     },
     {
-      "check": "W:structure:F2:column_C43:positive_native_face_to_lower_support",
+      "check": "W:structure:F2:column_C42:positive_native_face_to_lower_support",
       "pass": true,
       "actual": 8100.0,
       "expected": null
@@ -13871,8 +13695,8 @@
     {
       "check": "S:structure:F1:column_C37:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2049373.6,
-      "expected": 2049373.6
+      "actual": 2750413.6,
+      "expected": 2750413.6
     },
     {
       "check": "S:structure:F1:column_C37:native_bounds_match_saved_record",
@@ -13889,8 +13713,8 @@
     {
       "check": "S:structure:F1:column_C38:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2750413.6,
-      "expected": 2750413.6
+      "actual": 2049373.6,
+      "expected": 2049373.6
     },
     {
       "check": "S:structure:F1:column_C38:native_bounds_match_saved_record",
@@ -13943,8 +13767,8 @@
     {
       "check": "S:structure:F1:column_C41:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2049373.6,
-      "expected": 2049373.6
+      "actual": 2750413.6,
+      "expected": 2750413.6
     },
     {
       "check": "S:structure:F1:column_C41:native_bounds_match_saved_record",
@@ -13961,29 +13785,11 @@
     {
       "check": "S:structure:F1:column_C42:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2750413.6,
-      "expected": 2750413.6
-    },
-    {
-      "check": "S:structure:F1:column_C42:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:column_C43:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:column_C43:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 2049373.6,
       "expected": 2049373.6
     },
     {
-      "check": "S:structure:F1:column_C43:native_bounds_match_saved_record",
+      "check": "S:structure:F1:column_C42:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -14645,8 +14451,8 @@
     {
       "check": "S:structure:F2:column_C37:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 1871868.8,
-      "expected": 1871868.8
+      "actual": 2512188.8,
+      "expected": 2512188.8
     },
     {
       "check": "S:structure:F2:column_C37:native_bounds_match_saved_record",
@@ -14663,8 +14469,8 @@
     {
       "check": "S:structure:F2:column_C38:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2512188.8,
-      "expected": 2512188.8
+      "actual": 1871868.8,
+      "expected": 1871868.8
     },
     {
       "check": "S:structure:F2:column_C38:native_bounds_match_saved_record",
@@ -14717,8 +14523,8 @@
     {
       "check": "S:structure:F2:column_C41:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 1871868.8,
-      "expected": 1871868.8
+      "actual": 2512188.8,
+      "expected": 2512188.8
     },
     {
       "check": "S:structure:F2:column_C41:native_bounds_match_saved_record",
@@ -14735,29 +14541,11 @@
     {
       "check": "S:structure:F2:column_C42:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 2512188.8,
-      "expected": 2512188.8
-    },
-    {
-      "check": "S:structure:F2:column_C42:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:column_C43:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:column_C43:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 1871868.8,
       "expected": 1871868.8
     },
     {
-      "check": "S:structure:F2:column_C43:native_bounds_match_saved_record",
+      "check": "S:structure:F2:column_C42:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -15869,8 +15657,8 @@
     {
       "check": "S:structure:F1:base_plate_C37:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 270400.0,
-      "expected": 270400.0
+      "actual": 409600.0,
+      "expected": 409600.0
     },
     {
       "check": "S:structure:F1:base_plate_C37:native_bounds_match_saved_record",
@@ -15887,8 +15675,8 @@
     {
       "check": "S:structure:F1:base_plate_C38:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 409600.0,
-      "expected": 409600.0
+      "actual": 270400.0,
+      "expected": 270400.0
     },
     {
       "check": "S:structure:F1:base_plate_C38:native_bounds_match_saved_record",
@@ -15941,8 +15729,8 @@
     {
       "check": "S:structure:F1:base_plate_C41:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 270400.0,
-      "expected": 270400.0
+      "actual": 409600.0,
+      "expected": 409600.0
     },
     {
       "check": "S:structure:F1:base_plate_C41:native_bounds_match_saved_record",
@@ -15959,29 +15747,11 @@
     {
       "check": "S:structure:F1:base_plate_C42:native_volume_matches_saved_record",
       "pass": true,
-      "actual": 409600.0,
-      "expected": 409600.0
-    },
-    {
-      "check": "S:structure:F1:base_plate_C42:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:base_plate_C43:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:base_plate_C43:native_volume_matches_saved_record",
-      "pass": true,
       "actual": 270400.0,
       "expected": 270400.0
     },
     {
-      "check": "S:structure:F1:base_plate_C43:native_bounds_match_saved_record",
+      "check": "S:structure:F1:base_plate_C42:native_bounds_match_saved_record",
       "pass": true,
       "actual": null,
       "expected": null
@@ -20019,114 +19789,6 @@
       "expected": null
     },
     {
-      "check": "S:structure:F1:strap_brace_BW26_A:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW26_A:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 318101.97249,
-      "expected": 318101.972491
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW26_A:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW26_B:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW26_B:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 318101.97249,
-      "expected": 318101.972491
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW26_B:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SW:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SW:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SW:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SE:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SE:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_SE:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NW:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NW:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NW:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NE:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NE:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F1:gusset_BW26_NE:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "S:structure:F2:strap_brace_BW01_A:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
@@ -22827,114 +22489,6 @@
       "expected": null
     },
     {
-      "check": "S:structure:F2:strap_brace_BW26_A:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_A:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 293755.451935,
-      "expected": 293755.451936
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_A:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_B:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_B:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 293755.451935,
-      "expected": 293755.451936
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_B:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SW:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SW:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SW:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SE:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SE:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SE:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NW:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NW:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NW:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NE:finite_valid_positive_native_solids",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NE:native_volume_matches_saved_record",
-      "pass": true,
-      "actual": 40000.0,
-      "expected": 40000.0
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_NE:native_bounds_match_saved_record",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
       "check": "S:foundation:raft:slab:finite_valid_positive_native_solids",
       "pass": true,
       "actual": null,
@@ -23854,26 +23408,6 @@
       "actual": [
         3.0850000381469727,
         -0.06400000303983688,
-        -4.505000114440918,
-        3.174999952316284,
-        2.4760000705718994,
-        -4.414999961853027
-      ],
-      "expected": [
-        3.085,
-        -0.064,
-        -4.505,
-        3.175,
-        2.476,
-        -4.415
-      ]
-    },
-    {
-      "check": "S:structure:F1:column_C36:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0850000381469727,
-        -0.06400000303983688,
         -5.414999961853027,
         3.174999952316284,
         2.4760000705718994,
@@ -23889,7 +23423,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C37:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C36:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0850000381469727,
@@ -23909,7 +23443,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C38:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C37:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.069999933242798,
@@ -23929,7 +23463,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C39:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C38:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -23949,7 +23483,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C40:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C39:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -23969,7 +23503,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C41:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C40:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -23989,7 +23523,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C42:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C41:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.069999933242798,
@@ -24009,7 +23543,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:column_C43:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:column_C42:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         1.0850000381469727,
@@ -24714,26 +24248,6 @@
       "actual": [
         3.0850000381469727,
         2.7760000228881836,
-        -4.505000114440918,
-        3.174999952316284,
-        5.0960001945495605,
-        -4.414999961853027
-      ],
-      "expected": [
-        3.085,
-        2.776,
-        -4.505,
-        3.175,
-        5.096,
-        -4.415
-      ]
-    },
-    {
-      "check": "S:structure:F2:column_C36:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0850000381469727,
-        2.7760000228881836,
         -5.414999961853027,
         3.174999952316284,
         5.0960001945495605,
@@ -24749,7 +24263,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C37:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C36:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0850000381469727,
@@ -24769,7 +24283,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C38:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C37:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.069999933242798,
@@ -24789,7 +24303,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C39:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C38:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -24809,7 +24323,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C40:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C39:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -24829,7 +24343,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C41:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C40:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.0850000381469727,
@@ -24849,7 +24363,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C42:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C41:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.069999933242798,
@@ -24869,7 +24383,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:column_C43:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:column_C42:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         1.0850000381469727,
@@ -26074,26 +25588,6 @@
       "actual": [
         3.065000057220459,
         -0.20000000298023224,
-        -4.525000095367432,
-        3.194999933242798,
-        -0.18400000035762787,
-        -4.394999980926514
-      ],
-      "expected": [
-        3.065,
-        -0.2,
-        -4.525,
-        3.195,
-        -0.184,
-        -4.395
-      ]
-    },
-    {
-      "check": "S:structure:F1:base_plate_C36:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.065000057220459,
-        -0.20000000298023224,
         -5.434999942779541,
         3.194999933242798,
         -0.18400000035762787,
@@ -26109,7 +25603,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C37:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C36:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.065000057220459,
@@ -26129,7 +25623,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C38:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C37:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.049999952316284,
@@ -26149,7 +25643,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C39:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C38:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.065000057220459,
@@ -26169,7 +25663,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C40:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C39:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.065000057220459,
@@ -26189,7 +25683,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C41:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C40:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.065000057220459,
@@ -26209,7 +25703,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C42:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C41:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         2.049999952316284,
@@ -26229,7 +25723,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:base_plate_C43:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:base_plate_C42:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         1.065000057220459,
@@ -30494,126 +29988,6 @@
       "actual": [
         3.0829999446868896,
         -0.06400000303983688,
-        -5.369999885559082,
-        3.0850000381469727,
-        2.4760000705718994,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.083,
-        -0.06400000000017525,
-        -5.370000000000108,
-        3.085,
-        2.4760000000002025,
-        -4.459999999999864
-      ]
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW24_B:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0804998874664307,
-        -0.06400000303983688,
-        -5.369999885559082,
-        3.0824999809265137,
-        2.4760000705718994,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.0805,
-        -0.06400000000017525,
-        -5.370000000000135,
-        3.0825,
-        2.4760000000002025,
-        -4.4599999999998925
-      ]
-    },
-    {
-      "check": "S:structure:F1:gusset_BW24_SW:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        -0.06400000303983688,
-        -4.559999942779541,
-        3.0850000381469727,
-        0.035999998450279236,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.081,
-        -0.064,
-        -4.56,
-        3.085,
-        0.036,
-        -4.46
-      ]
-    },
-    {
-      "check": "S:structure:F1:gusset_BW24_SE:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        -0.06400000303983688,
-        -5.369999885559082,
-        3.0850000381469727,
-        0.035999998450279236,
-        -5.269999980926514
-      ],
-      "expected": [
-        3.081,
-        -0.064,
-        -5.37,
-        3.085,
-        0.036,
-        -5.27
-      ]
-    },
-    {
-      "check": "S:structure:F1:gusset_BW24_NW:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        2.375999927520752,
-        -4.559999942779541,
-        3.0850000381469727,
-        2.4760000705718994,
-        -4.460000038146973
-      ],
-      "expected": [
-        3.081,
-        2.376,
-        -4.56,
-        3.085,
-        2.476,
-        -4.46
-      ]
-    },
-    {
-      "check": "S:structure:F1:gusset_BW24_NE:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        2.375999927520752,
-        -5.369999885559082,
-        3.0850000381469727,
-        2.4760000705718994,
-        -5.269999980926514
-      ],
-      "expected": [
-        3.081,
-        2.376,
-        -5.37,
-        3.085,
-        2.476,
-        -5.27
-      ]
-    },
-    {
-      "check": "S:structure:F1:strap_brace_BW25_A:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0829999446868896,
-        -0.06400000303983688,
         -6.28000020980835,
         3.0850000381469727,
         2.4760000705718994,
@@ -30629,7 +30003,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:strap_brace_BW25_B:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:strap_brace_BW24_B:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0804998874664307,
@@ -30649,7 +30023,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW25_SW:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW24_SW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30669,7 +30043,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW25_SE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW24_SE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30689,7 +30063,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW25_NW:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW24_NW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30709,7 +30083,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW25_NE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW24_NE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30729,7 +30103,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:strap_brace_BW26_A:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:strap_brace_BW25_A:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0829999446868896,
@@ -30749,7 +30123,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:strap_brace_BW26_B:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:strap_brace_BW25_B:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0804998874664307,
@@ -30769,7 +30143,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW26_SW:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW25_SW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30789,7 +30163,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW26_SE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW25_SE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30809,7 +30183,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW26_NW:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW25_NW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -30829,7 +30203,7 @@
       ]
     },
     {
-      "check": "S:structure:F1:gusset_BW26_NE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F1:gusset_BW25_NE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -33614,18 +32988,18 @@
       "actual": [
         3.0829999446868896,
         2.7760000228881836,
-        -5.369999885559082,
+        -6.28000020980835,
         3.0850000381469727,
         5.0960001945495605,
-        -4.460000038146973
+        -5.369999885559082
       ],
       "expected": [
         3.083,
         2.776,
-        -5.37,
+        -6.28,
         3.085,
         5.096,
-        -4.46
+        -5.37
       ]
     },
     {
@@ -33634,18 +33008,18 @@
       "actual": [
         3.0804998874664307,
         2.7760000228881836,
-        -5.369999885559082,
+        -6.28000020980835,
         3.0824999809265137,
         5.0960001945495605,
-        -4.460000038146973
+        -5.369999885559082
       ],
       "expected": [
         3.0805,
         2.776,
-        -5.37,
+        -6.28,
         3.0825,
         5.096,
-        -4.46
+        -5.37
       ]
     },
     {
@@ -33654,18 +33028,18 @@
       "actual": [
         3.0810000896453857,
         2.7760000228881836,
-        -4.559999942779541,
+        -5.46999979019165,
         3.0850000381469727,
         2.875999927520752,
-        -4.460000038146973
+        -5.369999885559082
       ],
       "expected": [
         3.081,
         2.776,
-        -4.56,
+        -5.47,
         3.085,
         2.876,
-        -4.46
+        -5.37
       ]
     },
     {
@@ -33674,18 +33048,18 @@
       "actual": [
         3.0810000896453857,
         2.7760000228881836,
-        -5.369999885559082,
+        -6.28000020980835,
         3.0850000381469727,
         2.875999927520752,
-        -5.269999980926514
+        -6.179999828338623
       ],
       "expected": [
         3.081,
         2.776,
-        -5.37,
+        -6.28,
         3.085,
         2.876,
-        -5.27
+        -6.18
       ]
     },
     {
@@ -33694,18 +33068,18 @@
       "actual": [
         3.0810000896453857,
         4.995999813079834,
-        -4.559999942779541,
+        -5.46999979019165,
         3.0850000381469727,
         5.0960001945495605,
-        -4.460000038146973
+        -5.369999885559082
       ],
       "expected": [
         3.081,
         4.996,
-        -4.56,
+        -5.47,
         3.085,
         5.096,
-        -4.46
+        -5.37
       ]
     },
     {
@@ -33714,18 +33088,18 @@
       "actual": [
         3.0810000896453857,
         4.995999813079834,
-        -5.369999885559082,
+        -6.28000020980835,
         3.0850000381469727,
         5.0960001945495605,
-        -5.269999980926514
+        -6.179999828338623
       ],
       "expected": [
         3.081,
         4.996,
-        -5.37,
+        -6.28,
         3.085,
         5.096,
-        -5.27
+        -6.18
       ]
     },
     {
@@ -33734,18 +33108,18 @@
       "actual": [
         3.0829999446868896,
         2.7760000228881836,
-        -6.28000020980835,
+        -7.190000057220459,
         3.0850000381469727,
         5.0960001945495605,
-        -5.369999885559082
+        -6.28000020980835
       ],
       "expected": [
         3.083,
         2.776,
-        -6.28,
+        -7.19,
         3.085,
         5.096,
-        -5.37
+        -6.28
       ]
     },
     {
@@ -33754,142 +33128,22 @@
       "actual": [
         3.0804998874664307,
         2.7760000228881836,
-        -6.28000020980835,
+        -7.190000057220459,
         3.0824999809265137,
         5.0960001945495605,
-        -5.369999885559082
+        -6.28000020980835
       ],
       "expected": [
         3.0805,
         2.776,
-        -6.28,
+        -7.19,
         3.0825,
         5.096,
-        -5.37
+        -6.28
       ]
     },
     {
       "check": "S:structure:F2:gusset_BW25_SW:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        2.7760000228881836,
-        -5.46999979019165,
-        3.0850000381469727,
-        2.875999927520752,
-        -5.369999885559082
-      ],
-      "expected": [
-        3.081,
-        2.776,
-        -5.47,
-        3.085,
-        2.876,
-        -5.37
-      ]
-    },
-    {
-      "check": "S:structure:F2:gusset_BW25_SE:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        2.7760000228881836,
-        -6.28000020980835,
-        3.0850000381469727,
-        2.875999927520752,
-        -6.179999828338623
-      ],
-      "expected": [
-        3.081,
-        2.776,
-        -6.28,
-        3.085,
-        2.876,
-        -6.18
-      ]
-    },
-    {
-      "check": "S:structure:F2:gusset_BW25_NW:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        4.995999813079834,
-        -5.46999979019165,
-        3.0850000381469727,
-        5.0960001945495605,
-        -5.369999885559082
-      ],
-      "expected": [
-        3.081,
-        4.996,
-        -5.47,
-        3.085,
-        5.096,
-        -5.37
-      ]
-    },
-    {
-      "check": "S:structure:F2:gusset_BW25_NE:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0810000896453857,
-        4.995999813079834,
-        -6.28000020980835,
-        3.0850000381469727,
-        5.0960001945495605,
-        -6.179999828338623
-      ],
-      "expected": [
-        3.081,
-        4.996,
-        -6.28,
-        3.085,
-        5.096,
-        -6.18
-      ]
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_A:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0829999446868896,
-        2.7760000228881836,
-        -7.190000057220459,
-        3.0850000381469727,
-        5.0960001945495605,
-        -6.28000020980835
-      ],
-      "expected": [
-        3.083,
-        2.776,
-        -7.19,
-        3.085,
-        5.096,
-        -6.28
-      ]
-    },
-    {
-      "check": "S:structure:F2:strap_brace_BW26_B:GLB_mm_to_Yup_metres_preserves_location",
-      "pass": true,
-      "actual": [
-        3.0804998874664307,
-        2.7760000228881836,
-        -7.190000057220459,
-        3.0824999809265137,
-        5.0960001945495605,
-        -6.28000020980835
-      ],
-      "expected": [
-        3.0805,
-        2.776,
-        -7.19,
-        3.0825,
-        5.096,
-        -6.28
-      ]
-    },
-    {
-      "check": "S:structure:F2:gusset_BW26_SW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -33909,7 +33163,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:gusset_BW26_SE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:gusset_BW25_SE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -33929,7 +33183,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:gusset_BW26_NW:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:gusset_BW25_NW:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -33949,7 +33203,7 @@
       ]
     },
     {
-      "check": "S:structure:F2:gusset_BW26_NE:GLB_mm_to_Yup_metres_preserves_location",
+      "check": "S:structure:F2:gusset_BW25_NE:GLB_mm_to_Yup_metres_preserves_location",
       "pass": true,
       "actual": [
         3.0810000896453857,
@@ -34643,7 +33897,7 @@
     {
       "check": "S:structure:F1:base_plate_C37:positive_native_face_to_foundation",
       "pass": true,
-      "actual": 16900.0,
+      "actual": 25600.0,
       "expected": null
     },
     {
@@ -34655,7 +33909,7 @@
     {
       "check": "S:structure:F1:base_plate_C38:positive_native_face_to_foundation",
       "pass": true,
-      "actual": 25600.0,
+      "actual": 16900.0,
       "expected": null
     },
     {
@@ -34691,7 +33945,7 @@
     {
       "check": "S:structure:F1:base_plate_C41:positive_native_face_to_foundation",
       "pass": true,
-      "actual": 16900.0,
+      "actual": 25600.0,
       "expected": null
     },
     {
@@ -34702,18 +33956,6 @@
     },
     {
       "check": "S:structure:F1:base_plate_C42:positive_native_face_to_foundation",
-      "pass": true,
-      "actual": 25600.0,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:base_plate_C43:bottom_at_foundation_top_mm",
-      "pass": true,
-      "actual": -200.0,
-      "expected": -200
-    },
-    {
-      "check": "S:structure:F1:base_plate_C43:positive_native_face_to_foundation",
       "pass": true,
       "actual": 16900.0,
       "expected": null
@@ -35153,25 +34395,25 @@
     {
       "check": "S:structure:F1:column_C37:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F1:column_C37:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F1:column_C38:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 1082.84,
+      "actual": 806.84,
       "expected": null
     },
     {
       "check": "S:structure:F1:column_C38:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 1082.84,
+      "actual": 806.84,
       "expected": null
     },
     {
@@ -35201,35 +34443,23 @@
     {
       "check": "S:structure:F1:column_C41:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F1:column_C41:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F1:column_C42:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 1082.84,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:column_C42:positive_native_face_to_lower_support",
-      "pass": true,
-      "actual": 1082.84,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F1:column_C43:positive_native_face_to_upper_beam",
-      "pass": true,
       "actual": 806.84,
       "expected": null
     },
     {
-      "check": "S:structure:F1:column_C43:positive_native_face_to_lower_support",
+      "check": "S:structure:F1:column_C42:positive_native_face_to_lower_support",
       "pass": true,
       "actual": 806.84,
       "expected": null
@@ -35669,25 +34899,25 @@
     {
       "check": "S:structure:F2:column_C37:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F2:column_C37:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F2:column_C38:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 1082.84,
+      "actual": 806.84,
       "expected": null
     },
     {
       "check": "S:structure:F2:column_C38:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 1082.84,
+      "actual": 806.84,
       "expected": null
     },
     {
@@ -35717,35 +34947,23 @@
     {
       "check": "S:structure:F2:column_C41:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F2:column_C41:positive_native_face_to_lower_support",
       "pass": true,
-      "actual": 806.84,
+      "actual": 1082.84,
       "expected": null
     },
     {
       "check": "S:structure:F2:column_C42:positive_native_face_to_upper_beam",
       "pass": true,
-      "actual": 1082.84,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:column_C42:positive_native_face_to_lower_support",
-      "pass": true,
-      "actual": 1082.84,
-      "expected": null
-    },
-    {
-      "check": "S:structure:F2:column_C43:positive_native_face_to_upper_beam",
-      "pass": true,
       "actual": 806.84,
       "expected": null
     },
     {
-      "check": "S:structure:F2:column_C43:positive_native_face_to_lower_support",
+      "check": "S:structure:F2:column_C42:positive_native_face_to_lower_support",
       "pass": true,
       "actual": 806.84,
       "expected": null
@@ -35785,8 +35003,8 @@
       "pass": true,
       "actual": {
         "RC": 44,
-        "W": 256,
-        "S": 549
+        "W": 252,
+        "S": 534
       },
       "expected": null
     },

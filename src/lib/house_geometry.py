@@ -124,6 +124,12 @@ def wall_groups(floor, p=P, g=G):
     setback = wall_setback()
     outer = box(0, 0, p.width, p.depth).difference(box(e, e, p.width-e, p.depth-e))
     partitions = raw_wall_footprint(floor, p).difference(outer)
+    if floor.number==1:
+        d=dimensions(p)
+        # Stair-under partitions are modelled below the stepped soffit, rather
+        # than extruded through the upper flight at ordinary storey height.
+        partitions=partitions.difference(box(d['xmax']-p.stair_width,d['sy'],d['xmax'],
+                                             d['sy']+(p.risers//2-1)*p.tread))
     wall_profiles = [
         ("south", box(setback, setback, p.width-setback, e)),
         ("north", box(setback, p.depth-e, p.width-setback, p.depth-setback)),
@@ -236,7 +242,7 @@ def stair_group(p=P, g=G):
         lower.append(cuboid((sx, sy+i*p.tread, 0,
                               sx+p.stair_width, sy+(i+1)*p.tread, (i+1)*rise),
                              f"stairs:lower_tread_{i+1:02d}", "stairs"))
-        upper.append(cuboid((xm-p.stair_width, landing_y-(i+1)*p.tread, half_z-g.landing_thickness,
+        upper.append(cuboid((xm-p.stair_width, landing_y-(i+1)*p.tread, half_z+(i+1)*rise-g.landing_thickness,
                               xm, landing_y-i*p.tread, half_z+(i+1)*rise),
                              f"stairs:upper_tread_{i+1:02d}", "stairs"))
     # The F2 slab's own south opening edge forms the eighth return-flight
@@ -291,7 +297,7 @@ def roof_group(p=P, g=G):
                        label="roof")
 
 
-def storage_group(floor, p=P):
+def storage_group(floor, p=P, g=G):
     z = (floor.number-1)*p.storey_height
     storage = []
     for i, (name, bounds) in enumerate(floor.fixtures, 1):
@@ -301,6 +307,20 @@ def storage_group(floor, p=P):
         height = G.shoe_cabinet_height if name == "靴収納" else G.storage_cabinet_height
         storage.append(cuboid((x1, y1, z, x2, y2, z+height),
                                 f"F{floor.number}:storage_{i:02d}", "storage"))
+    if floor.number==1:
+        d=dimensions(p);x1=d['xmax']-p.stair_width;x2=d['xmax'];sy=d['sy']
+        landing_y=sy+(p.risers//2-1)*p.tread;rise=p.storey_height/p.risers
+        for i in range(p.risers//2-1):
+            ya=landing_y-(i+1)*p.tread;yb=landing_y-i*p.tread
+            underside=p.storey_height/2+(i+1)*rise-g.landing_thickness
+            prefix=f'F1:under_stairs:section_{i+1}'
+            storage.extend([cuboid((x1,ya,0,x1+50,yb,underside-40),prefix+':side','internal'),
+                            cuboid((x1+50,ya,underside-40,x2-50,yb,underside-5),prefix+':ceiling','internal')])
+        rear_height=p.storey_height/2+rise-g.landing_thickness-40
+        storage.append(cuboid((x1+50,landing_y-60,0,x2-50,landing_y,rear_height),'F1:under_stairs:back','internal'))
+        for i,zs in enumerate((400,800),1):
+            storage.append(cuboid((x1+65,landing_y-400,zs,x2-65,landing_y-70,zs+25),
+                                  f'F1:under_stairs:shelf_{i}','storage'))
     return bd.Compound(children=storage, label=f"F{floor.number}:storage_fixtures")
 
 
@@ -319,7 +339,7 @@ def house_assembly(p=P, g=G, include_roof=True):
         external, internal = wall_groups(plan, p, g)
         floors.append(bd.Compound(children=[slab_for_floor(number, p, g), external, internal,
                                             door_group(plan, p, g), window_group(plan, p, g),
-                                            storage_group(plan, p), fixture_group(plan, p, "house"),
+                                            storage_group(plan, p, g), fixture_group(plan, p, "house"),
                                             furniture_group(plan, "house", p)], label=f"F{number}"))
     children = floors+[stair_group(p, g),balcony_group(p,g)]
     if include_roof:
@@ -344,7 +364,7 @@ def geometry_manifest(p=P, g=G):
     structure = structure_manifest(p, g)
     lighting = outdoor_lighting_manifest(p, g)
     return {
-        "revision": "R14-3D", "stage": "demonstration_structural_layout_pending_engineering",
+        "revision": "R15-3D", "stage": "demonstration_structural_layout_pending_engineering",
         "source_plan": "src/lib/house_plan.py", "units": "mm",
         "plan_parameters": asdict(p), "geometry_parameters": asdict(g),
         "floor_datums_mm": [0, p.storey_height], "roof_base_mm": 2*p.storey_height,
@@ -362,10 +382,12 @@ def geometry_manifest(p=P, g=G):
             "input_sheet": "output/review/engineering_inputs_R06.json",
         },
         "assumptions": [
-            "R14按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+            "R15玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm阶梯顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+            "R15四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+            "R15按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
             "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
             "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-            "R14左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+            "R15左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
             "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
             "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
             "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
@@ -374,7 +396,7 @@ def geometry_manifest(p=P, g=G):
             "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
             "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
             "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
-            "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
+            "上跑踏步采用200 mm概念厚度，形成储物间阶梯状顶；与平台保持接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
             "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
             "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
             "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",

@@ -1,4 +1,4 @@
-"""R14 authoring-to-world reflection. X points east; text is never reflected.
+"""R15 authoring-to-world reflection. X points east; text is never reflected.
 
 The internal authoring topology stays stable. Public plans, named CAD trees and
 coordinate records are reflected once at their boundary, about X=width/2.

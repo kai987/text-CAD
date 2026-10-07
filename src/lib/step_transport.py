@@ -40,8 +40,8 @@ def compact_export(path: Path) -> None:
     if metadata['documentHash'] != hashlib.sha256(original).hexdigest():
         raise ValueError('STEP appearance metadata does not match the exported document.')
     compact = compact_text(original.decode('utf-8')).encode('utf-8')
-    if len(compact) > 25 * 1024 * 1024:
-        raise ValueError('Compacted STEP still exceeds the Sites 25 MiB file limit.')
+    # Large files remain complete here; the web packager transports them with
+    # gzip and the download UI restores the original STEP bytes.
     metadata['documentHash'] = hashlib.sha256(compact).hexdigest()
     path.write_bytes(compact)
     sidecar.write_text(json.dumps(metadata, separators=(',', ':'))+'\n')

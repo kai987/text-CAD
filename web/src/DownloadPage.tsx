@@ -3,6 +3,7 @@ import { asset, repository } from './data';
 import { useModel } from './ModelContext';
 import { format } from './localization';
 import StructuralOptions from './StructuralOptions';
+import StepDownload from './StepDownload';
 
 export default function DownloadPage() {
   const { copy, data, downloads, source, layout } = useModel();
@@ -10,7 +11,7 @@ export default function DownloadPage() {
     <header><h1>{copy.downloads.title}</h1><p>{format(copy.downloads.revision, { drawing: data.drawingRevision, model: data.modelRevision })}</p></header>
     {layout.id === 'house' ? <StructuralOptions /> : null}
     <div className="download-list">
-      {downloads.map(f => <a className="download-row" key={f.path} href={asset(f.path)} download>
+      {downloads.map(f => f.path==='STEP/house_3d.step' ? <StepDownload key={f.path} path={f.path} title={copy.downloads.files[f.id].title} detail={copy.downloads.files[f.id].detail} download={copy.downloads.download} errorText={copy.downloads.stepError} /> : <a className="download-row" key={f.path} href={asset(f.path)} download>
         <span className="file-type">{f.type}</span><span className="file-description"><strong>{copy.downloads.files[f.id].title}</strong><span>{copy.downloads.files[f.id].detail}</span></span>
         <Download size={20} aria-hidden="true" /><span className="sr-only">{copy.downloads.download}</span>
       </a>)}

@@ -1,19 +1,19 @@
 {
-  "revision": "R14",
+  "revision": "R15",
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-07T15:59:03.067892+09:00",
+  "checked_at": "2026-10-07T17:20:05.321467+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "b10702a54cff048eab7d668558494c867847255a5c855159d08744be306f0261",
-    "DXF/house_2f_plan.dxf": "08aab9dc9b7ec9c53e62b0bb931f552627f6f2438952e99a3d1ae69d7197e8f6",
-    "DXF/001D0PL2-1FPLAN.DXF": "b10702a54cff048eab7d668558494c867847255a5c855159d08744be306f0261",
-    "DXF/002D0PL2-2FPLAN.DXF": "08aab9dc9b7ec9c53e62b0bb931f552627f6f2438952e99a3d1ae69d7197e8f6",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "bcd3a405baed4da80770f2df0407e8cf87c28ce9547c01099bf79d136534b969",
-    "checks/validate_jp_drafting.py": "9da2c5862b0f0caa911800b5b622737adc3bdf1b4086dfcebf3ce34b521ccf6e",
+    "DXF/house_1f_plan.dxf": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
+    "DXF/house_2f_plan.dxf": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
+    "DXF/001D0PL2-1FPLAN.DXF": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
+    "DXF/002D0PL2-2FPLAN.DXF": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "46964623c16fe7a8492a13c062d2a77ba029157694696755509e3b031bf8d9de",
+    "checks/validate_jp_drafting.py": "fac168ae7ec694ddfedb97714f1eadd9f7a80a460a31c24918f7f0251c96315f",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
-    "src/lib/jp_sheet.py": "ea8201c6f05ce677ded9a45f85ac37a8bdc9d885afcb5e476a0cf49a0567a45c"
+    "src/lib/jp_sheet.py": "92ecb060f0e163c6ef4f17a0a05f08fe5166b0057a1d3ca169c84fa1369f51c1"
   },
   "summary": {
     "checks": 230,
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "b10702a54cff048eab7d668558494c867847255a5c855159d08744be306f0261",
-        "canonical_sha256": "b10702a54cff048eab7d668558494c867847255a5c855159d08744be306f0261"
+        "alias_sha256": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
+        "canonical_sha256": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d"
       },
       "floor": 1
     },
@@ -78,12 +78,12 @@
           "D-DOC-TXT": 13
         },
         "model_entity_counts": {
-          "D-STR-WALL": 88,
+          "D-STR-WALL": 92,
           "D-STR-WIND": 18,
-          "D-STR-TXT": 40,
-          "D-BYP-FIXT": 13,
-          "D-STR-DOOR": 10,
-          "D-STR-STAI": 23,
+          "D-STR-TXT": 47,
+          "D-BYP-FIXT": 18,
+          "D-STR-DOOR": 12,
+          "D-STR-STAI": 14,
           "D-STR-DIM": 5,
           "D-BMK-NORT": 3
         }
@@ -557,7 +557,7 @@
       "check": "all_graphic_colors_aci7_or_bylayer_no_rgb",
       "status": "pass",
       "evidence": {
-        "graphic_entities_checked": 333,
+        "graphic_entities_checked": 342,
         "invalid": [],
         "internal_arrow_definitions": "ByBlock=0 inherits ACI7/ByLayer INSERT"
       },
@@ -587,8 +587,8 @@
       "evidence": {
         "model_to_paper": "height / 50",
         "paper_height_counts": {
-          "1.8": 14,
-          "2.5": 19,
+          "1.8": 19,
+          "2.5": 21,
           "3.5": 7
         },
         "invalid": []
@@ -609,9 +609,9 @@
       "check": "room/ldk/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 33.05,
+        "area_m2": 34.07,
         "matches": [
-          "33.05 m2"
+          "34.07 m2"
         ],
         "heights_mm": [
           125.0
@@ -716,22 +716,22 @@
       "floor": 1
     },
     {
-      "check": "room/wc_hall/name_height",
+      "check": "room/under_stairs/name_height",
       "status": "pass",
       "evidence": {
-        "room": "ホール",
+        "room": "階段下収納",
         "found": 1,
         "model_height": 175.0
       },
       "floor": 1
     },
     {
-      "check": "room/wc_hall/area_height",
+      "check": "room/under_stairs/area_height",
       "status": "pass",
       "evidence": {
-        "area_m2": 0.828,
+        "area_m2": 1.408,
         "matches": [
-          "0.83 m2"
+          "1.41 m2"
         ],
         "heights_mm": [
           125.0
@@ -1129,7 +1129,7 @@
       "check": "no_disallowed_example_characters",
       "status": "pass",
       "evidence": {
-        "scanned_text_entities": 191,
+        "scanned_text_entities": 205,
         "invalid": []
       },
       "floor": 1
@@ -1138,9 +1138,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R14",
+        "REVISION": "R15",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 1
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "08aab9dc9b7ec9c53e62b0bb931f552627f6f2438952e99a3d1ae69d7197e8f6",
-        "canonical_sha256": "08aab9dc9b7ec9c53e62b0bb931f552627f6f2438952e99a3d1ae69d7197e8f6"
+        "alias_sha256": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84",
+        "canonical_sha256": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84"
       },
       "floor": 2
     },
@@ -2396,9 +2396,9 @@
       "check": "document_standard_metadata",
       "status": "pass",
       "evidence": {
-        "REVISION": "R14",
+        "REVISION": "R15",
         "STANDARD": "東京都建設局 CAD製図基準 令和6年4月",
-        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。",
+        "SCOPE": "住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。",
         "SCALE": "1:50"
       },
       "floor": 2

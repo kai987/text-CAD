@@ -214,9 +214,10 @@ def _kitchen(w, d, prefix, model_id):
 
 def _fridge(w, d, prefix, model_id):
     parts=[_named(_round(w-20,d-30,1790,18,w/2,d/2+10,10),prefix+':body_white','white')]
-    for i,(bottom,height) in enumerate(((25,430),(465,400),(875,900)),1):
-        parts.append(_named(_panel(w-36,height,20,w/2,25,bottom,10),f'{prefix}:door_{i}_white','white'))
-        parts.append(_named(_panel(w-140,14,13,w/2,18,bottom+height-60,4),f'{prefix}:handle_{i}_chrome','chrome'))
+    for i,cx in enumerate((w/4,3*w/4),1):
+        parts.append(_named(_panel(w/2-22,1750,20,cx,25,25,10),f'{prefix}:door_{i}_white','white'))
+        hx=w/2-35 if i==1 else w/2+35
+        parts.append(_named(_panel(14,460,18,hx,18,1050,4),f'{prefix}:handle_{i}_chrome','chrome'))
     parts.append(_named(_panel(110,55,4,w*.72,4,1530,4),prefix+':control_screen','screen'))
     return parts
 

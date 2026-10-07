@@ -46,7 +46,9 @@ class Placement:
     mirror_local_x: bool = False
 
     def footprint(self):
-        shape=affinity.rotate(box(0,0,self.width,self.depth),self.rotation,origin=(0,0))
+        local=unary_union([box(0,self.depth-850,self.width,self.depth),box(0,0,850,self.depth)]) if self.kind=='corner_sofa' else box(0,0,self.width,self.depth)
+        if self.mirror_local_x:local=affinity.scale(local,xfact=-1,yfact=1,origin=(self.width/2,0))
+        shape=affinity.rotate(local,self.rotation,origin=(0,0))
         x1,y1,_,_=shape.bounds
         return affinity.translate(shape,self.x-x1,self.y-y1)
 
@@ -107,6 +109,26 @@ def sofa(prefix,w=1600,d=850):
     return bd.Compound(children=parts,label=prefix)
 
 
+def corner_sofa(prefix,w=2600,d=1550):
+    """Three separate main seats plus a long chaise seat; front faces -Y."""
+    main=d-850;parts=_feet(prefix,w,850,145,inset=90,radius=24)
+    parts=[s.moved(bd.Location((0,main,0))) for s in parts]
+    parts += [_leg(90,90,0,24,145,prefix+':chaise_leg_1'),
+              _leg(760,90,0,24,145,prefix+':chaise_leg_2'),
+              _box((35,main+30,145,w-35,d-35,285),prefix+':base','upholstery',28),
+              _box((35,30,145,825,main+30,285),prefix+':chaise_base','upholstery',28),
+              _box((20,d-155,270,w-20,d,800),prefix+':back','upholstery',35),
+              _box((0,0,245,115,d-65,645),prefix+':arm_left','upholstery',32),
+              _box((w-115,main,245,w,d-65,645),prefix+':arm_right','upholstery',32)]
+    cw=(w-264)/3
+    for i in range(3):
+        x=120+i*(cw+12)
+        parts.append(_box((x,main+30,286,x+cw,d-172,452),f'{prefix}:seat_{i+1}','seat',34))
+        parts.append(_box((x,d-167,453,x+cw,d-82,750),f'{prefix}:back_cushion_{i+1}','seat',25))
+    parts.append(_box((120,30,286,825,main+18,452),prefix+':seat_4','seat',34))
+    return bd.Compound(children=parts,label=prefix)
+
+
 def table(prefix,w,d,height=380):
     top_thickness=35 if height<500 else 32
     legs=_feet(prefix,w,d,height-top_thickness,inset=70,radius=22)
@@ -155,14 +177,15 @@ def furniture_placements(floor,model_id,p):
         fixtures={name:bounds for name,bounds in floor.fixtures}
         if floor.number==1:
             x,y,x2,y2=fixtures['ソファ']
-            put('sofa','ldk','sofa',x,y,x2-x,y2-y)
-            put('coffee_table','ldk','table',1100,2000,900,500,0,380)
+            put('sofa','ldk','corner_sofa',x,y,x2-x,y2-y)
+            put('coffee_table','ldk','table',4400,650,950,550,0,380)
             x,y,x2,y2=fixtures['TV']
-            put('television','ldk','television',x,y,y2-y,x2-x,90)
+            put('television','ldk','television',x,y,x2-x,y2-y,180)
             x,y,x2,y2=fixtures['ダイニング']
-            put('dining_table','ldk','table',x,y,x2-x,y2-y,0,730)
-            put('dining_chair_west','ldk','chair',x-530,y+200,450,420,90)
-            put('dining_chair_east','ldk','chair',x2+200,y+200,450,420,270)
+            put('dining_table','ldk','table',x,y,y2-y,x2-x,90,730)
+            for i,chair_y in enumerate((1350,2050),1):
+                put(f'dining_chair_west_{i}','ldk','chair',380,chair_y,450,420,90)
+                put(f'dining_chair_east_{i}','ldk','chair',2050,chair_y,450,420,270)
         else:
             beds=[bounds for name,bounds in floor.fixtures if name.startswith('ベッド')]
             for room,bounds in zip(('master','bed2','bed3'),beds):
@@ -200,6 +223,7 @@ def furniture_group(floor,model_id,p):
         label=f'F{floor.number}:furniture:{item.room}:{item.id}'
         if item.kind=='bed':local=bed(label,item.width,item.depth)
         elif item.kind=='sofa':local=sofa(label,item.width,item.depth)
+        elif item.kind=='corner_sofa':local=corner_sofa(label,item.width,item.depth)
         elif item.kind=='table':local=table(label,item.width,item.depth,item.height)
         elif item.kind=='chair':local=chair(label,item.width,item.depth)
         else:local=television(label,item.width,item.depth)

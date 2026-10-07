@@ -21,6 +21,7 @@ def stairs(g,n):
     d=dimensions();x,y=d['sx'],d['sy'];sw=P.stair_width;t=P.internal_wall
     run=(P.risers//2-1)*P.tread
     for side in (0,sw+t):
+        if n==1 and side==sw+t:continue  # Upper flight is overhead above storage.
         for i in range(P.risers//2):
             yy=y+i*P.tread;g.line((x+side,yy),(x+side+sw,yy),'STAIR')
     g.rect((x+sw,y,x+sw+t,y+run),'STAIR')
@@ -28,6 +29,7 @@ def stairs(g,n):
     path=[(x+sw/2,y+150),(x+sw/2,y+run+100),
           (x+sw+t+sw/2,y+run+100),(x+sw+t+sw/2,y+150)]
     if n==2:path=path[::-1]
+    if n==1:path=path[:-1]
     for a,b in zip(path,path[1:]):g.line(a,b,'STAIR')
     end=path[-1]
     for offset in (-80,80):g.line(end,(end[0]+offset,end[1]+160),'STAIR')
@@ -50,7 +52,16 @@ def draw(g,f):
             _,at,start,width=window
             g.text(f'掃出し窓 W{width:g} / H{P.south_window_height:g} / FL+{P.south_window_sill:g}',(start+width/2,330),90)
     for name,b in f.fixtures:
+        if f.number==1 and name in ('ソファ','ダイニング','TV'):continue
         g.rect(b,'FURNITURE');g.text(name,((b[0]+b[2])/2,(b[1]+b[3])/2),90)
+    if f.number==1:
+        from lib.furniture_geometry import furniture_placements
+        for item in furniture_placements(f,'house',canonical(P)):
+            geom=item.footprint();g.poly(geom.exterior.coords,'FURNITURE')
+            c=geom.representative_point()
+            name={'corner_sofa':'4人 Lソファ','table':'4人ダイニング' if item.id=='dining_table' else 'ローテーブル',
+                  'television':'TV','chair':'椅子'}[item.kind]
+            g.text(name,(c.x,c.y),90)
     for door in f.doors:
         if door.kind=='open':
             # Actual open passage, with no invented door leaf.
@@ -81,6 +92,8 @@ def draw(g,f):
     for r in f.rooms:
         if r.id=='stairs':continue
         x,y=r.label
+        if r.id=='under_stairs':
+            g.text(r.name,(x,y+180),175);g.text(f'{r.area:.2f} m2',(x,y-25),125);g.text('800 x 1760',(x,y-220),125);continue
         if r.id=='wc_hall':
             g.text(r.name,(x,y+125),175);g.text(f'{r.area:.2f} m2',(x,y-125),125);continue
         if r.id=='closet':
@@ -115,12 +128,12 @@ def main():
     pdfmetrics.registerFont(TTFont('HouseUnicode',str(FONT)))
     dest=ROOT/'output/pdf/house_floor_plans_R10_JP.pdf';dest.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(dest),pagesize=(420*mm,297*mm))
-    c.setTitle('R14 mirrored layout and facing kitchen - engineering pending');c.setAuthor('text-to-CAD')
+    c.setTitle('R15 under-stair storage and four-person furnishings - engineering pending');c.setAuthor('text-to-CAD')
     for n in (1,2):
         f=floor_plan(n,canonical(P));draw_pdf_sheet(c,f)
         g=Drawing(c);g.mirror_width=P.width if P.mirror_layout else None;g.ox=37*mm;g.oy=76*mm
         g.doc.ezdxf_metadata()['REVISION']=REVISION
-        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R14左右反転・対面キッチン・換気窓・構造計算と法規適合は未検証。'
+        g.doc.ezdxf_metadata()['SCOPE']='住宅参考計画に東京都共通製図規定を準用。R15階段下収納・4人家具・構造計算と法規適合は未検証。'
         draw(g,f)
         add_paper_layout(g.doc,f)
         source=ROOT/f'DXF/house_redesign_R10_{n}f.dxf'

@@ -15,8 +15,8 @@
     "step": "STEP/structure_W.step"
   },
   "model_hashes_sha256": {
-    "glb": "2e1aa347d14eedc5da4cecda8c2e88e40a94f0350be7e565520bce726f859e3f",
-    "step": "8c043636adf623e23f433194e01d9728d883bbcd767d8b9e4a1fd19039c6e0b0"
+    "glb": "98c634fa6d28b22e6347d585f74e7214930dfe0e9b8ec34b4ae55b235ef19f04",
+    "step": "ffcbe4f489d64079e0372c5aa8d9a25b6949dad41bd2217faada7ad79b37b384"
   },
   "regulatory_reference": "output/review/regulatory_profiles_R07.json",
   "structural_reference": "output/review/structural_variants_R07.json",
@@ -752,19 +752,6 @@
         "name": "structure:F1:column_C35",
         "bounds_mm": [
           3085.0,
-          4415.0,
-          -80.0,
-          3175.0,
-          4505.0,
-          2476.0
-        ],
-        "volume_mm3": 20703600.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:column_C36",
-        "bounds_mm": [
-          3085.0,
           5325.0,
           -80.0,
           3175.0,
@@ -775,7 +762,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C37",
+        "name": "structure:F1:column_C36",
         "bounds_mm": [
           3085.0,
           6235.0,
@@ -788,7 +775,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C38",
+        "name": "structure:F1:column_C37",
         "bounds_mm": [
           3070.0,
           7130.0,
@@ -801,7 +788,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C39",
+        "name": "structure:F1:column_C38",
         "bounds_mm": [
           2085.0,
           4415.0,
@@ -814,7 +801,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C40",
+        "name": "structure:F1:column_C39",
         "bounds_mm": [
           2085.0,
           5325.0,
@@ -827,7 +814,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C41",
+        "name": "structure:F1:column_C40",
         "bounds_mm": [
           2085.0,
           6235.0,
@@ -840,7 +827,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C42",
+        "name": "structure:F1:column_C41",
         "bounds_mm": [
           2070.0,
           7130.0,
@@ -853,7 +840,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:column_C43",
+        "name": "structure:F1:column_C42",
         "bounds_mm": [
           1085.0,
           4285.0,
@@ -1311,19 +1298,6 @@
         "name": "structure:F2:column_C35",
         "bounds_mm": [
           3085.0,
-          4415.0,
-          2776.0,
-          3175.0,
-          4505.0,
-          5096.0
-        ],
-        "volume_mm3": 18792000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:column_C36",
-        "bounds_mm": [
-          3085.0,
           5325.0,
           2776.0,
           3175.0,
@@ -1334,7 +1308,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C37",
+        "name": "structure:F2:column_C36",
         "bounds_mm": [
           3085.0,
           6235.0,
@@ -1347,7 +1321,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C38",
+        "name": "structure:F2:column_C37",
         "bounds_mm": [
           3070.0,
           7130.0,
@@ -1360,7 +1334,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C39",
+        "name": "structure:F2:column_C38",
         "bounds_mm": [
           2085.0,
           4415.0,
@@ -1373,7 +1347,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C40",
+        "name": "structure:F2:column_C39",
         "bounds_mm": [
           2085.0,
           5325.0,
@@ -1386,7 +1360,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C41",
+        "name": "structure:F2:column_C40",
         "bounds_mm": [
           2085.0,
           6235.0,
@@ -1399,7 +1373,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C42",
+        "name": "structure:F2:column_C41",
         "bounds_mm": [
           2070.0,
           7130.0,
@@ -1412,7 +1386,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:column_C43",
+        "name": "structure:F2:column_C42",
         "bounds_mm": [
           1085.0,
           4285.0,
@@ -2754,19 +2728,6 @@
         "name": "structure:F1:bearing_wall_BW24",
         "bounds_mm": [
           3080.0,
-          4460.0,
-          -80.0,
-          3085.0,
-          5370.0,
-          2776.0
-        ],
-        "volume_mm3": 12859800.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F1:bearing_wall_BW25",
-        "bounds_mm": [
-          3080.0,
           5370.0,
           -80.0,
           3085.0,
@@ -2777,7 +2738,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F1:bearing_wall_BW26",
+        "name": "structure:F1:bearing_wall_BW25",
         "bounds_mm": [
           3080.0,
           6280.0,
@@ -3092,19 +3053,6 @@
         "name": "structure:F2:bearing_wall_BW24",
         "bounds_mm": [
           3080.0,
-          4460.0,
-          2776.0,
-          3085.0,
-          5370.0,
-          5396.0
-        ],
-        "volume_mm3": 11786000.0,
-        "solid_count": 1
-      },
-      {
-        "name": "structure:F2:bearing_wall_BW25",
-        "bounds_mm": [
-          3080.0,
           5370.0,
           2776.0,
           3085.0,
@@ -3115,7 +3063,7 @@
         "solid_count": 1
       },
       {
-        "name": "structure:F2:bearing_wall_BW26",
+        "name": "structure:F2:bearing_wall_BW25",
         "bounds_mm": [
           3080.0,
           6280.0,
@@ -3635,7 +3583,7 @@
         "solid_count": 1
       }
     ],
-    "member_count": 256,
+    "member_count": 252,
     "source_same_city_geometry": true,
     "city_specific_member_sizing": false,
     "material_grade": null,
@@ -3648,7 +3596,7 @@
     "assumptions": [
       "Every section, plate thickness and foundation dimension is a demonstration input, not a calculation-selected size.",
       "City selection supplies research/checklist context; these geometries are shared by all four cities and do not assert site compliance.",
-      "The 8190 x 7280 mm R14 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
+      "The 8190 x 7280 mm R15 architectural outline and 2800 mm storeys remain user-specified demonstration assumptions.",
       "Geotechnical data, actions, products, strengths, connection design and reinforcing schedules are absent.",
       "Architectural slabs/roof in the original house are display shells; the structural overlay replaces them for review, not construction.",
       "未提供实际建房地点、测量、地盘调查、木材等级或荷载条件，结构布置仅作为演示草案。",
@@ -3664,9 +3612,9 @@
       "scope": "native solid aperture checks and column/pier footprints only; no strength or statutory assessment",
       "status": "geometry_checks_passed_engineering_pending",
       "summary": {
-        "zh": "按 R14 镜像平面重排木结构演示架构；截面、节点与基础均未验算。",
-        "ja": "R14の左右反転間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。",
-        "en": "Timber concept rearranged for the R14 mirrored layout; sections, connections and foundations are uncalculated."
+        "zh": "按 R15 镜像平面重排木结构演示架构；截面、节点与基础均未验算。",
+        "ja": "R15の左右反転間取りに合わせて木造概念架構を再配置。断面・接合部・基礎は未計算。",
+        "en": "Timber concept rearranged for the R15 mirrored layout; sections, connections and foundations are uncalculated."
       },
       "apertures": [
         {
@@ -3690,17 +3638,17 @@
           "overlaps": []
         },
         {
-          "id": "F1:O01",
-          "kind": "door",
-          "overlaps": []
-        },
-        {
           "id": "F1:D05",
           "kind": "door",
           "overlaps": []
         },
         {
           "id": "F1:O02",
+          "kind": "door",
+          "overlaps": []
+        },
+        {
+          "id": "F1:D07",
           "kind": "door",
           "overlaps": []
         },
@@ -3839,8 +3787,8 @@
       "foundation_soil_bearing_settlement_and_material_specific_reinforcement"
     ],
     "glb_export": {
-      "named_mesh_nodes": 256,
-      "all_nodes": 271
+      "named_mesh_nodes": 252,
+      "all_nodes": 267
     }
   },
   "project_inputs": {
@@ -3871,7 +3819,7 @@
   ],
   "city_driven_member_sizing": false,
   "shared_geometry_explanation": "The same uncalculated material-system geometry is shared across cities. Official regional reference parameters are not site-specific design loads. Sizing must be recalculated after the actual site and load conditions are known.",
-  "architectural_geometry_baseline": "R14-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
+  "architectural_geometry_baseline": "R15-3D; mirrored room topology, east windows, facing kitchen and north attic vent",
   "architectural_coordination_result": null,
   "capacity_results": null,
   "statutory_compliance_result": null,

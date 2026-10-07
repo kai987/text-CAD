@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -46,6 +46,14 @@ for (const source of artifacts) {
   if (!bytes.length) throw new Error(`Empty artifact: ${source}`);
   const out = resolve(dest, source);
   await mkdir(dirname(out), { recursive: true });
+  if (source==='STEP/house_3d.step') {
+    const compressed=gzipSync(bytes,{level:9});
+    if (!gunzipSync(compressed).equals(bytes)) throw new Error('STEP transport round-trip failed');
+    await writeFile(`${out}.gz`,compressed);
+    manifest[`${source}.gz`]={bytes:compressed.length,sha256:sha(compressed),decodedBytes:bytes.length,decodedSha256:sha(bytes)};
+    await rm(out,{force:true});
+    continue;
+  }
   await copyFile(resolve(root, source), out);
   manifest[source] = { bytes: bytes.length, sha256: sha(bytes) };
   if (source.endsWith('.glb')) {

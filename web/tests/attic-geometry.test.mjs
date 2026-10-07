@@ -28,7 +28,7 @@ function boxInCadMillimetres(mesh) {
     b.max.x * 1000, -b.min.z * 1000, b.max.y * 1000];
 }
 
-test('the R14 GLB includes named balcony geometry and stores the attic inside the coordinated roof', async () => {
+test('the R15 GLB includes named balcony geometry and stores the attic inside the coordinated roof', async () => {
   const { gltf, nodes } = await loadHouse();
   const meshes = gltf.parser.json.nodes.filter(node => node.mesh !== undefined);
   const added = meshes.filter(node => /^(?:attic|attic_access):/.test(node.name));

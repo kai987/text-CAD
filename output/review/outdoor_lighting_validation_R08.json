@@ -1,5 +1,5 @@
 {
-  "revision": "R14-3D",
+  "revision": "R15-3D",
   "lighting_revision": "R08",
   "pass": true,
   "passed": 251,
@@ -45,8 +45,8 @@
     {
       "check": "GLB:named_leaves_match_STEP",
       "pass": true,
-      "actual": 925,
-      "expected": 925
+      "actual": 962,
+      "expected": 962
     },
     {
       "check": "GLB:lighting_metadata_embedded",

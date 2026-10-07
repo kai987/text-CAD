@@ -144,30 +144,35 @@ def run():
         check(prefix+'DXF/high_contrast',not badcolors,badcolors)
         check(prefix+'DXF/viewport_scale',all(abs(v.dxf.view_height/v.dxf.height-50)<1e-6
               for v in doc.layouts.get('JP_A3_1_50').query('VIEWPORT') if v.dxf.status>1),50)
-    # R14 world-space contract: reflect room topology without changing area.
+    # R15 world-space contract: reflect room topology without changing area.
     for f in floors:
         stairs=next(r.shape for r in f.rooms if r.id=='stairs')
-        check(f'R14/F{f.number}/stairs_west',stairs.bounds[2]<P.width/2,stairs.bounds)
+        check(f'R15/F{f.number}/stairs_west',stairs.bounds[2]<P.width/2,stairs.bounds)
         west=[w for w in f.windows if w[0]=='v' and w[1]<P.width/2]
         east=[w for w in f.windows if w[0]=='v' and w[1]>P.width/2]
-        check(f'R14/F{f.number}/west_only_stair_window',len(west)==1 and stairs.covers(Point(P.external_wall+1,west[0][2]+west[0][3]/2)),west)
+        check(f'R15/F{f.number}/west_only_stair_window',len(west)==1 and stairs.covers(Point(P.external_wall+1,west[0][2]+west[0][3]/2)),west)
         expected=['ldk'] if f.number==1 else ['master','bed3']
         owners=[r.id for w in east for r in f.rooms if r.shape.covers(Point(P.width-P.external_wall-1,w[2]+w[3]/2))]
-        check(f'R14/F{f.number}/east_room_windows',sorted(owners)==sorted(expected),owners)
+        check(f'R15/F{f.number}/east_room_windows',sorted(owners)==sorted(expected),owners)
     entry=next(d for d in floors[0].doors if d.a=='outside')
-    check('R14/entrance_southwest',entry.start+entry.width<P.width/2,[entry.start,entry.start+entry.width])
+    check('R15/entrance_southwest',entry.start+entry.width<P.width/2,[entry.start,entry.start+entry.width])
     kitchen=next(b for name,b in floors[0].fixtures if name=='対面キッチン')
     cupboard=next(b for name,b in floors[0].fixtures if name=='カップボード')
-    check('R14/kitchen_main_rear_aisle_900',cupboard[1]-kitchen[3]==900,{'counter':kitchen,'cupboard':cupboard})
+    check('R15/kitchen_main_rear_aisle_900',cupboard[1]-kitchen[3]==900,{'counter':kitchen,'cupboard':cupboard})
     # R10 changes only the balcony outside the approved R09 indoor rooms.
     previous=json.loads((ROOT/'output/review/house_redesign_R09.json').read_text())
     for f in floors:
         old={r['id']:r for r in previous['floors'][f.number-1]['rooms']}
         for room in f.rooms:
+            if f.number==1 and room.id in ('ldk','stairs','under_stairs'):continue
             if room.id!='balcony':
                 check(f'{f.number}F/R09_room_preserved/{room.id}',
                       room.shape.symmetric_difference(scale(Polygon(old[room.id]['polygon_mm']),xfact=-1 if P.mirror_layout else 1,origin=(P.width/2,0))).area<.01,
                       room.shape.bounds)
+    first=floors[0];first_rooms={r.id:r for r in first.rooms}
+    check('R15/WC_forecourt_removed','wc_hall' not in first_rooms,list(first_rooms))
+    check('R15/WC_direct_from_LDK',any(d.id=='D05' and {d.a,d.b}=={'ldk','wc'} for d in first.doors),[d.id for d in first.doors])
+    check('R15/stair_storage_net_dimensions',first_rooms['under_stairs'].shape.bounds[2]-first_rooms['under_stairs'].shape.bounds[0]==800 and abs(first_rooms['under_stairs'].area-1.408)<1e-8,first_rooms['under_stairs'].shape.bounds)
     balcony=next(r for r in floors[1].rooms if r.id=='balcony')
     check('R10/balcony_left_fixed',dimensions()['bx']==0,dimensions()['bx'])
     check('R10/balcony_east_aligns_with_wall',dimensions()['bx']+P.balcony_width==P.width,P.width)
@@ -184,7 +189,7 @@ def run():
     check('R12/no_ground_supports',not P.balcony_supports and not support_positions(P),list(support_positions(P)))
     a,b=[{r.id:r for r in f.rooms} for f in floors]
     for room in ('stairs','wc'):
-        check('vertical_alignment/'+room,a[room].shape.equals(b[room].shape),a[room].shape.bounds)
+        check('vertical_alignment/'+room,a[room].shape.bounds==b[room].shape.bounds if room=='stairs' else a[room].shape.equals(b[room].shape),a[room].shape.bounds)
     pdf=fitz.open(ROOT/'output/pdf/house_floor_plans_R10_JP.pdf')
     check('PDF/2_A3_sheets',len(pdf)==2 and all(abs(p.rect.width-420*72/25.4)<1 for p in pdf),len(pdf))
     check('PDF/approval_and_assumptions',all(REVISION in p.get_text() and '2800' in p.get_text().replace(',','') for p in pdf),True)

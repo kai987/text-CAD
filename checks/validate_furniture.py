@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
+from shapely.geometry import box
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
@@ -55,12 +56,20 @@ for model,floor,p in [('house',floor_plan(1),HOUSE),('house',floor_plan(2),HOUSE
             # Bedroom headboards are deliberately below the smallest existing 900 mm sill.
             head=next(part for part in leaves(obj) if part.label.endswith(':headboard'))
             check(prefix+':'+item.room+':low_headboard',head.bounding_box().size.Z<=800)
-        elif item.kind=='sofa':
+        elif item.kind in ('sofa','corner_sofa'):
             check(prefix+':sofa:distinct_cushions_and_arms',{'seat_1','seat_2','back_cushion_1','back_cushion_2','arm_left','arm_right'}<=names)
+            if item.kind=='corner_sofa':
+                check(prefix+':sofa:four_separate_seats_and_chaise',{'seat_1','seat_2','seat_3','seat_4','chaise_base'}<=names)
         elif item.kind=='television':
             check(prefix+':TV:console_stand_screen',{'console','tv_foot','tv_stem','tv_bezel','tv_screen','drawer_1','drawer_2'}<=names)
     check(prefix+':model_has_beds_for_each_bedroom',
           {r.id for r in floor.rooms if r.id in ('master','bed2','bed3')}=={i.room for i in placements if i.kind=='bed'})
+    if model=='house' and floor.number==1:
+        sofa=next(i for i in placements if i.id=='sofa');tv=next(i for i in placements if i.id=='television')
+        coffee=next(i for i in placements if i.id=='coffee_table')
+        check(prefix+':R15:four_dining_chairs',len([i for i in placements if i.kind=='chair'])==4)
+        check(prefix+':R15:TV_south_of_sofa_facing_north',tv.rotation==-180 and sofa.rotation==0 and tv.y+tv.depth<sofa.y)
+        check(prefix+':R15:coffee_inside_L_cavity_without_overlap',box(*sofa.footprint().bounds).intersects(coffee.footprint()) and sofa.footprint().intersection(coffee.footprint()).area<.001)
 
 summary={'checks':len(results),'passed':sum(r['pass'] for r in results),'failed':sum(not r['pass'] for r in results),
          'counts':counts,'units':'mm, exact BRep solids; clearance targets are demonstration assumptions'}

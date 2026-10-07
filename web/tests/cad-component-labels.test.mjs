@@ -46,6 +46,7 @@ function originalCategory(name) {
   if (/^F[12]:D\d+:(?:canopy|porch|porch_step|frame|handle|threshold)$/.test(name)) return `${floor}:doors`;
   if (/^F[12]:W\d+:/.test(name)) return `${floor}:windows`;
   if (/^F[12]:storage_/.test(name)) return `${floor}:storage_fixtures`;
+  if (/^F1:under_stairs:/.test(name)) return `${floor}:storage_fixtures`;
   if (/^F[12]:fixture_/.test(name)) return `${floor}:fixtures`;
   if (/^F[12]:furniture:/.test(name)) return `${floor}:furniture`;
   assert.fail(`Unclassified original CAD mesh: ${name}`);

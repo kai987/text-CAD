@@ -1,10 +1,20 @@
 # Parametric Japanese homes: detached house and 2LDK apartment
 
+## R15 Under-stair storage and four-person furnishings
+
+The entry handle moves to the left as seen from outside. The enclosed first-floor WC lobby becomes part of the LDK. An 800×1760 mm storage room with a stepped ceiling fits below the upper stair flight. A 2600×1550 mm four-seat L sofa faces the south-wall TV, with a 950×550 mm coffee table, 1600×850 mm dining table and four chairs. The refrigerator is a 900×750 mm side-by-side model. Second-floor rooms and west stair windows remain. All dimensions are demo assumptions; stair capacity, connections and fire separation are unengineered.
+
+[R15 dimensions and scope](docs/interior_R15.md)
+
+Web downloads transport the complete STEP losslessly with gzip and restore a standard .step in supported browsers. Other browsers can extract the compressed download. Local STEP and appearance metadata remain complete.
+
+Earlier revisions below are historical.
+
 Three south living/main-bedroom/bedroom-2 windows now extend from FL+0 to FL+2200, retaining widths of 2100/1600/1800 mm. The main bed rotates and bedroom-2 bed moves north to retain a 650 mm demonstration approach. Safety glass, sash specifications, waterproofing, headers and thermal performance remain undesigned.
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-## Current proposal R14: mirrored floors and facing kitchen
+## Earlier proposal R14: mirrored floors and facing kitchen
 
 Both floors are reflected left/right: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only. Existing north/south windows and the full-width 8190×1000 mm south balcony remain. A 600×300 mm top-hung ventilation window is added to the north attic gable, sill at attic FL+850 mm.
 
@@ -14,7 +24,7 @@ The facing kitchen has a 2550×650 mm counter and a 900 mm main rear working ais
 
 STEP export losslessly compacts whitespace for the Sites 25 MiB per-file limit. Numbers, named components and appearance metadata are retained and the saved CAD is revalidated.
 
-R13 and earlier sections below are historical; R14 and the current exported files take precedence.
+R13 and earlier sections below are historical; the R15 section above and the current exported files take precedence.
 
 ## Earlier scheme (R13 balcony revision)
 

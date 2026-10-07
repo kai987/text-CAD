@@ -68,8 +68,8 @@ class FurnitureClearanceTests(unittest.TestCase):
         return expected
 
     def test_all_actual_layouts_keep_every_original_row_name_order_evidence_and_decision(self):
-        # R14 additionally checks the refrigerator, cupboard and facing-kitchen aisle.
-        layouts=[('house',floor_plan(1),HOUSE,159),('house',floor_plan(2),HOUSE,57),
+        # R15 additionally checks the refrigerator, cupboard and facing-kitchen aisle.
+        layouts=[('house',floor_plan(1),HOUSE,236),('house',floor_plan(2),HOUSE,57),
                  ('apartment',apartment_plan()[0],APARTMENT,228)]
         for model,floor,p,count in layouts:
             rows=self.assert_reports_equal(floor,model,p)
@@ -87,7 +87,7 @@ class FurnitureClearanceTests(unittest.TestCase):
             zone=dict(furniture.clearance_zones(floor,'house',HOUSE))[zone_name]
             point=zone.representative_point()
             placements=furniture.furniture_placements(floor,'house',HOUSE)
-            placements[0]=replace(placements[0],x=point.x-50,y=point.y-50,width=100,depth=100,rotation=0)
+            placements[0]=replace(placements[0],x=point.x-50,y=point.y-50,width=100,depth=100,rotation=0,kind="table")
             with patch.object(furniture,'furniture_placements',return_value=placements):
                 self.assert_reports_equal(floor,'house',HOUSE,expect_fail=f'clear_zone:{zone_name}')
 
@@ -103,14 +103,15 @@ class FurnitureClearanceTests(unittest.TestCase):
             point=zone.representative_point()
             placements=furniture.furniture_placements(floor,model,p)
             index=next(i for i,item in enumerate(placements) if item.room==room_id)
-            placements[index]=replace(placements[index],x=point.x-50,y=point.y-50,width=100,depth=100,rotation=0)
+            placements[index]=replace(placements[index],x=point.x-50,y=point.y-50,width=100,depth=100,rotation=0,kind="table")
             with self.subTest(model=model,zone=zone_name),patch.object(furniture,'furniture_placements',return_value=placements):
                 self.assert_reports_equal(floor,model,p,expect_fail=f'clear_zone:{zone_name}')
 
     def test_furniture_collision_and_fixture_collision_are_reported(self):
         floor=floor_plan(1)
         placements=furniture.furniture_placements(floor,'house',HOUSE)
-        placements[1]=replace(placements[1],x=placements[0].x,y=placements[0].y)
+        point=placements[0].footprint().representative_point()
+        placements[1]=replace(placements[1],x=point.x-100,y=point.y-100)
         floor.fixtures.append(('injected_obstacle',tuple(placements[0].footprint().bounds)))
         with patch.object(furniture,'furniture_placements',return_value=placements):
             rows=self.assert_reports_equal(floor,'house',HOUSE,expect_fail='ldk:sofa:separate_from:ldk:coffee_table')
@@ -121,7 +122,7 @@ class FurnitureClearanceTests(unittest.TestCase):
             floor=floor_plan(2)
             placements=furniture.furniture_placements(floor,'house',HOUSE)
             room=next(room for room in floor.rooms if room.id=='bed3')
-            placements[2]=replace(placements[2],x=room.shape.bounds[0]-outside,y=5500,width=100,depth=100,rotation=0)
+            placements[2]=replace(placements[2],x=room.shape.bounds[0]-outside,y=5500,width=100,depth=100,rotation=0,kind="table")
             with patch.object(furniture,'furniture_placements',return_value=placements):
                 rows=self.assert_reports_equal(floor,'house',HOUSE)
                 row=next(row for row in rows if row['check']=='bed3:bed:inside_room')
@@ -135,7 +136,7 @@ class FurnitureClearanceTests(unittest.TestCase):
             floor=floor_plan(2)
             next(room for room in floor.rooms if room.id=='master').shape=room_shape
             placements=furniture.furniture_placements(floor,'house',HOUSE)
-            placements[0]=replace(placements[0],x=650,y=650,width=400,depth=200,rotation=0)
+            placements[0]=replace(placements[0],x=650,y=650,width=400,depth=200,rotation=0,kind="table")
             with patch.object(furniture,'furniture_placements',return_value=placements):
                 self.assert_reports_equal(floor,'house',HOUSE,expect_fail='master:bed:inside_room')
 
@@ -143,7 +144,7 @@ class FurnitureClearanceTests(unittest.TestCase):
         for overlap,expected in ((.0009,True),(.0011,False)):
             floor=floor_plan(2)
             placements=furniture.furniture_placements(floor,'house',HOUSE)
-            placements[0]=replace(placements[0],x=500,y=500,width=1,depth=1,rotation=0)
+            placements[0]=replace(placements[0],x=500,y=500,width=1,depth=1,rotation=0,kind="table")
             floor.fixtures.append(('threshold_probe',(500,500,501,500+overlap)))
             with patch.object(furniture,'furniture_placements',return_value=placements):
                 rows=self.assert_reports_equal(floor,'house',HOUSE)

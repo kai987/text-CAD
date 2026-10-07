@@ -37,7 +37,7 @@ def validate():
                 z = (floor.number-1)*p.storey_height
                 bb = fixture.bounding_box()
                 tol = .001
-                check(f'{tag}:{kind}:hierarchy', fixture.label == prefix and len(fixture.children) >= 7)
+                check(f'{tag}:{kind}:hierarchy', fixture.label == prefix and len(fixture.children) >= (6 if kind == 'fridge' else 7))
                 check(f'{tag}:{kind}:within_original_footprint',
                       bb.min.X >= x1-tol and bb.max.X <= x2+tol and
                       bb.min.Y >= y1-tol and bb.max.Y <= y2+tol,
@@ -53,7 +53,11 @@ def validate():
                     check(f'{tag}:{leaf.label}:surface_color', leaf.color is not None)
                 parts = {leaf.label.split(':')[-1]: leaf for leaf in fixture.children}
                 cx, cy = (x1+x2)/2, (y1+y2)/2
-                if kind == 'bath':
+                if kind == 'fridge':
+                    check(f'{tag}:fridge:two_doors_and_handles',
+                          {key for key in parts if key.startswith('door_')} == {'door_1_white', 'door_2_white'} and
+                          {key for key in parts if key.startswith('handle_')} == {'handle_1_chrome', 'handle_2_chrome'})
+                elif kind == 'bath':
                     shell = parts['tub_shell_ceramic'].solids()[0]
                     check(f'{tag}:bath:deep_open_cavity', not shell.is_inside((cx, cy, z+300)))
                     check(f'{tag}:bath:sealed_tub_floor', shell.is_inside((cx, cy, z+80)))

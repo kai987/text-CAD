@@ -1,5 +1,5 @@
 {
-  "revision": "R14",
+  "revision": "R15",
   "status": "pass",
   "scope": "Concept geometry and editable draft artifacts only; no engineering/code validation.",
   "checks": [
@@ -12,15 +12,15 @@
         "bath",
         "wash",
         "wc",
-        "wc_hall",
-        "stairs"
+        "stairs",
+        "under_stairs"
       ]
     },
     {
       "name": "1F/ldk/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 33.05,
+        "area_m2": 34.07,
         "label": [
           4690,
           2250
@@ -97,34 +97,34 @@
       "evidence": 0.0
     },
     {
-      "name": "1F/wc_hall/valid",
-      "passed": true,
-      "evidence": {
-        "area_m2": 0.828,
-        "label": [
-          2630.0,
-          4840.0
-        ]
-      }
-    },
-    {
-      "name": "1F/wc_hall/no_wall_overlap",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
       "name": "1F/stairs/valid",
       "passed": true,
       "evidence": {
-        "area_m2": 5.168,
+        "area_m2": 3.53,
         "label": [
-          1130.0,
-          5740.0
+          1630.0,
+          4880
         ]
       }
     },
     {
       "name": "1F/stairs/no_wall_overlap",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/under_stairs/valid",
+      "passed": true,
+      "evidence": {
+        "area_m2": 1.408,
+        "label": [
+          630.0,
+          5030
+        ]
+      }
+    },
+    {
+      "name": "1F/under_stairs/no_wall_overlap",
       "passed": true,
       "evidence": 0.0
     },
@@ -368,39 +368,16 @@
       }
     },
     {
-      "name": "1F/O01/full_width_adjacency",
-      "passed": true,
-      "evidence": {
-        "declared": [
-          "ldk",
-          "wc_hall"
-        ],
-        "owners": [
-          [
-            "ldk"
-          ],
-          [
-            "wc_hall"
-          ]
-        ]
-      }
-    },
-    {
-      "name": "1F/O01/opening_clear",
-      "passed": true,
-      "evidence": 0.0
-    },
-    {
       "name": "1F/D05/full_width_adjacency",
       "passed": true,
       "evidence": {
         "declared": [
-          "wc_hall",
+          "ldk",
           "wc"
         ],
         "owners": [
           [
-            "wc_hall"
+            "ldk"
           ],
           [
             "wc"
@@ -443,6 +420,39 @@
     },
     {
       "name": "1F/O02/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D07/full_width_adjacency",
+      "passed": true,
+      "evidence": {
+        "declared": [
+          "ldk",
+          "under_stairs"
+        ],
+        "owners": [
+          [
+            "ldk"
+          ],
+          [
+            "under_stairs"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "1F/D07/opening_clear",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D07/leaf_clear_of_fixtures",
+      "passed": true,
+      "evidence": 0.0
+    },
+    {
+      "name": "1F/D07/leaf_clear_of_walls",
       "passed": true,
       "evidence": 0.0
     },
@@ -491,9 +501,9 @@
           "ldk",
           "outside",
           "stairs",
+          "under_stairs",
           "wash",
-          "wc",
-          "wc_hall"
+          "wc"
         ]
       }
     },
@@ -531,7 +541,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R14"
+        "revision": "R15"
       }
     },
     {
@@ -543,22 +553,28 @@
         "対面キッチン",
         "冷蔵庫",
         "カップボード",
-        "ダイニング",
-        "ソファ",
-        "TV",
         "食品収納",
         "浴槽",
         "洗面",
         "洗濯機",
         "リネン",
         "WC",
+        "4人 Lソファ",
+        "ローテーブル",
+        "TV",
+        "4人ダイニング",
+        "椅子",
+        "椅子",
+        "椅子",
+        "椅子",
         "D01 / 900",
         "D02 / 900",
         "D03 / 800",
         "D04 / 750",
         "D05 / 700",
+        "D07 / 700",
         "LDK",
-        "33.05 m2",
+        "34.07 m2",
         "玄関",
         "3.04 m2",
         "1900 × 1600",
@@ -571,8 +587,9 @@
         "トイレ",
         "1.53 m2",
         "900 × 1700",
-        "ホール",
-        "0.83 m2",
+        "階段下収納",
+        "1.41 m2",
+        "800 x 1760",
         "階段 UP",
         "16R x 175 / T260",
         "W900 / 踊場900",
@@ -1166,7 +1183,7 @@
       "passed": true,
       "evidence": {
         "units": 4,
-        "revision": "R14"
+        "revision": "R15"
       }
     },
     {
@@ -1234,7 +1251,7 @@
       "evidence": 50
     },
     {
-      "name": "R14/F1/stairs_west",
+      "name": "R15/F1/stairs_west",
       "passed": true,
       "evidence": [
         180.0,
@@ -1244,7 +1261,7 @@
       ]
     },
     {
-      "name": "R14/F1/west_only_stair_window",
+      "name": "R15/F1/west_only_stair_window",
       "passed": true,
       "evidence": [
         [
@@ -1256,14 +1273,14 @@
       ]
     },
     {
-      "name": "R14/F1/east_room_windows",
+      "name": "R15/F1/east_room_windows",
       "passed": true,
       "evidence": [
         "ldk"
       ]
     },
     {
-      "name": "R14/F2/stairs_west",
+      "name": "R15/F2/stairs_west",
       "passed": true,
       "evidence": [
         180.0,
@@ -1273,7 +1290,7 @@
       ]
     },
     {
-      "name": "R14/F2/west_only_stair_window",
+      "name": "R15/F2/west_only_stair_window",
       "passed": true,
       "evidence": [
         [
@@ -1285,7 +1302,7 @@
       ]
     },
     {
-      "name": "R14/F2/east_room_windows",
+      "name": "R15/F2/east_room_windows",
       "passed": true,
       "evidence": [
         "master",
@@ -1293,7 +1310,7 @@
       ]
     },
     {
-      "name": "R14/entrance_southwest",
+      "name": "R15/entrance_southwest",
       "passed": true,
       "evidence": [
         980,
@@ -1301,32 +1318,22 @@
       ]
     },
     {
-      "name": "R14/kitchen_main_rear_aisle_900",
+      "name": "R15/kitchen_main_rear_aisle_900",
       "passed": true,
       "evidence": {
         "counter": [
-          4640,
+          4440,
           3180,
-          7190,
+          6990,
           3830
         ],
         "cupboard": [
-          5440,
+          5240,
           4730,
-          7190,
+          6990,
           5180
         ]
       }
-    },
-    {
-      "name": "1F/R09_room_preserved/ldk",
-      "passed": true,
-      "evidence": [
-        180.0,
-        180.0,
-        8010.0,
-        5180.0
-      ]
     },
     {
       "name": "1F/R09_room_preserved/foyer",
@@ -1365,26 +1372,6 @@
         2180.0,
         5400.0,
         3080.0,
-        7100.0
-      ]
-    },
-    {
-      "name": "1F/R09_room_preserved/wc_hall",
-      "passed": true,
-      "evidence": [
-        2180.0,
-        4380.0,
-        3080.0,
-        5300.0
-      ]
-    },
-    {
-      "name": "1F/R09_room_preserved/stairs",
-      "passed": true,
-      "evidence": [
-        180.0,
-        4380.0,
-        2080.0,
         7100.0
       ]
     },
@@ -1469,6 +1456,42 @@
       ]
     },
     {
+      "name": "R15/WC_forecourt_removed",
+      "passed": true,
+      "evidence": [
+        "ldk",
+        "foyer",
+        "bath",
+        "wash",
+        "wc",
+        "stairs",
+        "under_stairs"
+      ]
+    },
+    {
+      "name": "R15/WC_direct_from_LDK",
+      "passed": true,
+      "evidence": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "O02",
+        "D07"
+      ]
+    },
+    {
+      "name": "R15/stair_storage_net_dimensions",
+      "passed": true,
+      "evidence": [
+        230.0,
+        4380.0,
+        1030.0,
+        6140.0
+      ]
+    },
+    {
       "name": "R10/balcony_left_fixed",
       "passed": true,
       "evidence": 0
@@ -1540,8 +1563,8 @@
     }
   ],
   "sha256": {
-    "output/pdf/house_floor_plans_R10_JP.pdf": "bcd3a405baed4da80770f2df0407e8cf87c28ce9547c01099bf79d136534b969",
-    "DXF/house_redesign_R10_1f.dxf": "b10702a54cff048eab7d668558494c867847255a5c855159d08744be306f0261",
-    "DXF/house_redesign_R10_2f.dxf": "08aab9dc9b7ec9c53e62b0bb931f552627f6f2438952e99a3d1ae69d7197e8f6"
+    "output/pdf/house_floor_plans_R10_JP.pdf": "46964623c16fe7a8492a13c062d2a77ba029157694696755509e3b031bf8d9de",
+    "DXF/house_redesign_R10_1f.dxf": "92f4e380aabab0290f27b96520c706c430dbec31d0439d2981fbe9384191c45d",
+    "DXF/house_redesign_R10_2f.dxf": "04f458123b232079dd4d185113dbcf033bc9f673aea0aa57472a9beed1373e84"
   }
 }

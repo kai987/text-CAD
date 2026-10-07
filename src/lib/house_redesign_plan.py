@@ -1,4 +1,4 @@
-"""Active R14 layout: reflected rooms, east glazing and a facing kitchen.
+"""Active R15 layout: reflected rooms, east glazing and a facing kitchen.
 
 Millimetres; all dimensions are demonstration assumptions. Structural adequacy
 and site-specific code compliance have not been established.
@@ -17,7 +17,7 @@ class RedesignParameters:
     kitchen_width: float = 2550
     kitchen_depth: float = 650
     kitchen_south: float = 3180
-    kitchen_wall_gap: float = 820
+    kitchen_wall_gap: float = 1020
     width: float = 8190
     depth: float = 7280
     storey_height: float = 2800
@@ -49,7 +49,7 @@ class RedesignParameters:
 
 
 P = RedesignParameters()
-REVISION = 'R14'
+REVISION = 'R15'
 SOURCES = [
     {'title': 'ヤマト住建 加古川店 / 27-35坪参考プラン',
      'url': 'https://www.yamatojk.co.jp/wordpress/wp-content/uploads/2023/01/kakogawa-1116.pdf',
@@ -120,27 +120,35 @@ def _canonical_floor_plan(number, p=P):
         ldk=Polygon([(e,e),(wcr,e),(wcr,foyer_top+t),(xm,foyer_top+t),
                      (xm,sy-t),(wcl-t,sy-t),
                      (wcl-t,wb-t),(e,wb-t)])
+        # Remove the enclosed WC forecourt; retain the WC itself and its door.
+        ldk=unary_union([ldk,box(wcl-t,sy-t,wcr,ym-p.toilet_depth-t)])
+        landing_y=sy+(p.risers//2-1)*p.tread
+        storage_left=xm-p.stair_width
+        stairs.shape=stairs.shape.difference(box(storage_left,sy,xm,landing_y))
+        stairs.label=(sx+p.stair_width/2,sy+500)
+        store=rectangle('under_stairs','階段下収納',storage_left+50,sy,xm-50,landing_y-60,
+                        ((storage_left+xm)/2,sy+650),'storage')
         rooms=[Room('ldk','LDK',ldk,(3500,2250),size_note='L型 / 有効寸法は寸法線参照'),
                rectangle('foyer','玄関',sx,e,xm,foyer_top,(sx+800,850)),
                rectangle('bath','浴室',e,wb,br,ym,(br-800,wb+600),'wet'),
                rectangle('wash','洗面・脱衣 / 洗濯',br+t,wb,wcl-t,ym,
-                         ((br+t+wcl-t)/2,wb+750),'wet'),wc,vest,stairs]
+                         ((br+t+wcl-t)/2,wb+750),'wet'),wc,stairs,store]
         doors=[Door('D01','outside','foyer','h',e/2,sx+200,900,'swing',-1),
                Door('D02','foyer','ldk','h',foyer_top+t/2,sx+250,900,'swing',1),
                Door('D03','ldk','wash','h',wb-t/2,br+t+1050,800,'slide',-1),
                Door('D04','wash','bath','v',br+t/2,wb+150,750,'slide',1),
-               Door('O01','ldk','wc_hall','h',sy-t/2,wcl,900,'open'),
-               Door('D05','wc_hall','wc','h',ym-p.toilet_depth-t/2,wcl+100,700,'swing',-1),
-               Door('O02','ldk','stairs','h',sy-t/2,sx,900,'open')]
+               Door('D05','ldk','wc','h',ym-p.toilet_depth-t/2,wcl+100,700,'swing',-1),
+               Door('O02','ldk','stairs','h',sy-t/2,sx,900,'open'),
+               Door('D07','ldk','under_stairs','h',sy-t/2,storage_left+100,700,'swing',-1)]
         windows=[('h',e/2,650,p.south_living_window_width),('v',e/2,1700,1800),
                  ('h',ym+e/2,700,600),('h',ym+e/2,3000,900),
                  ('h',ym+e/2,wcl+220,450),('v',xm+e/2,6200,600)]
         fixtures=[('靴収納',(xm-400,350,xm,1450)),
                   ('対面キッチン',(e+p.kitchen_wall_gap,p.kitchen_south,e+p.kitchen_wall_gap+p.kitchen_width,p.kitchen_south+p.kitchen_depth)),
-                  ('冷蔵庫',(e+20,wb-t-750,e+720,wb-t)),
-                  ('カップボード',(1000,wb-t-450,2750,wb-t)),
-                  ('ダイニング',(3900,2500,5300,3300)),
-                  ('ソファ',(650,850,2450,1700)),('TV',(e,2300,e+400,3500)),
+                  ('冷蔵庫',(e+20,wb-t-750,e+920,wb-t)),
+                  ('カップボード',(1200,wb-t-450,2950,wb-t)),
+                  ('ダイニング',(1000,1150,1850,2750)),
+                  ('ソファ',(3200,850,5800,2400)),('TV',(4250,e,5650,e+350)),
                   ('食品収納',(4200,wb-700,wcl-t,wb-t)),
                   ('浴槽',(330,ym-850,br-150,ym-150)),
                   ('洗面',(br+t+100,ym-600,br+t+1100,ym-100)),
@@ -217,7 +225,7 @@ def floor_plan(number, p=P):
 
 
 def manifest(p=P):
-    return {'revision':REVISION,'stage':'user_requested_mirror_layout','approved_on':'2026-10-07','units':'mm',
+    return {'revision':REVISION,'stage':'user_requested_storage_and_four_person_furnishings','requested_on':'2026-10-07','units':'mm',
             'parameters':asdict(p),'sources':SOURCES,
             'assumptions':[
                 'User permits footprint adjustment and requires three bedrooms and a drying balcony.',
@@ -233,8 +241,11 @@ def manifest(p=P):
                 'R10 attic, site, foundation, facade and W/S/RC geometry are coordinated to the approved layout; engineering is pending.',
                 'R13 removes balcony support posts and footings; cantilever capacity, connections, waterproofing, threshold, drainage and guard anchorage remain pending.',
                 'No structural, fire, daylight, ventilation, code, equipment or soil verification is asserted.',
-                'R14 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.',
-                '2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm, 700 x 750 mm fridge and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending.'],
+                'R15 mirrors both floors left/right at user request: southwest entrance and northwest stairs. East windows serve the LDK and both east bedrooms; west windows serve stairs only.',
+                'R15 removes the F1 enclosed WC forecourt and opens this area to the LDK; the 900 x 1700 mm WC and F2 rooms stay fixed.',
+                'R15 adds an 800 x 1760 mm stair-under storage room with a 700 mm door, stepped low ceiling, and shelves. Upper stair treads use a 200 mm illustrative thickness; load capacity, connections and fire separation remain uncalculated.',
+                'R15 uses a four-seat 2600 x 1550 mm L sofa, opposing south-wall TV, coffee table, 1600 x 850 mm dining table with four chairs, and 900 x 750 mm side-by-side refrigerator. Furniture clearances are demo design targets.',
+                '2550 x 650 mm island facing kitchen, 850 mm worktop, main rear aisle 900 mm and 1750 x 450 mm cupboard are demonstration assumptions; actual products, exhaust duct, services and fire clearances remain pending.'],
             'floors':[{'floor':n,'outline_area_m2':p.width*p.depth/1e6,
                        'rooms':[{'id':r.id,'name':r.name,'area_m2':round(r.area,4),
                                  'polygon_mm':list(r.shape.exterior.coords),'size_note':r.size_note}

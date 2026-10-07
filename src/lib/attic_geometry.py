@@ -370,13 +370,13 @@ def attic_manifest(p, g, a=A):
     ]
     return {
         "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-        "revision": "R14",
+        "revision": "R15",
         "status": "demonstration proposal, not structural or statutory design",
         "statutory_area_status": "geometric projection only; local floor/storey classification pending",
         "parameters": asdict(a),
         "north_vent_bounds_mm": list(north_vent_bounds(p,g,a)),
         "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
-        "unchanged": ["R14 reflected F1/F2 room topology and areas", "R10 roof geometry and exterior silhouette"],
+        "unchanged": ["R15 reflected F1/F2 room topology and areas", "R10 roof geometry and exterior silhouette"],
         "existing_floor_leaf": "roof:attic_ceiling_slab",
         "floor_group": "attic:floor_slab",
         "slab_bounds_mm": [wall_setback(), wall_setback(), d["panel_bottom_z"],

@@ -1,23 +1,23 @@
 {
-  "revision": "R14-3D",
+  "revision": "R15-3D",
   "units": "STEP mm; GLB metres / Y-up",
   "summary": {
-    "checks": 3391,
-    "passed": 3391,
+    "checks": 3514,
+    "passed": 3514,
     "failed": 0,
-    "STEP_leaf_occurrences": 925,
-    "native_solids": 945,
-    "GLB_mesh_nodes": 925,
-    "GLB_all_nodes": 1037
+    "STEP_leaf_occurrences": 962,
+    "native_solids": 982,
+    "GLB_mesh_nodes": 962,
+    "GLB_all_nodes": 1076
   },
   "artifacts": {
     "house_3d.step": {
-      "bytes": 25603115,
-      "sha256": "d4d2add1e74391de855d575462faa662be7c957bd21a3ccc97163524db84b66e"
+      "bytes": 26769420,
+      "sha256": "9e4058bfc2a490dd9394db5b47d5d3a3ce9d77ffc8dcd22ebf689d17d18e5619"
     },
     "house_3d.glb": {
-      "bytes": 8198824,
-      "sha256": "c2bab7f85790ed4688bf5d13c7046120c9350a62f0f533a7c13db1328c00ccd0"
+      "bytes": 9046464,
+      "sha256": "6699aa810c6657a5213c8e2e834caa0a4b009fec32378772182f0a508451393a"
     }
   },
   "thresholds": {
@@ -57,19 +57,19 @@
     {
       "check": "saved_STEP_is_nonempty",
       "pass": true,
-      "actual": 25603115,
+      "actual": 26769420,
       "expected": null
     },
     {
       "check": "saved_GLB_is_nonempty",
       "pass": true,
-      "actual": 8198824,
+      "actual": 9046464,
       "expected": null
     },
     {
       "check": "all_STEP_leaf_labels_unique",
       "pass": true,
-      "actual": 925,
+      "actual": 962,
       "expected": null
     },
     {
@@ -285,7 +285,7 @@
     {
       "check": "F1:wall_partition_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 3306900000.0,
+      "actual": 1403500000.0,
       "expected": null
     },
     {
@@ -302,6 +302,24 @@
     },
     {
       "check": "F1:wall_partition_02:solid_1_positive_volume",
+      "pass": true,
+      "actual": 1446200000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_03:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_03:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:wall_partition_03:solid_1_positive_volume",
       "pass": true,
       "actual": 747000000.0,
       "expected": null
@@ -392,6 +410,24 @@
     },
     {
       "check": "F1:D05_door_swing:solid_1_positive_volume",
+      "pass": true,
+      "actual": 50918400.0,
+      "expected": null
+    },
+    {
+      "check": "F1:D07_door_swing:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:D07_door_swing:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:D07_door_swing:solid_1_positive_volume",
       "pass": true,
       "actual": 50918400.0,
       "expected": null
@@ -1309,6 +1345,312 @@
       "expected": null
     },
     {
+      "check": "F1:under_stairs:section_1:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_1:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_1:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 17355000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_1:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_1:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_1:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 19630000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_2:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 21905000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_3:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 24180000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_4:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 26455000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_5:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 28730000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_6:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:side:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:side:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:side:solid_1_positive_volume",
+      "pass": true,
+      "actual": 31005000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:ceiling:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:ceiling:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:section_7:ceiling:solid_1_positive_volume",
+      "pass": true,
+      "actual": 7280000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:back:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:back:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:back:solid_1_positive_volume",
+      "pass": true,
+      "actual": 64080000.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6352500.0,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:under_stairs:shelf_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 6352500.0,
+      "expected": null
+    },
+    {
       "check": "F1:fixture_02_kitchen:cabinet_wood:contains_solid",
       "pass": true,
       "actual": 1,
@@ -1809,7 +2151,7 @@
     {
       "check": "F1:fixture_03_fridge:body_white:solid_1_positive_volume",
       "pass": true,
-      "actual": 875886158.067,
+      "actual": 1133646158.066,
       "expected": null
     },
     {
@@ -1827,7 +2169,7 @@
     {
       "check": "F1:fixture_03_fridge:door_1_white:solid_1_positive_volume",
       "pass": true,
-      "actual": 5708683.185,
+      "actual": 14978283.184,
       "expected": null
     },
     {
@@ -1845,7 +2187,7 @@
     {
       "check": "F1:fixture_03_fridge:handle_1_chrome:solid_1_positive_volume",
       "pass": true,
-      "actual": 101741.452,
+      "actual": 115672.779,
       "expected": null
     },
     {
@@ -1863,7 +2205,7 @@
     {
       "check": "F1:fixture_03_fridge:door_2_white:solid_1_positive_volume",
       "pass": true,
-      "actual": 5310283.185,
+      "actual": 14978283.184,
       "expected": null
     },
     {
@@ -1881,43 +2223,7 @@
     {
       "check": "F1:fixture_03_fridge:handle_2_chrome:solid_1_positive_volume",
       "pass": true,
-      "actual": 101741.452,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:door_3_white:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:door_3_white:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:door_3_white:solid_1_positive_volume",
-      "pass": true,
-      "actual": 11950283.185,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:handle_3_chrome:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:handle_3_chrome:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "F1:fixture_03_fridge:handle_3_chrome:solid_1_positive_volume",
-      "pass": true,
-      "actual": 101741.452,
+      "actual": 115672.779,
       "expected": null
     },
     {
@@ -2911,6 +3217,42 @@
       "expected": null
     },
     {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 262385.818,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_leg_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 262385.818,
+      "expected": null
+    },
+    {
       "check": "F1:furniture:ldk:sofa:base:contains_solid",
       "pass": true,
       "actual": 1,
@@ -2925,7 +3267,25 @@
     {
       "check": "F1:furniture:ldk:sofa:base:solid_1_positive_volume",
       "pass": true,
-      "actual": 188369606.811,
+      "actual": 275751213.724,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_base:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_base:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:chaise_base:solid_1_positive_volume",
+      "pass": true,
+      "actual": 76352422.955,
       "expected": null
     },
     {
@@ -2943,7 +3303,7 @@
     {
       "check": "F1:furniture:ldk:sofa:back:solid_1_positive_volume",
       "pass": true,
-      "actual": 142070382.366,
+      "actual": 206949143.167,
       "expected": null
     },
     {
@@ -2961,7 +3321,7 @@
     {
       "check": "F1:furniture:ldk:sofa:arm_left:solid_1_positive_volume",
       "pass": true,
-      "actual": 35011172.169,
+      "actual": 66595865.784,
       "expected": null
     },
     {
@@ -2997,7 +3357,7 @@
     {
       "check": "F1:furniture:ldk:sofa:seat_1:solid_1_positive_volume",
       "pass": true,
-      "actual": 81734466.863,
+      "actual": 82231820.042,
       "expected": null
     },
     {
@@ -3015,7 +3375,7 @@
     {
       "check": "F1:furniture:ldk:sofa:back_cushion_1:solid_1_positive_volume",
       "pass": true,
-      "actual": 18940356.228,
+      "actual": 19055662.54,
       "expected": null
     },
     {
@@ -3033,7 +3393,7 @@
     {
       "check": "F1:furniture:ldk:sofa:seat_2:solid_1_positive_volume",
       "pass": true,
-      "actual": 81734466.863,
+      "actual": 82231820.042,
       "expected": null
     },
     {
@@ -3051,7 +3411,61 @@
     {
       "check": "F1:furniture:ldk:sofa:back_cushion_2:solid_1_positive_volume",
       "pass": true,
-      "actual": 18940356.228,
+      "actual": 19055662.54,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 82231820.041,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:back_cushion_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 19055662.54,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:sofa:seat_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 79022252.111,
       "expected": null
     },
     {
@@ -3141,7 +3555,7 @@
     {
       "check": "F1:furniture:ldk:coffee_table:top:solid_1_positive_volume",
       "pass": true,
-      "actual": 15584463.008,
+      "actual": 18110279.131,
       "expected": null
     },
     {
@@ -3231,7 +3645,7 @@
     {
       "check": "F1:furniture:ldk:television:console:solid_1_positive_volume",
       "pass": true,
-      "actual": 150045753.974,
+      "actual": 152312513.263,
       "expected": null
     },
     {
@@ -3249,7 +3663,7 @@
     {
       "check": "F1:furniture:ldk:television:drawer_1:solid_1_positive_volume",
       "pass": true,
-      "actual": 2106821.743,
+      "actual": 2470748.291,
       "expected": null
     },
     {
@@ -3285,7 +3699,7 @@
     {
       "check": "F1:furniture:ldk:television:drawer_2:solid_1_positive_volume",
       "pass": true,
-      "actual": 2106821.743,
+      "actual": 2470748.291,
       "expected": null
     },
     {
@@ -3465,329 +3879,653 @@
     {
       "check": "F1:furniture:ldk:dining_table:top:solid_1_positive_volume",
       "pass": true,
-      "actual": 35623631.072,
+      "actual": 43279214.152,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_1:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_1:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_1:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_1:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_1:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_1:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_2:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_2:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_2:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_2:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_2:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_2:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_3:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_3:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_3:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_3:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_3:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_3:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_4:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_4:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_4:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_4:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:leg_4:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:leg_4:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_frame:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_frame:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_frame:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_frame:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_frame:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_frame:solid_1_positive_volume",
       "pass": true,
       "actual": 5205484.336,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_cushion:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_cushion:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_cushion:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_cushion:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:seat_cushion:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:seat_cushion:solid_1_positive_volume",
       "pass": true,
       "actual": 5274652.671,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_left:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_left:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_left:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_left:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_left:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_left:solid_1_positive_volume",
       "pass": true,
       "actual": 418265.503,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_right:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_right:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_right:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_right:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:back_post_right:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:back_post_right:solid_1_positive_volume",
       "pass": true,
       "actual": 418265.503,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:backrest:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:backrest:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:backrest:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_east_1:backrest:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_east:backrest:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_east_1:backrest:solid_1_positive_volume",
       "pass": true,
       "actual": 3253977.841,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_1:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_1:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_1:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_1:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_1:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_1:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_2:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_2:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_2:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_2:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_2:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_2:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_3:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_3:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_3:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_3:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_3:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_3:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_4:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_4:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_4:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_4:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:leg_4:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:leg_4:solid_1_positive_volume",
       "pass": true,
       "actual": 390405.719,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_frame:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_frame:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_frame:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_frame:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_frame:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_frame:solid_1_positive_volume",
       "pass": true,
       "actual": 5205484.336,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_cushion:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_cushion:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_cushion:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_cushion:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:seat_cushion:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:seat_cushion:solid_1_positive_volume",
       "pass": true,
       "actual": 5274652.671,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_left:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_left:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_left:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_left:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_left:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_left:solid_1_positive_volume",
       "pass": true,
       "actual": 418265.503,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_right:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_right:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_right:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_right:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:back_post_right:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:back_post_right:solid_1_positive_volume",
       "pass": true,
       "actual": 418265.503,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:backrest:contains_solid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:backrest:contains_solid",
       "pass": true,
       "actual": 1,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:backrest:solid_1_valid",
+      "check": "F1:furniture:ldk:dining_chair_west_1:backrest:solid_1_valid",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "F1:furniture:ldk:dining_chair_west:backrest:solid_1_positive_volume",
+      "check": "F1:furniture:ldk:dining_chair_west_1:backrest:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3253977.841,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:leg_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_frame:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_frame:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_frame:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5205484.336,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_cushion:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_cushion:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:seat_cushion:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5274652.671,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_left:solid_1_positive_volume",
+      "pass": true,
+      "actual": 418265.503,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:back_post_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 418265.503,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:backrest:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:backrest:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_east_2:backrest:solid_1_positive_volume",
+      "pass": true,
+      "actual": 3253977.841,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_1:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_1:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_1:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_2:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_2:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_2:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_3:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_3:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_3:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_4:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_4:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:leg_4:solid_1_positive_volume",
+      "pass": true,
+      "actual": 390405.719,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_frame:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_frame:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_frame:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5205484.336,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_cushion:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_cushion:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:seat_cushion:solid_1_positive_volume",
+      "pass": true,
+      "actual": 5274652.671,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_left:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_left:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_left:solid_1_positive_volume",
+      "pass": true,
+      "actual": 418265.503,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_right:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_right:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:back_post_right:solid_1_positive_volume",
+      "pass": true,
+      "actual": 418265.503,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:backrest:contains_solid",
+      "pass": true,
+      "actual": 1,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:backrest:solid_1_valid",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "F1:furniture:ldk:dining_chair_west_2:backrest:solid_1_positive_volume",
       "pass": true,
       "actual": 3253977.841,
       "expected": null
@@ -5901,7 +6639,7 @@
     {
       "check": "stairs:upper_tread_01:solid_1_positive_volume",
       "pass": true,
-      "actual": 87750000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -5919,7 +6657,7 @@
     {
       "check": "stairs:upper_tread_02:solid_1_positive_volume",
       "pass": true,
-      "actual": 128700000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -5937,7 +6675,7 @@
     {
       "check": "stairs:upper_tread_03:solid_1_positive_volume",
       "pass": true,
-      "actual": 169650000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -5955,7 +6693,7 @@
     {
       "check": "stairs:upper_tread_04:solid_1_positive_volume",
       "pass": true,
-      "actual": 210600000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -5973,7 +6711,7 @@
     {
       "check": "stairs:upper_tread_05:solid_1_positive_volume",
       "pass": true,
-      "actual": 251550000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -5991,7 +6729,7 @@
     {
       "check": "stairs:upper_tread_06:solid_1_positive_volume",
       "pass": true,
-      "actual": 292500000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -6009,7 +6747,7 @@
     {
       "check": "stairs:upper_tread_07:solid_1_positive_volume",
       "pass": true,
-      "actual": 333450000.0,
+      "actual": 46800000.0,
       "expected": null
     },
     {
@@ -12603,7 +13341,7 @@
     {
       "check": "structure:F1:column_C37:solid_1_positive_volume",
       "pass": true,
-      "actual": 20703600.0,
+      "actual": 36806400.0,
       "expected": null
     },
     {
@@ -12621,7 +13359,7 @@
     {
       "check": "structure:F1:column_C38:solid_1_positive_volume",
       "pass": true,
-      "actual": 36806400.0,
+      "actual": 20703600.0,
       "expected": null
     },
     {
@@ -12675,7 +13413,7 @@
     {
       "check": "structure:F1:column_C41:solid_1_positive_volume",
       "pass": true,
-      "actual": 20703600.0,
+      "actual": 36806400.0,
       "expected": null
     },
     {
@@ -12692,24 +13430,6 @@
     },
     {
       "check": "structure:F1:column_C42:solid_1_positive_volume",
-      "pass": true,
-      "actual": 36806400.0,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:column_C43:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:column_C43:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:column_C43:solid_1_positive_volume",
       "pass": true,
       "actual": 20703600.0,
       "expected": null
@@ -13377,7 +14097,7 @@
     {
       "check": "structure:F2:column_C37:solid_1_positive_volume",
       "pass": true,
-      "actual": 18792000.0,
+      "actual": 33408000.0,
       "expected": null
     },
     {
@@ -13395,7 +14115,7 @@
     {
       "check": "structure:F2:column_C38:solid_1_positive_volume",
       "pass": true,
-      "actual": 33408000.0,
+      "actual": 18792000.0,
       "expected": null
     },
     {
@@ -13449,7 +14169,7 @@
     {
       "check": "structure:F2:column_C41:solid_1_positive_volume",
       "pass": true,
-      "actual": 18792000.0,
+      "actual": 33408000.0,
       "expected": null
     },
     {
@@ -13466,24 +14186,6 @@
     },
     {
       "check": "structure:F2:column_C42:solid_1_positive_volume",
-      "pass": true,
-      "actual": 33408000.0,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:column_C43:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:column_C43:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:column_C43:solid_1_positive_volume",
       "pass": true,
       "actual": 18792000.0,
       "expected": null
@@ -15447,7 +16149,7 @@
     {
       "check": "structure:F1:bearing_wall_BW24:solid_1_positive_volume",
       "pass": true,
-      "actual": 12859800.0,
+      "actual": 12994800.0,
       "expected": null
     },
     {
@@ -15464,24 +16166,6 @@
     },
     {
       "check": "structure:F1:bearing_wall_BW25:solid_1_positive_volume",
-      "pass": true,
-      "actual": 12994800.0,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW26:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW26:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F1:bearing_wall_BW26:solid_1_positive_volume",
       "pass": true,
       "actual": 12138000.0,
       "expected": null
@@ -15951,7 +16635,7 @@
     {
       "check": "structure:F2:bearing_wall_BW24:solid_1_positive_volume",
       "pass": true,
-      "actual": 11786000.0,
+      "actual": 11921000.0,
       "expected": null
     },
     {
@@ -15968,24 +16652,6 @@
     },
     {
       "check": "structure:F2:bearing_wall_BW25:solid_1_positive_volume",
-      "pass": true,
-      "actual": 11921000.0,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW26:contains_solid",
-      "pass": true,
-      "actual": 1,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW26:solid_1_valid",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "structure:F2:bearing_wall_BW26:solid_1_positive_volume",
       "pass": true,
       "actual": 11135000.0,
       "expected": null
@@ -17113,13 +17779,13 @@
       "expected": 0
     },
     {
-      "check": "F1:wc_hall:approved_net_room_not_encroached_mm3",
+      "check": "F1:stairs:approved_net_room_not_encroached_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "F1:stairs:approved_net_room_not_encroached_mm3",
+      "check": "F1:under_stairs:approved_net_room_not_encroached_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
@@ -17257,18 +17923,6 @@
       "expected": 37350000.0
     },
     {
-      "check": "F1:O01:wall_opening_volume_mm3",
-      "pass": true,
-      "actual": 0.0,
-      "expected": 0
-    },
-    {
-      "check": "F1:O01:overdoor_wall_preserved_mm3",
-      "pass": true,
-      "actual": 44820000.0,
-      "expected": 44820000.0
-    },
-    {
       "check": "F1:D05:wall_opening_volume_mm3",
       "pass": true,
       "actual": 0.0,
@@ -17291,6 +17945,18 @@
       "pass": true,
       "actual": 44820000.0,
       "expected": 44820000.0
+    },
+    {
+      "check": "F1:D07:wall_opening_volume_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "F1:D07:overdoor_wall_preserved_mm3",
+      "pass": true,
+      "actual": 34860000.0,
+      "expected": 34860000.0
     },
     {
       "check": "F1:W01:wall_opening_volume_mm3",
@@ -18631,6 +19297,12 @@
       "expected": 1575.0
     },
     {
+      "check": "stairs:upper_tread_01:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
       "check": "stairs:upper_tread_02:width_mm",
       "pass": true,
       "actual": 900.0,
@@ -18647,6 +19319,12 @@
       "pass": true,
       "actual": 1750.0,
       "expected": 1750.0
+    },
+    {
+      "check": "stairs:upper_tread_02:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
     },
     {
       "check": "stairs:upper_tread_03:width_mm",
@@ -18667,6 +19345,12 @@
       "expected": 1925.0
     },
     {
+      "check": "stairs:upper_tread_03:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
       "check": "stairs:upper_tread_04:width_mm",
       "pass": true,
       "actual": 900.0,
@@ -18683,6 +19367,12 @@
       "pass": true,
       "actual": 2100.0,
       "expected": 2100.0
+    },
+    {
+      "check": "stairs:upper_tread_04:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
     },
     {
       "check": "stairs:upper_tread_05:width_mm",
@@ -18703,6 +19393,12 @@
       "expected": 2275.0
     },
     {
+      "check": "stairs:upper_tread_05:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
       "check": "stairs:upper_tread_06:width_mm",
       "pass": true,
       "actual": 900.0,
@@ -18721,6 +19417,12 @@
       "expected": 2450.0
     },
     {
+      "check": "stairs:upper_tread_06:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
+    },
+    {
       "check": "stairs:upper_tread_07:width_mm",
       "pass": true,
       "actual": 900.0,
@@ -18737,6 +19439,12 @@
       "pass": true,
       "actual": 2625.0,
       "expected": 2625.0
+    },
+    {
+      "check": "stairs:upper_tread_07:R15_thickness_mm",
+      "pass": true,
+      "actual": 200.0,
+      "expected": 200
     },
     {
       "check": "stairs:final_floor_rise_mm",
@@ -18764,6 +19472,46 @@
         5400.0,
         3080.0,
         7100.0
+      ],
+      "expected": null
+    },
+    {
+      "check": "R15:entry_handle_left_when_viewed_outside",
+      "pass": true,
+      "actual": [
+        1070.0,
+        -50.0,
+        860.0,
+        1090.0,
+        0.0,
+        1400.0
+      ],
+      "expected": null
+    },
+    {
+      "check": "R15:stair_storage_parts_clear_of_treads_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R15:storage_entry_2000mm_headroom_mm3",
+      "pass": true,
+      "actual": 0.0,
+      "expected": 0
+    },
+    {
+      "check": "R15:storage_shelves_and_stepped_ceiling",
+      "pass": true,
+      "actual": 17,
+      "expected": null
+    },
+    {
+      "check": "R15:fridge_two_side_by_side_doors",
+      "pass": true,
+      "actual": [
+        "F1:fixture_03_fridge:door_1_white",
+        "F1:fixture_03_fridge:door_2_white"
       ],
       "expected": null
     },
@@ -18852,43 +19600,43 @@
       "expected": 5600
     },
     {
-      "check": "R14:extractor_above_cooktop_x_mm",
+      "check": "R15:extractor_above_cooktop_x_mm",
       "pass": true,
-      "actual": 6654.5,
-      "expected": 6654.5
+      "actual": 6454.5,
+      "expected": 6454.5
     },
     {
-      "check": "R14:extractor_above_cooktop_z",
-      "pass": true,
-      "actual": null,
-      "expected": null
-    },
-    {
-      "check": "R14:equipment_present",
+      "check": "R15:extractor_above_cooktop_z",
       "pass": true,
       "actual": null,
       "expected": null
     },
     {
-      "check": "R14:north_attic_vent_passes_through_shell_mm3",
+      "check": "R15:equipment_present",
+      "pass": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "check": "R15:north_attic_vent_passes_through_shell_mm3",
       "pass": true,
       "actual": 0.0,
       "expected": 0
     },
     {
-      "check": "R14:north_attic_vent_width_mm",
+      "check": "R15:north_attic_vent_width_mm",
       "pass": true,
       "actual": 600.0,
       "expected": 600
     },
     {
-      "check": "R14:north_attic_vent_height_mm",
+      "check": "R15:north_attic_vent_height_mm",
       "pass": true,
       "actual": 300,
       "expected": 300
     },
     {
-      "check": "R14:north_attic_vent_all_named_parts",
+      "check": "R15:north_attic_vent_all_named_parts",
       "pass": true,
       "actual": null,
       "expected": null
@@ -20360,8 +21108,8 @@
     {
       "check": "GLB:all_STEP_leaf_names_retained",
       "pass": true,
-      "actual": 925,
-      "expected": 925
+      "actual": 962,
+      "expected": 962
     },
     {
       "check": "GLB:named_groups_retained",
@@ -20397,9 +21145,9 @@
       "check": "GLB:numeric_mesh_audit",
       "pass": true,
       "actual": {
-        "vertex_count": 211910,
-        "triangle_count": 329931,
-        "degenerate_count": 98
+        "vertex_count": 234594,
+        "triangle_count": 372451,
+        "degenerate_count": 90
       },
       "expected": null
     },

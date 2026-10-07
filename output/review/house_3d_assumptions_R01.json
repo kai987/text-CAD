@@ -1,5 +1,5 @@
 {
-  "revision": "R14-3D",
+  "revision": "R15-3D",
   "stage": "demonstration_structural_layout_pending_engineering",
   "source_plan": "src/lib/house_plan.py",
   "units": "mm",
@@ -8,7 +8,7 @@
     "kitchen_width": 2550,
     "kitchen_depth": 650,
     "kitchen_south": 3180,
-    "kitchen_wall_gap": 820,
+    "kitchen_wall_gap": 1020,
     "width": 8190,
     "depth": 7280,
     "storey_height": 2800,
@@ -120,7 +120,7 @@
   },
   "attic": {
     "purpose": "storage attic / 小屋裏収納 / 储物阁楼",
-    "revision": "R14",
+    "revision": "R15",
     "status": "demonstration proposal, not structural or statutory design",
     "statutory_area_status": "geometric projection only; local floor/storey classification pending",
     "parameters": {
@@ -181,7 +181,7 @@
     ],
     "north_vent_status": "600 x 300 mm top-hung demonstration aperture; airflow, insect screen, flashing, fire and rain details unverified",
     "unchanged": [
-      "R14 reflected F1/F2 room topology and areas",
+      "R15 reflected F1/F2 room topology and areas",
       "R10 roof geometry and exterior silhouette"
     ],
     "existing_floor_leaf": "roof:attic_ceiling_slab",
@@ -299,7 +299,7 @@
     ]
   },
   "site": {
-    "revision": "R14-SITE",
+    "revision": "R15-SITE",
     "parameters": {
       "lot_east": 9190,
       "lot_west": -1000,
@@ -1355,7 +1355,7 @@
       {
         "id": "C35",
         "x": 3130.0,
-        "y": 4460,
+        "y": 5370.0,
         "width": 90,
         "floors": [
           1,
@@ -1366,7 +1366,7 @@
       {
         "id": "C36",
         "x": 3130.0,
-        "y": 5370.0,
+        "y": 6280.0,
         "width": 90,
         "floors": [
           1,
@@ -1377,17 +1377,6 @@
       {
         "id": "C37",
         "x": 3130.0,
-        "y": 6280.0,
-        "width": 90,
-        "floors": [
-          1,
-          2
-        ],
-        "support": "aligned_column_or_beam"
-      },
-      {
-        "id": "C38",
-        "x": 3130.0,
         "y": 7190.0,
         "width": 120,
         "floors": [
@@ -1397,7 +1386,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C39",
+        "id": "C38",
         "x": 2130.0,
         "y": 4460,
         "width": 90,
@@ -1408,7 +1397,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C40",
+        "id": "C39",
         "x": 2130.0,
         "y": 5370.0,
         "width": 90,
@@ -1419,7 +1408,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C41",
+        "id": "C40",
         "x": 2130.0,
         "y": 6280.0,
         "width": 90,
@@ -1430,7 +1419,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C42",
+        "id": "C41",
         "x": 2130.0,
         "y": 7190.0,
         "width": 120,
@@ -1441,7 +1430,7 @@
         "support": "aligned_column_or_beam"
       },
       {
-        "id": "C43",
+        "id": "C42",
         "x": 1130.0,
         "y": 4330.0,
         "width": 90,
@@ -1863,7 +1852,7 @@
         "external": true,
         "end_columns": [
           "C16",
-          "C38"
+          "C37"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -2100,8 +2089,8 @@
         "clear_span": 820.0,
         "external": false,
         "end_columns": [
-          "C39",
-          "C40"
+          "C38",
+          "C39"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -2117,8 +2106,8 @@
         "clear_span": 820.0,
         "external": false,
         "end_columns": [
-          "C40",
-          "C41"
+          "C39",
+          "C40"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -2134,8 +2123,8 @@
         "clear_span": 805.0,
         "external": false,
         "end_columns": [
-          "C41",
-          "C42"
+          "C40",
+          "C41"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -2144,8 +2133,8 @@
         "id": "BW24",
         "axis": "v",
         "at": 3130.0,
-        "start": 4460,
-        "end": 5370.0,
+        "start": 5370.0,
+        "end": 6280.0,
         "normal_start": 3080.0,
         "thickness": 5,
         "clear_span": 820.0,
@@ -2161,23 +2150,6 @@
         "id": "BW25",
         "axis": "v",
         "at": 3130.0,
-        "start": 5370.0,
-        "end": 6280.0,
-        "normal_start": 3080.0,
-        "thickness": 5,
-        "clear_span": 820.0,
-        "external": false,
-        "end_columns": [
-          "C36",
-          "C37"
-        ],
-        "wall_multiplier": null,
-        "connection_capacity": null
-      },
-      {
-        "id": "BW26",
-        "axis": "v",
-        "at": 3130.0,
         "start": 6280.0,
         "end": 7190.0,
         "normal_start": 3080.0,
@@ -2185,8 +2157,8 @@
         "clear_span": 805.0,
         "external": false,
         "end_columns": [
-          "C37",
-          "C38"
+          "C36",
+          "C37"
         ],
         "wall_multiplier": null,
         "connection_capacity": null
@@ -2681,10 +2653,12 @@
     "input_sheet": "output/review/engineering_inputs_R06.json"
   },
   "assumptions": [
-    "R14按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
+    "R15玄关把手移到室外正视左侧；一层取消独立厕所前厅并入LDK，增加800×1760 mm阶梯顶楼梯下储物间、700 mm门和搁板；净高随上跑踏步变化，结构与防火尚未计算。",
+    "R15四人转角沙发2600×1550 mm与南墙电视相对，茶几950×550 mm，餐桌1600×850 mm配四椅；双开门冰箱900×750 mm。家具尺寸与动线均为演示方案。",
+    "R15按用户要求镜像一二层：西南玄关、西北楼梯，东侧客厅及两个临东卧室设窗，西侧仅楼梯窗。",
     "対面式厨房2550×650 mm，主要后方通道900 mm，新增冰箱、微波炉、电器柜和吸油烟机；阁楼北侧换气窗600×300 mm、窗台FL+850 mm，均为演示假设，排烟、通风和承载未设计。",
     "8190 × 7280 mm 外轮廓、2800 mm 层高及北向/南入口是演示假设。",
-    "R14左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
+    "R15左右镜像原房间净边界并调整厨房和侧窗；入口及楼梯转到西侧，南侧全宽阳台和取消独立玄关雨棚的设置保留。",
     "R13南侧阳台外形8190 × 1000 mm，净空间7990 × 900 mm、净几何面积7.191㎡；公共通道可达，两端与东西外墙齐平；南侧客厅、主卧和卧室2窗改为FL+0至FL+2200落地窗（宽2100/1600/1800），三根支柱及独立基础已移除；1300 mm玄关平台外沿300 mm露出，独立雨棚保持取消；悬挑承载、连接、栏杆、防水和排水未计算。",
     "楼层完成面基准 Z=0、2800 mm；楼板暂定厚200 mm并位于完成面以下，墙净高2600 mm。",
     "二层楼板保留整个1900 × 2720 mm梯间净边界开洞；阁楼改为24 mm示意底板、18 mm饰面及独立梁/搁栅结构草案。",
@@ -2693,7 +2667,7 @@
     "窗框面宽45 mm、进深70 mm，玻璃厚10 mm；窗框位于外侧墙带；门窗尚未选型，洞口为毛洞尺寸。",
     "切妻屋根屋脊沿南北方向，坡度30度、四周屋檐450 mm、竖向厚度150 mm均可改参数。",
     "U型楼梯16踢面×175 mm，踏面260 mm，梯宽900 mm，中间平台900 mm深；各半梯7踏步加平台/二层地坪为第8级。",
-    "梯段采用概念阶梯体，平台厚200 mm、上跑实体底与平台底同高以形成接触；二层楼板洞口南缘为末级踢面，未另设侵占踏面的面板。",
+    "上跑踏步采用200 mm概念厚度，形成储物间阶梯状顶；与平台保持接触，二层楼板洞口南缘为末级踢面。连接和承载未计算。",
     "鞋柜高1800 mm、其余收纳柜2000 mm，位置沿用确认平面；家具与卫浴根据公开尺寸参考进行原创参数化建模，未选实际产品。",
     "移门门袋、楼梯扶手、结构连接、实际屋面/墙体层次及设备系统留待深化。",
     "未验证结构、消防、建筑法规、实际楼梯头部净空或建筑确认申报要求。",
@@ -2754,109 +2728,145 @@
         {
           "id": "sofa",
           "room": "ldk",
-          "kind": "sofa",
-          "x": 5740.0,
+          "kind": "corner_sofa",
+          "x": 2390.0,
           "y": 850,
-          "width": 1800,
-          "depth": 850,
+          "width": 2600,
+          "depth": 1550,
           "rotation": 0,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            5740.0,
+            2390.0,
             850.0,
-            7540.0,
-            1700.0
+            4990.0,
+            2400.0
           ]
         },
         {
           "id": "coffee_table",
           "room": "ldk",
           "kind": "table",
-          "x": 6190.0,
-          "y": 2000,
-          "width": 900,
-          "depth": 500,
+          "x": 2840.0,
+          "y": 650,
+          "width": 950,
+          "depth": 550,
           "rotation": 0,
           "height": 380,
           "mirror_local_x": true,
           "footprint_mm": [
-            6190.0,
-            2000.0,
-            7090.0,
-            2500.0
+            2840.0,
+            650.0,
+            3790.0,
+            1200.0
           ]
         },
         {
           "id": "television",
           "room": "ldk",
           "kind": "television",
-          "x": 7610.0,
-          "y": 2300,
-          "width": 1200,
-          "depth": 400,
-          "rotation": -90,
+          "x": 2540.0,
+          "y": 180,
+          "width": 1400,
+          "depth": 350,
+          "rotation": -180,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            7610.0,
-            2300.0,
-            8010.0,
-            3500.0
+            2540.0,
+            180.0,
+            3940.0,
+            530.0
           ]
         },
         {
           "id": "dining_table",
           "room": "ldk",
           "kind": "table",
-          "x": 2890.0,
-          "y": 2500,
-          "width": 1400,
-          "depth": 800,
-          "rotation": 0,
+          "x": 6340.0,
+          "y": 1150,
+          "width": 1600,
+          "depth": 850,
+          "rotation": -90,
           "height": 730,
           "mirror_local_x": true,
           "footprint_mm": [
-            2890.0,
-            2500.0,
-            4290.0,
-            3300.0
+            6340.0,
+            1150.0,
+            7190.0,
+            2750.0
           ]
         },
         {
-          "id": "dining_chair_east",
+          "id": "dining_chair_east_1",
           "room": "ldk",
           "kind": "chair",
-          "x": 4400.0,
-          "y": 2700,
+          "x": 7390.0,
+          "y": 1350,
           "width": 450,
           "depth": 420,
           "rotation": -90,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            4400.0,
-            2700.0,
-            4820.0,
-            3150.0
+            7390.0,
+            1350.0,
+            7810.0,
+            1800.0
           ]
         },
         {
-          "id": "dining_chair_west",
+          "id": "dining_chair_west_1",
           "room": "ldk",
           "kind": "chair",
-          "x": 2270.0,
-          "y": 2700,
+          "x": 5720.0,
+          "y": 1350,
           "width": 450,
           "depth": 420,
           "rotation": -270,
           "height": 0,
           "mirror_local_x": true,
           "footprint_mm": [
-            2270.0,
-            2700.0,
-            2690.0,
-            3150.0
+            5720.0,
+            1350.0,
+            6140.0,
+            1800.0
+          ]
+        },
+        {
+          "id": "dining_chair_east_2",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 7390.0,
+          "y": 2050,
+          "width": 450,
+          "depth": 420,
+          "rotation": -90,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            7390.0,
+            2050.0,
+            7810.0,
+            2500.0
+          ]
+        },
+        {
+          "id": "dining_chair_west_2",
+          "room": "ldk",
+          "kind": "chair",
+          "x": 5720.0,
+          "y": 2050,
+          "width": 450,
+          "depth": 420,
+          "rotation": -270,
+          "height": 0,
+          "mirror_local_x": true,
+          "footprint_mm": [
+            5720.0,
+            2050.0,
+            6140.0,
+            2500.0
           ]
         }
       ]
@@ -2936,7 +2946,7 @@
     "GLB/house_3d.glb"
   ],
   "glb_export": {
-    "named_mesh_nodes": 925,
-    "all_nodes": 1037
+    "named_mesh_nodes": 962,
+    "all_nodes": 1076
   }
 }

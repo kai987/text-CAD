@@ -124,7 +124,9 @@ def entrance_parts(floor, p, g, e=E):
                      x+w+f, 0, g.door_height+f))
     frame = frame.cut(cuboid((x, -e.door_frame_projection-1, 0,
                               x+w, 1, g.door_height)))
-    handle_x = x + 90
+    # This builder runs in canonical coordinates; the house is reflected later.
+    # Put the outside-view handle on the world west (left) edge after reflection.
+    handle_x = x + w - 110
     handle = cuboid((handle_x, -50, 860, handle_x+20, -30, 1400))
     handle = handle.fuse(cuboid((handle_x, -30, 900, handle_x+20, 0, 920)),
                          cuboid((handle_x, -30, 1340, handle_x+20, 0, 1360)))

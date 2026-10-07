@@ -362,7 +362,7 @@ def fence_group(s=S, p=None):
 def site_manifest(p, g, s=S):
     d, layout, profiles = site_dimensions(p, g, s), fence_layout(s,p), _terrain_profiles(p, g, s)
     return {
-        "revision": "R14-SITE",
+        "revision": "R15-SITE",
         "parameters": asdict(s),
         "lot_bounds_mm": list(d["lot"]),
         "lot_dimensions_mm": [s.lot_east - s.lot_west, s.lot_north - s.lot_south],

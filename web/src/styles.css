@@ -160,6 +160,15 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .range-row input { min-width: 0; width: 100%; accent-color: var(--accent); }
 .range-row output { min-width: 70px; font-size: 14px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .parameters dl { margin: 0; font-size: 14px; }
+.control-disclosure { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.control-disclosure > summary { cursor: pointer; color: var(--text); }
+.control-disclosure > summary h2 { display: inline; margin: 0; font-size: 16px; }
+.control-disclosure-content { padding-top: 14px; }
+.control-disclosure-content > section { margin: 0; }
+.part-tree-tools { display: grid; gap: 8px; margin-bottom: 12px; }
+.part-tree-tools input { width: 100%; min-width: 0; min-height: 36px; padding: 7px 9px; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; font: inherit; font-size: 13px; }
+.part-tree-tools > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.part-tree-tools .part-isolate { padding: 5px 8px; min-height: 30px; }
 .parameters dl > div { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .parameters dl > div:last-child { border-bottom: 0; }
 .parameters dt, .parameters dd { margin: 0; }

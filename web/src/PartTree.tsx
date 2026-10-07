@@ -5,6 +5,7 @@ import { groupVisibilityState, isolatePart, isPartVisible, setGroupVisible, setP
 import type { GroupId, ModelLayout, ModelPartId, ModelSettings, PartKind } from './model-state';
 import { useModel } from './ModelContext';
 import { format } from './localization';
+import { filterPartTree } from './part-search';
 
 interface Props {
   settings: ModelSettings;
@@ -39,6 +40,9 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
     !['structure', 'foundation'].includes(part.group) || structuralParts.includes(part.id)) } : baseLayout,
   [baseLayout, structuralParts]);
   const [expanded, setExpanded] = useState<Partial<Record<GroupId, boolean>>>({ F1: true });
+  const [query, setQuery] = useState('');
+  const groups = filterPartTree(layout, query, id => copy.groups[id], id => copy.partKinds[id.split(':')[1] as PartKind]);
+  const searching = query.trim().length > 0;
   useEffect(() => {
     const group = layout.parts.find(part => part.id === selectedPart)?.group
       ?? layout.groups.find(group => group.id === selectedPart && layout.parts.some(part => part.group === group.id))?.id;
@@ -49,16 +53,25 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
     onSelectPart?.(id, true);
   };
   return <div className="part-tree">
-    {layout.groups.map(group => {
+    <div className="part-tree-tools">
+      <input type="search" aria-label={copy.tree.search} placeholder={copy.tree.search} value={query} onChange={event => setQuery(event.target.value)} />
+      <div>
+        <button type="button" className="part-isolate" disabled={searching} onClick={() => setExpanded(Object.fromEntries(layout.groups.map(group => [group.id, true])))}>{copy.tree.expandAll}</button>
+        <button type="button" className="part-isolate" disabled={searching} onClick={() => setExpanded({})}>{copy.tree.collapseAll}</button>
+        {searching ? <button type="button" className="part-isolate" onClick={() => setQuery('')}>{copy.tree.clearSearch}</button> : null}
+      </div>
+    </div>
+    {searching ? <p className="part-tree-help" role="status">{groups.length ? copy.tree.searchHelp : copy.tree.noResults}</p> : null}
+    {groups.map(({ group, children }) => {
       const label = copy.groups[group.id];
-      const children = layout.parts.filter(part => part.group === group.id);
+      const isExpanded = searching || expanded[group.id];
       return <div key={group.id} className="part-group">
         <div className="part-group-row">
           {children.length > 0 ? <button type="button" className="part-expand"
-            aria-label={format(expanded[group.id] ? copy.tree.collapse : copy.tree.expand, { label })}
-            aria-expanded={expanded[group.id] ?? false} aria-controls={`parts-${group.id}`}
+            aria-label={format(isExpanded ? copy.tree.collapse : copy.tree.expand, { label })}
+            aria-expanded={isExpanded ?? false} aria-controls={`parts-${group.id}`} disabled={searching}
             onClick={() => setExpanded(s => ({ ...s, [group.id]: !s[group.id] }))}>
-            {expanded[group.id] ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
+            {isExpanded ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
           </button> : <span className="part-expand" aria-hidden="true" />}
           <GroupCheckbox settings={settings} id={group.id} label={label} ready={ready} layout={layout}
             onChange={checked => setSettings(s => setGroupVisible(s, group.id, checked, layout))} />
@@ -68,7 +81,7 @@ export default function PartTree({ settings, setSettings, ready, selectedPart, o
           <button type="button" className="part-isolate" disabled={!ready}
             aria-label={format(copy.tree.isolate, { label })} onClick={() => isolate(group.id)}>{copy.tree.alone}</button>
         </div>
-        {children.length > 0 && expanded[group.id] ? <div id={`parts-${group.id}`} className="part-children"
+        {children.length > 0 && isExpanded ? <div id={`parts-${group.id}`} className="part-children"
           role="group" aria-label={format(copy.tree.region, { label })}>
           {children.map(part => {
             const partLabel = copy.partKinds[part.id.split(':')[1] as PartKind];

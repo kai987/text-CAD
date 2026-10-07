@@ -2,6 +2,7 @@ import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { gzipSync, gunzipSync } from 'node:zlib';
 import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
 
@@ -47,6 +48,13 @@ for (const source of artifacts) {
   await mkdir(dirname(out), { recursive: true });
   await copyFile(resolve(root, source), out);
   manifest[source] = { bytes: bytes.length, sha256: sha(bytes) };
+  if (source.endsWith('.glb')) {
+    const compressed = gzipSync(bytes, { level: 9 });
+    if (!gunzipSync(compressed).equals(bytes)) throw new Error(`Model transport round-trip failed: ${source}`);
+    await writeFile(`${out}.gz`, compressed);
+    manifest[`${source}.gz`] = { bytes: compressed.length, sha256: sha(compressed) };
+    console.log(`${source}: ${bytes.length} -> ${compressed.length} transport bytes (${Math.round(100 * compressed.length / bytes.length)}%).`);
+  }
 }
 await writeFile(resolve(dest, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 const plan = JSON.parse(await readFile(resolve(root, 'output/review/design_manifest.json'), 'utf8'));
@@ -64,4 +72,4 @@ await mkdir(resolve(root, 'web/src'), { recursive: true });
 await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
 await copyFile(resolve(root, 'output/review/apartment_2ldk_manifest.json'), resolve(root, 'web/src/apartment-data.json'));
 await copyFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), resolve(root, 'web/src/apartment-preview-metadata.json'));
-console.log(`Prepared ${artifacts.length} CAD/drawing assets, including verified vector PDF previews.`);
+console.log(`Prepared ${Object.keys(manifest).length} CAD/drawing and lossless transport assets, including verified vector PDF previews.`);

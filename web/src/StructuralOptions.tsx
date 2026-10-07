@@ -33,7 +33,7 @@ export function StructuralDownloads() {
   </div>;
 }
 
-export default function StructuralOptions({ compact = false, showSelectors = true, showSummary = false }: { compact?: boolean; showSelectors?: boolean; showSummary?: boolean }) {
+export default function StructuralOptions({ compact = false, showSelectors = true, showSummary = false, hideTitle = false }: { compact?: boolean; showSelectors?: boolean; showSummary?: boolean; hideTitle?: boolean }) {
   const { locale } = useLanguage();
   const { design, setDesign } = useStructuralDesign();
   const controlId = useId();
@@ -42,13 +42,14 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
+    if (compact && !showSummary) return;
     let alive = true;
     setFailed(false);
     void Promise.all([profiles.load(profilePath), variants.load(variantPath)]).then(([next, options]) => {
       if (alive) { setData(next); setSchemes(options); }
     }).catch(() => { if (alive) setFailed(true); });
     return () => { alive = false; };
-  }, [attempt]);
+  }, [attempt, compact, showSummary]);
   const profile = data?.profiles.find(item => item.id === design.city);
   const summary = schemes?.variants[design.system]?.coordination.summary;
   const nationalRequirements = data?.national_requirements.filter(item => item.id !== 'current_timber_rules' || design.system === 'W') ?? [];
@@ -59,7 +60,7 @@ export default function StructuralOptions({ compact = false, showSelectors = tru
   ]);
   const sources = data?.sources.filter(source => referencedIds.has(source.id)) ?? [];
   return <section className={compact ? 'structural-options compact' : 'structural-options'} aria-label={structuralCopy.title[locale]}>
-    {!compact ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R13</span></h2> : null}
+    {!compact && !hideTitle ? <h2>{structuralCopy.title[locale]} <span className="structural-revision">R13</span></h2> : null}
     {showSelectors ? <div className="structural-selectors">
       <div><label htmlFor={`${controlId}-city`}>{structuralCopy.city[locale]}</label>
         <select id={`${controlId}-city`} value={design.city} onChange={event => {

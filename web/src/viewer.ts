@@ -111,6 +111,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let baselineCadObjects = new Map<string, Object3D>();
   const overlays = new Map<StructuralSystem, { root: Object3D; objects: Map<string, Object3D> }>();
   const overlayLoads = new Map<StructuralSystem, Promise<void>>();
+  const overlayRequests = new Map<StructuralSystem, { cancel: () => void }>();
   let structuralSystem: StructuralSystem | null = null;
   const originalMaterials = new Map<Mesh, Material | Material[]>();
   const sourceMeshes: Mesh[] = [];
@@ -437,7 +438,14 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     if (overlays.has(system)) { reportOverlay('ready', system); return; }
     reportOverlay('loading', system);
     if (overlayLoads.has(system) || !root) return;
-    const loading = new GLTFLoader().loadAsync(asset(`GLB/structure_${system}.glb`)).then(gltf => {
+    const overlayUrl = new URL(asset(`GLB/structure_${system}.glb`), location.href);
+    const loading = new Promise<GLTF>((resolve, reject) => {
+      overlayRequests.set(system, startModelLoad<GLTF>({
+        url: overlayUrl.href, compressed: true,
+        parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', overlayUrl).href),
+        onLoad: resolve, onError: reject, disposeLate: gltf => disposeObject(gltf.scene, true),
+      }));
+    }).then(gltf => {
       if (disposed) { disposeObject(gltf.scene, true); return; }
       const objects = bindCadNodes(gltf);
       if (!objects.has('structure') || !objects.has('foundation')) {
@@ -451,7 +459,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       if (structuralSystem === system) { activateOverlay(); reportOverlay('ready', system); }
     }).catch(() => {
       if (!disposed && structuralSystem === system) reportOverlay('error', system);
-    }).finally(() => { overlayLoads.delete(system); });
+    }).finally(() => { overlayLoads.delete(system); overlayRequests.delete(system); });
     overlayLoads.set(system, loading);
   }
   const raycaster = new Raycaster();
@@ -512,7 +520,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   }
   const modelUrl = new URL(asset(glbPath), location.href);
   const modelLoad = startModelLoad<GLTF>({
-    url: modelUrl.href, onProgress,
+    url: modelUrl.href, onProgress, compressed: true,
     parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', modelUrl).href),
     disposeLate: gltf => disposeObject(gltf.scene, true),
     onError: () => { if (!disposed) onError(); },
@@ -548,6 +556,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     camera(next) { mode = next; fit(); },
     dispose() {
       disposed = true; modelLoad.cancel();
+      overlayRequests.forEach(request => request.cancel()); overlayRequests.clear();
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored);
       cancelAnimationFrame(frame); observer.disconnect(); controls.dispose();

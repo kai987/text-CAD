@@ -1,9 +1,9 @@
 import { useModel } from './ModelContext';
 
-export default function Parameters() {
+export default function Parameters({ hideTitle = false }: { hideTitle?: boolean }) {
   const { copy, data } = useModel();
   return <section className="parameters">
-    <h2>{copy.parameters.title}</h2>
+    {!hideTitle ? <h2>{copy.parameters.title}</h2> : null}
     <dl>
       <div><dt>{copy.parameters.units}</dt><dd>{copy.parameters.millimetres}</dd></div>
       <div><dt>{copy.parameters.outline}</dt><dd>{data.parameters.width} × {data.parameters.depth}</dd></div>

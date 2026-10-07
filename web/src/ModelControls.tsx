@@ -5,6 +5,9 @@ import Parameters from './Parameters';
 import PartTree from './PartTree';
 import { useModel } from './ModelContext';
 import StructuralOptions from './StructuralOptions';
+import ControlSection from './ControlSection';
+import { structuralCopy } from './structural-design';
+import { useLanguage } from './LanguageContext';
 
 interface Props {
   settings: ModelSettings;
@@ -16,12 +19,8 @@ interface Props {
 }
 export default function ModelControls({ settings, setSettings, ready, selectedPart, onSelectPart, structuralParts }: Props) {
   const { copy, layout } = useModel();
+  const { locale } = useLanguage();
   return <aside className="sidebar" aria-label={copy.controls.region}>
-    <section>
-      <h2>{copy.controls.parts}</h2>
-      <PartTree settings={settings} setSettings={setSettings} ready={ready}
-        selectedPart={selectedPart} onSelectPart={onSelectPart} structuralParts={structuralParts} />
-    </section>
     <section>
       <h2>{copy.controls.cut}</h2>
       <label className="switch-control">
@@ -39,7 +38,11 @@ export default function ModelControls({ settings, setSettings, ready, selectedPa
         </div>
       </div>
     </section>
-    {layout.id === 'house' ? <StructuralOptions showSelectors={false} /> : null}
-    <Parameters />
+    <ControlSection title={copy.controls.parts} initiallyOpen={window.matchMedia('(min-width: 761px)').matches}>
+      <PartTree settings={settings} setSettings={setSettings} ready={ready}
+        selectedPart={selectedPart} onSelectPart={onSelectPart} structuralParts={structuralParts} />
+    </ControlSection>
+    {layout.id === 'house' ? <ControlSection title={structuralCopy.title[locale]}><StructuralOptions showSelectors={false} hideTitle /></ControlSection> : null}
+    <ControlSection title={copy.parameters.title}><Parameters hideTitle /></ControlSection>
   </aside>;
 }

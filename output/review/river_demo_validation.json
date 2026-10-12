@@ -1,11 +1,16 @@
 {
   "summary": {
-    "checks": 2100,
-    "passed": 2100,
+    "checks": 2242,
+    "passed": 2242,
     "failed": 0,
     "revision": "RIVER-R01",
-    "STEP_leaf_occurrences": 498,
-    "GLB_meshes": 498,
+    "STEP_leaf_occurrences": 512,
+    "GLB_meshes": 512,
+    "vegetation": {
+      "crowns": 14,
+      "vertices": 295650,
+      "triangles": 198450
+    },
     "scope": "Saved concept geometry and source-bound editable drawings; engineering uncalculated."
   },
   "checks": [
@@ -86,6 +91,11 @@
     },
     {
       "check": "manifest:lamps:current_parameters",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "manifest:tree_visual_style:current_parameters",
       "pass": true,
       "actual": null
     },
@@ -4333,6 +4343,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:left_01:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_01:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:left_01:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4349,6 +4369,16 @@
     },
     {
       "check": "STEP:Landscape:trees:left_02:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_02:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_02:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4373,6 +4403,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:left_03:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_03:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:left_03:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4389,6 +4429,16 @@
     },
     {
       "check": "STEP:Landscape:trees:left_04:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_04:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_04:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4413,6 +4463,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:left_05:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_05:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:left_05:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4429,6 +4489,16 @@
     },
     {
       "check": "STEP:Landscape:trees:left_06:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_06:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_06:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4453,6 +4523,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:left_07:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_07:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:left_07:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4469,6 +4549,16 @@
     },
     {
       "check": "STEP:Landscape:trees:right_01:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_01:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_01:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4493,6 +4583,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:right_02:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_02:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:right_02:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4509,6 +4609,16 @@
     },
     {
       "check": "STEP:Landscape:trees:right_03:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_03:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_03:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4533,6 +4643,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:right_04:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_04:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:right_04:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4549,6 +4669,16 @@
     },
     {
       "check": "STEP:Landscape:trees:right_05:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_05:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_05:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -4573,6 +4703,16 @@
       "actual": null
     },
     {
+      "check": "STEP:Landscape:trees:right_06:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_06:branches:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
       "check": "STEP:Landscape:trees:right_06:crown:unique_label",
       "pass": true,
       "actual": null
@@ -4589,6 +4729,16 @@
     },
     {
       "check": "STEP:Landscape:trees:right_07:trunk:positive_valid_solids",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_07:branches:unique_label",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_07:branches:positive_valid_solids",
       "pass": true,
       "actual": null
     },
@@ -5145,7 +5295,7 @@
     {
       "check": "STEP:nonempty_named_model",
       "pass": true,
-      "actual": 498
+      "actual": 512
     },
     {
       "check": "STEP:all_semantic_groups_have_geometry",
@@ -5216,8 +5366,8 @@
       "check": "manifest:STEP_bbox_max_2",
       "pass": true,
       "actual": {
-        "actual": 9168.0000001,
-        "expected": 9168.0000001,
+        "actual": 8560.105882453005,
+        "expected": 8560.105882453005,
         "tolerance": 0.001
       }
     },
@@ -5320,7 +5470,7 @@
     {
       "check": "GLB:exact_STEP_leaf_labels",
       "pass": true,
-      "actual": 498
+      "actual": 512
     },
     {
       "check": "GLB:semantic_groups",
@@ -5339,6 +5489,431 @@
     },
     {
       "check": "GLB:static_river_scene",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:natural_tree_crown_count",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_01:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_02:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_03:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_04:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_05:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_06:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:left_07:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_01:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_02:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_03:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_04:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_05:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_06:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:detailed_single_batch",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "STEP:Landscape:trees:right_07:named_tapered_tree",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:one_crown_mesh",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:foliage_representation",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:finite_leaf_color_layout",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:opaque_double_sided_leaves",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:detailed_single_batch",
       "pass": true,
       "actual": null
     },
@@ -5392,8 +5967,8 @@
       "check": "GLB:CAD_mm_to_m_Y_up_bound_4",
       "pass": true,
       "actual": {
-        "actual": 9.168000221252441,
-        "expected": 9.168000000100001,
+        "actual": 8.56010627746582,
+        "expected": 8.560105882453005,
         "tolerance": 0.025
       }
     },
@@ -5410,9 +5985,9 @@
       "check": "GLB:decoded_triangle_geometry",
       "pass": true,
       "actual": {
-        "vertex_count": 54416,
-        "triangle_count": 78404,
-        "degenerate_count": 1340
+        "vertex_count": 369521,
+        "triangle_count": 268546,
+        "degenerate_count": 0
       }
     },
     {
@@ -17073,20 +17648,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -30.845394134521484,
+          -30.860395431518555,
           3.0,
-          73.62999725341797,
-          -30.505393981933594,
-          6.0,
-          73.97000122070312
+          73.61499786376953,
+          -30.490394592285156,
+          6.533764839172363,
+          73.98500061035156
         ],
         "expected": [
-          -30.84539378243,
-          3.0,
-          73.63,
-          -30.50539378243,
-          6.0,
-          73.97
+          -30.86039378253,
+          2.9999999999,
+          73.6149999999,
+          -30.49039378233,
+          6.5337647059820005,
+          73.9850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_01:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -32.040428161621094,
+          5.136063098907471,
+          72.3951187133789,
+          -29.33814239501953,
+          7.611786842346191,
+          75.12649536132812
+        ],
+        "expected": [
+          -32.040519565399336,
+          5.1360572649567215,
+          72.395107941008,
+          -29.338142372876966,
+          7.611799331457392,
+          75.12650202023022
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17101,20 +17704,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -32.95345687866211,
-          5.375999927520752,
-          71.74951934814453,
-          -28.395395278930664,
-          9.02400016784668,
-          75.8504867553711
+          -32.554039001464844,
+          5.769836902618408,
+          71.91094207763672,
+          -28.773948669433594,
+          8.376611709594727,
+          75.62486267089844
         ],
         "expected": [
-          -32.95539378253,
-          5.3759999999,
-          71.74799999989986,
-          -28.39539378233,
-          9.024000000100001,
-          75.85200000010015
+          -32.55403990047,
+          5.769836862644999,
+          71.91094146112542,
+          -28.773948259649988,
+          8.376611764806002,
+          75.62486020407259
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17129,20 +17732,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -29.924217224121094,
+          -29.93921661376953,
           3.0,
-          55.630001068115234,
-          -29.584217071533203,
-          6.0,
-          55.970001220703125
+          55.6150016784668,
+          -29.569217681884766,
+          6.56087064743042,
+          55.98500061035156
         ],
         "expected": [
-          -29.92421770061,
-          3.0,
-          55.63,
-          -29.58421770061,
-          6.0,
-          55.97
+          -29.93921770071,
+          2.9999999999,
+          55.6149999999,
+          -29.56921770051,
+          6.560870588335,
+          55.9850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_02:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -31.26481056213379,
+          5.291832447052002,
+          54.2830810546875,
+          -28.248159408569336,
+          7.800258636474609,
+          57.25045394897461
+        ],
+        "expected": [
+          -31.264845905471617,
+          5.291827208421867,
+          54.28307062636162,
+          -28.24815958884469,
+          7.800316439554607,
+          57.25053186393969
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17157,20 +17788,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -32.212127685546875,
-          5.23199987411499,
-          53.5876350402832,
-          -27.29421615600586,
-          9.168000221252441,
-          58.01236343383789
+          -31.748647689819336,
+          5.67236852645874,
+          53.813079833984375,
+          -27.76958465576172,
+          8.532576560974121,
+          57.757259368896484
         ],
         "expected": [
-          -32.21421770071,
-          5.2319999999,
-          53.58599999989995,
-          -27.29421770051,
-          9.168000000100001,
-          58.014000000100054
+          -31.748647195019995,
+          5.672368627350998,
+          53.81308126740735,
+          -27.769584209289988,
+          8.532576470688003,
+          57.757259377008275
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17185,20 +17816,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -32.13689422607422,
+          -32.151893615722656,
           3.0,
-          32.22999954223633,
-          -31.796894073486328,
-          6.0,
-          32.56999969482422
+          32.21500015258789,
+          -31.78189468383789,
+          6.561717987060547,
+          32.584999084472656
         ],
         "expected": [
-          -32.13689468363,
-          3.0,
-          32.23,
-          -31.796894683629997,
-          6.0,
-          32.57
+          -32.15189468373,
+          2.9999999999,
+          32.2149999999,
+          -31.78189468353,
+          6.561717647159,
+          32.5850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_03:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -33.27240753173828,
+          5.093483924865723,
+          31.128267288208008,
+          -30.74299430847168,
+          7.605857849121094,
+          33.603397369384766
+        ],
+        "expected": [
+          -33.272413490606354,
+          5.09339054380806,
+          31.12823247209474,
+          -30.742982982660767,
+          7.605874249302898,
+          33.60340317733232
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17213,20 +17872,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -34.06510925292969,
-          5.519999980926514,
-          30.511398315429688,
-          -29.866893768310547,
-          8.880000114440918,
-          34.28860092163086
+          -33.67772674560547,
+          5.936995983123779,
+          30.758153915405273,
+          -30.278358459472656,
+          8.358294486999512,
+          34.04814910888672
         ],
         "expected": [
-          -34.066894683730006,
-          5.5199999999000005,
-          30.50999999989977,
-          -29.86689468353,
-          8.8800000001,
-          34.290000000100235
+          -33.67772492624667,
+          5.936996078330998,
+          30.75815441549799,
+          -30.27835808711999,
+          8.358294117747004,
+          34.048147466824446
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17241,20 +17900,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -27.325834274291992,
+          -27.34083366394043,
           3.0,
-          5.230000019073486,
-          -26.9858341217041,
-          6.0,
-          5.570000171661377
+          5.215000152587891,
+          -26.970834732055664,
+          6.5504231452941895,
+          5.585000038146973
         ],
         "expected": [
-          -27.325834601049998,
-          3.0,
-          5.23,
-          -26.985834601049998,
-          6.0,
-          5.57
+          -27.34083460115,
+          2.9999999999,
+          5.2149999999,
+          -26.97083460095,
+          6.550423529512,
+          5.5850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_04:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -28.45256233215332,
+          5.1253132820129395,
+          4.122530460357666,
+          -25.860904693603516,
+          7.778525352478027,
+          6.686034202575684
+        ],
+        "expected": [
+          -28.45256238449531,
+          5.1253073667904445,
+          4.122491136805592,
+          -25.860904800542073,
+          7.7785298594102175,
+          6.686034261169916
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17269,20 +17956,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -29.433897018432617,
-          5.375999927520752,
-          3.349518299102783,
-          -24.87583351135254,
-          9.02400016784668,
-          7.450481414794922
+          -28.978025436401367,
+          5.8321990966796875,
+          3.6319260597229004,
+          -25.232097625732422,
+          8.418258666992188,
+          7.198086261749268
         ],
         "expected": [
-          -29.43583460115,
-          5.3759999999,
-          3.3479999998998604,
-          -24.875834600949997,
-          9.024000000100001,
-          7.452000000100139
+          -28.978025111640008,
+          5.832199215585998,
+          3.631926002513983,
+          -25.232098453289993,
+          8.418258823629005,
+          7.198086092914334
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17297,20 +17984,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -25.497596740722656,
+          -25.512598037719727,
           3.0,
-          -41.56999969482422,
-          -25.1575984954834,
-          6.0,
-          -41.22999954223633
+          -41.584999084472656,
+          -25.142597198486328,
+          6.5238823890686035,
+          -41.21500015258789
         ],
         "expected": [
-          -25.4975985454,
-          3.0,
-          -41.57,
-          -25.1575985454,
-          6.0,
-          -41.23
+          -25.5125985455,
+          2.9999999999,
+          -41.5850000001,
+          -25.1425985453,
+          6.523882353041,
+          -41.2149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_05:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -26.746686935424805,
+          5.094696521759033,
+          -42.780948638916016,
+          -23.87627601623535,
+          7.5045084953308105,
+          -39.889461517333984
+        ],
+        "expected": [
+          -26.74669243035436,
+          5.094548982179878,
+          -42.78095763605116,
+          -23.876227067464892,
+          7.504534247038468,
+          -39.889447267577964
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17325,20 +18040,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -27.785507202148438,
-          5.23199987411499,
-          -43.612361907958984,
-          -22.867597579956055,
-          9.168000221252441,
-          -39.18763732910156
+          -27.290992736816406,
+          5.834497928619385,
+          -43.34339141845703,
+          -23.28944206237793,
+          8.440105438232422,
+          -39.5084228515625
         ],
         "expected": [
-          -27.7875985455,
-          5.2319999999,
-          -43.61400000010005,
-          -22.867598545299998,
-          9.168000000100001,
-          -39.18599999989995
+          -27.29099233340001,
+          5.8344980391159975,
+          -43.343391204750205,
+          -23.28944281292999,
+          8.440105882453004,
+          -39.50842217447029
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17353,20 +18068,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -23.973203659057617,
+          -23.988203048706055,
           3.0,
-          -64.97000122070312,
-          -23.633203506469727,
-          6.0,
-          -64.62999725341797
+          -64.98500061035156,
+          -23.618202209472656,
+          6.5156941413879395,
+          -64.61499786376953
         ],
         "expected": [
-          -23.97320365028,
-          3.0,
-          -64.97,
-          -23.63320365028,
-          6.0,
-          -64.63
+          -23.98820365038,
+          2.9999999999,
+          -64.9850000001,
+          -23.61820365018,
+          6.515694117747,
+          -64.6149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_06:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -25.084224700927734,
+          5.08566951751709,
+          -66.07067108154297,
+          -22.512939453125,
+          7.562043190002441,
+          -63.49742889404297
+        ],
+        "expected": [
+          -25.084243080793804,
+          5.085575220218143,
+          -66.07072344891559,
+          -22.512923595837925,
+          7.562067642728814,
+          -63.497410136403026
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17381,20 +18124,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -25.901418685913086,
-          5.519999980926514,
-          -66.6885986328125,
-          -21.703203201293945,
-          8.880000114440918,
-          -62.911399841308594
+          -25.543560028076172,
+          5.8040547370910645,
+          -66.44635009765625,
+          -22.085493087768555,
+          8.24323558807373,
+          -63.07584762573242
         ],
         "expected": [
-          -25.90320365038,
-          5.5199999999000005,
-          -66.69000000010023,
-          -21.70320365018,
-          8.8800000001,
-          -62.90999999989977
+          -25.543559514290006,
+          5.804054901860998,
+          -66.44635297293823,
+          -22.085492302419993,
+          8.243235294218005,
+          -63.07584776231585
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17409,20 +18152,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          -27.681564331054688,
+          -27.696563720703125,
           3.0,
-          -79.37000274658203,
-          -27.341564178466797,
-          6.0,
-          -79.02999877929688
+          -79.38500213623047,
+          -27.32656478881836,
+          6.53263521194458,
+          -79.01499938964844
         ],
         "expected": [
-          -27.6815640656,
-          3.0,
-          -79.37,
-          -27.3415640656,
-          6.0,
-          -79.03
+          -27.6965640657,
+          2.9999999999,
+          -79.3850000001,
+          -27.326564065499998,
+          6.532635294218,
+          -79.0149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:left_07:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          -28.803367614746094,
+          5.160590171813965,
+          -80.59325408935547,
+          -26.088010787963867,
+          7.562612533569336,
+          -77.83233642578125
+        ],
+        "expected": [
+          -28.803366793627887,
+          5.16045570608347,
+          -80.59327014603517,
+          -26.08797755740451,
+          7.562648415389325,
+          -77.83230805943394
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17437,20 +18208,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          -29.789627075195312,
-          5.375999927520752,
-          -81.25048065185547,
-          -25.231563568115234,
-          9.02400016784668,
-          -77.1495132446289
+          -29.334157943725586,
+          5.881857395172119,
+          -80.98815155029297,
+          -25.584068298339844,
+          8.376859664916992,
+          -77.3410873413086
         ],
         "expected": [
-          -29.7915640657,
-          5.3759999999,
-          -81.25200000010014,
-          -25.2315640655,
-          9.024000000100001,
-          -77.14799999989985
+          -29.33415753432334,
+          5.881857254801997,
+          -80.9881531583832,
+          -25.58406791434999,
+          8.376859607943004,
+          -77.34108586101064
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17465,20 +18236,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          26.754606246948242,
+          26.739604949951172,
           3.0,
-          73.62999725341797,
-          27.094606399536133,
-          6.0,
-          73.97000122070312
+          73.61499786376953,
+          27.10960578918457,
+          6.543646812438965,
+          73.98500061035156
         ],
         "expected": [
-          26.75460621757,
-          3.0,
-          73.63,
-          27.09460621757,
-          6.0,
-          73.97
+          26.739606217469998,
+          2.9999999999,
+          73.6149999999,
+          27.10960621767,
+          6.543647058924,
+          73.9850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_01:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          25.627368927001953,
+          5.115537643432617,
+          72.38563537597656,
+          28.238258361816406,
+          7.782941818237305,
+          75.2086181640625
+        ],
+        "expected": [
+          25.627365817771818,
+          5.1155002590349365,
+          72.38562761317492,
+          28.238266558981707,
+          7.782941847687424,
+          75.20872845510145
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17493,20 +18292,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          24.64654541015625,
-          5.375999927520752,
-          71.74951934814453,
-          29.204605102539062,
-          9.02400016784668,
-          75.8504867553711
+          25.0416316986084,
+          5.76403284072876,
+          71.94738006591797,
+          28.819190979003906,
+          8.401317596435547,
+          75.67189025878906
         ],
         "expected": [
-          24.64460621747,
-          5.3759999999,
-          71.74799999989986,
-          29.20460621767,
-          9.024000000100001,
-          75.85200000010015
+          25.041631052533322,
+          5.764032941075998,
+          71.94737658709872,
+          28.819191158540008,
+          8.401317647159003,
+          75.67188814960616
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17521,20 +18320,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          23.075782775878906,
+          23.06078338623047,
           3.0,
-          55.630001068115234,
-          23.415782928466797,
-          6.0,
-          55.970001220703125
+          55.6150016784668,
+          23.430782318115234,
+          6.5492939949035645,
+          55.98500061035156
         ],
         "expected": [
-          23.07578229939,
-          3.0,
-          55.63,
-          23.41578229939,
-          6.0,
-          55.97
+          23.06078229929,
+          2.9999999999,
+          55.6149999999,
+          23.43078229949,
+          6.549294117747,
+          55.9850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_02:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          21.892961502075195,
+          5.0670318603515625,
+          54.335960388183594,
+          24.692625045776367,
+          7.749414920806885,
+          57.21979904174805
+        ],
+        "expected": [
+          21.89296015168404,
+          5.066969888447703,
+          54.33591079036345,
+          24.692666080786758,
+          7.749529251976853,
+          57.219901987294364
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17549,20 +18376,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          20.787872314453125,
-          5.23199987411499,
-          53.5876350402832,
-          25.70578384399414,
-          9.168000221252441,
-          58.01236343383789
+          21.25189971923828,
+          5.622102737426758,
+          53.81696701049805,
+          25.29791259765625,
+          8.50363540649414,
+          57.853111267089844
         ],
         "expected": [
-          20.78578229929,
-          5.2319999999,
-          53.58599999989995,
-          25.70578229949,
-          9.168000000100001,
-          58.014000000100054
+          21.251898970066666,
+          5.622102744997998,
+          53.81696570470752,
+          25.29791315434,
+          8.503635294218002,
+          57.85311087966111
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17577,20 +18404,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          25.463106155395508,
+          25.448104858398438,
           3.0,
-          32.22999954223633,
-          25.8031063079834,
-          6.0,
-          32.56999969482422
+          32.21500015258789,
+          25.818105697631836,
+          6.55098819732666,
+          32.584999084472656
         ],
         "expected": [
-          25.46310531637,
-          3.0,
-          32.23,
-          25.80310531637,
-          6.0,
-          32.57
+          25.448105316270002,
+          2.9999999999,
+          32.2149999999,
+          25.818105316470003,
+          6.5509882353940005,
+          32.5850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_03:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          24.323270797729492,
+          5.076860427856445,
+          31.128164291381836,
+          26.840232849121094,
+          7.599483489990234,
+          33.68178176879883
+        ],
+        "expected": [
+          24.323263222201287,
+          5.076771503148562,
+          31.12809812619162,
+          26.840232352825954,
+          7.59950185192812,
+          33.681806831339664
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17605,20 +18460,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          23.53489112854004,
-          5.519999980926514,
-          30.511398315429688,
-          27.733104705810547,
-          8.880000114440918,
-          34.28860092163086
+          23.910917282104492,
+          5.8377766609191895,
+          30.668256759643555,
+          27.259172439575195,
+          8.331470489501953,
+          34.01240158081055
         ],
         "expected": [
-          23.53310531627,
-          5.5199999999000005,
-          30.50999999989977,
-          27.733105316470002,
-          8.8800000001,
-          34.290000000100235
+          23.910917981926655,
+          5.837776470487999,
+          30.668256092409486,
+          27.259172300560003,
+          8.331470588335003,
+          34.01240273877743
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17633,20 +18488,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          25.674165725708008,
+          25.65916633605957,
           3.0,
-          5.230000019073486,
-          26.0141658782959,
-          6.0,
-          5.570000171661377
+          5.215000152587891,
+          26.029165267944336,
+          6.558046817779541,
+          5.585000038146973
         ],
         "expected": [
-          25.674165398950002,
-          3.0,
-          5.23,
-          26.014165398950002,
-          6.0,
-          5.57
+          25.65916539885,
+          2.9999999999,
+          5.2149999999,
+          26.02916539905,
+          6.558047058923999,
+          5.5850000001
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_04:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          24.560392379760742,
+          5.204908847808838,
+          4.114354610443115,
+          27.134157180786133,
+          7.652238368988037,
+          6.692262649536133
+        ],
+        "expected": [
+          24.560392881501933,
+          5.204887109516862,
+          4.114354417076948,
+          27.134156746902846,
+          7.652246601878625,
+          6.6922874032707576
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17661,20 +18544,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          23.566102981567383,
-          5.375999927520752,
-          3.349518299102783,
-          28.12416648864746,
-          9.02400016784668,
-          7.450481414794922
+          23.940624237060547,
+          5.888401508331299,
+          3.578411102294922,
+          27.725919723510742,
+          8.437317848205566,
+          7.271531581878662
         ],
         "expected": [
-          23.56416539885,
-          5.3759999999,
-          3.3479999998998604,
-          28.124165399050003,
-          9.024000000100001,
-          7.452000000100139
+          23.94062335026999,
+          5.888401568526998,
+          3.5784110715729587,
+          27.725918915690002,
+          8.437317647159004,
+          7.271531677069559
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17689,20 +18572,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          32.10240173339844,
+          32.08740234375,
           3.0,
-          -41.56999969482422,
-          32.44240188598633,
-          6.0,
-          -41.22999954223633
+          -41.584999084472656,
+          32.457401275634766,
+          6.571882247924805,
+          -41.21500015258789
         ],
         "expected": [
-          32.1024014546,
-          3.0,
-          -41.57,
-          32.4424014546,
-          6.0,
-          -41.23
+          32.0874014545,
+          2.9999999999,
+          -41.5850000001,
+          32.4574014547,
+          6.5718823530409995,
+          -41.2149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_05:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          30.837989807128906,
+          5.1305365562438965,
+          -42.851036071777344,
+          33.71459197998047,
+          7.795307159423828,
+          -40.01152801513672
+        ],
+        "expected": [
+          30.837912909145494,
+          5.130480716779297,
+          -42.85108425633499,
+          33.714613209005826,
+          7.795337204186763,
+          -40.01145627649219
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17717,20 +18628,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          29.814491271972656,
-          5.23199987411499,
-          -43.612361907958984,
-          34.73240280151367,
-          9.168000221252441,
-          -39.18763732910156
+          30.236751556396484,
+          5.822833061218262,
+          -43.42238998413086,
+          34.28607940673828,
+          8.56010627746582,
+          -39.45821762084961
         ],
         "expected": [
-          29.812401454499998,
-          5.2319999999,
-          -43.61400000010005,
-          34.7324014547,
-          9.168000000100001,
-          -39.18599999989995
+          30.236751887066657,
+          5.822832941075998,
+          -43.42239150596274,
+          34.28607987377001,
+          8.560105882453005,
+          -39.458216712375595
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17745,20 +18656,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          29.026796340942383,
+          29.011796951293945,
           3.0,
-          -64.97000122070312,
-          29.366796493530273,
-          6.0,
-          -64.62999725341797
+          -64.98500061035156,
+          29.381797790527344,
+          6.569058418273926,
+          -64.61499786376953
         ],
         "expected": [
-          29.02679634972,
-          3.0,
-          -64.97,
-          29.36679634972,
-          6.0,
-          -64.63
+          29.01179634962,
+          2.9999999999,
+          -64.9850000001,
+          29.38179634982,
+          6.569058823629,
+          -64.6149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_06:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          27.895103454589844,
+          5.1543288230896,
+          -66.0877914428711,
+          30.434484481811523,
+          7.68451452255249,
+          -63.51125717163086
+        ],
+        "expected": [
+          27.895102404299372,
+          5.154286256587689,
+          -66.08781889928004,
+          30.434538640888523,
+          7.684652563823918,
+          -63.511242002070716
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17773,20 +18712,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          27.098581314086914,
-          5.519999980926514,
-          -66.6885986328125,
-          31.296796798706055,
-          8.880000114440918,
-          -62.911399841308594
+          27.478748321533203,
+          6.030889987945557,
+          -66.51123809814453,
+          30.82210922241211,
+          8.376646995544434,
+          -63.17591857910156
         ],
         "expected": [
-          27.09679634962,
-          5.5199999999000005,
-          -66.69000000010023,
-          31.29679634982,
-          8.8800000001,
-          -62.90999999989977
+          27.478748978269994,
+          6.030890195977998,
+          -66.51123616797784,
+          30.822108723230013,
+          8.376647058924005,
+          -63.17591934857329
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17801,20 +18740,48 @@
       "pass": true,
       "actual": {
         "actual": [
-          29.91843605041504,
+          29.90343475341797,
           3.0,
-          -79.37000274658203,
-          30.25843620300293,
-          6.0,
-          -79.02999877929688
+          -79.38500213623047,
+          30.273435592651367,
+          6.5792236328125,
+          -79.01499938964844
         ],
         "expected": [
-          29.9184359344,
-          3.0,
-          -79.37,
-          30.2584359344,
-          6.0,
-          -79.03
+          29.9034359343,
+          2.9999999999,
+          -79.3850000001,
+          30.2734359345,
+          6.579223529512,
+          -79.0149999999
+        ],
+        "tessellation_tolerance_m": 0.025
+      }
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:branches:STEP_correspondence",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "check": "GLB:Landscape:trees:right_07:branches:saved_STEP_bounds_converted",
+      "pass": true,
+      "actual": {
+        "actual": [
+          28.687692642211914,
+          5.256589889526367,
+          -80.58566284179688,
+          31.438106536865234,
+          7.779814720153809,
+          -77.78961181640625
+        ],
+        "expected": [
+          28.687680884967133,
+          5.256589281065945,
+          -80.58570762826301,
+          31.438157942036863,
+          7.779843291922326,
+          -77.78960761168959
         ],
         "tessellation_tolerance_m": 0.025
       }
@@ -17829,20 +18796,20 @@
       "pass": true,
       "actual": {
         "actual": [
-          27.810373306274414,
-          5.375999927520752,
-          -81.25048065185547,
-          32.36843490600586,
-          9.02400016784668,
-          -77.1495132446289
+          28.324918746948242,
+          5.970823764801025,
+          -81.00489807128906,
+          31.948759078979492,
+          8.490259170532227,
+          -77.4085922241211
         ],
         "expected": [
-          27.8084359343,
-          5.3759999999,
-          -81.25200000010014,
-          32.3684359345,
-          9.024000000100001,
-          -77.14799999989985
+          28.32491813194,
+          5.970823529311998,
+          -81.0048962895354,
+          31.94875880410001,
+          8.490258823629004,
+          -77.40859136526059
         ],
         "tessellation_tolerance_m": 0.025
       }

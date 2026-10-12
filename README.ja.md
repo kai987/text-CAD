@@ -4,6 +4,8 @@
 
 独立した河川CAD・3Dモデルを追加しました。蛇行する河道、石護岸、両岸の歩道、親水階段、人道橋、樹木、ベンチ、照明器具を含みます。**全寸法はデモ仮定**です。南北投影延長180000 mm、モデル幅80000 mm、水面幅18000 mm、水底幅14000 mm、水深900 mm、人道橋の支間38000 mm・幅4000 mm、堤頂歩道幅3000 mm。流れは北から南と仮定し、水理・橋梁耐力・地盤および法規は未確定です。
 
+植栽は `natural_trees_v1` を使用します。14本の位置と記録した植栽半径を保ち、幹を先細り・緩やかな曲がりと分枝のある形状にし、樹冠は樹木IDから固定生成します。STEPは幹・枝・楕円体群の樹冠体積を保持し、GLBは同じ記録済み樹冠バウンディングボックスと植栽半径内に曲面の葉・花房を表示します。ウェブとダウンロードは同じGLBを使用します。樹冠は1本につき1メッシュで、樹影はモデルや表示切替時に更新し、ホイールでポインター位置へ拡大できます。
+
 [河川平面 DXF](DXF/river_demo_plan.dxf) · [横断面 DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [中日英の説明・パラメータ・参考資料](docs/river_demo_R01.md)
 
 ローカルのビューアで河川を選ぶか、`?model=river&view=3d` を指定します。平面・横断面・ファイルは `view=plan`・`view=section`・`view=files` です。DXFは編集可能な文字とネイティブDIMENSIONを保持し、A3平面1:1000・横断面1:250。CADはmm、GLBはm・Y-upです。全体の再生成は `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`。

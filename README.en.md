@@ -4,6 +4,8 @@
 
 An independent river CAD and 3D model includes a curved channel, stone revetments, riverside paths, access stairs, a pedestrian bridge, trees, benches and light fixtures. **Every dimension is a demonstration assumption**: north–south projected length 180000 mm, scene width 80000 mm, water-surface width 18000 mm, bed width 14000 mm and water depth 900 mm; bridge span 38000 mm, bridge width 4000 mm and crest-path width 3000 mm. Flow is assumed from north to south. Hydraulic capacity, bridge strength, foundations and statutory compliance remain unverified.
 
+Planting uses `natural_trees_v1`: all 14 recorded positions and planting radii remain unchanged, with tapered, gently curved trunks, branching and tree-ID-seeded crowns. STEP stores trunks, branches and ellipsoid crown volumes; GLB shows curved leaves and blossom sprays within the same recorded crown bounding boxes and planting radii. The page and download use the same GLB. Each crown remains one mesh; tree shadows update on model or visibility changes, and wheel zoom follows the pointer.
+
 [Plan DXF](DXF/river_demo_plan.dxf) · [Cross-section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [Chinese, Japanese and English guide, parameters and references](docs/river_demo_R01.md)
 
 Select the river in the local viewer or use `?model=river&view=3d`. Use `view=plan`, `view=section` and `view=files` for its plan, section and downloads. DXF retains editable text and native DIMENSION entities, with A3 plan 1:1000 and section 1:250 layouts. CAD uses millimetres; GLB uses metres/Y-up. Rebuild the full catalog with `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`.

@@ -4,6 +4,8 @@
 
 新增独立的河流 CAD 与 3D 模型，包含弯曲河道、石护岸、两岸步道、亲水阶梯、人行桥、树木、长椅和灯具。**全部尺寸均为演示假设**：南北投影长度180000 mm、场景宽80000 mm、水面宽18000 mm、水底宽14000 mm、水深900 mm；人行桥跨38000 mm、宽4000 mm，堤顶步道宽3000 mm。河流方向暂设为北向南，桥梁、水理、地基与法规均待核定。
 
+植栽细节采用 `natural_trees_v1`：14株的位置与记录占地半径保留，树干渐细弯曲并具有分枝，树冠形状由树编号固定。STEP保存树干、枝条和椭球簇树冠体量；GLB在相同记录的树冠包围盒及植栽半径内显示弯曲叶片与花簇，网页与下载使用同一GLB。叶冠每株合成一个网格，地面树影仅在模型或显隐变化时重新计算，滚轮可朝指针位置放大细节。
+
 [河川平面 DXF](DXF/river_demo_plan.dxf) · [横断面 DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [中日英说明、参数与参考来源](docs/river_demo_R01.md)
 
 本地查看器选择河流，或使用 `?model=river&view=3d`；平面、横断面与文件页分别使用 `view=plan`、`view=section`、`view=files`。DXF保留可编辑文字和原生DIMENSION，A3平面1:1000、横断面1:250；CAD为毫米，GLB为米/Y-up。完整重建使用 `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`。

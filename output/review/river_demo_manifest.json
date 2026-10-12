@@ -345,6 +345,13 @@
       "height": 4000
     }
   ],
+  "tree_visual_style": {
+    "revision": "natural_trees_v1",
+    "native_crown": "deterministic ellipsoid cluster planting envelope",
+    "glb_crown": "detailed leaf and blossom mesh within recorded crown boxes and planting radius",
+    "seed": "tree id",
+    "footprint": "all trunk, branch and crown geometry stays inside each recorded XY radius"
+  },
   "groups": [
     "Terrain:base",
     "River:bed",
@@ -544,7 +551,7 @@
     "max": [
       40000.0000001,
       90000.0000001,
-      9168.0000001
+      8560.105882453005
     ]
   },
   "parts": [
@@ -616,7 +623,7 @@
     {
       "name": "Landscape:trees",
       "valid": true,
-      "solids": 28
+      "solids": 504
     },
     {
       "name": "Landscape:benches",
@@ -630,23 +637,28 @@
     }
   ],
   "glb_export": {
-    "named_mesh_nodes": 498,
-    "all_nodes": 515,
+    "named_mesh_nodes": 512,
+    "all_nodes": 529,
+    "vegetation": {
+      "crowns": 14,
+      "vertices": 295650,
+      "triangles": 198450
+    },
     "mesh_coordinates": "world-space metres, Y-up",
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/river_geometry.py": "cbf0eced477490f63f4772f8fccf6732b7fc6ed2091a5743a0b3f6cf03256568",
-    "src/river_3d.py": "40cf1d0bf81c2b645436a13ac1e1429851001f009344e2e3ef84fa0768a142cc"
+    "src/lib/river_geometry.py": "e88eadcab40da541dd589975fcac80442c81d760f86532e3aedfc8cb4be58478",
+    "src/river_3d.py": "95648ade5b8fafadb05b8a976785550cd499044c23d26bdd5ccba58bbab918e6"
   },
   "artifacts": {
     "STEP/river_demo.step": {
-      "sha256": "6cd26e5b11f4cf6a5de30bdb0e4f74fc7221917e8c7f2379b2e53cb4614c900a",
-      "bytes": 7947549
+      "sha256": "6f2364850dd4967565a2cc9f6851ef39e113b98f60651c97ee13aefd607e97e3",
+      "bytes": 10964752
     },
     "GLB/river_demo.glb": {
-      "sha256": "9bc4b36694570ba9c849c979001782ca71acce0083ddfd56bbf7054ff8233845",
-      "bytes": 2449316
+      "sha256": "d292c497b196514939c98c5239fabecf1aee123bee3f1ca459a0d8b503d2b19d",
+      "bytes": 14730700
     }
   }
 }

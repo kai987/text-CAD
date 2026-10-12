@@ -25,7 +25,8 @@ sys.path.insert(0, str(ROOT / 'src'))
 os.environ.setdefault('CADGEN_DAEMON', '0')
 from cadgen import read_scene
 from lib.native_glb import audit_glb_bytes
-from lib.river_geometry import R, REVISION, GROUPS, geometry_manifest, bridge_dimensions, section_offsets
+from lib.river_geometry import (R, REVISION, GROUPS, geometry_manifest, bridge_dimensions,
+                                section_offsets, tree_positions)
 
 
 CENTRELINE_TOLERANCE_MM = 1e-8
@@ -156,6 +157,29 @@ def validate(root=ROOT):
         and node.get('matrix', identity) == identity for node in nodes))
     check('GLB:static_river_scene', not document.get('animations')
           and document.get('scenes', [{}])[0].get('name') == 'river_demo')
+    vegetation = document.get('asset', {}).get('extras', {}).get('vegetation', {})
+    check('GLB:natural_tree_crown_count', vegetation.get('crowns') == len(tree_positions()))
+    for tree in tree_positions():
+        prefix = f"Landscape:trees:{tree['id']}"
+        check(f'STEP:{prefix}:named_tapered_tree', all(prefix + ':' + part in native
+              for part in ('trunk', 'branches', 'crown')))
+        crowns = [node for node in mesh_nodes if node.get('name') == prefix + ':crown']
+        check(f'GLB:{prefix}:one_crown_mesh', len(crowns) == 1)
+        for node in crowns:
+            mesh = document['meshes'][node['mesh']]
+            check(f'GLB:{prefix}:foliage_representation',
+                  mesh.get('extras', {}).get('vegetationStyle') == 'natural_trees_v1')
+            for primitive in mesh['primitives']:
+                attributes = primitive['attributes']
+                position = document['accessors'][attributes['POSITION']]
+                color = document['accessors'][attributes['COLOR_0']] if 'COLOR_0' in attributes else {}
+                check(f'GLB:{prefix}:finite_leaf_color_layout', color.get('type') == 'VEC3'
+                      and color.get('componentType') == 5126 and color.get('count') == position['count'])
+                material = document['materials'][primitive['material']]
+                check(f'GLB:{prefix}:opaque_double_sided_leaves', material.get('doubleSided') is True
+                      and material.get('alphaMode', 'OPAQUE') == 'OPAQUE')
+                check(f'GLB:{prefix}:detailed_single_batch', len(mesh['primitives']) == 1
+                      and position['count'] > 4000)
     water_nodes = [node for node in mesh_nodes if node.get('name') == 'River:water:surface_volume']
     check('GLB:one_named_water_mesh', len(water_nodes) == 1)
     water_materials = [document['materials'][primitive['material']] for node in water_nodes
@@ -256,6 +280,7 @@ def validate(root=ROOT):
     summary = {'checks': len(results), 'passed': sum(row['pass'] for row in results),
                'failed': sum(not row['pass'] for row in results), 'revision': REVISION,
                'STEP_leaf_occurrences': len(native), 'GLB_meshes': len(mesh_nodes),
+               'vegetation': vegetation,
                'scope': 'Saved concept geometry and source-bound editable drawings; engineering uncalculated.'}
     return {'summary': summary, 'checks': results}
 

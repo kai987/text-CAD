@@ -1,4 +1,4 @@
-import { Box3, Color, DirectionalLight, HemisphereLight, Mesh, Object3D, OrthographicCamera, Raycaster, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
+import { Box3, Color, DirectionalLight, HemisphereLight, Mesh, Object3D, OrthographicCamera, PCFShadowMap, Raycaster, Scene, Vector2, Vector3, WebGLRenderer } from 'three';
 import type { Material, MeshStandardMaterial } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -35,6 +35,11 @@ export function createRiverViewer(host: HTMLElement, options: {
 }): RiverViewer {
   const renderer = new WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = PCFShadowMap;
+  // The planting and sunlight are static. Camera orbit does not rerender a
+  // shadow map; visibility changes explicitly invalidate the cached shadows.
+  renderer.shadowMap.autoUpdate = false;
   renderer.setClearColor(themePalette[options.theme].canvasBackground);
   const canvas = renderer.domElement;
   canvas.tabIndex = 0;
@@ -47,16 +52,22 @@ export function createRiverViewer(host: HTMLElement, options: {
   const sky = new HemisphereLight(0xffffff, 0x739263, 2.2);
   const sun = new DirectionalLight(0xfff3df, 2.6);
   sun.position.set(-80, 150, 80);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, { left: -130, right: 130, top: 130, bottom: -130, near: .1, far: 420 });
+  sun.shadow.bias = -.00015;
+  sun.shadow.normalBias = .08;
   scene.add(sky, sun);
   const camera = new OrthographicCamera(-100, 100, 100, -100, 0.1, 2000);
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = 0.13;
+  controls.zoomToCursor = true;
   controls.minZoom = 0.2;
   controls.maxZoom = 24;
   controls.maxPolarAngle = Math.PI * 0.91;
   controls.listenToKeyEvents(canvas);
-  let disposed = false, inViewport = true, contextLost = false, frames = 0;
+  let disposed = false, inViewport = true, contextLost = false, frames = 0, shadowUpdates = 0;
   let root: Object3D | null = null;
   let view: 'iso' | 'top' = 'iso';
   let halfHeight = 80;
@@ -70,9 +81,12 @@ export function createRiverViewer(host: HTMLElement, options: {
       availability();
       if (disposed || canvas.dataset.renderVisibility !== 'visible') return;
       controls.update();
+      const updateShadow = renderer.shadowMap.needsUpdate;
       renderer.render(scene, camera);
+      if (updateShadow) canvas.dataset.shadowUpdates = String(++shadowUpdates);
       canvas.dataset.renderedFrames = String(++frames);
-      canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+      canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(),
+        up: camera.up.toArray(), zoom: camera.zoom, frustum: [camera.left, camera.right, camera.top, camera.bottom] });
     },
     requestFrame: callback => requestAnimationFrame(callback), cancelFrame: id => cancelAnimationFrame(id),
     onState: state => { canvas.dataset.renderState = state; },
@@ -118,6 +132,7 @@ export function createRiverViewer(host: HTMLElement, options: {
     visibility = { ...values };
     for (const [id, nodes] of groupNodes) nodes.forEach(node => { node.visible = values[id]; });
     canvas.dataset.visibleGroups = JSON.stringify(Object.keys(riverGroups).filter(id => values[id as RiverGroupId]));
+    renderer.shadowMap.needsUpdate = true;
     scheduler.invalidate();
   }
   const changed = () => { scheduler.invalidate(); };
@@ -173,6 +188,16 @@ export function createRiverViewer(host: HTMLElement, options: {
           (nodes as Object3D[]).forEach(node => nodeGroups.set(node, id as RiverGroupId));
         }
         const water = groupNodes.get('water')!;
+        let treeCrowns = 0;
+        gltf.scene.traverse(child => {
+          if (!(child instanceof Mesh)) return;
+          const name = String(child.userData.cadName);
+          child.castShadow = name.startsWith('Landscape:trees:');
+          child.receiveShadow = !name.startsWith('River:water');
+          if (name.startsWith('Landscape:trees:') && name.endsWith(':crown')) treeCrowns++;
+        });
+        canvas.dataset.treeStyle = 'natural_trees_v1';
+        canvas.dataset.treeCrowns = String(treeCrowns);
         water.forEach(node => node.traverse(child => {
           if (!(child instanceof Mesh)) return;
           (Array.isArray(child.material) ? child.material : [child.material]).forEach(material => {
@@ -207,6 +232,7 @@ export function createRiverViewer(host: HTMLElement, options: {
       canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerup', up);
       controls.removeEventListener('change', changed); controls.dispose();
       if (root) disposeModel(root);
+      sun.shadow.dispose();
       renderer.dispose(); canvas.remove();
     },
   };

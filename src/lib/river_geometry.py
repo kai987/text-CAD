@@ -7,7 +7,8 @@ curved centreline; the gentle curve and exact convention are stated explicitly.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from math import ceil, cos, pi, sin
+from hashlib import sha256
+from math import ceil, cos, hypot, pi, sin, sqrt
 
 from cadgen import build123d as bd, srgb
 
@@ -156,6 +157,115 @@ def tree_positions(p=R):
     return result
 
 
+def _tree_variation(tree):
+    """Stable variation avoids changing the planting every time it is exported."""
+    digest = sha256(str(tree["id"]).encode("utf-8")).digest()
+    return {
+        "phase": 2*pi*digest[0]/255,
+        "height": 180*(digest[1]/255-.5),
+        "lean_x": 230*(digest[2]/255-.5),
+        "lean_y": 230*(digest[3]/255-.5),
+        "samples": [value/255 for value in digest[4:]],
+    }
+
+
+def tree_crown_lobes(tree):
+    """Return the fixed planting envelope as absolute CAD-mm ellipsoids.
+
+    Each item has ``centre: [X, Y, Z]`` and ``radii: [rx, ry, rz]``. Nine
+    overlapping solids describe the crown without requiring an expensive union.
+    Their horizontal projection remains inside the recorded circular footprint.
+    STEP uses these envelopes; the GLB exporter places leaf/blossom geometry
+    inside their recorded bounding boxes and planting radius while retaining
+    the named crown occurrence.
+    """
+    x, y, z, r = (tree[key] for key in ("x", "y", "z", "radius"))
+    variation = _tree_variation(tree)
+    samples = variation["samples"]
+    lobes = [{"centre": [x+variation["lean_x"], y+variation["lean_y"],
+                          z+4300+variation["height"]],
+              "radii": [r*.55, r*.52, r*.49]}]
+    for i in range(8):
+        angle = variation["phase"]+i*pi/4+(.11*(samples[i]-.5))
+        distance = r*(.41+.06*samples[i+8])
+        # An asymmetric crown has open spaces between smaller peripheral lobes.
+        rx = r*(.37+.09*samples[i+16])
+        ry = r*(.36+.09*samples[(i+20) % len(samples)])
+        rz = r*(.34+.13*samples[(i+24) % len(samples)])
+        # The foliage exporter uses lobe AABBs, so even their corners must fit.
+        horizontal_scale = min(1, (.975*r-distance)/hypot(rx, ry))
+        rx, ry = rx*horizontal_scale, ry*horizontal_scale
+        lobes.append({"centre": [x+distance*cos(angle), y+distance*sin(angle),
+                                  z+4080+variation["height"]+640*(samples[i+4]-.5)],
+                      "radii": [rx, ry, rz]})
+    return lobes
+
+
+def _tree_stem_points(tree):
+    x, y, z = (tree[key] for key in ("x", "y", "z"))
+    variation = _tree_variation(tree)
+    lean_x, lean_y = variation["lean_x"], variation["lean_y"]
+    return [((x, y, z), 185),
+            ((x+lean_x*.22, y+lean_y*.17, z+1150), 133),
+            ((x+lean_x*.63, y+lean_y*.58, z+2450), 83),
+            ((x+lean_x, y+lean_y, z+3550+variation["height"]*.4), 43)]
+
+
+def tree_branch_segments(tree):
+    """Deterministic tapered branch axes and radii in absolute CAD millimetres."""
+    x, y, z, r = (tree[key] for key in ("x", "y", "z", "radius"))
+    variation = _tree_variation(tree)
+    segments = []
+    for i, lobe in enumerate(tree_crown_lobes(tree)[1:]):
+        sample = variation["samples"][i]
+        angle = variation["phase"]+i*pi/4
+        stem_fraction = .55+.35*sample
+        start = [x+variation["lean_x"]*stem_fraction,
+                 y+variation["lean_y"]*stem_fraction, z+2100+760*sample]
+        end = [x+(lobe["centre"][0]-x)*.78,
+               y+(lobe["centre"][1]-y)*.78,
+               lobe["centre"][2]-r*.19]
+        segments.append({"start": start, "end": end,
+                         "base_radius": 85-16*sample, "top_radius": 38-9*sample})
+        for sign in (-1, 1):
+            fork_angle = angle+sign*(.34+.15*sample)
+            distance = r*(.55+.07*sample)
+            tip = [x+distance*cos(fork_angle), y+distance*sin(fork_angle),
+                   lobe["centre"][2]+r*(.05+.13*sample)]
+            segments.append({"start": end, "end": tip,
+                             "base_radius": 37-8*sample, "top_radius": 12+5*sample})
+    return segments
+
+
+def _tree_trunk(tree):
+    stem = _tree_stem_points(tree)
+    segments = []
+    for (start, bottom_radius), (end, top_radius) in zip(stem, stem[1:]):
+        # Horizontal cross-sections keep the root exactly on the terrain datum.
+        rings = [bd.Wire.make_circle(radius, bd.Plane(origin=point))
+                 for point, radius in ((start, bottom_radius), (end, top_radius))]
+        segments.append(bd.Solid.make_loft(rings, ruled=True))
+    return _named(bd.Compound(segments), f"Landscape:trees:{tree['id']}:trunk", "trunk")
+
+
+def _tree_branches(tree):
+    solids = []
+    for branch in tree_branch_segments(tree):
+        direction = tuple(b-a for a, b in zip(branch["start"], branch["end"]))
+        length = sqrt(sum(value*value for value in direction))
+        solids.append(bd.Solid.make_cone(branch["base_radius"], branch["top_radius"], length,
+                                        bd.Plane(origin=branch["start"], z_dir=direction)))
+    # Positional solids deliberately remain one assembly leaf and one GLB mesh.
+    return _named(bd.Compound(solids), f"Landscape:trees:{tree['id']}:branches", "trunk")
+
+
+def _tree_crown(tree):
+    solids = [bd.Sphere(1).scale(tuple(lobe["radii"]))
+              .moved(bd.Location(tuple(lobe["centre"]))) for lobe in tree_crown_lobes(tree)]
+    return _named(bd.Compound(solids), f"Landscape:trees:{tree['id']}:crown",
+                  "sakura" if tree["kind"] == "sakura" else "leaves_dark")
+
+
 def bench_positions(p=R):
     return [{"id": f"{side}_{i:02d}", "side": side,
              "x": center_x(y, p) + sign * (section_offsets(p)["path_outer"] + 1100),
@@ -302,12 +412,7 @@ def _stairs(p):
 def _landscape(p):
     trees, benches, lamps = [], [], []
     for tree in tree_positions(p):
-        x,y,z,r = (tree[k] for k in ("x","y","z","radius"))
-        trunk = _named(bd.Cylinder(170,3000,align=(bd.Align.CENTER,bd.Align.CENTER,bd.Align.MIN))
-                       .moved(bd.Location((x,y,z))),f"Landscape:trees:{tree['id']}:trunk","trunk")
-        canopy = _named(bd.Sphere(r).scale((1,.9,.8)).moved(bd.Location((x,y,z+4200))),
-                        f"Landscape:trees:{tree['id']}:crown",tree["kind"] if tree["kind"]=="sakura" else "leaves_dark")
-        trees += [trunk,canopy]
+        trees += [_tree_trunk(tree), _tree_branches(tree), _tree_crown(tree)]
     for bench in bench_positions(p):
         x,y,z = (bench[k] for k in ("x","y","z"))
         ident = bench["id"]
@@ -384,6 +489,13 @@ def geometry_manifest(p=R, assembly=None):
         "bank_name_convention":"left means west/-X on the plan and right east/+X; these are display labels, not formal downstream bank names",
         "parameters":asdict(p),"section_offsets":section_offsets(p),"bridge":bridge_dimensions(p),
         "stairs":stairs_positions(p),"trees":tree_positions(p),"benches":bench_positions(p),"lamps":lamp_positions(p),
+        "tree_visual_style":{
+            "revision":"natural_trees_v1",
+            "native_crown":"deterministic ellipsoid cluster planting envelope",
+            "glb_crown":"detailed leaf and blossom mesh within recorded crown boxes and planting radius",
+            "seed":"tree id",
+            "footprint":"all trunk, branch and crown geometry stays inside each recorded XY radius",
+        },
         "groups":list(GROUPS),"centreline_formula":"x = curve_amplitude * sin(2*pi*y/length)",
         "centreline_samples":[[center_x(y,p),y] for y in sample_ys(p)],
         "assumptions":[

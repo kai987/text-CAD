@@ -10,9 +10,12 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
+import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import house_3d
+from river_3d import apply_tree_foliage, foliage_mesh
+from lib.river_geometry import tree_crown_lobes, tree_positions
 
 
 def container(document, binary):
@@ -103,6 +106,95 @@ class NamedGlbMetadataTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "one node per STEP leaf"):
             house_3d.restore_glb_hierarchy(Path("model.step"), self.path)
         self.assertEqual(self.path.read_bytes(), raw)
+
+
+class RiverFoliageExportTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.trees = [tree_positions()[0], tree_positions()[2]]
+        cls.generated = {tree['id']: foliage_mesh(tree) for tree in cls.trees}
+
+    def test_foliage_repeats_without_global_random_state(self):
+        for tree in self.trees:
+            repeated = foliage_mesh(dict(tree))
+            for key, values in repeated.items():
+                np.testing.assert_array_equal(values, self.generated[tree['id']][key])
+
+    def test_leaf_and_flower_triangles_are_finite_colored_and_nondegenerate(self):
+        for mesh in self.generated.values():
+            positions, indices = mesh['positions'], mesh['indices'].reshape(-1, 3)
+            self.assertTrue(np.isfinite(positions).all())
+            self.assertTrue(np.isfinite(mesh['normals']).all())
+            self.assertEqual(mesh['colors'].shape, positions.shape)
+            self.assertTrue(((mesh['colors'] >= 0) & (mesh['colors'] <= 1)).all())
+            np.testing.assert_allclose(np.linalg.norm(mesh['normals'], axis=1), 1, atol=1e-6)
+            self.assertLess(int(indices.max()), len(positions))
+            cross = np.cross(positions[indices[:, 1]] - positions[indices[:, 0]],
+                             positions[indices[:, 2]] - positions[indices[:, 0]])
+            self.assertTrue((np.linalg.norm(cross, axis=1) > 1e-9).all())
+
+    def test_foliage_retains_crown_boxes_and_clear_planting_footprint(self):
+        for tree in self.trees:
+            points = self.generated[tree['id']]['positions']
+            cad = np.column_stack((points[:, 0], -points[:, 2], points[:, 1])) * 1000
+            self.assertLessEqual(float(np.linalg.norm(cad[:, :2] - [tree['x'], tree['y']], axis=1).max()),
+                                 tree['radius'] + .01)
+            lobes = tree_crown_lobes(tree)
+            minimum = np.min([np.asarray(lobe['centre']) - lobe['radii'] for lobe in lobes], axis=0)
+            maximum = np.max([np.asarray(lobe['centre']) + lobe['radii'] for lobe in lobes], axis=0)
+            np.testing.assert_allclose(cad.min(axis=0), minimum, atol=.01)
+            np.testing.assert_allclose(cad.max(axis=0), maximum, atol=.01)
+
+    def test_actual_export_keeps_other_geometry_materials_nodes_and_removes_old_crowns(self):
+        document, binary = decode((ROOT / 'GLB/river_demo.glb').read_bytes())
+        original = deepcopy(document)
+
+        def view_bytes(doc, payload, accessor):
+            view = doc['bufferViews'][doc['accessors'][accessor]['bufferView']]
+            start = view.get('byteOffset', 0)
+            return payload[start:start + view['byteLength']]
+
+        packed, totals = apply_tree_foliage(document, binary)
+        self.assertEqual(totals['crowns'], len(tree_positions()))
+        self.assertEqual(document['nodes'], original['nodes'])
+        self.assertEqual(document['materials'][:len(original['materials'])], original['materials'])
+        for node in original['nodes']:
+            if 'mesh' not in node or (node.get('name', '').startswith('Landscape:trees:')
+                                      and node['name'].endswith(':crown')):
+                continue
+            old = original['meshes'][node['mesh']]['primitives']
+            new = document['meshes'][node['mesh']]['primitives']
+            self.assertEqual(len(old), len(new))
+            for before, after in zip(old, new):
+                self.assertEqual(before.get('material'), after.get('material'))
+                self.assertEqual(before['attributes'].keys(), after['attributes'].keys())
+                for key, value in before['attributes'].items():
+                    self.assertEqual(view_bytes(original, binary, value),
+                                     view_bytes(document, packed, after['attributes'][key]))
+                if 'indices' in before:
+                    self.assertEqual(view_bytes(original, binary, before['indices']),
+                                     view_bytes(document, packed, after['indices']))
+        referenced = {accessor['bufferView'] for accessor in document['accessors']}
+        self.assertEqual(referenced, set(range(len(document['bufferViews']))))
+        self.assertEqual(document['buffers'][0]['byteLength'], len(packed))
+        # Running the replacement again must not accumulate discarded foliage.
+        repeated, _ = apply_tree_foliage(document, packed)
+        self.assertEqual(repeated, packed)
+
+    def test_missing_or_shared_crown_meshes_are_rejected_before_changes(self):
+        document, binary = decode((ROOT / 'GLB/river_demo.glb').read_bytes())
+        crown = next(node for node in document['nodes']
+                     if node.get('name', '').startswith('Landscape:trees:') and node['name'].endswith(':crown'))
+        shared = deepcopy(document)
+        shared['nodes'].append({'name': 'another_part', 'mesh': crown['mesh']})
+        snapshot = deepcopy(shared)
+        with self.assertRaisesRegex(ValueError, 'must not be shared'):
+            apply_tree_foliage(shared, binary)
+        self.assertEqual(shared, snapshot)
+        missing = deepcopy(document)
+        missing['nodes'].remove(next(node for node in missing['nodes'] if node.get('name') == crown['name']))
+        with self.assertRaisesRegex(ValueError, 'exactly once'):
+            apply_tree_foliage(missing, binary)
 
 
 if __name__ == "__main__":

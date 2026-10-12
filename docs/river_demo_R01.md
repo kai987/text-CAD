@@ -4,6 +4,8 @@
 
 RIVER-R01 是独立的日本城市近郊河流示范场景，包含弯曲河道、水体、石护岸、两岸步道、亲水阶梯、人行桥、树木、长椅和灯具。它是原创参数化景观方案，不对应实际河流、地块或测量地形。
 
+植栽细节采用 `natural_trees_v1`：14株的位置与记录占地半径保留，树干渐细弯曲并具有分枝，树冠形状由树编号固定。STEP保存树干、枝条和椭球簇树冠体量；GLB在相同记录的树冠包围盒及植栽半径内显示弯曲叶片与花簇，网页与下载使用同一GLB。叶冠每株合成一个网格，地面树影仅在模型或显隐变化时重新计算，滚轮可朝指针位置放大细节。
+
 **所有尺寸和标高均为演示假设**。场景南北投影长度180000 mm、东西宽80000 mm；常水面宽18000 mm、水底宽14000 mm、水深900 mm。水面标高Z=0、河床Z=-900、亲水平台Z=1000、堤顶步道Z=3000、桥面Z=3100 mm。桥梁示范跨径38000 mm、宽4000 mm，两岸堤顶步道宽3000 mm。180000 mm是南北投影长度，弯曲中心线实际长度不同；岸坡和步道宽度按X方向偏移定义。
 
 CAD采用毫米与Z向上，X为东、Y为北；暂设水流由北向南。GLB采用米与Y向上，转换为 `(X, Y, Z) mm → (X, Z, -Y) / 1000 m`。模型分为地形、河床、水体、两岸、步道、桥面、梁、栏杆、桥台、引道、阶梯、树木、长椅及灯具等独立命名组。DXF保留可编辑TEXT及原生DIMENSION；A3平面缩尺1:1000、横断面1:250，模型空间始终为毫米实寸1:1。SVG是相同尺寸的浏览预览。
@@ -14,6 +16,8 @@ CAD采用毫米与Z向上，X为东、Y为北；暂设水流由北向南。GLB�
 
 RIVER-R01は独立した日本近郊河川のデモ景観です。蛇行河道、水面、石護岸、両岸歩道、親水階段、人道橋、樹木、ベンチ、照明器具をパラメトリックに作成しています。実在の河川・敷地・測量地形の再現ではありません。
 
+植栽は `natural_trees_v1` を使用します。14本の位置と記録した植栽半径を保ち、幹を先細り・緩やかな曲がりと分枝のある形状にし、樹冠は樹木IDから固定生成します。STEPは幹・枝・楕円体群の樹冠体積を保持し、GLBは同じ記録済み樹冠バウンディングボックスと植栽半径内に曲面の葉・花房を表示します。ウェブとダウンロードは同じGLBを使用します。樹冠は1本につき1メッシュで、樹影はモデルや表示切替時に更新し、ホイールでポインター位置へ拡大できます。
+
 **全寸法と標高はデモ仮定**です。南北投影延長180000 mm・東西幅80000 mm、水面幅18000 mm、水底幅14000 mm、水深900 mm。水面Z=0、河床Z=-900、親水平台Z=1000、堤頂歩道Z=3000、橋面Z=3100 mm。人道橋の支間38000 mm・幅4000 mm、両岸の堤頂歩道幅3000 mmです。180000 mmは南北投影であり、曲線中心線の延長とは異なります。岸・歩道幅はX方向のオフセットで定義します。
 
 CADはmm・Z-up、Xが東、Yが北、流れは北から南と仮定します。GLBはm・Y-upで、`(X, Y, Z) mm → (X, Z, -Y) / 1000 m`に変換します。地形、河床、水面、両岸、歩道、橋面・梁・欄干・橋台・取付路、階段、樹木、ベンチ、照明を別名で管理します。DXFは編集可能なTEXTとネイティブDIMENSIONを保持し、A3平面1:1000・横断面1:250。モデル空間はmmの実寸1:1で、SVGも同じ寸法を表示します。
@@ -23,6 +27,8 @@ CADはmm・Z-up、Xが東、Yが北、流れは北から南と仮定します。
 ## English
 
 RIVER-R01 is an independent Japanese suburban river landscape demonstration with a curved channel, water, stone revetments, riverside paths, access stairs, a pedestrian bridge, trees, benches and light fixtures. Its parametric geometry does not represent a real river, parcel or survey.
+
+Planting uses `natural_trees_v1`: all 14 recorded positions and planting radii remain unchanged, with tapered, gently curved trunks, branching and tree-ID-seeded crowns. STEP stores trunks, branches and ellipsoid crown volumes; GLB shows curved leaves and blossom sprays within the same recorded crown bounding boxes and planting radii. The page and download use the same GLB. Each crown remains one mesh; tree shadows update on model or visibility changes, and wheel zoom follows the pointer.
 
 **All dimensions and elevations are demonstration assumptions**. The scene has a north–south projected length of 180000 mm and an east–west width of 80000 mm. Water-surface width is 18000 mm, bed width 14000 mm and water depth 900 mm. Elevations are water Z=0, bed Z=-900, riverside platform Z=1000, crest paths Z=3000 and bridge deck Z=3100 mm. The proposed bridge spans 38000 mm, is 4000 mm wide, and the crest paths are 3000 mm wide. The 180000 mm value is a north–south projection; the curved centreline has a different length. Bank and path widths use X-direction offsets.
 

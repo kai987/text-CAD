@@ -5,12 +5,12 @@
   "status": "concept_demo_only",
   "source_geometry_revision": "RIVER-R01",
   "source_sha256": {
-    "src/lib/river_geometry.py": "cbf0eced477490f63f4772f8fccf6732b7fc6ed2091a5743a0b3f6cf03256568",
+    "src/lib/river_geometry.py": "e88eadcab40da541dd589975fcac80442c81d760f86532e3aedfc8cb4be58478",
     "src/generate_river_plans.py": "03bf76530c3b3388b2b70fffd219d37eb70711f21f87579baabf4d8d951b8fb5"
   },
   "artifacts": {
     "DXF/river_demo_plan.dxf": {
-      "sha256": "404f60e1af426948198f19b07c99744477cb6bc50baf6f4113a1de0b1c90e217",
+      "sha256": "a09825db12234c211363d3d554da5f19b717d34e7ba781af01f6fe606c9e45ed",
       "bytes": 112781
     },
     "output/svg/river_demo_plan.svg": {
@@ -18,7 +18,7 @@
       "bytes": 29869
     },
     "DXF/river_demo_section.dxf": {
-      "sha256": "f33ab9789514dfa2a504f0eb2ac414520c99251bdc415866a6b7dcb430c1608d",
+      "sha256": "ea0585dc6aa2d18afe59864047ae693bc2eeb8e48698255465d7bf73076bdf95",
       "bytes": 74136
     },
     "output/svg/river_demo_section.svg": {

@@ -28,6 +28,28 @@ from lib.native_glb import audit_glb_bytes
 from lib.river_geometry import R, REVISION, GROUPS, geometry_manifest, bridge_dimensions, section_offsets
 
 
+CENTRELINE_TOLERANCE_MM = 1e-8
+
+
+def centreline_samples_match(actual, expected):
+    """Allow libm rounding across platforms while preserving the sampled path.
+
+    The absolute tolerance is in CAD millimetres, far below the saved-solid
+    tolerance. Sample count, point shape and finite numeric coordinates remain
+    mandatory; source bindings and all other manifest fields stay exact.
+    """
+    if not isinstance(actual, list) or len(actual) != len(expected):
+        return False
+    for saved, current in zip(actual, expected):
+        if not isinstance(saved, list) or len(saved) != 2:
+            return False
+        for coordinate, reference in zip(saved, current):
+            if (type(coordinate) not in (int, float) or not isfinite(coordinate)
+                    or abs(coordinate - reference) > CENTRELINE_TOLERANCE_MM):
+                return False
+    return True
+
+
 def validate(root=ROOT):
     results = []
 
@@ -60,7 +82,12 @@ def validate(root=ROOT):
     check('manifest:schema', manifest.get('schema_version') == 1)
     check('manifest:concept_only', manifest.get('status') == 'concept_demo_only')
     for key, expected in canonical.items():
-        check(f'manifest:{key}:current_parameters', manifest.get(key) == expected)
+        if key == 'centreline_samples':
+            check(f'manifest:{key}:current_parameters',
+                  centreline_samples_match(manifest.get(key), expected),
+                  {'tolerance_mm': CENTRELINE_TOLERANCE_MM})
+        else:
+            check(f'manifest:{key}:current_parameters', manifest.get(key) == expected)
     check('manifest:demonstration_dimensions', manifest.get('parameters') == asdict(R))
     bindings(manifest, ['src/lib/river_geometry.py', 'src/river_3d.py'],
              ['STEP/river_demo.step', 'GLB/river_demo.glb'])

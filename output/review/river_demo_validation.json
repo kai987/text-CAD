@@ -102,7 +102,9 @@
     {
       "check": "manifest:centreline_samples:current_parameters",
       "pass": true,
-      "actual": null
+      "actual": {
+        "tolerance_mm": 1e-08
+      }
     },
     {
       "check": "manifest:assumptions:current_parameters",

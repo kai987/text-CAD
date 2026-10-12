@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "revision": "RIVER-R01",
+  "units": "mm",
+  "status": "concept_demo_only",
+  "source_geometry_revision": "RIVER-R01",
+  "source_sha256": {
+    "src/lib/river_geometry.py": "cbf0eced477490f63f4772f8fccf6732b7fc6ed2091a5743a0b3f6cf03256568",
+    "src/generate_river_plans.py": "03bf76530c3b3388b2b70fffd219d37eb70711f21f87579baabf4d8d951b8fb5"
+  },
+  "artifacts": {
+    "DXF/river_demo_plan.dxf": {
+      "sha256": "20e9648de64ea675dee40ec0482b3a5ed69adce620ceb00724ceff0992b049d4",
+      "bytes": 112779
+    },
+    "output/svg/river_demo_plan.svg": {
+      "sha256": "540038ace2d9ee8e7e474bfc66a4456ca85c0f1686c06f3bae35f4302a49f2bd",
+      "bytes": 29869
+    },
+    "DXF/river_demo_section.dxf": {
+      "sha256": "4db920014f65a14ea076ae874a2a2c52f7dd39f95a1f1818d1a65a0392b6837c",
+      "bytes": 74134
+    },
+    "output/svg/river_demo_section.svg": {
+      "sha256": "68b3a1192d234028811df044c39ffed9f11b59b4a120ad3fb26a4d76280b925b",
+      "bytes": 8075
+    }
+  },
+  "drawings": [
+    {
+      "id": "plan",
+      "dxf": "DXF/river_demo_plan.dxf",
+      "svg": "output/svg/river_demo_plan.svg",
+      "scale": 1000,
+      "dimensions_mm": [
+        180000,
+        80000,
+        18000,
+        38000.0,
+        4000,
+        3000
+      ],
+      "required_labels": [
+        "近郊河川モデル",
+        "河川平面図",
+        "流下方向",
+        "歩道",
+        "人道橋",
+        "石護岸",
+        "親水階段",
+        "デモ仮定"
+      ]
+    },
+    {
+      "id": "section",
+      "dxf": "DXF/river_demo_section.dxf",
+      "svg": "output/svg/river_demo_section.svg",
+      "scale": 250,
+      "dimensions_mm": [
+        80000,
+        18000,
+        38000.0,
+        3000,
+        900
+      ],
+      "required_labels": [
+        "A-A 横断面",
+        "水面 Z=0",
+        "河床 Z=-900",
+        "歩道 Z=3000",
+        "デモ仮定"
+      ]
+    }
+  ]
+}

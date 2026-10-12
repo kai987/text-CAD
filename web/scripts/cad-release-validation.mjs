@@ -14,7 +14,7 @@ async function pythonFiles(directory, root) {
 // Keep this catalog aligned with src/cad_release.py::artifact_paths. A newly
 // added export must be validated and registered before a web build can ship it.
 async function artifactFiles(root) {
-  const directories = ['DXF', 'STEP', 'GLB', 'output/pdf', 'output/vector',
+  const directories = ['DXF', 'STEP', 'GLB', 'output/pdf', 'output/vector', 'output/svg',
     'output/review', 'output/review/cases'];
   const paths = (await Promise.all(directories.map(async directory => {
     let entries;

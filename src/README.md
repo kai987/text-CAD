@@ -14,6 +14,8 @@ R06は収納専用小屋裏・構造配置のデモで、最高仕上げ内法�
 
 | Source | Output | Purpose |
 | --- | --- | --- |
+| `lib/river_geometry.py`, `river_3d.py` | `STEP/river_demo.step`, `GLB/river_demo.glb`, `output/review/river_demo_manifest.json` | RIVER-R01 invented river, named terrain/water/banks/bridge/paths/landscape/light fixtures; CAD mm → GLB m/Y-up / 河流演示参数与具名模型 / 河川デモのパラメータ・部材名付きモデル |
+| `generate_river_plans.py` | `DXF/river_demo_plan.dxf`, `river_demo_section.dxf`, `output/svg/river_demo_plan.svg`, `river_demo_section.svg`, `output/review/river_demo_drawings.json` | Editable A3 plan 1:1000 and section 1:250 with source-bound dimensions / 可编辑河川平面与横断面 / 編集可能な河川平面・横断面 |
 | `lib/house_redesign_plan.py`, `generate_redesign_plans.py` | `DXF/house_redesign_R10_1f.dxf`, `house_redesign_R10_2f.dxf`, `output/pdf/house_floor_plans_R10_JP.pdf` | Current 3-bedroom/drying-balcony source; run `checks/validate_redesign_plans.py` / 当前三卧户型 / 現行3寝室平面 |
 | `generate_plans.py` | `DXF/001D0PL2-1FPLAN.DXF`, `DXF/002D0PL2-2FPLAN.DXF`, identical `house_1f_plan.dxf` / `house_2f_plan.dxf` aliases, `output/pdf/house_floor_plans_R10_JP.pdf` | Compatibility entry point forwards to the current generator; editable labels/dimensions and A3 layouts / 兼容入口转发当前生成器 / 互換入口から現行生成へ |
 | `lib/house_plan.py` | shared data, no standalone output | Millimetre parameters, rooms, walls, openings and assumptions |
@@ -27,6 +29,8 @@ R06は収納専用小屋裏・構造配置のデモで、最高仕上げ内法�
 | `lib/structural_variants.py`, `generate_structural_variants.py` | `STEP/structure_W.step`, `structure_S.step`, `structure_RC.step` and corresponding GLB | Independent uncalculated material-system overlays / 三体系独立结构草案 / 3構造の独立デモ |
 | `generate_structural_cases.py` | `output/review/cases/*_R07.json`, `structural_cases_R07.json` | 12 city/system cases with official references and pending project inputs / 四地条件方案 / 都市別条件付き案 |
 | `lib/house_geometry.py` | shared geometry, no standalone output | Slabs, wall apertures, roof, doors/windows, storage and stairs |
+
+River details / 河流说明 / 河川の説明: [RIVER-R01](../docs/river_demo_R01.md). River dimensions are demonstration assumptions; hydraulics, bridge strength, foundations and permits remain unverified. / 河流全尺寸为演示假设，治水、桥梁承载、地基与许可待核定。 / 全寸法はデモ仮定で、水理・橋梁耐力・地盤・許認可は未確定です。 Use `CADGEN_DAEMON=0` for river generation and validation; the full catalog is regenerated with `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`.
 
 Run `.venv/bin/python src/generate_plans.py` from the project root.
 

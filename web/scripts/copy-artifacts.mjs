@@ -6,6 +6,8 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
 import { validateAnalysisReport } from './analysis-report-validation.mjs';
+import { validateRiverArtifacts } from './river-artifact-validation.mjs';
+import { buildStaticOutlines } from './static-outlines.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
@@ -14,6 +16,7 @@ await validateCadRelease(root);
 const vectorPlans = await validatePlanPreviews(root);
 const apartmentPlans = await validateApartmentPreviews(root);
 const analysisReport = await validateAnalysisReport(root);
+const riverArtifacts = await validateRiverArtifacts(root);
 export const artifacts = [
   'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
@@ -40,6 +43,8 @@ export const artifacts = [
   'output/review/apartment_2ldk_iso.png',
   ...analysisReport.paths,
   ...apartmentPlans.floors.map(floor => floor.path),
+  ...riverArtifacts.paths,
+  'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -65,6 +70,17 @@ for (const source of artifacts) {
     await writeFile(`${out}.gz`, compressed);
     manifest[`${source}.gz`] = { bytes: compressed.length, sha256: sha(compressed) };
     console.log(`${source}: ${bytes.length} -> ${compressed.length} transport bytes (${Math.round(100 * compressed.length / bytes.length)}%).`);
+    if (!source.endsWith('river_demo.glb')) {
+      // Display-only edges are pinned to the exact downloadable model bytes.
+      const outlines = await buildStaticOutlines(bytes);
+      const cachePath = `${source}.edges.bin`;
+      const packed = gzipSync(outlines.bytes, { level: 9 });
+      await writeFile(`${out}.edges.bin`, outlines.bytes);
+      await writeFile(`${out}.edges.bin.gz`, packed);
+      manifest[cachePath] = { bytes: outlines.bytes.length, sha256: sha(outlines.bytes) };
+      manifest[`${cachePath}.gz`] = { bytes: packed.length, sha256: sha(packed) };
+      console.log(`${source}: precomputed ${outlines.entries} outlines (${packed.length} transport bytes).`);
+    }
   }
 }
 await writeFile(resolve(dest, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
@@ -83,4 +99,5 @@ await mkdir(resolve(root, 'web/src'), { recursive: true });
 await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
 await copyFile(resolve(root, 'output/review/apartment_2ldk_manifest.json'), resolve(root, 'web/src/apartment-data.json'));
 await copyFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), resolve(root, 'web/src/apartment-preview-metadata.json'));
+await copyFile(resolve(root, 'output/review/river_demo_manifest.json'), resolve(root, 'web/src/river-data.json'));
 console.log(`Prepared ${Object.keys(manifest).length} CAD/drawing and lossless transport assets, including verified vector PDF previews.`);

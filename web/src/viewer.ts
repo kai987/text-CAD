@@ -24,6 +24,10 @@ import type { StructuralOverlayState, StructuralSystem } from './structural-desi
 import { createOutdoorLighting, createIndoorLighting, nightScenePalette } from './scene-lighting';
 import { createGeometryWorkerClient } from './geometry-worker-client';
 import { createDemandRenderScheduler } from './demand-render';
+import { createOutlineBatches } from './outline-batches';
+import { loadStaticOutlines } from './static-outline-resource';
+import { outlineKindForCadName } from './static-outline-cache';
+import type { CachedOutlineKind, StaticOutlineEntry } from './static-outline-cache';
 
 export interface ViewerCameraState { mode: 'iso' | 'top'; position: number[]; target: number[]; up: number[]; zoom: number }
 
@@ -117,6 +121,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const overlays = new Map<StructuralSystem, { root: Object3D; objects: Map<string, Object3D> }>();
   const overlayLoads = new Map<StructuralSystem, Promise<void>>();
   const overlayRequests = new Map<StructuralSystem, { cancel: () => void }>();
+  const overlayOutlineRequests = new Map<StructuralSystem, ReturnType<typeof loadStaticOutlines>>();
   let structuralSystem: StructuralSystem | null = null;
   const originalMaterials = new Map<Mesh, Material | Material[]>();
   const sourceMeshes: Mesh[] = [];
@@ -125,8 +130,25 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   let geometryWorker: ReturnType<typeof createGeometryWorkerClient> | null = null;
   let workerReady = false;
   let capGeneration = 0;
-  const wallOutlines = new Map<Mesh, LineSegments | null>();
+  const wallOutlines = new Map<Mesh, BufferGeometry | null>();
+  const meshOutlines = new Map<Mesh, BufferGeometry | null>();
   const pendingOutlines = new Set<Mesh>();
+  const pendingMeshOutlines = new Set<Mesh>();
+  const outlineBatches = createOutlineBatches(scene, {
+    standard: createOutlineMaterial(), detail: createOutlineMaterial(0.16),
+  });
+  let cachedOutlineCount = 0;
+  function refreshOutlineBatches() {
+    const stats = outlineBatches.update();
+    renderer.domElement.dataset.outlineDrawCalls = String(stats.drawCalls);
+    renderer.domElement.dataset.outlineVisibleMeshes = String(stats.visibleMeshes);
+    renderer.domElement.dataset.outlineRegisteredMeshes = String(stats.registeredMeshes);
+    renderer.domElement.dataset.outlineSegments = String(stats.segments);
+    renderer.domElement.dataset.outlineCacheCount = String(cachedOutlineCount);
+    const pending = [...wallOutlines.values(), ...meshOutlines.values()].some(outline => !outline);
+    renderer.domElement.dataset.outlinePending = String(pending);
+    if (!pending && cachedOutlineCount > 0) renderer.domElement.dataset.outlineBackend = 'precomputed-cache';
+  }
   let selectedName: string | null = null;
   let halfHeight = 7;
   let mode: 'iso' | 'top' = 'iso';
@@ -244,13 +266,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   }
   function clearSectionCaps() {
     for (const [mesh, cap] of sectionCaps) {
-      cap.traverse(object => {
-        if (!(object instanceof LineSegments)) return;
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
-        materials.forEach(material => {
-          if (material instanceof LineBasicMaterial) outlineMaterials.delete(material);
-        });
-      });
+      outlineBatches.remove(cap);
       mesh.remove(cap); disposeObject(cap);
     }
     sectionCaps.clear();
@@ -262,8 +278,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     cap.name = `${mesh.name}_section_cap`;
     cap.userData.cadName = mesh.userData.cadName;
     cap.userData.sectionCap = true;
-    cap.add(new LineSegments(new EdgesGeometry(geometry, 28), createOutlineMaterial()));
     mesh.add(cap); sectionCaps.set(mesh, cap);
+    outlineBatches.set(cap, new EdgesGeometry(geometry, 28));
   }
   function updateSectionCaps(height: number | null) {
     if (!root || height === capHeight) return;
@@ -271,6 +287,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     const generation = ++capGeneration;
     geometryWorker?.cancelSections();
     clearSectionCaps();
+    refreshOutlineBatches();
     renderer.domElement.dataset.sectionPending = String(height !== null && !useTypeScript && !geometryWorker?.failed);
     renderer.domElement.dataset.sectionHeightMm = height === null ? '' : String(Math.round(height * 1000));
     if (height === null) return;
@@ -286,7 +303,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       const byId = new Map(meshes.map(mesh => [mesh.uuid, mesh]));
       const jobs = meshes.flatMap(mesh => {
         if (disposed || generation !== capGeneration) return [];
-        const geometryId = geometryWorker!.registerGeometry(mesh.geometry);
+        const geometryId = geometryWorker!.registerGeometry(mesh.geometry, { precision: 'source' });
         // A failed upload can synchronously invoke onFailure and rebuild all
         // caps via TypeScript. Do not append duplicates from this old batch.
         if (disposed || generation !== capGeneration) return [];
@@ -313,6 +330,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         }
         renderer.domElement.dataset.sectionPending = 'false';
         renderer.domElement.dataset.sectionCapCount = String(sectionCaps.size);
+        refreshOutlineBatches();
         select(selectedName); requestRender();
       });
       return;
@@ -324,6 +342,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     }
     renderer.domElement.dataset.sectionPending = 'false';
     renderer.domElement.dataset.sectionCapCount = String(sectionCaps.size);
+    refreshOutlineBatches();
   }
   function fit() {
     if (!root) return;
@@ -396,9 +415,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       if (!target || !visibleMeshes(target).length) { select(null); onSelection(null); }
       else select(selectionName);
     } else select(null);
+    refreshOutlineBatches();
     requestRender();
   }
-  function prepareMeshes(object: Object3D) {
+  function prepareMeshes(object: Object3D, gltf: GLTF, cache: ReadonlyMap<number, StaticOutlineEntry> | null) {
+    const started = performance.now();
     object.traverse(o => {
       if (!(o instanceof Mesh)) return;
       sourceMeshes.push(o);
@@ -409,48 +430,69 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       });
       o.castShadow = materials.some(material => !material.transparent && material.opacity >= 1);
       o.receiveShadow = !String(o.userData.cadName).startsWith('lighting:');
-      const interiorDetail = /:furniture:|:fixture_/.test(String(o.userData.cadName));
-      const wall = /:wall_(?:external|partition)_|^roof:.*gable_wall$|:cladding:/.test(String(o.userData.cadName));
-      if (wall) wallOutlines.set(o, null);
-      else o.add(new LineSegments(new EdgesGeometry(o.geometry, 28), createOutlineMaterial(interiorDetail ? 0.16 : 0.55)));
+      const kind = outlineKindForCadName(String(o.userData.cadName));
+      const slots = kind === 'cad' ? wallOutlines : meshOutlines;
+      slots.set(o, null);
+      const node = gltf.parser.associations.get(o)?.nodes;
+      const cached = node === undefined ? undefined : cache?.get(node);
+      if (cached?.kind === kind) {
+        const geometry = new BufferGeometry().setAttribute('position', new BufferAttribute(cached.positions, 3));
+        attachOutline(o, geometry, kind); cachedOutlineCount++;
+      }
     });
-    updateWallOutlines();
+    updateWallOutlines(); updateMeshOutlines();
+    refreshOutlineBatches();
+    renderer.domElement.dataset.meshPreparationMs = String(performance.now() - started);
   }
-  function attachWallOutline(mesh: Mesh, geometry: BufferGeometry) {
-    if (disposed || wallOutlines.get(mesh)) { geometry.dispose(); return; }
-    const outline = new LineSegments(geometry, createOutlineMaterial());
-    mesh.add(outline); wallOutlines.set(mesh, outline);
+  function attachOutline(mesh: Mesh, geometry: BufferGeometry, kind: CachedOutlineKind) {
+    const slots = kind === 'cad' ? wallOutlines : meshOutlines;
+    if (disposed || !slots.has(mesh) || slots.get(mesh)) { geometry.dispose(); return; }
+    slots.set(mesh, geometry);
+    const detail = kind === 'edges' && /:furniture:|:fixture_/.test(String(mesh.userData.cadName));
+    outlineBatches.set(mesh, geometry, detail ? 'detail' : 'standard');
     renderer.domElement.dataset.wallOutlineCount = String([...wallOutlines.values()].filter(Boolean).length);
   }
   function updateWallOutlines() {
-    const meshes = [...wallOutlines].filter(([mesh, outline]) => !outline && !pendingOutlines.has(mesh)).map(([mesh]) => mesh);
+    updateOutlineKind('cad');
+  }
+  function updateMeshOutlines() {
+    updateOutlineKind('edges');
+  }
+  function updateOutlineKind(kind: CachedOutlineKind) {
+    const slots = kind === 'cad' ? wallOutlines : meshOutlines;
+    const pending = kind === 'cad' ? pendingOutlines : pendingMeshOutlines;
+    const fallback = (mesh: Mesh) => kind === 'cad' ? createCadOutlineGeometry(mesh.geometry, 28) : new EdgesGeometry(mesh.geometry, 28);
+    const meshes = [...slots].filter(([mesh, outline]) => !outline && !pending.has(mesh)).map(([mesh]) => mesh);
     if (!meshes.length) return;
     if (!useTypeScript && geometryWorker && !geometryWorker.failed) {
       if (!workerReady) return;
       const byId = new Map(meshes.map(mesh => [mesh.uuid, mesh]));
       const jobs = meshes.flatMap(mesh => {
-        const geometryId = geometryWorker!.registerGeometry(mesh.geometry);
+        const geometryId = geometryWorker!.registerGeometry(mesh.geometry, { precision: 'source' });
         if (disposed || geometryWorker!.failed) return [];
-        if (!geometryId) { attachWallOutline(mesh, createCadOutlineGeometry(mesh.geometry, 28)); return []; }
-        pendingOutlines.add(mesh);
+        if (!geometryId) { attachOutline(mesh, fallback(mesh), kind); return []; }
+        pending.add(mesh);
         return [{ id: mesh.uuid, geometryId, thresholdAngle: 28 }];
       });
       if (disposed || geometryWorker.failed) return;
-      void geometryWorker.outlines(jobs).then(results => {
-        meshes.forEach(mesh => pendingOutlines.delete(mesh));
+      const result = kind === 'cad' ? geometryWorker.outlines(jobs) : geometryWorker.meshEdges(jobs);
+      void result.then(results => {
+        meshes.forEach(mesh => pending.delete(mesh));
         if (disposed || !results) return;
         for (const result of results) {
           const mesh = byId.get(result.id);
           if (!mesh) continue;
           const geometry = new BufferGeometry();
           geometry.setAttribute('position', new BufferAttribute(result.positions, 3));
-          attachWallOutline(mesh, geometry);
+          attachOutline(mesh, geometry, kind);
         }
+        refreshOutlineBatches();
         requestRender();
       });
       return;
     }
-    for (const mesh of meshes) attachWallOutline(mesh, createCadOutlineGeometry(mesh.geometry, 28));
+    for (const mesh of meshes) attachOutline(mesh, fallback(mesh), kind);
+    refreshOutlineBatches();
     requestRender();
   }
   function reportOverlay(status: StructuralOverlayState['status'], system: StructuralSystem | null) {
@@ -461,6 +503,11 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     renderer.domElement.dataset.structureMeshes = String(overlay ? visibleMeshes(overlay.root).length : 0);
     onOverlayState({ status, system, parts: overlay
       ? layout.parts.filter(part => overlay.objects.has(part.id)).map(part => part.id) : [] });
+  }
+  function outlineCacheFor(path: string) {
+    const cachePath = `${path}.edges.bin`;
+    return loadStaticOutlines({ url: asset(cachePath), compressedUrl: asset(`${cachePath}.gz`),
+      expectedSha256: assetSha256(cachePath), sourceSha256: assetSha256(path) });
   }
   function activateOverlay() {
     cadObjects = new Map(baselineCadObjects);
@@ -484,6 +531,8 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     if (overlayLoads.has(system) || !root) return;
     const overlayPath = `GLB/structure_${system}.glb`;
     const overlayUrl = new URL(asset(overlayPath), location.href);
+    const outlineRequest = outlineCacheFor(overlayPath);
+    overlayOutlineRequests.set(system, outlineRequest);
     const loading = new Promise<GLTF>((resolve, reject) => {
       overlayRequests.set(system, startModelLoad<GLTF>({
         url: overlayUrl.href, compressed: true,
@@ -491,21 +540,24 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
         parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', overlayUrl).href),
         onLoad: resolve, onError: reject, disposeLate: gltf => disposeObject(gltf.scene, true),
       }));
-    }).then(gltf => {
+    }).then(async gltf => {
+      const cache = await outlineRequest.ready;
       if (disposed) { disposeObject(gltf.scene, true); return; }
       const objects = bindCadNodes(gltf);
       if (!objects.has('structure') || !objects.has('foundation')) {
         disposeObject(gltf.scene, true); throw new Error('Structural variant is missing its frame or foundation group.');
       }
       gltf.scene.visible = false;
-      prepareMeshes(gltf.scene);
+      prepareMeshes(gltf.scene, gltf, cache);
       // Exported variants use the exact original CAD origin. Parent to the already
       // centred architectural root so neither site bounds nor footing depth shift them.
       root!.add(gltf.scene); overlays.set(system, { root: gltf.scene, objects });
       if (structuralSystem === system) { activateOverlay(); reportOverlay('ready', system); }
     }).catch(() => {
       if (!disposed && structuralSystem === system) reportOverlay('error', system);
-    }).finally(() => { overlayLoads.delete(system); overlayRequests.delete(system); });
+    }).finally(() => {
+      overlayLoads.delete(system); overlayRequests.delete(system); overlayOutlineRequests.delete(system);
+    });
     overlayLoads.set(system, loading);
   }
   const raycaster = new Raycaster();
@@ -552,7 +604,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       workerReady = false;
       renderer.domElement.dataset.sectionBackend = 'typescript-fallback';
       renderer.domElement.dataset.outlineBackend = 'typescript-fallback';
-      pendingOutlines.clear(); updateWallOutlines();
+      pendingOutlines.clear(); pendingMeshOutlines.clear(); updateWallOutlines(); updateMeshOutlines();
       capHeight = null; apply(settings, selectedName);
     } });
     void geometryWorker.ready.then(() => {
@@ -560,11 +612,12 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       workerReady = true;
       renderer.domElement.dataset.sectionBackend = 'rust-wasm-worker';
       renderer.domElement.dataset.outlineBackend = 'rust-wasm-worker';
-      updateWallOutlines();
+      updateWallOutlines(); updateMeshOutlines();
       capHeight = null; apply(settings, selectedName);
     }).catch(() => { /* onFailure installs the TypeScript fallback. */ });
   }
   const modelUrl = new URL(asset(glbPath), location.href);
+  const outlineRequest = outlineCacheFor(glbPath);
   const modelLoad = startModelLoad<GLTF>({
     url: modelUrl.href, onProgress, compressed: true,
     compressedUrl: asset(`${glbPath}.gz`), expectedSha256: assetSha256(glbPath),
@@ -572,20 +625,22 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     disposeLate: gltf => disposeObject(gltf.scene, true),
     onError: () => { if (!disposed) onError(); },
     onLoad: gltf => {
-    if (disposed) { disposeObject(gltf.scene, true); return; }
-    root = gltf.scene;
-    cadObjects = bindCadNodes(gltf);
-    baselineCadObjects = cadObjects;
-    if (!centerModelAtFloorDatum(root, cadObjects)) {
-      disposeObject(root, true); root = undefined; onError(); return;
-    }
-    prepareMeshes(root);
-    for (const group of [...layout.groups, ...layout.parts]) {
-      const object = cadObjects.get(group.id);
-      if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
-      groupObjects.set(group.id, object);
-    }
-    scene.add(root); outdoorLighting.register(root); indoorLighting.register(root); apply(settings); fit(); onReady();
+      void outlineRequest.ready.then(cache => {
+        if (disposed) { disposeObject(gltf.scene, true); return; }
+        root = gltf.scene;
+        cadObjects = bindCadNodes(gltf);
+        baselineCadObjects = cadObjects;
+        if (!centerModelAtFloorDatum(root, cadObjects)) {
+          disposeObject(root, true); root = undefined; onError(); return;
+        }
+        for (const group of [...layout.groups, ...layout.parts]) {
+          const object = cadObjects.get(group.id);
+          if (!object) { disposeObject(root, true); root = undefined; onError(); return; }
+          groupObjects.set(group.id, object);
+        }
+        prepareMeshes(root, gltf, cache);
+        scene.add(root); outdoorLighting.register(root); indoorLighting.register(root); apply(settings); fit(); onReady();
+      }).catch(() => { if (!disposed) onError(); });
     },
   });
   resize();
@@ -602,14 +657,16 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     setStructure,
     camera(next) { mode = next; fit(); },
     dispose() {
-      disposed = true; modelLoad.cancel();
+      disposed = true; modelLoad.cancel(); outlineRequest.cancel();
       overlayRequests.forEach(request => request.cancel()); overlayRequests.clear();
+      overlayOutlineRequests.forEach(request => request.cancel()); overlayOutlineRequests.clear();
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored);
       renderScheduler.dispose(); observer.disconnect(); viewportObserver?.disconnect();
       document.removeEventListener('visibilitychange', documentVisibilityChanged);
       controls.removeEventListener('change', cameraChanged); controls.dispose();
-      capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); wallOutlines.clear();
+      capGeneration++; geometryWorker?.dispose(); pendingOutlines.clear(); pendingMeshOutlines.clear();
+      wallOutlines.clear(); meshOutlines.clear();
       renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', pointerMove);
       renderer.domElement.removeEventListener('pointerup', pointerUp);
@@ -618,6 +675,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
       clearHighlight();
       outdoorLighting.dispose();
       indoorLighting.dispose();
+      outlineBatches.dispose();
       if (root) disposeObject(root, true);
       outlineMaterials.clear();
       environment.dispose();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { repository } from './data';
 import { initialModel, initialPage, initialPreset, modelLayouts, modelUrl, settingsForPreset } from './model-state';
 import type { ModelId, PageId } from './model-state';
@@ -14,8 +14,18 @@ import { ModelProvider } from './ModelContext';
 import { modelCopy } from './model-copy';
 import { StructuralDesignProvider } from './StructuralDesignContext';
 import { initialSceneLighting, saveSceneLighting, sceneLightingUrl } from './scene-lighting-settings';
+import { riverCopy, riverUrl } from './river-copy';
+
+const RiverPage = lazy(() => import('./RiverPage'));
 
 export default function App() {
+  if (new URLSearchParams(location.search).get('model') === 'river') {
+    return <Suspense fallback={<p role="status">text-CAD</p>}><RiverPage /></Suspense>;
+  }
+  return <ResidentialApp />;
+}
+
+function ResidentialApp() {
   const { locale, setLocale, copy: baseCopy } = useLanguage();
   const { preference, setPreference } = useTheme();
   const [model, setModel] = useState<ModelId>(() => initialModel(location.search));
@@ -85,10 +95,12 @@ export default function App() {
     <div className="model-switcher">
       <label htmlFor="model-choice">{copy.models.label}</label>
       <select id="model-choice" value={model} onChange={event => {
-        if (event.target.value === 'house' || event.target.value === 'apartment') changeModel(event.target.value);
+        if (event.target.value === 'river') location.assign(riverUrl(location.href, '3d'));
+        else if (event.target.value === 'house' || event.target.value === 'apartment') changeModel(event.target.value);
       }}>
         <option value="house">{copy.models.house}</option>
         <option value="apartment">{copy.models.apartment}</option>
+        <option value="river">{riverCopy[locale].modelName}</option>
       </select>
       <span>{copy.models.note}</span>
     </div>

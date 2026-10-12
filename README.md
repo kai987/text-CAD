@@ -1,8 +1,18 @@
-# 日本住宅参数化方案：一户建与 2LDK 公寓
+# 日本住宅与近郊河流参数化 CAD：一户建、2LDK 公寓与河流示范段
+
+## 日本近郊河流示范段 RIVER-R01
+
+新增独立的河流 CAD 与 3D 模型，包含弯曲河道、石护岸、两岸步道、亲水阶梯、人行桥、树木、长椅和灯具。**全部尺寸均为演示假设**：南北投影长度180000 mm、场景宽80000 mm、水面宽18000 mm、水底宽14000 mm、水深900 mm；人行桥跨38000 mm、宽4000 mm，堤顶步道宽3000 mm。河流方向暂设为北向南，桥梁、水理、地基与法规均待核定。
+
+[河川平面 DXF](DXF/river_demo_plan.dxf) · [横断面 DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [中日英说明、参数与参考来源](docs/river_demo_R01.md)
+
+本地查看器选择河流，或使用 `?model=river&view=3d`；平面、横断面与文件页分别使用 `view=plan`、`view=section`、`view=files`。DXF保留可编辑文字和原生DIMENSION，A3平面1:1000、横断面1:250；CAD为毫米，GLB为米/Y-up。完整重建使用 `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`。
 
 当前一户建的图纸与模型版本分别以 [图纸清单](output/review/design_manifest.json) 的 `drawing_revision` 和 [模型清单](output/review/house_3d_assumptions_R01.json) 的 `revision` 为准；公寓版本在 [公寓清单](output/review/apartment_2ldk_manifest.json) 中独立记录。R05/R06/R10下载文件名是兼容路径，实际版本见图签和清单。结构叠加层保留独立的概念版本，不表示已完成承重计算。
 
 ## 查看器与发布维护
+
+网页构建时为住宅、公寓和结构叠加模型预生成轮廓线，缓存绑定 GLB 的 SHA-256、Three.js 版本和轮廓算法。显示时按两种透明度合并轮廓绘制，保留原部件的名称、选取、显隐和剖切；缓存缺失或失效时由几何 Worker 计算，Worker 失败后使用原算法回退。剖切几何以独立副本批量传输，渲染缓冲区不被转移。住宅和公寓仅导出最终带命名层级的 GLB，省去会被覆盖的临时静态文件；STEP 和参数化源码保留。
 
 手机上的「场景设置」默认折叠，包含昼夜、灯光、城市和结构选项；常用楼层视图可横向滑动选择。折叠、语言切换及屏宽变化保留模型设置，桌面直接显示设置项。界面版本读取模型清单，本次查看器更新沿用 R22 建筑方案。
 

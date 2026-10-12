@@ -1,0 +1,47 @@
+.river-workspace { display: grid; grid-template-columns: 265px minmax(0, 1fr); height: calc(100svh - 122px); min-height: 480px; }
+.river-sidebar { padding: 25px 24px; border-right: 1px solid var(--line); background: var(--surface); overflow: auto; }
+.river-sidebar section + section { margin-top: 25px; }
+.river-sidebar p { font-size: 12px; line-height: 1.7; color: var(--muted); }
+.river-component-list { display: grid; gap: 15px; margin-bottom: 20px; }
+.river-component-list label { display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; }
+.river-component-list input { width: 19px; height: 19px; margin: 0; accent-color: var(--accent-fill); flex-shrink: 0; }
+.river-parameters { margin: 0 0 12px; font-size: 13px; }
+.river-parameters > div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.river-parameters dt { color: var(--secondary); }.river-parameters dd { margin: 0; }
+.river-assumption { margin-top: 25px; }
+.river-viewer-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.river-canvas { flex: 1; min-height: 360px; position: relative; background: var(--canvas-bg); overflow: hidden; }
+.river-canvas canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.river-canvas .canvas-message { max-width: min(400px, calc(100% - 40px)); background: var(--overlay); padding: 16px; border: 1px solid var(--overlay-border); border-radius: 4px; }
+.river-canvas .canvas-message button { margin-top: 12px; }
+.river-canvas .canvas-message span { display: block; font-size: 12px; margin-top: 8px; }
+.river-canvas .selection-details { align-items: center; }
+.river-download-link { border: 0; padding: 0; color: var(--accent); background: none; text-decoration: underline; flex-shrink: 0; pointer-events: auto; }
+.river-canvas .canvas-footer span { max-width: calc(100% - 90px); }
+.river-drawing { background: var(--canvas-bg); min-height: calc(100svh - 122px); }
+.river-drawing[hidden] { display: none; }
+.river-drawing-note { padding: 12px 26px; background: var(--surface); color: var(--muted); font-size: 12px; border-bottom: 1px solid var(--line); }
+.river-paper-scroll { position: relative; overflow: auto; padding: 24px; max-height: calc(100svh - 225px); min-height: 400px; }
+.river-paper { display: block; max-width: none; height: auto; background: white; box-shadow: 0 2px 10px var(--paper-shadow); }
+.river-drawing-status { padding: 16px; color: var(--text); background: var(--surface); border: 1px solid var(--line); }
+.river-drawing-status button { margin-top: 10px; }
+.river-zoom { color: var(--muted); font-size: 12px; align-self: center; min-width: 38px; text-align: center; }
+@media (max-width: 760px) {
+  .river-workspace { display: flex; flex-direction: column; height: auto; min-height: 0; }
+  .river-sidebar { order: 1; border-right: 0; border-top: 1px solid var(--line); padding: 15px 18px; }
+  .river-component-list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 10px; margin-bottom: 12px; }
+  .river-component-list label { font-size: 12px; line-height: 1.5; }
+  .river-sidebar section:nth-child(2) { display: none; }
+  .river-sidebar h2 { margin-bottom: 12px; font-size: 14px; }
+  .river-sidebar .outline-button { min-height: 32px; font-size: 12px; }
+  .river-viewer-panel { height: 62svh; min-height: 480px; }
+  .river-viewer-panel .viewer-toolbar { padding: 12px 16px; flex-wrap: wrap; flex-basis: auto; gap: 10px; }
+  .river-viewer-panel h1 { width: 100%; font-size: 16px; }
+  .river-viewer-panel .toolbar-actions { margin-left: auto; }
+  .river-canvas .canvas-footer { padding: 8px 14px; gap: 10px; font-size: 11px; }
+  .river-app .model-switcher > span { display: none; }
+  .river-app .repo-link { font-size: 12px; }
+  .river-drawing-note { padding: 12px 16px; }
+  .river-drawing .viewer-toolbar { padding: 12px 16px; flex-wrap: wrap; flex-basis: auto; gap: 12px; }
+  .river-paper-scroll { padding: 12px; min-height: 350px; max-height: 75svh; }
+}

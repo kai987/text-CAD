@@ -42,12 +42,16 @@ export const clips = {
 """
 
 
-def restore_glb_hierarchy(step_path, glb_path):
+def restore_glb_hierarchy(
+    step_path, glb_path, *, scene_name="house_3d",
+    source="Named CADgen STEP assembly; R22 1000 mm cantilever balcony proposal with approved interiors",
+):
     """Restore exact STEP labels/groups without changing CADgen's mesh bytes.
 
     Mesh coordinates are already world-space metres and Y-up. All inserted
     grouping nodes have identity transforms. Original mesh bytes remain intact;
-    UVs and embedded finish images are appended to the BIN chunk.
+    UVs and embedded finish images are appended to the BIN chunk. Model display
+    metadata is set here so callers do not have to read and serialize it again.
     """
     data = glb_path.read_bytes()
     magic, version, total = struct.unpack_from("<4sII", data)
@@ -80,10 +84,10 @@ def restore_glb_hierarchy(step_path, glb_path):
                                         "cadUnits": "m", "cadUpAxis": "y"}})
         return index
 
-    document["scenes"] = [{"name": "house_3d", "nodes": [insert(root) for root in scene.roots]}]
+    document["scenes"] = [{"name": scene_name, "nodes": [insert(root) for root in scene.roots]}]
     document["scene"] = 0
     document["asset"]["extras"] = {"units": "metres", "upAxis": "Y",
-                                    "source": "Named CADgen STEP assembly; R22 1000 mm cantilever balcony proposal with approved interiors"}
+                                    "source": source}
     apply_interior_materials(document)
     bin_offset = 20+json_size
     bin_size, bin_kind = struct.unpack_from("<II", data, bin_offset)
@@ -104,7 +108,6 @@ def restore_glb_hierarchy(step_path, glb_path):
 
 
 @step(out="../STEP/house_3d.step", materials=MATERIALS, animation=STATIC_PARTS)
-@glb(out="../GLB/house_3d.glb")
 def house_3d():
     return house_assembly()
 
@@ -112,6 +115,9 @@ def house_3d():
 if __name__ == "__main__":
     house_3d()
     root = Path(__file__).resolve().parents[1]
+    # Export only the final occurrence-preserving GLB. A @glb declaration here
+    # would first serialize a material-batched static file that this replaces.
+    # CADgen still prepares exact surfaces and tessellates through this door.
     glb.build(root/"STEP"/"house_3d.step", root/"GLB"/"house_3d.glb",
               animation={"clip": "named_parts", "fps": 1, "seconds": 1}, force=True)
     glb_metadata = restore_glb_hierarchy(root/"STEP"/"house_3d.step", root/"GLB"/"house_3d.glb")

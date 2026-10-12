@@ -21,7 +21,7 @@ def source_paths(root: Path) -> list[str]:
 
 def artifact_paths(root: Path) -> list[str]:
     paths = [*root.glob('DXF/*'), *root.glob('STEP/*'), *root.glob('GLB/*'),
-             *root.glob('output/pdf/*'), *root.glob('output/vector/*'),
+             *root.glob('output/pdf/*'), *root.glob('output/vector/*'), *root.glob('output/svg/*'),
              *root.glob('output/review/*.json'), *root.glob('output/review/cases/*.json')]
     paths += [root/'web/src/plan-preview-metadata.json']
     # Historical DXFs/PDFs are retained and tracked; optional screenshots are browser QA, not generated CAD.

@@ -8,7 +8,6 @@ import hashlib
 import json
 import math
 import os
-import struct
 import subprocess
 import sys
 
@@ -41,7 +40,6 @@ MATERIALS={'definitions':{
 
 
 @step(out='../STEP/apartment_2ldk.step',materials=MATERIALS,animation=STATIC_PARTS)
-@glb(out='../GLB/apartment_2ldk.glb')
 def apartment_2ldk():
     return assembly()
 
@@ -50,17 +48,13 @@ def model():
     apartment_2ldk()
     step_path=ROOT/'STEP/apartment_2ldk.step'
     glb_path=ROOT/'GLB/apartment_2ldk.glb'
+    # One final named export; avoid the material-batched static file that the
+    # ordinary @glb decorator would serialize before this occurrence export.
     glb.build(step_path,glb_path,animation={'clip':'named_parts','fps':1,'seconds':1},force=True)
-    details=restore_glb_hierarchy(step_path,glb_path)
-    # The shared hierarchy restorer uses the original house's display metadata.
-    data=glb_path.read_bytes(); size,kind=struct.unpack_from('<II',data,12)
-    document=json.loads(data[20:20+size]);document['scenes'][0]['name']='apartment_2ldk'
-    document['asset']['extras']['source']='Parametric Japanese 2LDK concept A01; demonstration dimensions'
-    encoded=json.dumps(document,ensure_ascii=False,separators=(',',':')).encode()
-    encoded += b' '*((-len(encoded))%4)
-    body=struct.pack('<II',len(encoded),kind)+encoded+data[20+size:]
-    glb_path.write_bytes(struct.pack('<4sII',b'glTF',2,12+len(body))+body)
-    return details
+    return restore_glb_hierarchy(
+        step_path,glb_path,scene_name='apartment_2ldk',
+        source='Parametric Japanese 2LDK concept A01; demonstration dimensions',
+    )
 
 
 def paper_text(c,value,x,y,height=2.5):

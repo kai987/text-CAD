@@ -20,6 +20,7 @@ output/review/*.png
 !output/review/house_2f_cad.png
 !output/review/house_3d_*.png
 !output/review/apartment_2ldk_*.png
+!output/review/river_demo_*.png
 
 # Static viewer dependencies and generated copies.
 web/node_modules/
@@ -28,6 +29,7 @@ web/public/artifacts/
 web/src/house-data.json
 web/src/apartment-data.json
 web/src/apartment-preview-metadata.json
+web/src/river-data.json
 
 # Optional native Rust geometry checks are built for the local Python ABI.
 /rust/spatial-core/target/

@@ -1,0 +1,652 @@
+{
+  "schema_version": 1,
+  "status": "concept_demo_only",
+  "revision": "RIVER-R01",
+  "units": "mm",
+  "type": "invented Japanese suburban river demonstration",
+  "coordinate_system": {
+    "X": "east",
+    "Y": "north",
+    "Z": "elevation",
+    "flow": "north (+Y) to south (-Y)"
+  },
+  "bank_name_convention": "left means west/-X on the plan and right east/+X; these are display labels, not formal downstream bank names",
+  "parameters": {
+    "length": 180000,
+    "width": 80000,
+    "water_width": 18000,
+    "curve_amplitude": 3500,
+    "bed_z": -900,
+    "water_z": 0,
+    "platform_z": 1000,
+    "crest_z": 3000,
+    "base_bottom_z": -2200,
+    "terrain_bottom_z": -1800,
+    "submerged_bank_run": 2000,
+    "revetment_run": 3000,
+    "platform_width": 2000,
+    "grass_slope_run": 3500,
+    "path_width": 3000,
+    "path_thickness": 160,
+    "armor_thickness": 150,
+    "bridge_y": 15000,
+    "bridge_width": 4000,
+    "bridge_top_z": 3100,
+    "bridge_thickness": 260,
+    "bridge_beam_depth": 750,
+    "bridge_rail_height": 1200,
+    "approach_length": 800,
+    "stair_width": 1800,
+    "stair_count": 14,
+    "sample_count": 36
+  },
+  "section_offsets": {
+    "bed_inner": 7000.0,
+    "water_edge": 9000.0,
+    "platform_inner": 12000.0,
+    "platform_outer": 14000.0,
+    "path_inner": 17500.0,
+    "path_outer": 20500.0,
+    "path_center": 19000.0
+  },
+  "bridge": {
+    "y": 15000,
+    "start_x": -17250.0,
+    "end_x": 20750.0,
+    "span": 38000.0,
+    "clear_water_width": 18000,
+    "width": 4000,
+    "top_z": 3100,
+    "underside_z": 2840,
+    "beam_bottom_z": 2090,
+    "approach_length": 800,
+    "approach_rise": 100,
+    "structural_calculation": null
+  },
+  "stairs": [
+    {
+      "id": "left_access",
+      "side": "left",
+      "y": -48000.0,
+      "width": 1800,
+      "lower_x": -17480.826633788958,
+      "upper_x": -20980.826633788958,
+      "bottom_z": 1000,
+      "top_z": 3000,
+      "risers": 14,
+      "riser": 142.85714285714286,
+      "tread": 250.0
+    },
+    {
+      "id": "right_access",
+      "side": "right",
+      "y": 48000.0,
+      "width": 1800,
+      "lower_x": 17480.826633788958,
+      "upper_x": 20980.826633788958,
+      "bottom_z": 1000,
+      "top_z": 3000,
+      "risers": 14,
+      "riser": 142.85714285714286,
+      "tread": 250.0
+    }
+  ],
+  "trees": [
+    {
+      "id": "left_01",
+      "side": "left",
+      "x": -30675.393782426487,
+      "y": -73800.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    },
+    {
+      "id": "left_02",
+      "side": "left",
+      "x": -29754.21770060888,
+      "y": -55800.0,
+      "z": 3000,
+      "radius": 2460,
+      "kind": "sakura"
+    },
+    {
+      "id": "left_03",
+      "side": "left",
+      "x": -31966.894683631068,
+      "y": -32400.0,
+      "z": 3000,
+      "radius": 2100,
+      "kind": "green"
+    },
+    {
+      "id": "left_04",
+      "side": "left",
+      "x": -27155.834601050035,
+      "y": -5400.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    },
+    {
+      "id": "left_05",
+      "side": "left",
+      "x": -25327.598545399327,
+      "y": 41400.0,
+      "z": 3000,
+      "radius": 2460,
+      "kind": "sakura"
+    },
+    {
+      "id": "left_06",
+      "side": "left",
+      "x": -23803.203650284737,
+      "y": 64800.0,
+      "z": 3000,
+      "radius": 2100,
+      "kind": "green"
+    },
+    {
+      "id": "left_07",
+      "side": "left",
+      "x": -27511.564065603627,
+      "y": 79200.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    },
+    {
+      "id": "right_01",
+      "side": "right",
+      "x": 26924.606217573513,
+      "y": -73800.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    },
+    {
+      "id": "right_02",
+      "side": "right",
+      "x": 23245.78229939112,
+      "y": -55800.0,
+      "z": 3000,
+      "radius": 2460,
+      "kind": "sakura"
+    },
+    {
+      "id": "right_03",
+      "side": "right",
+      "x": 25633.105316368932,
+      "y": -32400.0,
+      "z": 3000,
+      "radius": 2100,
+      "kind": "green"
+    },
+    {
+      "id": "right_04",
+      "side": "right",
+      "x": 25844.165398949965,
+      "y": -5400.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    },
+    {
+      "id": "right_05",
+      "side": "right",
+      "x": 32272.401454600673,
+      "y": 41400.0,
+      "z": 3000,
+      "radius": 2460,
+      "kind": "sakura"
+    },
+    {
+      "id": "right_06",
+      "side": "right",
+      "x": 29196.796349715263,
+      "y": 64800.0,
+      "z": 3000,
+      "radius": 2100,
+      "kind": "green"
+    },
+    {
+      "id": "right_07",
+      "side": "right",
+      "x": 30088.435934396373,
+      "y": 79200.0,
+      "z": 3000,
+      "radius": 2280,
+      "kind": "sakura"
+    }
+  ],
+  "benches": [
+    {
+      "id": "left_01",
+      "side": "left",
+      "x": -24296.796349715263,
+      "y": -64800.0,
+      "z": 3000
+    },
+    {
+      "id": "left_02",
+      "side": "left",
+      "x": -23475.393782426487,
+      "y": -16200.0,
+      "z": 3000
+    },
+    {
+      "id": "left_03",
+      "side": "left",
+      "x": -18209.958936049792,
+      "y": 52200.0,
+      "z": 3000
+    },
+    {
+      "id": "right_01",
+      "side": "right",
+      "x": 18903.203650284737,
+      "y": -64800.0,
+      "z": 3000
+    },
+    {
+      "id": "right_02",
+      "side": "right",
+      "x": 19724.606217573513,
+      "y": -16200.0,
+      "z": 3000
+    },
+    {
+      "id": "right_03",
+      "side": "right",
+      "x": 24990.041063950208,
+      "y": 52200.0,
+      "z": 3000
+    }
+  ],
+  "lamps": [
+    {
+      "id": "left_01",
+      "side": "left",
+      "x": -23107.248383023656,
+      "y": -72000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "left_02",
+      "side": "left",
+      "x": -24378.697807033037,
+      "y": -36000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "left_03",
+      "side": "left",
+      "x": -21050.0,
+      "y": 0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "left_04",
+      "side": "left",
+      "x": -17721.302192966963,
+      "y": 36000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "left_05",
+      "side": "left",
+      "x": -18992.751616976344,
+      "y": 72000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "right_01",
+      "side": "right",
+      "x": 18992.751616976344,
+      "y": -72000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "right_02",
+      "side": "right",
+      "x": 17721.302192966963,
+      "y": -36000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "right_03",
+      "side": "right",
+      "x": 21050.0,
+      "y": 0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "right_04",
+      "side": "right",
+      "x": 24378.697807033037,
+      "y": 36000.0,
+      "z": 3000,
+      "height": 4000
+    },
+    {
+      "id": "right_05",
+      "side": "right",
+      "x": 23107.248383023656,
+      "y": 72000.0,
+      "z": 3000,
+      "height": 4000
+    }
+  ],
+  "groups": [
+    "Terrain:base",
+    "River:bed",
+    "River:water",
+    "Banks:left",
+    "Banks:right",
+    "Paths:left",
+    "Paths:right",
+    "Bridge:deck",
+    "Bridge:beams",
+    "Bridge:rails",
+    "Bridge:abutments",
+    "Bridge:approaches",
+    "Access:stairs",
+    "Landscape:trees",
+    "Landscape:benches",
+    "Lighting:fixtures"
+  ],
+  "centreline_formula": "x = curve_amplitude * sin(2*pi*y/length)",
+  "centreline_samples": [
+    [
+      1.1256858547736456e-12,
+      -90000.0
+    ],
+    [
+      -607.7686218342575,
+      -85000.0
+    ],
+    [
+      -1197.070501639841,
+      -80000.0
+    ],
+    [
+      -1749.9999999999998,
+      -75000.0
+    ],
+    [
+      -2249.756633902888,
+      -70000.0
+    ],
+    [
+      -2681.155550916423,
+      -65000.0
+    ],
+    [
+      -3031.0889132455354,
+      -60000.0
+    ],
+    [
+      -3288.9241727506796,
+      -55000.0
+    ],
+    [
+      -3446.8271355427287,
+      -50000.0
+    ],
+    [
+      -3500.0,
+      -45000.0
+    ],
+    [
+      -3446.8271355427282,
+      -40000.0
+    ],
+    [
+      -3288.924172750679,
+      -35000.0
+    ],
+    [
+      -3031.088913245535,
+      -30000.0
+    ],
+    [
+      -2681.155550916423,
+      -25000.0
+    ],
+    [
+      -2249.756633902887,
+      -20000.0
+    ],
+    [
+      -1749.9999999999998,
+      -15000.0
+    ],
+    [
+      -1197.0705016398406,
+      -10000.0
+    ],
+    [
+      -607.7686218342561,
+      -5000.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      607.7686218342561,
+      5000.0
+    ],
+    [
+      1197.0705016398406,
+      10000.0
+    ],
+    [
+      1749.9999999999998,
+      15000.0
+    ],
+    [
+      2249.756633902887,
+      20000.0
+    ],
+    [
+      2681.155550916423,
+      25000.0
+    ],
+    [
+      3031.088913245535,
+      30000.0
+    ],
+    [
+      3288.924172750679,
+      35000.0
+    ],
+    [
+      3446.8271355427282,
+      40000.0
+    ],
+    [
+      3500.0,
+      45000.0
+    ],
+    [
+      3446.8271355427287,
+      50000.0
+    ],
+    [
+      3288.9241727506796,
+      55000.0
+    ],
+    [
+      3031.0889132455354,
+      60000.0
+    ],
+    [
+      2681.155550916423,
+      65000.0
+    ],
+    [
+      2249.756633902888,
+      70000.0
+    ],
+    [
+      1749.9999999999998,
+      75000.0
+    ],
+    [
+      1197.070501639841,
+      80000.0
+    ],
+    [
+      607.7686218342575,
+      85000.0
+    ],
+    [
+      -1.1256858547736456e-12,
+      90000.0
+    ]
+  ],
+  "assumptions": [
+    "All dimensions, elevations, materials and locations are demonstration assumptions.",
+    "No real river, parcel, flood level, road boundary or surveyed terrain is represented.",
+    "Bank and walkway widths are X offsets, not surveyed normal-to-centreline widths.",
+    "The smooth centreline is represented by ruled solid segments at saved longitudinal samples.",
+    "The 38 m bridge is a visual span proposal without intermediate in-channel piers; section sizes and strength are not calculated.",
+    "Access stairs use 14 demonstration risers of 142.857 mm with 250.000 mm treads; accessible routes and code compliance are not validated.",
+    "Armor thickness is vertical, not the thickness normal to the sloped surface.",
+    "No hydraulic capacity, design flood level, scouring depth, foundation capacity or statutory compliance has been calculated."
+  ],
+  "engineering": {
+    "hydraulic_capacity": null,
+    "bridge_strength": null,
+    "foundation_capacity": null,
+    "statutory_compliance": null
+  },
+  "glb_coordinates": {
+    "units": "m",
+    "up_axis": "Y",
+    "mapping_from_CAD": "(X, Y, Z) mm -> (X, Z, -Y) m / 1000"
+  },
+  "bbox": {
+    "min": [
+      -40000.0000001,
+      -90000.0000001,
+      -2200.0
+    ],
+    "max": [
+      40000.0000001,
+      90000.0000001,
+      9168.0000001
+    ]
+  },
+  "parts": [
+    {
+      "name": "Terrain:base",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "River:bed",
+      "valid": true,
+      "solids": 3
+    },
+    {
+      "name": "River:water",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Banks:left",
+      "valid": true,
+      "solids": 6
+    },
+    {
+      "name": "Paths:left",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Banks:right",
+      "valid": true,
+      "solids": 6
+    },
+    {
+      "name": "Paths:right",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Bridge:deck",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Bridge:beams",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "Bridge:rails",
+      "valid": true,
+      "solids": 362
+    },
+    {
+      "name": "Bridge:abutments",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "Bridge:approaches",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "Access:stairs",
+      "valid": true,
+      "solids": 28
+    },
+    {
+      "name": "Landscape:trees",
+      "valid": true,
+      "solids": 28
+    },
+    {
+      "name": "Landscape:benches",
+      "valid": true,
+      "solids": 24
+    },
+    {
+      "name": "Lighting:fixtures",
+      "valid": true,
+      "solids": 30
+    }
+  ],
+  "glb_export": {
+    "named_mesh_nodes": 498,
+    "all_nodes": 515,
+    "mesh_coordinates": "world-space metres, Y-up",
+    "mapping_from_CAD": "(X,Z,-Y)/1000"
+  },
+  "source_sha256": {
+    "src/lib/river_geometry.py": "cbf0eced477490f63f4772f8fccf6732b7fc6ed2091a5743a0b3f6cf03256568",
+    "src/river_3d.py": "40cf1d0bf81c2b645436a13ac1e1429851001f009344e2e3ef84fa0768a142cc"
+  },
+  "artifacts": {
+    "STEP/river_demo.step": {
+      "sha256": "6cd26e5b11f4cf6a5de30bdb0e4f74fc7221917e8c7f2379b2e53cb4614c900a",
+      "bytes": 7947549
+    },
+    "GLB/river_demo.glb": {
+      "sha256": "9bc4b36694570ba9c849c979001782ca71acce0083ddfd56bbf7054ff8233845",
+      "bytes": 2449316
+    }
+  }
+}

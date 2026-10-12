@@ -1,7 +1,8 @@
 /** The worker owns copied geometry; rendering buffers never cross this boundary. */
 export interface WorkerGeometry {
   geometryId: string;
-  positions: Float64Array;
+  /** Source precision is sufficient for Three edges; Rust receives a lazy Float64 view. */
+  positions: Float32Array | Float64Array;
   indices: Uint32Array;
   indexed: boolean;
 }
@@ -36,11 +37,14 @@ export interface OutlineResult {
 
 export type GeometryWorkerRequest =
   | ({ type: 'register' } & WorkerGeometry)
+  | { type: 'register-batch'; geometries: WorkerGeometry[] }
   | { type: 'sections'; requestId: number; jobs: WorkerSectionCapJob[] }
-  | { type: 'outlines'; requestId: number; jobs: OutlineJob[] };
+  | { type: 'outlines'; requestId: number; jobs: OutlineJob[] }
+  | { type: 'mesh-edges'; requestId: number; jobs: OutlineJob[] };
 
 export type GeometryWorkerResponse =
   | { type: 'ready' }
   | { type: 'sections'; requestId: number; results: SectionCapResult[] }
   | { type: 'outlines'; requestId: number; results: OutlineResult[] }
+  | { type: 'mesh-edges'; requestId: number; results: OutlineResult[] }
   | { type: 'error'; message: string };

@@ -317,3 +317,89 @@ test('dispose is idempotent, settles jobs, removes listeners and ignores late re
   assert.equal(failures.length, 0, 'normal scene disposal does not claim a WASM error');
   assert.equal(await client.sectionCaps(jobs(2)), null);
 });
+
+test('source-precision mesh registrations batch once and Rust callers reuse the same exact snapshot', async t => {
+  const { worker, client, geometry } = fixture();
+  t.after(() => client.dispose());
+  worker.ready();
+  const before = geometry.getAttribute('position').array.slice();
+  const other = sourceGeometry();
+  const second = sourceGeometry();
+  // Source precision is opt-in; the original fixture still owns a Float64 registration.
+  const otherId = client.registerGeometry(other, { precision: 'source' });
+  const secondId = client.registerGeometry(second, { precision: 'source' });
+  assert.equal(client.registerGeometry(other), otherId);
+  assert.equal(client.registerGeometry(other, { precision: 'source' }), otherId);
+  const pending = client.meshEdges([{ id: 'a', geometryId: otherId, thresholdAngle: 28 },
+    { id: 'b', geometryId: secondId, thresholdAngle: 28 }]);
+  const upload = worker.requests('register-batch')[0];
+  assert.equal(upload.geometries.length, 2);
+  assert.ok(upload.geometries[0].positions instanceof Float32Array);
+  assert.deepEqual([...upload.geometries[0].positions], [...before]);
+  assert.deepEqual(other.getAttribute('position').array, before);
+  assert.deepEqual(geometry.getAttribute('position').array, before);
+  const request = worker.requests('mesh-edges')[0];
+  worker.emit('message', { type: 'mesh-edges', requestId: request.requestId,
+    results: request.jobs.map(job => ({ id: job.id, positions: new Float32Array([0, 0, 0, 1, 0, 0]) })) });
+  assert.equal((await pending).length, 2);
+  assert.equal(worker.requests('register-batch').length, 1);
+});
+
+test('mesh edge requests verify their response type, settle on failure and ignore late responses', async () => {
+  const { worker, client, geometryId, failures } = fixture();
+  worker.ready();
+  const first = client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }]);
+  const second = client.meshEdges([{ id: 'b', geometryId, thresholdAngle: 28 }]);
+  const request = worker.requests('mesh-edges')[0];
+  worker.emit('message', { type: 'outlines', requestId: request.requestId,
+    results: [{ id: 'a', positions: new Float32Array(6) }] });
+  assert.equal(await first, null);
+  assert.equal(await second, null);
+  assert.equal(failures.length, 1);
+  assert.equal(client.failed, true);
+  client.dispose();
+  worker.emit('message', { type: 'mesh-edges', requestId: request.requestId, results: [] });
+  assert.equal(failures.length, 1);
+});
+
+test('invalid mesh edge and section jobs fall back without terminating a healthy worker', async t => {
+  const { worker, client, geometryId, jobs } = fixture();
+  t.after(() => client.dispose());
+  worker.ready();
+  assert.equal(await client.meshEdges([{ id: 'a', geometryId: 'not-registered', thresholdAngle: 28 }]), null);
+  assert.equal(await client.meshEdges([{ id: 'a', geometryId, thresholdAngle: NaN }]), null);
+  assert.equal(await client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }, { id: 'a', geometryId, thresholdAngle: 28 }]), null);
+  assert.equal(await client.sectionCaps([{ ...jobs(1)[0], matrix: [1, 2] }]), null);
+  assert.equal(await client.sectionCaps(jobs(Infinity)), null);
+  assert.equal(worker.requests('mesh-edges').length, 0);
+  assert.equal(worker.requests('sections').length, 0);
+  assert.equal(client.failed, false);
+});
+
+test('disposing mesh edge requests releases uploads and ignores responses from the previous scene', async () => {
+  const { worker, client, geometryId } = fixture();
+  const pending = client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }]);
+  client.dispose();
+  await assert.rejects(client.ready, /disposed/);
+  assert.equal(await pending, null);
+  assert.equal(await client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }]), null);
+  worker.ready();
+  assert.equal(worker.messages.length, 0);
+});
+
+test('mesh edge results from a replaced geometry version are ignored without failing the worker', async t => {
+  const { worker, client, geometry, geometryId } = fixture();
+  t.after(() => client.dispose());
+  worker.ready();
+  const pending = client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }]);
+  const request = worker.requests('mesh-edges')[0];
+  geometry.getAttribute('position').setX(0, 2);
+  geometry.getAttribute('position').needsUpdate = true;
+  const updatedId = client.registerGeometry(geometry, { precision: 'source' });
+  assert.notEqual(updatedId, geometryId);
+  worker.emit('message', { type: 'mesh-edges', requestId: request.requestId,
+    results: [{ id: 'a', positions: new Float32Array(6) }] });
+  assert.equal(await pending, null);
+  assert.equal(await client.meshEdges([{ id: 'a', geometryId, thresholdAngle: 28 }]), null);
+  assert.equal(client.failed, false);
+});

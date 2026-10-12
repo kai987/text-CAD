@@ -1,8 +1,18 @@
-# Parametric Japanese homes: detached house and 2LDK apartment
+# Parametric Japanese CAD: homes and a suburban river demonstration
+
+## Japanese suburban river demonstration RIVER-R01
+
+An independent river CAD and 3D model includes a curved channel, stone revetments, riverside paths, access stairs, a pedestrian bridge, trees, benches and light fixtures. **Every dimension is a demonstration assumption**: north–south projected length 180000 mm, scene width 80000 mm, water-surface width 18000 mm, bed width 14000 mm and water depth 900 mm; bridge span 38000 mm, bridge width 4000 mm and crest-path width 3000 mm. Flow is assumed from north to south. Hydraulic capacity, bridge strength, foundations and statutory compliance remain unverified.
+
+[Plan DXF](DXF/river_demo_plan.dxf) · [Cross-section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [Chinese, Japanese and English guide, parameters and references](docs/river_demo_R01.md)
+
+Select the river in the local viewer or use `?model=river&view=3d`. Use `view=plan`, `view=section` and `view=files` for its plan, section and downloads. DXF retains editable text and native DIMENSION entities, with A3 plan 1:1000 and section 1:250 layouts. CAD uses millimetres; GLB uses metres/Y-up. Rebuild the full catalog with `CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate`.
 
 The house drawing revision comes from `drawing_revision` in the [drawing manifest](output/review/design_manifest.json), and its model revision from `revision` in the [model manifest](output/review/house_3d_assumptions_R01.json). The [apartment manifest](output/review/apartment_2ldk_manifest.json) records independent revisions. R05/R06/R10 download filenames are compatibility paths; title blocks and manifests identify the actual revision. Structural overlays retain their own concept revisions and do not represent completed capacity calculations.
 
 ## Viewer and release maintenance
+
+The web build precomputes outlines for the house, apartment and structural overlays, binding the cache to the GLB SHA-256, Three.js version and outline algorithms. Display lines are combined into two opacity batches while preserving named solid selection, visibility and clipping. Missing or stale caches use the geometry Worker; Worker failure falls back to the original algorithms. Section geometry uses batched independent copies, leaving rendering buffers attached. House and apartment generation exports only the final named GLB, removing an intermediate static file that was overwritten. STEP and parametric sources are retained.
 
 On phones, Scene settings starts collapsed and contains day/night, lighting, jurisdiction and structural options. Floor presets scroll horizontally. Collapsing the panel, changing language or resizing retains model settings; desktop settings remain visible. UI revisions come from the model manifests. This viewer update retains the R22 architectural concept.
 

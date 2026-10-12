@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Worker } from 'node:worker_threads';
 import { readFile } from 'node:fs/promises';
-import { BoxGeometry, BufferGeometry, Float32BufferAttribute, Mesh } from 'three';
+import { BoxGeometry, BufferAttribute, BufferGeometry, EdgesGeometry, Float32BufferAttribute,
+  InterleavedBuffer, InterleavedBufferAttribute, Mesh, SphereGeometry } from 'three';
 import { createGeometryWorkerClient } from '../src/geometry-worker-client.ts';
 import { createCadOutlineGeometry } from '../src/cad-outlines.ts';
 import { createWasmHorizontalCap, initializeSectionCapsWasm } from '../src/section-caps-wasm.ts';
@@ -109,4 +110,78 @@ test('real worker WASM download failure is reported and queued requests resolve 
   assert.equal(client.failed, true);
   assert.equal(failures.length, 1);
   geometry.dispose();
+});
+
+test('real mesh-edge worker matches Three bytes including precision, degenerate faces and non-manifold winding', { timeout: 10_000 }, async t => {
+  const client = createGeometryWorkerClient({ workerFactory: () => runtimeWorker() });
+  t.after(() => client.dispose());
+  const empty = new BufferGeometry();
+  empty.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 1, 0], 3));
+  empty.setIndex([]);
+  const precise = new BufferGeometry();
+  precise.setAttribute('position', new BufferAttribute(new Float64Array([
+    0.0000499999999, 0, 0, 1.00005000001, 0, 0, 0, 1, 0,
+    0.0000500000001, 0, 0, 1.00005000001, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 1, 0, 0, 0, -1, 0,
+    0, 0, 0, 1, 0, 0, 0, 0, -1,
+  ]), 3));
+  const normalized = new BufferGeometry();
+  normalized.setAttribute('position', new BufferAttribute(new Int16Array([0, 0, 0, 32767, 0, 0, 0, 32767, 0]), 3, true));
+  const interleaved = new BufferGeometry();
+  interleaved.setAttribute('position', new InterleavedBufferAttribute(
+    new InterleavedBuffer(new Float32Array([9, 0, 0, 0, 9, 1, 0, 0, 9, 0, 1, 0]), 4), 3, 1));
+  const geometries = [new BoxGeometry(), new BoxGeometry().toNonIndexed(), new SphereGeometry(1, 20, 12),
+    empty, precise, normalized, interleaved];
+  for (const geometry of geometries) t.after(() => geometry.dispose());
+  const expected = new Map();
+  const jobs = geometries.flatMap((geometry, index) => {
+    const geometryId = client.registerGeometry(geometry, { precision: 'source' });
+    assert.equal(client.registerGeometry(geometry), geometryId, 'Float64 consumers reuse exact source snapshot');
+    return [0, 28, 90, 180].map(thresholdAngle => {
+      const id = `${index}-${thresholdAngle}`;
+      const edges = new EdgesGeometry(geometry, thresholdAngle);
+      expected.set(id, edges.getAttribute('position').array.slice());
+      edges.dispose();
+      return { id, geometryId, thresholdAngle };
+    });
+  });
+  const results = await client.meshEdges(jobs);
+  for (const result of results) assert.deepEqual(result.positions, expected.get(result.id), result.id);
+  // The cache survives transfer and caller mutation of the previous batch.
+  results.forEach(result => result.positions.fill(0));
+  const repeated = await client.meshEdges([jobs[0], { ...jobs[0], id: 'duplicate' }]);
+  assert.deepEqual(repeated[0].positions, expected.get(jobs[0].id));
+  assert.equal(repeated[0].positions.buffer, repeated[1].positions.buffer, 'one transferable copy for duplicate geometry jobs');
+  assert.equal(client.failed, false);
+});
+
+test('source-precision edges then Rust outlines and caps preserve rendering attributes and invalidated snapshots', { timeout: 10_000 }, async t => {
+  await initializeSectionCapsWasm(await readFile(new URL('../src/wasm/section_caps_bg.wasm', import.meta.url)));
+  const client = createGeometryWorkerClient({ workerFactory: () => runtimeWorker() });
+  t.after(() => client.dispose());
+  const geometry = new BoxGeometry(2, 4, 2);
+  t.after(() => geometry.dispose());
+  const originalPositions = geometry.getAttribute('position').array.slice();
+  const originalIndex = geometry.index.array.slice();
+  const geometryId = client.registerGeometry(geometry, { precision: 'source' });
+  await client.meshEdges([{ id: 'edges', geometryId, thresholdAngle: 28 }]);
+  const mesh = new Mesh(geometry);
+  mesh.updateWorldMatrix(true, false);
+  const [outline] = await client.outlines([{ id: 'outline', geometryId: client.registerGeometry(geometry), thresholdAngle: 28 }]);
+  const [cap] = await client.sectionCaps([{ id: 'cap', geometryId, matrix: mesh.matrixWorld.elements, height: 0 }]);
+  const expectedOutline = createCadOutlineGeometry(geometry);
+  const expectedCap = createWasmHorizontalCap(mesh, 0);
+  assert.deepEqual(canonicalSegments(outline.positions), canonicalSegments(expectedOutline.getAttribute('position').array));
+  assert.deepEqual(cap.positions, expectedCap.getAttribute('position').array);
+  assert.deepEqual(geometry.getAttribute('position').array, originalPositions);
+  assert.deepEqual(geometry.index.array, originalIndex);
+  geometry.getAttribute('position').setX(0, 8);
+  geometry.getAttribute('position').needsUpdate = true;
+  const changedId = client.registerGeometry(geometry, { precision: 'source' });
+  assert.notEqual(changedId, geometryId);
+  const [changed] = await client.meshEdges([{ id: 'changed', geometryId: changedId, thresholdAngle: 28 }]);
+  const expectedEdges = new EdgesGeometry(geometry, 28);
+  assert.deepEqual(changed.positions, expectedEdges.getAttribute('position').array);
+  expectedOutline.dispose(); expectedCap.dispose(); expectedEdges.dispose();
 });

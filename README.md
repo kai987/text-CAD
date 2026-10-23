@@ -1,5 +1,75 @@
 # 日本住宅与近郊河流参数化 CAD：一户建、2LDK 公寓与河流示范段
 
+**简体中文** | [日本語](README.ja.md) | [English](README.en.md)
+
+用于制作和比较日本一户建、2LDK公寓及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
+
+**[在线查看器](https://kai987.github.io/text-CAD/)** · [一户建](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河流](https://kai987.github.io/text-CAD/?model=river&view=3d)
+
+## 模型与功能
+
+| 模型 | 当前方案与演示尺寸 | 图纸与模型 |
+| --- | --- | --- |
+| 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
+| 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
+| 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+
+查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
+
+**全部模型用于方案演示与学习。** 尺寸均为假设，不代表结构承载、法定面积、法规适用、河流水理或桥梁安全已经验证。当前住宅尺寸和改订以[图纸元数据](output/review/design_manifest.json)为准，与早期7,280 × 7,280 mm方案不同。
+
+## 快速开始
+
+本地开发和普通Web构建需要 **Node.js 24**、npm和用于标准库一致性检查的 **Python 3（推荐3.13）**。确保PATH中有`python3`，或用`CAD_ANALYSIS_PYTHON`指定解释器；无需安装Python CAD依赖或Rust。
+
+```bash
+git clone https://github.com/kai987/text-CAD.git
+cd text-CAD/web
+npm ci
+npm run dev
+```
+
+打开终端显示的 `/text-CAD/` 地址，在页头选择模型和语言，然后切换平面、三维及文件下载。
+
+测试、生产构建和本地预览继续在 `web/` 中执行。
+
+```bash
+npm test
+npm run build
+npm run preview
+```
+
+## 参数编辑与CAD重建
+
+使用Python 3.13和`uv`，以下命令在仓库根目录执行。重新生成图纸需要CJK TTF字体；无法使用默认macOS字体的环境，应将可用字体的绝对路径设置到`TEXT_CAD_CJK_FONT`。
+
+```bash
+uv venv --python 3.13 .venv
+uv pip install --python .venv/bin/python -r requirements.txt
+CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
+.venv/bin/python src/cad_pipeline.py --validate
+```
+
+修改`src/lib/`内的参数后，先确认平面与动线，再重建三维模型。只检查已有产物与源码是否对应，可执行`python3 src/cad_release.py`。Rust重建方式和回退机制见下方详细说明。
+
+## 源码与相关资料
+
+| 路径 | 内容 |
+| --- | --- |
+| [`src/lib/`](src/lib/) | 住宅、公寓、河流的参数、几何与制图处理 |
+| [`src/cad_pipeline.py`](src/cad_pipeline.py) | CAD生成、保存物验证和发布哈希记录 |
+| [`DXF/`](DXF/) · [`STEP/`](STEP/) · [`GLB/`](GLB/) | 可编辑图纸、精确实体与具名显示模型 |
+| [`output/`](output/) | PDF、SVG、假设、图纸与构件元数据、验证报告 |
+| [`web/`](web/) | React / TypeScript / Three.js查看器与测试 |
+| [`rust/section-caps/`](rust/section-caps/) · [`rust/spatial-core/`](rust/spatial-core/) | WebAssembly几何计算与可选Python原生扩展 |
+
+[河流说明与参考来源](docs/river_demo_R01.md) · [结构计算准备与面积分析范围](analysis/README.md) · [法规参考资料](docs/regulations_R07.md) · [MIT许可证](LICENSE)
+
+使用上游[text-to-cad](https://github.com/earthtojake/text-to-cad)，建筑图纸的可编辑文字与尺寸由ezdxf生成。依赖库及参考资料遵循各自来源的许可证。
+
+<details>
+<summary>模型详细说明、改订历史与Rust开发步骤</summary>
+
 ## 日本近郊河流示范段 RIVER-R01
 
 新增独立的河流 CAD 与 3D 模型，包含弯曲河道、石护岸、两岸步道、亲水阶梯、人行桥、树木、长椅和灯具。**全部尺寸均为演示假设**：南北投影长度180000 mm、场景宽80000 mm、水面宽18000 mm、水底宽14000 mm、水深900 mm；人行桥跨38000 mm、宽4000 mm，堤顶步道宽3000 mm。河流方向暂设为北向南，桥梁、水理、地基与法规均待核定。
@@ -77,8 +147,6 @@ R20及更早段落为历史记录，以R22当前输出为准。
 网页通过无损 gzip 传输完整 STEP，支持的浏览器下载后还原为标准 .step；不支持的浏览器可解压下载文件。本地 STEP 及颜色侧文件保持完整。
 
 下列早期版本记录保留作历史参考。
-
-**简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
 ## 历史方案（R14 左右镜像与対面式厨房）
 
@@ -171,7 +239,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/house_3d.py
 
 ## 在线查看
 
-[打开房屋 CAD 查看页](https://kai987.github.io/text-CAD/)。画布上方可直接切换完整外观／一层内部／二层内部。部件树支持楼层、外墙、内隔墙、楼板、门、窗、收纳柜、楼梯和屋顶的显示与隐藏；点击名称或三维实体可高亮并查看所选语言的部件名，“单独”按钮隔离选定分类，顶部预设恢复显示。浏览器还支持旋转、缩放和水平剖切。平面页默认展示房间与尺寸，可切换完整 R02 A3 图框，支持矢量放大和下载可编辑 DXF；文件页提供 STEP、GLB、DXF、PDF 和参数说明。
+[打开房屋 CAD 查看页](https://kai987.github.io/text-CAD/)。画布上方可直接切换完整外观／一层内部／二层内部。部件树支持楼层、外墙、内隔墙、楼板、门、窗、收纳柜、楼梯和屋顶的显示与隐藏；点击名称或三维实体可高亮并查看所选语言的部件名，“单独”按钮隔离选定分类，顶部预设恢复显示。浏览器还支持旋转、缩放和水平剖切。平面页默认展示房间与尺寸，可切换完整 A3 图框，支持矢量放大和下载可编辑 DXF；文件页提供 STEP、GLB、DXF、PDF 和参数说明。
 
 进入页面时并行加载当前户型的三维模型及全部楼层平面图；从平面页或下载页进入也会准备三维场景。标签切换复用已解析图纸并保留三维视角、剖切和选择状态。切换户型时释放旧三维场景并预加载新户型，首次下载期间显示加载提示。
 
@@ -333,9 +401,11 @@ DXF 的全部可见图层使用 ACI 7，图形以 ByLayer 继承颜色，不指�
 
 本次未输出 SXF(P21/P2Z)、DRAWING.XML 或电子纳品目录。现有三维 STEP、GLB 保持不变；STEP 与二维电子纳品用的 SXF(P21) 是不同格式。
 
-## 明确的假设与待定项
+## R01/R02 历史假设与待定项
 
-1. 外轮廓 8190 × 7280 mm、层高 2800 mm 是用户指定的**演示假设**。
+以下记录早期方案，当前R22尺寸与房间布局以顶部模型目录和图纸元数据为准。
+
+1. 外轮廓 7280 × 7280 mm、层高 2800 mm 是用户指定的**演示假设**。
 2. 外墙 180 mm、内墙 100 mm 是占位参数，不代表已设计的木结构或建筑构造。
 3. 所有房间标注使用墙内净尺寸。面积包含家具占地。楼梯显示的是梯间预留面积；二层含楼板开口。53.00 m²/层、106.00 m²合计只表示外轮廓几何面积，不能直接作为法定建筑/楼面面积。
 4. 门宽表示绘制开口，尚未扣除门框。卧室门向室内开，移门以墙内门袋收纳占位；真实门袋构造、五金和开口净宽待深化。
@@ -394,3 +464,5 @@ PDF使用macOS的 `Arial Unicode.ttf`；若迁移到其他系统，更新生成�
 主模型显示下载进度，下载和解析共用 60 秒期限；失败后可重试，旧请求会取消，迟到的解析结果会释放。WebGL 恢复后重建查看器并恢复此前的视角、部件显示、剖切、昼夜及结构选择。初次下载失败不恢复未初始化的相机。
 
 这些检查只证明概念几何、文件一致性和查看器行为，不证明结构承载、建筑法规或施工可行性。
+
+</details>

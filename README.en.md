@@ -1,5 +1,75 @@
 # Parametric Japanese CAD: homes and a suburban river demonstration
 
+[简体中文](README.md) | [日本語](README.ja.md) | **English**
+
+A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
+
+**[Online viewer](https://kai987.github.io/text-CAD/)** · [Detached house](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [Suburban river](https://kai987.github.io/text-CAD/?model=river&view=3d)
+
+## Models and features
+
+| Model | Current scheme and demonstration dimensions | Drawings and models |
+| --- | --- | --- |
+| Detached house · R22 | 8,190 × 7,280 mm body; 2,800 mm storey height. Three bedrooms, storage attic, south balcony and two side-by-side parking spaces | [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
+| 2LDK apartment · A01 | 7,800 × 8,400 mm outline. Two bedrooms, LDK, bathroom facilities and balcony | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
+| Suburban river · RIVER-R01 | 180,000 mm north–south projected length; 80,000 mm width. Revetments, paths, footbridge, trees, benches and lighting | [Plan DXF](DXF/river_demo_plan.dxf) · [Section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+
+The viewer supports Chinese, Japanese and English, component selection and visibility, horizontal sections, furnishings, day/night and lighting, and light/dark themes. The house also offers concept comparisons for Tokyo, Osaka, Kyoto and Nagoya with timber W, light steel S and reinforced concrete RC systems. CAD uses millimetres; GLB uses metres and Y-up. DXF retains editable text and dimensions, with SVG and PDF for viewing and printing.
+
+**All models are for concept exploration and learning.** Dimensions are assumptions; structural capacity, statutory areas, regulatory compliance, river hydraulics and bridge safety are not certified. Current house dimensions and revisions come from the [drawing metadata](output/review/design_manifest.json), rather than the earlier 7,280 × 7,280 mm scheme.
+
+## Quick start
+
+Local development and normal web builds require **Node.js 24**, npm and **Python 3 (3.13 recommended)** for standard-library consistency checks. Make `python3` available on PATH or set `CAD_ANALYSIS_PYTHON` to its executable. Python CAD libraries and Rust are not required.
+
+```bash
+git clone https://github.com/kai987/text-CAD.git
+cd text-CAD/web
+npm ci
+npm run dev
+```
+
+Open the `/text-CAD/` URL printed in the terminal. Choose a model and language in the header, then switch between plans, 3D and downloads.
+
+Continue in `web/` to run tests, create a production build and preview it locally.
+
+```bash
+npm test
+npm run build
+npm run preview
+```
+
+## Edit parameters and regenerate CAD
+
+Use Python 3.13 and `uv`, running these commands from the repository root. Regenerating drawings requires a CJK TTF font. Where the default macOS font is unavailable, set `TEXT_CAD_CJK_FONT` to the absolute path of an available font.
+
+```bash
+uv venv --python 3.13 .venv
+uv pip install --python .venv/bin/python -r requirements.txt
+CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
+.venv/bin/python src/cad_pipeline.py --validate
+```
+
+Edit parameters in `src/lib/`, review plans and circulation first, then regenerate the 3D model. Run `python3 src/cad_release.py` to check only that existing outputs match the source. Rust rebuild instructions and fallback behavior are in the detailed notes below.
+
+## Source and related material
+
+| Path | Contents |
+| --- | --- |
+| [`src/lib/`](src/lib/) | House, apartment and river parameters, geometry and drafting |
+| [`src/cad_pipeline.py`](src/cad_pipeline.py) | CAD generation, saved-output validation and release hashes |
+| [`DXF/`](DXF/) · [`STEP/`](STEP/) · [`GLB/`](GLB/) | Editable drawings, precise solids and named display models |
+| [`output/`](output/) | PDF, SVG, assumptions, drawing/component metadata and validation reports |
+| [`web/`](web/) | React / TypeScript / Three.js viewer and tests |
+| [`rust/section-caps/`](rust/section-caps/) · [`rust/spatial-core/`](rust/spatial-core/) | WebAssembly geometry calculations and optional native Python extension |
+
+[River guide and references](docs/river_demo_R01.md) · [Engineering preparation and area-analysis scope](analysis/README.md) · [Regulatory references](docs/regulations_R07.md) · [MIT license](LICENSE)
+
+Uses upstream [text-to-cad](https://github.com/earthtojake/text-to-cad), with ezdxf for editable architectural text and dimensions. Dependencies and reference materials retain their respective licenses.
+
+<details>
+<summary>Detailed model notes, revision history and Rust development</summary>
+
 ## Japanese suburban river demonstration RIVER-R01
 
 An independent river CAD and 3D model includes a curved channel, stone revetments, riverside paths, access stairs, a pedestrian bridge, trees, benches and light fixtures. **Every dimension is a demonstration assumption**: north–south projected length 180000 mm, scene width 80000 mm, water-surface width 18000 mm, bed width 14000 mm and water depth 900 mm; bridge span 38000 mm, bridge width 4000 mm and crest-path width 3000 mm. Flow is assumed from north to south. Hydraulic capacity, bridge strength, foundations and statutory compliance remain unverified.
@@ -79,8 +149,6 @@ Web downloads transport the complete STEP losslessly with gzip and restore a sta
 Earlier revisions below are historical.
 
 Three south living/main-bedroom/bedroom-2 windows now extend from FL+0 to FL+2200, retaining widths of 2100/1600/1800 mm. The main bed rotates and bedroom-2 bed moves north to retain a 650 mm demonstration approach. Safety glass, sash specifications, waterproofing, headers and thermal performance remain undesigned.
-
-[简体中文](README.md) | [日本語](README.ja.md) | **English**
 
 ## Earlier proposal R14: mirrored floors and facing kitchen
 
@@ -171,7 +239,7 @@ Section controls appear first in the sidebar. Search components by Chinese, Japa
 
 ## Online viewer
 
-[Open the house CAD viewer](https://kai987.github.io/text-CAD/). Above the canvas, switch between the complete exterior, first-floor interior, and second-floor interior. The component tree controls the visibility of floors, external walls, partitions, slabs, doors, windows, storage, stairs, and the roof. Click a name or a 3D component to highlight it and inspect its name in the selected language. Use “Only” to show only the selected category and the top presets to restore visibility. The browser also supports rotation, zoom, and horizontal section cuts. The plan page initially shows rooms and dimensions, with an option to display the complete R02 A3 sheet. It supports vector zoom and editable DXF downloads. The files page provides STEP, GLB, DXF, PDF, and parameter notes.
+[Open the house CAD viewer](https://kai987.github.io/text-CAD/). Above the canvas, switch between the complete exterior, first-floor interior, and second-floor interior. The component tree controls the visibility of floors, external walls, partitions, slabs, doors, windows, storage, stairs, and the roof. Click a name or a 3D component to highlight it and inspect its name in the selected language. Use “Only” to show only the selected category and the top presets to restore visibility. The browser also supports rotation, zoom, and horizontal section cuts. The plan page initially shows rooms and dimensions, with an option to display the complete A3 sheet. It supports vector zoom and editable DXF downloads. The files page provides STEP, GLB, DXF, PDF, and parameter notes.
 
 On entry, the selected layout’s 3D model and all floor plans load in parallel, including when the initial page is a plan or downloads. Tab changes reuse parsed drawings and retain the 3D camera, section and selection state. Changing layouts releases the previous 3D scene and prepares the new layout. Loading messages remain visible during the first download.
 
@@ -333,7 +401,9 @@ The frame and title block are in the DXF’s **`JP_A3_1_50` paper-space layout**
 
 SXF(P21/P2Z), DRAWING.XML, and electronic-delivery folders have not been produced. Existing 3D STEP and GLB files are unchanged. STEP and the SXF(P21) format used for 2D electronic delivery are different formats.
 
-## Explicit assumptions and unresolved items
+## R01/R02 assumptions and unresolved items (history)
+
+These describe the initial scheme. Use the model catalog and drawing metadata above for current R22 dimensions and room layouts.
 
 1. The 7,280 × 7,280 mm outline and 2,800 mm storey height are user-specified **demonstration assumptions**.
 2. External walls at 180 mm and internal walls at 100 mm are placeholders, not a designed timber structure or building assembly.
@@ -394,3 +464,5 @@ This earlier optimization used R13; R14 subsequently reflects the layout. Key me
 The main model reports download progress and enforces a 60-second deadline across download and parsing. Failures offer retry; cancelled requests and late decode results are discarded. After WebGL recovery, the viewer rebuilds while preserving its camera, component visibility, section, day/night and structural choices. An uninitialized camera from an initial download failure is not restored.
 
 These checks establish concept geometry, file consistency and viewer behavior. They do not certify structural capacity, regulatory compliance or construction readiness.
+
+</details>

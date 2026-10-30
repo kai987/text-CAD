@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import json
-from math import dist, isfinite
+from math import dist, inf, isfinite, nextafter
 from pathlib import Path
 import sys
 import unittest
@@ -39,6 +39,23 @@ def maximum_z(spec):
     if spec['kind']=='rhs':return max(spec['start'][2],spec['end'][2])
     if spec['kind']=='loft3d':return max(p[2] for section in spec['sections'] for p in section)
     return max(section['z'] for section in spec['sections'])
+
+
+def geometry_fingerprint(value):
+    """Hash unchanged specifications on a 0.000001mm grid across libm platforms.
+
+    Names, ordering, colours and metadata stay exact. Round coordinate tails
+    and normalise signed zero before JSON encoding; raw float repr is not a
+    portable geometry contract.
+    """
+    def canonical(item):
+        if isinstance(item,float):
+            if not isfinite(item):raise ValueError('Nonfinite geometry cannot be fingerprinted.')
+            return round(item,6) or 0.0
+        if isinstance(item,dict):return {key:canonical(v) for key,v in item.items()}
+        if isinstance(item,(list,tuple)):return [canonical(v) for v in item]
+        return item
+    return hashlib.sha256(json.dumps(canonical(value),sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
 
 class TokyoTowerDetailTests(unittest.TestCase):
@@ -246,10 +263,36 @@ class TokyoTowerDetailTests(unittest.TestCase):
     def test_r05_preserves_base_core_and_steel_below180m_from_r04(self):
         # Fixed R04 specification fingerprint. The narrow revision changes
         # deck shells/equipment, antennas, and the profile near the top deck.
+        # Canonical baseline independently derived from commit462e28c's R04
+        # source, whose original raw digest is672806be...cd051. A nanometre
+        # grid removes platform float tails without replacing that baseline.
         unchanged=[p for p in self.specs if p['group'] in ('base','core')
                    or p['group']=='structure' and maximum_z(p)<=180000]
-        digest=hashlib.sha256(json.dumps(unchanged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-        self.assertEqual(digest,'672806be185147e7214cd47f2eb4354fa142ac658f6f057bdd8ef7f6305cd051')
+        self.assertEqual(geometry_fingerprint(unchanged),'4809a6a4982536dbadf248b1a295ef438d973bb2957a8573681a333a6edb2ef4')
+
+    def test_preservation_fingerprint_tolerates_machine_tails_and_signed_zero(self):
+        unchanged=[p for p in self.specs if p['group'] in ('base','core')
+                   or p['group']=='structure' and maximum_z(p)<=180000]
+        def perturb(item,direction):
+            if isinstance(item,float):
+                for _ in range(8):item=nextafter(item,direction)
+                return item
+            if isinstance(item,dict):return {k:perturb(v,direction) for k,v in item.items()}
+            if isinstance(item,(list,tuple)):return [perturb(v,direction) for v in item]
+            return item
+        expected=geometry_fingerprint(unchanged)
+        for direction in (inf,-inf):
+            self.assertEqual(geometry_fingerprint(perturb(unchanged,direction)),expected)
+        self.assertEqual(geometry_fingerprint([0.0]),geometry_fingerprint([-0.0]))
+
+    def test_preservation_fingerprint_rejects_coordinate_and_metadata_changes(self):
+        original={'name':'structure:reference','point':[1000.123456,0.0,180000.0],'color':'#E34C25'}
+        expected=geometry_fingerprint(original)
+        for modified in ({**original,'point':[1000.124456,0.0,180000.0]},
+                         {**original,'name':'structure:changed'},
+                         {**original,'color':'#F4F0E7'}):
+            self.assertNotEqual(geometry_fingerprint(modified),expected)
+        with self.assertRaises(ValueError):geometry_fingerprint([inf])
 
     def test_main_deck_has_two_independent_upright_narrow_window_levels(self):
         glass=[p for p in self.specs if p['name'].startswith('decks:main_glazing_')]

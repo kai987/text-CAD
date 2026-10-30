@@ -15,24 +15,24 @@
   },
   "artifacts": {
     "DXF/tokyo_skytree_plan.dxf": {
-      "sha256": "dc8c84bb58035832b6e170f46c7ca27125d2b252c835df3868fbed3073a5a031",
-      "bytes": 3006057
+      "sha256": "6ac08c4c2179a46cdc7c1a7c1eca87e145ad2c91cd337315cf6b1539aae85fbd",
+      "bytes": 3006058
     },
     "output/svg/tokyo_skytree_plan.svg": {
       "sha256": "982f725561ec844473cccfb6052850ba26a3b115c9b99708d1b2830b64b46f7a",
       "bytes": 1339812
     },
     "DXF/tokyo_skytree_elevation.dxf": {
-      "sha256": "4ced5d3605bafba3da213e2c25693a4c5e8278c486d65f6059ef7faee6754f93",
-      "bytes": 21973746
+      "sha256": "a458b9601f7b4b8bdd1f24687a2f367921c5545aaaf4d48aa53d10d60bbaa42a",
+      "bytes": 21973747
     },
     "output/svg/tokyo_skytree_elevation.svg": {
       "sha256": "f931b911446d96389ad31bc730b7848387999db54e08657b70ae81572b096111",
       "bytes": 14008323
     },
     "DXF/tokyo_skytree_structure_zones.dxf": {
-      "sha256": "049f8e74e67947f030cafc625ba35856038c5f81abb2d081a0f5de13fb480c08",
-      "bytes": 1826998
+      "sha256": "fd50fb5d125718df5e4c38ec6a1b58e7a1edb9515746bb6a55b8896dfb222d5c",
+      "bytes": 1826996
     },
     "output/svg/tokyo_skytree_structure_zones.svg": {
       "sha256": "22ee7ad54c84a4dca290bc2d6a3bc0d601decded8e4a8a18d9b16545d98f0059",

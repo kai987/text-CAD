@@ -10,16 +10,16 @@
   },
   "artifacts": {
     "DXF/river_demo_plan.dxf": {
-      "sha256": "11f700b25c68cf1bd8838258afdf6a1a78d6f38fd6da15d14a111a4b965c485f",
-      "bytes": 112781
+      "sha256": "edf9ff50cab13d1c615ff9df73a823074472cdc77bc0c3b9d8b515a1806cfdb8",
+      "bytes": 112779
     },
     "output/svg/river_demo_plan.svg": {
       "sha256": "540038ace2d9ee8e7e474bfc66a4456ca85c0f1686c06f3bae35f4302a49f2bd",
       "bytes": 29869
     },
     "DXF/river_demo_section.dxf": {
-      "sha256": "0d11fcde43527e6b01615dbcc267e70c224f1f855398106572b5e556b5ed90e5",
-      "bytes": 74136
+      "sha256": "71d0f493232ac11b30b3660867c8f5f68049d701fd6f6ad694019fa21e305e8a",
+      "bytes": 74134
     },
     "output/svg/river_demo_section.svg": {
       "sha256": "68b3a1192d234028811df044c39ffed9f11b59b4a120ad3fb26a4d76280b925b",

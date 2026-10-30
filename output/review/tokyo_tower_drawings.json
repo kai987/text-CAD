@@ -12,24 +12,24 @@
   },
   "artifacts": {
     "DXF/tokyo_tower_plan.dxf": {
-      "sha256": "355a2efda81206a57a17ad5a56d2dfad9958f07a0cdf4540e6607a5e57cf4c7d",
-      "bytes": 1915163
+      "sha256": "3eec2ea5239f89a2ed8884e0dcd1cffe26ba584628b543492287a5fefc07adc1",
+      "bytes": 1915161
     },
     "output/svg/tokyo_tower_plan.svg": {
       "sha256": "3432efe3f98b730bd553a96d038ea6453a1bd3713831367472f76b3c2dd37e0c",
       "bytes": 999081
     },
     "DXF/tokyo_tower_elevation.dxf": {
-      "sha256": "bde3969d6b46ee5794e61e8db9f7ef505fea58551e7632b76cbae651d21d3df6",
-      "bytes": 2534804
+      "sha256": "64e89ed28ac560f08b598732da1967b2b29426e9e405f8646a52be500a92bc61",
+      "bytes": 2534802
     },
     "output/svg/tokyo_tower_elevation.svg": {
       "sha256": "31397a8ef2f7b5f7c5d3ccfc71d68b25ecd0d4a23257ac4b9e6e64058974fb63",
       "bytes": 2082744
     },
     "DXF/tokyo_tower_steel_nodes.dxf": {
-      "sha256": "dbbedaed581e4028e9a090804be032f5f6bd046ba756f85d2328e6d7c4fe98d6",
-      "bytes": 2928298
+      "sha256": "efca8c9c22df2c907eda363efacbea775bacbf120a8137f01949ee264249d1e8",
+      "bytes": 2928296
     },
     "output/svg/tokyo_tower_steel_nodes.svg": {
       "sha256": "7831fc19117c5da1c3bb63bc46db721da1e2289a685b3910d0695bef8ce71092",

@@ -1,5 +1,7 @@
 # 東京タワー / 东京塔 / Tokyo Tower - LANDMARK-R04
 
+> Historical archive. Current deck and upper-steelwork controls: [R06](tokyo_tower_R06.md).
+
 [日本語](#日本語) · [中文](#中文) · [English](#english) · [R03 archive](tokyo_tower_R03.md)
 
 ## 日本語

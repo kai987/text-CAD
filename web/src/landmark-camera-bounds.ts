@@ -12,12 +12,12 @@ function namedMeshBounds(nodes: ReadonlyMap<string, Object3D>, prefix: string): 
   return bounds.isEmpty() ? null : bounds.expandByScalar(2);
 }
 
-/** Only the named 150m deck belongs to this close-up; top_maintenance does not. */
+/** Only named main-deck meshes belong to this close-up; top_maintenance does not. */
 export function landmarkMainDeckBounds(nodes: ReadonlyMap<string, Object3D>): Box3 | null {
   return namedMeshBounds(nodes, 'decks:main_');
 }
 
-/** CAD node prefixes keep the 350m deck, upper gallery and spire separate. */
+/** CAD prefixes include each deck's equipment crown and the complete antenna envelope. */
 export function landmarkCloseupBounds(id: LandmarkId, nodes: ReadonlyMap<string, Object3D>, modelBounds: Box3): ReadonlyMap<LandmarkCamera, Box3> {
   const result = new Map<LandmarkCamera, Box3>();
   if (!modelBounds.isEmpty()) {
@@ -26,7 +26,7 @@ export function landmarkCloseupBounds(id: LandmarkId, nodes: ReadonlyMap<string,
     result.set('base', base);
   }
   const regions: readonly [LandmarkCamera, string][] = id === 'tokyo-tower'
-    ? [['main-deck', 'decks:main_']]
+    ? [['main-deck', 'decks:main_'], ['top-deck', 'decks:top_'], ['spire', 'antenna:']]
     : [['tembo-deck', 'decks:tembo_deck_'], ['tembo-galleria', 'decks:tembo_galleria_'], ['spire', 'antenna:']];
   for (const [camera, prefix] of regions) {
     const region = namedMeshBounds(nodes, prefix);

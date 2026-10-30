@@ -27,6 +27,8 @@ from lib.tower_geometry import (TOWERS, REVISION, component_specs, ring_points,
 
 ROOT = Path(__file__).resolve().parents[1]
 PAPER = (420, 297)
+PIPE_DRAWING_SEGMENTS = 24
+SKYTREE_EQUIPMENT_ROOF_MM = 375000
 FONT = Path(os.environ.get('TEXT_CAD_CJK_FONT',
     '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
 LAYERS = {
@@ -192,24 +194,23 @@ class TowerDrawing:
         if self.tower_id == 'tokyo-tower' and self.view == 'elevation':
             floor_levels=self.parameters['detail']['main_floor_levels_mm']
             notes = [
-                (232, '01 公表値とモデル座標'),
-                (225, '公式案内: メイン150 m / トップ250 m'),
-                (218, f'全高 {self.parameters["height_mm"]:,.0f} mm / 公表値'),
-                (211, '施工GLの構架帯に関連付けた解釈的配置:'),
-                (204, f'モデル下層{floor_levels[0]:,.0f} / 上層{floor_levels[1]:,.0f} mm'),
-                (197, f'上部外殻参照{self.parameters["deck_levels_mm"][1]:,.0f} mm（H23帯）'),
-                (190, '床との対応・5,000 mm層間はモデル仮定。'),
-                (183, '公式案内値との換算・完成面実測ではない。'),
-                (176, '部材断面・接合・外形は独自の仮定。'),
-                (166, '02 メインデッキ付近 / 1:300'),
-                (66, '宮地技報 No18 p86 図1 / 施工GL参照'),
-                (58, '公式案内の150/250 mを変更するものではない。'),
-                (50, 'CAD mm / X-Z正投影 / 編集可能な文字・寸法'),
-                (42, '未測量・未計算 / tokyotower.co.jp/guidance/'),
+                (232, '01 公式案内: メイン150 m / トップ250 m'),
+                (225, f'施工GL: 主床 {floor_levels[0]:,.0f}/{floor_levels[1]:,.0f}・H23屋根 {self.parameters["deck_levels_mm"][1]:,.0f} mm'),
+                (218, '公式案内値との換算・完成面実測ではない。'),
+                (211, 'JAEE歴史H13 29×24 m：独立平面を別記。'),
+                (204, '現外装との対応未確認。部材・接合は仮定。'),
+                (198, '02 メインデッキ付近 / 1:300'),
+                (132, 'JAEE復刻p97 Fig.3：H11 27×27 / H12 28×28 m'),
+                (125, '03 円形展望台・H24 / 1:400'),
+                (58, 'H23屋根GL223,550 / 円径13,000'),
+                (51, 'SG外周補強 / ST支柱□450'),
+                (44, '宮地技報 No28 p65–66 / 改修参照'),
             ]
             for y, note in notes:
-                self.paper_text(note, (257, y), 2.7 if y >= 166 else 2.4)
-            self.labels += ['メインデッキ付近','施工GL','公式案内値との換算・完成面実測ではない。']
+                self.paper_text(note, (257, y), 2.5 if y >= 198 else 2.1)
+            self.paper_text('04 SG・ST / 1:1250', (334,125),2.1)
+            self.labels += ['メインデッキ付近','円形展望台・H24','SG・ST','施工GL',
+                            '独立平面','公式案内値との換算・完成面実測ではない。']
             return
         if self.tower_id == 'tokyo-tower' and self.view == 'plan':
             floor_levels=self.parameters['detail']['main_floor_levels_mm']
@@ -217,14 +218,17 @@ class TowerDrawing:
                 '01 公式案内の公表値',
                 f'全高 {self.parameters["height_mm"]:,.0f} mm',
                 'メインデッキ150 m / トップデッキ250 m',
-                '', '02 モデル座標・参照資料',
-                '施工GLの構架帯を参考に外殻を配置。',
-                f'下層{floor_levels[0]:,.0f} / 上層{floor_levels[1]:,.0f} mm（解釈）',
-                f'上部外殻参照{self.parameters["deck_levels_mm"][1]:,.0f} mm（H23帯）',
-                'H11/H23からの床同定・層間は仮定。',
+                '', '02 歴史図の層別寸法と施工GL',
+                'JAEE復刻p97 Fig.3 / 1962年原論文',
+                'H11 27×27 m / H12 28×28 m',
+                'H13 29×24 m：歴史の独立平面を別記。',
+                '機能・現外装との対応は未確認。',
+                'トップ：円形 D13,000 mm（歴史図）',
+                f'床モデル {floor_levels[0]:,.0f} / {floor_levels[1]:,.0f} mm',
+                f'上部モデル {self.parameters["deck_levels_mm"][1]:,.0f} mm（H23帯）',
                 '公式案内値との換算・完成面実測ではない。',
                 '塔脚基準軸線間80,000 mmは図1参照。',
-                '部材断面・接合・平面外形は仮定。',
+                '床・外形の現況対応、部材・接合は仮定。',
                 '', '03 座標とデータ',
                 'CADモデル空間は実寸1:1、単位mm。',
                 '平面はX/Y、立面はX/Zの正投影。',
@@ -232,29 +236,62 @@ class TowerDrawing:
                 '基座平面は上部投影外形も重ねて表示。',
                 '文字・寸法はDXFで編集可能。',
                 '', '04 参照資料（2026-10-30）',
-                '宮地技報 No18 p86 図1（2002年改修）',
+                'JAEE実在建物の振動性状 / 歴史図復刻',
+                '宮地技報 No18 p86 / No28 p65–66',
                 'tokyotower.co.jp/guidance/',
                 '観光床の完成面・現況構造は未測量。',
             ]
             for index,note in enumerate(notes):
-                if note:self.paper_text(note,(257,232-index*7.5),2.7)
+                if note:self.paper_text(note,(257,232-index*7),2.5)
             self.labels += ['施工GL','公式案内値との換算・完成面実測ではない。']
             return
         if self.tower_id == 'tokyo-skytree' and self.view == 'elevation':
             notes = [
                 (232, '01 公式公表値 / 全高 634,000 mm'),
-                (225, '天望デッキ 350,000 / 天望回廊 450,000 mm'),
-                (218, '開口・半径・部材寸法・曲率の詳細は仮定。'),
-                (211, '未測量・未計算。施工図ではない。'),
-                (201, '02 天望デッキ付近 / 1:500'),
-                (132, 'FL 340,000 / 345,000 / 350,000 mm'),
-                (122, '03 天望回廊付近 / 1:500'),
-                (52, 'FL 445,000 → 450,000 mm / 上昇する回廊'),
-                (44, 'tokyo-skytree.jp/floor/  /about/outline/'),
+                (225, 'FL340/345/350 m・回廊445/450 m・最高451.2 m'),
+                (218, '315 m/D32 → H495 m/D18：直錐のモデル仮定。'),
+                (211, '塔体H497 m・ゲイン約D6 m・TMD頂帽は近似。'),
+                (204, '02 天望デッキ・設備冠 / 1:750'),
+                (130, '展望FL 340,000 / 345,000 / 350,000 mm'),
+                (123, '設備屋上375,000 mmは公表高度。展望床ではない。'),
+                (119, '03 天望回廊付近 / 1:500'),
+                (52, '回廊445,000 → 450,000 / 最高451,200 mm'),
+                (44, '円弧・設備位置・外形細部は仮定。未測量・未計算。'),
             ]
             for y,note in notes:
-                self.paper_text(note,(257,y),2.7 if y>=201 else 2.5)
-            self.labels += ['天望デッキ付近','天望回廊付近','上昇する回廊']
+                self.paper_text(note,(257,y),2.5 if y>=204 else 2.2)
+            self.labels += ['天望デッキ・設備冠','天望回廊付近','設備屋上',
+                            '展望床ではない。','モデル仮定','最高451,200']
+            return
+        if self.tower_id == 'tokyo-skytree' and self.view == 'plan':
+            notes = [
+                '01 公式施設案内・公開資料の制御値',
+                '全高634,000 mm / 基部三角形の辺長約68,000 mm',
+                '地上315,000 mmで円形へ移行。',
+                '展望FL 340,000 / 345,000 / 350,000 mm',
+                '回廊445,000 / 450,000・最高451,200 mm',
+                '', '02 R04の形状合わせ・仮定',
+                '隅部・面中央の円弧半径と輪郭24点は近似。',
+                '315 m/D32 → H495 m/D18の直錐はモデル仮定。',
+                '塔体H497 m / 約D6 mの六柱ゲイン塔を表現。',
+                '展望外壁の外傾71°を参考に外形を修正。',
+                '回廊外形・分節設備・TMD頂帽の細部は仮定。',
+                '', '03 展望床と設備屋上を区別',
+                '設備屋上375,000 mmは公表高度。外形断面は近似。',
+                '展望フロアの標高を375 mへ変更しない。',
+                '3組×4主柱・基部連結帯約50 mを保持。',
+                '管径・接合・設備配置は実測復元ではない。',
+                '', '04 座標・データと参照',
+                'CADモデル空間は実寸1:1、単位mm。',
+                '平面X/Y・立面X/Zの正投影。方位はモデル用。',
+                '上部投影外形を基座平面に重ねて表示。',
+                'DXFの文字・寸法は編集可能。SVG/PDFは同じ投影。',
+                '公式 floor / about/spec/structure/ を参照。',
+                '未測量・未計算。測量図・構造図・施工図ではない。',
+            ]
+            for index,note in enumerate(notes):
+                if note:self.paper_text(note,(257,232-index*7.6),2.4)
+            self.labels += ['モデル仮定','設備屋上','展望フロア','輪郭24点']
             return
         notes = [
             '01 公式公表値',
@@ -358,7 +395,7 @@ class TowerDrawing:
             pdf.restoreState()
 
     def save(self, root=ROOT):
-        suffix='steel_nodes' if self.view=='steel-nodes' else self.view
+        suffix={'steel-nodes':'steel_nodes','structure-zones':'structure_zones'}.get(self.view,self.view)
         stem = f'{self.parameters["file_stem"]}_{suffix}'
         dxf, svg = f'DXF/{stem}.dxf', f'output/svg/{stem}.svg'
         for rel in (dxf,svg):(root/rel).parent.mkdir(parents=True,exist_ok=True)
@@ -366,7 +403,7 @@ class TowerDrawing:
         # native geometry or dimension measurements in modelspace.
         center=(0, self.parameters['height_mm']/2) if self.view=='elevation' else (0,0)
         view_size=(232,232)
-        if self.view=='steel-nodes':
+        if self.view in ('steel-nodes','structure-zones'):
             center=self.index_viewport['view_center_mm']
             x1,y1,x2,y2=self.index_viewport['paper_bounds_mm']
             view_size=(x2-x1,y2-y1)
@@ -395,8 +432,15 @@ class TowerDrawing:
             raise ValueError('Saved native dimensions differ from source geometry.')
         return {'id':self.view,'dxf':dxf,'svg':svg,'scale':self.scale,
                 'dimensions_mm':self.dimensions,'required_labels':self.labels,
+                **({'roof_levels_mm':[SKYTREE_EQUIPMENT_ROOF_MM]}
+                    if self.tower_id=='tokyo-skytree' and self.view=='elevation' else {}),
+                **({'projection_sampling':{'circular_segments':PIPE_DRAWING_SEGMENTS,
+                       'scope':'Drawing projection only; STEP retains analytic circular hollow sections.'}}
+                    if self.tower_id=='tokyo-skytree' else {}),
                 **({'sections':self.sections,'node_index':self.node_index,
                     'index_viewport':self.index_viewport} if self.view=='steel-nodes' else {}),
+                **({'sections':self.sections,'index_viewport':self.index_viewport}
+                    if self.view=='structure-zones' else {}),
                 **({'details':self.details} if self.details else {})}
 
 
@@ -425,7 +469,20 @@ def draw_components(drawing, parts=None):
         outline='#465c69'
         if drawing.tower_id=='tokyo-tower' and color.upper()=='#E34C25':outline='#af452d'
         if drawing.view=='plan' and group=='antenna':continue
-        if part['kind']=='beam':
+        if hasattr(drawing,'source_point') and part['kind'] not in ('tube','tube_loft','rhs'):
+            seen=set()
+            for face in _primitive_faces(part):
+                points=[drawing.source_point(point) for point in face]
+                key=tuple(sorted(set((round(x,8),round(y,8)) for x,y in points)))
+                if len(key)<2 or key in seen:continue
+                seen.add(key)
+                drawing.poly(points,group,color=outline,width=.10,part=name)
+            continue
+        if part['kind'] in ('tube','tube_loft','rhs'):
+            if drawing.view=='plan' and group=='structure' and part['kind'] in ('tube','rhs') \
+                    and min(part['start'][2],part['end'][2])>30000:continue
+            _draw_hollow_member(drawing,part,outline)
+        elif part['kind']=='beam':
             start,end=part['start'],part['end']
             if drawing.view=='plan' and group=='structure' and min(start[2],end[2])>30000:continue
             a,b=_projection(start,drawing.view),_projection(end,drawing.view)
@@ -512,6 +569,19 @@ def _projected_bounds(part):
         points=(part['start'],part['end']);radius=part['radius']
         return min(p[0] for p in points)-radius,min(p[2] for p in points)-radius, \
             max(p[0] for p in points)+radius,max(p[2] for p in points)+radius
+    if part['kind']=='tube':
+        a,b=part['start'],part['end'];length=sqrt(sum((b[i]-a[i])**2 for i in range(3)))
+        dx,dz=(b[0]-a[0])/length,(b[2]-a[2])/length
+        rx,rz=part['radius']*sqrt(max(0,1-dx*dx)),part['radius']*sqrt(max(0,1-dz*dz))
+        return min(a[0],b[0])-rx,min(a[2],b[2])-rz,max(a[0],b[0])+rx,max(a[2],b[2])+rz
+    if part['kind']=='tube_loft':
+        sections=part['sections']
+        return min(s['center'][0]-s['radius'] for s in sections),min(s['z'] for s in sections), \
+            max(s['center'][0]+s['radius'] for s in sections),max(s['z'] for s in sections)
+    if part['kind']=='rhs':
+        outer,_=_hollow_member_sections(part)
+        points=[point for section in outer for point in section]
+        return min(p[0] for p in points),min(p[2] for p in points),max(p[0] for p in points),max(p[2] for p in points)
     sections=part['sections']
     if part['kind']=='loft3d':
         vertices=[point for section in sections for point in section]
@@ -519,6 +589,79 @@ def _projected_bounds(part):
             max(point[0] for point in vertices),max(point[2] for point in vertices)
     return min(p[0] for section in sections for p in section['points']),min(s['z'] for s in sections), \
         max(p[0] for section in sections for p in section['points']),max(s['z'] for s in sections)
+
+
+def _member_basis(a,b):
+    direction=[b[i]-a[i] for i in range(3)];length=sqrt(sum(v*v for v in direction))
+    if length<=0:raise ValueError('A hollow member must have a positive axis length.')
+    direction=[v/length for v in direction]
+    reference=[0.,0.,1.] if abs(direction[2])<.95 else [1.,0.,0.]
+    cross=lambda u,v:[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]]
+    u=cross(direction,reference);norm=sqrt(sum(v*v for v in u));u=[v/norm for v in u]
+    return u,cross(direction,u)
+
+
+def _hollow_member_sections(part,segments=PIPE_DRAWING_SEGMENTS):
+    """Finite drawing samples of the exact hollow CAD section contract."""
+    kind=part['kind'];outer=[];inner=[]
+    if kind=='tube_loft':
+        for section in part['sections']:
+            x,y=section['center'];z=section['z'];radius=section['radius'];wall=section['wall_thickness_mm']
+            if not 0<wall<radius:raise ValueError('Invalid tubular loft wall in drawing source.')
+            for rings,r in ((outer,radius),(inner,radius-wall)):
+                rings.append([[x+r*cos(2*pi*i/segments),y+r*sin(2*pi*i/segments),z] for i in range(segments)])
+        return outer,inner
+    a,b=part['start'],part['end'];u,v=_member_basis(a,b)
+    if kind=='tube':
+        radius=part['radius'];wall=part['wall_thickness_mm']
+        if not 0<wall<radius:raise ValueError('Invalid circular tube wall in drawing source.')
+        for rings,r in ((outer,radius),(inner,radius-wall)):
+            for center in (a,b):
+                rings.append([[center[k]+r*(u[k]*cos(2*pi*i/segments)+v[k]*sin(2*pi*i/segments))
+                               for k in range(3)] for i in range(segments)])
+    elif kind=='rhs':
+        width,depth,wall=part['width_mm'],part['depth_mm'],part['wall_thickness_mm']
+        if not 0<2*wall<min(width,depth):raise ValueError('Invalid rectangular hollow wall in drawing source.')
+        for rings,w,h in ((outer,width,depth),(inner,width-2*wall,depth-2*wall)):
+            for center in (a,b):
+                rings.append([[center[k]+u[k]*x+v[k]*y for k in range(3)] for x,y in
+                              [(-w/2,-h/2),(w/2,-h/2),(w/2,h/2),(-w/2,h/2)]])
+    else:raise ValueError(f'Unsupported hollow section: {kind}')
+    return outer,inner
+
+
+def _convex_hull(points):
+    points=sorted(set(tuple(point) for point in points))
+    if len(points)<=2:return points
+    turn=lambda a,b,c:(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+    lower=[];upper=[]
+    for point in points:
+        while len(lower)>=2 and turn(lower[-2],lower[-1],point)<=1e-8:lower.pop()
+        lower.append(point)
+    for point in reversed(points):
+        while len(upper)>=2 and turn(upper[-2],upper[-1],point)<=1e-8:upper.pop()
+        upper.append(point)
+    return lower[:-1]+upper[:-1]
+
+
+def _draw_hollow_member(drawing,part,outline):
+    outer,inner=_hollow_member_sections(part)
+    project=getattr(drawing,'source_point',lambda point:_projection(point,drawing.view))
+    outer=[[project(point) for point in section] for section in outer]
+    inner=[[project(point) for point in section] for section in inner]
+    # End rings retain wall thickness; a projected envelope per actual pair
+    # of stations avoids drawing all 24 wall facets on top of one another.
+    if drawing.view=='plan' and part['kind']=='tube_loft':
+        # Like the earlier loft plan, show the actual start/end sections of
+        # each long chord chunk rather than every superimposed upper station.
+        polygons=[outer[0],outer[-1],inner[0],inner[-1]]
+    else:polygons=[_convex_hull(a+b) for a,b in zip(outer,outer[1:])]+outer+[inner[0],inner[-1]]
+    seen=set()
+    for points in polygons:
+        key=tuple(sorted(set((round(x,8),round(y,8)) for x,y in points)))
+        if len(key)<2 or key in seen:continue
+        seen.add(key)
+        drawing.poly(points,part['group'],closed=len(key)>2,color=outline,width=.10,part=part['name'])
 
 
 def _add_component_detail(drawing,ident,bounds,scale,center,prefix,levels=None):
@@ -548,16 +691,28 @@ def _add_component_detail(drawing,ident,bounds,scale,center,prefix,levels=None):
         'source_parts':[part['name'] for part in selected],
         'frozen_layers':[LAYERS[key] for key in ('dimension','text','axis')],
         'small_parts_omitted':True,
+        **({'source_part_prefix':prefix} if drawing.tower_id=='tokyo-tower' else {}),
         **({'levels_mm':levels,'source_part_prefix':prefix} if levels is not None else {})})
 
 
 def add_main_deck_detail(drawing):
-    _add_component_detail(drawing,'main_deck',[257,75,394,159],300,[0,TOWERS['tokyo-tower']['deck_levels_mm'][0]],
-                          'decks:main_')
+    p=TOWERS['tokyo-tower']
+    _add_component_detail(drawing,'main_deck',[257,139,394,195],300,[0,p['deck_levels_mm'][0]],
+                          'decks:main_',p['detail']['main_floor_levels_mm'])
+
+
+def add_tokyo_upper_details(drawing):
+    p=TOWERS['tokyo-tower']
+    _add_component_detail(drawing,'top_deck',[257,65,326,120],400,[0,227000],
+                          'decks:top_',[p['deck_levels_mm'][1]])
+    # The entire H25 antenna / SG / ST zone fits here. Context remains the
+    # real structure/core projection; equipment is selected by antenna group.
+    _add_component_detail(drawing,'antenna',[334,40,394,120],1250,[0,285500],
+                          'antenna:')
 
 
 def add_skytree_details(drawing):
-    _add_component_detail(drawing,'tembo_deck',[257,139,394,195],500,[0,345000],
+    _add_component_detail(drawing,'tembo_deck',[257,134,394,198],750,[0,354000],
                           'decks:tembo_deck_',[340000,345000,350000])
     _add_component_detail(drawing,'tembo_galleria',[257,59,394,115],500,[0,449000],
                           'decks:tembo_galleria_',[445000,450000])
@@ -602,7 +757,10 @@ def build_elevation(tower_id):
     d.line((-width*.75,0),(width*.75,0))
     d.line((0,-3000),(0,p['height_mm']+5000),color='#82919b',width=.1)
     d.dim((0,0),(0,p['height_mm']),width/2+26*scale)
-    for index,(level,label) in enumerate(zip(p['deck_levels_mm'],DECK_LABELS[tower_id])):
+    level_labels=list(zip(p['deck_levels_mm'],DECK_LABELS[tower_id]))
+    if tower_id=='tokyo-skytree':
+        level_labels.append((SKYTREE_EQUIPMENT_ROOF_MM,'設備屋上（参考）'))
+    for index,(level,label) in enumerate(level_labels):
         d.dim((0,0),(0,level),-(width/2+(30+index*21)*scale))
         # Short level ticks sit beside the silhouette; names and dimension
         # numbers have independent positions to avoid double annotations.
@@ -615,7 +773,9 @@ def build_elevation(tower_id):
         d.labels.append(plotted_label)
     d.paper_text('基準 GL ±0', (21,29),2.6)
     d.paper_text('正投影 / 展望施設の形状・鉄骨径は模式表現', (21,24),2.6)
-    if tower_id=='tokyo-tower':add_main_deck_detail(d)
+    if tower_id=='tokyo-tower':
+        add_main_deck_detail(d)
+        add_tokyo_upper_details(d)
     else:add_skytree_details(d)
     return d
 
@@ -815,6 +975,117 @@ def build_steel_nodes():
     return drawing
 
 
+class StructureZoneDrawing(TowerDrawing):
+    def frame(self):
+        self.labels=['東京スカイツリー','鋼管架構の構成','外観模式図','公表値','仮定','単位 mm']
+        self.paper_poly([(7.5,7.5),(412.5,7.5),(412.5,289.5),(7.5,289.5)],True,width=.7)
+        self.paper_text('東京スカイツリー / 鋼管架構の構成',(16,277),5)
+        self.paper_text(f'{self.revision} | A3 | モデル空間1:1 | 単位 mm | 外観模式図',(16,267),2.8)
+        self.paper_text('公表値: 全高634,000 mm / 三脚の連結高さ約50m / 鋼管径・組幅・細部配置はモデル仮定。',(16,257),2.7)
+        self.paper_text('基部3組の配置 / X-Z正投影 / 1:750',(17,248),2.8)
+        self.paper_text('鼎トラス1組のモデル節間 / 斜め正投影 / 1:200',(170,248),2.8)
+        for y,text in [(114,'3組×4主柱。50,000はGL〜脚部連結帯の区間。'),
+                       (106,'鼎トラス全体の高さを示す寸法ではない。'),
+                       (94,'公式: リング12,500 / 水平連結25,000 mm。'),
+                       (86,'右図の寸法は基部組柱のモデル水平節点間。'),
+                       (74,'円管の作図円周は24点。STEPは真円中空。'),
+                       (66,'心柱と鋼骨は別系統。制振性能は未解析。'),
+                       (54,'参照: 公式構造案内（日建供図）・巴製作資料。'),
+                       (46,'/about/spec/structure/  /steel-tower/works/skytree/'),
+                       (38,'方位・断面位置はモデル参照。')]:
+            self.paper_text(text,(17,y),2.5 if y!=46 else 2.1)
+        for y,text in [(74,'元のCAD部材を45°方向へ正投影。寸法は鉛直間隔。'),
+                       (65,'接合は鋼管の直接分岐溶接を参考にした外観近似。'),
+                       (56,'個別の管径・板厚・溶接詳細は原設計の復元ではない。'),
+                       (47,'315 m以高は5,000 mm節間で近似。モデル仮定。'),
+                       (38,'下部150/250 mの密度切替位置もモデル仮定。')]:
+            self.paper_text(text,(170,y),2.6)
+        self.paper_text('未測量・未計算 / NOT FOR CONSTRUCTION / 構造耐力・溶接仕様を示す図ではありません。',(16,16),2.6)
+
+
+class _StructureLocalProjection(_DetailProjection):
+    def __init__(self,owner,scale,paper_origin,frame,translation):
+        super().__init__(owner.tower_id,scale,
+                         tuple(paper_origin[i]-translation[i]/scale for i in range(2)))
+        self.doc,self.msp,self.dimensions=owner.doc,owner.msp,owner.dimensions
+        self.frame,self.translation=frame,translation
+
+    def source_point(self,point):return _local_projection(point,self.frame)
+
+    def native_point(self,point):return tuple(point[i]+self.translation[i] for i in range(2))
+
+    def poly(self,points,group='structure',closed=True,color='#4d6472',fill=None,width=.15,part=None):
+        entity=TowerDrawing.poly(self,[self.native_point(point) for point in points],
+                                group,closed,color,fill,width,part)
+        entity.set_xdata('STRUCTURE_VIEW',[(1000,'kanae-module')])
+        return entity
+
+    def dim(self,a,b,distance):
+        TowerDrawing.dim(self,self.native_point(a),self.native_point(b),distance)
+
+
+def build_structure_zones():
+    tower_id='tokyo-skytree';scale=750;bounds=[17,123,152,242];center=[0,25000]
+    paper_center=[(bounds[0]+bounds[2])/2,(bounds[1]+bounds[3])/2]
+    origin=tuple(paper_center[i]-center[i]/scale for i in range(2))
+    drawing=StructureZoneDrawing(tower_id,'structure-zones',scale,origin)
+    drawing.doc.appids.new('STRUCTURE_VIEW')
+    parts=[part for part in _drawing_parts(tower_id) if part['group'] in ('structure','core')
+           and not part.get('role','').startswith('shinbashira')]
+    base_parts=[part for part in parts if _projected_bounds(part)[1]<=50000
+                and _projected_bounds(part)[3]>=0]
+    # Full native members are retained; locked viewports and preview clips
+    # show the requested zone without cutting or rescaling their source CAD.
+    operation_start=len(drawing.operations);drawing.view='elevation'
+    draw_components(drawing,base_parts)
+    drawing.dim((0,0),(0,50000),-45000)
+    drawing.view='structure-zones'
+    base_operations=drawing.operations[operation_start:];del drawing.operations[operation_start:]
+    drawing.operation('detail',bounds,id='kanae-base',operations=base_operations)
+    drawing.paper_poly([(17,123),(152,123),(152,242),(17,242)],True,width=.2)
+    drawing.index_viewport={'paper_bounds_mm':bounds,'view_center_mm':center,'scale':scale,
+                            'source_parts':[part['name'] for part in base_parts]}
+    kanae=[part for part in parts if part['name'].startswith('structure:kanae_01_')
+           and _projected_bounds(part)[1]<=25000 and _projected_bounds(part)[3]>=0]
+    chords=[part for part in kanae if part.get('role')=='kanae_chord']
+    if not chords:raise ValueError('The steel page needs the actual first four-column kanae group.')
+    starts=[]
+    for part in chords:
+        if part['kind']=='tube_loft':
+            section=min(part['sections'],key=lambda section:section['z']);starts.append(section['center'])
+        elif part['kind']=='tube':starts.append(min((part['start'],part['end']),key=lambda point:point[2])[:2])
+    frame={'origin_mm':[sum(point[i] for point in starts)/len(starts) for i in range(2)]+[0],
+           'u':[sqrt(.5),sqrt(.5),0.],'v':[0.,0.,1.],'normal':[sqrt(.5),-sqrt(.5),0.]}
+    local_bounds=[170,83,402,242];local_scale=200;local_center=[0,12500];translation=[1000000,0]
+    local_paper_center=[(local_bounds[0]+local_bounds[2])/2,(local_bounds[1]+local_bounds[3])/2]
+    projection=_StructureLocalProjection(drawing,local_scale,
+        tuple(local_paper_center[i]-local_center[i]/local_scale for i in range(2)),frame,translation)
+    draw_components(projection,kanae)
+    x_max=max(_local_projection(point,frame)[0] for part in kanae
+              for section in (_hollow_member_sections(part)[0] if part['kind'] in ('tube','tube_loft','rhs')
+                              else _primitive_faces(part)) for point in section)
+    projection.dim((0,0),(0,12500),-(x_max+4000))
+    projection.dim((0,0),(0,25000),-(x_max+8500))
+    drawing.operation('detail',local_bounds,id='kanae-module',operations=projection.operations)
+    x1,y1,x2,y2=local_bounds
+    drawing.paper_poly([(x1,y1),(x2,y1),(x2,y2),(x1,y2)],True,width=.2)
+    world=[translation[0]-(x2-x1)*local_scale/2,local_center[1]-(y2-y1)*local_scale/2,
+           translation[0]+(x2-x1)*local_scale/2,local_center[1]+(y2-y1)*local_scale/2]
+    drawing.details.append({'id':'kanae-module','view':'local-orthographic','scale':local_scale,
+        'source_geometry_revision':drawing.revision,'paper_bounds_mm':local_bounds,
+        'view_center_mm':[translation[i]+local_center[i] for i in range(2)],'bounds_mm':world,
+        'source_parts':[part['name'] for part in kanae],'local_frame':frame,
+        'native_translation_mm':translation,'levels_mm':[0,12500,25000],
+        'frozen_layers':[],'small_parts_omitted':False})
+    drawing.sections=[{'id':'kanae-base','levels_mm':[0,50000],
+                       'source_parts':[part['name'] for part in base_parts],
+                       'scope':'GL-to-lower-leg-connection reference interval; not total kanae height.'},
+                      {'id':'kanae-module','levels_mm':[0,12500,25000],
+                       'source_parts':[part['name'] for part in kanae],
+                       'scope':'Actual model horizontal nodes in the first four-column group.'}]
+    return drawing
+
+
 def generate(root=ROOT,tower_ids=None):
     root=Path(root)
     if not FONT.is_file():
@@ -831,11 +1102,12 @@ def generate(root=ROOT,tower_ids=None):
         source_snapshot={s:hashlib.sha256((ROOT/s).read_bytes()).hexdigest() for s in sources}
         sheets=[build_plan(tower_id),build_elevation(tower_id)]
         if tower_id=='tokyo-tower':sheets.append(build_steel_nodes())
+        else:sheets.append(build_structure_zones())
         drawings=[sheet.save(root) for sheet in sheets]
         pdf_path=f'output/pdf/{p["file_stem"]}_sheets.pdf'
         (root/pdf_path).parent.mkdir(parents=True,exist_ok=True)
         pdf=canvas.Canvas(str(root/pdf_path),pagesize=(420*mm,297*mm),invariant=1)
-        pdf.setTitle(p['names']['ja']+' / 基座平面・正立面'+('・鋼節点' if tower_id=='tokyo-tower' else '')+' / '+revision)
+        pdf.setTitle(p['names']['ja']+' / 基座平面・正立面'+('・鋼節点' if tower_id=='tokyo-tower' else '・鋼管架構')+' / '+revision)
         pdf.setAuthor('text-CAD')
         for sheet in sheets:sheet.draw_pdf(pdf);pdf.showPage()
         pdf.save()
@@ -847,6 +1119,7 @@ def generate(root=ROOT,tower_ids=None):
             raise RuntimeError('Tower drawing sources changed during export; regenerate from a stable source snapshot.')
         metadata={'schema_version':1,'revision':revision,'units':'mm',
             'status':'reference_concept_only','source_geometry_revision':revision,
+            **({'roof_levels_mm':[SKYTREE_EQUIPMENT_ROOF_MM]} if tower_id=='tokyo-skytree' else {}),
             'source_sha256':source_snapshot,
             'artifacts':{rel:{'sha256':sha(rel),'bytes':(root/rel).stat().st_size} for rel in paths},
             'drawings':drawings}

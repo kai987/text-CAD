@@ -1,9 +1,10 @@
-"""Reference-informed R04 Tokyo Tower appearance detail, in mm; not an engineered copy.
+"""Reference-informed R06 Tokyo Tower appearance detail, in mm; not an engineered copy.
 
-Only published tower/deck heights, the two Main Deck levels and the existence
-of the approximately 600-step outdoor route are references. The member layout,
-floor heights other than explicitly cited construction GL levels, connections, glazing, route and light
-positions below are explicitly adjustable modelling assumptions.
+Published controls include construction GL heights, the H11/H12 27/28m plan
+widths, H23 D13m plan, replacement ST BOX450 section, and the approximately
+600-step outdoor route. Identifying these historical bands with present-day
+floors, intermediate member layouts, shell trims, equipment stations, walls,
+connections, glazing, route and light positions remains a modelling assumption.
 
 All returned primitives use the shared box/beam/loft contract. Thus CAD,
 editable drawings and the web model retain one source of geometry.
@@ -17,6 +18,43 @@ WHITE = '#F4F0E7'
 STEEL = '#6D7880'
 GLASS = '#658C9E'
 WARM = '#FFE0A3'
+
+# The shell and equipment controls below are appearance assumptions, not
+# recovered fabrication dimensions. Keep the construction GL controls in p.
+DECK_APPEARANCE_DEFAULTS = {
+    'main_lower_half_width_mm': 13500., 'main_upper_half_width_mm': 14000.,
+    'main_chamfer_factor': .18, 'main_glass_top_scale': 1.,
+    'main_long_face_bays': 24, 'main_corner_face_bays': 4,
+    'main_mullion_radius_mm': 32., 'main_transom_height_mm': 65.,
+    'main_glass_color': '#284C61', 'main_soffit_thickness_mm': 180.,
+    'main_fascia_height_mm': 350., 'main_roof_fascia_height_mm': 180.,
+    'main_cleaning_track_radius_mm': 48.,
+    'top_facets': 48, 'top_glass_color': '#385C6C',
+    'top_lower_radius_factor': .86, 'top_glass_radius_factor': 1.,
+    'top_roof_radius_factor': 1.04, 'top_mullion_radius_mm': 28.,
+    'top_glass_top_offset_mm': 850.,
+    'top_service_platform_mm': 231000., 'top_service_radius_mm': 6800.,
+    'top_service_inner_radius_mm': 4500., 'top_service_rail_height_mm': 1100.,
+}
+ANTENNA_APPEARANCE_DEFAULTS = {
+    'digital_panel_bottom_mm': 240550.,
+    'digital_group_height_mm': 5300., 'digital_group_gap_mm': 500.,
+    'digital_lower_diameter_mm': 13400., 'digital_upper_diameter_mm': 12876.,
+    'digital_support_diameter_mm': 11800.,
+    'digital_panel_columns': 30, 'digital_panel_rows': 5,
+    'digital_panel_depth_mm': 220., 'digital_panel_azimuth_gap_degrees': .25,
+    'digital_panel_gap_mm': 50.,
+    'mx_panel_bottom_mm': 237600., 'mx_panel_height_mm': 650.,
+    'mx_panel_row_pitch_mm': 950., 'mx_panel_radius_mm': 6200.,
+    'sg_bay_height_mm': 4500., 'sg_inner_half_width_low_mm': 1500.,
+    'sg_inner_half_width_high_mm': 500., 'sg_outer_offset_mm': 440.,
+    'sg_inner_chord_radius_mm': 95., 'sg_outer_chord_radius_mm': 105.,
+    'sg_inner_brace_radius_mm': 40., 'sg_outer_brace_radius_mm': 50.,
+    'sg_link_radius_mm': 48., 'sg_link_layer_offset_mm': 160.,
+    'st_width_mm': 450., 'st_depth_mm': 450., 'st_wall_mm': 16.,
+    'st_equipment_levels_mm': [315000., 318000., 321000., 324000., 327000., 330000.],
+    'st_equipment_half_width_mm': 380.,
+}
 
 
 def profile_radius(profile, z):
@@ -248,7 +286,7 @@ def _upper_frame(p, ring, paint):
     levels=_upper_frame_levels()
     parts=[]
     for index,(za,zb) in enumerate(zip(levels,levels[1:]),1):
-        a,b=ring(za),ring(zb);color=paint((za+zb)/2)
+        a,b=ring(za),ring(zb);color=WHITE if za>=217000 else paint((za+zb)/2)
         for side in range(4):
             nxt=(side+1)%4
             parts.append(_rect_chord(f'upper_chord_{side}_{index}',(*a[side],za),(*b[side],zb),max(160,400-za*.0008),color))
@@ -345,96 +383,366 @@ def _stairs(p):
     return parts
 
 
-def _decks(p, ring):
-    parts=[]
-    for deck in p['deck_specs']:
-        ident=deck['id'];half=deck['half_width_mm'];low=deck['bottom_mm'];glass=deck['glass_bottom_mm'];top=deck['top_mm']
-        lower=_octagon(half*.85);outer=_octagon(half)
-        support_z=deck['support_mm']
-        support_ring=_upper_frame_ring(ring,support_z)
-        support_half=abs(support_ring[0][0])
-        if ident=='top':
-            for side in range(4):
-                parts.append(_beam('decks',f'{ident}_support_ring_{side}',
-                                   (*support_ring[side],support_z),(*support_ring[(side+1)%4],support_z),
-                                   170,ORANGE,'deck_support_ring'))
-        for side in range(8):
-            nxt=(side+1)%8
-            # Thin faceted apron; the observation space is genuinely hollow.
-            a,b=lower[side],lower[nxt];c,d=outer[side],outer[nxt]
-            inward0=[[v*.985 for v in a],[v*.985 for v in b]]
-            inward1=[[v*.985 for v in c],[v*.985 for v in d]]
-            parts.append(_loft('decks',f'{ident}_apron_{side}',
-                               [_section(low,[a,b,inward0[1],inward0[0]]),_section(glass,[c,d,inward1[1],inward1[0]])],ORANGE,'deck_apron'))
-        levels=p['detail']['main_floor_levels_mm'] if ident=='main' else [deck['level_mm']]
-        for index,z in enumerate(levels):
-            if ident=='main':parts.extend(_floor_with_stair_opening(f'{ident}_reference_floor_{index+1}',half*.95,z,'#E1DCCE'))
-            else:parts.append(_loft('decks',f'{ident}_reference_floor',[_section(z-300,_octagon(half*.95)),_section(z,_octagon(half*.95))],'#E1DCCE','deck_floor'))
-        zones=[(glass,deck['level_mm']-350),(deck['level_mm']+250,top-1300)] if ident=='main' else [(glass,top-1300)]
-        for side in range(8):
-            a,b=outer[side],outer[(side+1)%8]
-            bays=3 if side%2==0 else 1
+def _deck_shell_band(parts, name, lower, upper, za, zb, color, role):
+    """Perimeter strips leave deck interiors and tower openings visible."""
+    for side,(a,b) in enumerate(zip(lower,lower[1:]+lower[:1])):
+        c,d=upper[side],upper[(side+1)%len(upper)]
+        parts.append(_loft('decks',f'{name}_{side}',[
+            _section(za,[a,b,[v*.985 for v in b],[v*.985 for v in a]]),
+            _section(zb,[c,d,[v*.985 for v in d],[v*.985 for v in c]])],color,role,
+            dimensions_status='demonstration_assumption'))
+
+
+def _deck_brackets(parts, deck, lower, support_ring):
+    """Eight load-path markers meet apron edges independently of facet count."""
+    support_z=deck['support_mm'];support_half=abs(support_ring[0][0])
+    for index in range(8):
+        side=index*len(lower)//8
+        a,b=lower[side],lower[(side+1)%len(lower)]
+        target=[(a[k]+b[k])/2 for k in range(2)]
+        radial=max(abs(value) for value in target)
+        anchor=[value/radial*support_half for value in target]
+        parts.append(_beam('decks',f'{deck["id"]}_underside_bracket_{index}',
+                           (*anchor,support_z),(*target,deck['bottom_mm']),200,
+                           WHITE if deck['id']=='top' else ORANGE,'deck_bracket',
+                           attachment_points=[[*anchor,support_z],[*target,deck['bottom_mm']]],
+                           target_member=f'decks:{deck["id"]}_apron_{side}',
+                           dimensions_status='demonstration_assumption'))
+
+
+def _main_deck(p, deck, ring, cfg):
+    """Two upright curtain-wall levels with a shallow soffit and cleaning rail.
+
+    The 27/28m control widths are from Naito's published H11/H12 plans.
+    Current narrow-window rhythm follows LIXIL's 2019 exterior photographs;
+    present-day floor identification, bays, frames and trim remain assumptions.
+    """
+    parts=[];low=deck['bottom_mm'];glass=deck['glass_bottom_mm'];top=deck['top_mm'];level=deck['level_mm']
+    halves=[cfg['main_lower_half_width_mm'],cfg['main_upper_half_width_mm']]
+    chamfer=cfg['main_chamfer_factor'];outer=[_octagon(half,chamfer) for half in halves]
+    lower=_octagon(halves[0]*.995,chamfer)
+    glass_top=top-cfg['main_roof_fascia_height_mm']-120.
+    roof_ring=[[v*cfg['main_glass_top_scale'] for v in q] for q in outer[1]]
+    support_ring=_upper_frame_ring(ring,deck['support_mm'])
+    _deck_shell_band(parts,'main_apron',lower,outer[0],low,glass,WHITE,'deck_apron')
+    _deck_brackets(parts,deck,lower,support_ring)
+    floor_halves=p['detail'].get('main_floor_half_widths_mm',halves)
+    for index,(z,half) in enumerate(zip(p['detail']['main_floor_levels_mm'],floor_halves)):
+        parts.extend(_floor_with_stair_opening(f'main_reference_floor_{index+1}',half*.985,z,'#E1DCCE'))
+    support_half=abs(support_ring[0][0]);inner=_octagon(support_half,chamfer)
+    thickness=cfg['main_soffit_thickness_mm']
+    for side,(a,b) in enumerate(zip(lower,lower[1:]+lower[:1])):
+        c,d=inner[side],inner[(side+1)%8];outline=[a,b,d,c]
+        parts.append(_loft('decks',f'main_soffit_panel_{side}',
+                           [_section(low-thickness,outline),_section(low,outline)],'#D9DAD4','deck_soffit',
+                           dimensions_status='demonstration_assumption'))
+        count=8 if side%2==0 else 3
+        for rib in range(count):
+            t=(rib+.5)/count
+            start=[c[k]*(1-t)+d[k]*t for k in range(2)]
+            end=[a[k]*(1-t)+b[k]*t for k in range(2)]
+            parts.append(_beam('decks',f'main_soffit_rib_{side}_{rib}',
+                               (*start,low-thickness-70),(*end,low-thickness-70),65,WHITE,'soffit_rib',
+                               dimensions_status='demonstration_assumption'))
+    zones=[(glass,level-350),(level+250,glass_top)]
+    for zone,((za,zb),points) in enumerate(zip(zones,outer)):
+        for side,(a,b) in enumerate(zip(points,points[1:]+points[:1])):
+            bays=cfg['main_long_face_bays'] if side%2==0 else cfg['main_corner_face_bays']
             for bay in range(bays):
-                t0=(bay+.045)/bays;t1=(bay+.955)/bays
+                t0=(bay+.025)/bays;t1=(bay+.975)/bays
                 aa=[a[k]*(1-t0)+b[k]*t0 for k in range(2)]
                 bb=[a[k]*(1-t1)+b[k]*t1 for k in range(2)]
-                for zone,(za,zb) in enumerate(zones):
-                    sa=1-.08*(za-glass)/(top-1300-glass)
-                    sb=1-.08*(zb-glass)/(top-1300-glass)
-                    parts.append(_edge_panel('decks',f'{ident}_glazing_{side}_{bay}_{zone}',
-                                             [v*sa for v in aa],[v*sa for v in bb],za,zb,90,GLASS,
-                                             upper_scale=sb/sa,role='glazing'))
-            # Shared facade corners have one mullion, not two coincident ones.
-            for bay in range(bays):
-                t=bay/bays;x=a[0]*(1-t)+b[0]*t;y=a[1]*(1-t)+b[1]*t
-                parts.append(_beam('decks',f'{ident}_mullion_{side}_{bay}',(x,y,glass),(x*.92,y*.92,top-1300),100 if ident=='main' else 70,WHITE,'window_frame'))
-            if ident=='main':
-                parts.append(_edge_panel('decks',f'{ident}_midfloor_belt_{side}',[v*.96 for v in a],[v*.96 for v in b],deck['level_mm']-300,deck['level_mm']+200,180,WHITE,role='floor_belt'))
-            parts.append(_edge_panel('decks',f'{ident}_roof_edge_{side}',[v*.98 for v in a],[v*.98 for v in b],top-1300,top-250,220,WHITE,role='roof_fascia'))
-            # Small supports and guard rails give the underside a readable scale.
-            midpoint=[(a[k]+b[k])/2 for k in range(2)]
-            radial=max(abs(value) for value in midpoint)
-            anchor=[value/radial*support_half for value in midpoint]
-            target=[(lower[side][k]+lower[(side+1)%8][k])/2 for k in range(2)]
-            parts.append(_beam('decks',f'{ident}_underside_bracket_{side}',
-                               (*anchor,support_z),(*target,low),200,ORANGE,'deck_bracket',
-                               attachment_points=[[*anchor,support_z],[*target,low]],
-                               target_member=f'decks:{ident}_apron_{side}'))
-        parts.append(_loft('decks',f'{ident}_roof_cover',[_section(top-250,_octagon(half*.98)),_section(top,_octagon(half*.98))],WHITE,'deck_roof'))
-        roof_ring=_octagon(half*.90)
-        for side in range(8):
-            a,b=roof_ring[side],roof_ring[(side+1)%8]
-            parts.append(_beam('decks',f'{ident}_maintenance_guard_{side}',(*a,top+850),(*b,top+850),45,STEEL,'maintenance_guard'))
-            parts.append(_beam('decks',f'{ident}_maintenance_post_{side}',(*a,top),(*a,top+850),50,STEEL,'maintenance_guard'))
+                parts.append(_edge_panel('decks',f'main_glazing_{side}_{bay}_{zone}',aa,bb,za,zb,70,
+                                         cfg['main_glass_color'],upper_scale=cfg['main_glass_top_scale'],role='glazing'))
+                t=bay/bays;point=[a[k]*(1-t)+b[k]*t for k in range(2)]
+                parts.append(_beam('decks',f'main_mullion_{side}_{bay}_{zone}',(*point,za),
+                                   (*[v*cfg['main_glass_top_scale'] for v in point],zb),
+                                   cfg['main_mullion_radius_mm'],WHITE,'window_frame'))
+            # Two fine transoms per storey retain a large central pane.
+            for edge,z in enumerate((za+430,zb-430)):
+                h=cfg['main_transom_height_mm']
+                parts.append(_edge_panel('decks',f'main_transom_{side}_{zone}_{edge}',a,b,z,z+h,110,WHITE,
+                                         role='window_frame'))
+    _deck_shell_band(parts,'main_midfloor_belt',outer[0],outer[1],level-350,level+250,WHITE,'floor_belt')
+    for side in range(8):
+        parts.append(_edge_panel('decks',f'main_lower_fascia_{side}',lower[side],lower[(side+1)%8],
+                                 low,low+cfg['main_fascia_height_mm'],140,WHITE,role='deck_fascia'))
+        parts.append(_edge_panel('decks',f'main_roof_edge_{side}',roof_ring[side],roof_ring[(side+1)%8],
+                                 glass_top,top-120,140,WHITE,role='roof_fascia'))
+        # The shallow dark perimeter is cleaning equipment, not a heavy cap.
+        track_a=[v*1.012 for v in roof_ring[side]];track_b=[v*1.012 for v in roof_ring[(side+1)%8]]
+        parts.append(_beam('decks',f'main_cleaning_track_{side}',(*track_a,top+150),(*track_b,top+150),
+                           cfg['main_cleaning_track_radius_mm'],'#34444B','cleaning_track',
+                           dimensions_status='demonstration_assumption'))
+        parts.append(_beam('decks',f'main_cleaning_track_support_{side}',(*track_a,top-80),(*track_a,top+150),
+                           32,STEEL,'cleaning_track_support',dimensions_status='demonstration_assumption'))
+    parts.append(_loft('decks','main_roof_cover',[_section(top-120,roof_ring),_section(top,roof_ring)],WHITE,'deck_roof'))
+    return parts
+
+
+def _top_deck(p, deck, ring, cfg):
+    """Fine circular H23 envelope and a separate open H24 service platform.
+
+    H23 is a historical structural/roof datum, not the operator's current
+    nominal250m finished-floor height. Local trim, H24 and dish sizes are fits.
+    """
+    parts=[];half=deck['half_width_mm'];low=deck['bottom_mm']
+    glass=deck['glass_bottom_mm'];top=deck['top_mm'];count=cfg['top_facets']
+    if count<8 or count%8:raise ValueError('Top deck facets must be a multiple of eight.')
+    shape=lambda factor:_circle(half*factor,count)
+    lower=shape(cfg['top_lower_radius_factor']);outer=shape(cfg['top_glass_radius_factor'])
+    glass_top=top-cfg['top_glass_top_offset_mm'];upper=shape(1.015);roof=shape(cfg['top_roof_radius_factor'])
+    support_z=deck['support_mm'];support_ring=_upper_frame_ring(ring,support_z)
+    for side in range(4):
+        parts.append(_beam('decks',f'top_support_ring_{side}',(*support_ring[side],support_z),
+                           (*support_ring[(side+1)%4],support_z),170,WHITE,'deck_support_ring'))
+    _deck_shell_band(parts,'top_apron',lower,outer,low,glass,'#E5E6DF','deck_apron')
+    _deck_brackets(parts,deck,lower,support_ring)
+    z=deck['level_mm']
+    parts.append(_loft('decks','top_reference_floor',[_section(z-300,shape(.95)),_section(z,shape(.95))],
+                       '#E1DCCE','deck_floor'))
+    _deck_shell_band(parts,'top_upper_equipment_band',upper,upper,glass_top,top-650.,WHITE,'deck_equipment_band')
+    _deck_shell_band(parts,'top_crown',upper,roof,top-650.,top,WHITE,'deck_crown')
+    for station,radius_factor,height in [('lower',1.035,glass-180),('upper',1.045,glass_top+300)]:
+        points=shape(radius_factor)
+        for side,(a,b) in enumerate(zip(points,points[1:]+points[:1])):
+            parts.append(_beam('decks',f'top_equipment_ring_{station}_{side}',(*a,height),(*b,height),
+                               65,WHITE,'deck_equipment_ring',dimensions_status='demonstration_assumption'))
+    for side,(a,b) in enumerate(zip(outer,outer[1:]+outer[:1])):
+        parts.append(_edge_panel('decks',f'top_glazing_{side}_0_0',a,b,glass,glass_top,70,
+                                 cfg['top_glass_color'],upper_scale=1.015,role='glazing'))
+        parts.append(_beam('decks',f'top_mullion_{side}_0',(*a,glass),(*[v*1.015 for v in a],glass_top),
+                           cfg['top_mullion_radius_mm'],WHITE,'window_frame'))
+        for transom,height in enumerate((glass+380,glass_top-380)):
+            scale=1+.015*(height-glass)/(glass_top-glass)
+            parts.append(_edge_panel('decks',f'top_transom_{side}_{transom}',
+                                     [v*scale for v in a],[v*scale for v in b],height,height+45,85,
+                                     WHITE,role='window_frame'))
+        end=roof[(side+1)%count]
+        parts.append(_beam('decks',f'top_crown_connector_{side}',
+                           (*[v*1.045 for v in a],glass_top+300),
+                           (*end,top-120),45,WHITE,'deck_crown_connector',
+                           dimensions_status='demonstration_assumption'))
+        parts.append(_beam('decks',f'top_lower_ring_connector_{side}',
+                           (*lower[side],low),(*[v*1.035 for v in a],glass-180),45,WHITE,'deck_lower_ring_connector',
+                           dimensions_status='demonstration_assumption'))
+    parts.append(_loft('decks','top_roof_cover',[_section(top-120,roof),_section(top,roof)],WHITE,'deck_roof'))
+    parts.extend(_top_service_platform(p,ring,cfg))
+    return parts
+
+
+def _annular_strips(group,name,inner,outer,z0,z1,color,role,count=48,**metadata):
+    parts=[]
+    for i in range(count):
+        a,b=2*pi*i/count,2*pi*(i+1)/count
+        points=[[r*cos(t),r*sin(t)] for r,t in ((inner,a),(outer,a),(outer,b),(inner,b))]
+        parts.append(_loft(group,f'{name}_{i:02d}',[_section(z0,points),_section(z1,points)],color,role,**metadata))
+    return parts
+
+
+def _top_service_platform(p,ring,cfg):
+    """An open annular platform above H23, with supported dishes and railings."""
+    parts=[];z=cfg['top_service_platform_mm'];outer=cfg['top_service_radius_mm']
+    inner=cfg['top_service_inner_radius_mm'];rail=z+cfg['top_service_rail_height_mm']
+    parts.extend(_annular_strips('decks','top_service_platform',inner,outer,z-180,z,WHITE,
+                                'service_platform',dimensions_status='image_fit'))
+    circle=_circle(outer,48)
+    for side,(a,b) in enumerate(zip(circle,circle[1:]+circle[:1])):
+        for tier,height in enumerate((z+550,rail)):
+            parts.append(_beam('decks',f'top_service_guard_{side}_{tier}',(*a,height),(*b,height),35,WHITE,'service_guard'))
+        if side%2==0:
+            parts.append(_beam('decks',f'top_service_post_{side}',(*a,z-90),(*a,rail),40,WHITE,'service_guard'))
+    for side in range(8):
+        theta=pi/4+2*pi*side/8;dx,dy=cos(theta),sin(theta)
+        q=_upper_frame_ring(ring,z-90);half=abs(q[0][0]);k=half/max(abs(dx),abs(dy))
+        parts.append(_beam('decks',f'top_service_spoke_{side}',(k*dx,k*dy,z-90),
+                           (outer*dx,outer*dy,z-90),110,WHITE,'service_platform_support'))
+        if side%2==0:
+            anchor=_upper_frame_ring(ring,z-4500)[side//2]
+            parts.append(_beam('decks',f'top_service_strut_{side}',(*anchor,z-4500),
+                               (outer*cos(pi*5/4+side*pi/4),outer*sin(pi*5/4+side*pi/4),z-90),
+                               110,WHITE,'service_platform_support'))
+    # Four modest outward-facing reflectors are an appearance fit, not an
+    # assertion of current equipment count, station use or pointing azimuth.
+    for dish in range(4):
+        theta=pi/4+dish*pi/2;normal=[cos(theta),sin(theta),0.];tangent=[-sin(theta),cos(theta),0.]
+        center=[6200*cos(theta),6200*sin(theta),z+2100]
+        anchor=_upper_frame_ring(ring,center[2])[(dish+2)%4]
+        parts.append(_beam('decks',f'top_service_dish_mount_{dish}',(*anchor,center[2]),center,85,WHITE,'dish_mount'))
+        def point(radius,angle,back=0.):
+            depth=150*(radius/550)**2+back
+            return [center[k]+normal[k]*depth+tangent[k]*radius*cos(angle)+(radius*sin(angle) if k==2 else 0) for k in range(3)]
+        for sector in range(12):
+            a,b=2*pi*sector/12,2*pi*(sector+1)/12
+            front=[point(r,t) for r,t in ((25,a),(550,a),(550,b),(25,b))]
+            back=[point(r,t,-35) for r,t in ((25,a),(550,a),(550,b),(25,b))]
+            parts.append({'group':'decks','name':f'decks:top_service_dish_{dish}_{sector}','kind':'loft3d',
+                          'sections':[back,front],'color':WHITE,'role':'service_dish','dimensions_status':'image_fit'})
+        parts.append(_beam('decks',f'top_service_dish_feed_{dish}',center,
+                           [center[k]+normal[k]*380 for k in range(3)],35,STEEL,'dish_feed'))
+    return parts
+
+
+def _decks(p, ring):
+    cfg={**DECK_APPEARANCE_DEFAULTS,**p['detail'].get('deck_appearance',{})}
+    parts=[]
+    for deck in p['deck_specs']:
+        parts.extend(_main_deck(p,deck,ring,cfg) if deck['id']=='main' else _top_deck(p,deck,ring,cfg))
+    return parts
+
+
+def _digital_antenna_panels(p, paint, cfg):
+    """Two circular five-tier arrays following the supplier's2012 Fig5.
+
+    Published diameters/heights and300 panels are distinct from the fitted
+    absolute elevation, shell thickness, seam gaps, supporting steel and MX
+    short arrays. Historic station names do not assert present operating use.
+    """
+    parts=[];bottom=cfg['digital_panel_bottom_mm'];height=cfg['digital_group_height_mm']
+    gap=cfg['digital_group_gap_mm'];columns=cfg['digital_panel_columns'];rows=cfg['digital_panel_rows']
+    if columns!=30 or rows!=5:raise ValueError('Published Tokyo arrays require30 panels per row and5 rows per group.')
+    if not 0<bottom<bottom+2*height+gap+1000<=p['antenna_start_mm']:
+        raise ValueError('Digital arrays and1m top frame must remain below H27.')
+    half_gap=cfg['digital_panel_azimuth_gap_degrees']*pi/360
+    wall=cfg['digital_panel_depth_mm'];row_gap=cfg['digital_panel_gap_mm']
+    if not 0<wall<500 or not 0<=row_gap<height/rows or not 0<=half_gap<pi/columns:
+        raise ValueError('Panel thickness or seam exceeds its array cell.')
+    def ring_at(z):return _upper_frame_ring(lambda value:_square(profile_radius(p['profile'],value)),z)
+    for bank,(z0,diameter,color) in enumerate(((bottom,cfg['digital_lower_diameter_mm'],WHITE),
+                                             (bottom+height+gap,cfg['digital_upper_diameter_mm'],ORANGE))):
+        radius=diameter/2
+        for col in range(columns):
+            a,b=2*pi*col/columns+half_gap,2*pi*(col+1)/columns-half_gap
+            points=[[r*cos(t),r*sin(t)] for r,t in ((radius-wall,a),(radius,a),(radius,b),(radius-wall,b))]
+            for row in range(rows):
+                za=z0+row*height/rows+row_gap/2;zb=z0+(row+1)*height/rows-row_gap/2
+                parts.append(_loft('antenna',f'digital_panel_{bank}_{col:02d}_{row}',
+                                   [_section(za,points),_section(zb,points)],color,'digital_antenna_panel',
+                                   panel_bank=bank,panel_column=col,panel_row=row,
+                                   published_diameter_mm=diameter,published_group_height_mm=height,
+                                   dimensions_status='published envelope; fitted shell thickness, seams and absolute elevation'))
+        support=cfg['digital_support_diameter_mm']/2
+        for tier in range(rows+1):
+            z=z0+tier*height/rows
+            # Face-midpoint chords are inset slightly; the radial width overlaps
+            # the panel wall while retaining the empty central tower volume.
+            parts.extend(_annular_strips('antenna',f'digital_rail_{bank}_{tier}',support-90,radius-35,
+                                        z-45,z+45,color,'digital_antenna_rail',count=30))
+        for station,z in enumerate((z0+35,z0+height-35)):
+            actual=ring_at(z)
+            for side,anchor in enumerate(actual):
+                theta=pi*5/4+side*pi/2;target=[(support+50)*cos(theta),(support+50)*sin(theta),z]
+                parts.append(_beam('antenna',f'digital_bracket_{bank}_{station}_{side}',(*anchor,z),target,
+                                   110,WHITE,'digital_antenna_bracket',attachment_points=[[*anchor,z],target],
+                                   target_member=f'antenna:digital_rail_{bank}_{0 if station==0 else rows}_{int((theta%(2*pi))/(2*pi/30)):02d}',
+                                   dimensions_status='image_fit'))
+        # A small open triangular head follows Fig5, not an extra opaque cap.
+        if bank==1:
+            z=z0+height
+            for side,anchor in enumerate(ring_at(z+45)):
+                parts.append(_beam('antenna',f'digital_top_head_{side}',(*anchor,z+45),(0,0,z+1000),
+                                   80,ORANGE,'digital_array_head'))
+    # Two short lower rings preserve the photograph's separate narrow layer.
+    radius=cfg['mx_panel_radius_mm'];count=30
+    for row in range(2):
+        za=cfg['mx_panel_bottom_mm']+row*cfg['mx_panel_row_pitch_mm'];zb=za+cfg['mx_panel_height_mm']
+        for col in range(count):
+            a,b=2*pi*(col+.12)/count,2*pi*(col+.88)/count
+            points=[[r*cos(t),r*sin(t)] for r,t in ((radius-180,a),(radius,a),(radius,b),(radius-180,b))]
+            parts.append(_loft('antenna',f'mx_short_panel_{row}_{col:02d}',[_section(za,points),_section(zb,points)],
+                               WHITE,'short_antenna_panel',dimensions_status='image_fit; historic envelope only'))
+        parts.extend(_annular_strips('antenna',f'mx_support_ring_{row}',5500,radius-80,za-40,za+50,WHITE,
+                                    'short_antenna_support',count=30))
+        for side,anchor in enumerate(ring_at(za)):
+            theta=pi*5/4+side*pi/2
+            parts.append(_beam('antenna',f'mx_support_spoke_{row}_{side}',(*anchor,za),
+                               (5600*cos(theta),5600*sin(theta),za),95,WHITE,'short_antenna_support'))
     return parts
 
 
 def _antenna(p,paint):
-    start,split,end=p['antenna_start_mm'],p['antenna_lattice_top_mm'],p['height_mm'];parts=[]
-    # Contractor H27 and SG/ST zone controls. Exact member sizes and all
-    # intermediate antenna equipment stations are visual assumptions.
-    levels=[start]+[z for z in range(258000,312000,4500)]+[split]
-    def radius(z):return 1500.-1000.*(z-start)/(split-start)
+    cfg={**ANTENNA_APPEARANCE_DEFAULTS,**p['detail'].get('antenna_appearance',{})}
+    start,split,end=p['antenna_start_mm'],p['antenna_lattice_top_mm'],p['height_mm']
+    parts=_digital_antenna_panels(p,paint,cfg)
+    # The SG internal lattice and the later exterior reinforcement are distinct.
+    # Miyaji No28 Fig2 establishes this topology, not these assumed bar sizes.
+    step=cfg['sg_bay_height_mm'];levels=[start];z=start+step
+    while z<split:
+        levels.append(z);z+=step
+    levels.append(split)
+    def radius(z):
+        return cfg['sg_inner_half_width_low_mm']+(cfg['sg_inner_half_width_high_mm']-cfg['sg_inner_half_width_low_mm'])*(z-start)/(split-start)
+    offset=cfg['sg_outer_offset_mm']
+    # H27 has an explicit path from the tower body into the SG exterior frame.
+    # These short links mark the published transfer/damper zone schematically;
+    # they do not represent a calculated lock or damping mechanism.
+    body=_square(profile_radius(p['profile'],start));base_outer=_square(radius(start)+offset)
+    for side in range(4):
+        parts.append(_beam('antenna',f'h27_transfer_link_{side}',(*body[side],start),(*base_outer[side],start),
+                           110,paint(start),'antenna_h27_transfer_link',
+                           target_member=f'antenna:reinforcement_chord_{side}_0',
+                           dimensions_status='demonstration_assumption'))
     for index,(za,zb) in enumerate(zip(levels,levels[1:])):
-        a,b=_square(radius(za)),_square(radius(zb));color=paint((za+zb)/2)
+        a,b=_square(radius(za)),_square(radius(zb));outer_a,outer_b=_square(radius(za)+offset),_square(radius(zb)+offset)
+        color=paint((za+zb)/2)
         for side in range(4):
             nxt=(side+1)%4
-            parts.append(_beam('antenna',f'support_chord_{side}_{index}',(*a[side],za),(*b[side],zb),95,color,'antenna_support_chord'))
-            parts.append(_beam('antenna',f'support_lacing_{side}_{index}',(*a[side],za),(*b[nxt],zb),40,color,'antenna_support_lacing'))
+            parts.append(_beam('antenna',f'support_chord_{side}_{index}',(*a[side],za),(*b[side],zb),
+                               cfg['sg_inner_chord_radius_mm'],color,'antenna_support_chord',
+                               dimensions_status='demonstration_assumption'))
+            for direction,(q,r) in enumerate(((a[side],b[nxt]),(a[nxt],b[side]))):
+                parts.append(_beam('antenna',f'support_lacing_{side}_{index}_{direction}',(*q,za),(*r,zb),
+                                   cfg['sg_inner_brace_radius_mm'],color,'antenna_support_lacing'))
             parts.append(_beam('antenna',f'support_tie_{side}_{index}',(*b[side],zb),(*b[nxt],zb),50,color,'antenna_support_tie'))
-    # The top 20.4m is a separate, slender ST appearance mast, not a solid
-    # 80m cone masking the antenna-support lattice.
-    edges=sorted({split,end,323000.}|{125000+i*(333000-125000)/7 for i in range(8) if split<125000+i*(333000-125000)/7<end})
+            parts.append(_beam('antenna',f'reinforcement_chord_{side}_{index}',(*outer_a[side],za),(*outer_b[side],zb),
+                               cfg['sg_outer_chord_radius_mm'],color,'antenna_reinforcement_chord',
+                               dimensions_status='demonstration_assumption'))
+            for direction,(q,r) in enumerate(((outer_a[side],outer_b[nxt]),(outer_a[nxt],outer_b[side]))):
+                parts.append(_beam('antenna',f'reinforcement_brace_{side}_{index}_{direction}',(*q,za),(*r,zb),
+                                   cfg['sg_outer_brace_radius_mm'],color,'antenna_reinforcement_brace'))
+            parts.append(_beam('antenna',f'reinforcement_tie_{side}_{index}',(*outer_b[side],zb),(*outer_b[nxt],zb),
+                               60,color,'antenna_reinforcement_tie'))
+    # Each ring station has two layers of radial ties, with no duplicate bars.
+    layer=cfg['sg_link_layer_offset_mm']
+    for station,z in enumerate(levels):
+        zs=(z+layer,z+3*layer) if station==0 else (z-3*layer,z-layer) if station==len(levels)-1 else (z-layer,z+layer)
+        for tier,height in enumerate(zs):
+            index=next(i for i,(za,zb) in enumerate(zip(levels,levels[1:])) if za<=height<=zb)
+            inner,outer=_square(radius(height)),_square(radius(height)+offset)
+            for side in range(4):
+                parts.append(_beam('antenna',f'sg_radial_link_{station}_{tier}_{side}',
+                                   (*inner[side],height),(*outer[side],height),cfg['sg_link_radius_mm'],paint(height),
+                                   'antenna_radial_link',
+                                   linked_chords=[f'antenna:support_chord_{side}_{index}',f'antenna:reinforcement_chord_{side}_{index}'],
+                                   dimensions_status='demonstration_assumption'))
+    # The post-2014 ST is a 450mm BOX rather than the previous tapered circle.
+    # Only its outer 450mm dimension is published; the wall is an assumption.
+    paint_edges={125000+i*(333000-125000)/7 for i in range(8)}
+    edges=sorted({split,end}|{z for z in paint_edges if split<z<end})
     for index,(za,zb) in enumerate(zip(edges,edges[1:]),1):
-        ra=500-350*(za-split)/(end-split);rb=500-350*(zb-split)/(end-split)
-        parts.append(_loft('antenna',f'mast_{index:02d}',[_section(za,_circle(ra)),_section(zb,_circle(rb))],paint((za+zb)/2),'antenna_mast'))
-    for index,z in enumerate((259000,273000,291000,306000),1):
-        r=radius(z)
-        # Equipment bands frame the open support mast; thin per-edge strips
-        # do not fill its entire height with an opaque cylinder.
-        ring=_square(r+230)
+        parts.append({'group':'antenna','name':f'antenna:mast_{index:02d}','kind':'rhs',
+                      'start':[0.,0.,za],'end':[0.,0.,zb],'width_mm':cfg['st_width_mm'],
+                      'depth_mm':cfg['st_depth_mm'],'wall_thickness_mm':cfg['st_wall_mm'],
+                      'color':paint((za+zb)/2),'role':'antenna_mast',
+                      'section_reference':'Miyaji No28 p66: replacement ST BOX 450mm',
+                      'wall_dimensions_status':'demonstration_assumption'})
+    equipment_half=cfg['st_equipment_half_width_mm']
+    for index,z in enumerate(cfg['st_equipment_levels_mm']):
+        if not split+300<z<end-500:raise ValueError('ST equipment must stay within the published tip controls.')
+        inner=_square(max(cfg['st_width_mm'],cfg['st_depth_mm'])/2);outer=_square(equipment_half)
         for side in range(4):
-            parts.append(_edge_panel('antenna',f'service_collar_{index}_{side}',ring[side],ring[(side+1)%4],z,z+650,180,paint(z),role='antenna_collar'))
+            parts.append(_beam('antenna',f'st_equipment_arm_{index}_{side}',(*inner[side],z),(*outer[side],z),
+                               30,paint(z),'antenna_equipment_arm',dimensions_status='demonstration_assumption'))
+            a,b=outer[side],outer[(side+1)%4]
+            parts.append(_beam('antenna',f'st_equipment_element_{index}_{side}',(*a,z),(*b,z),
+                               22,paint(z),'antenna_equipment_element',dimensions_status='demonstration_assumption'))
+        # A square annulus surrounds the BOX without plugging its real bore.
+        collar_width=max(cfg['st_width_mm'],cfg['st_depth_mm'])+170.
+        parts.append({'group':'antenna','name':f'antenna:st_insulator_collar_{index}','kind':'rhs',
+                      'start':[0.,0.,z-80],'end':[0.,0.,z+80],
+                      'width_mm':collar_width,'depth_mm':collar_width,'wall_thickness_mm':85.,
+                      'color':'#E8E4D7','role':'antenna_insulator_collar',
+                      'dimensions_status':'demonstration_assumption'})
     return parts
 
 
@@ -447,8 +755,13 @@ def _lights(p):
     for index,x in enumerate((-4600,4600),1):
         parts.append(_box('base',f'entry_wall_light_housing_{index}',(x-220,-18850,2700,x+220,-18400,3700),STEEL,'light_housing',detail_level='micro'))
         parts.append(_box('base',f'entry_wall_light_lens_{index}',(x-160,-18900,2800,x+160,-18860,3600),WARM,'light_lens',detail_level='micro'))
+    deck_cfg={**DECK_APPEARANCE_DEFAULTS,**p['detail'].get('deck_appearance',{})}
     for deck in p['deck_specs']:
-        ident=deck['id'];h=deck['half_width_mm']*.75;z=deck['top_mm']+850
+        ident=deck['id'];h=deck['half_width_mm']*.75;z=deck['top_mm']+180
+        if ident=='top':
+            # The crown is circular, so square-corner coordinates must be
+            # derived from a radius inside its real roof polygon.
+            h=deck['half_width_mm']*deck_cfg['top_roof_radius_factor']*.82/(2**.5)
         for index,(x,y) in enumerate(_square(h),1):
             parts.append(_box('decks',f'{ident}_obstruction_light_housing_{index}',(x-170,y-170,z-180,x+170,y+170,z+100),STEEL,'light_housing',detail_level='micro'))
             parts.append(_box('decks',f'{ident}_obstruction_light_lens_{index}',(x-135,y-135,z+100,x+135,y+135,z+350),'#EB5B43','obstruction_light_lens',detail_level='micro'))

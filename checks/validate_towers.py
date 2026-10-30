@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from math import isfinite
+from math import isfinite, pi, dist
 import os
 from pathlib import Path
 import struct
@@ -58,6 +58,9 @@ def validate(root=ROOT):
             if tower_id == 'tokyo-tower':
                 drawing_paths.append(f'DXF/{stem}_steel_nodes.dxf')
                 svg_paths.append(f'output/svg/{stem}_steel_nodes.svg')
+            else:
+                drawing_paths.append(f'DXF/{stem}_structure_zones.dxf')
+                svg_paths.append(f'output/svg/{stem}_structure_zones.svg')
             pdf_path = f'output/pdf/{stem}_sheets.pdf'
             manifest = json.loads((root / f'output/review/{stem}_manifest.json').read_text())
             drawings = json.loads((root / f'output/review/{stem}_drawings.json').read_text())
@@ -78,14 +81,17 @@ def validate(root=ROOT):
             scene = read_scene(root / model_paths[0])
             native = {}
             native_bounds = {}
+            native_volumes = {}
             low, high = [float('inf')] * 3, [float('-inf')] * 3
             for occurrence in scene.leaves():
                 label, shape = occurrence.label, occurrence.shape()
                 check(prefix + label + ':unique_name', label not in native)
                 native[label] = shape
                 solids = list(shape.solids())
+                volumes=[solid.volume for solid in solids]
+                native_volumes[label]=sum(volumes)
                 check(prefix + label + ':valid_solid', bool(solids)
-                      and all(solid.is_valid and isfinite(solid.volume) and solid.volume > 0 for solid in solids))
+                      and all(solid.is_valid for solid in solids) and all(isfinite(v) and v>0 for v in volumes))
                 bounds = shape.bounding_box()
                 native_bounds[label] = [bounds.min.X,bounds.min.Y,bounds.min.Z,bounds.max.X,bounds.max.Y,bounds.max.Z]
                 for axis, key in enumerate(('X', 'Y', 'Z')):
@@ -119,7 +125,7 @@ def validate(root=ROOT):
                       for a, b in zip(primitive['bounds'], target)))
             materials = document.get('materials', [])
             check(prefix + 'visible_materials', bool(materials))
-            if revision in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04'):
+            if revision in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06'):
                 specs = {part['name']: part for part in component_specs(tower_id)}
                 saved_meshes = {mesh['name']: mesh for mesh in document['meshes']}
                 saved_nodes = {node.get('name'): node for node in document['nodes'] if 'mesh' in node}
@@ -128,6 +134,22 @@ def validate(root=ROOT):
                     role = spec.get('role')
                     if role is not None:
                         check(prefix + name + ':saved_role', saved_nodes.get(name, {}).get('extras', {}).get('landmarkRole') == role)
+                    if tower_id=='tokyo-skytree' or revision in ('LANDMARK-R05','LANDMARK-R06'):
+                        check(prefix+name+':saved_primitive',saved_nodes.get(name,{}).get('extras',{}).get('landmarkPrimitive')==spec['kind'])
+                        expected_volume=None
+                        if spec['kind']=='tube':
+                            r=spec['radius'];t=spec['wall_thickness_mm']
+                            expected_volume=pi*(r*r-(r-t)**2)*dist(spec['start'],spec['end'])
+                        elif spec['kind']=='rhs':
+                            w,h,t=spec['width_mm'],spec['depth_mm'],spec['wall_thickness_mm']
+                            expected_volume=(w*h-(w-2*t)*(h-2*t))*dist(spec['start'],spec['end'])
+                        elif spec['kind']=='tube_loft':
+                            expected_volume=0.
+                            for a,b in zip(spec['sections'],spec['sections'][1:]):
+                                ro,so=a['radius'],b['radius'];ri,si=ro-a['wall_thickness_mm'],so-b['wall_thickness_mm']
+                                expected_volume+=pi*(b['z']-a['z'])*(ro*ro+ro*so+so*so-ri*ri-ri*si-si*si)/3
+                        if expected_volume is not None:
+                            check(prefix+name+':saved_hollow_volume',abs(native_volumes[name]-expected_volume)<=max(1.,expected_volume*1e-6),native_volumes[name])
                     if role == 'stair_tread':
                         treads += 1
                         check(prefix + name + ':saved_flight', saved_nodes.get(name, {}).get('extras', {}).get('landmarkFlight') == spec['flight'])
@@ -171,13 +193,13 @@ def validate(root=ROOT):
                     check(prefix + 'sloping_named_gallery', len(ramps) >= 24
                           and all(part['kind'] == 'loft3d' for part in ramps), len(ramps))
 
-            for view, dxf_path, svg_path in zip(('plan', 'elevation', 'steel-nodes'), drawing_paths, svg_paths):
+            for view, dxf_path, svg_path in zip(('plan', 'elevation', 'steel-nodes' if tower_id=='tokyo-tower' else 'structure-zones'), drawing_paths, svg_paths):
                 row = next((value for value in drawings.get('drawings', []) if value.get('id') == view), {})
                 doc = ezdxf.readfile(root / dxf_path)
                 check(prefix + view + ':DXF_audit', not doc.audit().errors)
                 check(prefix + view + ':DXF_units_mm', doc.units == 4)
                 msp = doc.modelspace()
-                text_layouts = doc.layouts if view == 'steel-nodes' else [msp]
+                text_layouts = doc.layouts if view in ('steel-nodes','structure-zones') else [msp]
                 texts = [entity.dxf.text for layout in text_layouts for entity in layout.query('TEXT')]
                 check(prefix + view + ':editable_text', len(texts) >= 2)
                 if view == 'steel-nodes':
@@ -204,7 +226,7 @@ def validate(root=ROOT):
                     check(prefix + 'official_height_dimensions', all(any(close(value, target, .01) for value in measured)
                           for target in [parameters['height_mm'], *parameters['deck_levels_mm']]))
             pdf = PdfReader(root / pdf_path)
-            check(prefix + 'PDF_page_count', len(pdf.pages) == (3 if tower_id == 'tokyo-tower' else 2))
+            check(prefix + 'PDF_page_count', len(pdf.pages) == 3)
             for index, page in enumerate(pdf.pages):
                 width, height = float(page.mediabox.width), float(page.mediabox.height)
                 check(prefix + f'PDF_A3_{index}', close(width, 420*72/25.4, .1) and close(height, 297*72/25.4, .1))

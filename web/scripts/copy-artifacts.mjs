@@ -47,7 +47,7 @@ export const artifacts = [
   ...apartmentPlans.floors.map(floor => floor.path),
   ...riverArtifacts.paths,
   ...towerArtifacts.paths,
-  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py',
+  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
   'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
 

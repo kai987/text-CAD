@@ -158,7 +158,7 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
             {'nominalLevels' in metadata ? <div><dt>{copy.nominalLevels}</dt><dd>{metadata.nominalLevels.map(metres).join(' / ')}</dd></div> : null}
           </dl>{model === 'tokyo-tower' ? <p>{copy.glReferenceNote}</p> : null}<a className="landmark-reference" href={metadata.reference} target="_blank" rel="noreferrer">{copy.source} ↗</a>
             {'constructionReference' in metadata ? <p><a className="landmark-reference" href={metadata.constructionReference} target="_blank" rel="noreferrer">{copy.constructionSource} ↗</a></p> : null}</section>
-          <p className="landmark-assumption">{copy.note}</p>
+          <p className="landmark-assumption">{'assumptionNotes' in metadata ? metadata.assumptionNotes[locale] : copy.note}</p>
         </aside>
         <section className="landmark-viewer-panel" aria-label={name}>
           <div className="viewer-toolbar"><h1>{name}</h1><div className="toolbar-actions landmark-cameras">{landmarkCameraOptions(model).map(value => <button key={value}

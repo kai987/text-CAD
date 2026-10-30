@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from collections import Counter
+import hashlib
+import json
 from math import dist, isfinite
 from pathlib import Path
 import sys
@@ -23,6 +25,10 @@ def horizontal_bounds(spec):
     if spec['kind'] == 'beam':
         return [min(spec['start'][i],spec['end'][i])-spec['radius'] for i in range(2)] + [
             max(spec['start'][i],spec['end'][i])+spec['radius'] for i in range(2)]
+    if spec['kind'] == 'rhs':
+        half=max(spec['width_mm'],spec['depth_mm'])/2
+        return [min(spec['start'][i],spec['end'][i])-half for i in range(2)]+[
+            max(spec['start'][i],spec['end'][i])+half for i in range(2)]
     points=[point for section in spec['sections'] for point in (section if spec['kind']=='loft3d' else section['points'])]
     return [min(p[0] for p in points),min(p[1] for p in points),max(p[0] for p in points),max(p[1] for p in points)]
 
@@ -30,6 +36,7 @@ def horizontal_bounds(spec):
 def maximum_z(spec):
     if spec['kind']=='box':return spec['bounds'][5]
     if spec['kind']=='beam':return max(spec['start'][2],spec['end'][2])+spec['radius']
+    if spec['kind']=='rhs':return max(spec['start'][2],spec['end'][2])
     if spec['kind']=='loft3d':return max(p[2] for section in spec['sections'] for p in section)
     return max(section['z'] for section in spec['sections'])
 
@@ -44,13 +51,13 @@ class TokyoTowerDetailTests(unittest.TestCase):
         names=[part['name'] for part in self.specs]
         self.assertEqual(len(set(names)),len(names))
         self.assertGreater(len(names),1000)
-        self.assertLessEqual(len(names),3500)
+        self.assertLessEqual(len(names),6000)
         self.assertEqual(set(part['group'] for part in self.specs),set(GROUPS))
         self.assertTrue(all(name.startswith(part['group']+':') for name,part in zip(names,self.specs)))
-        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R04')
-        self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R02')
+        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R06')
+        self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R04')
         self.assertNotEqual(component_specs('tokyo-skytree'), self.specs)
-        self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py'])
+        self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
         self.assertIn('src/lib/tokyo_tower_detail.py',geometry_source_paths('tokyo-tower'))
 
     def test_all_primitives_are_finite_and_have_nonzero_sections(self):
@@ -68,6 +75,10 @@ class TokyoTowerDetailTests(unittest.TestCase):
                 elif part['kind']=='beam':
                     self.assertGreater(part['radius'],0)
                     self.assertGreater(dist(part['start'],part['end']),0)
+                elif part['kind']=='rhs':
+                    self.assertGreater(dist(part['start'],part['end']),0)
+                    self.assertGreater(part['wall_thickness_mm'],0)
+                    self.assertLess(2*part['wall_thickness_mm'],min(part['width_mm'],part['depth_mm']))
                 elif part['kind']=='loft3d':
                     self.assertGreater(len(part['sections']),1)
                     for section in part['sections']:
@@ -131,10 +142,9 @@ class TokyoTowerDetailTests(unittest.TestCase):
         floors=[p for p in self.specs if p.get('role')=='deck_floor' and ':main_' in p['name']]
         self.assertEqual(len(floors),12)
         self.assertEqual(sorted({maximum_z(part) for part in floors}),[120000,125000])
-        half=self.parameters['deck_specs'][0]['half_width_mm']*.95
-        chamfer=half*.18
-        expected=4*half*half-2*chamfer*chamfer-(9300-4700)*(1800+8000)
-        for level in (120000,125000):
+        for level,half in zip((120000,125000),self.parameters['detail']['main_floor_half_widths_mm']):
+            half*=.985;chamfer=half*.18
+            expected=4*half*half-2*chamfer*chamfer-(9300-4700)*(1800+8000)
             area=0
             for part in floors:
                 if maximum_z(part)!=level:continue
@@ -166,6 +176,26 @@ class TokyoTowerDetailTests(unittest.TestCase):
         manifest=geometry_manifest('tokyo-tower')
         self.assertTrue(all(value is None for value in manifest['engineering'].values()))
         self.assertGreaterEqual(len(manifest['assumptions']),2)
+
+    def test_all_eight_deck_beacons_are_installed_on_the_real_roof_with_lenses_on_housings(self):
+        by={p['name']:p for p in self.specs}
+        housings=[p for p in self.specs if p['group']=='decks' and p.get('role')=='light_housing']
+        self.assertEqual(len(housings),8)
+        for housing in housings:
+            ident=housing['name'].split(':',1)[1].split('_',1)[0]
+            roof=by[f'decks:{ident}_roof_cover']['sections'][-1]
+            x1,y1,z1,x2,y2,z2=housing['bounds']
+            self.assertEqual(z1,roof['z'],'Beacon mounting base must contact the roof.')
+            polygon=roof['points']
+            for x,y in ((x1,y1),(x2,y1),(x2,y2),(x1,y2)):
+                for a,b in zip(polygon,polygon[1:]+polygon[:1]):
+                    self.assertGreaterEqual((b[0]-a[0])*(y-a[1])-(b[1]-a[1])*(x-a[0]),0,
+                                            'Every housing corner must fit inside the actual roof polygon.')
+            lens=by[housing['name'].replace('_housing_','_lens_')]
+            lx1,ly1,lz1,lx2,ly2,lz2=lens['bounds']
+            self.assertEqual(lz1,z2,'The lens must contact the housing top.')
+            self.assertTrue(x1<=lx1<lx2<=x2 and y1<=ly1<ly2<=y2)
+            self.assertGreater(lz2,lz1)
 
     def test_reference_controls_are_separate_from_visitor_deck_names(self):
         p=self.parameters
@@ -212,6 +242,189 @@ class TokyoTowerDetailTests(unittest.TestCase):
             level=115000 if ':main_' in bracket['name'] else 216550
             self.assertEqual(bracket['start'][2],level)
         self.assertEqual(len([p for p in self.specs if p.get('role')=='deck_support_ring']),4)
+
+    def test_r05_preserves_base_core_and_steel_below180m_from_r04(self):
+        # Fixed R04 specification fingerprint. The narrow revision changes
+        # deck shells/equipment, antennas, and the profile near the top deck.
+        unchanged=[p for p in self.specs if p['group'] in ('base','core')
+                   or p['group']=='structure' and maximum_z(p)<=180000]
+        digest=hashlib.sha256(json.dumps(unchanged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        self.assertEqual(digest,'672806be185147e7214cd47f2eb4354fa142ac658f6f057bdd8ef7f6305cd051')
+
+    def test_main_deck_has_two_independent_upright_narrow_window_levels(self):
+        glass=[p for p in self.specs if p['name'].startswith('decks:main_glazing_')]
+        self.assertEqual(len(glass),2*(4*24+4*4))
+        widths={0:set(),1:set()}
+        for panel in glass:
+            low,high=panel['sections'];zone=int(panel['name'].rsplit('_',1)[1])
+            self.assertEqual(low['points'],high['points'],'Each storey must retain its upright curtain-wall face.')
+            self.assertLess(dist(low['points'][0],low['points'][1]),1300)
+            widths[zone].add(round(max(abs(v) for point in low['points'][:2] for v in point),6))
+            self.assertEqual(panel['color'],'#284C61')
+        self.assertEqual(max(widths[0]),13500.)
+        self.assertEqual(max(widths[1]),14000.)
+        aprons=[p for p in self.specs if p['name'].startswith('decks:main_apron_')]
+        self.assertTrue(all(p['color']=='#F4F0E7' for p in aprons))
+        self.assertTrue(all(maximum_z(p)-min(s['z'] for s in p['sections'])<=800 for p in aprons))
+        self.assertEqual(sum(p.get('role')=='deck_soffit' for p in self.specs),8)
+        self.assertGreaterEqual(sum(p.get('role')=='soffit_rib' for p in self.specs),40)
+        self.assertEqual(sum(p.get('role')=='cleaning_track' for p in self.specs),8)
+        roof_edges=[p for p in self.specs if p['name'].startswith('decks:main_roof_edge_')]
+        self.assertTrue(all(maximum_z(p)-min(s['z'] for s in p['sections'])<=200 for p in roof_edges))
+
+    def test_top_deck_uses_a_separate_d13m_faceted_crown_without_window_cross_braces(self):
+        panels=[p for p in self.specs if p['name'].startswith('decks:top_glazing_')]
+        self.assertEqual(len(panels),48)
+        for panel in panels:
+            for point in panel['sections'][0]['points'][:2]:
+                self.assertAlmostEqual(sum(v*v for v in point)**.5,6500.)
+        self.assertEqual(sum(p.get('role')=='deck_crown' for p in self.specs),48)
+        self.assertEqual(sum(p.get('role')=='deck_equipment_ring' for p in self.specs),96)
+        glass_low=min(p['sections'][0]['z'] for p in panels)
+        glass_top=max(p['sections'][-1]['z'] for p in panels)
+        for member in self.specs:
+            if member.get('role')=='deck_crown_connector':
+                self.assertGreater(min(member['start'][2],member['end'][2]),glass_top)
+            if member.get('role')=='deck_lower_ring_connector':
+                self.assertLess(max(member['start'][2],member['end'][2]),glass_low)
+
+    def test_real_h_profile_corners_stay_inside_top_deck_glass_not_only_their_axes(self):
+        panels=[p for p in self.specs if p['name'].startswith('decks:top_glazing_')]
+        bottom=min(p['sections'][0]['z'] for p in panels)
+        top=max(p['sections'][-1]['z'] for p in panels)
+        points=[]
+        for part in self.specs:
+            if not part['name'].startswith('structure:upper_chord_'):continue
+            a,b=part['sections'];edges=list(zip(a,b))
+            for section in (a,b):edges+=list(zip(section,section[1:]+section[:1]))
+            for start,end in edges:
+                points.extend(q for q in (start,end) if bottom<=q[2]<=top)
+                if start[2]==end[2]:continue
+                for z in (bottom,top):
+                    t=(z-start[2])/(end[2]-start[2])
+                    if 0<=t<=1:points.append([start[k]+t*(end[k]-start[k]) for k in range(3)])
+        self.assertTrue(points)
+        for point in points:
+            scale=1+.015*(point[2]-bottom)/(top-bottom)
+            for panel in panels:
+                a,b=[[v*scale for v in p] for p in panel['sections'][0]['points'][:2]]
+                dx,dy=b[0]-a[0],b[1]-a[1];length=(dx*dx+dy*dy)**.5
+                # The 70mm inward glass strip must remain outside every
+                # clipped native H/I section corner throughout the storey.
+                self.assertGreaterEqual((dx*(point[1]-a[1])-dy*(point[0]-a[0]))/length,70*scale-1e-5)
+
+    def test_digital_antenna_two_round_groups_follow_supplier_dimensions_and_leave_central_void(self):
+        panels=[p for p in self.specs if p.get('role')=='digital_antenna_panel']
+        self.assertEqual(len(panels),300)
+        self.assertEqual(Counter(p['panel_bank'] for p in panels),Counter({0:150,1:150}))
+        self.assertEqual(Counter(p['panel_row'] for p in panels),Counter({i:60 for i in range(5)}))
+        for panel in panels:
+            radius=6700 if panel['panel_bank']==0 else 6438
+            for section in panel['sections']:
+                values=[dist((0,0),point) for point in section['points']]
+                self.assertAlmostEqual(max(values),radius)
+                self.assertGreaterEqual(min(values),radius-220-1e-7)
+            self.assertEqual(panel['published_group_height_mm'],5300)
+            self.assertEqual(panel['color'],'#F4F0E7' if panel['panel_bank']==0 else '#E34C25')
+        rails=[p for p in self.specs if p.get('role')=='digital_antenna_rail']
+        self.assertEqual(len(rails),360)
+        self.assertEqual(min(p['sections'][0]['z'] for p in rails),240505)
+        self.assertEqual(max(p['sections'][-1]['z'] for p in rails),251695)
+        by={p['name']:p for p in self.specs}
+        for bracket in (p for p in self.specs if p.get('role')=='digital_antenna_bracket'):
+            target=by[bracket['target_member']]
+            self.assertLess(target['sections'][0]['z'],bracket['end'][2])
+            self.assertGreater(target['sections'][-1]['z'],bracket['end'][2])
+            self.assertTrue(5810<dist((0,0),bracket['end'][:2])<6670)
+        self.assertEqual(sum(p.get('role')=='short_antenna_panel' for p in self.specs),60)
+
+    def test_h23_roof_is_separate_from_fitted_floor_and_h24_open_service_platform(self):
+        deck=self.parameters['deck_specs'][1]
+        self.assertEqual(deck['top_mm'],223550)
+        self.assertEqual(deck['level_mm'],220550)
+        self.assertEqual(self.parameters['deck_levels_mm'][1],223550)
+        platform=[p for p in self.specs if p.get('role')=='service_platform']
+        self.assertEqual(len(platform),48)
+        self.assertTrue(all(min(dist((0,0),q) for q in p['sections'][0]['points'])>=4499.9 for p in platform))
+        self.assertEqual(max(maximum_z(p) for p in platform),231000)
+        self.assertEqual(sum(p.get('role')=='service_dish' for p in self.specs),48)
+
+    def test_sg_reinforcement_is_a_distinct_outer_frame_with_two_layers_of_radial_links(self):
+        by={p['name']:p for p in self.specs}
+        inner=[p for p in self.specs if p.get('role')=='antenna_support_chord']
+        outer=[p for p in self.specs if p.get('role')=='antenna_reinforcement_chord']
+        self.assertEqual(len(inner),56);self.assertEqual(len(outer),56)
+        self.assertEqual(sum(p.get('role')=='antenna_reinforcement_brace' for p in self.specs),112)
+        links=[p for p in self.specs if p.get('role')=='antenna_radial_link']
+        self.assertEqual(len(links),120)
+        for link in links:
+            self.assertGreater(dist([0,0],link['end'][:2]),dist([0,0],link['start'][:2]))
+            for point,name in zip((link['start'],link['end']),link['linked_chords']):
+                member=by[name];a,b=member['start'],member['end'];t=(point[2]-a[2])/(b[2]-a[2])
+                self.assertTrue(0<t<1)
+                for axis in range(3):self.assertAlmostEqual(point[axis],a[axis]+t*(b[axis]-a[axis]),places=6)
+        self.assertEqual(len({tuple(p['start']+p['end']) for p in links}),len(links))
+        transfers=[p for p in self.specs if p.get('role')=='antenna_h27_transfer_link']
+        self.assertEqual(len(transfers),4)
+        body_tops=[p['axis_end'] for p in self.specs if p.get('role')=='primary_chord'
+                   and p.get('axis_end',[0,0,0])[2]==252650]
+        for transfer in transfers:
+            self.assertIn(transfer['start'],body_tops)
+            self.assertEqual(transfer['end'],by[transfer['target_member']]['start'])
+
+    def test_replacement_st_is_a_real_box450_hollow_section_and_all_equipment_stays_below_tip(self):
+        mast=[p for p in self.specs if p.get('role')=='antenna_mast']
+        self.assertTrue(mast)
+        for part in mast:
+            self.assertEqual(part['kind'],'rhs')
+            self.assertEqual((part['width_mm'],part['depth_mm']),(450.,450.))
+            self.assertGreater(part['wall_thickness_mm'],0)
+            self.assertEqual(part['wall_dimensions_status'],'demonstration_assumption')
+        self.assertEqual(min(p['start'][2] for p in mast),312600)
+        self.assertEqual(max(p['end'][2] for p in mast),333000)
+        self.assertEqual(sum(p.get('role')=='antenna_insulator_collar' for p in self.specs),6)
+        for collar in (p for p in self.specs if p.get('role')=='antenna_insulator_collar'):
+            self.assertEqual(collar['kind'],'rhs')
+            self.assertGreaterEqual(collar['width_mm']-2*collar['wall_thickness_mm'],450)
+        self.assertTrue(all(maximum_z(p)<333000 for p in self.specs
+                            if p.get('role') in ('antenna_equipment_arm','antenna_equipment_element','antenna_insulator_collar')))
+
+
+class TokyoUpperNativeContactTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        try:
+            from cadgen import build123d as bd
+        except ImportError:
+            raise unittest.SkipTest('Native contacts require the project CAD environment.')
+        from lib.tower_geometry import _cad_shape
+        cls.bd=bd;cls.make=staticmethod(_cad_shape)
+        cls.by={p['name']:p for p in component_specs('tokyo-tower')};cls.shapes={}
+
+    def shape(self,name):
+        if name not in self.shapes:
+            result=self.make(self.by[name],self.bd)
+            self.assertTrue(result.is_valid,name)
+            self.assertGreater(sum(s.volume for s in result.solids()),0,name)
+            self.shapes[name]=result
+        return self.shapes[name]
+
+    def contact(self,a,b):
+        aa,bb=self.shape(a),self.shape(b)
+        self.assertLess(aa.distance_to(bb),.01,(a,b))
+        common=aa.intersect(bb)
+        self.assertIsNotNone(common,(a,b))
+        self.assertGreater(sum(s.volume for s in common.solids()),1.,(a,b))
+
+    def test_circular_array_brackets_reach_real_annular_rails(self):
+        for part in self.by.values():
+            if part.get('role')=='digital_antenna_bracket':
+                self.contact(part['name'],part['target_member'])
+
+    def test_open_service_platform_and_reflector_have_native_support(self):
+        self.contact('decks:top_service_spoke_0','decks:top_service_platform_05')
+        self.contact('decks:top_service_dish_mount_0','decks:top_service_dish_0_0')
+        self.shape('decks:top_service_dish_0_5')
 
 
 if __name__=='__main__':unittest.main()

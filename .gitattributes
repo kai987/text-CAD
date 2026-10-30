@@ -7,3 +7,5 @@
 *.pdf binary
 *.png binary
 *.jpg binary
+STEP/tokyo_tower.step filter=lfs diff=lfs merge=lfs -text
+STEP/tokyo_skytree.step filter=lfs diff=lfs merge=lfs -text

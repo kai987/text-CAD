@@ -3,8 +3,8 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 
 export const towerCatalog = [
-  { id: 'tokyo-tower', stem: 'tokyo_tower', revision: 'LANDMARK-R04', height: 333000, decks: [125000, 223550], sources: ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'] },
-  { id: 'tokyo-skytree', stem: 'tokyo_skytree', revision: 'LANDMARK-R02', height: 634000, decks: [350000, 450000], sources: ['src/lib/skytree_detail.py'] },
+  { id: 'tokyo-tower', stem: 'tokyo_tower', revision: 'LANDMARK-R06', height: 333000, decks: [125000, 223550], sources: ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'] },
+  { id: 'tokyo-skytree', stem: 'tokyo_skytree', revision: 'LANDMARK-R04', height: 634000, decks: [350000, 450000], roofLevels: [375000], sources: ['src/lib/skytree_detail.py', 'src/lib/skytree_outline.py'] },
 ];
 const modelSources = ['src/lib/tower_geometry.py', 'src/towers_3d.py'];
 const drawingSources = ['src/lib/tower_geometry.py', 'src/generate_tower_plans.py'];
@@ -17,7 +17,8 @@ export function towerPaths(stem) {
     models: [`STEP/${stem}.step`, `GLB/${stem}.glb`],
     drawings: [`DXF/${stem}_plan.dxf`, `DXF/${stem}_elevation.dxf`,
       `output/svg/${stem}_plan.svg`, `output/svg/${stem}_elevation.svg`, `output/pdf/${stem}_sheets.pdf`,
-      ...(stem === 'tokyo_tower' ? [`DXF/${stem}_steel_nodes.dxf`, `output/svg/${stem}_steel_nodes.svg`] : [])],
+      ...(stem === 'tokyo_tower' ? [`DXF/${stem}_steel_nodes.dxf`, `output/svg/${stem}_steel_nodes.svg`]
+        : stem === 'tokyo_skytree' ? [`DXF/${stem}_structure_zones.dxf`, `output/svg/${stem}_structure_zones.svg`] : [])],
     metadata: [`output/review/${stem}_manifest.json`, `output/review/${stem}_drawings.json`],
   };
 }
@@ -98,7 +99,7 @@ export async function validateTowerArtifacts(root) {
     await sourcesMatch(root, drawings.source_sha256, [...drawingSources, ...tower.sources]);
     const savedModels = await artifactsMatch(root, manifest.artifacts, paths.models);
     const savedDrawings = await artifactsMatch(root, drawings.artifacts, paths.drawings);
-    const views = tower.id === 'tokyo-tower' ? ['plan', 'elevation', 'steel-nodes'] : ['plan', 'elevation'];
+    const views = tower.id === 'tokyo-tower' ? ['plan', 'elevation', 'steel-nodes'] : ['plan', 'elevation', 'structure-zones'];
     if (!Array.isArray(drawings.drawings) || drawings.drawings.length !== views.length
         || drawings.source_geometry_revision !== revision) throw new Error('Invalid tower drawing catalog.');
     if (tower.id === 'tokyo-tower') {
@@ -115,8 +116,9 @@ export async function validateTowerArtifacts(root) {
     }
     for (const [index, id] of views.entries()) {
       const row = drawings.drawings.find(value => value.id === id);
-      const dxf = id === 'steel-nodes' ? paths.drawings[5] : paths.drawings[index];
-      const svg = id === 'steel-nodes' ? paths.drawings[6] : paths.drawings[index + 2];
+      const detail = id === 'steel-nodes' || id === 'structure-zones';
+      const dxf = detail ? paths.drawings[5] : paths.drawings[index];
+      const svg = detail ? paths.drawings[6] : paths.drawings[index + 2];
       if (!row || row.dxf !== dxf || row.svg !== svg) throw new Error('Unexpected tower drawing path.');
       checkDrawing(row, savedDrawings, revision);
       if (id === 'plan' && (!Number.isFinite(manifest.parameters?.base_width_mm)
@@ -125,6 +127,15 @@ export async function validateTowerArtifacts(root) {
       }
       if (id === 'elevation' && [tower.height, ...tower.decks].some(level => !row.dimensions_mm.includes(level))) {
         throw new Error(`Missing required tower model levels: ${tower.id}`);
+      }
+      if (id === 'elevation' && tower.roofLevels && (
+        JSON.stringify(drawings.roof_levels_mm) !== JSON.stringify(tower.roofLevels)
+        || JSON.stringify(row.roof_levels_mm) !== JSON.stringify(tower.roofLevels)
+        || tower.roofLevels.some(level => !row.dimensions_mm.includes(level)))) {
+        throw new Error('Missing Skytree equipment-roof reference levels; roof heights must remain separate from observation floors.');
+      }
+      if (id === 'structure-zones' && [50000, 12500, 25000].some(value => !row.dimensions_mm.includes(value))) {
+        throw new Error('Missing Skytree model structure-zone dimensions.');
       }
     }
     const step = savedModels.get(paths.models[0]).toString('utf8');

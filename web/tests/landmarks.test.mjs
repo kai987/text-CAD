@@ -40,6 +40,7 @@ test('landmark controls and downloads have complete Chinese, Japanese and Englis
     for (const key of ['modelGlLevels', 'nominalLevels', 'constructionSource', 'glReferenceNote']) assert.ok(copy[key]?.trim());
     for (const model of landmarkIds) {
       assert.ok(landmarkModels[model].names[locale]?.trim());
+      assert.ok(landmarkModels[model].assumptionNotes[locale].length > 100);
       for (const file of landmarkDownloadFiles(model)) {
         assert.ok(copy.fileNames[file.id]?.trim()); assert.ok(copy.fileDetails[file.id]?.trim());
       }
@@ -51,13 +52,35 @@ test('landmark controls and downloads have complete Chinese, Japanese and Englis
   assert.equal(landmarkGroupForName('TokyoTower'), null);
   assert.equal(landmarkGroupForName('substructure'), null);
   assert.deepEqual(landmarkCameraOptions('tokyo-skytree'), [...landmarkCameras, 'base', 'tembo-deck', 'tembo-galleria', 'spire']);
-  assert.deepEqual(landmarkCameraOptions('tokyo-tower'), [...landmarkCameras, 'base', 'main-deck']);
+  assert.deepEqual(landmarkCameraOptions('tokyo-tower'), [...landmarkCameras, 'base', 'main-deck', 'top-deck', 'spire']);
   assert.equal(landmarkDownloadFiles('tokyo-tower').length, 7);
-  assert.equal(landmarkDownloadFiles('tokyo-skytree').length, 6);
+  assert.equal(landmarkDownloadFiles('tokyo-skytree').length, 7);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').some(file => file.id === 'steelNodes'), false);
+  assert.equal(landmarkDownloadFiles('tokyo-skytree').find(file => file.id === 'structureZones').path,'DXF/tokyo_skytree_structure_zones.dxf');
+  assert.equal(landmarkModels['tokyo-skytree'].revision, 'LANDMARK-R04');
+  assert.equal(landmarkModels['tokyo-tower'].revision, 'LANDMARK-R06');
+  assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /JAEE 1962.*H11.*27 m square.*H12.*28 m square.*H23.*13 m diameter circle/);
+  assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /historical 29 × 24 m H13 plan.*separately.*use and mapping.*current envelope.*unverified/);
+  assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /retrofit appearance.*shell thickness.*glazing divisions.*display approximations/);
+  const tokyoNotes = landmarkModels['tokyo-tower'].assumptionNotes;
+  assert.match(tokyoNotes.zh, /48面.*H24圆形设备平台.*两组红白圆形天线阵列.*2012年Fig\.5.*300片.*当前用途尚未核定/);
+  assert.match(tokyoNotes.ja, /48面.*H24.*円形設備床.*2012年Fig\.5.*円形アンテナ2組.*300枚.*現在の用途は未確認/);
+  assert.match(tokyoNotes.en, /48 facets.*circular H24 equipment platform.*Two red-and-white circular antenna banks.*2012 Fig\.5.*300 panels.*current uses remain unverified/);
+  assert.match(tokyoNotes.en, /H23 at GL223\.55 m.*structural-band\/roof reference.*visitor finished floor has not been surveyed/);
+  assert.match(landmarkModels['tokyo-skytree'].assumptionNotes.en, /Three four-column clusters.*model GL 0–50 m base-connection zone.*12\.5\/25 m ring/);
+  assert.match(landmarkModels['tokyo-skytree'].assumptionNotes.en, /display approximations.*not a member-for-member reconstruction/);
+  const skytreeNotes = landmarkModels['tokyo-skytree'].assumptionNotes;
+  assert.match(skytreeNotes.zh, /公开资料.*340\/345\/350.*375 m设备屋顶高度.*71°/);
+  assert.match(skytreeNotes.zh, /24点.*设备冠半径与分段截面.*模型拟合近似.*非竣工实测.*375 m不是展望楼层/);
+  assert.match(skytreeNotes.ja, /公開資料.*340\/345\/350.*375 mの設備屋上高さ.*71°/);
+  assert.match(skytreeNotes.ja, /24点.*設備冠の半径と分節断面.*形状合わせ.*竣工実測ではありません.*375 mは展望フロアではありません/);
+  assert.match(skytreeNotes.en, /Published controls.*340\/345\/350.*375 m equipment-roof height.*71°/);
+  assert.match(skytreeNotes.en, /24 contour samples.*unpublished equipment stations.*model-fit approximations, not surveyed as-built geometry; 375 m is not an observation floor/);
+  assert.deepEqual(landmarkModels['tokyo-skytree'].levels, [350000, 450000]);
   assert.deepEqual(landmarkModels['tokyo-tower'].levels, [125000, 223550]);
   assert.deepEqual(landmarkModels['tokyo-tower'].nominalLevels, [150000, 250000]);
-  assert.match(landmarkCopy.en.glReferenceNote, /interprets.*120\/125/);
+  assert.match(landmarkCopy.en.glReferenceNote, /JAEE 1962.*Miyaji.*retains.*120\/125/);
+  assert.match(landmarkCopy.en.glReferenceNote, /150 m\/250 m.*no verified conversion/);
   assert.match(landmarkCopy.en.steel.note, /approximation.*published elevations.*construction photographs/);
 });
 
@@ -91,7 +114,7 @@ for (const id of landmarkIds) {
       const microForEntry = entry => entry.part_names.map(name => nodes.get(name)).filter(node => node?.isMesh
         && node.userData.steelMicro === true && node.userData.steelDetailKind === 'rivet' && node.userData.landmarkRole === 'rivet_head');
       const expectedMicroCount = catalog.reduce((count, entry) => count + microForEntry(entry).length, 0);
-      assert.ok(expectedMicroCount > 0, 'the catalog supplies its actual micro-detail count');
+      assert.equal(expectedMicroCount, 248, 'all existing named rivet heads remain in the actual exported catalog');
       const details = bindLandmarkSteelDetails(nodes, catalog, gltf.scene);
       try {
         const camera = new OrthographicCamera(-300, 300, 300, -300, .1, 3000);
@@ -122,6 +145,22 @@ for (const id of landmarkIds) {
       const mainDeck = landmarkMainDeckBounds(nodes);
       assert.ok(mainDeck && mainDeck.min.y > 110 && mainDeck.max.y < 145,
         'the interpreted GL120/125m main-deck close-up must not include GL223.55m top-deck parts');
+      const regions = landmarkCloseupBounds(id, nodes, bounds);
+      const topDeck = regions.get('top-deck'), spire = regions.get('spire');
+      const namedBounds = prefix => {
+        const region = new Box3();
+        for (const [name, node] of nodes) if (node.isMesh && name.startsWith(prefix)) region.expandByObject(node);
+        return region.expandByScalar(2);
+      };
+      for (const [region, prefix] of [[topDeck, 'decks:top_'], [spire, 'antenna:']]) {
+        const actual = namedBounds(prefix);
+        assert.ok(region && region.min.distanceTo(actual.min) < 1e-6 && region.max.distanceTo(actual.max) < 1e-6,
+          `${prefix}: close-up must retain the complete physical CAD range`);
+      }
+      assert.ok(topDeck.getCenter(new Vector3()).y > 215 && topDeck.getCenter(new Vector3()).y < 235,
+        'the top-deck camera remains near its model GL223.55m geometry');
+      assert.ok(spire.min.y > 225 && spire.min.y < 242 && spire.max.y > 332,
+        'the spire region includes the side-mounted digital equipment near 238m and the full 333m tip');
       const stairs = batchLandmarkStairs(gltf.scene, id);
       const lights = bindLandmarkMaterialLighting(gltf.scene, id);
       try {
@@ -134,7 +173,14 @@ for (const id of landmarkIds) {
         const countRole = role => meshes.filter(node => node.userData.landmarkRole === role).length;
         assert.ok(countRole('light_lens') > 0 && countRole('obstruction_light_lens') > 0);
         assert.equal(lit.warmFixtures, countRole('light_lens')); assert.equal(lit.obstructionFixtures, countRole('obstruction_light_lens'));
+        const visibleLitWindows = () => meshes.filter(node => isObjectVisible(node)
+          && landmarkLightRole(String(node.userData.cadName ?? node.name), node.userData.landmarkRole) === 'lit-window').length;
         assert.ok(lit.litWindows > 0 && lit.litWindows < countRole('glazing'), 'a sparse subset of windows receives local warm light');
+        assert.equal(lit.litWindows, visibleLitWindows(), 'night glass count comes from actual named CAD metadata');
+        nodes.get('decks').visible = false;
+        assert.equal(lights.apply(true).litWindows, visibleLitWindows(), 'hidden main and top glazing cannot remain lit');
+        nodes.get('decks').visible = true;
+        assert.equal(lights.apply(true).litWindows, visibleLitWindows(), 'restored deck glazing returns to its named local-light selection');
         nodes.get('base').visible = false;
         assert.equal(lights.apply(true).warmFixtures, 0, 'hidden base fixtures cannot stay lit');
         nodes.get('base').visible = true;
@@ -145,11 +191,22 @@ for (const id of landmarkIds) {
       const regions = landmarkCloseupBounds(id, nodes, bounds);
       const deck = regions.get('tembo-deck'), gallery = regions.get('tembo-galleria'), spire = regions.get('spire');
       assert.equal(regions.get('base').max.y, 100);
-      assert.ok(deck && deck.min.y > 325 && deck.max.y < 365 && deck.getCenter(new Vector3()).y > 340 && deck.getCenter(new Vector3()).y < 355,
-        'the 350m deck target must exclude the 445-450m gallery and continuous lift core');
+      const namedBounds = prefix => {
+        const region = new Box3();
+        for (const [name, node] of nodes) if (node.isMesh && name.startsWith(prefix)) region.expandByObject(node);
+        return region.expandByScalar(2);
+      };
+      for (const [region, prefix] of [[deck, 'decks:tembo_deck_'], [gallery, 'decks:tembo_galleria_'], [spire, 'antenna:']]) {
+        const actual = namedBounds(prefix);
+        assert.ok(region && region.min.distanceTo(actual.min) < 1e-6 && region.max.distanceTo(actual.max) < 1e-6,
+          `${prefix}: close-up must retain every actual CAD part, including equipment outside the main facade`);
+      }
+      assert.ok(deck && deck.min.y > 310 && deck.max.y > 374 && deck.max.y < 382 && deck.getCenter(new Vector3()).y > 340 && deck.getCenter(new Vector3()).y < 375,
+        'the 350m deck target includes its approximately 375m equipment crown while excluding the upper gallery and continuous lift core');
       assert.ok(gallery && gallery.min.y > 430 && gallery.max.y < 470 && gallery.getCenter(new Vector3()).y > 445 && gallery.getCenter(new Vector3()).y < 455,
         'the upper gallery target must stay at the 445-450m route');
-      assert.ok(spire && spire.min.y > 490 && spire.max.y < 640, 'the spire close-up must use antenna geometry only');
+      assert.ok(spire && spire.min.y > 490 && spire.min.y < 500 && spire.max.y < 640,
+        'the spire close-up includes the approximately 497m transition, segmented antenna equipment and terminal cap');
       let fixtureCount = 0, beaconCount = 0, glazingCount = 0, frame;
       const fixturePositions = [];
       const originalGlazingEmission = new Map();
@@ -176,15 +233,30 @@ for (const id of landmarkIds) {
           'display uplights must sit at exported plaza lenses rather than an unrelated proxy position');
       }
       const originalFrameMaterial = frame.material;
+      const originalFrameEmission = (Array.isArray(frame.material) ? frame.material : [frame.material])
+        .map(material => ({ color: material.emissive.getHex(), intensity: material.emissiveIntensity }));
+      const visibleLightCount = role => [...nodes.values()].filter(node => node.isMesh && isObjectVisible(node)
+        && landmarkLightRole(String(node.userData.cadName ?? node.name), node.userData.landmarkRole) === role)
+        .reduce((count, node) => count + (Array.isArray(node.material) ? node.material : [node.material])
+          .filter(material => material.isMeshStandardMaterial).length, 0);
       const lights = bindLandmarkMaterialLighting(gltf.scene, id);
       try {
         const lit = lights.apply(true);
         assert.equal(lit.mode, 'local-fixtures'); assert.equal(lit.coolFixtures, fixtureCount); assert.equal(lit.warmFixtures, 0);
         assert.equal(lit.obstructionFixtures, beaconCount);
         assert.ok(lit.litWindows > 0 && lit.litWindows < glazingCount, 'only a sparse subset of glass receives local night light');
+        assert.equal(lit.litWindows, visibleLightCount('lit-window'), 'window lighting follows the current exported pane metadata');
         assert.equal(frame.material, originalFrameMaterial, 'night light cannot replace shared tower frame materials');
         const materials = Array.isArray(frame.material) ? frame.material : [frame.material];
-        assert.ok(materials.every(material => material.emissive.getHex() === 0), 'Skytree steel must remain non-emissive');
+        assert.deepEqual(materials.map(material => ({ color: material.emissive.getHex(), intensity: material.emissiveIntensity })),
+          originalFrameEmission, 'night light must preserve the downloaded steel material emission');
+        for (const group of ['structure', 'decks', 'antenna']) {
+          nodes.get(group).visible = false;
+          const remaining = lights.apply(true);
+          assert.equal(remaining.obstructionFixtures, visibleLightCount('obstruction-lens'), `${group}: hidden obstruction lenses cannot stay lit`);
+          assert.equal(remaining.litWindows, visibleLightCount('lit-window'), `${group}: hidden glazing cannot stay lit`);
+          nodes.get(group).visible = true;
+        }
         nodes.get('base').visible = false;
         assert.equal(lights.apply(true).coolFixtures, 0, 'hidden base fixtures cannot stay lit');
         nodes.get('base').visible = true; nodes.get('decks').visible = false;

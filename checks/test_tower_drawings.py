@@ -17,10 +17,11 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
     'tokyo_tower': {'height':333000, 'decks':[125000,223550],
                     'base_dimension':80000, 'name':'東京タワー', 'elevation_scale':1500,
-                    'revision':'LANDMARK-R04'},
+                    'revision':'LANDMARK-R06'},
     'tokyo_skytree': {'height':634000, 'decks':[350000,450000],
+                      'roof_levels':[375000],
                       'base_dimension':68000, 'name':'東京スカイツリー', 'elevation_scale':3000,
-                      'revision':'LANDMARK-R02'},
+                      'revision':'LANDMARK-R04'},
 }
 
 
@@ -33,9 +34,9 @@ class TowerSavedDrawingTests(unittest.TestCase):
                 self.assertEqual(doc.units,ezdxf.units.MM)
                 self.assertEqual(doc.header['$DIMASSOC'],2)
                 dimensions=list(doc.modelspace().query('DIMENSION'))
-                self.assertEqual(len(dimensions),3)
+                self.assertEqual(len(dimensions),3+len(values.get('roof_levels',[])))
                 self.assertEqual([round(float(d.get_measurement())) for d in dimensions],
-                                 [values['height'],*values['decks']])
+                                 [values['height'],*values['decks'],*values.get('roof_levels',[])])
                 self.assertTrue(all(d.dxf.geometry for d in dimensions))
 
     def test_plan_dimensions_measure_support_spacing_not_render_scale(self):
@@ -71,7 +72,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
                     doc=ezdxf.readfile(ROOT/f'DXF/{stem}_{view}.dxf')
                     layout=doc.layouts.get(f'LANDMARK_A3_1_{scale}')
                     viewports=[v for v in layout.query('VIEWPORT') if v.dxf.id>1]
-                    extra=[300] if stem=='tokyo_tower' else [500,500]
+                    extra=[300,400,1250] if stem=='tokyo_tower' else [750,500]
                     expected_scales=[scale,*extra] if view=='elevation' else [scale]
                     self.assertEqual(len(viewports),len(expected_scales))
                     self.assertEqual(sorted(round(v.dxf.view_height/v.dxf.height) for v in viewports),sorted(expected_scales))
@@ -85,12 +86,13 @@ class TowerSavedDrawingTests(unittest.TestCase):
                 self.assertEqual(metadata['source_geometry_revision'],values['revision'])
                 self.assertEqual(metadata['status'],'reference_concept_only')
                 self.assertEqual(metadata['units'],'mm')
-                self.assertEqual(len(metadata['drawings']),3 if stem=='tokyo_tower' else 2)
+                self.assertEqual(len(metadata['drawings']),3)
                 detail_source='tokyo_tower_detail' if stem=='tokyo_tower' else 'skytree_detail'
                 expected_sources={
                     'src/lib/tower_geometry.py',f'src/lib/{detail_source}.py',
                     'src/generate_tower_plans.py'}
                 if stem=='tokyo_tower':expected_sources.add('src/lib/tokyo_tower_steel.py')
+                else:expected_sources.add('src/lib/skytree_outline.py')
                 self.assertEqual(set(metadata['source_sha256']),expected_sources)
                 for section in ('source_sha256','artifacts'):
                     for rel,expected in metadata[section].items():
@@ -118,7 +120,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
                 path=ROOT/f'output/pdf/{stem}_sheets.pdf'
                 self.assertTrue(path.read_bytes().startswith(b'%PDF-'))
                 reader=PdfReader(path)
-                self.assertEqual(len(reader.pages),3 if stem=='tokyo_tower' else 2)
+                self.assertEqual(len(reader.pages),3)
                 self.assertIn(values['revision'],reader.metadata.title)
                 for page in reader.pages:
                     self.assertAlmostEqual(float(page.mediabox.width)*25.4/72,420,places=2)
@@ -130,18 +132,35 @@ class TowerSavedDrawingTests(unittest.TestCase):
                     self.assertIn('単位 mm',text)
                     self.assertIn(f"{values['height']:,}",text)
                 elevation=reader.pages[1].extract_text()
-                for level in values['decks']:self.assertIn(f'{level:,}',elevation)
+                for level in [*values['decks'],*values.get('roof_levels',[])]:self.assertIn(f'{level:,}',elevation)
+
+    def test_skytree_equipment_roof_has_its_own_native_dimension_and_metadata(self):
+        metadata=json.loads((ROOT/'output/review/tokyo_skytree_drawings.json').read_text())
+        self.assertEqual(metadata['roof_levels_mm'],[375000])
+        row=next(row for row in metadata['drawings'] if row['id']=='elevation')
+        self.assertEqual(row['roof_levels_mm'],[375000])
+        self.assertEqual(sorted(row['dimensions_mm']),[350000,375000,450000,634000])
+        detail=next(detail for detail in row['details'] if detail['id']=='tembo_deck')
+        self.assertEqual(detail['levels_mm'],[340000,345000,350000])
+        self.assertEqual((detail['scale'],detail['view_center_mm'],detail['paper_bounds_mm']),
+                         (750,[0,354000],[257,134,394,198]))
+        self.assertEqual(detail['bounds_mm'],[-51375,330000,51375,378000])
+        text=PdfReader(ROOT/'output/pdf/tokyo_skytree_sheets.pdf').pages[1].extract_text()
+        for label in ('設備屋上','375,000','展望床ではない。','1:750'):
+            self.assertIn(label,text)
 
     def test_tokyo_deck_detail_reuses_locked_native_projection_without_duplicate_dimensions(self):
         stem='tokyo_tower'
         metadata=json.loads((ROOT/f'output/review/{stem}_drawings.json').read_text())
         row=next(row for row in metadata['drawings'] if row['id']=='elevation')
-        self.assertEqual(len(row['details']),1)
-        detail=row['details'][0]
-        self.assertEqual(detail['id'],'main_deck')
+        self.assertEqual({detail['id'] for detail in row['details']},{'main_deck','top_deck','antenna'})
+        detail=next(detail for detail in row['details'] if detail['id']=='main_deck')
         self.assertEqual(detail['scale'],300)
         self.assertEqual(detail['view_center_mm'],[0,125000])
-        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R04')
+        self.assertEqual(detail['paper_bounds_mm'],[257,139,394,195])
+        self.assertEqual(detail['source_part_prefix'],'decks:main_')
+        self.assertEqual(detail['levels_mm'],[120000,125000])
+        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R06')
         self.assertTrue(any(part.startswith('decks:main_') for part in detail['source_parts']))
         self.assertEqual(len(set(detail['source_parts'])),len(detail['source_parts']))
         doc=ezdxf.readfile(ROOT/row['dxf'])
@@ -160,20 +179,54 @@ class TowerSavedDrawingTests(unittest.TestCase):
         text=PdfReader(ROOT/f'output/pdf/{stem}_sheets.pdf').pages[1].extract_text()
         self.assertIn('1:300',text)
         self.assertIn('メインデッキ付近',text)
-        self.assertIn('LANDMARK-R04',text)
+        self.assertIn('LANDMARK-R06',text)
         for label in ('公式案内: メイン150 m / トップ250 m','施工GL',
-                      '公式案内値との換算・完成面実測ではない。','床との対応'):
+                      '公式案内値との換算・完成面実測ではない。','独立平面',
+                      'H11 27×27 / H12 28×28 m','ST支柱□450','1:400','1:1250'):
             self.assertIn(label,text)
+
+    def test_tokyo_upper_details_retain_native_sources_and_the_complete_antenna_zone(self):
+        sys.path.insert(0,str(ROOT/'src'))
+        from generate_tower_plans import _projected_bounds
+        from lib.tower_geometry import component_specs
+        parts={part['name']:part for part in component_specs('tokyo-tower')}
+        metadata=json.loads((ROOT/'output/review/tokyo_tower_drawings.json').read_text())
+        row=next(row for row in metadata['drawings'] if row['id']=='elevation')
+        details={detail['id']:detail for detail in row['details']}
+        expected={
+            'top_deck':(400,[0,227000],[257,65,326,120],'decks:top_'),
+            'antenna':(1250,[0,285500],[334,40,394,120],'antenna:'),
+        }
+        doc=ezdxf.readfile(ROOT/row['dxf'])
+        viewports=[v for v in doc.layouts.get('LANDMARK_A3_1_1500').query('VIEWPORT') if v.dxf.id>1]
+        for ident,(scale,center,paper,prefix) in expected.items():
+            with self.subTest(detail=ident):
+                detail=details[ident]
+                self.assertEqual((detail['scale'],detail['view_center_mm'],detail['paper_bounds_mm'],
+                                  detail['source_part_prefix']),(scale,center,paper,prefix))
+                viewport=next(v for v in viewports if round(v.dxf.view_height/v.dxf.height)==scale)
+                self.assertEqual(set(viewport.frozen_layers),{'D-STR-DIM','D-STR-TXT','D-BMK-AXIS'})
+                self.assertAlmostEqual(viewport.dxf.view_center_point.y,center[1])
+                x1,z1,x2,z2=detail['bounds_mm']
+                target=[parts[name] for name in detail['source_parts'] if name.startswith(prefix)
+                        and parts[name].get('role') not in ('deck_bracket','deck_support_ring')]
+                self.assertTrue(target)
+                self.assertTrue(all(name.startswith((prefix,'structure:','core:')) for name in detail['source_parts']))
+                for part in target:
+                    a,b,c,d=_projected_bounds(part)
+                    self.assertTrue(x1<=a<=c<=x2 and z1<=b<=d<=z2,part['name'])
+        self.assertTrue(any(parts[name]['kind']=='rhs' for name in details['antenna']['source_parts']
+                            if name.startswith('antenna:')),'The ST BOX must remain native hollow geometry.')
 
     def test_skytree_deck_and_sloping_galleria_details_keep_actual_geometry_and_editable_levels(self):
         metadata=json.loads((ROOT/'output/review/tokyo_skytree_drawings.json').read_text())
         row=next(row for row in metadata['drawings'] if row['id']=='elevation')
         self.assertEqual({detail['id'] for detail in row['details']},{'tembo_deck','tembo_galleria'})
         doc=ezdxf.readfile(ROOT/row['dxf'])
-        self.assertEqual(len(list(doc.modelspace().query('DIMENSION'))),3)
+        self.assertEqual(len(list(doc.modelspace().query('DIMENSION'))),4)
         layout=doc.layouts.get('LANDMARK_A3_1_3000')
         detail_viewports=[v for v in layout.query('VIEWPORT')
-                          if v.dxf.id>1 and round(v.dxf.view_height/v.dxf.height)==500]
+                          if v.dxf.id>1 and round(v.dxf.view_height/v.dxf.height) in (500,750)]
         self.assertEqual(len(detail_viewports),2)
         for detail in row['details']:
             prefix=f'decks:{detail["id"]}_'
@@ -187,7 +240,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
                           if abs(v.dxf.view_center_point.y-detail['view_center_mm'][1])<1e-6)
             self.assertEqual(set(viewport.frozen_layers),{'D-STR-DIM','D-STR-TXT','D-BMK-AXIS'})
         paper_text=' '.join(entity.dxf.text for entity in layout.query('TEXT'))
-        for label in ('340,000','345,000','350,000','445,000','450,000','上昇する回廊'):
+        for label in ('340,000','345,000','350,000','445,000','450,000','最高451,200'):
             self.assertIn(label,paper_text)
         svg=ET.fromstring((ROOT/row['svg']).read_text())
         insets={node.attrib['data-detail-id']:node for node in svg.iter() if 'data-detail-id' in node.attrib}
@@ -280,6 +333,44 @@ class TowerSavedDrawingTests(unittest.TestCase):
             for feature in detail['feature_dimensions']:
                 self.assertIn(f'{feature["measurement_mm"]:,.1f}',pdf_text)
 
+    def test_skytree_structure_page_uses_actual_kanae_groups_and_native_model_intervals(self):
+        sys.path.insert(0,str(ROOT/'src'))
+        from lib.tower_geometry import component_specs
+        parts={part['name']:part for part in component_specs('tokyo-skytree')}
+        metadata=json.loads((ROOT/'output/review/tokyo_skytree_drawings.json').read_text())
+        row=next(row for row in metadata['drawings'] if row['id']=='structure-zones')
+        self.assertEqual(row['dxf'],'DXF/tokyo_skytree_structure_zones.dxf')
+        self.assertEqual(row['dimensions_mm'],[50000,12500,25000])
+        self.assertEqual(row['projection_sampling']['circular_segments'],24)
+        self.assertEqual({section['id'] for section in row['sections']},{'kanae-base','kanae-module'})
+        for section in row['sections']:
+            self.assertTrue(section['source_parts'])
+            self.assertTrue(all(name in parts for name in section['source_parts']))
+        detail=row['details'][0]
+        self.assertEqual(detail['id'],'kanae-module')
+        self.assertEqual(detail['levels_mm'],[0,12500,25000])
+        self.assertTrue(all(name.startswith('structure:kanae_01_') for name in detail['source_parts']))
+        horizontals=[parts[name] for name in detail['source_parts'] if parts[name].get('role')=='kanae_horizontal']
+        levels={round(point[2]) for part in horizontals for point in (part['start'],part['end'])}
+        self.assertTrue({0,12500,25000}<=levels,'Dimensioned levels must belong to real source members.')
+        doc=ezdxf.readfile(ROOT/row['dxf'])
+        self.assertFalse(doc.audit().has_errors)
+        self.assertEqual([round(entity.get_measurement()) for entity in doc.modelspace().query('DIMENSION')],
+                         [50000,12500,25000])
+        layout=doc.layouts.get(f'LANDMARK_A3_1_{row["scale"]}')
+        viewports=[viewport for viewport in layout.query('VIEWPORT') if viewport.dxf.id>1]
+        self.assertEqual(len(viewports),2)
+        self.assertTrue(all(viewport.dxf.flags & 16384 for viewport in viewports))
+        self.assertEqual(sorted(round(v.dxf.view_height/v.dxf.height) for v in viewports),[200,750])
+        saved_names={entity.get_xdata('TOWER_PART')[0].value for entity in doc.modelspace()
+                     if entity.has_xdata('STRUCTURE_VIEW')}
+        self.assertEqual(saved_names,set(detail['source_parts']))
+        text=PdfReader(ROOT/'output/pdf/tokyo_skytree_sheets.pdf').pages[2].extract_text()
+        for label in ('50,000','12,500','25,000','鼎トラス全体の高さを示す寸法ではない。',
+                      '方位・断面位置はモデル参照。','鋼管架構の構成','5,000 mm節間',
+                      '150/250 m','モデル仮定'):
+            self.assertIn(label,text)
+
 
 class TowerProjectionTests(unittest.TestCase):
     @classmethod
@@ -321,6 +412,131 @@ class TowerProjectionTests(unittest.TestCase):
             self.assertIn('床',text)
             self.assertIn('仮定',text)
             self.assertIn('公式案内値との換算・完成面実測ではない。',text)
+            self.assertIn('H13 29×24 m',text)
+            self.assertIn('独立平面',text)
+            self.assertNotIn('機械室層',text)
+            self.assertIn('JAEE',text)
+
+    def test_skytree_inset_source_fixtures_keep_roof_and_obstruction_lens_inside_the_clip(self):
+        def box(name,bounds,group='decks',role='deck_roof'):
+            return {'group':group,'name':name,'kind':'box','bounds':bounds,'role':role,'color':'#778899'}
+        candidates=[
+            box('decks:tembo_deck_glazing_fixture',[-24000,-24000,335000,24000,24000,355000],role='glazing'),
+            box('decks:tembo_deck_crown_roof_fixture',[-16000,-16000,374650,16000,16000,375000]),
+            box('decks:tembo_deck_obstruction_light_lens_fixture',[-150,-150,375300,150,150,375600],role='obstruction_light_lens'),
+            box('decks:tembo_galleria_envelope_fixture',[-21000,-21000,443000,21000,21000,460000]),
+            box('decks:unrelated_maintenance',[-100,-100,355000,100,100,356000]),
+            box('core:context',[-4000,-4000,0,4000,4000,452500],'core','elevator_guide'),
+        ]
+        drawing=self.module.TowerDrawing('tokyo-skytree','elevation',3000,(130,28))
+        with patch.object(self.module,'_drawing_parts',return_value=candidates):
+            self.module.add_skytree_details(drawing)
+        expected={
+            'tembo_deck':(750,[0,354000],[257,134,394,198],'decks:tembo_deck_',candidates[:3]),
+            'tembo_galleria':(500,[0,449000],[257,59,394,115],'decks:tembo_galleria_',candidates[3:4]),
+        }
+        for detail in drawing.details:
+            scale,center,paper,prefix,targets=expected[detail['id']]
+            self.assertEqual((detail['scale'],detail['view_center_mm'],detail['paper_bounds_mm'],
+                              detail['source_part_prefix']),(scale,center,paper,prefix))
+            self.assertTrue({part['name'] for part in targets}<=set(detail['source_parts']))
+            self.assertNotIn(candidates[4]['name'],detail['source_parts'])
+            x1,z1,x2,z2=detail['bounds_mm']
+            for part in targets:
+                a,b,c,d=self.module._projected_bounds(part)
+                self.assertTrue(x1<=a<=c<=x2 and z1<=b<=d<=z2,part['name'])
+        for op in drawing.operations:
+            if op['kind']!='text':continue
+            x,y=op['points']
+            for _,_,(x1,y1,x2,y2),_,_ in expected.values():
+                self.assertFalse(x1<=x<=x2 and y1<=y<=y2,op['text'])
+
+    def test_skytree_equipment_roof_source_fixture_does_not_become_an_observation_floor(self):
+        with patch.object(self.module,'_drawing_parts',return_value=[]):
+            drawing=self.module.build_elevation('tokyo-skytree')
+        self.assertEqual(self.module.TOWERS['tokyo-skytree']['deck_levels_mm'],[350000,450000])
+        self.assertEqual([round(d.get_measurement()) for d in drawing.msp.query('DIMENSION')],
+                         [634000,350000,450000,375000])
+        self.assertEqual(next(detail for detail in drawing.details if detail['id']=='tembo_deck')['levels_mm'],
+                         [340000,345000,350000])
+        text=' '.join(op['text'] for op in drawing.operations if op['kind']=='text')
+        for value in ('設備屋上（参考）','375,000','展望床ではない。','315 m/D32','H495 m/D18','H497 m','TMD頂帽'):
+            self.assertIn(value,text)
+        for detail in drawing.details:
+            x1,y1,x2,y2=detail['paper_bounds_mm']
+            for op in drawing.operations:
+                if op['kind']=='text':
+                    x,y=op['points'];self.assertFalse(x1<=x<=x2 and y1<=y<=y2,op['text'])
+
+    def test_skytree_two_insets_include_every_named_deck_and_gallery_exterior(self):
+        drawing=self.module.build_elevation('tokyo-skytree')
+        parts=self.module._drawing_parts('tokyo-skytree')
+        for detail in drawing.details:
+            targets=[part for part in parts if part['name'].startswith(detail['source_part_prefix'])]
+            self.assertTrue(targets)
+            self.assertTrue({part['name'] for part in targets}<=set(detail['source_parts']))
+            x1,z1,x2,z2=detail['bounds_mm']
+            for part in targets:
+                a,b,c,d=self.module._projected_bounds(part)
+                self.assertTrue(x1<=a<=c<=x2 and z1<=b<=d<=z2,part['name'])
+
+    def test_skytree_structure_notes_keep_dense_upper_tiers_out_of_lower_native_dimensions(self):
+        drawing=self.module.StructureZoneDrawing('tokyo-skytree','structure-zones',750,(0,0))
+        text=' '.join(op['text'] for op in drawing.operations if op['kind']=='text')
+        self.assertIn('315 m以高は5,000 mm節間',text)
+        self.assertIn('150/250 mの密度切替位置もモデル仮定',text)
+        self.assertEqual(drawing.dimensions,[])
+
+    def test_tokyo_three_insets_keep_all_target_geometry_inside_their_viewports(self):
+        drawing=self.module.build_elevation('tokyo-tower')
+        parts=self.module._drawing_parts('tokyo-tower')
+        expected={
+            'main_deck':(300,[0,125000],[257,139,394,195],'decks:main_'),
+            'top_deck':(400,[0,227000],[257,65,326,120],'decks:top_'),
+            'antenna':(1250,[0,285500],[334,40,394,120],'antenna:'),
+        }
+        self.assertEqual(len(list(drawing.msp.query('DIMENSION'))),3)
+        self.assertEqual({detail['id'] for detail in drawing.details},set(expected))
+        for detail in drawing.details:
+            with self.subTest(detail=detail['id']):
+                scale,center,paper,prefix=expected[detail['id']]
+                self.assertEqual((detail['scale'],detail['view_center_mm'],detail['paper_bounds_mm'],
+                                  detail['source_part_prefix']),(scale,center,paper,prefix))
+                # Supporting braces continue below the local deck window;
+                # the complete enclosure, floors and equipment must fit.
+                targets=[part for part in parts if part['name'].startswith(prefix)
+                         and part.get('role') not in ('deck_bracket','deck_support_ring')]
+                self.assertTrue(targets)
+                self.assertTrue({part['name'] for part in targets}<=set(detail['source_parts']))
+                x1,z1,x2,z2=detail['bounds_mm']
+                for part in targets:
+                    a,b,c,d=self.module._projected_bounds(part)
+                    self.assertTrue(x1<=a<=c<=x2 and z1<=b<=d<=z2,part['name'])
+                detail_op=next(op for op in drawing.operations
+                               if op['kind']=='detail' and op['id']==detail['id'])
+                self.assertEqual(detail_op['points'],paper)
+                self.assertTrue(detail_op['operations'])
+        # Clips constrain contextual members only; labels remain outside all
+        # three windows, so future note changes cannot obscure their geometry.
+        for op in drawing.operations:
+            if op['kind']!='text':continue
+            x,y=op['points']
+            for _,_,(x1,y1,x2,y2),_ in expected.values():
+                self.assertFalse(x1<=x<=x2 and y1<=y<=y2,op['text'])
+
+    def test_tokyo_antenna_detail_prefix_includes_equipment_but_rejects_other_decks(self):
+        fixture=lambda name,z,group:{'group':group,'name':name,'kind':'box',
+                                     'bounds':[-100,-100,z-100,100,100,z+100],'color':'#778899'}
+        candidates=[fixture('antenna:equipment_h25',238600,'antenna'),
+                    fixture('antenna:sg_external_frame',280000,'antenna'),
+                    fixture('antenna:st_tip',333000,'antenna'),
+                    fixture('structure:upper_context',245000,'structure'),
+                    fixture('decks:maintenance_outside_prefix',280000,'decks')]
+        drawing=self.module.TowerDrawing('tokyo-tower','elevation',1500,(130,28))
+        with patch.object(self.module,'_drawing_parts',return_value=candidates):
+            self.module.add_tokyo_upper_details(drawing)
+        detail=next(detail for detail in drawing.details if detail['id']=='antenna')
+        self.assertEqual(detail['source_parts'],[part['name'] for part in candidates[:-1]])
 
     def test_local_node_projection_is_orthographic_and_context_clipping_preserves_real_points(self):
         frame={'origin_mm':[10,20,30],'u':[.6,.8,0],'v':[0,0,1]}
@@ -328,6 +544,48 @@ class TowerProjectionTests(unittest.TestCase):
         polygon=[(-20,-10),(20,-10),(20,10),(-20,10)]
         result=self.module._clip_polygon(polygon,[-5,-3,7,4])
         self.assertEqual(set(result),{(-5,-3),(7,-3),(7,4),(-5,4)})
+
+    def test_circular_hollow_drawings_retain_wall_rims_and_real_loft_stations(self):
+        tube={'group':'structure','name':'structure:tube_fixture','kind':'tube',
+              'start':[0,0,0],'end':[0,0,1000],'radius':100,'wall_thickness_mm':10}
+        drawing=self.module._DetailProjection('tokyo-skytree',1,(0,0));drawing.view='plan'
+        self.module.draw_components(drawing,[tube])
+        radii={round(sqrt(x*x+y*y),6) for operation in drawing.operations for x,y in operation['points']}
+        self.assertEqual(radii,{90,100})
+        self.assertEqual(self.module._projected_bounds(tube),(-100,0,100,1000))
+        inclined={**tube,'start':[10,20,30],'end':[310,420,1230]}
+        outside,inside=self.module._hollow_member_sections(inclined)
+        axis=[inclined['end'][i]-inclined['start'][i] for i in range(3)]
+        for rings,radius in ((outside,100),(inside,90)):
+            for center,section in zip((inclined['start'],inclined['end']),rings):
+                for point in section:
+                    offset=[point[i]-center[i] for i in range(3)]
+                    self.assertAlmostEqual(sum(offset[i]*axis[i] for i in range(3)),0,places=7)
+                    self.assertAlmostEqual(sqrt(sum(value*value for value in offset)),radius,places=7)
+        loft={'group':'structure','name':'structure:loft_fixture','kind':'tube_loft','sections':[
+            {'z':0,'center':[0,0],'radius':100,'wall_thickness_mm':10},
+            {'z':500,'center':[80,0],'radius':90,'wall_thickness_mm':10},
+            {'z':1000,'center':[100,0],'radius':70,'wall_thickness_mm':8}]}
+        outer,inner=self.module._hollow_member_sections(loft)
+        self.assertEqual([len(section) for section in outer],[24,24,24])
+        drawing=self.module._DetailProjection('tokyo-skytree',1,(0,0))
+        self.module.draw_components(drawing,[loft])
+        expected={(point[0],point[2]) for section in [*outer,inner[0],inner[-1]] for point in section}
+        actual={tuple(point) for operation in drawing.operations for point in operation['points']}
+        self.assertEqual(actual,expected)
+        self.assertEqual(self.module._projected_bounds(loft),(-100,0,170,1000))
+
+    def test_rectangular_hollow_drawing_uses_backend_basis_and_open_inner_rectangle(self):
+        rhs={'group':'structure','name':'structure:rhs_fixture','kind':'rhs','start':[0,0,0],
+             'end':[0,0,1000],'width_mm':400,'depth_mm':600,'wall_thickness_mm':20}
+        outer,inner=self.module._hollow_member_sections(rhs)
+        self.assertEqual(set(tuple(point[:2]) for point in outer[0]),{(-300,-200),(300,-200),(300,200),(-300,200)})
+        self.assertEqual(set(tuple(point[:2]) for point in inner[0]),{(-280,-180),(280,-180),(280,180),(-280,180)})
+        drawing=self.module._DetailProjection('tokyo-skytree',1,(0,0));drawing.view='plan'
+        self.module.draw_components(drawing,[rhs])
+        actual={tuple(point) for operation in drawing.operations for point in operation['points']}
+        self.assertEqual(actual,{tuple(point[:2]) for section in [*outer,*inner] for point in section})
+        self.assertEqual(self.module._projected_bounds(rhs),(-300,0,300,1000))
 
 
 if __name__=='__main__':

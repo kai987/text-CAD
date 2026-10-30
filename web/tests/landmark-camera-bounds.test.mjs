@@ -23,28 +23,57 @@ test('main deck close-up excludes top_maintenance parts and unrelated main subst
   assert.deepEqual(bounds.max.toArray(), [17, 158.5, 17]);
 });
 
-test('Skytree close-ups use disjoint CAD prefixes for 350m, 445-450m and the spire', t => {
+test('Tokyo top-deck and spire close-ups retain their own named CAD range including side-mounted equipment', t => {
+  const material = new MeshBasicMaterial(), geometry = new BoxGeometry(12, 2, 12);
+  t.after(() => { material.dispose(); geometry.dispose(); });
+  const box = y => { const mesh = new Mesh(geometry, material); mesh.position.y = y; return mesh; };
+  const nodes = new Map([
+    ['decks:main_reference_floor', box(125)],
+    ['decks:top_reference_floor', box(223.55)],
+    ['decks:top_maintenance_guard_0', box(228)],
+    ['decks:machine_h13_floor', box(140)],
+    ['antenna:digital_side_equipment', box(238)],
+    ['antenna:mast_upper', box(333)],
+    ['core:top_elevator_shaft', box(160)],
+  ]);
+  const full = new Box3(new Vector3(-45, -2, -45), new Vector3(45, 334, 45));
+  const regions = landmarkCloseupBounds('tokyo-tower', nodes, full);
+  assert.equal(regions.get('base').max.y, 80);
+  assert.equal(regions.get('main-deck').getCenter(new Vector3()).y, 125);
+  assert.equal(regions.get('top-deck').min.y, 220.55);
+  assert.equal(regions.get('top-deck').max.y, 231);
+  assert.equal(regions.get('spire').min.y, 235);
+  assert.equal(regions.get('spire').max.y, 336);
+  assert.equal(regions.has('tembo-deck'), false);
+  assert.equal(full.max.y, 334, 'local camera fitting must not shift physical overall bounds');
+});
+
+test('Skytree close-ups retain the 375m deck equipment crown, upper gallery and complete gain envelope', t => {
   const material = new MeshBasicMaterial(), geometry = new BoxGeometry(30, 2, 30);
   t.after(() => { material.dispose(); geometry.dispose(); });
   const box = (y) => { const mesh = new Mesh(geometry, material); mesh.position.y = y; return mesh; };
   const nodes = new Map([
     ['decks:tembo_deck_floor', box(350)],
+    ['decks:tembo_deck_equipment_crown', box(375)],
     ['decks:tembo_galleria_ramp_01', box(445)],
     ['decks:tembo_galleria_roof', box(450)],
     ['antenna:mast_upper', box(634)],
+    ['antenna:gain_transition', box(497)],
+    ['antenna:gain_tmd_cap', box(631)],
     ['decks:maintenance_above_tembo_deck', box(550)],
     ['core:tembo_deck_lift', box(200)],
   ]);
   const full = new Box3(new Vector3(-50, -3, -50), new Vector3(50, 635, 50));
   const regions = landmarkCloseupBounds('tokyo-skytree', nodes, full);
   assert.equal(regions.get('base').max.y, 100);
-  assert.equal(regions.get('tembo-deck').getCenter(new Vector3()).y, 350);
+  assert.equal(regions.get('tembo-deck').getCenter(new Vector3()).y, 362.5);
   assert.equal(regions.get('tembo-deck').min.y, 347);
-  assert.equal(regions.get('tembo-deck').max.y, 353);
+  assert.equal(regions.get('tembo-deck').max.y, 378);
   assert.equal(regions.get('tembo-galleria').getCenter(new Vector3()).y, 447.5);
   assert.equal(regions.get('tembo-galleria').min.y, 442);
   assert.equal(regions.get('tembo-galleria').max.y, 453);
-  assert.equal(regions.get('spire').min.y, 631);
+  assert.equal(regions.get('spire').min.y, 494);
+  assert.equal(regions.get('spire').max.y, 637);
   assert.equal(regions.has('main-deck'), false);
   assert.equal(full.max.y, 635, 'camera fitting must not mutate overall CAD bounds');
 });

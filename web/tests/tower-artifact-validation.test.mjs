@@ -15,7 +15,7 @@ async function fixture(t) {
     await writeFile(resolve(root, path), value);
   };
   const source = "raise RuntimeError('Publication must not execute CAD sources')\n";
-  for (const path of ['src/lib/tower_geometry.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py']) await save(path, source);
+  for (const path of ['src/lib/tower_geometry.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py']) await save(path, source);
   const records = [];
   async function bind(metadata, paths) {
     metadata.artifacts = {};
@@ -32,13 +32,14 @@ async function fixture(t) {
     const glb = Buffer.alloc(20); glb.write('glTF'); glb.writeUInt32LE(2, 4); glb.writeUInt32LE(20, 8);
     await save(paths.models[1], glb);
     await save(paths.drawings[4], '%PDF-1.7\nfixture');
-    const dimensions = [[80000], [tower.height, ...tower.decks]];
+    const dimensions = [[80000], [tower.height, ...tower.decks, ...(tower.roofLevels ?? [])]];
     const common = { schema_version: 1, revision: tower.revision, units: 'mm', status: 'reference_concept_only' };
     const manifest = { ...common, id: tower.id, height_mm: tower.height,
       parameters: { base_width_mm: 80000 }, assumptions: ['Schematic frame.', 'No structural design.'],
       source_references: [{ url: 'https://example.com/operator-reference' }],
       source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/towers_3d.py': sha(source) } };
     const drawings = { ...common, source_geometry_revision: tower.revision,
+      ...(tower.roofLevels ? { roof_levels_mm: tower.roofLevels } : {}),
       source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/generate_tower_plans.py': sha(source) },
       drawings: ['plan', 'elevation'].map((id, index) => ({ id,
         dxf: paths.drawings[index], svg: paths.drawings[index + 2],
@@ -49,6 +50,10 @@ async function fixture(t) {
         part_names:['structure:plate_'+i,'structure:rib_a_'+i,'structure:rib_b_'+i]}));
       drawings.drawings.push({id:'steel-nodes',dxf:paths.drawings[5],svg:paths.drawings[6],
         dimensions_mm:[1200,151.2],required_labels:['参考モデル','単位 mm']});
+    } else {
+      drawings.drawings[1].roof_levels_mm = tower.roofLevels;
+      drawings.drawings.push({id:'structure-zones',dxf:paths.drawings[5],svg:paths.drawings[6],
+        dimensions_mm:[50000,12500,25000],required_labels:['参考モデル','単位 mm']});
     }
     for (const extra of tower.sources) {manifest.source_sha256[extra]=sha(source);drawings.source_sha256[extra]=sha(source);}
     for (const row of drawings.drawings) {
@@ -72,7 +77,7 @@ async function fixture(t) {
 test('both reference towers are source-bound without executing CAD generation', async t => {
   const fixtureData = await fixture(t);
   const result = await validateTowerArtifacts(fixtureData.root);
-  assert.equal(result.models.length, 2); assert.equal(result.paths.length, 20);
+  assert.equal(result.models.length, 2); assert.equal(result.paths.length, 22);
 });
 test('changed tower source rejects publication', async t => {
   const { root, save } = await fixture(t);
@@ -107,7 +112,7 @@ test('rebinding SVG bytes cannot disguise inconsistent visible dimension text', 
 test('all three independently referenced elevation levels are required', async t => {
   const { root, records, save, bind, saveMetadata } = await fixture(t);
   const { paths, drawings } = records[1];
-  drawings.drawings[1].dimensions_mm.pop();
+  drawings.drawings[1].dimensions_mm=drawings.drawings[1].dimensions_mm.filter(value=>value!==450000);
   const svg = await readFile(resolve(root, paths.drawings[3]), 'utf8');
   await save(paths.drawings[3], svg.replace('<text data-dimension-mm="450000">450000</text>', ''));
   await bind(drawings, paths.drawings); await saveMetadata();
@@ -115,9 +120,9 @@ test('all three independently referenced elevation levels are required', async t
 });
 
 // The two towers have independent release revisions and height conventions.
-test('R04 Tokyo drawing cannot silently fall back to R03 or R02', async t => {
+test('R06 Tokyo drawing cannot silently fall back to R05, R04, R03 or R02', async t => {
   const { root, records, saveMetadata } = await fixture(t);
-  for (const stale of ['LANDMARK-R03', 'LANDMARK-R02']) {
+  for (const stale of ['LANDMARK-R05', 'LANDMARK-R04', 'LANDMARK-R03', 'LANDMARK-R02']) {
     records[0].drawings.revision=stale; await saveMetadata();
     await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
   }
@@ -129,19 +134,34 @@ test('changing the Tokyo detail module invalidates its own generation binding', 
 });
 
 
-test('R02 Skytree drawing rejects an old R01 revision', async t => {
+test('R04 Skytree drawing rejects old R03, R02 and R01 revisions independently of Tokyo', async t => {
   const {root,records,saveMetadata}=await fixture(t);
-  records[1].drawings.revision='LANDMARK-R01'; await saveMetadata();
-  await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+  assert.equal(records[0].manifest.revision,'LANDMARK-R06');
+  for (const stale of ['LANDMARK-R03','LANDMARK-R02','LANDMARK-R01']) {
+    records[1].drawings.revision=stale; await saveMetadata();
+    await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+  }
 });
 test('changing the Skytree detail module invalidates its own generation binding', async t => {
   const {root,save}=await fixture(t);
   await save('src/lib/skytree_detail.py','# changed galleria ramp or tower frame');
   await assert.rejects(validateTowerArtifacts(root), /Stale tower source/);
 });
+test('changing or omitting the Skytree outline source invalidates R04 provenance', async t => {
+  const {root,save,records,saveMetadata}=await fixture(t);
+  assert.deepEqual(towerCatalog.find(tower=>tower.id==='tokyo-skytree').sources,
+    ['src/lib/skytree_detail.py','src/lib/skytree_outline.py']);
+  delete records[1].manifest.source_sha256['src/lib/skytree_outline.py'];
+  await saveMetadata();
+  await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
+  records[1].manifest.source_sha256['src/lib/skytree_outline.py']=records[1].manifest.source_sha256['src/lib/skytree_detail.py'];
+  await saveMetadata();
+  await save('src/lib/skytree_outline.py','# changed corner arcs or upper taper');
+  await assert.rejects(validateTowerArtifacts(root), /Stale tower source/);
+});
 
 
-test('twenty assumed steel-node locations and current source bindings are required for Tokyo R04', async t => {
+test('twenty assumed steel-node locations and current source bindings are required for Tokyo R06', async t => {
   const {root,records,saveMetadata}=await fixture(t);
   records[0].manifest.steel_nodes.pop();await saveMetadata();
   await assert.rejects(validateTowerArtifacts(root),/steel-node catalog/);
@@ -151,10 +171,34 @@ test('steel detail source changes invalidate the Tokyo release',async t=>{
   await save('src/lib/tokyo_tower_steel.py','# changed a node');
   await assert.rejects(validateTowerArtifacts(root),/Stale tower source/);
 });
-test('R04 requires the editable steel detail drawing in addition to the original sheets',async t=>{
+test('R06 requires the editable steel detail drawing in addition to the original sheets',async t=>{
   const {root,records,saveMetadata}=await fixture(t);
   records[0].drawings.drawings.pop();await saveMetadata();
   await assert.rejects(validateTowerArtifacts(root),/drawing catalog/);
+});
+
+test('R04 Skytree requires its source-bound structure zones page while keeping earlier sheet paths',async t=>{
+  const {root,records,saveMetadata}=await fixture(t);
+  const {drawings,paths}=records[1];
+  assert.deepEqual(paths.drawings.slice(0,5),[
+    'DXF/tokyo_skytree_plan.dxf','DXF/tokyo_skytree_elevation.dxf',
+    'output/svg/tokyo_skytree_plan.svg','output/svg/tokyo_skytree_elevation.svg','output/pdf/tokyo_skytree_sheets.pdf',
+  ]);
+  assert.equal(drawings.drawings[2].id,'structure-zones');
+  assert.equal(drawings.drawings[2].dxf,'DXF/tokyo_skytree_structure_zones.dxf');
+  assert.equal(drawings.drawings[2].svg,'output/svg/tokyo_skytree_structure_zones.svg');
+  drawings.drawings.pop(); await saveMetadata();
+  await assert.rejects(validateTowerArtifacts(root),/drawing catalog/);
+});
+
+test('Skytree structure zones retain the model reference range and two ring intervals',async t=>{
+  const {root,records,save,bind,saveMetadata}=await fixture(t);
+  const {drawings,paths}=records[1], row=drawings.drawings[2];
+  row.dimensions_mm=row.dimensions_mm.filter(value=>value!==12500);
+  const svg=await readFile(resolve(root,row.svg),'utf8');
+  await save(row.svg,svg.replace('<text data-dimension-mm="12500">12500</text>',''));
+  await bind(drawings,paths.drawings);await saveMetadata();
+  await assert.rejects(validateTowerArtifacts(root),/structure-zone dimensions/);
 });
 
 test('reference corrections accept different local part counts at the twenty assumed connections', async t => {
@@ -170,6 +214,21 @@ test('reference corrections accept different local part counts at the twenty ass
 test('publication uses construction GL levels rather than the official deck-name heights', () => {
   assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-tower').decks, [125000, 223550]);
   assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-skytree').decks, [350000, 450000]);
+  assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-skytree').roofLevels, [375000]);
+});
+
+test('Skytree R04 requires the equipment roof dimension and separate metadata without changing observation floors',async t=>{
+  const {root,records,save,bind,saveMetadata}=await fixture(t);
+  const {drawings,paths}=records[1],row=drawings.drawings[1];
+  assert.deepEqual(row.roof_levels_mm,[375000]);
+  delete row.roof_levels_mm;await saveMetadata();
+  await assert.rejects(validateTowerArtifacts(root),/equipment-roof reference levels/);
+  row.roof_levels_mm=[375000];
+  row.dimensions_mm=row.dimensions_mm.filter(value=>value!==375000);
+  const svg=await readFile(resolve(root,row.svg),'utf8');
+  await save(row.svg,svg.replace('<text data-dimension-mm="375000">375000</text>',''));
+  await bind(drawings,paths.drawings);await saveMetadata();
+  await assert.rejects(validateTowerArtifacts(root),/equipment-roof reference levels/);
 });
 
 

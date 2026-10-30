@@ -15,6 +15,8 @@ import { bindLandmarkMaterialLighting, landmarkLocalLightLayout, landmarkLocalLi
 import type { LandmarkMaterialLighting } from './landmark-lighting';
 import { batchLandmarkStairs } from './landmark-stair-batches';
 import type { LandmarkStairBatches } from './landmark-stair-batches';
+import { batchSkytreeOpaque } from './skytree-opaque-batches';
+import type { SkytreeOpaqueBatches } from './skytree-opaque-batches';
 import { landmarkCloseupBounds } from './landmark-camera-bounds';
 import { bindLandmarkSteelDetails, readLandmarkSteelNodes } from './landmark-steel-nodes';
 import type { LandmarkSteelDetails, LandmarkSteelNode, SteelMicroMode } from './landmark-steel-nodes';
@@ -81,6 +83,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   const groups = new Map<LandmarkGroupId, Object3D[]>();
   let materialLighting: LandmarkMaterialLighting | null = null;
   let stairBatches: LandmarkStairBatches | null = null;
+  let skytreeOpaqueBatches: SkytreeOpaqueBatches | null = null;
   let steelDetails: LandmarkSteelDetails | null = null;
   let steelMicroMode: SteelMicroMode = 'auto', steelNodeId: string | null = null;
   let visibility = Object.fromEntries(landmarkGroupIds.map(group => [group, true])) as Record<LandmarkGroupId, boolean>;
@@ -114,7 +117,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     if (!root || !host.clientWidth || !host.clientHeight) return;
     const region = closeupBounds.get(next) ?? bounds;
     const center = region.getCenter(new Vector3());
-    const directions = { iso: new Vector3(1, 1, 1), front: new Vector3(0, 0, 2), side: new Vector3(2, 0, 0), top: new Vector3(0, 2, 0), base: new Vector3(1, .6, 1), 'main-deck': new Vector3(1, .38, 1), 'tembo-deck': new Vector3(1, .3, 1), 'tembo-galleria': new Vector3(1, .25, 1), spire: new Vector3(1, .2, 1), 'steel-node': steelDetails?.direction(steelNodeId ?? '') ?? new Vector3(1, .4, 1) };
+    const directions = { iso: new Vector3(1, 1, 1), front: new Vector3(0, 0, 2), side: new Vector3(2, 0, 0), top: new Vector3(0, 2, 0), base: new Vector3(1, .6, 1), 'main-deck': new Vector3(1, .38, 1), 'top-deck': new Vector3(1, .3, 1), 'tembo-deck': new Vector3(1, .3, 1), 'tembo-galleria': new Vector3(1, .25, 1), spire: new Vector3(1, .2, 1), 'steel-node': steelDetails?.direction(steelNodeId ?? '') ?? new Vector3(1, .4, 1) };
     camera.up.set(0, next === 'top' ? 0 : 1, next === 'top' ? -1 : 0);
     controls.target.copy(center); camera.position.copy(center).addScaledVector(directions[next], height * 2);
     camera.lookAt(center); camera.updateMatrixWorld();
@@ -223,6 +226,10 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
         root = gltf.scene; scene.add(root); bounds.setFromObject(root);
         if (bounds.isEmpty()) throw new Error('Empty landmark model.');
         for (const [preset, region] of landmarkCloseupBounds(id, cadNodes, bounds)) closeupBounds.set(preset, region);
+        // Native bounds and the original named-node catalog stay authoritative.
+        skytreeOpaqueBatches = batchSkytreeOpaque(root, id);
+        canvas.dataset.opaqueBatchSourceMeshes = String(skytreeOpaqueBatches.sourceMeshes);
+        canvas.dataset.opaqueDrawBatches = String(skytreeOpaqueBatches.drawBatches);
         canvas.dataset.modelRevision = extras.revision;
         canvas.dataset.modelReady = 'true'; canvas.dataset.modelHeight = String(bounds.max.y - bounds.min.y);
         applyVisibility(visibility); appearance(theme, night); fit(mode); options.onReady(); scheduler.invalidate();
@@ -230,6 +237,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
         console.error('Landmark component binding failed.', error);
         scene.remove(gltf.scene); root = null; materialLighting?.dispose(); materialLighting = null;
         steelDetails?.dispose(); steelDetails = null;
+        skytreeOpaqueBatches?.dispose(); skytreeOpaqueBatches = null;
         stairBatches?.dispose(); stairBatches = null;
         disposeModel(gltf.scene); groups.clear(); closeupBounds.clear(); options.onError();
       }
@@ -247,6 +255,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
       controls.removeEventListener('change', changed); controls.dispose();
       materialLighting?.dispose(); materialLighting = null;
       steelDetails?.dispose(); steelDetails = null;
+      skytreeOpaqueBatches?.dispose(); skytreeOpaqueBatches = null;
       stairBatches?.dispose(); stairBatches = null;
       if (root) disposeModel(root);
       for (const { light } of localLights) {

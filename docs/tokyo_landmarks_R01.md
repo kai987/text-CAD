@@ -1,6 +1,6 @@
 # 東京のランドマーク / 东京地标 / Tokyo landmarks — LANDMARK-R01
 
-> 現行 / 当前 / Current: [東京タワー R03](tokyo_tower_R04.md) と [東京スカイツリー R02](tokyo_skytree_R02.md) に更新しました。东京塔为R03、晴空塔为R02。Tokyo Tower uses R03 and Skytree R02. This document retains the initial R01 overview; file links point to current exports.
+> 現行 / 当前 / Current: [東京タワー R06](tokyo_tower_R06.md) · [東京スカイツリー R04](tokyo_skytree_R04.md). This document retains the initial R01 overview; use the current guides for geometry controls, assumptions and three-page drawing sets.
 
 ## 中文
 

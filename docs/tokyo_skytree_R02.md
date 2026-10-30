@@ -1,5 +1,8 @@
 # 東京スカイツリー / 东京晴空塔 / Tokyo Skytree — LANDMARK-R02
 
+> Historical stage. Current outline, deck and spire guide: [LANDMARK-R04](tokyo_skytree_R04.md). Tokyo Tower currently uses [R06](tokyo_tower_R06.md).
+
+
 > 東京タワーは後続の [R03鋼構造詳細](tokyo_tower_R03.md) に更新しました。东京塔已在后续独立升级R03。Tokyo Tower has since received a separate R03 steel update; this Skytree geometry stays R02.
 
 [日本語](#日本語) · [中文](#中文) · [English](#english) · [Landmark catalog](tokyo_landmarks_R01.md)

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "tokyo-tower",
-  "revision": "LANDMARK-R04",
+  "revision": "LANDMARK-R06",
   "units": "mm",
   "names": {
     "zh": "东京塔",
@@ -2494,7 +2494,7 @@
   "height_mm": 333000,
   "parameters": {
     "file_stem": "tokyo_tower",
-    "revision": "LANDMARK-R04",
+    "revision": "LANDMARK-R06",
     "names": {
       "zh": "东京塔",
       "ja": "東京タワー",
@@ -2509,9 +2509,98 @@
       150000,
       250000
     ],
-    "geometry_datum": "Construction-GL-informed appearance model; official published deck guidance values are recorded separately. Floor identifications are interpreted, not surveyed.",
+    "geometry_datum": "Historical construction-GL controls; H23 is treated as a roof band. Current nominal150m/250m visitor names remain separate; present finished-floor conversion and facade mapping are not surveyed.",
     "base_width_mm": 80000,
     "detail": {
+      "deck_appearance": {
+        "main_lower_half_width_mm": 13500.0,
+        "main_upper_half_width_mm": 14000.0,
+        "main_chamfer_factor": 0.18,
+        "main_glass_top_scale": 1.0,
+        "main_long_face_bays": 24,
+        "main_corner_face_bays": 4,
+        "main_mullion_radius_mm": 32.0,
+        "main_transom_height_mm": 65.0,
+        "main_glass_color": "#284C61",
+        "main_soffit_thickness_mm": 180.0,
+        "main_fascia_height_mm": 350.0,
+        "main_roof_fascia_height_mm": 180.0,
+        "main_cleaning_track_radius_mm": 48.0,
+        "top_facets": 48,
+        "top_glass_color": "#385C6C",
+        "top_lower_radius_factor": 0.86,
+        "top_glass_radius_factor": 1.0,
+        "top_roof_radius_factor": 1.04,
+        "top_mullion_radius_mm": 28.0,
+        "top_glass_top_offset_mm": 850.0,
+        "top_service_platform_mm": 231000.0,
+        "top_service_radius_mm": 6800.0,
+        "top_service_inner_radius_mm": 4500.0,
+        "top_service_rail_height_mm": 1100.0,
+        "glass_alpha": 0.72
+      },
+      "antenna_appearance": {
+        "digital_panel_bottom_mm": 240550.0,
+        "digital_group_height_mm": 5300.0,
+        "digital_group_gap_mm": 500.0,
+        "digital_lower_diameter_mm": 13400.0,
+        "digital_upper_diameter_mm": 12876.0,
+        "digital_support_diameter_mm": 11800.0,
+        "digital_panel_columns": 30,
+        "digital_panel_rows": 5,
+        "digital_panel_depth_mm": 220.0,
+        "digital_panel_azimuth_gap_degrees": 0.25,
+        "digital_panel_gap_mm": 50.0,
+        "mx_panel_bottom_mm": 237600.0,
+        "mx_panel_height_mm": 650.0,
+        "mx_panel_row_pitch_mm": 950.0,
+        "mx_panel_radius_mm": 6200.0,
+        "sg_bay_height_mm": 4500.0,
+        "sg_inner_half_width_low_mm": 1500.0,
+        "sg_inner_half_width_high_mm": 500.0,
+        "sg_outer_offset_mm": 440.0,
+        "sg_inner_chord_radius_mm": 95.0,
+        "sg_outer_chord_radius_mm": 105.0,
+        "sg_inner_brace_radius_mm": 40.0,
+        "sg_outer_brace_radius_mm": 50.0,
+        "sg_link_radius_mm": 48.0,
+        "sg_link_layer_offset_mm": 160.0,
+        "st_width_mm": 450.0,
+        "st_depth_mm": 450.0,
+        "st_wall_mm": 16.0,
+        "st_equipment_levels_mm": [
+          315000.0,
+          318000.0,
+          321000.0,
+          324000.0,
+          327000.0,
+          330000.0
+        ],
+        "st_equipment_half_width_mm": 380.0
+      },
+      "main_floor_half_widths_mm": [
+        13500.0,
+        14000.0
+      ],
+      "historical_section_controls_mm": {
+        "H11": {
+          "width": 27000,
+          "depth": 27000
+        },
+        "H12": {
+          "width": 28000,
+          "depth": 28000
+        },
+        "H13": {
+          "width": 29000,
+          "depth": 24000,
+          "status": "Historical H13 plan recorded separately; its function and mapping to the current facade remain unverified"
+        },
+        "H23": {
+          "diameter": 13000,
+          "datum_scope": "Historical structural roof band; not a verified present visitor finished-floor elevation."
+        }
+      },
       "leg_stations_mm": [
         0,
         9000,
@@ -2673,11 +2762,11 @@
       ],
       [
         223550,
-        5300
+        3950
       ],
       [
         238000,
-        4200
+        3600
       ],
       [
         252650,
@@ -2690,19 +2779,20 @@
         "id": "main",
         "level_mm": 125000,
         "bottom_mm": 119500,
-        "glass_bottom_mm": 121000,
+        "glass_bottom_mm": 120300,
         "top_mm": 130000,
-        "half_width_mm": 17000,
+        "half_width_mm": 14000,
         "support_mm": 115000
       },
       {
         "id": "top",
-        "level_mm": 223550,
+        "level_mm": 220550,
         "bottom_mm": 219050,
         "glass_bottom_mm": 220550,
-        "top_mm": 227550,
+        "top_mm": 223550,
         "half_width_mm": 6500,
-        "support_mm": 216550
+        "support_mm": 216550,
+        "datum_scope": "H23 roof GL223550; the internal floor GL220550 and the current facade correspondence are appearance interpretations, separate from the operator nominal250m."
       }
     ],
     "antenna_start_mm": 252650,
@@ -2748,7 +2838,7 @@
         "ja": "展望施設",
         "en": "Observation decks"
       },
-      "component_count": 203
+      "component_count": 1395
     },
     {
       "id": "antenna",
@@ -2758,20 +2848,35 @@
         "ja": "アンテナ・塔頂",
         "en": "Antenna and spire"
       },
-      "component_count": 180
+      "component_count": 1441
     }
   ],
-  "component_count": 3010,
+  "component_count": 5463,
   "assumptions": [
     {
-      "zh": "总高333m、脚基准轴距80m及施工图H3/H11/H23/H27标高有公开依据。未标注的宽度、H中间分节、拱曲线及截面仍是图面解释和建模近似；双层GL125000是从GL120000加5m层距的解释。官方150m/250m案内值与几何GL解释分列；H11/H23对应外壳位置的解释及楼板识别均未完成实测核定。不是测绘或原设计复原。",
+      "zh": "总高333m、脚基准轴距80m及施工图H3/H11/H23/H27标高有公开依据。未标注的宽度、H中间分节、拱曲线及截面仍是图面解释和建模近似；双层GL125000是从GL120000加5m层距的解释。官方150m/250m案内值与几何GL解释分列；H11外壳对应与H23屋顶的解释均未实测核定；R06内部GL220550楼板为假设。不是测绘或原设计复原。",
       "ja": "全高333m・脚基準軸間80mと施工図H3/H11/H23/H27は公表値。無記入の幅・中間H節間・アーチ曲線・断面は図面解釈と近似です。GL125000はGL120000から5mの層間を解釈。公式案内150m/250mとモデルGLを分離し、床位置との対応もモデル上の解釈で、実測・原設計復元ではありません。",
-      "en": "Published controls cover333m overall height,80m leg-axis spacing and construction H3/H11/H23/H27 GL. Unlabelled widths, belts, arch curve and sections remain interpreted approximations; GL125000 interprets a5m upper-floor interval aboveGL120000. Official150m/250m guidance values are separate from geometricGL. Floor identification is a modelling assumption, not a survey or original-design reconstruction."
+      "en": "Published controls cover333m overall height,80m leg-axis spacing and construction H3/H11/H23/H27 GL. Unlabelled widths, belts, arch curve and sections remain interpreted approximations; GL125000 interprets a5m upper-floor interval aboveGL120000. Official150m/250m guidance values are separate from geometricGL. H23 is treated as a historical roof band; the R06 internalGL220550 floor is an appearance assumption, not a surveyed present-day finished-floor conversion."
     },
     {
-      "zh": "地面GL=0、屋面Z=18300；主展望层GL120000/125000、上部GL223550，官方150m/250m案内值另列。24梯跑600踢面为约600阶公开描述的示意布置，路径、踢面、260mm踏面和平台尺寸均非原建筑实测。R04按宽面组合柱形态表达H/I主材，细部截面未核实。",
-      "ja": "地盤GL=0、屋上Z=18300、モデルの主展望外殻・仮定床GL120000/125000・上部GL223550。公式案内150m/250mは別記。24折返し・600段は公表の約600段をもとにした独自配置です。経路、蹴上げ、踏面260mm、踊場寸法、H/I組立主材・八角副材は実測仕様ではありません。",
-      "en": "Ground GL=0, roof Z=18300; interpreted model shell/floor GL120000/125000 and GL223550 are separate from official150m/250m visitor names. The 24-flight/600-rise staircase is an original schematic arrangement informed by the published approximate 600 steps; route, rises, 260 mm treads and landings are not measured specifications. R04 uses graded built-up H/I appearance chords with unverified sections; braces retain octagonal prisms."
+      "zh": "地面GL=0、屋面Z=18300；主展望层GL120000/125000、上部H23屋顶GL223550（假设内部楼板220550），官方150m/250m案内值另列。24梯跑600踢面为约600阶公开描述的示意布置，路径、踢面、260mm踏面和平台尺寸均非原建筑实测。R04按宽面组合柱形态表达H/I主材，细部截面未核实。",
+      "ja": "地盤GL=0、屋上Z=18300、モデルの主展望外殻・仮定床GL120000/125000・H23屋根GL223550（内部床220550は仮定）。公式案内150m/250mは別記。24折返し・600段は公表の約600段をもとにした独自配置です。経路、蹴上げ、踏面260mm、踊場寸法、H/I組立主材・八角副材は実測仕様ではありません。",
+      "en": "Ground GL=0, roof Z=18300; interpreted model shell/floor GL120000/125000 and H23 roofGL223550 (assumed inner floorGL220550) are separate from official150m/250m visitor names. The 24-flight/600-rise staircase is an original schematic arrangement informed by the published approximate 600 steps; route, rises, 260 mm treads and landings are not measured specifications. R04 uses graded built-up H/I appearance chords with unverified sections; braces retain octagonal prisms."
+    },
+    {
+      "zh": "R05主展望台两层外轮廓分别参考历史H11的27m方形、H12的28m方形；H13的29×24m历史平面独立记录（功能未核定），不作为当前外幕墙边界。R06将H23的13m圆形细分为48面，H23作为屋顶控制；上部H24环形平台、上下白色钢架和小型抛物面设备参照照片拟合。2019改修窄窗、浅色底缘与清扫轨道参照供应商实景；分格、倾角、板厚、现况对应及H23附近塔身轴线收分仍为近似。",
+      "ja": "R05は歴史的なH11の27m角・H12の28m角を各階の外形参考とし、H13の29×24m歴史平面（用途未確認）は現在の外装境界に流用せず別記します。R06はH23の直径13m円を48面で近似し、H23を屋根制御とします。H24の環状保守床・上下の白い架構・小型反射鏡は写真近似です。2019年改修の細い窓枠・明色の下面・清掃軌道は製作者写真を参照し、割付・勾配・板厚・現況との対応・H23付近の塔体軸線はモデル仮定です。",
+      "en": "R05 uses historical H11 27m-square and H12 28m-square controls for separate deck levels. The H13 29x24m historical plan (function unverified) is recorded independently, not used as the current facade boundary. R06 samples the H23 13m circle with48 facets and treats H23 as a roof control. Its separate H24 ring platform, white framing and small reflectors are photo-guided fits. Supplier photographs guide2019 narrow glazing frames, pale soffits and cleaning tracks; divisions, slopes, thicknesses, current-state mapping and nearby tower-axis taper remain approximations."
+    },
+    {
+      "zh": "R05补充H25-H27数字天线分组与SG内外两层格构。宫地No28记载ST更换为450mm BOX角柱；模型墙厚、设备尺寸、节距、SG杆径、连接及H27承接均为假设，不含临时吊运平台，也不进行制振或结构计算。",
+      "ja": "R05はH25-H27のデジタルアンテナ群とSGの内外架構を追加します。STは宮地No28の更新記録に基づく450mm BOX角柱です。壁厚・機器寸法・節間・SG部材径・接合・H27取合いは仮定で、仮設荷揚げ足場や制振・構造解析は含みません。",
+      "en": "R05 adds H25-H27 digital antenna banks and separate inner/outer SG frames. The ST is a450mm BOX post following the Miyaji No28 replacement record; its wall, equipment dimensions, bay pitch, SG sections, joints and H27 interface remain assumptions. Temporary hoisting stages, damping response and structural capacity are not modelled."
+    },
+    {
+      "zh": "R06按2012年天线供应商Fig5表达上下两组环形阵列：每组30片/行、5行，高5300mm，间隔500mm，外径上12876mm、下13400mm，内支撑圈11800mm。总300片取代四方板片。绝对GL240550起点、板厚、缝隙、支撑、下方两行短阵列与设备平台为图像拟合。旧频道标签不表示当前运营用途；2014后SG补强与BOX450 ST保留。",
+      "ja": "R06は2012年の製作者Fig5に基づく上下二組の環状配列です。各組30枚/段・5段・高さ5300mm、間隔500mm、上径12876mm・下径13400mm、支持円11800mmの計300枚で四方の板列を置換。絶対GL240550、板厚・目地・支持材・下部二段短配列・保守床は画像近似です。旧チャンネル表記を現用用途とは扱わず、2014年後のSG補強とBOX450 STは保持します。",
+      "en": "R06 follows the supplier2012 Fig5: two circular arrays, each30 panels per row and5 rows,5300mm high,500mm apart, upper diameter12876mm, lower13400mm and support circle11800mm,300 panels total. Absolute startingGL240550, shell thickness, seams, supports, lower short arrays and service platform are image fits. Historical channels do not identify current use; post2014 SG reinforcement and BOX450 ST remain."
     },
     {
       "zh": "R04的20个钢结构节点、H/I外观截面、板厚、加劲肋、铆钉头数量/尺寸/间距与布置均为演示假设。铆接特征参考历史资料，未复原原设计或历次加固节点，也未验算节点/锚固承载力。",
@@ -2780,6 +2885,63 @@
     }
   ],
   "source_references": [
+    {
+      "title": "山森一之（古河C&B技術部）親局用アンテナ，中継局用送受信アンテナ 2012 p979 Fig5",
+      "url": "https://www.jstage.jst.go.jp/article/itej/66/12/66_977/_pdf",
+      "confirmed_historical_values_mm": {
+        "upper_array_diameter": 12876,
+        "lower_array_diameter": 13400,
+        "support_diameter": 11800,
+        "each_group_height": 5300,
+        "intergroup_gap": 500
+      },
+      "confirmed_historical_array_counts": {
+        "panels_per_row": 30,
+        "rows_per_group": 5,
+        "groups": 2
+      },
+      "reference_notes": "Manufacturer-authored historical array drawing. Diameters and group heights are separate from model-fitted absolute GL, seam widths, thickness, support members and lower short-array sizes. Historical station/channel assignments are not current operating-use claims.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "川上春夫 RFワールド No1 pp42-43 東京タワーの地デジ送信用アンテナ",
+      "url": "https://www.rf-world.jp/bn/RFW01/samples/p042-043a.pdf",
+      "reference_notes": "Original technical explanation confirms30 panels per row, five rows and upper/lower groups, with the same dimensioned geometry. Historic channel text is not reused as current equipment-use metadata.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "日本地震工学会掲載 風間了 実在建物の振動性状 p96-97 / 内藤ほか1962 Fig3",
+      "url": "https://www.jaee.gr.jp/jp/wp-content/uploads/2015/04/vibration_characteristics.pdf",
+      "confirmed_historical_values_mm": {
+        "H11_plan": [
+          27000,
+          27000
+        ],
+        "H12_plan": [
+          28000,
+          28000
+        ],
+        "H13_plan": [
+          29000,
+          24000
+        ],
+        "H23_diameter": 13000
+      },
+      "reference_notes": "Historical 1962 paper figure reproduced in the JAEE-hosted volume (PDF pages105-106, printed96-97). H13 is an independently recorded historical plan; its function and mapping to the current facade remain unverified. Original observations at120m/223m support separating historical/construction GL from current nominal150m/250m guidance; no verified conversion is asserted.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "LIXIL 東京タワー 2019カーテンウォール改修",
+      "url": "https://www.biz-lixil.com/case/curtainwall/B190037/",
+      "reference_notes": "Primary supplier exterior photographs inform narrow vertical mullions, fine transoms, light soffits and exterior gondola-cleaning tracks. Model bay counts, exact slopes, frame widths and glass thickness remain appearance assumptions.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "LIXILリニューアル 東京タワー改修前後",
+      "url": "https://www.lixil-renewal.co.jp/business/case/archives/15",
+      "reference_notes": "2019 after-renovation exterior and interior photographs guide current facade character; no supplier photograph is redistributed with the model.",
+      "checked_on": "2026-10-30"
+    },
     {
       "title": "宮地技報 No18 東京タワー塔体補強報告 p86 図1",
       "url": "https://www.miyaji-eng.co.jp/technology/newsletter/media/18/no18-p085-091.pdf",
@@ -2798,9 +2960,10 @@
       "title": "宮地技報 No28 東京タワー耐震改修報告 p65 図1",
       "url": "https://www.miyaji-eng.co.jp/technology/newsletter/media/28/no28-p064-070.pdf",
       "confirmed_values_mm": {
-        "support_tower_top_GL": 312600
+        "support_tower_top_GL": 312600,
+        "replacement_ST_BOX_width": 450
       },
-      "reference_notes": "Later retrofit drawing confirms H27 GL252650 and upper SG/ST zones. Its H23 label reads223500, versus223550 in No18; this model consistently uses the earlier223550 control, not both.",
+      "reference_notes": "Later retrofit drawing confirms H27 GL252650 and upper SG/ST zones. Page66 Fig2 and page69 photograph10 show the external SG strengthening frame; page66 specifies replacement ST as a450mm BOX section. Wall thickness, intermediate bay/equipment positions and joints remain unverified. Its H23 label reads223500, versus223550 in No18; this model consistently uses the earlier223550 control, not both.",
       "checked_on": "2026-10-30"
     },
     {
@@ -2892,12 +3055,12 @@
   },
   "saved_step": {
     "valid": true,
-    "solids": 3010,
+    "solids": 5463,
     "ground_datum_mm": 0
   },
   "glb_export": {
-    "named_mesh_nodes": 3010,
-    "all_nodes": 3016,
+    "named_mesh_nodes": 5463,
+    "all_nodes": 5469,
     "groups": [
       "base",
       "structure",
@@ -2909,19 +3072,19 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "2db2e30da41fb023256989ffa49eade8580dba8c5b91166e3e9e5e91593d1e7b",
-    "src/lib/tokyo_tower_detail.py": "ddb849d1dd3df14bcce5071cc9da4ccd410884d2dbaa035218c516392f1c0e5f",
+    "src/lib/tower_geometry.py": "8c3b29c89998ee5085dd075b66ead4186a5ed6bac4a42b703c2ea3893c49e5c5",
+    "src/lib/tokyo_tower_detail.py": "0f035a05aa990954d42170376bfd42cf7da2be1d8e21b9b9184ebf264868c52e",
     "src/lib/tokyo_tower_steel.py": "77c19f14cf9aa044eb3f560a25b77898ba056d56ce8b1dca82431097d62860df",
-    "src/towers_3d.py": "cebbffd6d983b8a9b3d05d4dcbd2b8557c950e42ffbb6fe13c2464abc8f54d9a"
+    "src/towers_3d.py": "80bd8517411a6b166aebbe6c33b9396b4ddae1eb1da9dd348059d25983c7b4b7"
   },
   "artifacts": {
     "STEP/tokyo_tower.step": {
-      "bytes": 95971258,
-      "sha256": "71415df2068ef43b6e231b71ab81b4a281d0ebd579949dedc4a2ddd9d17080da"
+      "bytes": 168269998,
+      "sha256": "1a79b1c86eb8ccc4d3cbae3d75d326606b6656f47f56405dc0fb8ec90b7f4c3f"
     },
     "GLB/tokyo_tower.glb": {
-      "bytes": 9954772,
-      "sha256": "20a7f7ddca7b42e34a2065d07f1ad5fc02846992c951ec79eddf14598dcebd83"
+      "bytes": 16012192,
+      "sha256": "54c9d20f6901d1d787c33d02732baeff703f8878e30bb91c7d7cf097740f7e0b"
     }
   }
 }

@@ -32,7 +32,7 @@ UNIT_TESTS = ['checks/test_cad_release.py', 'checks/test_orientation.py',
               'checks/test_attic_layout.py', 'checks/test_upper_layout.py',
               'checks/test_river_geometry.py',
               'checks/test_river_validation.py', 'checks/test_tower_drawings.py',
-              'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_skytree_detail.py',
+              'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py', 'checks/test_tower_tubular.py',
               'analysis/test_house_review.py']
 
 # The analysis tests call the freshness gate. Verify their inputs against the

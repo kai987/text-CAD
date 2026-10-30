@@ -13,17 +13,20 @@ A parametric CAD project for creating and comparing Japanese detached houses, 2L
 | Detached house · R22 | 8,190 × 7,280 mm body; 2,800 mm storey height. Three bedrooms, storage attic, south balcony and two side-by-side parking spaces | [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK apartment · A01 | 7,800 × 8,400 mm outline. Two bedrooms, LDK, bathroom facilities and balcony | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | Suburban river · RIVER-R01 | 180,000 mm north–south projected length; 80,000 mm width. Revetments, paths, footbridge, trees, benches and lighting | [Plan DXF](DXF/river_demo_plan.dxf) · [Section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| Tokyo landmarks · Tokyo Tower R04 / Skytree R02 | Tokyo Tower 333 m with 150/250 m decks; Tokyo Skytree 634 m with 350/450 m decks. Exterior reference studies | [Tokyo Tower STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [Skytree STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [Drawings and sources](docs/tokyo_landmarks_R01.md) |
+| Tokyo landmarks · Tokyo Tower R05 / Skytree R04 | Tokyo Tower 333 m with 150/250 m decks; Tokyo Skytree 634 m with 350/450 m decks. Exterior reference studies | [Tokyo Tower STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [Skytree STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [Skytree R04 and sources](docs/tokyo_skytree_R04.md) · [Landmark overview](docs/tokyo_landmarks_R01.md) |
 
 The viewer supports Chinese, Japanese and English, component selection and visibility, horizontal sections, furnishings, day/night and lighting, and light/dark themes. The house also offers concept comparisons for Tokyo, Osaka, Kyoto and Nagoya with timber W, light steel S and reinforced concrete RC systems. CAD uses millimetres; GLB uses metres and Y-up. DXF retains editable text and dimensions, with SVG and PDF for viewing and printing.
 
-**All models are for concept exploration and learning.** House and river dimensions are demonstration assumptions. Landmark heights and main observation levels refer to published sources; other shapes and member dimensions are illustrative assumptions. Structural capacity, statutory areas, regulatory compliance, river hydraulics and bridge safety are not certified. Current house dimensions and revisions come from the [drawing metadata](output/review/design_manifest.json), rather than the earlier 7,280 × 7,280 mm scheme.
+**All models are for concept exploration and learning.** House and river dimensions are demonstration assumptions. Landmarks use published reference controls; shapes and member dimensions without a cited source are illustrative assumptions. Structural capacity, statutory areas, regulatory compliance, river hydraulics and bridge safety are not certified. Current house dimensions and revisions come from the [drawing metadata](output/review/design_manifest.json), rather than the earlier 7,280 × 7,280 mm scheme.
 
 ## Quick start
 
 Local development and normal web builds require **Node.js 24**, npm and **Python 3 (3.13 recommended)** for standard-library consistency checks. Make `python3` available on PATH or set `CAD_ANALYSIS_PYTHON` to its executable. Python CAD libraries and Rust are not required.
 
+Install [Git LFS](https://git-lfs.com/) and run `git lfs install` first. The two landmark STEP files use LFS. For an existing clone, run `git lfs pull` at the repository root before validation or builds. Normal clones restore the complete STEP files; check whether LFS objects are included when downloading a ZIP archive.
+
 ```bash
+git lfs install
 git clone https://github.com/kai987/text-CAD.git
 cd text-CAD/web
 npm ci
@@ -70,9 +73,12 @@ Uses upstream [text-to-cad](https://github.com/earthtojake/text-to-cad), with ez
 
 ## Tokyo Tower and Tokyo Skytree
 
-Two landmark entries use `?model=tokyo-tower&view=3d` and `?model=tokyo-skytree&view=3d`. Both offer 3D, plan, elevation and download views, three interface languages, five component groups and four standard camera views. Each includes STEP, GLB, two editable DXFs and a two-page A3 PDF. See the [trilingual guide](docs/tokyo_landmarks_R01.md) for parameters, official references and assumptions. These are original reference appearance models, not the actual buildings’ original CAD or surveyed construction drawings.
 
-The [Tokyo Tower R04 reference correction](docs/tokyo_tower_R04.md) revises the 40 m arch, lower multi-panel framing, built-up appearance chords, four families of 20 nodes and the antenna-support lattice. Model GL elevations and official 150 m/250 m guidance are separate; interpreted dimensions and unverified sections are recorded. Its 3,010 named parts retain the 600-step route, node close-ups and micro-detail controls. STEP, GLB, editable DXF and the three A3 sheets are updated. The [Skytree R02 guide](docs/tokyo_skytree_R02.md) adds a smoother three-legged frame, separate 340/345/350 m deck floors, a 445-to-450 m sloping glass gallery, a 375 m concrete core, detailed spire and local cool night lighting. Four new close-ups cover the base, deck, gallery and spire; the elevation includes two 1:500 insets.
+Two landmark entries use `?model=tokyo-tower&view=3d` and `?model=tokyo-skytree&view=3d`. Both offer 3D, plan, elevation and download views, three interface languages, five component groups and four standard camera views. Each includes STEP, GLB, three editable DXFs and a three-page A3 PDF. See the [trilingual guide](docs/tokyo_landmarks_R01.md) for parameters, official references and assumptions. These are original reference appearance models, not the actual buildings’ original CAD or surveyed construction drawings.
+
+The [Tokyo Tower R06 upper-envelope correction](docs/tokyo_tower_R06.md) provides a48-facet circular special deck, a separate H24 annular service platform with white framing, and supplier-dimensioned twin circular arrays with300 panels. Its5,463 named parts preserve the27/28m main-deck envelope,600 stair rises,20 steel nodes and248 representative heads. Historical H23 roofGL223.55m, assumed inner floor220.55m and official250m visitor guidance remain separate. Equipment elevations, platform and local details are fits; historic channel labels do not identify current use. Three editable DXFs and three A3 pages are provided.
+
+The [Skytree R04 outline, deck and spire guide](docs/tokyo_skytree_R04.md) uses an approximately 68m base triangle, a 32m circle at 315m and an 18m circle at 495m to control separate tangent corner/midpoint arcs and a straight upper cone. It distinguishes the approximately 47m floor350 diameter, 71-degree outward glazing, 375m rooftop, 445/450/451.2m gallery and approximately 6m six-chord gain tower, adding opaque equipment bands, segmented antennas and a wider two-storey TMD head. The designer's 114m and contractor's approximately 110m gallery accounts remain separate; the approximately 60m upper mouth is an early 2010 design reference. The current source specification defines 7,469 named parts. Intermediate guides, equipment sections, lower pitch switches and most details remain fitted assumptions; saved-asset revisions come from their manifests.
 
 <details>
 <summary>Detailed model notes, revision history and Rust development</summary>

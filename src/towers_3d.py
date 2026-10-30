@@ -56,7 +56,7 @@ def restore_hierarchy(step_path, glb_path, tower_id):
     scene=read_scene(step_path)
     material_cache={}
     specifications = {part['name']: part for part in component_specs(tower_id)}
-    detailed = TOWERS[tower_id].get('revision',REVISION) in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04')
+    detailed = TOWERS[tower_id].get('revision',REVISION) in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06')
 
     def insert(occurrence):
         occurrence_id=occurrence.ref.removeprefix('#')
@@ -69,6 +69,8 @@ def restore_hierarchy(step_path, glb_path, tower_id):
             node.setdefault('extras',{}).update({'landmarkGroup':group,'sourceUnits':'mm'})
             specification = specifications[occurrence.label]
             role = specification.get('role', 'glazing' if 'glazing' in occurrence.label else 'structure')
+            if tower_id=='tokyo-skytree' or TOWERS[tower_id].get('revision') in ('LANDMARK-R05','LANDMARK-R06'):
+                node['extras']['landmarkPrimitive'] = specification['kind']
             if detailed:
                 node['extras']['landmarkRole'] = role
                 if 'flight' in specification:
@@ -91,7 +93,7 @@ def restore_hierarchy(step_path, glb_path, tower_id):
                         if detailed:
                             # R02 uses separate thin panes rather than a solid
                             # transparent deck volume. Geometry stays in STEP.
-                            pbr.setdefault('baseColorFactor',[.35,.54,.62,1])[3]=.30
+                            pbr.setdefault('baseColorFactor',[.35,.54,.62,1])[3]=(float(TOWERS[tower_id].get('detail',{}).get('deck_appearance',{}).get('glass_alpha',.30)) if group=='decks' else .30)
                             pbr['roughnessFactor']=.16
                             pbr['metallicFactor']=.05
                             material['alphaMode']='BLEND'

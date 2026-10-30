@@ -1,8 +1,8 @@
-# 日本住宅与近郊河流参数化 CAD：一户建、2LDK 公寓与河流示范段
+# 日本建筑、地标与景观参数化 CAD
 
 **简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
-用于制作和比较日本一户建、2LDK公寓及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
+用于制作和比较日本一户建、2LDK公寓、东京地标及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
 
 **[在线查看器](https://kai987.github.io/text-CAD/)** · [一户建](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河流](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -13,10 +13,11 @@
 | 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| 东京地标 · 东京塔 R04 / 晴空塔 R02 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [图纸与来源](docs/tokyo_landmarks_R01.md) |
 
 查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
 
-**全部模型用于方案演示与学习。** 尺寸均为假设，不代表结构承载、法定面积、法规适用、河流水理或桥梁安全已经验证。当前住宅尺寸和改订以[图纸元数据](output/review/design_manifest.json)为准，与早期7,280 × 7,280 mm方案不同。
+**全部模型用于方案演示与学习。** 住宅与河流尺寸为演示假设；地标的总高与主要展望台标高引用公开资料，其余外形与构件尺寸为示意假设。不代表结构承载、法定面积、法规适用、河流水理或桥梁安全已经验证。当前住宅尺寸和改订以[图纸元数据](output/review/design_manifest.json)为准，与早期7,280 × 7,280 mm方案不同。
 
 ## 快速开始
 
@@ -67,6 +68,14 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 使用上游[text-to-cad](https://github.com/earthtojake/text-to-cad)，建筑图纸的可编辑文字与尺寸由ezdxf生成。依赖库及参考资料遵循各自来源的许可证。
 
+## 东京塔与东京晴空塔
+
+模型选择器新增两个地标，分别使用 `?model=tokyo-tower&view=3d` 和 `?model=tokyo-skytree&view=3d`。支持3D、平面、立面和下载，中日英界面、五类部件显隐和四个标准视角。每塔提供STEP、GLB、两张可编辑DXF和双页A3 PDF；参数、官方依据与示意范围见[三语说明](docs/tokyo_landmarks_R01.md)。这两份是本项目原创的参考外观模型，并非原建筑CAD或实测施工图。
+
+东京塔 [R04 实物参照修正](docs/tokyo_tower_R04.md) 对照施工立面和照片，重做40m拱顶、下部多格桁架、组合主材、四类20节点与天线支承格构。模型GL与官方150m/250m案内高度分列；尺寸解释和未核实截面明确记录。共3,010个具名部件，保留600级外阶梯、节点近景和微细节显隐；同步更新STEP、GLB、可编辑DXF及三页A3图纸。
+
+晴空塔 [R02 细节说明](docs/tokyo_skytree_R02.md) 增加三脚塔身与平滑过渡、340/345/350 m 分层天望甲板、445→450 m 螺旋玻璃回廊、375 m 心柱、细分天线和局部青白夜景。提供塔脚、天望甲板、天望回廊和塔尖近景；立面图附两张 1:500 详图。
+
 <details>
 <summary>模型详细说明、改订历史与Rust开发步骤</summary>
 
@@ -75,6 +84,8 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 新增独立的河流 CAD 与 3D 模型，包含弯曲河道、石护岸、两岸步道、亲水阶梯、人行桥、树木、长椅和灯具。**全部尺寸均为演示假设**：南北投影长度180000 mm、场景宽80000 mm、水面宽18000 mm、水底宽14000 mm、水深900 mm；人行桥跨38000 mm、宽4000 mm，堤顶步道宽3000 mm。河流方向暂设为北向南，桥梁、水理、地基与法规均待核定。
 
 植栽细节采用 `natural_trees_v1`：14株的位置与记录占地半径保留，树干渐细弯曲并具有分枝，树冠形状由树编号固定。STEP保存树干、枝条和椭球簇树冠体量；GLB在相同记录的树冠包围盒及植栽半径内显示弯曲叶片与花簇，网页与下载使用同一GLB。叶冠每株合成一个网格，地面树影仅在模型或显隐变化时重新计算，滚轮可朝指针位置放大细节。
+
+河流查看器新增“自动 / 流畅 / 精细”画质选项，并保存到本机。自动模式按树冠的屏幕尺寸切换远景抽样叶片和近景完整叶片，带切换缓冲以避免缩放时反复跳变；小屏幕或触控设备使用较低像素倍率与阴影分辨率。精细模式始终显示完整叶花。此优化减少绘制量；网页仍预加载完整 GLB，下载文件保留全部细节。
 
 [河川平面 DXF](DXF/river_demo_plan.dxf) · [横断面 DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [中日英说明、参数与参考来源](docs/river_demo_R01.md)
 

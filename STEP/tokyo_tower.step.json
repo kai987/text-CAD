@@ -1,0 +1,1 @@
+{"animation":{"language":"javascript","source":"\nexport const clips = {\n  named_parts: {label: \"Static named landmark assembly\", duration: 1,\n                loop: false, update(t, m) {}}\n};\n"},"documentHash":"71415df2068ef43b6e231b71ab81b4a281d0ebd579949dedc4a2ddd9d17080da","schemaVersion":9}

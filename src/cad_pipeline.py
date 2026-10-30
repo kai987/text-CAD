@@ -17,6 +17,7 @@ GENERATORS = ['src/generate_redesign_plans.py', 'src/generate_attic_plan.py',
               'src/house_3d.py', 'src/generate_structural_variants.py',
               'src/generate_structural_cases.py', 'src/apartment_2ldk.py',
               'src/river_3d.py', 'src/generate_river_plans.py',
+              'src/towers_3d.py', 'src/generate_tower_plans.py',
               'web/scripts/generate-plan-svg.py']
 VALIDATORS = ['checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.py',
               'checks/validate_3d.py', 'checks/validate_site.py', 'checks/validate_structure.py',
@@ -24,13 +25,14 @@ VALIDATORS = ['checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.
               'checks/validate_apartment.py', 'checks/validate_fixtures.py',
               'checks/validate_furniture.py', 'checks/validate_outdoor_lighting.py',
               'checks/validate_glb_native.py', 'checks/validate_indoor_lighting.py',
-              'checks/validate_river.py']
+              'checks/validate_river.py', 'checks/validate_towers.py']
 UNIT_TESTS = ['checks/test_cad_release.py', 'checks/test_orientation.py',
               'checks/test_step_transport.py', 'checks/test_attic_opening_rules.py',
               'checks/test_glb_export.py',
               'checks/test_attic_layout.py', 'checks/test_upper_layout.py',
               'checks/test_river_geometry.py',
-              'checks/test_river_validation.py',
+              'checks/test_river_validation.py', 'checks/test_tower_drawings.py',
+              'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_skytree_detail.py',
               'analysis/test_house_review.py']
 
 # The analysis tests call the freshness gate. Verify their inputs against the
@@ -73,7 +75,7 @@ def run_unit_tests(snapshot: dict | None = None) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--regenerate', action='store_true', help='Rebuild all current house/apartment/river outputs, validate, then record provenance.')
+    parser.add_argument('--regenerate', action='store_true', help='Rebuild house, apartment, river and landmark outputs, validate, then record provenance.')
     parser.add_argument('--validate', action='store_true', help='Verify provenance first, then validate saved CAD; never bless modified inputs.')
     args = parser.parse_args()
     if args.regenerate == args.validate:
@@ -93,7 +95,7 @@ def main() -> None:
     release = {
         'schema_version': 1, 'drawing_revision': plan['drawing_revision'], 'model_revision': model['revision'],
         'generated_at': datetime.now(ZoneInfo('Asia/Tokyo')).isoformat(),
-        'scope': 'Current house, apartment and river concept geometry/drawings. No engineering or regulatory approval.',
+        'scope': 'Current house, apartment, river and Tokyo landmark reference geometry/drawings. No survey, engineering or regulatory approval.',
         'generation_commands': GENERATORS, 'validation_commands': VALIDATORS,
         'unit_test_commands': UNIT_TESTS,
         'toolchain': {'python': platform.python_version(), 'platform': platform.system(),

@@ -3,13 +3,13 @@
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-13T03:10:05.636312+09:00",
+  "checked_at": "2026-10-30T05:16:54.168712+09:00",
   "artifact_sha256": {
-    "DXF/house_1f_plan.dxf": "08c5eb998b5af232c3f4c7bff55943cb302c28d8797d477de0543c9b743ceaeb",
-    "DXF/house_2f_plan.dxf": "aa8028701f465a1f664e8b861cbd46f8fa0f4076fe8e2778af844b3e6c984bcc",
-    "DXF/001D0PL2-1FPLAN.DXF": "08c5eb998b5af232c3f4c7bff55943cb302c28d8797d477de0543c9b743ceaeb",
-    "DXF/002D0PL2-2FPLAN.DXF": "aa8028701f465a1f664e8b861cbd46f8fa0f4076fe8e2778af844b3e6c984bcc",
-    "output/pdf/house_floor_plans_R10_JP.pdf": "4a409f6d351eb329923a0bcf5dba80dd8fc3e8cea2a31b128d08697bf9b46d34",
+    "DXF/house_1f_plan.dxf": "98c0cd27f6f27a1263b927dcced89042856c73c4f9e5fdfaad293df9041e9174",
+    "DXF/house_2f_plan.dxf": "e599a09c6b582955af148ab96e8240169501c2ca8c6cc4dc20e5e11b1210b997",
+    "DXF/001D0PL2-1FPLAN.DXF": "98c0cd27f6f27a1263b927dcced89042856c73c4f9e5fdfaad293df9041e9174",
+    "DXF/002D0PL2-2FPLAN.DXF": "e599a09c6b582955af148ab96e8240169501c2ca8c6cc4dc20e5e11b1210b997",
+    "output/pdf/house_floor_plans_R10_JP.pdf": "1f5b75f5f67c77ad12d081b9403997b5158a5dac9d518f4a861980ae637d3ec4",
     "checks/validate_jp_drafting.py": "721d37816f2da85e6135dd96ddbf2df9d3306e2e00edf4f9357a4130912959be",
     "docs/tokyo_cad_standard_mapping_R02.md": "15c11990f9cac58d9cbb37a68da396fdedb33d0584d6a856c8146602cba832f9",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
@@ -35,8 +35,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "001D0PL2-1FPLAN.DXF",
-        "alias_sha256": "08c5eb998b5af232c3f4c7bff55943cb302c28d8797d477de0543c9b743ceaeb",
-        "canonical_sha256": "08c5eb998b5af232c3f4c7bff55943cb302c28d8797d477de0543c9b743ceaeb"
+        "alias_sha256": "98c0cd27f6f27a1263b927dcced89042856c73c4f9e5fdfaad293df9041e9174",
+        "canonical_sha256": "98c0cd27f6f27a1263b927dcced89042856c73c4f9e5fdfaad293df9041e9174"
       },
       "floor": 1
     },
@@ -1159,8 +1159,8 @@
       "status": "pass",
       "evidence": {
         "canonical": "002D0PL2-2FPLAN.DXF",
-        "alias_sha256": "aa8028701f465a1f664e8b861cbd46f8fa0f4076fe8e2778af844b3e6c984bcc",
-        "canonical_sha256": "aa8028701f465a1f664e8b861cbd46f8fa0f4076fe8e2778af844b3e6c984bcc"
+        "alias_sha256": "e599a09c6b582955af148ab96e8240169501c2ca8c6cc4dc20e5e11b1210b997",
+        "canonical_sha256": "e599a09c6b582955af148ab96e8240169501c2ca8c6cc4dc20e5e11b1210b997"
       },
       "floor": 2
     },

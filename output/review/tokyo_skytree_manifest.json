@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "id": "tokyo-skytree",
+  "revision": "LANDMARK-R02",
+  "units": "mm",
+  "names": {
+    "zh": "东京晴空塔",
+    "ja": "東京スカイツリー",
+    "en": "Tokyo Skytree"
+  },
+  "status": "reference_concept_only",
+  "height_mm": 634000,
+  "parameters": {
+    "file_stem": "tokyo_skytree",
+    "revision": "LANDMARK-R02",
+    "names": {
+      "zh": "东京晴空塔",
+      "ja": "東京スカイツリー",
+      "en": "Tokyo Skytree"
+    },
+    "height_mm": 634000,
+    "deck_levels_mm": [
+      350000,
+      450000
+    ],
+    "base_width_mm": 68000,
+    "base_triangle_side_mm": 68000,
+    "transition_height_mm": 315000,
+    "transition_diameter_mm": 32000,
+    "ring_divisions": 24,
+    "detail": {
+      "tembo_floors_mm": [
+        340000,
+        345000,
+        350000
+      ],
+      "galleria_start_mm": 445000,
+      "galleria_end_mm": 450000,
+      "galleria_segments": 32,
+      "galleria_centre_radius_mm": 12850,
+      "galleria_width_mm": 1800,
+      "galleria_side_height_mm": 2200,
+      "galleria_floor_thickness_mm": 250,
+      "galleria_glass_thickness_mm": 80,
+      "galleria_arch_rise_mm": 900,
+      "galleria_arch_panels": 4,
+      "sorakara_level_mm": 451200,
+      "shinbashira_height_mm": 375000,
+      "shinbashira_diameter_mm": 8000,
+      "shinbashira_wall_lower_mm": 400,
+      "shinbashira_wall_upper_mm": 600,
+      "scope": "Original appearance study; interpolated frame, gallery route/turns/radii, panels, connections, footings and fixture layout are modelling assumptions, not surveyed construction geometry."
+    },
+    "profile": [
+      [
+        0,
+        39259.81830489456
+      ],
+      [
+        45000,
+        35000
+      ],
+      [
+        90000,
+        30500
+      ],
+      [
+        135000,
+        26400
+      ],
+      [
+        180000,
+        22900
+      ],
+      [
+        225000,
+        19900
+      ],
+      [
+        270000,
+        17600
+      ],
+      [
+        315000,
+        16000
+      ],
+      [
+        350000,
+        13900
+      ],
+      [
+        390000,
+        11700
+      ],
+      [
+        430000,
+        10100
+      ],
+      [
+        460000,
+        8800
+      ],
+      [
+        495000,
+        6100
+      ]
+    ],
+    "profile_kind": "triangle_to_circle_radius",
+    "deck_specs": [
+      {
+        "id": "tembo_deck",
+        "level_mm": 350000,
+        "bottom_mm": 333000,
+        "glass_bottom_mm": 340000,
+        "top_mm": 357000,
+        "radius_mm": 23000
+      },
+      {
+        "id": "tembo_galleria",
+        "level_mm": 450000,
+        "bottom_mm": 443000,
+        "glass_bottom_mm": 445000,
+        "top_mm": 455000,
+        "radius_mm": 14500
+      }
+    ],
+    "antenna_start_mm": 495000,
+    "base_slab_thickness_mm": 2500
+  },
+  "groups": [
+    {
+      "id": "base",
+      "node_name": "base",
+      "names": {
+        "zh": "基座与地面",
+        "ja": "基壇・地盤",
+        "en": "Base and ground"
+      },
+      "component_count": 36
+    },
+    {
+      "id": "structure",
+      "node_name": "structure",
+      "names": {
+        "zh": "塔身与桁架",
+        "ja": "塔体・トラス",
+        "en": "Tower frame"
+      },
+      "component_count": 957
+    },
+    {
+      "id": "core",
+      "node_name": "core",
+      "names": {
+        "zh": "中央核心与竖井",
+        "ja": "中央コア・シャフト",
+        "en": "Central core and shafts"
+      },
+      "component_count": 68
+    },
+    {
+      "id": "decks",
+      "node_name": "decks",
+      "names": {
+        "zh": "展望台",
+        "ja": "展望施設",
+        "en": "Observation decks"
+      },
+      "component_count": 756
+    },
+    {
+      "id": "antenna",
+      "node_name": "antenna",
+      "names": {
+        "zh": "天线与塔尖",
+        "ja": "アンテナ・塔頂",
+        "en": "Antenna and spire"
+      },
+      "component_count": 180
+    }
+  ],
+  "component_count": 1997,
+  "assumptions": [
+    {
+      "zh": "明确列在来源记录中的总高、楼层、三角/圆形控制截面及心柱尺寸来自公开资料；其他平面尺度、插值、回廊路线、圈数、截面、外壳、连接与灯位均为原创建模假设，不是测绘、原建筑CAD或施工图。",
+      "ja": "出典記録に明記した総高・階高さ・三角/円形の制御断面・心柱寸法は公表資料に基づきます。それ以外の平面寸法・補間・回廊経路・周回数・断面・外殻・接合・灯具位置は独自のモデル仮定で、測量図・原設計CAD・施工図ではありません。",
+      "en": "The explicitly cited total/floor heights, triangular/circular controls and core-cylinder dimensions follow public references. Other plan sizes, interpolation, gallery route/turns, sections, shells, connections and fixture positions are original modelling assumptions, not survey, original CAD or construction drawings."
+    },
+    {
+      "zh": "地面基准为Z=0；演示地台位于负标高，总高从地面而非地台底部量取。杆件以八边形棱柱表达，不代表原塔选材或截面。",
+      "ja": "地盤基準はZ=0です。概念基壇は負の高さに置き、総高さは基壇下面ではなく地盤から測ります。八角柱の部材表現は原塔の材料・断面仕様ではありません。",
+      "en": "Ground datum is Z=0. The schematic base is below ground; landmark height is measured from ground, not the slab underside. Octagonal member prisms do not specify original tower materials or sections."
+    },
+    {
+      "zh": "340/345/350m楼层、445→450m坡道玻璃回廊和451.2m最高点参考官方说明。回廊半径、圈数、路线、宽度、屋面高度与玻璃分片均为假设；心柱公开尺寸用于外观表达，不模拟制振性能。",
+      "ja": "340/345/350mの階、445→450mのガラス張りスロープ回廊、451.2mの最高点は公式資料に基づきます。回廊の半径・周回数・経路・幅・屋根高さ・ガラス分割は仮定です。心柱の公表寸法は外観表現に用い、制振性能は解析しません。",
+      "en": "The 340/345/350m floors, 445-to-450m sloping glass gallery and 451.2m highest point follow operator references. Gallery radius, turns, route, width, roof heights and glazing divisions are assumptions. Published core-cylinder dimensions inform appearance only; damping performance is not simulated."
+    }
+  ],
+  "source_references": [
+    {
+      "title": "東京スカイツリー アウトライン",
+      "url": "https://www.tokyo-skytree.jp/about/outline/",
+      "confirmed_values_mm": {
+        "height": 634000,
+        "tembo_deck": 350000,
+        "tembo_galleria": 450000
+      },
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "東京スカイツリー フロアガイド",
+      "url": "https://www.tokyo-skytree.jp/floor/",
+      "confirmed_values_mm": {
+        "galleria_start": 445000,
+        "galleria_end": 450000
+      },
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "日建設計 NIKKEN JOURNAL 2012 Autumn",
+      "url": "https://www.nikken.co.jp/ja/about/p4iusj0000001hyd-att/Journal-2012_Autumn.pdf",
+      "confirmed_values_mm": {
+        "approximate_base_triangle_side": 68000,
+        "circular_transition_height": 315000,
+        "approximate_transition_diameter": 32000
+      },
+      "reference_notes": "Archived designer publication, independently visible in the search index; legacy PDF URL can return 404. The approximately 32m transition control is retained from this publication; shape interpolation and members are schematic.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "東京都 地域資源 東京スカイツリー",
+      "url": "https://www.chiikishigen.metro.tokyo.lg.jp/introduction/details/introduction_26.html",
+      "confirmed_values_mm": {
+        "approximate_base_triangle_side": 68000,
+        "circular_transition_height": 315000
+      },
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "東京スカイツリー 天望デッキ / 天望回廊",
+      "url": "https://www.tokyo-skytree.jp/floor/",
+      "confirmed_values_mm": {
+        "tembo_floor_340": 340000,
+        "tembo_floor_345": 345000,
+        "tembo_floor_350": 350000
+      },
+      "reference_notes": "Floor levels are public references; model radii, glazing divisions, floor/roof thickness and roof heights are assumptions.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "東京スカイツリー 天望回廊",
+      "url": "https://www.tokyo-skytree.jp/floor/tembogalleria/",
+      "confirmed_values_mm": {
+        "galleria_start": 445000,
+        "galleria_end": 450000,
+        "sorakara_point": 451200
+      },
+      "reference_notes": "The glass tube gallery slopes upward from Floor445 to Floor450. Model radius, turns, ramp width and entrance/exit positions are original assumptions.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "東京スカイツリー 塔体のしくみ",
+      "url": "https://www.tokyo-skytree.jp/group/pre-learning/skytree/construction/body.php",
+      "confirmed_values_mm": {
+        "shinbashira_height": 375000,
+        "shinbashira_diameter": 8000,
+        "lower_wall_thickness": 400,
+        "upper_wall_thickness": 600
+      },
+      "reference_notes": "Published concrete cylinder dimensions inform the visible core. Model joints, guide frames and spatial representation are schematic; no damping behaviour or structural capacity is simulated.",
+      "checked_on": "2026-10-30"
+    }
+  ],
+  "coordinates": {
+    "CAD": "millimetres; Z-up; ground datum Z=0",
+    "GLB": "metres; Y-up; (X,Z,-Y)/1000; identity grouping transforms"
+  },
+  "engineering": {
+    "structural_capacity": null,
+    "member_design": null,
+    "foundation_design": null,
+    "earthquake_or_wind": null,
+    "statutory_compliance": null
+  },
+  "files": {
+    "step": "STEP/tokyo_skytree.step",
+    "glb": "GLB/tokyo_skytree.glb",
+    "plan_dxf": "DXF/tokyo_skytree_plan.dxf",
+    "elevation_dxf": "DXF/tokyo_skytree_elevation.dxf",
+    "plan_svg": "output/svg/tokyo_skytree_plan.svg",
+    "elevation_svg": "output/svg/tokyo_skytree_elevation.svg",
+    "pdf": "output/pdf/tokyo_skytree_sheets.pdf"
+  },
+  "bbox": {
+    "min": [
+      -52000.000000101674,
+      -52000.000000101674,
+      -2500.0000001
+    ],
+    "max": [
+      52000.00000010168,
+      52000.000000101674,
+      634000.0000001
+    ]
+  },
+  "saved_step": {
+    "valid": true,
+    "solids": 1997,
+    "ground_datum_mm": 0
+  },
+  "glb_export": {
+    "named_mesh_nodes": 1997,
+    "all_nodes": 2003,
+    "groups": [
+      "base",
+      "structure",
+      "core",
+      "decks",
+      "antenna"
+    ],
+    "mesh_coordinates": "world-space metres; Y-up",
+    "mapping_from_CAD": "(X,Z,-Y)/1000"
+  },
+  "source_sha256": {
+    "src/lib/tower_geometry.py": "2db2e30da41fb023256989ffa49eade8580dba8c5b91166e3e9e5e91593d1e7b",
+    "src/lib/skytree_detail.py": "1e83a5a9cf24b0ce83e0bf05e9fa4ac9f45c971294c2e1fd47a6db855675ba12",
+    "src/towers_3d.py": "cebbffd6d983b8a9b3d05d4dcbd2b8557c950e42ffbb6fe13c2464abc8f54d9a"
+  },
+  "artifacts": {
+    "STEP/tokyo_skytree.step": {
+      "bytes": 77682623,
+      "sha256": "bfc9ce8c6a35094d40ec97e255f9099c92cd6f825e8ed8671e0ba7dc82f58570"
+    },
+    "GLB/tokyo_skytree.glb": {
+      "bytes": 5684392,
+      "sha256": "d1e25e2551ad8097e64e2814c76a2c31930c52d5bdeaf71e16beaa4f40275e76"
+    }
+  }
+}

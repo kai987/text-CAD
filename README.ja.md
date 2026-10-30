@@ -1,8 +1,8 @@
-# 日本の住宅と近郊河川のパラメトリック CAD：戸建て・2LDK・河川デモ
+# 日本の建築・ランドマーク・景観のパラメトリックCAD
 
 [简体中文](README.md) | **日本語** | [English](README.en.md)
 
-日本の戸建て住宅、2LDKのマンション住戸、近郊河川を作成・比較するパラメトリックCADプロジェクトです。Pythonで編集可能な図面と3Dモデルを生成し、React・TypeScript・Three.jsのビューアーで表示します。Rustはブラウザの断面・輪郭計算と、Python側の空間チェックの一部を担当します。
+日本の戸建て住宅、2LDKのマンション住戸、東京のランドマーク、近郊河川を作成・比較するパラメトリックCADプロジェクトです。Pythonで編集可能な図面と3Dモデルを生成し、React・TypeScript・Three.jsのビューアーで表示します。Rustはブラウザの断面・輪郭計算と、Python側の空間チェックの一部を担当します。
 
 **[オンラインビューアー](https://kai987.github.io/text-CAD/)** · [戸建て](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK住戸](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河川](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -13,10 +13,11 @@
 | 戸建て · R22 | 本体8,190 × 7,280 mm、階高2,800 mm。3寝室、収納用小屋裏、南側バルコニー、並列2台駐車 | [1階DXF](DXF/house_1f_plan.dxf) · [2階DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK住戸 · A01 | 外形7,800 × 8,400 mm。2寝室、LDK、水回り、バルコニー | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河川 · RIVER-R01 | 南北投影延長180,000 mm、幅80,000 mm。護岸、歩道、人道橋、樹木、ベンチ、照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| 東京のランドマーク · 東京タワー R04 / スカイツリー R02 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [図面・出典](docs/tokyo_landmarks_R01.md) |
 
 ビューアーは日本語・中国語・英語に対応し、部材の選択・表示切替、水平断面、家具、昼夜・照明、ライト／ダークテーマを操作できます。住宅では東京・大阪・京都・名古屋とW造・軽量S造・RC造の概念案も比較できます。CADの単位はmm、GLBはm・Y-upです。DXFの文字と寸法は編集可能で、閲覧・印刷用にSVGとPDFも用意しています。
 
-**すべて計画・学習用のデモです。** 寸法は仮定であり、構造耐力、法定面積、法適合、河川の水理や橋梁の安全を認定するものではありません。現行の住宅寸法・改訂は[図面メタデータ](output/review/design_manifest.json)を参照してください。初期案の7,280 × 7,280 mmとは異なります。
+**すべて計画・学習用のデモです。** 住宅・河川の寸法はデモ用の仮定です。ランドマークの全高・主要展望台の高さは公開資料を参照し、その他の形状や部材寸法はモデル用の仮定です。構造耐力、法定面積、法適合、河川の水理や橋梁の安全を認定するものではありません。現行の住宅寸法・改訂は[図面メタデータ](output/review/design_manifest.json)を参照してください。初期案の7,280 × 7,280 mmとは異なります。
 
 ## クイックスタート
 
@@ -67,6 +68,12 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 上流の[text-to-cad](https://github.com/earthtojake/text-to-cad)を利用し、建築図面の編集可能な文字・寸法はezdxfで生成しています。依存ライブラリと参考資料のライセンスは、それぞれの配布元に従います。
 
+## 東京タワーと東京スカイツリー
+
+モデル選択に2つのランドマークを追加しました。URLは `?model=tokyo-tower&view=3d` と `?model=tokyo-skytree&view=3d`。3D・平面・立面・ダウンロード、日本語・中国語・英語、5分類の部材表示と4方向の視点に対応します。各塔にSTEP、GLB、編集可能なDXF2枚、A3 PDF2ページを用意しています。パラメーター、公式資料、仮定の範囲は[3言語の説明](docs/tokyo_landmarks_R01.md)を参照してください。本プロジェクトで作成した参考外観モデルであり、実施設の原設計CADや実測施工図ではありません。
+
+東京タワーの [R04 実塔参照修正](docs/tokyo_tower_R04.md) は施工立面と写真を参照し、40mのアーチ、下部多分割トラス、組立主材の外観、4群20節点、アンテナ支持格構を修正します。モデルGLと公式案内150m/250mを分離し、床位置の解釈と未確認断面を明記します。3,010個の具名部品、600段の模式外階段、節点近景と微細表示、STEP・GLB・編集可能DXF・A3三枚を共通パラメーターで保持します。スカイツリーの [R02 詳細](docs/tokyo_skytree_R02.md) では、3本脚と滑らかな断面移行、340/345/350 m の天望デッキ、445→450 m のらせん状ガラス回廊、375 m の心柱、ゲイン塔と局所的な青白い夜景を追加しました。塔脚・天望デッキ・天望回廊・塔頂の近景、立面図の1:500詳細図2枚に対応します。
+
 <details>
 <summary>モデルの詳細仕様・改訂履歴・Rustの開発手順</summary>
 
@@ -75,6 +82,8 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 独立した河川CAD・3Dモデルを追加しました。蛇行する河道、石護岸、両岸の歩道、親水階段、人道橋、樹木、ベンチ、照明器具を含みます。**全寸法はデモ仮定**です。南北投影延長180000 mm、モデル幅80000 mm、水面幅18000 mm、水底幅14000 mm、水深900 mm、人道橋の支間38000 mm・幅4000 mm、堤頂歩道幅3000 mm。流れは北から南と仮定し、水理・橋梁耐力・地盤および法規は未確定です。
 
 植栽は `natural_trees_v1` を使用します。14本の位置と記録した植栽半径を保ち、幹を先細り・緩やかな曲がりと分枝のある形状にし、樹冠は樹木IDから固定生成します。STEPは幹・枝・楕円体群の樹冠体積を保持し、GLBは同じ記録済み樹冠バウンディングボックスと植栽半径内に曲面の葉・花房を表示します。ウェブとダウンロードは同じGLBを使用します。樹冠は1本につき1メッシュで、樹影はモデルや表示切替時に更新し、ホイールでポインター位置へ拡大できます。
+
+河川ビューアーに「自動 / 軽量 / 高精細」の画質設定を追加し、端末に保存します。自動モードでは樹冠の画面上の大きさに応じて遠景用に間引いた葉・花と近景用の完全な形状を切り替え、ヒステリシスで切り替えのちらつきを抑えます。小画面・タッチ端末ではピクセル比と影の解像度を抑え、高精細モードでは常に完全な葉・花を表示します。描画負荷を減らす機能で、完全な GLB は引き続き先読みし、ダウンロードにも全詳細を含みます。
 
 [河川平面 DXF](DXF/river_demo_plan.dxf) · [横断面 DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [中日英の説明・パラメータ・参考資料](docs/river_demo_R01.md)
 

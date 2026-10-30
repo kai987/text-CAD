@@ -1,8 +1,8 @@
-# Parametric Japanese CAD: homes and a suburban river demonstration
+# Parametric Japanese CAD: buildings, landmarks and landscapes
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
+A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments, Tokyo landmarks and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
 
 **[Online viewer](https://kai987.github.io/text-CAD/)** · [Detached house](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [Suburban river](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -13,10 +13,11 @@ A parametric CAD project for creating and comparing Japanese detached houses, 2L
 | Detached house · R22 | 8,190 × 7,280 mm body; 2,800 mm storey height. Three bedrooms, storage attic, south balcony and two side-by-side parking spaces | [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK apartment · A01 | 7,800 × 8,400 mm outline. Two bedrooms, LDK, bathroom facilities and balcony | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | Suburban river · RIVER-R01 | 180,000 mm north–south projected length; 80,000 mm width. Revetments, paths, footbridge, trees, benches and lighting | [Plan DXF](DXF/river_demo_plan.dxf) · [Section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| Tokyo landmarks · Tokyo Tower R04 / Skytree R02 | Tokyo Tower 333 m with 150/250 m decks; Tokyo Skytree 634 m with 350/450 m decks. Exterior reference studies | [Tokyo Tower STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [Skytree STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [Drawings and sources](docs/tokyo_landmarks_R01.md) |
 
 The viewer supports Chinese, Japanese and English, component selection and visibility, horizontal sections, furnishings, day/night and lighting, and light/dark themes. The house also offers concept comparisons for Tokyo, Osaka, Kyoto and Nagoya with timber W, light steel S and reinforced concrete RC systems. CAD uses millimetres; GLB uses metres and Y-up. DXF retains editable text and dimensions, with SVG and PDF for viewing and printing.
 
-**All models are for concept exploration and learning.** Dimensions are assumptions; structural capacity, statutory areas, regulatory compliance, river hydraulics and bridge safety are not certified. Current house dimensions and revisions come from the [drawing metadata](output/review/design_manifest.json), rather than the earlier 7,280 × 7,280 mm scheme.
+**All models are for concept exploration and learning.** House and river dimensions are demonstration assumptions. Landmark heights and main observation levels refer to published sources; other shapes and member dimensions are illustrative assumptions. Structural capacity, statutory areas, regulatory compliance, river hydraulics and bridge safety are not certified. Current house dimensions and revisions come from the [drawing metadata](output/review/design_manifest.json), rather than the earlier 7,280 × 7,280 mm scheme.
 
 ## Quick start
 
@@ -67,6 +68,12 @@ Edit parameters in `src/lib/`, review plans and circulation first, then regenera
 
 Uses upstream [text-to-cad](https://github.com/earthtojake/text-to-cad), with ezdxf for editable architectural text and dimensions. Dependencies and reference materials retain their respective licenses.
 
+## Tokyo Tower and Tokyo Skytree
+
+Two landmark entries use `?model=tokyo-tower&view=3d` and `?model=tokyo-skytree&view=3d`. Both offer 3D, plan, elevation and download views, three interface languages, five component groups and four standard camera views. Each includes STEP, GLB, two editable DXFs and a two-page A3 PDF. See the [trilingual guide](docs/tokyo_landmarks_R01.md) for parameters, official references and assumptions. These are original reference appearance models, not the actual buildings’ original CAD or surveyed construction drawings.
+
+The [Tokyo Tower R04 reference correction](docs/tokyo_tower_R04.md) revises the 40 m arch, lower multi-panel framing, built-up appearance chords, four families of 20 nodes and the antenna-support lattice. Model GL elevations and official 150 m/250 m guidance are separate; interpreted dimensions and unverified sections are recorded. Its 3,010 named parts retain the 600-step route, node close-ups and micro-detail controls. STEP, GLB, editable DXF and the three A3 sheets are updated. The [Skytree R02 guide](docs/tokyo_skytree_R02.md) adds a smoother three-legged frame, separate 340/345/350 m deck floors, a 445-to-450 m sloping glass gallery, a 375 m concrete core, detailed spire and local cool night lighting. Four new close-ups cover the base, deck, gallery and spire; the elevation includes two 1:500 insets.
+
 <details>
 <summary>Detailed model notes, revision history and Rust development</summary>
 
@@ -75,6 +82,8 @@ Uses upstream [text-to-cad](https://github.com/earthtojake/text-to-cad), with ez
 An independent river CAD and 3D model includes a curved channel, stone revetments, riverside paths, access stairs, a pedestrian bridge, trees, benches and light fixtures. **Every dimension is a demonstration assumption**: north–south projected length 180000 mm, scene width 80000 mm, water-surface width 18000 mm, bed width 14000 mm and water depth 900 mm; bridge span 38000 mm, bridge width 4000 mm and crest-path width 3000 mm. Flow is assumed from north to south. Hydraulic capacity, bridge strength, foundations and statutory compliance remain unverified.
 
 Planting uses `natural_trees_v1`: all 14 recorded positions and planting radii remain unchanged, with tapered, gently curved trunks, branching and tree-ID-seeded crowns. STEP stores trunks, branches and ellipsoid crown volumes; GLB shows curved leaves and blossom sprays within the same recorded crown bounding boxes and planting radii. The page and download use the same GLB. Each crown remains one mesh; tree shadows update on model or visibility changes, and wheel zoom follows the pointer.
+
+The river viewer now offers persistent Auto / Smooth / Detailed quality settings. Auto switches between sampled distant leaf patches and full nearby foliage by their projected screen size, with hysteresis to avoid repeated switching near the threshold. Compact or touch screens use a lower pixel ratio and shadow resolution; Detailed always displays the full leaves and blossoms. This reduces drawing work: the complete GLB is still preloaded and downloads retain all details.
 
 [Plan DXF](DXF/river_demo_plan.dxf) · [Cross-section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) · [Chinese, Japanese and English guide, parameters and references](docs/river_demo_R01.md)
 

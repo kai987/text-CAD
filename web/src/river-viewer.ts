@@ -11,30 +11,38 @@ import type { RiverGroupId } from './river-copy';
 import { themePalette } from './theme-preferences';
 import type { ResolvedTheme } from './theme-preferences';
 import { bindCadNodes } from './model-scene';
+import { createRiverTreeDetail } from './river-tree-detail';
+import { resolveRiverQuality } from './river-quality';
+import type { RiverQuality } from './river-quality';
 
 export interface RiverViewer {
   visibility: (values: Record<RiverGroupId, boolean>) => void;
   camera: (mode: 'iso' | 'top') => void;
   theme: (theme: ResolvedTheme) => void;
   label: (label: string) => void;
+  quality: (quality: RiverQuality) => void;
   dispose: () => void;
 }
 function disposeModel(root: Object3D) {
-  const materials = new Set<Material>();
+  const materials = new Set<Material>(), geometries = new Set<Mesh['geometry']>();
   root.traverse(node => {
     if (!(node instanceof Mesh)) return;
-    node.geometry.dispose();
+    geometries.add(node.geometry);
     (Array.isArray(node.material) ? node.material : [node.material]).forEach(material => materials.add(material));
   });
+  geometries.forEach(geometry => geometry.dispose());
   materials.forEach(material => material.dispose());
 }
 
 export function createRiverViewer(host: HTMLElement, options: {
-  theme: ResolvedTheme; label: string; onReady: () => void; onError: () => void;
+  theme: ResolvedTheme; label: string; quality: RiverQuality; onReady: () => void; onError: () => void;
   onProgress: (progress: ModelProgress) => void; onSelection: (group: RiverGroupId | null) => void;
 }): RiverViewer {
+  const coarsePointer = window.matchMedia('(pointer: coarse)');
+  let quality = options.quality;
+  let qualitySettings = resolveRiverQuality(quality, window.innerWidth, coarsePointer.matches);
   const renderer = new WebGLRenderer({ antialias: true, alpha: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, qualitySettings.pixelRatioCap));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = PCFShadowMap;
   // The planting and sunlight are static. Camera orbit does not rerender a
@@ -53,7 +61,7 @@ export function createRiverViewer(host: HTMLElement, options: {
   const sun = new DirectionalLight(0xfff3df, 2.6);
   sun.position.set(-80, 150, 80);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(qualitySettings.shadowMapSize, qualitySettings.shadowMapSize);
   Object.assign(sun.shadow.camera, { left: -130, right: 130, top: 130, bottom: -130, near: .1, far: 420 });
   sun.shadow.bias = -.00015;
   sun.shadow.normalBias = .08;
@@ -69,6 +77,7 @@ export function createRiverViewer(host: HTMLElement, options: {
   controls.listenToKeyEvents(canvas);
   let disposed = false, inViewport = true, contextLost = false, frames = 0, shadowUpdates = 0;
   let root: Object3D | null = null;
+  let treeDetail: ReturnType<typeof createRiverTreeDetail> | null = null;
   let view: 'iso' | 'top' = 'iso';
   let halfHeight = 80;
   let fitHorizontal = 80, fitVertical = 80;
@@ -81,10 +90,17 @@ export function createRiverViewer(host: HTMLElement, options: {
       availability();
       if (disposed || canvas.dataset.renderVisibility !== 'visible') return;
       controls.update();
+      if (treeDetail?.update(camera, host.clientHeight, qualitySettings.detailPixels)) renderer.shadowMap.needsUpdate = true;
       const updateShadow = renderer.shadowMap.needsUpdate;
       renderer.render(scene, camera);
       if (updateShadow) canvas.dataset.shadowUpdates = String(++shadowUpdates);
       canvas.dataset.renderedFrames = String(++frames);
+      if (treeDetail) {
+        const detail = treeDetail.stats();
+        canvas.dataset.treeLod = JSON.stringify(detail);
+      }
+      canvas.dataset.renderTriangles = String(renderer.info.render.triangles);
+      canvas.dataset.drawCalls = String(renderer.info.render.calls);
       canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(),
         up: camera.up.toArray(), zoom: camera.zoom, frustum: [camera.left, camera.right, camera.top, camera.bottom] });
     },
@@ -101,6 +117,16 @@ export function createRiverViewer(host: HTMLElement, options: {
     availability();
     const width = host.clientWidth, height = host.clientHeight;
     if (!width || !height || disposed) return;
+    qualitySettings = resolveRiverQuality(quality, window.innerWidth, coarsePointer.matches);
+    const pixelRatio = Math.min(window.devicePixelRatio, qualitySettings.pixelRatioCap);
+    if (renderer.getPixelRatio() !== pixelRatio) renderer.setPixelRatio(pixelRatio);
+    if (sun.shadow.mapSize.x !== qualitySettings.shadowMapSize) {
+      sun.shadow.mapSize.set(qualitySettings.shadowMapSize, qualitySettings.shadowMapSize);
+      renderer.shadowMap.needsUpdate = true;
+    }
+    canvas.dataset.quality = quality;
+    canvas.dataset.pixelRatio = String(pixelRatio);
+    canvas.dataset.shadowMapSize = String(qualitySettings.shadowMapSize);
     renderer.setSize(width, height, false);
     const aspect = width / height;
     halfHeight = Math.max(fitVertical, fitHorizontal / aspect) * 1.13;
@@ -142,6 +168,9 @@ export function createRiverViewer(host: HTMLElement, options: {
     if (!frames && root) fit(view); else resize();
   });
   observer.observe(host);
+  const qualityEnvironmentChanged = () => resize();
+  coarsePointer.addEventListener('change', qualityEnvironmentChanged);
+  window.addEventListener('resize', qualityEnvironmentChanged);
   const intersection = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => {
     inViewport = entries.at(-1)?.isIntersecting ?? true;
     availability();
@@ -198,6 +227,9 @@ export function createRiverViewer(host: HTMLElement, options: {
         });
         canvas.dataset.treeStyle = 'natural_trees_v1';
         canvas.dataset.treeCrowns = String(treeCrowns);
+        const detailStart = performance.now();
+        treeDetail = createRiverTreeDetail(gltf.scene);
+        canvas.dataset.treeLodPreparationMs = String(performance.now() - detailStart);
         water.forEach(node => node.traverse(child => {
           if (!(child instanceof Mesh)) return;
           (Array.isArray(child.material) ? child.material : [child.material]).forEach(material => {
@@ -215,6 +247,8 @@ export function createRiverViewer(host: HTMLElement, options: {
         options.onReady(); scheduler.invalidate();
       } catch (error) {
         console.error('River component binding failed.', error);
+        treeDetail?.dispose(); treeDetail = null;
+        scene.remove(gltf.scene); root = null; delete canvas.dataset.modelReady;
         disposeModel(gltf.scene); groupNodes.clear(); nodeGroups.clear(); options.onError();
       }
     },
@@ -224,13 +258,17 @@ export function createRiverViewer(host: HTMLElement, options: {
     camera: fit,
     theme(theme) { renderer.setClearColor(new Color(themePalette[theme].canvasBackground)); scheduler.invalidate(); },
     label(label) { canvas.setAttribute('aria-label', label); },
+    quality(value) { if (disposed) return; quality = value; resize(); },
     dispose() {
       if (disposed) return;
       disposed = true; load.cancel(); scheduler.dispose(); observer.disconnect(); intersection?.disconnect();
       document.removeEventListener('visibilitychange', documentVisibility);
+      coarsePointer.removeEventListener('change', qualityEnvironmentChanged);
+      window.removeEventListener('resize', qualityEnvironmentChanged);
       canvas.removeEventListener('webglcontextlost', lost);
       canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerup', up);
       controls.removeEventListener('change', changed); controls.dispose();
+      treeDetail?.dispose(); treeDetail = null;
       if (root) disposeModel(root);
       sun.shadow.dispose();
       renderer.dispose(); canvas.remove();

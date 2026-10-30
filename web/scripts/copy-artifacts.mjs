@@ -7,6 +7,7 @@ import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
 import { validateAnalysisReport } from './analysis-report-validation.mjs';
 import { validateRiverArtifacts } from './river-artifact-validation.mjs';
+import { validateTowerArtifacts } from './tower-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -17,6 +18,7 @@ const vectorPlans = await validatePlanPreviews(root);
 const apartmentPlans = await validateApartmentPreviews(root);
 const analysisReport = await validateAnalysisReport(root);
 const riverArtifacts = await validateRiverArtifacts(root);
+const towerArtifacts = await validateTowerArtifacts(root);
 export const artifacts = [
   'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
@@ -44,6 +46,8 @@ export const artifacts = [
   ...analysisReport.paths,
   ...apartmentPlans.floors.map(floor => floor.path),
   ...riverArtifacts.paths,
+  ...towerArtifacts.paths,
+  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py',
   'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
 
@@ -54,7 +58,7 @@ for (const source of artifacts) {
   if (!bytes.length) throw new Error(`Empty artifact: ${source}`);
   const out = resolve(dest, source);
   await mkdir(dirname(out), { recursive: true });
-  if (source==='STEP/house_3d.step') {
+  if (source === 'STEP/house_3d.step' || /^STEP\/tokyo_(tower|skytree)\.step$/.test(source)) {
     const compressed=gzipSync(bytes,{level:9});
     if (!gunzipSync(compressed).equals(bytes)) throw new Error('STEP transport round-trip failed');
     await writeFile(`${out}.gz`,compressed);
@@ -70,7 +74,7 @@ for (const source of artifacts) {
     await writeFile(`${out}.gz`, compressed);
     manifest[`${source}.gz`] = { bytes: compressed.length, sha256: sha(compressed) };
     console.log(`${source}: ${bytes.length} -> ${compressed.length} transport bytes (${Math.round(100 * compressed.length / bytes.length)}%).`);
-    if (!source.endsWith('river_demo.glb')) {
+    if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
       // Display-only edges are pinned to the exact downloadable model bytes.
       const outlines = await buildStaticOutlines(bytes);
       const cachePath = `${source}.edges.bin`;

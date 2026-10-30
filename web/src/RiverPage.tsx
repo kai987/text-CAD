@@ -7,7 +7,10 @@ import { isThemePreference } from './theme-preferences';
 import { asset, repository } from './data';
 import { initialRiverView, residentialUrl, riverCopy, riverDownloadFiles, riverGroups, riverUrl, riverViews } from './river-copy';
 import type { RiverGroupId, RiverView } from './river-copy';
+import { isLandmarkId, landmarkIds, landmarkModels, landmarkUrl } from './landmark-copy';
 import type { RiverViewer } from './river-viewer';
+import { isRiverQuality, readRiverQuality, riverQualities, saveRiverQuality } from './river-quality';
+import type { RiverQuality } from './river-quality';
 import type { ModelProgress } from './model-resource';
 import { loadDownloadManifest } from './download-resource';
 import type { ArtifactManifest } from './download-resource';
@@ -54,6 +57,10 @@ export default function RiverPage() {
   const [page, setPage] = useState<RiverView>(() => initialRiverView(location.search));
   const formatDimension = (value: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
   const [visibility, setVisibility] = useState(allVisible);
+  const [quality, setQuality] = useState<RiverQuality>(() => {
+    try { return readRiverQuality(window.localStorage); }
+    catch { return 'auto'; }
+  });
   const [selection, setSelection] = useState<RiverGroupId | null>(null);
   const [phase, setPhase] = useState<'loading' | 'ready' | 'error'>('loading');
   const [progress, setProgress] = useState<ModelProgress | null>(null);
@@ -61,8 +68,8 @@ export default function RiverPage() {
   const [manifest, setManifest] = useState<ArtifactManifest | null>(null);
   const host = useRef<HTMLDivElement | null>(null);
   const viewer = useRef<RiverViewer | null>(null);
-  const live = useRef({ theme, label: copy.title, visibility });
-  live.current = { theme, label: copy.title, visibility };
+  const live = useRef({ theme, label: copy.title, visibility, quality });
+  live.current = { theme, label: copy.title, visibility, quality };
   useEffect(() => {
     document.title = `${copy.title} · text-CAD`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', copy.description);
@@ -73,7 +80,7 @@ export default function RiverPage() {
     void import('./river-viewer').then(({ createRiverViewer }) => {
       if (!active || !host.current) return;
       const current = live.current;
-      const instance = createRiverViewer(host.current, { theme: current.theme, label: current.label,
+      const instance = createRiverViewer(host.current, { theme: current.theme, label: current.label, quality: current.quality,
         onReady: () => { if (active) setPhase('ready'); },
         onError: () => { if (active) setPhase('error'); },
         onProgress: value => { if (active) setProgress(value); },
@@ -85,6 +92,7 @@ export default function RiverPage() {
     return () => { active = false; viewer.current?.dispose(); viewer.current = null; };
   }, [attempt]);
   useEffect(() => { viewer.current?.visibility(visibility); }, [visibility]);
+  useEffect(() => { viewer.current?.quality(quality); }, [quality]);
   useEffect(() => { viewer.current?.theme(theme); viewer.current?.label(copy.title); }, [theme, copy.title]);
   useEffect(() => {
     let active = true;
@@ -93,6 +101,7 @@ export default function RiverPage() {
   }, []);
   function navigate(next: RiverView) { setPage(next); history.replaceState(null, '', riverUrl(location.href, next)); }
   function changeModel(id: string) {
+    if (isLandmarkId(id)) location.assign(landmarkUrl(location.href, id, '3d'));
     if (id === 'house' || id === 'apartment') location.assign(residentialUrl(location.href, id));
   }
   const ready = phase === 'ready';
@@ -117,6 +126,7 @@ export default function RiverPage() {
     <div className="model-switcher"><label htmlFor="model-choice">{copy.modelLabel}</label>
       <select id="model-choice" value="river" onChange={event => changeModel(event.target.value)}>
         <option value="house">{base.models.house}</option><option value="apartment">{base.models.apartment}</option><option value="river">{copy.modelName}</option>
+        {landmarkIds.map(id => <option key={id} value={id}>{landmarkModels[id].names[locale]}</option>)}
       </select><span>{riverData.revision} · {copy.parameterNote}</span>
     </div>
     <main id="main-content">
@@ -139,9 +149,19 @@ export default function RiverPage() {
           </aside>
           <section className="river-viewer-panel" aria-label={copy.title}>
             <div className="viewer-toolbar"><h1>{copy.title}</h1><div className="toolbar-actions">
+              <label className="river-quality-control"><span>{copy.qualityLabel}</span>
+                <select value={quality} aria-describedby="river-quality-help" onChange={event => {
+                  const next = event.target.value;
+                  if (!isRiverQuality(next)) return;
+                  setQuality(next);
+                  try { saveRiverQuality(window.localStorage, next); }
+                  catch { /* Accessing localStorage itself may fail in embedded browsers. */ }
+                }}>{riverQualities.map(value => <option key={value} value={value}>{copy.qualities[value]}</option>)}</select>
+              </label>
               <button className="outline-button" disabled={!ready} onClick={() => viewer.current?.camera('top')}><View size={16} aria-hidden="true" />{copy.top}</button>
               <button className="outline-button" disabled={!ready} onClick={() => viewer.current?.camera('iso')}><RotateCcw size={16} aria-hidden="true" />{copy.reset}</button>
             </div></div>
+            <p id="river-quality-help" className="river-quality-help">{copy.qualityHelp[quality]}</p>
             <div className="river-canvas" ref={host}>
               {phase === 'loading' ? <div className="canvas-message" role="status"><p>{copy.loading}</p>{progress ? <span>{formatDownloadBytes(progress.loaded, locale)}{progress.total ? ` / ${formatDownloadBytes(progress.total, locale)}` : ''}</span> : null}</div> : null}
               {phase === 'error' ? <div className="canvas-message" role="alert"><p>{copy.error}</p><button className="outline-button" onClick={() => { setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}

@@ -5,14 +5,14 @@
   "status": "reference_concept_only",
   "source_geometry_revision": "LANDMARK-R06",
   "source_sha256": {
-    "src/lib/tower_geometry.py": "8c3b29c89998ee5085dd075b66ead4186a5ed6bac4a42b703c2ea3893c49e5c5",
+    "src/lib/tower_geometry.py": "1b84a1b48f5a63fdf3dc67f68c4717678af5e7e46e67ffc857178590f6c27ebc",
     "src/lib/tokyo_tower_detail.py": "0f035a05aa990954d42170376bfd42cf7da2be1d8e21b9b9184ebf264868c52e",
     "src/lib/tokyo_tower_steel.py": "77c19f14cf9aa044eb3f560a25b77898ba056d56ce8b1dca82431097d62860df",
-    "src/generate_tower_plans.py": "f94a4f002173d6708e32d2406997ff5c82e40fd48287169a022a6c9157193055"
+    "src/generate_tower_plans.py": "7d5a663c3cb8fc5bf79cbb145b126490d63f4181653766a5b0f5700a48b2ee0f"
   },
   "artifacts": {
     "DXF/tokyo_tower_plan.dxf": {
-      "sha256": "3eec2ea5239f89a2ed8884e0dcd1cffe26ba584628b543492287a5fefc07adc1",
+      "sha256": "f7a648b9b3b81866bb5fec4f1034dd77c1bf8aadc026a7d5301f1bc9cde0b63b",
       "bytes": 1915161
     },
     "output/svg/tokyo_tower_plan.svg": {
@@ -20,7 +20,7 @@
       "bytes": 999081
     },
     "DXF/tokyo_tower_elevation.dxf": {
-      "sha256": "64e89ed28ac560f08b598732da1967b2b29426e9e405f8646a52be500a92bc61",
+      "sha256": "1a9f11c88dca085b358f5180f28d9c4aef0eeef9a2c1c3384229454c50f6d841",
       "bytes": 2534802
     },
     "output/svg/tokyo_tower_elevation.svg": {
@@ -28,7 +28,7 @@
       "bytes": 2082744
     },
     "DXF/tokyo_tower_steel_nodes.dxf": {
-      "sha256": "efca8c9c22df2c907eda363efacbea775bacbf120a8137f01949ee264249d1e8",
+      "sha256": "b8487510d52ad8fe68f5b4203f66d139a4233727fad404bc38ac63ae95cf9c01",
       "bytes": 2928296
     },
     "output/svg/tokyo_tower_steel_nodes.svg": {

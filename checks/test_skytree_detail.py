@@ -1,15 +1,15 @@
-"""Geometry regressions for source-guided R04 Skytree appearance primitives."""
+"""Geometry regressions for source-guided R05 Skytree appearance primitives."""
 from __future__ import annotations
 from collections import Counter
-from math import atan2, cos, dist, hypot, isfinite, pi, sqrt
+from math import atan2, cos, dist, hypot, isfinite, pi, sin, sqrt
 from pathlib import Path
 import sys
 import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
 from lib.tower_geometry import TOWERS,GROUPS,component_specs,geometry_manifest,ring_points,profile_radius
-from lib.skytree_detail import (_frame_config,_gain_config,_deck_config,_galleria_config,
-                               _frame_point,_frame_stations,_gain_column_radius)
+from lib.skytree_detail import (_frame_config,_base_wing_config,_gain_config,_deck_config,_galleria_config,
+                               _frame_point,_frame_stations,_gain_column_radius,_chord_section)
 
 
 def numbers(value):
@@ -65,7 +65,7 @@ class SkytreeDetailTests(unittest.TestCase):
         cls.ring=staticmethod(lambda z:ring_points('tokyo-skytree',z))
 
     def test_catalog_budget_names_groups_and_exact_634m_limit(self):
-        self.assertEqual(len(self.parts),len(self.by));self.assertLessEqual(len(self.parts),7500)
+        self.assertEqual(len(self.parts),len(self.by));self.assertLessEqual(len(self.parts),8500)
         self.assertGreater(len(self.parts),6000);self.assertEqual({p['group'] for p in self.parts},set(GROUPS))
         self.assertTrue(all(p['name'].startswith(p['group']+':') for p in self.parts))
         self.assertEqual(max(max_z(p) for p in self.parts),634000)
@@ -119,7 +119,7 @@ class SkytreeDetailTests(unittest.TestCase):
                 actual=_frame_point(self.p,self.ring,node,z)
                 self.assertLess(dist(actual,[*target[node],z]),1e-7,(node,z))
         for z in (315000,400000,495000):
-            ring=[p for p in self.parts if p.get('role')=='ring_truss' and p['level_mm']==z and p['ring_layer']=='outer']
+            ring=[p for p in self.parts if p.get('role')=='outer_horizontal' and p['level_mm']==z and p['ring_layer']=='outer']
             self.assertEqual({p['body_node'] for p in ring},set(range(24)))
             for p in ring:
                 node=p['body_node']
@@ -134,15 +134,80 @@ class SkytreeDetailTests(unittest.TestCase):
             actual=[z for z in levels if lower<=z<=upper]
             self.assertEqual([b-a for a,b in zip(actual,actual[1:])],[pitch]*(len(actual)-1))
         self.assertIn('illustrative',self.c['ring_tier_scope'])
-        rings=[p for p in self.parts if p.get('role')=='ring_truss']
+        rings=[p for p in self.parts if p.get('role') in ('ring_truss','outer_horizontal')]
         for z in {p['level_mm'] for p in rings}:
             counts=Counter(p['ring_layer'] for p in rings if p['level_mm']==z)
             self.assertEqual(counts['outer'],24);self.assertEqual(counts['inner'],12)
             self.assertGreaterEqual(counts['web'],3);self.assertLessEqual(counts['web'],6)
+        self.assertTrue(all(p['kind']=='tube' for p in rings if p['ring_layer']=='outer'))
+        self.assertTrue(all(p['kind']=='rhs' and p['role']=='ring_truss' for p in rings if p['ring_layer']!='outer'))
+        self.assertTrue(all(p['kind']=='rhs' for p in self.parts if p.get('role')=='horizontal_link'))
         outer=self.by['structure:ring_truss_00_00_outer'];inner=self.by['structure:ring_truss_00_00_inner']
         self.assertGreater(hypot(*outer['start'][:2])-hypot(*inner['start'][:2]),2000)
         links=[p for p in self.parts if p.get('role')=='horizontal_link']
         self.assertEqual(sorted({p['level_mm'] for p in links}),list(range(50000,475001,25000)))
+
+    def test_base_wings_cover_three_faces_from_actual_feet_without_new_ground_axes(self):
+        c=_base_wing_config(self.p)
+        wings=[p for p in self.parts if p.get('role','').startswith('base_wing_')]
+        self.assertTrue(wings)
+        self.assertEqual({p['wing_face'] for p in wings},{0,1,2})
+        self.assertEqual({p['wing_side'] for p in wings},{'left','right'})
+        self.assertEqual({p['wing_root_group'] for p in wings},{0,1,2})
+        self.assertEqual({p['wing_root_node'] for p in wings},{1,7,9,15,17,23})
+        self.assertEqual({p['role'] for p in wings},{'base_wing_chord','base_wing_horizontal','base_wing_brace'})
+        self.assertTrue(all(p['kind']=='tube' and p['kanae_group']==p['wing_root_group'] for p in wings))
+        self.assertTrue(all('appearance' in p['scope'] for p in wings))
+        roots=[p for p in wings if p.get('wing_segment')==0]
+        self.assertEqual(len(roots),18)
+        for part in roots:
+            self.assertEqual(part['start'][2],c['root_attachment_height_mm'])
+            self.assertGreater(part['start'][2],part['radius'])
+            root=self.by[part['root_support_name']]
+            self.assertEqual((root['role'],root['kanae_group']),('kanae_chord',part['wing_root_group']))
+            self.assertEqual(root['sections'][0]['z'],0)
+            self.assertEqual(root['body_node'],part['wing_root_node'])
+            diameter,wall=_chord_section(self.p,root['body_node'],part['start'][2])
+            self.assertAlmostEqual(dist(part['start'],part['root_axis_mm']),(diameter-wall)/2)
+        tips=[p for p in wings if p.get('wing_segment')==len(c['panel_levels_mm'])]
+        self.assertEqual({p['body_node'] for p in tips},{2,3,4,5,6,10,11,12,13,14,18,19,20,21,22})
+        for part in tips:
+            top=self.by[part['top_support_name']]
+            self.assertEqual(top['role'],'outer_chord');self.assertEqual(top['body_node'],part['body_node'])
+            self.assertEqual(part['end'][2],self.c['connection_height_mm']+c['top_attachment_inset_mm'])
+            self.assertGreater(dist(part['end'],part['top_axis_mm']),500)
+        # Only the original twelve kanae lofts reach ground; fan roots branch
+        # from their walls rather than inventing 24 new ground columns.
+        self.assertTrue(all(min(p['start'][2],p['end'][2])>0 for p in wings))
+
+    def test_base_wings_are_threefold_symmetric_and_leave_central_pedestrian_portals(self):
+        wings=[p for p in self.parts if p.get('role','').startswith('base_wing_')]
+        angle=2*pi/3
+        for part in wings:
+            if part['wing_face']!=0:continue
+            other=self.by[part['name'].replace('_f0_','_f1_')]
+            for key in ('start','end'):
+                x,y,z=part[key];rotated=[x*cos(angle)-y*sin(angle),x*sin(angle)+y*cos(angle),z]
+                self.assertLess(dist(rotated,other[key]),1e-6,(part['name'],key))
+        def axis(part,z):
+            t=(z-part['start'][2])/(part['end'][2]-part['start'][2])
+            return [part['start'][k]*(1-t)+part['end'][k]*t for k in range(3)]
+        def segment_distance(point,part):
+            a,b=part['start'],part['end'];d=[b[k]-a[k] for k in range(3)]
+            t=max(0,min(1,sum((point[k]-a[k])*d[k] for k in range(3))/sum(v*v for v in d)))
+            return dist(point,[a[k]+t*d[k] for k in range(3)])
+        for face in range(3):
+            for z in (2500,10000,25000,37500):
+                boundaries=[]
+                for side in ('left','right'):
+                    part=next(p for p in wings if p['wing_face']==face and p['wing_side']==side and p.get('wing_lane')==3
+                              and p['role']=='base_wing_chord' and p['start'][2]<=z<=p['end'][2])
+                    boundaries.append(axis(part,z))
+                # The arch boundary narrows as it rises, with no crossing
+                # tie or low lintel blocking the central opening.
+                self.assertGreater(dist(*boundaries),10000)
+                middle=[sum(v[k] for v in boundaries)/2 for k in range(3)]
+                self.assertTrue(all(segment_distance(middle,p)>p['radius']+2000 for p in wings if p['wing_face']==face))
 
     def test_pipe_role_ranges_and_actual_attachment_interpolation(self):
         columns=[p for p in self.parts if p.get('role') in ('kanae_chord','outer_chord')]
@@ -317,6 +382,26 @@ class SkytreeNativeContactTests(unittest.TestCase):
             common=aa.intersect(bb)
             self.assertIsNotNone(common,(a,b))
             self.assertGreater(sum(abs(s.volume) for s in common.solids()),1.,(a,b))
+
+    def test_base_fan_roots_tips_and_bent_chords_have_real_wall_connections(self):
+        for side in ('left','right'):
+            for lane in (1,2,3):
+                root=f'structure:base_wing_f0_{side}_lane{lane}_chord_0'
+                tip=f'structure:base_wing_f0_{side}_lane{lane}_chord_3'
+                self.contact(root,self.by[root]['root_support_name'])
+                self.contact(tip,self.by[tip]['top_support_name'])
+            for segment in range(3):
+                self.contact(f'structure:base_wing_f0_{side}_lane3_chord_{segment}',
+                             f'structure:base_wing_f0_{side}_lane3_chord_{segment+1}')
+
+    def test_wing_secondary_tubes_land_in_real_hollow_walls_not_empty_axes(self):
+        for name in ('structure:base_wing_f0_left_horizontal_0_0',
+                     'structure:base_wing_f0_left_horizontal_0_2',
+                     'structure:base_wing_f0_right_brace_0_2',
+                     'structure:base_wing_f0_left_brace_2_0'):
+            part=self.by[name]
+            self.contact(name,part['start_support_name'])
+            self.contact(name,part['end_support_name'])
 
     def test_gain_stem_tmd_two_floors_roof_and_rod_have_solid_connections(self):
         for a,b in (

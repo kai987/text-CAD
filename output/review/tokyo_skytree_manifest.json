@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "tokyo-skytree",
-  "revision": "LANDMARK-R04",
+  "revision": "LANDMARK-R05",
   "units": "mm",
   "names": {
     "zh": "东京晴空塔",
@@ -12,7 +12,7 @@
   "height_mm": 634000,
   "parameters": {
     "file_stem": "tokyo_skytree",
-    "revision": "LANDMARK-R04",
+    "revision": "LANDMARK-R05",
     "names": {
       "zh": "东京晴空塔",
       "ja": "東京スカイツリー",
@@ -76,6 +76,8 @@
         "group_brace_wall_mm": 28.0,
         "horizontal_diameter_mm": 406.4,
         "horizontal_wall_mm": 16.0,
+        "outer_horizontal_diameter_mm": 406.4,
+        "outer_horizontal_wall_mm": 16.0,
         "ring_rhs_width_mm": 400.0,
         "ring_rhs_depth_mm": 400.0,
         "ring_rhs_wall_mm": 12.0,
@@ -86,6 +88,25 @@
         "middle_top_radius_mm": 3200.0,
         "middle_diameter_mm": 355.6,
         "middle_wall_mm": 16.0
+      },
+      "base_wings": {
+        "enabled": true,
+        "root_attachment_height_mm": 750.0,
+        "top_attachment_inset_mm": 100.0,
+        "panel_levels_mm": [
+          12500.0,
+          25000.0,
+          37500.0
+        ],
+        "fan_curve_factor": 0.35,
+        "chord_diameter_mm": 1016.0,
+        "chord_wall_mm": 40.0,
+        "horizontal_diameter_mm": 406.4,
+        "horizontal_wall_mm": 16.0,
+        "brace_diameter_mm": 508.0,
+        "brace_wall_mm": 25.0,
+        "tie_axis_inset_mm": 300.0,
+        "scope": "Broad steel wings on three faces grow from the existing four-column kanae feet and leave central pointed-arch pedestrian openings. Fan axes, 12.5 m modelling panels, wall attachments and section sizes are CG/photo-guided appearance assumptions, not recovered as-built joints or structural design."
       },
       "gain": {
         "interface_mm": 497000.0,
@@ -188,7 +209,7 @@
       "shinbashira_diameter_mm": 8000,
       "shinbashira_wall_lower_mm": 400,
       "shinbashira_wall_upper_mm": 600,
-      "scope": "Published rounded controls are separate from model-fitted principal arcs, intermediate outline interpolation, lower pitch switch heights, local steel sections, skin/crown station sizes, route placement, equipment and lights. Original appearance study; not survey, member schedules, structural or damping analysis.",
+      "scope": "Published rounded controls are separate from model-fitted principal arcs, intermediate outline interpolation, lower pitch switch heights, local steel sections, three-face lower wing/arch topology and fitted joints, skin/crown station sizes, route placement, equipment and lights. Round ordinary outer horizontals are distinct from rectangular inner ring/radial trusses. Original appearance study; not survey, member schedules, structural or damping analysis.",
       "outline": {
         "cone_reference_height_mm": 495000.0,
         "cone_reference_diameter_mm": 18000.0,
@@ -373,7 +394,7 @@
         "ja": "塔体・トラス",
         "en": "Tower frame"
       },
-      "component_count": 4973
+      "component_count": 5153
     },
     {
       "id": "core",
@@ -406,17 +427,22 @@
       "component_count": 882
     }
   ],
-  "component_count": 7469,
+  "component_count": 7649,
   "assumptions": [
     {
-      "zh": "R04采用公开的634m总高、约68m地面正三角形、315m处约32m直径和495m处约18m直径。上段为直锥，下段分别拟合与其相切的角部反り及面中むくり圆弧；为满足这些圆整控制值，拟合半径并不等于发表的4520m/最大5950m。24点截面之间的引导线、局部截面及连接为外观近似，不是原设计坐标、测绘CAD或施工图。",
-      "ja": "R04は公表された全高634m・地上の約68m正三角形・315mで約32m径・495mで約18m径を用います。上部を直円錐、下部の反りとむくりをそれに接する別々の円弧で近似します。丸めた制御値を満たすため、近似半径は公表の4520m・最大5950mとは一致しません。24点断面間のガイド・部材断面・接合は外観近似で、原設計座標や測量CAD・施工図ではありません。",
-      "en": "R04 uses published rounded controls:634m height,68m ground triangle,32m diameter at315m and18m at495m. Separate principal sori/mukuri arcs are fitted tangent to the upper cone. Satisfying these rounded controls gives fitted radii different from the published4520m/maximum5950m. Intermediate24-point guides, local sections and joints remain appearance approximations, not recovered original coordinates, survey CAD or construction drawings."
+      "zh": "R05沿用R04公开控制值：634m总高、约68m地面正三角形、315m处约32m直径和495m处约18m直径。上段为直锥，下段分别拟合与其相切的角部反り及面中むくり圆弧；为满足这些圆整控制值，拟合半径并不等于发表的4520m/最大5950m。24点截面之间的引导线、局部截面及连接为外观近似，不是原设计坐标、测绘CAD或施工图。",
+      "ja": "R05はR04の公表制御値：全高634m・地上の約68m正三角形・315mで約32m径・495mで約18m径を継承します。上部を直円錐、下部の反りとむくりをそれに接する別々の円弧で近似します。丸めた制御値を満たすため、近似半径は公表の4520m・最大5950mとは一致しません。24点断面間のガイド・部材断面・接合は外観近似で、原設計座標や測量CAD・施工図ではありません。",
+      "en": "R05 retains R04 published rounded controls:634m height,68m ground triangle,32m diameter at315m and18m at495m. Separate principal sori/mukuri arcs are fitted tangent to the upper cone. Satisfying these rounded controls gives fitted radii different from the published4520m/maximum5950m. Intermediate24-point guides, local sections and joints remain appearance approximations, not recovered original coordinates, survey CAD or construction drawings."
     },
     {
       "zh": "地面GL=0，演示地台位于负标高，总高由地面量取。保留真实中空圆管、方管和独立钢筋混凝土心柱；长主弦采用水平圆环站点放样，未复原原塔逐杆法向截面及相贯端切。不模拟心柱制振或结构承载。",
       "ja": "地盤GL=0、概念基壇は負の高さに置き、全高は地盤から測ります。実際に中空の円管・角管と独立したRC心柱を保持します。長い主弦は水平円環ロフト近似で、原塔の各部材の法線断面や相貫端切を復元せず、心柱制振や構造耐力も解析しません。",
       "en": "Ground GL=0; the schematic base is below ground. Actual hollow circular/rectangular tubes and the separate RC core are retained. Long chords use horizontal annular loft stations without recovering member-normal sections or saddle cuts. Core damping and structural capacity are not simulated."
+    },
+    {
+      "zh": "R05将普通外周水平材改为真实中空圆管，内侧环桁架及放射连接保留方管。三组各四柱鼎结构之间补齐三面展开的宽翼钢架，中央保留尖拱形通行开口；不增加环绕地面的连续立柱。翼的开口曲线、分支位置、管径、壁厚与相接点为参考施工方图示的拟合，未复原逐杆施工规格、焊接节点或地下基础。",
+      "ja": "R05は一般の外周水平材を実際に中空の円管とし、内側リングトラス・放射連結の角管を保持します。三組各四柱の鼎の間に三面の広がる格構翼を補い、中央の尖頭アーチ状通行開口を残し、地上に連続する周囲柱は加えません。開口曲線・分岐・管径・板厚・接合点は施工者図示を参考にした近似で、全材施工仕様・溶接接合・地下基礎の復元ではありません。",
+      "en": "R05 uses actual hollow circular ordinary exterior horizontals while retaining rectangular inner ring trusses and radial links. Broad lattice wings extend across all three faces between the three four-column kanae groups, preserving central pointed-arch passages without adding a continuous ring of ground columns. Opening curves, branches, tube sizes, walls and fitted contacts are approximated from builder diagrams, not recovered member schedules, welded-joint design or underground foundations."
     },
     {
       "zh": "主台保留340/345/350m三个公共楼层，335m服务带不另算公共层。71度外倾幕墙及350m处约47m直径有设计者资料；375m屋顶有运营方公开依据。上口约58m等设备壳体截面为参考施工阶段约60m描述与实景的拟合。回廊445→450m、451.2m最高点有官方依据；设计者114m与制造商约110m/宽2.4m的记述分别保留。模型采用114m变径路径，方位、上部衔接、玻璃分片及设备冠部尺寸仍为近似。",
@@ -564,7 +590,16 @@
           80
         ]
       },
-      "reference_notes": "Manufacturer ranges cover the fabricated steel families, not diameters at every model node. The model assigns approximate dimensions within these ranges. Direct pipe-branch welding guides joint appearance; no joint capacity or welding specification is inferred.",
+      "reference_notes": "Ordinary exterior/kanae horizontals use round pipe; horizontal link and ring trusses also include actual rectangular BX sections. These families must not be conflated. Manufacturer ranges cover the fabricated steel families, not diameters at every model node. The model assigns approximate dimensions within these ranges. Direct pipe-branch welding guides joint appearance; no joint capacity or welding specification is inferred.",
+      "checked_on": "2026-10-30"
+    },
+    {
+      "title": "大林組 3本脚を地上50mで一体化",
+      "url": "https://www.obayashi.co.jp/solution_technology/detail/skytree07.html",
+      "confirmed_values_mm": {
+        "lower_legs_connect_height": 50000
+      },
+      "reference_notes": "Completed-rendering and structural-analysis diagrams show broad lower steel wings on all three sides, with central pointed-arch pedestrian openings. Model wing paths, member sizes and fitted connections are appearance assumptions. The temporary bent supports at 20/36/50m in construction diagrams are not a permanent member-level schedule.",
       "checked_on": "2026-10-30"
     },
     {
@@ -673,12 +708,12 @@
   },
   "saved_step": {
     "valid": true,
-    "solids": 7469,
+    "solids": 7649,
     "ground_datum_mm": 0
   },
   "glb_export": {
-    "named_mesh_nodes": 7469,
-    "all_nodes": 7475,
+    "named_mesh_nodes": 7649,
+    "all_nodes": 7655,
     "groups": [
       "base",
       "structure",
@@ -690,19 +725,19 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "8c3b29c89998ee5085dd075b66ead4186a5ed6bac4a42b703c2ea3893c49e5c5",
-    "src/lib/skytree_detail.py": "4019d8e078e7fe98754a124c466509f73dd567d1d130ebf66f9589c9a675b228",
+    "src/lib/tower_geometry.py": "1b84a1b48f5a63fdf3dc67f68c4717678af5e7e46e67ffc857178590f6c27ebc",
+    "src/lib/skytree_detail.py": "03181ffd2216fd3f41a3154de7d0a44d570fb26d79d3430b80f614a4b279bbdd",
     "src/lib/skytree_outline.py": "b1ea8dc15ad51db400a3d6897517e128ea9013fddf9ce4e618e8be4e8972cf46",
     "src/towers_3d.py": "80bd8517411a6b166aebbe6c33b9396b4ddae1eb1da9dd348059d25983c7b4b7"
   },
   "artifacts": {
     "STEP/tokyo_skytree.step": {
-      "bytes": 211935476,
-      "sha256": "a919bc87b8a05c87658f8b068aa7a6f8e4e7b34ab686a7b5a9da57ee65ed8772"
+      "bytes": 172528537,
+      "sha256": "8352335a32f5e71146f7f3d7126d858bed8fb5fd0197dc7cb97528864111e923"
     },
     "GLB/tokyo_skytree.glb": {
-      "bytes": 52626836,
-      "sha256": "670ef74ec1d57c213e38eecc90b61a5567ee67fafa5913cefab5dd7531c2927f"
+      "bytes": 68335172,
+      "sha256": "9c112c4c171bf77b4cdd819b9478346da0ba222a0d0056a4b85dafe4d098b6c4"
     }
   }
 }

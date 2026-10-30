@@ -1,5 +1,7 @@
 # 東京スカイツリー / 东京晴空塔 / Tokyo Skytree — LANDMARK-R04
 
+> R04 履歴 / 历史存档 / Historical archive — 現行の円管外周・塔脚格構 / 当前圆管外周与塔脚格构 / Current circular exterior and base framing: [LANDMARK-R05](tokyo_skytree_R05.md).
+
 [日本語](#日本語) · [中文](#中文) · [English](#english) · [出典 / 来源 / Sources](#sources) · [R03 archive](tokyo_skytree_R03.md) · [Tokyo Tower R06](tokyo_tower_R06.md)
 
 ## 日本語

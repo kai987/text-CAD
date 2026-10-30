@@ -57,7 +57,7 @@ test('landmark controls and downloads have complete Chinese, Japanese and Englis
   assert.equal(landmarkDownloadFiles('tokyo-skytree').length, 7);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').some(file => file.id === 'steelNodes'), false);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').find(file => file.id === 'structureZones').path,'DXF/tokyo_skytree_structure_zones.dxf');
-  assert.equal(landmarkModels['tokyo-skytree'].revision, 'LANDMARK-R04');
+  assert.equal(landmarkModels['tokyo-skytree'].revision, 'LANDMARK-R05');
   assert.equal(landmarkModels['tokyo-tower'].revision, 'LANDMARK-R06');
   assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /JAEE 1962.*H11.*27 m square.*H12.*28 m square.*H23.*13 m diameter circle/);
   assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /historical 29 × 24 m H13 plan.*separately.*use and mapping.*current envelope.*unverified/);
@@ -76,6 +76,9 @@ test('landmark controls and downloads have complete Chinese, Japanese and Englis
   assert.match(skytreeNotes.ja, /24点.*設備冠の半径と分節断面.*形状合わせ.*竣工実測ではありません.*375 mは展望フロアではありません/);
   assert.match(skytreeNotes.en, /Published controls.*340\/345\/350.*375 m equipment-roof height.*71°/);
   assert.match(skytreeNotes.en, /24 contour samples.*unpublished equipment stations.*model-fit approximations, not surveyed as-built geometry; 375 m is not an observation floor/);
+  assert.match(skytreeNotes.zh, /外周水平材.*中空圆管.*内侧环桁架.*方管（RHS）.*三面宽翼格构.*中央尖拱开口.*截面.*底部三角形.*315 m圆形.*照片引导的拟合/);
+  assert.match(skytreeNotes.ja, /外周水平材.*中空円管.*内側リングトラス.*角管（RHS）.*三面の幅広い格構翼.*中央の尖頭アーチ開口.*部材断面.*三角形.*315 mの円形.*写真に基づく近似/);
+  assert.match(skytreeNotes.en, /Exterior horizontal members.*hollow circular tubes.*inner ring trusses.*rectangular hollow sections.*Three broad lattice wings.*central pointed-arch openings.*member sections.*base triangle.*circle at 315 m.*photo-guided fits/);
   assert.deepEqual(landmarkModels['tokyo-skytree'].levels, [350000, 450000]);
   assert.deepEqual(landmarkModels['tokyo-tower'].levels, [125000, 223550]);
   assert.deepEqual(landmarkModels['tokyo-tower'].nominalLevels, [150000, 250000]);

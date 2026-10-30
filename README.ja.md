@@ -13,7 +13,7 @@
 | 戸建て · R22 | 本体8,190 × 7,280 mm、階高2,800 mm。3寝室、収納用小屋裏、南側バルコニー、並列2台駐車 | [1階DXF](DXF/house_1f_plan.dxf) · [2階DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK住戸 · A01 | 外形7,800 × 8,400 mm。2寝室、LDK、水回り、バルコニー | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河川 · RIVER-R01 | 南北投影延長180,000 mm、幅80,000 mm。護岸、歩道、人道橋、樹木、ベンチ、照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| 東京のランドマーク · 東京タワー R05 / スカイツリー R04 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [スカイツリーR04・出典](docs/tokyo_skytree_R04.md) · [地標の概要](docs/tokyo_landmarks_R01.md) |
+| 東京のランドマーク · 東京タワー R06 / スカイツリー R05 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [スカイツリーR05・出典](docs/tokyo_skytree_R05.md) · [地標の概要](docs/tokyo_landmarks_R01.md) |
 
 ビューアーは日本語・中国語・英語に対応し、部材の選択・表示切替、水平断面、家具、昼夜・照明、ライト／ダークテーマを操作できます。住宅では東京・大阪・京都・名古屋とW造・軽量S造・RC造の概念案も比較できます。CADの単位はmm、GLBはm・Y-upです。DXFの文字と寸法は編集可能で、閲覧・印刷用にSVGとPDFも用意しています。
 
@@ -78,7 +78,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 東京タワーの [R06 上部外観修正](docs/tokyo_tower_R06.md) は48面円筒の特別展望台、独立したH24環状保守床と白い架構、製作者図面に基づく二組300枚の環状アンテナを表現します。名前付き部品5,463個には、主台27/28mの二層外形、外階段600段、20節点と248個の代表頭部を保持します。歴史的H23屋根GL223.55m、仮定内部床220.55m、公式案内250mは別記。設備標高・保守床・細部は近似し、旧チャンネル名を現用用途とは扱いません。DXF三枚・A3三頁を提供します。
 
-スカイツリーの [R04 輪郭・展望施設・塔頂修正](docs/tokyo_skytree_R04.md) は約68mの基部三角形、315mの直径約32m、495mの直径約18mを使い、角・辺中央の独立した円弧と、それらに接する上部の直円錐を制御します。350mの直径約47m、71度外傾ガラス、375m屋上、445/450/451.2mの回廊、一般部外径約6mの六柱ゲイン塔を区別し、不透明な設備帯、段階的なアンテナ、幅広い二層TMD頂部を追加します。回廊延長は設計者114mと施工者約110mを分記し、上口約60mは2010年の初期参考記述とします。現在のソース仕様は7,469個の名前付き部品を定義し、中間ガイド・設備断面・下部ピッチ切替などは近似です。保存物の改訂はマニフェストを参照してください。
+スカイツリーの [R05 円管外周・塔脚格構修正](docs/tokyo_skytree_R05.md) は外周水平材を中空円管として独立させ、内側リングトラスと放射方向の連結に角管（RHS）を残します。三面に幅広い格構翼を補い、中央の尖頭アーチ開口を保持します。部材の円形断面と塔体平面は別に扱い、約68mの基部三角形から315mの直径約32mの円形、上部の直線テーパーを継承します。R04の展望施設・分節アンテナ・TMD外形を保ち、翼の割付・接合・非公開寸法は写真に基づく近似です。構造計算は実施していません。部品数・保存物の改訂・ハッシュは[マニフェスト](output/review/tokyo_skytree_manifest.json)を参照し、[R04](docs/tokyo_skytree_R04.md)は履歴として残します。
 
 <details>
 <summary>モデルの詳細仕様・改訂履歴・Rustの開発手順</summary>

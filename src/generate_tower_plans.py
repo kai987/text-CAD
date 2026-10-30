@@ -10,7 +10,7 @@ import hashlib
 import html
 import json
 import argparse
-from math import cos, hypot, pi, sin, sqrt
+from math import ceil, cos, hypot, pi, sin, sqrt
 import os
 from pathlib import Path
 
@@ -270,7 +270,7 @@ class TowerDrawing:
                 '地上315,000 mmで円形へ移行。',
                 '展望FL 340,000 / 345,000 / 350,000 mm',
                 '回廊445,000 / 450,000・最高451,200 mm',
-                '', '02 R04の形状合わせ・仮定',
+                '', '02 R05の外周鋼管・脚部3面の翼架構',
                 '隅部・面中央の円弧半径と輪郭24点は近似。',
                 '315 m/D32 → H495 m/D18の直錐はモデル仮定。',
                 '塔体H497 m / 約D6 mの六柱ゲイン塔を表現。',
@@ -279,8 +279,9 @@ class TowerDrawing:
                 '', '03 展望床と設備屋上を区別',
                 '設備屋上375,000 mmは公表高度。外形断面は近似。',
                 '展望フロアの標高を375 mへ変更しない。',
-                '3組×4主柱・基部連結帯約50 mを保持。',
-                '管径・接合・設備配置は実測復元ではない。',
+                '3組×4主柱から広がる翼架構と中央開口を保持。',
+                '外周水平材は中空円管。内部の角管とは区別。',
+                '翼の節点・管径・接合は実測復元ではない。',
                 '', '04 座標・データと参照',
                 'CADモデル空間は実寸1:1、単位mm。',
                 '平面X/Y・立面X/Zの正投影。方位はモデル用。',
@@ -290,7 +291,7 @@ class TowerDrawing:
                 '未測量・未計算。測量図・構造図・施工図ではない。',
             ]
             for index,note in enumerate(notes):
-                if note:self.paper_text(note,(257,232-index*7.6),2.4)
+                if note:self.paper_text(note,(257,232-index*7.3),2.4)
             self.labels += ['モデル仮定','設備屋上','展望フロア','輪郭24点']
             return
         notes = [
@@ -982,21 +983,20 @@ class StructureZoneDrawing(TowerDrawing):
         self.paper_text('東京スカイツリー / 鋼管架構の構成',(16,277),5)
         self.paper_text(f'{self.revision} | A3 | モデル空間1:1 | 単位 mm | 外観模式図',(16,267),2.8)
         self.paper_text('公表値: 全高634,000 mm / 三脚の連結高さ約50m / 鋼管径・組幅・細部配置はモデル仮定。',(16,257),2.7)
-        self.paper_text('基部3組の配置 / X-Z正投影 / 1:750',(17,248),2.8)
-        self.paper_text('鼎トラス1組のモデル節間 / 斜め正投影 / 1:200',(170,248),2.8)
+        self.paper_text('鼎3組・3面の翼架構 / X-Z正投影 / 1:750',(17,248),2.8)
         for y,text in [(114,'3組×4主柱。50,000はGL〜脚部連結帯の区間。'),
                        (106,'鼎トラス全体の高さを示す寸法ではない。'),
                        (94,'公式: リング12,500 / 水平連結25,000 mm。'),
-                       (86,'右図の寸法は基部組柱のモデル水平節点間。'),
-                       (74,'円管の作図円周は24点。STEPは真円中空。'),
+                       (86,'翼は鼎主柱から展開。中央の開口は残す。'),
+                       (74,'外周水平材は円管。STEPは真円中空。'),
                        (66,'心柱と鋼骨は別系統。制振性能は未解析。'),
                        (54,'参照: 公式構造案内（日建供図）・巴製作資料。'),
                        (46,'/about/spec/structure/  /steel-tower/works/skytree/'),
-                       (38,'方位・断面位置はモデル参照。')]:
+                       (38,'方位・断面位置はモデル参照。円周作図24点。')]:
             self.paper_text(text,(17,y),2.5 if y!=46 else 2.1)
         for y,text in [(74,'元のCAD部材を45°方向へ正投影。寸法は鉛直間隔。'),
                        (65,'接合は鋼管の直接分岐溶接を参考にした外観近似。'),
-                       (56,'個別の管径・板厚・溶接詳細は原設計の復元ではない。'),
+                       (56,'翼節点・管径・板厚・溶接は写真近似。原設計の復元ではない。'),
                        (47,'315 m以高は5,000 mm節間で近似。モデル仮定。'),
                        (38,'下部150/250 mの密度切替位置もモデル仮定。')]:
             self.paper_text(text,(170,y),2.6)
@@ -1024,6 +1024,27 @@ class _StructureLocalProjection(_DetailProjection):
         TowerDrawing.dim(self,self.native_point(a),self.native_point(b),distance)
 
 
+def _structure_module_parts(parts,group=0,levels=(0,25000)):
+    """Actual four-column group and the wings rooted in that same group.
+
+    A wing can lie on either adjacent face and its name need not start with
+    ``kanae``. Its explicit root ownership prevents another group's members
+    from appearing in the single-group detail. Whole source parts stay in the
+    native modelspace; the viewport clips the requested vertical interval.
+    """
+    kanae_roles={'kanae_chord','kanae_horizontal','kanae_brace'}
+    wing_roles={'base_wing_chord','base_wing_horizontal','base_wing_brace'}
+    selected=[]
+    for part in parts:
+        role=part.get('role')
+        owns_group=(role in kanae_roles and part.get('kanae_group')==group)
+        owns_wing=(role in wing_roles and part.get('wing_root_group')==group)
+        if not (owns_group or owns_wing):continue
+        _,bottom,_,top=_projected_bounds(part)
+        if bottom<=levels[1] and top>=levels[0]:selected.append(part)
+    return selected
+
+
 def build_structure_zones():
     tower_id='tokyo-skytree';scale=750;bounds=[17,123,152,242];center=[0,25000]
     paper_center=[(bounds[0]+bounds[2])/2,(bounds[1]+bounds[3])/2]
@@ -1045,8 +1066,7 @@ def build_structure_zones():
     drawing.paper_poly([(17,123),(152,123),(152,242),(17,242)],True,width=.2)
     drawing.index_viewport={'paper_bounds_mm':bounds,'view_center_mm':center,'scale':scale,
                             'source_parts':[part['name'] for part in base_parts]}
-    kanae=[part for part in parts if part['name'].startswith('structure:kanae_01_')
-           and _projected_bounds(part)[1]<=25000 and _projected_bounds(part)[3]>=0]
+    kanae=_structure_module_parts(parts)
     chords=[part for part in kanae if part.get('role')=='kanae_chord']
     if not chords:raise ValueError('The steel page needs the actual first four-column kanae group.')
     starts=[]
@@ -1056,21 +1076,30 @@ def build_structure_zones():
         elif part['kind']=='tube':starts.append(min((part['start'],part['end']),key=lambda point:point[2])[:2])
     frame={'origin_mm':[sum(point[i] for point in starts)/len(starts) for i in range(2)]+[0],
            'u':[sqrt(.5),sqrt(.5),0.],'v':[0.,0.,1.],'normal':[sqrt(.5),-sqrt(.5),0.]}
-    local_bounds=[170,83,402,242];local_scale=200;local_center=[0,12500];translation=[1000000,0]
+    # The new wings spread farther sideways than the four-column core. Fit
+    # their real projection and both native dimensions, rather than clipping
+    # members or shrinking a paper-only imitation of the framing.
+    projected=[_local_projection(point,frame) for part in kanae
+               for section in (_hollow_member_sections(part)[0]
+                               if part['kind'] in ('tube','tube_loft','rhs') else _primitive_faces(part))
+               for point in section]
+    x_min=min(point[0] for point in projected);x_max=max(point[0] for point in projected)
+    local_bounds=[170,83,402,242];translation=[1000000,0]
+    content_left=x_min-1000;content_right=x_max+10000
+    local_scale=max(200,ceil((content_right-content_left)/(local_bounds[2]-local_bounds[0]-8)/25)*25)
+    local_center=[(content_left+content_right)/2,12500]
     local_paper_center=[(local_bounds[0]+local_bounds[2])/2,(local_bounds[1]+local_bounds[3])/2]
     projection=_StructureLocalProjection(drawing,local_scale,
         tuple(local_paper_center[i]-local_center[i]/local_scale for i in range(2)),frame,translation)
     draw_components(projection,kanae)
-    x_max=max(_local_projection(point,frame)[0] for part in kanae
-              for section in (_hollow_member_sections(part)[0] if part['kind'] in ('tube','tube_loft','rhs')
-                              else _primitive_faces(part)) for point in section)
     projection.dim((0,0),(0,12500),-(x_max+4000))
     projection.dim((0,0),(0,25000),-(x_max+8500))
     drawing.operation('detail',local_bounds,id='kanae-module',operations=projection.operations)
     x1,y1,x2,y2=local_bounds
     drawing.paper_poly([(x1,y1),(x2,y1),(x2,y2),(x1,y2)],True,width=.2)
-    world=[translation[0]-(x2-x1)*local_scale/2,local_center[1]-(y2-y1)*local_scale/2,
-           translation[0]+(x2-x1)*local_scale/2,local_center[1]+(y2-y1)*local_scale/2]
+    drawing.paper_text(f'鼎1組・付随する翼架構 / 斜め正投影 / 1:{local_scale}',(170,248),2.8)
+    world=[translation[0]+local_center[0]-(x2-x1)*local_scale/2,local_center[1]-(y2-y1)*local_scale/2,
+           translation[0]+local_center[0]+(x2-x1)*local_scale/2,local_center[1]+(y2-y1)*local_scale/2]
     drawing.details.append({'id':'kanae-module','view':'local-orthographic','scale':local_scale,
         'source_geometry_revision':drawing.revision,'paper_bounds_mm':local_bounds,
         'view_center_mm':[translation[i]+local_center[i] for i in range(2)],'bounds_mm':world,
@@ -1079,10 +1108,18 @@ def build_structure_zones():
         'frozen_layers':[],'small_parts_omitted':False})
     drawing.sections=[{'id':'kanae-base','levels_mm':[0,50000],
                        'source_parts':[part['name'] for part in base_parts],
-                       'scope':'GL-to-lower-leg-connection reference interval; not total kanae height.'},
+                       'scope':'GL-to-lower-leg-connection reference interval including the real three-face wings; not total kanae height.',
+                       'scope_i18n':{
+                           'zh':'三组四柱鼎桁架及三面翼架构，保留中央开口。翼架节点、管径及接合为外观近似。',
+                           'ja':'三組四柱の鼎トラスと三面の翼架構。中央開口を残し、翼節点・管径・接合は外観近似。',
+                           'en':'Three four-column kanae groups and three-face wing framing retain the central openings. Wing nodes, pipe sizes and joints are appearance approximations.'}},
                       {'id':'kanae-module','levels_mm':[0,12500,25000],
                        'source_parts':[part['name'] for part in kanae],
-                       'scope':'Actual model horizontal nodes in the first four-column group.'}]
+                       'scope':'Actual model horizontal nodes and the wings rooted in the first four-column group.',
+                       'scope_i18n':{
+                           'zh':'第一组鼎主柱与其左右翼架按原CAD杆件投影。12,500及25,000为模型竖向节点间距。',
+                           'ja':'第1鼎主柱と左右の翼を元CAD部材から投影。12,500・25,000はモデル鉛直節点間隔。',
+                           'en':'The first kanae group and its adjacent rooted wings project actual CAD members. 12,500 and 25,000 are model vertical node intervals.'}}]
     return drawing
 
 

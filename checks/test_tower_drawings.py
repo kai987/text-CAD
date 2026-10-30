@@ -21,7 +21,7 @@ EXPECTED = {
     'tokyo_skytree': {'height':634000, 'decks':[350000,450000],
                       'roof_levels':[375000],
                       'base_dimension':68000, 'name':'東京スカイツリー', 'elevation_scale':3000,
-                      'revision':'LANDMARK-R04'},
+                      'revision':'LANDMARK-R05'},
 }
 
 
@@ -349,7 +349,21 @@ class TowerSavedDrawingTests(unittest.TestCase):
         detail=row['details'][0]
         self.assertEqual(detail['id'],'kanae-module')
         self.assertEqual(detail['levels_mm'],[0,12500,25000])
-        self.assertTrue(all(name.startswith('structure:kanae_01_') for name in detail['source_parts']))
+        wing_roles={'base_wing_chord','base_wing_horizontal','base_wing_brace'}
+        for section in row['sections']:
+            self.assertEqual(set(section['scope_i18n']),{'zh','ja','en'})
+        base=next(section for section in row['sections'] if section['id']=='kanae-base')
+        wing_names={name for name,part in parts.items() if part.get('role') in wing_roles}
+        self.assertTrue(wing_names,'The base page needs the real three-face wing members.')
+        self.assertTrue(wing_names<=set(base['source_parts']))
+        self.assertEqual({parts[name]['wing_face'] for name in wing_names},{0,1,2})
+        selected=[parts[name] for name in detail['source_parts']]
+        self.assertTrue(all((part.get('role') in wing_roles and part.get('wing_root_group')==0)
+                            or (part.get('role') in {'kanae_chord','kanae_horizontal','kanae_brace'}
+                                and part.get('kanae_group')==0) for part in selected))
+        selected_wings=[part for part in selected if part.get('role') in wing_roles]
+        self.assertTrue(selected_wings)
+        self.assertEqual({part['wing_side'] for part in selected_wings},{'left','right'})
         horizontals=[parts[name] for name in detail['source_parts'] if parts[name].get('role')=='kanae_horizontal']
         levels={round(point[2]) for part in horizontals for point in (part['start'],part['end'])}
         self.assertTrue({0,12500,25000}<=levels,'Dimensioned levels must belong to real source members.')
@@ -361,14 +375,30 @@ class TowerSavedDrawingTests(unittest.TestCase):
         viewports=[viewport for viewport in layout.query('VIEWPORT') if viewport.dxf.id>1]
         self.assertEqual(len(viewports),2)
         self.assertTrue(all(viewport.dxf.flags & 16384 for viewport in viewports))
-        self.assertEqual(sorted(round(v.dxf.view_height/v.dxf.height) for v in viewports),[200,750])
+        self.assertEqual(sorted(round(v.dxf.view_height/v.dxf.height) for v in viewports),
+                         sorted([detail['scale'],750]))
         saved_names={entity.get_xdata('TOWER_PART')[0].value for entity in doc.modelspace()
                      if entity.has_xdata('STRUCTURE_VIEW')}
         self.assertEqual(saved_names,set(detail['source_parts']))
+        # A wing must be an exact CAD-owned circular member projection,
+        # including both wall rims, rather than decorative sheet linework.
+        from generate_tower_plans import _hollow_member_sections,_local_projection
+        wing=next(part for part in selected_wings if part['kind']=='tube')
+        outside,inside=_hollow_member_sections(wing)
+        frame=detail['local_frame'];translation=detail['native_translation_mm']
+        expected={tuple(round(value+translation[index],5)
+                        for index,value in enumerate(_local_projection(point,frame)))
+                  for section in [*outside,inside[0],inside[-1]] for point in section}
+        actual={(round(x,5),round(y,5)) for entity in doc.modelspace().query('LWPOLYLINE')
+                if entity.has_xdata('STRUCTURE_VIEW') and entity.has_xdata('TOWER_PART')
+                and entity.get_xdata('TOWER_PART')[0].value==wing['name']
+                for x,y in entity.get_points('xy')}
+        self.assertEqual(actual,expected)
         text=PdfReader(ROOT/'output/pdf/tokyo_skytree_sheets.pdf').pages[2].extract_text()
         for label in ('50,000','12,500','25,000','鼎トラス全体の高さを示す寸法ではない。',
                       '方位・断面位置はモデル参照。','鋼管架構の構成','5,000 mm節間',
-                      '150/250 m','モデル仮定'):
+                      '150/250 m','モデル仮定','3面の翼架構','外周水平材は円管',
+                      '中央の開口','付随する翼架構'):
             self.assertIn(label,text)
 
 
@@ -486,6 +516,68 @@ class TowerProjectionTests(unittest.TestCase):
         self.assertIn('315 m以高は5,000 mm節間',text)
         self.assertIn('150/250 mの密度切替位置もモデル仮定',text)
         self.assertEqual(drawing.dimensions,[])
+
+    def test_skytree_group_detail_follows_wing_root_ownership_instead_of_name_prefix(self):
+        def member(name,role,**data):
+            return {'group':'structure','name':name,'kind':'tube','start':[0,0,0],
+                    'end':[0,0,12500],'radius':200,'wall_thickness_mm':16,'role':role,**data}
+        group=member('structure:kanae_01_fixture','kanae_chord',kanae_group=0)
+        left=member('structure:base_wing_f0_left_fixture','base_wing_chord',wing_root_group=0)
+        right=member('structure:base_wing_f2_right_fixture','base_wing_brace',wing_root_group=0)
+        unrelated=member('structure:kanae_01_name_collision','base_wing_brace',wing_root_group=1,kanae_group=0)
+        upper=member('structure:base_wing_upper_fixture','base_wing_horizontal',wing_root_group=0)
+        upper['start'][2]=37500;upper['end'][2]=50000
+        self.assertEqual(self.module._structure_module_parts([group,left,right,unrelated,upper]),
+                         [group,left,right])
+
+    def test_skytree_structure_insets_include_all_real_wings_without_hiding_their_spread(self):
+        drawing=self.module.build_structure_zones()
+        parts={part['name']:part for part in self.module._drawing_parts('tokyo-skytree')}
+        detail=drawing.details[0]
+        roles={'base_wing_chord','base_wing_horizontal','base_wing_brace'}
+        all_wings={name for name,part in parts.items() if part.get('role') in roles}
+        self.assertTrue(all_wings)
+        self.assertTrue(all_wings<=set(drawing.index_viewport['source_parts']))
+        own_wings={name for name in all_wings if parts[name]['wing_root_group']==0
+                   and self.module._projected_bounds(parts[name])[1]<=25000}
+        self.assertTrue(own_wings<=set(detail['source_parts']))
+        # Visible source vertices retain their genuine local coordinates and
+        # fit the inset horizontally even as wings widen the old group view.
+        x1,_,x2,_=detail['bounds_mm'];frame=detail['local_frame']
+        translation=detail['native_translation_mm']
+        for name in detail['source_parts']:
+            part=parts[name]
+            outside,_=self.module._hollow_member_sections(part)
+            for section in outside:
+                for point in section:
+                    if 0<=point[2]<=25000:
+                        x=self.module._local_projection(point,frame)[0]+translation[0]
+                        self.assertTrue(x1<=x<=x2,name)
+        self.assertEqual(drawing.dimensions,[50000,12500,25000])
+        self.assertEqual(len(drawing.details),1)
+        for op in drawing.operations:
+            if op['kind']!='text':continue
+            x,y=op['points']
+            for bounds in (drawing.index_viewport['paper_bounds_mm'],detail['paper_bounds_mm']):
+                left,bottom,right,top=bounds
+                self.assertFalse(left<=x<=right and bottom<=y<=top,op['text'])
+
+    def test_skytree_exterior_ring_projection_preserves_circular_hollow_source_sections(self):
+        parts=self.module._drawing_parts('tokyo-skytree')
+        exterior=[part for part in parts if part.get('role')=='outer_horizontal'
+                  and part.get('ring_layer')=='outer']
+        self.assertTrue(exterior)
+        self.assertEqual({part['kind'] for part in exterior},{'tube'})
+        part=exterior[0]
+        outside,inside=self.module._hollow_member_sections(part)
+        drawing=self.module._DetailProjection('tokyo-skytree',1,(0,0))
+        self.module.draw_components(drawing,[part])
+        actual={tuple(point) for operation in drawing.operations for point in operation['points']}
+        expected={(point[0],point[2]) for section in [*outside,inside[0],inside[-1]] for point in section}
+        self.assertEqual(actual,expected)
+        # Internal rings remain separately specified, rather than forcing
+        # every rectangular hollow engineering primitive to become circular.
+        self.assertTrue(any(part['kind']=='rhs' and part.get('ring_layer')=='inner' for part in parts))
 
     def test_tokyo_three_insets_keep_all_target_geometry_inside_their_viewports(self):
         drawing=self.module.build_elevation('tokyo-tower')

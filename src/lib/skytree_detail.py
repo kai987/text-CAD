@@ -1,4 +1,4 @@
-"""Source-guided R04 Skytree appearance detail in millimetres.
+"""Source-guided R05 Skytree appearance detail in millimetres.
 
 Published heights and the referenced triangular/circular controls guide this
 concept. The interpolation, member layout, deck radii, gallery turn count,
@@ -33,9 +33,18 @@ SKYTREE_FRAME_DEFAULTS={
     'outer_wall_low_mm':25.,'outer_wall_high_mm':60.,
     'brace_diameter_mm':508.,'brace_wall_mm':25.,'group_brace_diameter_mm':600.,'group_brace_wall_mm':28.,
     'horizontal_diameter_mm':406.4,'horizontal_wall_mm':16.,
+    'outer_horizontal_diameter_mm':406.4,'outer_horizontal_wall_mm':16.,
     'ring_rhs_width_mm':400.,'ring_rhs_depth_mm':400.,'ring_rhs_wall_mm':12.,
     'radial_rhs_width_mm':500.,'radial_rhs_depth_mm':500.,'radial_rhs_wall_mm':12.,
     'middle_radius_mm':6200.,'middle_top_radius_mm':3200.,'middle_diameter_mm':355.6,'middle_wall_mm':16.,
+}
+SKYTREE_BASE_WING_DEFAULTS={
+    'enabled':True,'root_attachment_height_mm':750.,'top_attachment_inset_mm':100.,
+    'panel_levels_mm':[12500.,25000.,37500.],'fan_curve_factor':.35,
+    'chord_diameter_mm':1016.,'chord_wall_mm':40.,
+    'horizontal_diameter_mm':406.4,'horizontal_wall_mm':16.,
+    'brace_diameter_mm':508.,'brace_wall_mm':25.,'tie_axis_inset_mm':300.,
+    'scope':'Broad steel wings on three faces grow from the existing four-column kanae feet and leave central pointed-arch pedestrian openings. Fan axes, 12.5 m modelling panels, wall attachments and section sizes are CG/photo-guided appearance assumptions, not recovered as-built joints or structural design.',
 }
 SKYTREE_GAIN_DEFAULTS={
     'interface_mm':497000.,'lattice_start_mm':497000.,'top_mm':634000.,'top_tie_mm':620000.,
@@ -90,6 +99,7 @@ SKYTREE_LIGHT_DEFAULTS={
 
 
 def _frame_config(p):return {**SKYTREE_FRAME_DEFAULTS,**p.get('detail',{}).get('frame',{})}
+def _base_wing_config(p):return {**SKYTREE_BASE_WING_DEFAULTS,**p.get('detail',{}).get('base_wings',{})}
 def _gain_config(p):return {**SKYTREE_GAIN_DEFAULTS,**p.get('detail',{}).get('gain',{})}
 def _deck_config(p):return {**SKYTREE_DECK_DEFAULTS,**p.get('detail',{}).get('tembo_deck',{})}
 def _galleria_config(p):return {**SKYTREE_GALLERIA_DEFAULTS,**p.get('detail',{}).get('galleria',{})}
@@ -300,8 +310,8 @@ def _body(p,ring):
         for point in outer[::2]:
             r=hypot(*point[:2]);inner.append([point[0]*(1-_ring_depth(p,z)/r),point[1]*(1-_ring_depth(p,z)/r),z])
         for node in range(24):
-            parts.append(_rhs('structure',f'ring_truss_{level:02d}_{node:02d}_outer',outer[node],outer[(node+1)%24],
-                              c['ring_rhs_width_mm'],c['ring_rhs_depth_mm'],c['ring_rhs_wall_mm'],WHITE,'ring_truss',
+            parts.append(_tube('structure',f'ring_truss_{level:02d}_{node:02d}_outer',outer[node],outer[(node+1)%24],
+                              c['outer_horizontal_diameter_mm'],c['outer_horizontal_wall_mm'],WHITE,'outer_horizontal',
                               level_mm=z,terminal_interface=z==top,ring_layer='outer',body_node=node))
         for bay in range(bays):
             nxt=(bay+1)%bays
@@ -348,6 +358,101 @@ def _body(p,ring):
         if level:
             for node in range(0,6,2):
                 parts.append(_tube('structure',f'mid_brace_{level:02d}_{node}',middle_point(node,mid_levels[level-1]),middle_point((node+1)%6,z),c['horizontal_diameter_mm'],c['horizontal_wall_mm'],STEEL,'middle_tower'))
+    return parts
+
+
+def _base_wing_frame(p,ring,body):
+    """Wide, open base framing attached to existing hollow steel walls.
+
+    The three four-column groups remain the only ground roots. Each side's
+    two fans grow towards the 50 m exterior axes; their inner edges form an
+    open pointed arch. No horizontal or diagonal crosses that central opening.
+    These photo/CG-guided axes are an appearance layout, not original joints.
+    """
+    c=_base_wing_config(p)
+    if not c['enabled']:return []
+    top=_frame_config(p)['connection_height_mm']+c['top_attachment_inset_mm']
+    bottom=c['root_attachment_height_mm'];panels=sorted(c['panel_levels_mm'])
+    if not 0<bottom<min(panels)<max(panels)<top:raise ValueError('Base wing panels must lie between root and upper attachment.')
+    if not 0<=c['fan_curve_factor']<1:raise ValueError('Base wing fan curvature must be monotone.')
+    inset=c['tie_axis_inset_mm'];levels=[bottom,*panels,top];parts=[]
+    tie_levels=[z+inset for z in panels]+[top-inset]
+    if not all(a<b for a,b in zip(tie_levels,tie_levels[1:])):raise ValueError('Base wing tie insets exceed a modelling panel.')
+    columns=[part for part in body if part.get('role') in ('kanae_chord','outer_chord') and 'body_node' in part]
+
+    def column(node,z):
+        return next(part for part in columns if part['body_node']==node and part['sections'][0]['z']<=z<=part['sections'][-1]['z'])
+
+    def column_wall(node,z,towards):
+        axis=_actual_point(p,ring,node,z);diameter,wall=_chord_section(p,node,z)
+        dx,dy=towards[0]-axis[0],towards[1]-axis[1];length=hypot(dx,dy)
+        # Existing loft sections are horizontal annuli, so this is a real
+        # wall point rather than the empty centre of an inclined tube.
+        radius=(diameter-wall)/2
+        return [axis[0]+radius*dx/length,axis[1]+radius*dy/length,z]
+
+    def tube_wall(axis,direction,radius,wall,towards):
+        length=sqrt(sum(v*v for v in direction));unit=[v/length for v in direction]
+        delta=[towards[k]-axis[k] for k in range(3)];along=sum(delta[k]*unit[k] for k in range(3))
+        radial=[delta[k]-along*unit[k] for k in range(3)];length=sqrt(sum(v*v for v in radial))
+        return [axis[k]+radial[k]/length*(radius-wall/2) for k in range(3)]
+
+    for face in range(3):
+        for side,root,target_offsets in (('left',(face*8+1)%24,(2,3,4)),
+                                          ('right',(face*8+7)%24,(6,5,4))):
+            root_group=_group_assignment(root)[0];root_support=column(root,bottom)
+            common={'wing_face':face,'wing_side':side,'wing_root_group':root_group,
+                    'wing_root_node':root,'kanae_group':root_group,'scope':c['scope']}
+            lane_axes={};lane_parts={}
+            for lane,offset in enumerate(target_offsets,1):
+                target=(face*8+offset)%24;root_axis=_actual_point(p,ring,root,bottom)
+                top_axis=_actual_point(p,ring,target,top)
+                a=column_wall(root,bottom,top_axis);b=column_wall(target,top,root_axis)
+                def fan_point(z):
+                    t=(z-bottom)/(top-bottom);weight=t+c['fan_curve_factor']*t*(1-t)
+                    return [a[k]*(1-weight)+b[k]*weight for k in range(2)]+[z]
+                axes=[fan_point(z) for z in levels];lane_axes[lane]=axes;lane_parts[lane]=[]
+                for segment,(aa,bb) in enumerate(zip(axes,axes[1:])):
+                    part=_tube('structure',f'base_wing_f{face}_{side}_lane{lane}_chord_{segment}',
+                               aa,bb,c['chord_diameter_mm'],c['chord_wall_mm'],WHITE,'base_wing_chord',
+                               **common,wing_lane=lane,body_node=target,wing_segment=segment,
+                               root_axis_mm=root_axis,top_axis_mm=top_axis,
+                               root_support_name=root_support['name'],top_support_name=column(target,top)['name'])
+                    lane_parts[lane].append(part);parts.append(part)
+
+            def support(lane,z):
+                if lane==0:return _actual_point(p,ring,root,z),column(root,z)
+                axes=lane_axes[lane]
+                for index,(a,b) in enumerate(zip(axes,axes[1:])):
+                    if a[2]<=z<=b[2]:
+                        t=(z-a[2])/(b[2]-a[2])
+                        return [a[k]*(1-t)+b[k]*t for k in range(3)],lane_parts[lane][index]
+                raise ValueError('Base wing tie outside its fan chord.')
+
+            def attachment(lane,z,towards):
+                axis,host=support(lane,z)
+                if lane==0:return column_wall(root,z,towards),host
+                direction=[host['end'][k]-host['start'][k] for k in range(3)]
+                return tube_wall(axis,direction,host['radius'],host['wall_thickness_mm'],towards),host
+
+            def tie(role,label,lane_a,z_a,lane_b,z_b,diameter,wall,**extra):
+                axis_a,_=support(lane_a,z_a);axis_b,_=support(lane_b,z_b)
+                a,host_a=attachment(lane_a,z_a,axis_b);b,host_b=attachment(lane_b,z_b,axis_a)
+                parts.append(_tube('structure',f'base_wing_f{face}_{side}_{label}',a,b,diameter,wall,
+                                   WHITE if role=='base_wing_horizontal' else SHADOW,role,**common,
+                                   wing_lane=lane_b,start_support_name=host_a['name'],end_support_name=host_b['name'],
+                                   axis_start_mm=axis_a,axis_end_mm=axis_b,**extra))
+            for level,z in enumerate(tie_levels[:-1]):
+                for lane in range(3):
+                    tie('base_wing_horizontal',f'horizontal_{level}_{lane}',lane,z,lane+1,z,
+                        c['horizontal_diameter_mm'],c['horizontal_wall_mm'],level_mm=z)
+            # The first panel is already a converging triangular fan, so no
+            # duplicate root diagonals are added. All ties stay on one wing.
+            for level,(za,zb) in enumerate(zip(tie_levels,tie_levels[1:])):
+                for lane in range(3):
+                    a,b=(lane,lane+1) if level%2==0 else (lane+1,lane)
+                    tie('base_wing_brace',f'brace_{level}_{lane}',a,za,b,zb,
+                        c['brace_diameter_mm'],c['brace_wall_mm'],lower_level_mm=za,upper_level_mm=zb)
     return parts
 
 
@@ -713,5 +818,6 @@ def component_specs(p,ring):
     def cached_ring(z):
         if z not in rings:rings[z]=ring(z)
         return rings[z]
-    return (_base(p,cached_ring)+_body(p,cached_ring)+_core(p)+_tembo_deck(p,cached_ring)
+    body=_body(p,cached_ring)
+    return (_base(p,cached_ring)+body+_base_wing_frame(p,cached_ring,body)+_core(p)+_tembo_deck(p,cached_ring)
             +_tembo_galleria(p,cached_ring)+_antenna(p,cached_ring)+_obstruction_lights(p,cached_ring))

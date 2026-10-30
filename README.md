@@ -13,7 +13,7 @@
 | 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| 东京地标 · 东京塔 R05 / 晴空塔 R04 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R04与来源](docs/tokyo_skytree_R04.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
+| 东京地标 · 东京塔 R06 / 晴空塔 R05 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R05与来源](docs/tokyo_skytree_R05.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
 
 查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
 
@@ -78,7 +78,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 东京塔 [R06 上部外观修正](docs/tokyo_tower_R06.md) 将特别展望台细化为48面圆筒，补充独立H24环形维护平台与白色钢架，并按制造商发表尺寸将H25—H27改为双组共300片环形天线。5,463个具名部件保留主台27/28m双层外形、600级外阶梯、20节点和248个代表头部。历史H23屋顶GL223.55m、假设内部楼板220.55m与官方250m案内值分列；设备标高、平台和局部细节仍为拟合，旧频道标签不当作当前用途。提供三张DXF和三页A3图纸。
 
-晴空塔 [R04 轮廓、展望台与塔顶修正](docs/tokyo_skytree_R04.md) 以约68m底三角、315m处约32m圆和495m处约18m圆控制独立相切的角线/边中圆弧与上部直锥。350m约47m直径、71度外倾玻璃、375m屋顶、445/450/451.2m回廊和约6m六柱增益塔分别表达，补充不透明设备带、分段天线与宽两层TMD头。设计者114m和施工方约110m回廊长度分别记录；2010年约60m上口是早期设计参考。当前源规格含7,469个具名部件；中间轮廓、设备截面、下部间距切换和多数细节仍为拟合，保存资产版本以清单为准。
+晴空塔 [R05 圆管外周与塔脚格构修正](docs/tokyo_skytree_R05.md) 将外周水平材独立为中空圆管，保留内侧环桁架与放射连接的方管（RHS），并在三面补充宽翼格构，保留中央尖拱开口。杆件圆截面与塔身平面分别处理：约68m底部三角形仍在315m过渡至约32m圆形，上部保留直锥。R04的展望台、回廊、分段天线及TMD外形继续使用；宽翼分格、节点和未公开尺寸仍是照片引导的拟合，未进行结构计算。具名部件数量、保存资产版本及哈希见[清单](output/review/tokyo_skytree_manifest.json)；[R04](docs/tokyo_skytree_R04.md)保留为历史说明。
 
 <details>
 <summary>模型详细说明、改订历史与Rust开发步骤</summary>

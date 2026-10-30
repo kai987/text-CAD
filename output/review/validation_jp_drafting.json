@@ -3,7 +3,7 @@
   "standard": "東京都建設局 CAD製図基準 令和6年4月 土木202404-01",
   "standard_url": "https://www.kensetsu.metro.tokyo.lg.jp/documents/d/kensetsu/000067788",
   "scope": "住宅に準用した共通製図項目の保存物チェック。土木電子納品又は建築法令の全項目適合ではない。",
-  "checked_at": "2026-10-30T18:04:07.269218+09:00",
+  "checked_at": "2026-10-30T19:10:15.691718+09:00",
   "artifact_sha256": {
     "DXF/house_1f_plan.dxf": "a3aabe4546914702a159d4297648b34d9a37ab94b787ca5770bf84e8b1bc4e1b",
     "DXF/house_2f_plan.dxf": "80b64c8a8d51c76e4c4942227ab884b29b69d5b4ca2e6456c8470a6c74112d9c",

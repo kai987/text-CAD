@@ -72,7 +72,7 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertEqual(set(part['group'] for part in self.specs),set(GROUPS))
         self.assertTrue(all(name.startswith(part['group']+':') for name,part in zip(names,self.specs)))
         self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R06')
-        self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R04')
+        self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R05')
         self.assertNotEqual(component_specs('tokyo-skytree'), self.specs)
         self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
         self.assertIn('src/lib/tokyo_tower_detail.py',geometry_source_paths('tokyo-tower'))

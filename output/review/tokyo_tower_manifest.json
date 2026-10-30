@@ -3072,7 +3072,7 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "8c3b29c89998ee5085dd075b66ead4186a5ed6bac4a42b703c2ea3893c49e5c5",
+    "src/lib/tower_geometry.py": "1b84a1b48f5a63fdf3dc67f68c4717678af5e7e46e67ffc857178590f6c27ebc",
     "src/lib/tokyo_tower_detail.py": "0f035a05aa990954d42170376bfd42cf7da2be1d8e21b9b9184ebf264868c52e",
     "src/lib/tokyo_tower_steel.py": "77c19f14cf9aa044eb3f560a25b77898ba056d56ce8b1dca82431097d62860df",
     "src/towers_3d.py": "80bd8517411a6b166aebbe6c33b9396b4ddae1eb1da9dd348059d25983c7b4b7"

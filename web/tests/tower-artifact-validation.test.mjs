@@ -134,20 +134,24 @@ test('changing the Tokyo detail module invalidates its own generation binding', 
 });
 
 
-test('R04 Skytree drawing rejects old R03, R02 and R01 revisions independently of Tokyo', async t => {
+test('R05 Skytree models and drawings reject old R04, R03, R02 and R01 independently of Tokyo', async t => {
   const {root,records,saveMetadata}=await fixture(t);
   assert.equal(records[0].manifest.revision,'LANDMARK-R06');
-  for (const stale of ['LANDMARK-R03','LANDMARK-R02','LANDMARK-R01']) {
-    records[1].drawings.revision=stale; await saveMetadata();
-    await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+  for (const metadata of [records[1].manifest, records[1].drawings]) {
+    for (const stale of ['LANDMARK-R04','LANDMARK-R03','LANDMARK-R02','LANDMARK-R01']) {
+      metadata.revision=stale; await saveMetadata();
+      await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+    }
+    metadata.revision='LANDMARK-R05'; await saveMetadata();
   }
+  await validateTowerArtifacts(root);
 });
 test('changing the Skytree detail module invalidates its own generation binding', async t => {
   const {root,save}=await fixture(t);
   await save('src/lib/skytree_detail.py','# changed galleria ramp or tower frame');
   await assert.rejects(validateTowerArtifacts(root), /Stale tower source/);
 });
-test('changing or omitting the Skytree outline source invalidates R04 provenance', async t => {
+test('changing or omitting the Skytree outline source invalidates R05 provenance', async t => {
   const {root,save,records,saveMetadata}=await fixture(t);
   assert.deepEqual(towerCatalog.find(tower=>tower.id==='tokyo-skytree').sources,
     ['src/lib/skytree_detail.py','src/lib/skytree_outline.py']);
@@ -177,7 +181,7 @@ test('R06 requires the editable steel detail drawing in addition to the original
   await assert.rejects(validateTowerArtifacts(root),/drawing catalog/);
 });
 
-test('R04 Skytree requires its source-bound structure zones page while keeping earlier sheet paths',async t=>{
+test('R05 Skytree requires its source-bound structure zones page while keeping earlier sheet paths',async t=>{
   const {root,records,saveMetadata}=await fixture(t);
   const {drawings,paths}=records[1];
   assert.deepEqual(paths.drawings.slice(0,5),[
@@ -217,7 +221,7 @@ test('publication uses construction GL levels rather than the official deck-name
   assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-skytree').roofLevels, [375000]);
 });
 
-test('Skytree R04 requires the equipment roof dimension and separate metadata without changing observation floors',async t=>{
+test('Skytree R05 requires the equipment roof dimension and separate metadata without changing observation floors',async t=>{
   const {root,records,save,bind,saveMetadata}=await fixture(t);
   const {drawings,paths}=records[1],row=drawings.drawings[1];
   assert.deepEqual(row.roof_levels_mm,[375000]);

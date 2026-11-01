@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
     'tokyo_tower': {'height':333000, 'decks':[125000,223550],
                     'base_dimension':80000, 'name':'東京タワー', 'elevation_scale':1500,
-                    'revision':'LANDMARK-R06'},
+                    'revision':'LANDMARK-R07'},
     'tokyo_skytree': {'height':634000, 'decks':[350000,450000],
                       'roof_levels':[375000],
                       'base_dimension':68000, 'name':'東京スカイツリー', 'elevation_scale':3000,
@@ -160,7 +160,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
         self.assertEqual(detail['paper_bounds_mm'],[257,139,394,195])
         self.assertEqual(detail['source_part_prefix'],'decks:main_')
         self.assertEqual(detail['levels_mm'],[120000,125000])
-        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R06')
+        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R07')
         self.assertTrue(any(part.startswith('decks:main_') for part in detail['source_parts']))
         self.assertEqual(len(set(detail['source_parts'])),len(detail['source_parts']))
         doc=ezdxf.readfile(ROOT/row['dxf'])
@@ -179,7 +179,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
         text=PdfReader(ROOT/f'output/pdf/{stem}_sheets.pdf').pages[1].extract_text()
         self.assertIn('1:300',text)
         self.assertIn('メインデッキ付近',text)
-        self.assertIn('LANDMARK-R06',text)
+        self.assertIn('LANDMARK-R07',text)
         for label in ('公式案内: メイン150 m / トップ250 m','施工GL',
                       '公式案内値との換算・完成面実測ではない。','独立平面',
                       'H11 27×27 / H12 28×28 m','ST支柱□450','1:400','1:1250'):
@@ -446,6 +446,16 @@ class TowerProjectionTests(unittest.TestCase):
             self.assertIn('独立平面',text)
             self.assertNotIn('機械室層',text)
             self.assertIn('JAEE',text)
+
+    def test_plan_notes_stay_inside_the_panel_above_the_separate_footer(self):
+        for tower in ('tokyo-tower','tokyo-skytree'):
+            drawing=self.module.TowerDrawing(tower,'plan',500,(130,28))
+            notes=[op for op in drawing.operations if op['kind']=='text' and op['points'][0]==257]
+            self.assertGreater(len(notes),20)
+            for note in notes:
+                y=note['points'][1];half=note['height']/2
+                self.assertGreaterEqual(y-half,40,note['text'])
+                self.assertLessEqual(y+half,251,note['text'])
 
     def test_skytree_inset_source_fixtures_keep_roof_and_obstruction_lens_inside_the_clip(self):
         def box(name,bounds,group='decks',role='deck_roof'):

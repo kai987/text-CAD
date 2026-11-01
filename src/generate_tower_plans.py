@@ -188,7 +188,8 @@ class TowerDrawing:
         self.paper_text('公表値を参照 / 未測量・未計算 / NOT FOR CONSTRUCTION', (16,16), 2.6)
         self.paper_poly([(250,38),(401,38),(401,253),(250,253)], True, width=.2)
         self.paper_poly([(250,16),(401,16),(401,33),(250,33)], True, width=.2)
-        self.paper_text(f'text-CAD | {self.revision} | 2026-10-30', (256,25), 2.7)
+        drawing_date='2026-11-01' if self.tower_id=='tokyo-tower' else '2026-10-30'
+        self.paper_text(f'text-CAD | {self.revision} | {drawing_date}', (256,25), 2.7)
         self.paper_text('モデル寸法と図面の対応', (257,244), 3.5)
         deck_names = DECK_LABELS[self.tower_id]
         if self.tower_id == 'tokyo-tower' and self.view == 'elevation':
@@ -229,20 +230,24 @@ class TowerDrawing:
                 '公式案内値との換算・完成面実測ではない。',
                 '塔脚基準軸線間80,000 mmは図1参照。',
                 '床・外形の現況対応、部材・接合は仮定。',
+                'R07アーチの上下弦・三角腹材は写真近似。',
+                '上部輪郭GL130,000–223,550は局所平滑近似。',
+                '足元建物の外形・階高・外装もモデル仮定。',
                 '', '03 座標とデータ',
                 'CADモデル空間は実寸1:1、単位mm。',
                 '平面はX/Y、立面はX/Zの正投影。',
                 '方位はモデル用。測量方位は未設定。',
                 '基座平面は上部投影外形も重ねて表示。',
                 '文字・寸法はDXFで編集可能。',
-                '', '04 参照資料（2026-10-30）',
+                '', '04 参照資料（2026-11-01）',
                 'JAEE実在建物の振動性状 / 歴史図復刻',
                 '宮地技報 No18 p86 / No28 p65–66',
                 'tokyotower.co.jp/guidance/',
                 '観光床の完成面・現況構造は未測量。',
             ]
+            leading=min(7.,(232.-43.)/max(1,len(notes)-1))
             for index,note in enumerate(notes):
-                if note:self.paper_text(note,(257,232-index*7),2.5)
+                if note:self.paper_text(note,(257,232-index*leading),2.5)
             self.labels += ['施工GL','公式案内値との換算・完成面実測ではない。']
             return
         if self.tower_id == 'tokyo-skytree' and self.view == 'elevation':

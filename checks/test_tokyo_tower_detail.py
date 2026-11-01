@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import json
+import re
 from math import dist, inf, isfinite, nextafter
 from pathlib import Path
 import sys
@@ -42,7 +43,7 @@ def maximum_z(spec):
 
 
 def geometry_fingerprint(value):
-    """Hash unchanged specifications on a 0.000001mm grid across libm platforms.
+    """Hash unchanged specifications on a 0.00001mm grid across libm platforms.
 
     Names, ordering, colours and metadata stay exact. Round coordinate tails
     and normalise signed zero before JSON encoding; raw float repr is not a
@@ -51,11 +52,42 @@ def geometry_fingerprint(value):
     def canonical(item):
         if isinstance(item,float):
             if not isfinite(item):raise ValueError('Nonfinite geometry cannot be fingerprinted.')
-            return round(item,6) or 0.0
+            return round(item,5) or 0.0
         if isinstance(item,dict):return {key:canonical(v) for key,v in item.items()}
         if isinstance(item,(list,tuple)):return [canonical(v) for v in item]
         return item
     return hashlib.sha256(json.dumps(canonical(value),sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+def upper_shaft_refitted_part(part):
+    """Exactly the upper-frame bays and twelve moving deck connections."""
+    match=re.fullmatch(r'structure:upper_(chord|diagonal|return|secondary|secondary_return|ring)_[0-3]_(\d+)',part['name'])
+    if match:
+        return 8<=int(match[2])<=(16 if match[1]=='ring' else 17)
+    return bool(re.fullmatch(r'decks:top_support_ring_[0-3]|decks:top_underside_bracket_[0-7]',part['name']))
+
+
+def r06_preserved_parts(specs):
+    """Keep every R06 part outside the explicitly requested appearance edits.
+
+    Besides arches/legs and Foot Town, only the shaft below the special
+    deck and its twelve connected supports move. Deck shells, twenty steel
+    nodes, core, stairs and the antenna remain immutable references.
+    """
+    result=[]
+    for part in specs:
+        if part['group']=='base':
+            if part['name']=='base:ground_slab' or part['name'].startswith(('base:footing_','base:foot_uplight_')):
+                result.append(part)
+            continue
+        lower=part['group']=='structure' and part['name'].startswith(
+            ('structure:lower_arch_','structure:arch_spandrel_','structure:leg_'))
+        if not lower and not upper_shaft_refitted_part(part):result.append(part)
+    return result
+
+
+def member_axis(part):
+    return (part['axis_start'],part['axis_end']) if 'axis_start' in part else (part['start'],part['end'])
 
 
 class TokyoTowerDetailTests(unittest.TestCase):
@@ -68,10 +100,10 @@ class TokyoTowerDetailTests(unittest.TestCase):
         names=[part['name'] for part in self.specs]
         self.assertEqual(len(set(names)),len(names))
         self.assertGreater(len(names),1000)
-        self.assertLessEqual(len(names),6000)
+        self.assertLessEqual(len(names),6500)
         self.assertEqual(set(part['group'] for part in self.specs),set(GROUPS))
         self.assertTrue(all(name.startswith(part['group']+':') for name,part in zip(names,self.specs)))
-        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R06')
+        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R07')
         self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R05')
         self.assertNotEqual(component_specs('tokyo-skytree'), self.specs)
         self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
@@ -111,8 +143,12 @@ class TokyoTowerDetailTests(unittest.TestCase):
     def test_smoother_leg_controls_are_monotone_and_keep_reference_heights(self):
         radii=[profile_radius('tokyo-tower',z) for z in range(0,252651,1000)]
         self.assertTrue(all(a>=b>0 for a,b in zip(radii,radii[1:])))
+        fitted=self.parameters['detail']['upper_shaft_outline']
+        from lib.tokyo_tower_detail import profile_radius as reference_radius
         for z,radius in self.parameters['profile']:
-            self.assertAlmostEqual(profile_radius('tokyo-tower',z),radius,places=8)
+            self.assertAlmostEqual(reference_radius(self.parameters['profile'],z),radius,places=8)
+            if not fitted['start_mm']<z<fitted['end_mm']:
+                self.assertAlmostEqual(profile_radius('tokyo-tower',z),radius,places=8)
         self.assertEqual(self.parameters['height_mm'],333000)
         self.assertEqual(self.parameters['deck_levels_mm'],[125000,223550])
         self.assertAlmostEqual(max(maximum_z(part) for part in self.specs),333000)
@@ -221,8 +257,8 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertEqual(p['antenna_start_mm'],252650)
         self.assertEqual(p['antenna_lattice_top_mm'],312600)
         arches=[part for part in self.specs if part['name'].startswith('structure:lower_arch_') and part.get('role')=='open_cross_frame']
-        self.assertAlmostEqual(max(max(part['start'][2],part['end'][2]) for part in arches),40000)
-        self.assertLess(min(min(part['start'][2],part['end'][2]) for part in arches),2000)
+        self.assertAlmostEqual(max(max(point[2] for point in member_axis(part)) for part in arches),40000)
+        self.assertLess(min(min(point[2] for point in member_axis(part)) for part in arches),2000)
         panels=[p for p in self.specs if p.get('role')=='lower_panel_brace']
         self.assertGreaterEqual(len(panels),96)
         self.assertTrue(all(40000<=p['start'][2]<=80000 and 40000<=p['end'][2]<=80000 for p in panels))
@@ -236,7 +272,7 @@ class TokyoTowerDetailTests(unittest.TestCase):
             source=by_name[connector['source_member']]
             target=by_name[connector['target_member']]
             a,b=connector['attachment_points']
-            self.assertTrue(a==source['start'] or a==source['end'])
+            self.assertIn(a,member_axis(source))
             if target['kind']=='loft3d':
                 centre_a,centre_b=target['axis_start'],target['axis_end']
             else:
@@ -260,19 +296,29 @@ class TokyoTowerDetailTests(unittest.TestCase):
             self.assertEqual(bracket['start'][2],level)
         self.assertEqual(len([p for p in self.specs if p.get('role')=='deck_support_ring']),4)
 
-    def test_r05_preserves_base_core_and_steel_below180m_from_r04(self):
-        # Fixed R04 specification fingerprint. The narrow revision changes
-        # deck shells/equipment, antennas, and the profile near the top deck.
-        # Canonical baseline independently derived from commit462e28c's R04
-        # source, whose original raw digest is672806be...cd051. A nanometre
-        # grid removes platform float tails without replacing that baseline.
-        unchanged=[p for p in self.specs if p['group'] in ('base','core')
-                   or p['group']=='structure' and maximum_z(p)<=180000]
-        self.assertEqual(geometry_fingerprint(unchanged),'4809a6a4982536dbadf248b1a295ef438d973bb2957a8573681a333a6edb2ef4')
+    def test_r07_preserves_r06_geometry_outside_requested_appearance(self):
+        # Independently derive this fixed reference from immutable commit6bbcb73,
+        # not from the modified model. The R07 exclusion is confined to the
+        # requested arches/primary legs, Foot Town and upper shaft; the legacy leg geometry
+        # below80m has a separate fixed reference in test_tokyo_tower_base.
+        # Float normalisation
+        # continues to protect the Linux/macOS preservation contract. The
+        # expanded upper-frame subset has32 values within8ULP of1nm rounding
+        # boundaries; the independently checked10nm grid has none. This is
+        # still100 times smaller than the0.001mm mutation rejection check.
+        unchanged=r06_preserved_parts(self.specs)
+        self.assertEqual(len(unchanged),4415)
+        self.assertEqual(geometry_fingerprint(unchanged),'66fb767e8037c8355514f931858a5c158204b424c2512fb4b28e523d99b78232')
+
+    def test_upper_outline_preserves_the_completed_r07_base_and_all_other_parts(self):
+        # Frozen before the subsequent upper-outline request, not derived
+        # from the modified upper-shaft implementation.
+        unchanged=[part for part in self.specs if not upper_shaft_refitted_part(part)]
+        self.assertEqual(len(unchanged),6126)
+        self.assertEqual(geometry_fingerprint(unchanged),'b4632bcc9e8c1e869040c7bcb90451521f4d57bbc56bade341bd0b44e9327f09')
 
     def test_preservation_fingerprint_tolerates_machine_tails_and_signed_zero(self):
-        unchanged=[p for p in self.specs if p['group'] in ('base','core')
-                   or p['group']=='structure' and maximum_z(p)<=180000]
+        unchanged=r06_preserved_parts(self.specs)
         def perturb(item,direction):
             if isinstance(item,float):
                 for _ in range(8):item=nextafter(item,direction)
@@ -468,6 +514,23 @@ class TokyoUpperNativeContactTests(unittest.TestCase):
         self.contact('decks:top_service_spoke_0','decks:top_service_platform_05')
         self.contact('decks:top_service_dish_mount_0','decks:top_service_dish_0_0')
         self.shape('decks:top_service_dish_0_5')
+
+    def test_refitted_top_deck_supports_keep_native_contact_at_both_ends(self):
+        for side in range(4):
+            ring=f'decks:top_support_ring_{side}'
+            self.contact(ring,f'structure:upper_chord_{side}_16')
+            self.contact(ring,f'structure:upper_chord_{(side+1)%4}_16')
+        for index in range(8):
+            bracket=f'decks:top_underside_bracket_{index}'
+            part=self.by[bracket]
+            # Its inner end lands on a face ring, rather than directly on
+            # a corner column. Test the actual solid connection.
+            # The apron endpoint is a bearing surface. Face contact is valid
+            # here; the assembly does not assert a penetrating welded joint.
+            self.assertLess(self.shape(bracket).distance_to(self.shape(part['target_member'])),.01)
+            distances=[self.shape(bracket).distance_to(self.shape(f'decks:top_support_ring_{side}'))
+                       for side in range(4)]
+            self.contact(bracket,f'decks:top_support_ring_{distances.index(min(distances))}')
 
 
 if __name__=='__main__':unittest.main()

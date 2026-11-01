@@ -2,7 +2,8 @@ import house from './house-data.json';
 import { artifactUrl, pinnedSourceUrl } from './asset-url';
 export { house };
 export const repository = 'https://github.com/kai987/text-CAD';
-export const asset = (path: string) => artifactUrl(import.meta.env.BASE_URL, path, __CAD_ASSET_HASHES__, __CAD_MANIFEST_HASH__);
+export const asset = (path: string, selectedSha256?: string) =>
+  artifactUrl(import.meta.env.BASE_URL, path, __CAD_ASSET_HASHES__, __CAD_MANIFEST_HASH__, selectedSha256);
 export const assetSha256 = (path: string): string | undefined => __CAD_ASSET_HASHES__[path];
 export const sourceUrl = (path: string, kind: 'blob' | 'tree' = 'blob') => pinnedSourceUrl(repository, __CAD_SOURCE_COMMIT__, path, kind);
 export const downloadFiles = [

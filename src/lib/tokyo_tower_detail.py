@@ -1,4 +1,4 @@
-"""Reference-informed R06 Tokyo Tower appearance detail, in mm; not an engineered copy.
+"""Reference-informed R07 Tokyo Tower appearance detail, in mm; not an engineered copy.
 
 Published controls include construction GL heights, the H11/H12 27/28m plan
 widths, H23 D13m plan, replacement ST BOX450 section, and the approximately
@@ -11,13 +11,98 @@ editable drawings and the web model retain one source of geometry.
 """
 from __future__ import annotations
 
-from math import cos, sin, pi
+from math import cos, sin, pi, sqrt, isfinite
 
 ORANGE = '#E34C25'
 WHITE = '#F4F0E7'
 STEEL = '#6D7880'
 GLASS = '#658C9E'
 WARM = '#FFE0A3'
+
+BASE_APPEARANCE_DEFAULTS = {
+    'leg_cage_transition_start_mm': 80000., 'leg_cage_top_mm': 125000.,
+    'leg_cage_top_half_width_mm': 450.,
+    'leg_continuation_levels_mm': [88000.,98000.,106000.,114000.,120000.,125000.],
+    'leg_continuation_chord_half_width_mm': 262.5,
+    'leg_continuation_overlap_mm': 40., 'leg_transition_link_radius_mm': 100.,
+    'leg_attachment_inset_mm': 150.,
+    'leg_continuation_scope': 'The four-member gross leg assemblies continue smoothly from ground '
+                              'through the former 80m modelling boundary to the Main Deck. '
+                              'Continuation stations, cage taper, constant 525mm H appearance '
+                              'sections, short branch links and fitted end laps are visual '
+                              'assumptions, not recovered original member or connection designs.',
+    'arch_rib_depth_mm': 1800., 'arch_plane_half_depth_mm': 650.,
+    'arch_panel_count': 16, 'arch_profile_width_mm': 450.,
+    'arch_profile_depth_mm': 600., 'arch_web_thickness_mm': 20.,
+    'arch_flange_thickness_mm': 24., 'arch_joint_overlap_mm': 40.,
+    'arch_web_radius_mm': 85., 'arch_cross_tie_radius_mm': 75.,
+    'foot_town_width_mm': 48000., 'foot_town_depth_mm': 44000.,
+    'foot_town_floor_levels_mm': [0.,3600.,7200.,10800.,14400.,18300.],
+    'foot_town_glazed_bands': 2, 'foot_town_bays_per_face': 8,
+    'foot_town_wall_thickness_mm': 350., 'foot_town_roof_overhang_mm': 900.,
+    'foot_town_upper_color': '#76584B', 'foot_town_canopy_width_mm': 14000.,
+    'foot_town_canopy_projection_mm': 2800., 'foot_town_door_height_mm': 3000.,
+    'foot_town_roof_housing_bounds_mm': [-4200.,8000.,18300.,4200.,13000.,21000.],
+    'scope': 'H3 GL40m and 80m foot-axis spacing are published structural controls. '
+             'Arch depth, profile and web sizes, panel layout, FootTown 48x44m plan, '
+             'facade bands, cladding and rooftop equipment are photograph/drawing-guided '
+             'appearance assumptions, not surveyed dimensions or structural design.',
+}
+
+
+def _base_config(p):
+    return {**BASE_APPEARANCE_DEFAULTS,**p.get('detail',{}).get('base_appearance',{})}
+
+
+def _leg_frame_levels(p):
+    c=_base_config(p)
+    levels=sorted(set([*p['detail']['leg_stations_mm'],*c['leg_continuation_levels_mm']]))
+    if levels[0]!=0 or levels[-1]!=c['leg_cage_top_mm']:
+        raise ValueError('Continuous leg stations must run from ground to the fitted deck junction.')
+    if c['leg_cage_transition_start_mm'] not in levels:
+        raise ValueError('The retained lower-leg boundary must be an explicit station.')
+    return levels
+
+
+def _leg_cage_half(p,z):
+    """Retain the legacy0–80m axes, then smoothly taper the gross assembly."""
+    c=_base_config(p);start=c['leg_cage_transition_start_mm'];top=c['leg_cage_top_mm']
+    if z<=start:return max(950,1800-z*.010)
+    begin=max(950,1800-start*.010);end=c['leg_cage_top_half_width_mm']
+    if not 0<end<begin or top<=start:raise ValueError('Invalid fitted continuation taper.')
+    if z>=top:return end
+    h=top-start;t=(z-start)/h;slope=-.010*h
+    return ((2*t**3-3*t**2+1)*begin+(t**3-2*t**2+t)*slope
+            +(-2*t**3+3*t**2)*end+(t**3-t**2)*slope)
+
+
+def _arch_plate_chord(name,a,b,normal,p,**metadata):
+    """An open H-like built-up rib, with its broad web in the arch plane.
+
+    Nominal axes remain explicit for drawing/connection clients. Forty-mm
+    end laps prevent fitted polygonal bends from being disconnected solids;
+    they represent appearance joints rather than designed fabrication splices.
+    """
+    c=_base_config(p);delta=[b[k]-a[k] for k in range(3)]
+    length=sqrt(sum(v*v for v in delta));w=[v/length for v in delta]
+    u=list(normal);v=[w[1]*u[2]-w[2]*u[1],w[2]*u[0]-w[0]*u[2],w[0]*u[1]-w[1]*u[0]]
+    length=sqrt(sum(x*x for x in v));v=[x/length for x in v]
+    # Re-orthogonalise the face normal for the mildly warped four-sided frame.
+    u=[v[1]*w[2]-v[2]*w[1],v[2]*w[0]-v[0]*w[2],v[0]*w[1]-v[1]*w[0]]
+    x,y=c['arch_profile_width_mm']/2,c['arch_profile_depth_mm']/2
+    t,q=c['arch_web_thickness_mm']/2,c['arch_flange_thickness_mm']
+    if not 0<t<x or not 0<q<y:raise ValueError('Invalid fitted arch plate profile.')
+    outline=[[-x,-y],[x,-y],[x,-y+q],[t,-y+q],[t,y-q],[x,y-q],
+             [x,y],[-x,y],[-x,y-q],[-t,y-q],[-t,-y+q],[-x,-y+q]]
+    lap=c['arch_joint_overlap_mm']
+    ends=[[a[k]-w[k]*lap for k in range(3)],[b[k]+w[k]*lap for k in range(3)]]
+    sections=[[[o[k]+u[k]*xx+v[k]*yy for k in range(3)] for xx,yy in outline] for o in ends]
+    return {'group':'structure','name':'structure:'+name,'kind':'loft3d','color':ORANGE,
+            'role':'open_cross_frame','sections':sections,'start':list(a),'end':list(b),
+            'axis_start':list(a),'axis_end':list(b),'steel_role':'arch_plate_chord',
+            'section_profile':{'type':'H','width_mm':2*x,'depth_mm':2*y,
+                               'web_thickness_mm':2*t,'flange_thickness_mm':q},
+            'section_scope':c['scope'],**metadata}
 
 # The shell and equipment controls below are appearance assumptions, not
 # recovered fabrication dimensions. Keep the construction GL controls in p.
@@ -57,6 +142,20 @@ ANTENNA_APPEARANCE_DEFAULTS = {
 }
 
 
+UPPER_SHAFT_OUTLINE_DEFAULTS = {
+    'enabled': True,
+    'start_mm': 130000., 'end_mm': 223550.,
+    'start_half_width_mm': 9900., 'end_half_width_mm': 3950.,
+    'start_slope_mm_per_mm': -.06827586206896552,
+    'end_slope_mm_per_mm': -.041757602211552454,
+    'method': 'convex integrated power tangent blend',
+    'scope': 'Photo-guided appearance fit of the shaft between the Main Deck roof '
+             'and historical H23 roof control. End radii and tangents match the '
+             'retained reference profile; intermediate half-widths are fitted, '
+             'not original surveyed coordinates or a structural member schedule.',
+}
+
+
 def profile_radius(profile, z):
     """Monotone cubic Hermite interpolation through the assumed leg controls."""
     if z <= profile[0][0]:
@@ -75,6 +174,42 @@ def profile_radius(profile, z):
             return ((2*t**3 - 3*t**2 + 1)*r0 + (t**3 - 2*t**2 + t)*h*derivatives[index]
                     + (-2*t**3 + 3*t**2)*r1 + (t**3 - t**2)*h*derivatives[index + 1])
     raise AssertionError('Tokyo leg profile is not covered.')
+
+
+def body_radius(p, z):
+    """Use an explicit local, convex taper without changing the reference outside.
+
+    R06 parameter records do not opt in. The active R07 fit integrates a
+    monotone tangent field, so it matches both endpoint radii/tangents and
+    cannot form a shoulder outside their connecting line. The original
+    profile stays available for the unchanged lower frame and upper antenna.
+    """
+    configured=p.get('detail',{}).get('upper_shaft_outline')
+    if configured is None:return profile_radius(p['profile'],z)
+    if not isinstance(configured,dict):raise ValueError('Upper shaft outline must be a configuration object.')
+    c={**UPPER_SHAFT_OUTLINE_DEFAULTS,**configured}
+    if not c['enabled']:return profile_radius(p['profile'],z)
+    start,end=c['start_mm'],c['end_mm']
+    if not all(isfinite(v) for v in (start,end)) or not 0<=start<end:
+        raise ValueError('Upper shaft fit requires finite, increasing height bounds.')
+    if z<=start or z>=end:return profile_radius(p['profile'],z)
+    r0,r1=c['start_half_width_mm'],c['end_half_width_mm']
+    m0,m1=c['start_slope_mm_per_mm'],c['end_slope_mm_per_mm']
+    if not all(isfinite(v) for v in (r0,r1,m0,m1)) or not 0<r1<r0:
+        raise ValueError('Upper shaft fit requires finite decreasing positive half-widths.')
+    if c['method']!=UPPER_SHAFT_OUTLINE_DEFAULTS['method']:
+        raise ValueError('Unsupported upper shaft fit method.')
+    if any(abs(profile_radius(p['profile'],height)-radius)>1e-7
+           for height,radius in ((start,r0),(end,r1))):
+        raise ValueError('Upper shaft fit radii must meet the retained reference at both boundaries.')
+    height=end-start;secant=(r1-r0)/height
+    if not m0<secant<m1<0:
+        raise ValueError('Upper shaft tangents must bracket its negative secant slope.')
+    power=(m1-m0)/(secant-m0)-1.
+    if power<1:
+        raise ValueError('Upper shaft tangent blend must have finite nonnegative curvature.')
+    t=(z-start)/height
+    return r0+height*(m0*t+(m1-m0)*t**(power+1)/(power+1))
 
 
 def _box(group, name, bounds, color, role=None, **metadata):
@@ -148,18 +283,30 @@ def _floor_with_stair_opening(name, half, z, color):
 
 
 def _lower_frame(p, ring, paint):
-    parts=[]
-    levels=p['detail']['leg_stations_mm']
+    parts=[];c=_base_config(p)
+    levels=_leg_frame_levels(p)
     corners=[(-1,-1),(1,-1),(1,1),(-1,1)]
     for leg,(sx,sy) in enumerate(corners,1):
         for index,(za,zb) in enumerate(zip(levels,levels[1:]),1):
             ra=ring(za)[0][0]*-1;rb=ring(zb)[0][0]*-1
-            cage_a=max(950,1800-za*.010);cage_b=max(950,1800-zb*.010)
+            cage_a=_leg_cage_half(p,za);cage_b=_leg_cage_half(p,zb)
             a=_square(cage_a,(sx*ra,sy*ra));b=_square(cage_b,(sx*rb,sy*rb))
             color=paint((za+zb)/2)
             for chord in range(4):
-                parts.append(_rect_chord(f'leg_{leg:02d}_chord_{chord:02d}_{index:02d}',
-                                        (*a[chord],za),(*b[chord],zb),max(180,360-za*.0015),color))
+                start=[*a[chord],za];end=[*b[chord],zb]
+                if za>=c['leg_cage_transition_start_mm']:
+                    delta=[end[k]-start[k] for k in range(3)];length=sqrt(sum(v*v for v in delta))
+                    lap=c['leg_continuation_overlap_mm']
+                    aa=[start[k]-delta[k]/length*lap for k in range(3)]
+                    bb=[end[k]+delta[k]/length*lap for k in range(3)]
+                    part=_rect_chord(f'leg_{leg:02d}_chord_{chord:02d}_{index:02d}',aa,bb,
+                                     c['leg_continuation_chord_half_width_mm'],color)
+                    part.update(nominal_axis_start=start,nominal_axis_end=end,leg_continuation=True,
+                                continuation_scope=c['leg_continuation_scope'])
+                    parts.append(part)
+                else:
+                    parts.append(_rect_chord(f'leg_{leg:02d}_chord_{chord:02d}_{index:02d}',
+                                            start,end,max(180,360-za*.0015),color))
             # Four-face lacing expresses a built-up leg, rather than two open
             # decorative rails. Exact bar sizes and pitch remain assumptions.
             for face in range(4):
@@ -176,39 +323,80 @@ def _lower_frame(p, ring, paint):
         x,y=sx*40000,sy*40000
         parts.append(_box('base',f'footing_{leg:02d}',(x-2600,y-2600,-1500,x+2600,y+2600,1100),'#A8A7A0','foundation_placeholder'))
         parts.append(_box('structure',f'leg_{leg:02d}_shoe_plate',(x-2200,y-2200,1100,x+2200,y+2200,1300),STEEL,'connection_detail',detail_level='micro'))
+        # Bind the continuing cage to the retained, independently named
+        # central upper H chord. Points use the actual straight source axes,
+        # not the smooth envelope between their stations.
+        upper_levels=_upper_frame_levels()
+        for station,level in enumerate([c['leg_cage_transition_start_mm'],*c['leg_continuation_levels_mm']]):
+            z=level+(c['leg_attachment_inset_mm'] if level<levels[-1] else -c['leg_attachment_inset_mm'])
+            interval=next(i for i,(a,b) in enumerate(zip(levels,levels[1:])) if a<=z<=b)
+            za,zb=levels[interval:interval+2];t=(z-za)/(zb-za)
+            aa=_square(_leg_cage_half(p,za),(sx*-ring(za)[0][0],sy*-ring(za)[0][0]))
+            bb=_square(_leg_cage_half(p,zb),(sx*-ring(zb)[0][0],sy*-ring(zb)[0][0]))
+            centre=[*_upper_frame_ring(ring,z)[leg-1],z]
+            upper_index=next(i for i,(a,b) in enumerate(zip(upper_levels,upper_levels[1:]),1) if a<=z<=b)
+            for chord in range(4):
+                source=[aa[chord][k]*(1-t)+bb[chord][k]*t for k in range(2)]+[z]
+                parts.append(_beam('structure',f'leg_{leg:02d}_continuation_link_{station}_{chord}',source,centre,
+                                   c['leg_transition_link_radius_mm'],color,'leg_transition_link',
+                                   source_member=f'structure:leg_{leg:02d}_chord_{chord:02d}_{interval+1:02d}',
+                                   target_member=f'structure:upper_chord_{leg-1}_{upper_index}',
+                                   attachment_points=[source,centre],level_mm=level,attachment_z_mm=z,
+                                   leg_group=leg,leg_chord=chord,scope=c['leg_continuation_scope']))
     def cage_outer_radius(z):
         # Endpoints use the straight native chord interpolation, not the smooth
         # envelope control curve; otherwise new panels would float in the cage.
         i=next(i for i,(za,zb) in enumerate(zip(levels,levels[1:])) if za<=z<=zb)
         za,zb=levels[i:i+2];t=(z-za)/(zb-za)
         ra,rb=-ring(za)[0][0],-ring(zb)[0][0]
-        ca,cb=max(950,1800-za*.010),max(950,1800-zb*.010)
+        ca,cb=_leg_cage_half(p,za),_leg_cage_half(p,zb)
         return (ra+ca)*(1-t)+(rb+cb)*t
     # The contractor's p86 elevation puts the arch crown at H3 / GL+40m.
     # Its exact curve, rib offset and all intermediate points are digitised
     # modelling approximations. The previous floating 26–67m arch was wrong.
     crown=p['detail']['arch_crown_mm'];foot=1300.
     for side in range(4):
-        normal=(0,1) if side in (0,2) else (1,0)
+        normal=((0,1),(-1,0),(0,-1),(1,0))[side]
         def side_point(x,z):
             r=-ring(z)[0][0]
             return ([x,-r,z] if side==0 else [r,x,z] if side==1 else
                     [-x,r,z] if side==2 else [-r,-x,z])
         span=40000.-1800.
-        path=[]
-        for i in range(17):
-            q=(i-8)/8
-            path.append(side_point(q*span,foot+(crown-foot)*(1-q*q)))
-        for lane,offset in enumerate((-650,650)):
+        c=_base_config(p);panels=int(c['arch_panel_count'])
+        if panels<8 or panels%2:raise ValueError('Arch modelling panels must be even and at least eight.')
+        if not 0<c['arch_rib_depth_mm']<crown-foot:raise ValueError('Invalid fitted arch depth.')
+        path=[];inner_path=[]
+        for i in range(panels+1):
+            q=-1+2*i/panels;rise=1-q*q
+            path.append(side_point(q*span,foot+(crown-foot)*rise))
+            inner_path.append(side_point(q*span,foot+(crown-foot-c['arch_rib_depth_mm'])*rise))
+        normal3=[*normal,0.]
+        for lane,offset in enumerate((-c['arch_plane_half_depth_mm'],c['arch_plane_half_depth_mm'])):
             line=[[x+normal[0]*offset,y+normal[1]*offset,z] for x,y,z in path]
-            for i,(a,b) in enumerate(zip(line,line[1:])):
-                parts.append(_beam('structure',f'lower_arch_{side}_{lane}_{i}',a,b,300,ORANGE,'open_cross_frame'))
+            lower=[[x+normal[0]*offset,y+normal[1]*offset,z] for x,y,z in inner_path]
+            for layer,points in (('outer',line),('inner',lower)):
+                for i,(a,b) in enumerate(zip(points,points[1:])):
+                    name=f'lower_arch_{side}_{lane}_{i}' if layer=='outer' else f'lower_arch_inner_{side}_{lane}_{i}'
+                    parts.append(_arch_plate_chord(name,a,b,normal3,p,arch_side=side,arch_lane=lane,
+                                                   arch_layer=layer,arch_segment=i,arch_member_kind='chord'))
+            # Each visible face has a genuinely deep curved truss. Its
+            # triangular webs connect the distinct upper/lower chord axes;
+            # the old front/back-only ribbons had no in-plane truss depth.
+            for i in range(panels):
+                a,b=(line[i],lower[i+1]) if i%2==0 else (lower[i],line[i+1])
+                parts.append(_beam('structure',f'lower_arch_diagonal_{side}_{lane}_{i}',a,b,
+                                   c['arch_web_radius_mm'],ORANGE,'open_cross_frame',
+                                   arch_side=side,arch_lane=lane,arch_member_kind='diagonal'))
+            for i in range(1,panels):
+                parts.append(_beam('structure',f'lower_arch_inplane_tie_{side}_{lane}_{i}',lower[i],line[i],
+                                   c['arch_web_radius_mm']*.8,ORANGE,'open_cross_frame',
+                                   arch_side=side,arch_lane=lane,arch_member_kind='in_plane_tie'))
             for end,point in enumerate((line[0],line[-1])):
                 z=point[2]
                 interval=next(i for i,(a,b) in enumerate(zip(levels,levels[1:])) if a<=z<=b)
                 za,zb=levels[interval],levels[interval+1];t=(z-za)/(zb-za)
                 ra,rb=-ring(za)[0][0],-ring(zb)[0][0]
-                ca,cb=max(950,1800-za*.010),max(950,1800-zb*.010)
+                ca,cb=_leg_cage_half(p,za),_leg_cage_half(p,zb)
                 candidates=[]
                 for leg,(sx,sy) in enumerate(corners,1):
                     a,b=_square(ca,(sx*ra,sy*ra)),_square(cb,(sx*rb,sy*rb))
@@ -223,13 +411,17 @@ def _lower_frame(p, ring, paint):
                 parts.append(_loft('structure',f'lower_arch_anchor_{side}_{lane}_{end}',
                                    [_section(z-100,outline),_section(z+100,outline)],ORANGE,
                                    'connection_detail',detail_level='micro',
-                                   source_member=f'structure:lower_arch_{side}_{lane}_{0 if end==0 else 15}',
+                                   source_member=f'structure:lower_arch_{side}_{lane}_{0 if end==0 else panels-1}',
                                    target_member=f'structure:leg_{leg:02d}_chord_{chord:02d}_{interval+1:02d}',
                                    attachment_points=[list(point),target]))
-        for i,point in enumerate(path):
-            a=[point[0]-normal[0]*650,point[1]-normal[1]*650,point[2]]
-            b=[point[0]+normal[0]*650,point[1]+normal[1]*650,point[2]]
-            parts.append(_beam('structure',f'lower_arch_web_{side}_{i}',a,b,100,ORANGE,'open_cross_frame'))
+        for layer,points in (('outer',path),('inner',inner_path)):
+            for i,point in enumerate(points):
+                half=c['arch_plane_half_depth_mm']
+                a=[point[0]-normal[0]*half,point[1]-normal[1]*half,point[2]]
+                b=[point[0]+normal[0]*half,point[1]+normal[1]*half,point[2]]
+                name=f'lower_arch_web_{side}_{i}' if layer=='outer' else f'lower_arch_inner_web_{side}_{i}'
+                parts.append(_beam('structure',name,a,b,c['arch_cross_tie_radius_mm'],ORANGE,'open_cross_frame',
+                                   arch_side=side,arch_layer=layer,arch_member_kind='depth_tie'))
         # Infill only outside the arch opening; radial webs join the inner rib
         # to the sloping outer legs. They must never cross Foot Town's entrance.
         for half_sign in (-1,1):
@@ -241,9 +433,9 @@ def _lower_frame(p, ring, paint):
                 outer.append(([half_sign*r,-r,z] if side==0 else [r,half_sign*r,z] if side==1 else
                               [-half_sign*r,r,z] if side==2 else [-r,-half_sign*r,z]))
             for i,(a,b) in enumerate(zip(inner,outer)):
-                parts.append(_beam('structure',f'arch_spandrel_tie_{side}_{half_sign}_{i}',a,b,125,ORANGE,'arch_spandrel'))
+                parts.append(_beam('structure',f'arch_spandrel_tie_{side}_{half_sign}_{i}',a,b,125,ORANGE,'arch_spandrel',arch_side=side))
                 if i:
-                    parts.append(_beam('structure',f'arch_spandrel_diagonal_{side}_{half_sign}_{i}',outer[i-1],a,105,ORANGE,'arch_spandrel'))
+                    parts.append(_beam('structure',f'arch_spandrel_diagonal_{side}_{half_sign}_{i}',outer[i-1],a,105,ORANGE,'arch_spandrel',arch_side=side))
         # Continuous lower shaft above H3: four panels across, X braces with a
         # hierarchy of primary, secondary and vertical members. No random webs.
         bay_levels=p['detail']['lower_belt_levels_mm']
@@ -260,6 +452,20 @@ def _lower_frame(p, ring, paint):
                 parts.append(_beam('structure',f'lower_panel_b_{side}_{band}_{col}',aa[col+1],bb[col],105,ORANGE,'lower_panel_brace'))
             for col in (1,2,3):
                 parts.append(_beam('structure',f'lower_panel_vertical_{side}_{band}_{col}',aa[col],bb[col],110,ORANGE,'lower_panel_vertical'))
+
+        # The H3 face lies at the outer leg-cage plane, not at the smooth
+        # envelope used by the curved arch. Bridge the actual nearest rib to
+        # the unchanged central lower-panel axis instead of leaving a gap.
+        target=outer_point(0,cage_outer_radius(crown),crown)
+        candidates=[[v+normal3[k]*offset for k,v in enumerate(side_point(0,crown))]
+                    for offset in (-c['arch_plane_half_depth_mm'],c['arch_plane_half_depth_mm'])]
+        lane=min(range(2),key=lambda i:sum((candidates[i][k]-target[k])**2 for k in range(3)))
+        source=candidates[lane]
+        parts.append(_beam('structure',f'arch_spandrel_crown_bridge_{side}',source,target,100,ORANGE,'arch_spandrel',
+                           arch_side=side,
+                           source_member=f'structure:lower_arch_{side}_{lane}_{panels//2-1}',
+                           target_member=f'structure:lower_panel_vertical_{side}_0_2',
+                           attachment_points=[source,target],scope=c['scope']))
 
     return parts
 
@@ -304,44 +510,83 @@ def _upper_frame(p, ring, paint):
 
 
 def _foot_town(p):
-    parts=[];half=18500.;roof=p['detail']['foot_town_roof_mm']
-    floors=[0.,4500.,9000.,13500.,roof]
-    # The separate overhanging roof is also the top floor: do not put another
-    # coplanar full slab on it, which would flicker in the web presentation.
+    c=_base_config(p);parts=[];hx=c['foot_town_width_mm']/2;hy=c['foot_town_depth_mm']/2
+    roof=p['detail']['foot_town_roof_mm'];floors=list(c['foot_town_floor_levels_mm'])
+    if floors[0]!=0 or floors[-1]!=roof or any(b<=a for a,b in zip(floors,floors[1:])):
+        raise ValueError('FootTown fitted facade levels must be increasing from ground to the retained roof.')
+    glazed=int(c['foot_town_glazed_bands']);bays=int(c['foot_town_bays_per_face']);wall=c['foot_town_wall_thickness_mm']
+    if not 0<glazed<len(floors)-1 or bays<4 or bays%2:raise ValueError('Invalid fitted FootTown facade subdivision.')
+    outer=[[-hx,-hy],[hx,-hy],[hx,hy],[-hx,hy]]
+    # Internal slabs stop at the wall's inner face: no coplanar grey strip
+    # fights with opaque upper cladding on the exterior.
     for index,z in enumerate(floors[1:-1]):
-        parts.append(_box('base',f'foot_town_floor_{index}',(-half,-half,z-220,half,half,z),'#C7C7BF','building_floor'))
-    parts.append(_box('base','foot_town_roof',(-19500,-19500,roof-300,19500,19500,roof),'#70777A','building_roof'))
-    for side in range(4):
+        parts.append(_box('base',f'foot_town_floor_{index}',(-hx+wall,-hy+wall,z-220,hx-wall,hy-wall,z),
+                          '#C7C7BF','building_floor',floor_level_mm=z))
+    overhang=c['foot_town_roof_overhang_mm']
+    parts.append(_box('base','foot_town_roof',(-hx-overhang,-hy-overhang,roof-300,
+                                            hx+overhang,hy+overhang,roof),'#70777A','building_roof'))
+    for side,(a,b) in enumerate(zip(outer,outer[1:]+outer[:1])):
+        dx,dy=b[0]-a[0],b[1]-a[1];length=sqrt(dx*dx+dy*dy);inside=[-dy/length,dx/length]
         for index,(za,zb) in enumerate(zip(floors,floors[1:])):
-            line=[(-half,-half),(half,-half)]
-            if side==1:line=[(half,-half),(half,half)]
-            elif side==2:line=[(half,half),(-half,half)]
-            elif side==3:line=[(-half,half),(-half,-half)]
-            a,b=line
-            slab_thickness=300 if zb==roof else 220
-            parts.append(_edge_panel('base',f'foot_town_fascia_{side}_{index}',a,b,zb-900,zb-slab_thickness,400,WHITE,role='building_cladding'))
-            for bay in range(4):
-                t0=(bay+.06)/4;t1=(bay+.94)/4
-                start=[a[k]*(1-t0)+b[k]*t0 for k in range(2)]
-                end=[a[k]*(1-t1)+b[k]*t1 for k in range(2)]
-                parts.append(_edge_panel('base',f'foot_town_glazing_{side}_{index}_{bay}',start,end,za+850,zb-1050,90,GLASS,role='glazing'))
-        # The following facade owns the shared corner pier.
-        for bay in range(4):
-            t=bay/4
-            x,y=([(1-t)*-half+t*half,-half] if side==0 else
-                 [half,(1-t)*-half+t*half] if side==1 else
-                 [(1-t)*half-t*half,half] if side==2 else [-half,(1-t)*half-t*half])
-            parts.append(_box('base',f'foot_town_pier_{side}_{bay}',(x-230,y-230,0,x+230,y+230,roof),WHITE,'building_column'))
-    # A readable original entrance and canopy; no operator logo is reproduced.
-    parts.append(_box('base','foot_town_entry_canopy',(-5700,-21600,3800,5700,-18200,4050),STEEL,'entrance_canopy'))
-    for index,x in enumerate((-5400,5400)):
-        parts.append(_box('base',f'entry_post_{index}',(x-150,-21000,0,x+150,-20700,3800),STEEL,'entrance_post'))
+            top=zb-(300 if zb==roof else 0)
+            if index<glazed:
+                parts.append(_edge_panel('base',f'foot_town_fascia_{side}_{index}',a,b,zb-550,zb-220,wall,
+                                         WHITE,role='building_cladding'))
+                for bay in range(bays):
+                    # The actual entrance leaves a clear central pair of
+                    # ground-floor bays; no second pane sits behind its doors.
+                    if side==0 and index==0 and bay in (bays//2-1,bays//2):continue
+                    t0=(bay+.05)/bays;t1=(bay+.95)/bays
+                    start=[a[k]*(1-t0)+b[k]*t0 for k in range(2)]
+                    end=[a[k]*(1-t1)+b[k]*t1 for k in range(2)]
+                    parts.append(_edge_panel('base',f'foot_town_glazing_{side}_{index}_{bay}',
+                                             start,end,za+350,zb-650,90,GLASS,role='glazing'))
+            else:
+                parts.append(_edge_panel('base',f'foot_town_upper_cladding_{side}_{index}',a,b,za,top-100,wall,
+                                         c['foot_town_upper_color'],role='building_cladding'))
+                parts.append(_edge_panel('base',f'foot_town_upper_joint_{side}_{index}',a,b,top-100,top,wall,
+                                         '#62473D',role='building_cladding'))
+        # White piers and glazed openings are confined to the lower public
+        # frontage. Upper floors form an opaque brown/bronze mass in photos.
+        for bay in range(bays):
+            t=bay/bays;x,y=[a[k]*(1-t)+b[k]*t for k in range(2)]
+            parts.append(_box('base',f'foot_town_pier_{side}_{bay}',
+                              (x-230,y-230,0,x+230,y+230,floors[glazed]),WHITE,'building_column'))
+        # Shallow standing joints give the opaque facade a vertical panel
+        # rhythm. Their fronts project6mm, rather than occupying coplanar skins.
+        for bay in range(1,bays):
+            t=bay/bays;centre=[a[k]*(1-t)+b[k]*t-inside[k]*6 for k in range(2)]
+            tangent=[dx/length,dy/length]
+            start=[centre[k]-tangent[k]*25 for k in range(2)]
+            end=[centre[k]+tangent[k]*25 for k in range(2)]
+            parts.append(_edge_panel('base',f'foot_town_vertical_joint_{side}_{bay}',start,end,
+                                     floors[glazed],roof-300,20,'#62473D',role='building_cladding'))
+    face=-hy;canopy_half=c['foot_town_canopy_width_mm']/2;projection=c['foot_town_canopy_projection_mm']
+    parts.append(_box('base','foot_town_entry_canopy',(-canopy_half,face-projection,3800,
+                                                     canopy_half,face+300,4050),STEEL,'entrance_canopy'))
+    for index,x in enumerate((-canopy_half+300,canopy_half-300)):
+        parts.append(_box('base',f'entry_post_{index}',(x-150,face-projection+400,0,
+                                                     x+150,face-projection+700,3800),WHITE,'entrance_post'))
+    height=c['foot_town_door_height_mm']
     for index,(a,b) in enumerate(((-2900,-100),(100,2900))):
-        parts.append(_box('base',f'entry_door_glazing_{index}',(a,-18630,0,b,-18550,3300),GLASS,'glazing',finish='glass'))
+        parts.append(_box('base',f'entry_door_glazing_{index}',(a,face+20,0,b,face+100,height),
+                          GLASS,'glazing',finish='glass'))
     for index,x in enumerate((-3000,0,3000)):
-        parts.append(_box('base',f'entry_door_frame_{index}',(x-90,-18680,0,x+90,-18480,3400),STEEL,'door_frame'))
-    for side in range(4):
-        ring=_square(19100);a,b=ring[side],ring[(side+1)%4]
+        parts.append(_box('base',f'entry_door_frame_{index}',(x-90,face-50,0,x+90,face+130,height+100),
+                          STEEL,'door_frame'))
+    parts.append(_box('base','foot_town_entry_door_header',(-3090,face-50,height,3090,face+130,height+100),
+                      STEEL,'door_frame'))
+    # The side lights replace the omitted ground-floor centre windows.
+    for index,(a,b) in enumerate(((-5700,-3300),(3300,5700))):
+        parts.append(_box('base',f'entry_sidelight_glazing_{index}',(a,face+20,350,b,face+100,height),
+                          GLASS,'glazing',finish='glass'))
+    housing=list(c['foot_town_roof_housing_bounds_mm'])
+    if housing[2]!=roof:raise ValueError('Fitted rooftop housing must start on the retained roof.')
+    parts.append(_box('base','foot_town_rooftop_housing',housing,c['foot_town_upper_color'],
+                      'building_roof_housing',dimensions_status='photo_guided_appearance_assumption'))
+    rail=[[-hx-overhang/2,-hy-overhang/2],[hx+overhang/2,-hy-overhang/2],
+          [hx+overhang/2,hy+overhang/2],[-hx-overhang/2,hy+overhang/2]]
+    for side,(a,b) in enumerate(zip(rail,rail[1:]+rail[:1])):
         for z in (roof+600,roof+1200):
             parts.append(_beam('base',f'roof_guard_{side}_{int(z)}',(*a,z),(*b,z),60,STEEL,'roof_guard'))
         parts.append(_beam('base',f'roof_guard_post_{side}',(*a,roof),(*a,roof+1200),65,STEEL,'roof_guard'))
@@ -607,7 +852,7 @@ def _digital_antenna_panels(p, paint, cfg):
     wall=cfg['digital_panel_depth_mm'];row_gap=cfg['digital_panel_gap_mm']
     if not 0<wall<500 or not 0<=row_gap<height/rows or not 0<=half_gap<pi/columns:
         raise ValueError('Panel thickness or seam exceeds its array cell.')
-    def ring_at(z):return _upper_frame_ring(lambda value:_square(profile_radius(p['profile'],value)),z)
+    def ring_at(z):return _upper_frame_ring(lambda value:_square(body_radius(p,value)),z)
     for bank,(z0,diameter,color) in enumerate(((bottom,cfg['digital_lower_diameter_mm'],WHITE),
                                              (bottom+height+gap,cfg['digital_upper_diameter_mm'],ORANGE))):
         radius=diameter/2
@@ -676,7 +921,7 @@ def _antenna(p,paint):
     # H27 has an explicit path from the tower body into the SG exterior frame.
     # These short links mark the published transfer/damper zone schematically;
     # they do not represent a calculated lock or damping mechanism.
-    body=_square(profile_radius(p['profile'],start));base_outer=_square(radius(start)+offset)
+    body=_square(body_radius(p,start));base_outer=_square(radius(start)+offset)
     for side in range(4):
         parts.append(_beam('antenna',f'h27_transfer_link_{side}',(*body[side],start),(*base_outer[side],start),
                            110,paint(start),'antenna_h27_transfer_link',
@@ -752,9 +997,11 @@ def _lights(p):
         x,y=sx*33000,sy*33000
         parts.append(_box('base',f'foot_uplight_housing_{index}',(x-650,y-450,1100,x+650,y+450,1800),STEEL,'light_housing',detail_level='micro'))
         parts.append(_box('base',f'foot_uplight_light_lens_{index}',(x-540,y-340,1800,x+540,y+340,1850),WARM,'light_lens',detail_level='micro'))
-    for index,x in enumerate((-4600,4600),1):
-        parts.append(_box('base',f'entry_wall_light_housing_{index}',(x-220,-18850,2700,x+220,-18400,3700),STEEL,'light_housing',detail_level='micro'))
-        parts.append(_box('base',f'entry_wall_light_lens_{index}',(x-160,-18900,2800,x+160,-18860,3600),WARM,'light_lens',detail_level='micro'))
+    c=_base_config(p);face=-c['foot_town_depth_mm']/2
+    pitch=c['foot_town_width_mm']/c['foot_town_bays_per_face']
+    for index,x in enumerate((-pitch,pitch),1):
+        parts.append(_box('base',f'entry_wall_light_housing_{index}',(x-220,face-350,2700,x+220,face+100,3700),STEEL,'light_housing',detail_level='micro'))
+        parts.append(_box('base',f'entry_wall_light_lens_{index}',(x-160,face-390,2800,x+160,face-340,3600),WARM,'light_lens',detail_level='micro'))
     deck_cfg={**DECK_APPEARANCE_DEFAULTS,**p['detail'].get('deck_appearance',{})}
     for deck in p['deck_specs']:
         ident=deck['id'];h=deck['half_width_mm']*.75;z=deck['top_mm']+180

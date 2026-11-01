@@ -177,7 +177,7 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
       {page === 'files' ? <div className="downloads-page"><header><h1>{name} · {copy.downloads}</h1><p>{metadata.revision} · {copy.original}</p></header>
         <div className="download-list">{landmarkDownloadFiles(model).map(file => <DownloadFile key={file.path} path={file.path} type={file.type}
           title={copy.fileNames[file.id]} detail={copy.fileDetails[file.id]} locale={locale} revision={metadata.revision} download={copy.download}
-          compressedStep={file.id === 'step'} metadata={manifest?.[file.id === 'step' ? `${file.path}.gz` : file.path]} />)}</div>
+          compressedStep={file.id === 'step'} metadata={manifest?.[file.id === 'step' ? `${file.path}.gz` : file.path]} manifest={manifest} />)}</div>
         <section className="assumptions"><p>{copy.note}</p><p>{copy.drawingNote}</p></section></div> : null}
     </main>
   </div>;

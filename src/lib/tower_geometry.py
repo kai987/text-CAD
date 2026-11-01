@@ -27,7 +27,7 @@ GROUP_NAMES = {
 }
 TOWERS = {
     'tokyo-tower': {   'file_stem': 'tokyo_tower',
-            'revision': 'LANDMARK-R06',
+            'revision': 'LANDMARK-R07',
             'names': {'zh': '东京塔', 'ja': '東京タワー', 'en': 'Tokyo Tower'},
             'height_mm': 333000,
             'deck_levels_mm': [125000, 223550],
@@ -36,7 +36,57 @@ TOWERS = {
                               'nominal150m/250m visitor names remain separate; present finished-floor conversion and '
                               'facade mapping are not surveyed.',
             'base_width_mm': 80000,
-            'detail': {   'deck_appearance': {   'main_lower_half_width_mm': 13500.0,
+            'detail': {   'base_appearance': {'leg_cage_transition_start_mm': 80000.0,
+                                              'leg_cage_top_mm': 125000.0,
+                                              'leg_cage_top_half_width_mm': 450.0,
+                                              'leg_continuation_levels_mm': [88000.0, 98000.0, 106000.0, 114000.0, 120000.0, 125000.0],
+                                              'leg_continuation_chord_half_width_mm': 262.5,
+                                              'leg_continuation_overlap_mm': 40.0,
+                                              'leg_transition_link_radius_mm': 100.0,
+                                              'leg_attachment_inset_mm': 150.0,
+                                              'leg_continuation_scope': 'The four-member gross leg assemblies continue smoothly from ground '
+                                                                        'through the former 80m modelling boundary to the Main Deck. '
+                                                                        'Continuation stations, cage taper, constant 525mm H appearance '
+                                                                        'sections, short branch links and fitted end laps are visual '
+                                                                        'assumptions, not recovered original member or connection designs.',
+                                              'arch_rib_depth_mm': 1800.0,
+                                              'arch_plane_half_depth_mm': 650.0,
+                                              'arch_panel_count': 16,
+                                              'arch_profile_width_mm': 450.0,
+                                              'arch_profile_depth_mm': 600.0,
+                                              'arch_web_thickness_mm': 20.0,
+                                              'arch_flange_thickness_mm': 24.0,
+                                              'arch_joint_overlap_mm': 40.0,
+                                              'arch_web_radius_mm': 85.0,
+                                              'arch_cross_tie_radius_mm': 75.0,
+                                              'foot_town_width_mm': 48000.0,
+                                              'foot_town_depth_mm': 44000.0,
+                                              'foot_town_floor_levels_mm': [0.0, 3600.0, 7200.0, 10800.0, 14400.0, 18300.0],
+                                              'foot_town_glazed_bands': 2,
+                                              'foot_town_bays_per_face': 8,
+                                              'foot_town_wall_thickness_mm': 350.0,
+                                              'foot_town_roof_overhang_mm': 900.0,
+                                              'foot_town_upper_color': '#76584B',
+                                              'foot_town_canopy_width_mm': 14000.0,
+                                              'foot_town_canopy_projection_mm': 2800.0,
+                                              'foot_town_door_height_mm': 3000.0,
+                                              'foot_town_roof_housing_bounds_mm': [-4200.0, 8000.0, 18300.0, 4200.0, 13000.0, 21000.0],
+                                              'scope': 'H3 GL40m and 80m foot-axis spacing are published structural controls. Arch depth, '
+                                                       'profile and web sizes, panel layout, FootTown 48x44m plan, facade bands, cladding and '
+                                                       'rooftop equipment are photograph/drawing-guided appearance assumptions, not surveyed '
+                                                       'dimensions or structural design.'},
+                          'upper_shaft_outline': {'enabled': True,
+                                                    'start_mm': 130000.0,
+                                                    'end_mm': 223550.0,
+                                                    'start_half_width_mm': 9900.0,
+                                                    'end_half_width_mm': 3950.0,
+                                                    'start_slope_mm_per_mm': -0.06827586206896552,
+                                                    'end_slope_mm_per_mm': -0.041757602211552454,
+                                                    'method': 'convex integrated power tangent blend',
+                                                    'scope': 'Photo-guided appearance fit of the shaft between the Main Deck roof and historical H23 roof '
+                                                             'control. End radii and tangents match the retained reference profile; intermediate '
+                                                             'half-widths are fitted, not original surveyed coordinates or a structural member schedule.'},
+                          'deck_appearance': {   'main_lower_half_width_mm': 13500.0,
                                                  'main_upper_half_width_mm': 14000.0,
                                                  'main_chamfer_factor': 0.18,
                                                  'main_glass_top_scale': 1.0,
@@ -168,8 +218,11 @@ TOWERS = {
                                                                          'stiffener_depth_mm': 180.0,
                                                                          'rivet_radius_mm': 18.0,
                                                                          'rivet_projection_mm': 12.0}},
-                          'scope': 'Original appearance detail; route, risers, sections, connections, glass and light '
-                                   'positions are schematic assumptions.'},
+                          'scope': 'R07 distinguishes the in-plane deep arch truss, continuous tapered primary legs '
+                                   'below the Main Deck and a photo-guided FootTown envelope. '
+                                   'The shaft beneath the Top Deck uses a local smooth fitted taper; deck shells, core, stairs and upper antenna remain. Original '
+                                   'appearance detail; route, risers, sections, connections, glass, building dimensions '
+                                   'and light positions are schematic assumptions.'},
             'profile': [   [0, 40000],
                            [25000, 30500],
                            [40000, 25000],
@@ -207,7 +260,22 @@ TOWERS = {
             'antenna_start_mm': 252650,
             'antenna_lattice_top_mm': 312600,
             'base_slab_thickness_mm': 2000,
-            'source_references': [   {   'title': '山森一之（古河C&B技術部）親局用アンテナ，中継局用送受信アンテナ 2012 p979 Fig5',
+            'source_references': [   {   'title': 'IHI公開写真：東京タワー建設時の塔脚・アーチ',
+                                         'url': 'https://www.ihi.co.jp/technology/techinfo/contents_no/__icsFiles/afieldfile/2024/01/25/10.PNG',
+                                         'checked_on': '2026-11-01',
+                                         'reference_notes': 'Historical construction photograph shows wide built-up leg '
+                                                            'members and triangulated arch framing. It guides the '
+                                                            'in-plane depth and member hierarchy, not surveyed sections '
+                                                            'or present-day retrofit connections.'},
+                                     {   'title': '竹中工務店 東京タワー改修・外観写真',
+                                         'url': 'https://www.takenaka.co.jp/solution/asset/project/07/',
+                                         'checked_on': '2026-11-01',
+                                         'reference_notes': 'Photographs guide the lower building wall/glazing contrast '
+                                                            'and broad low envelope. The R07 FootTown plan, facade '
+                                                            'levels and rooftop housing are model fits. Published '
+                                                            'renovation project area is not treated as a FootTown '
+                                                            'footprint or a measured plan.'},
+                                     {   'title': '山森一之（古河C&B技術部）親局用アンテナ，中継局用送受信アンテナ 2012 p979 Fig5',
                                          'url': 'https://www.jstage.jst.go.jp/article/itej/66/12/66_977/_pdf',
                                          'confirmed_historical_values_mm': {   'upper_array_diameter': 12876,
                                                                                'lower_array_diameter': 13400,
@@ -731,11 +799,10 @@ def revision_for(tower_id):
 
 
 def profile_radius(tower_id, z):
-    """Interpolate the recorded control radius/half-width at height z (mm)."""
-    profile = _tower(tower_id)['profile']
+    """Return the active outline, including explicitly configured local fits (mm)."""
     if tower_id == 'tokyo-tower':
-        from .tokyo_tower_detail import profile_radius as detailed_radius
-        return detailed_radius(profile, z)
+        from .tokyo_tower_detail import body_radius
+        return body_radius(_tower(tower_id), z)
     from .skytree_outline import profile_radius as detailed_radius
     return detailed_radius(_tower(tower_id), z)
 
@@ -834,7 +901,7 @@ def assembly_specs(tower_id):
 def geometry_manifest(tower_id):
     p=deepcopy(_tower(tower_id));stem=p['file_stem'];specs=component_specs(tower_id)
     references=p.pop('source_references')
-    for reference in references:reference['checked_on']=CHECKED_ON
+    for reference in references:reference.setdefault('checked_on',CHECKED_ON)
     assumed = {
         'zh':'除明确引用的总高、展望台高度及晴空塔三角形基脚/315m圆形控制截面外，底座、杆件截面、平面尺度、展望台外壳、色带位置及几何插值均为原创示意假设。不是测绘、原建筑CAD、结构计算或施工图。',
         'ja':'明示した総高さ・展望施設高さ・スカイツリー三角形基部と315m円形制御断面以外の、基壇・部材断面・平面寸法・展望施設外形・塗装境界・補間形状は独自の概念仮定です。測量図、原設計CAD、構造計算書、施工図ではありません。',
@@ -846,6 +913,11 @@ def geometry_manifest(tower_id):
         'en':'Ground datum is Z=0. The schematic base is below ground; landmark height is measured from ground, not the slab underside. Octagonal member prisms do not specify original tower materials or sections.',
     }]
     if tower_id == 'tokyo-tower':
+        assumptions.append({
+            'zh':'R07将下部四面拱架分为立面内的上下弦杆、三角腹杆与前后连接。主腿组合柱由地面连续延伸至模型GL125m主展望台下，消除80m处的中断；80–125m的525mm主材宽度及组合柱1000→450mm半宽收分属于照片引导的假设，腹杆仍保持较细层次。H3的GL40m及80m塔脚轴距沿用公开控制；拱深、板件截面、节点和分格为拟合。FootTown的48×44m外形、五段立面层高、墙窗比例及屋顶附属体也不是实测平面。特别展望台下的模型GL130–223.55m塔身采用局部单调收分，端部半宽9900/3950mm及两端切线衔接既有轮廓，中间线形为照片拟合；原profile数组仅保留为参考控制。相关支承随实际主材移动，展望台外壳、核心、楼梯、天线及区间外形状保持。',
+            'ja':'R07は下部四面のアーチを立面内の上下弦・三角腹材・前後連結として分けます。主脚の組柱を地上からモデルGL125mの主展望施設下まで連続させ、80mでの打切りを除きます。80–125mの主材幅525mmと組柱半幅1000→450mmの収束は写真近似で、腹材は細い階層を保ちます。H3のGL40mと塔脚軸間80mは公表制御を継承し、アーチ成・断面・接合・割付は近似です。FootTownの48×44m外形・五段の立面階高・壁窓比・屋上付属体も実測平面ではありません。特別展望施設下のモデルGL130–223.55mは局所的な単調収束形状とし、端部半幅9900/3950mmと接線を既存輪郭に接続します。中間輪郭は写真近似で、元profile配列は参照制御として保持します。支持材は実主材に追従し、展望施設外装・コア・階段・アンテナと区間外を保持します。',
+            'en':'R07 separates the four lower arches into in-plane chords, triangular webs and front/back links. Primary leg cages continue from ground to the modelGL125m Main Deck, removing the80m cutoff. The80–125m525mm member width and1000-to-450mm cage half-width taper are photo-guided assumptions; braces remain finer. Published H3GL40m and80m foot-axis spacing remain controls; arch depth, plate sections, joints and subdivision are fitted. FootTown48x44m, five facade bands, wall/glazing proportions and rooftop housing are not surveyed plans. A local monotone convex taper removes the shoulder beneath the special deck from modelGL130 to223.55m, matching9900/3950mm endpoint half-widths and retained tangents. Intermediate widths are photo-guided fits; the original profile array remains reference controls. Actual connected supports follow the frame; deck shells, core, stairs, antenna and geometry outside this interval remain.',
+        })
         assumptions[0] = {
             'zh':'总高333m、脚基准轴距80m及施工图H3/H11/H23/H27标高有公开依据。未标注的宽度、H中间分节、拱曲线及截面仍是图面解释和建模近似；双层GL125000是从GL120000加5m层距的解释。官方150m/250m案内值与几何GL解释分列；H11外壳对应与H23屋顶的解释均未实测核定；R06内部GL220550楼板为假设。不是测绘或原设计复原。',
             'ja':'全高333m・脚基準軸間80mと施工図H3/H11/H23/H27は公表値。無記入の幅・中間H節間・アーチ曲線・断面は図面解釈と近似です。GL125000はGL120000から5mの層間を解釈。公式案内150m/250mとモデルGLを分離し、床位置との対応もモデル上の解釈で、実測・原設計復元ではありません。',

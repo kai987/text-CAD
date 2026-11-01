@@ -13,7 +13,7 @@
 | 戸建て · R22 | 本体8,190 × 7,280 mm、階高2,800 mm。3寝室、収納用小屋裏、南側バルコニー、並列2台駐車 | [1階DXF](DXF/house_1f_plan.dxf) · [2階DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK住戸 · A01 | 外形7,800 × 8,400 mm。2寝室、LDK、水回り、バルコニー | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河川 · RIVER-R01 | 南北投影延長180,000 mm、幅80,000 mm。護岸、歩道、人道橋、樹木、ベンチ、照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| 東京のランドマーク · 東京タワー R06 / スカイツリー R05 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [スカイツリーR05・出典](docs/tokyo_skytree_R05.md) · [地標の概要](docs/tokyo_landmarks_R01.md) |
+| 東京のランドマーク · 東京タワー R07 / スカイツリー R05 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [スカイツリーR05・出典](docs/tokyo_skytree_R05.md) · [地標の概要](docs/tokyo_landmarks_R01.md) |
 
 ビューアーは日本語・中国語・英語に対応し、部材の選択・表示切替、水平断面、家具、昼夜・照明、ライト／ダークテーマを操作できます。住宅では東京・大阪・京都・名古屋とW造・軽量S造・RC造の概念案も比較できます。CADの単位はmm、GLBはm・Y-upです。DXFの文字と寸法は編集可能で、閲覧・印刷用にSVGとPDFも用意しています。
 
@@ -76,7 +76,7 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 モデル選択に2つのランドマークを追加しました。URLは `?model=tokyo-tower&view=3d` と `?model=tokyo-skytree&view=3d`。3D・平面・立面・ダウンロード、日本語・中国語・英語、5分類の部材表示と4方向の視点に対応します。各塔にSTEP、GLB、編集可能なDXF3枚、A3 PDF3ページを用意しています。パラメーター、公式資料、仮定の範囲は[3言語の説明](docs/tokyo_landmarks_R01.md)を参照してください。本プロジェクトで作成した参考外観モデルであり、実施設の原設計CADや実測施工図ではありません。
 
-東京タワーの [R06 上部外観修正](docs/tokyo_tower_R06.md) は48面円筒の特別展望台、独立したH24環状保守床と白い架構、製作者図面に基づく二組300枚の環状アンテナを表現します。名前付き部品5,463個には、主台27/28mの二層外形、外階段600段、20節点と248個の代表頭部を保持します。歴史的H23屋根GL223.55m、仮定内部床220.55m、公式案内250mは別記。設備標高・保守床・細部は近似し、旧チャンネル名を現用用途とは扱いません。DXF三枚・A3三頁を提供します。
+東京タワーの [R07 主脚・アーチ・塔体輪郭修正](docs/tokyo_tower_R07.md) は、4組の主脚を地上からメインデッキ下まで連続させて緩やかに細くし、太い主材と細い腹材を区別します。4面のアーチを立面内の上下弦材・三角腹材・局部接合として表し、フットタウンの壁・開口・屋根を修正します。モデルGL130–223.55mの塔体は滑らかな収束形に近似し、関連部材と特別展望台下面の支持材を追従させます。R06の展望施設の外殻・床・ガラス・屋根、48面円形特別展望台と主台27/28mの二層外形、H24環状保守床、二組300枚の環状アンテナ、外階段600段と20箇所の鋼接合部を保持します。局部輪郭・アーチせい・断面・建物細部は写真近似で、歴史的H23屋根GL223.55m・仮定内部床220.55m・公式案内250mは別記。部品数とハッシュは[マニフェスト](output/review/tokyo_tower_manifest.json)を参照してください。DXF三枚・A3三頁を提供し、[R06](docs/tokyo_tower_R06.md)は履歴として残します。
 
 スカイツリーの [R05 円管外周・塔脚格構修正](docs/tokyo_skytree_R05.md) は外周水平材を中空円管として独立させ、内側リングトラスと放射方向の連結に角管（RHS）を残します。三面に幅広い格構翼を補い、中央の尖頭アーチ開口を保持します。部材の円形断面と塔体平面は別に扱い、約68mの基部三角形から315mの直径約32mの円形、上部の直線テーパーを継承します。R04の展望施設・分節アンテナ・TMD外形を保ち、翼の割付・接合・非公開寸法は写真に基づく近似です。構造計算は実施していません。部品数・保存物の改訂・ハッシュは[マニフェスト](output/review/tokyo_skytree_manifest.json)を参照し、[R04](docs/tokyo_skytree_R04.md)は履歴として残します。
 

@@ -1,10 +1,7 @@
+import { decodeGzipBlob } from './download-transport.ts';
+
 export async function decodeStepBlob(input: Blob): Promise<Blob> {
-  let blob = input;
-  // Some hosts send .gz with Content-Encoding; fetch then already decodes it.
-  const prefix = new Uint8Array(await blob.slice(0, 2).arrayBuffer());
-  if (prefix[0] === 0x1f && prefix[1] === 0x8b) {
-    blob = await new Response(blob.stream().pipeThrough(new DecompressionStream('gzip'))).blob();
-  }
+  const blob = await decodeGzipBlob(input);
   if (!(await blob.slice(0, 15).text()).startsWith('ISO-10303-21;')) {
     throw new Error('Downloaded payload is not a STEP document');
   }

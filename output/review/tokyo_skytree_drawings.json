@@ -8,30 +8,30 @@
     375000
   ],
   "source_sha256": {
-    "src/lib/tower_geometry.py": "1b84a1b48f5a63fdf3dc67f68c4717678af5e7e46e67ffc857178590f6c27ebc",
+    "src/lib/tower_geometry.py": "6d2588328ac0e6fcad2c1c1f882b9afbecc3d7c09c53489e0a529c8dd771bbca",
     "src/lib/skytree_detail.py": "03181ffd2216fd3f41a3154de7d0a44d570fb26d79d3430b80f614a4b279bbdd",
     "src/lib/skytree_outline.py": "b1ea8dc15ad51db400a3d6897517e128ea9013fddf9ce4e618e8be4e8972cf46",
-    "src/generate_tower_plans.py": "7d5a663c3cb8fc5bf79cbb145b126490d63f4181653766a5b0f5700a48b2ee0f"
+    "src/generate_tower_plans.py": "fefcc0f2a95dfe0ef3c83763d39fff21c192b011b4c8b2d676866ef331215982"
   },
   "artifacts": {
     "DXF/tokyo_skytree_plan.dxf": {
-      "sha256": "d1142d02d9b9c305a1f0c3afadf5e4c0accafae65c523172b7448c55fdc85098",
-      "bytes": 3811395
+      "sha256": "2d812253971bc0a3bb6474a3a0c50f37655d437dde38a5fe19762d11ec2503dd",
+      "bytes": 3811403
     },
     "output/svg/tokyo_skytree_plan.svg": {
       "sha256": "ebc297f3538a949f552925cb5f7d3146ecc5bbe24833841606fd2824852d7df4",
       "bytes": 1675308
     },
     "DXF/tokyo_skytree_elevation.dxf": {
-      "sha256": "7bd19ddcda5b85dfe5e06583f6e20e5322becfa21c92d21794dba7fccb05033a",
-      "bytes": 29973069
+      "sha256": "d291c432d33f6d04b3b88c3b85b582aa242ae2972104a3dbcb89f3ec79cfe04d",
+      "bytes": 29973068
     },
     "output/svg/tokyo_skytree_elevation.svg": {
       "sha256": "b05600e703e7065b224dc541badff07ad7fb4d366931fb6e1c6b9137649f9101",
       "bytes": 18120063
     },
     "DXF/tokyo_skytree_structure_zones.dxf": {
-      "sha256": "fd2e05cf48ec6cbe03069d74ba6ed15424bba231f98e466b5f4a2b5d0065bae5",
+      "sha256": "eb092d6463888faa2b065b88b86fa91678d4fdb4d9dc70cd54ae3edaa83b1fc7",
       "bytes": 3276596
     },
     "output/svg/tokyo_skytree_structure_zones.svg": {

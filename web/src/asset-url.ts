@@ -1,6 +1,25 @@
-export function artifactUrl(base: string, path: string, hashes: Record<string, string>, manifestHash: string): string {
-  const digest = path === 'manifest.json' ? manifestHash : hashes[path];
+import type { ArtifactMetadata, DownloadTransport } from './download-transport';
+
+export function artifactUrl(base: string, path: string, hashes: Record<string, string>, manifestHash: string,
+  selectedSha256?: string): string {
+  if (selectedSha256 !== undefined && !/^[0-9a-f]{64}$/.test(selectedSha256)) {
+    throw new Error('Invalid selected artifact hash.');
+  }
+  const digest = selectedSha256 ?? (path === 'manifest.json' ? manifestHash : hashes[path]);
   return `${base}artifacts/${path}${digest ? `?v=${digest}` : ''}`;
+}
+
+/** Runtime manifest selections own the transfer versions, including each chunk. */
+export function artifactDownloadRequests(transfer: DownloadTransport,
+  resolve: (path: string, selectedSha256?: string) => string): {
+    url: string; parts?: { url: string; metadata: ArtifactMetadata }[];
+  } {
+  return {
+    url: resolve(transfer.path, transfer.metadata.sha256),
+    parts: transfer.metadata.transport === 'chunks'
+      ? transfer.metadata.parts!.map(part => ({ url: resolve(part.path, part.sha256), metadata: part }))
+      : undefined,
+  };
 }
 
 // Insert the suffix before the query/hash, even when the caller uses a relative URL.

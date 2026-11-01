@@ -120,12 +120,17 @@ test('all three independently referenced elevation levels are required', async t
 });
 
 // The two towers have independent release revisions and height conventions.
-test('R06 Tokyo drawing cannot silently fall back to R05, R04, R03 or R02', async t => {
+test('R07 Tokyo models and drawings reject old R06, R05, R04, R03 and R02 independently', async t => {
   const { root, records, saveMetadata } = await fixture(t);
-  for (const stale of ['LANDMARK-R05', 'LANDMARK-R04', 'LANDMARK-R03', 'LANDMARK-R02']) {
-    records[0].drawings.revision=stale; await saveMetadata();
-    await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+  assert.equal(records[1].manifest.revision,'LANDMARK-R05');
+  for (const metadata of [records[0].manifest, records[0].drawings]) {
+    for (const stale of ['LANDMARK-R06','LANDMARK-R05','LANDMARK-R04','LANDMARK-R03','LANDMARK-R02']) {
+      metadata.revision=stale; await saveMetadata();
+      await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
+    }
+    metadata.revision='LANDMARK-R07'; await saveMetadata();
   }
+  await validateTowerArtifacts(root);
 });
 test('changing the Tokyo detail module invalidates its own generation binding', async t => {
   const { root, save } = await fixture(t);
@@ -136,7 +141,7 @@ test('changing the Tokyo detail module invalidates its own generation binding', 
 
 test('R05 Skytree models and drawings reject old R04, R03, R02 and R01 independently of Tokyo', async t => {
   const {root,records,saveMetadata}=await fixture(t);
-  assert.equal(records[0].manifest.revision,'LANDMARK-R06');
+  assert.equal(records[0].manifest.revision,'LANDMARK-R07');
   for (const metadata of [records[1].manifest, records[1].drawings]) {
     for (const stale of ['LANDMARK-R04','LANDMARK-R03','LANDMARK-R02','LANDMARK-R01']) {
       metadata.revision=stale; await saveMetadata();

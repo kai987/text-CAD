@@ -228,6 +228,8 @@ h2 { font-size: 17px; font-weight: 650; line-height: 1.45; margin-bottom: 14px; 
 .download-list { margin: 28px 0; border-top: 1px solid var(--line); }
 .download-file { border-bottom: 1px solid var(--line); }
 .download-file .download-row { border-bottom: 0; }
+.download-file button.download-row { width: 100%; border: 0; background: transparent; font: inherit; text-align: left; }
+.download-file button.download-row:hover { background: var(--hover); }
 .download-status { padding: 0 8px 16px 80px; font-size: 13px; color: var(--detail); overflow-wrap: anywhere; }
 .download-status p { margin: 0; }
 .download-status progress { width: min(100%, 400px); display: block; margin-top: 8px; accent-color: var(--accent); }

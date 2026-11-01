@@ -1,6 +1,8 @@
 # 東京タワー / 东京塔 / Tokyo Tower — LANDMARK-R06
 
-[日本語](#日本語) · [中文](#中文) · [English](#english) · [Sources](#sources) · [R05 archive](tokyo_tower_R05.md) · [Skytree R04](tokyo_skytree_R04.md)
+> Historical R06 archive. Current lower-arch and base guide: [R07](tokyo_tower_R07.md).
+
+[日本語](#日本語) · [中文](#中文) · [English](#english) · [Sources](#sources) · [R05 archive](tokyo_tower_R05.md) · [Skytree R05](tokyo_skytree_R05.md)
 
 ## 日本語
 

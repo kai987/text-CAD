@@ -1,9 +1,9 @@
 import { readFile, readdir } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { validatePlanMetadata, apartmentPlanRequirements } from './plan-preview-validation.mjs';
 import { verifySectionWasmArtifacts } from './section-wasm-artifacts.mjs';
+import { verifyArtifactTransports } from './artifact-transport.mjs';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
 await verifySectionWasmArtifacts(dist);
@@ -20,11 +20,7 @@ validatePlanMetadata(apartmentMetadata,
     floor.floor, await readFile(resolve(dist, 'artifacts', floor.path)),
   ]))), apartmentPlanRequirements);
 const manifest = JSON.parse(await readFile(resolve(dist, 'artifacts/manifest.json'), 'utf8'));
-for (const [name, expected] of Object.entries(manifest)) {
-  const bytes = await readFile(resolve(dist, 'artifacts', name));
-  const hash = createHash('sha256').update(bytes).digest('hex');
-  if (hash !== expected.sha256) throw new Error(`Published asset differs: ${name}`);
-}
+await verifyArtifactTransports(resolve(dist, 'artifacts'), manifest);
 const html = await readFile(resolve(dist, 'index.html'), 'utf8');
 if (!html.includes('/text-CAD/assets/')) throw new Error('Incorrect GitHub Pages project base.');
 const scripts = (await readdir(resolve(dist, 'assets'))).filter(x => x.endsWith('.js'));

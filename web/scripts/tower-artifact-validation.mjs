@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 
 export const towerCatalog = [
-  { id: 'tokyo-tower', stem: 'tokyo_tower', revision: 'LANDMARK-R06', height: 333000, decks: [125000, 223550], sources: ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'] },
+  { id: 'tokyo-tower', stem: 'tokyo_tower', revision: 'LANDMARK-R07', height: 333000, decks: [125000, 223550], sources: ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'] },
   { id: 'tokyo-skytree', stem: 'tokyo_skytree', revision: 'LANDMARK-R05', height: 634000, decks: [350000, 450000], roofLevels: [375000], sources: ['src/lib/skytree_detail.py', 'src/lib/skytree_outline.py'] },
 ];
 const modelSources = ['src/lib/tower_geometry.py', 'src/towers_3d.py'];

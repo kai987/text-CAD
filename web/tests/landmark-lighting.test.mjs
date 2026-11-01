@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { BoxGeometry, Color, Group, Mesh, MeshStandardMaterial } from 'three';
 import { bindLandmarkMaterialLighting, landmarkLightRole, landmarkLocalLightLayout, landmarkLocalLightVisibility } from '../src/landmark-lighting.ts';
 
@@ -22,6 +23,15 @@ function fixture(t) {
   t.after(() => { geometry.dispose(); shared.dispose(); });
   return { root, base, decks, antenna, shared, frame, warm, red, lit, dark };
 }
+
+test('Tokyo entry illumination stays outside the actual saved FootTown facade', () => {
+  const saved = JSON.parse(readFileSync(new URL('../../output/review/tokyo_tower_manifest.json', import.meta.url)));
+  const frontZ = saved.parameters.detail.base_appearance.foot_town_depth_mm / 2000;
+  const entry = landmarkLocalLightLayout('tokyo-tower').find(spec => spec.channel === 'entry');
+  assert.ok(frontZ > 0);
+  assert.ok(entry.position[2] > frontZ + .2, 'The point source must stay outside the opaque facade.');
+  assert.ok(entry.position[2] < frontZ + 5, 'The source must remain near the entrance.');
+});
 
 test('Tokyo lenses and selected windows glow without sharing emission with the steel frame', t => {
   const f = fixture(t), controller = bindLandmarkMaterialLighting(f.root, 'tokyo-tower');

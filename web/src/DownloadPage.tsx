@@ -28,7 +28,7 @@ export default function DownloadPage() {
         const props = { path: f.path, title: copy.downloads.files[f.id].title,
           detail: format(copy.downloads.files[f.id].detail, revisions), download: copy.downloads.download,
           locale, revision: f.type === 'GLB' || f.type === 'STEP' ? data.modelRevision : data.drawingRevision,
-          metadata: manifest?.[f.path === 'STEP/house_3d.step' ? `${f.path}.gz` : f.path] };
+          metadata: manifest?.[f.path === 'STEP/house_3d.step' ? `${f.path}.gz` : f.path], manifest };
         return f.path === 'STEP/house_3d.step' ? <StepDownload key={f.path} {...props} />
           : <DownloadFile key={f.path} {...props} type={f.type} />;
       })}

@@ -1,16 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
 import { downloadResource, verifyDownload, loadDownloadManifest, requireDownloadMetadata, DownloadError } from '../src/download-resource.ts';
 import { downloadCopy, downloadErrorText, downloadProgressText, formatDownloadBytes } from '../src/download-copy.ts';
+import { artifactTransport, STATIC_FILE_LIMIT } from '../scripts/artifact-transport.mjs';
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const metadata = bytes => ({ bytes: bytes.length, sha256: sha(bytes) });
 const code = expected => error => error instanceof DownloadError && error.code === expected;
 
 test('streamed CAD download reports transferred bytes and preserves the exact payload', async () => {
-  const source = Buffer.from('glTF exact model payload');
+  const source = Buffer.alloc(32); source.write('glTF'); source.writeUInt32LE(2, 4); source.writeUInt32LE(source.length, 8);
   const updates = [];
   let processing = 0;
   const stream = new ReadableStream({ start(controller) {
@@ -23,6 +24,98 @@ test('streamed CAD download reports transferred bytes and preserves the exact pa
   assert.equal(updates.at(-1).loaded, source.length);
   assert.equal(updates.at(-1).total, source.length);
   assert.equal(processing, 1);
+});
+
+test('gzip-only large GLB and DXF downloads restore exact originals and handle transparent host decompression', async () => {
+  const glb = Buffer.alloc(STATIC_FILE_LIMIT + 1024, 0x20);
+  glb.write('glTF'); glb.writeUInt32LE(2, 4); glb.writeUInt32LE(glb.length, 8);
+  const dxf = Buffer.from('0\nSECTION\n2\nENTITIES\n' + '999\nreference member\n'.repeat(STATIC_FILE_LIMIT / 19 + 100) + '0\nENDSEC\n0\nEOF\n');
+  for (const [name, type, source] of [['tower.glb', 'GLB', glb], ['tower.dxf', 'DXF', dxf]]) {
+    const transfer = artifactTransport(name, source);
+    const entry = transfer.records[`${name}.gz`], encoded = transfer.files[0][1];
+    assert.equal(transfer.records[name].transport, 'gzip');
+    for (const response of [new Response(encoded), new Response(source, { headers: { 'Content-Encoding': 'gzip' } })]) {
+      const progress = [];
+      const result = await downloadResource({ url: `/${name}.gz`, type, compression: 'gzip', metadata: entry,
+        fetcher: async () => response, onProgress: update => progress.push(update) });
+      assert.deepEqual(Buffer.from(await result.arrayBuffer()), source);
+      assert.equal(progress.at(-1).total, response.headers.has('Content-Encoding') ? source.length : entry.bytes);
+    }
+    await assert.rejects(downloadResource({ url: `/${name}.gz`, type, compression: 'gzip',
+      metadata: { ...entry, sha256: '0'.repeat(64) }, fetcher: async () => new Response(encoded) }), code('integrity'));
+    await assert.rejects(downloadResource({ url: `/${name}.gz`, type, compression: 'gzip',
+      metadata: { ...entry, decodedSha256: '0'.repeat(64) }, fetcher: async () => new Response(encoded) }), code('integrity'));
+  }
+});
+
+test('generic gzip requires decoded integrity and checks the restored original format', async () => {
+  const source = Buffer.from('<html>not a CAD file</html>'), packed = gzipSync(source);
+  for (const type of ['GLB', 'DXF']) {
+    const entry = { ...metadata(packed), decodedBytes: source.length, decodedSha256: sha(source) };
+    await assert.rejects(downloadResource({ url: '/bad.gz', type, compression: 'gzip', metadata: entry,
+      fetcher: async () => new Response(packed) }), code('format'));
+    await assert.rejects(downloadResource({ url: '/bad.gz', type, compression: 'gzip', metadata: metadata(packed),
+      fetcher: async () => new Response(packed) }), code('manifest'));
+  }
+});
+
+function chunkedStep() {
+  const source = Buffer.from('ISO-10303-21;\nDATA;\n#1=NAME(\'' + randomBytes(1024).toString('hex') + '\');\nENDSEC;\nEND-ISO-10303-21;');
+  const transport = artifactTransport('large.step', source, 800), metadata = transport.records['large.step.gz'];
+  assert.equal(metadata.transport, 'chunks');
+  const parts = metadata.parts.map(part => ({ url: `/${part.path}?v=${part.sha256}`, metadata: transport.records[part.path] }));
+  return { source, transport, options: { url: '/large.step.gz', type: 'STEP', compression: 'gzip', metadata, parts } };
+}
+test('chunked STEP verifies ordered pieces and both whole hashes, with aggregate progress and exact restored bytes', async () => {
+  const { source, transport, options } = chunkedStep(), paths = [], progress = [];
+  const result = await downloadResource({ ...options, onProgress: update => progress.push(update), fetcher: async url => {
+    paths.push(url);
+    const index = options.parts.findIndex(part => part.url === url); assert.ok(index >= 0);
+    return new Response(transport.files[index][1]);
+  } });
+  assert.deepEqual(paths, options.parts.map(part => part.url));
+  assert.deepEqual(Buffer.from(await result.arrayBuffer()), source);
+  assert.equal(progress.at(-1).loaded, options.metadata.bytes); assert.equal(progress.at(-1).total, options.metadata.bytes);
+});
+test('chunked compressed fallback assembles an exact gzip without requiring browser decompression', async () => {
+  const { transport, options } = chunkedStep(), original = globalThis.DecompressionStream;
+  try {
+    globalThis.DecompressionStream = undefined;
+    const result = await downloadResource({ ...options, decompress: false,
+      fetcher: async url => new Response(transport.files[options.parts.findIndex(part => part.url === url)][1]) });
+    assert.deepEqual(Buffer.from(await result.arrayBuffer()), Buffer.concat(transport.files.map(([, payload]) => payload)));
+  } finally { globalThis.DecompressionStream = original; }
+});
+test('missing, duplicate, reordered and mismatched chunk requests fail before any transfer', async () => {
+  for (const changed of ['missing', 'duplicate', 'reordered', 'wrong-path']) {
+    const { options } = chunkedStep(); let fetched = false;
+    if (changed === 'missing') options.parts.pop();
+    if (changed === 'duplicate') options.parts[1] = options.parts[0];
+    if (changed === 'reordered') options.parts.reverse();
+    if (changed === 'wrong-path') options.parts[0].url = '/other.step.gz.part-001';
+    await assert.rejects(downloadResource({ ...options, fetcher: async () => { fetched = true; return new Response('bad'); } }), code('manifest'));
+    assert.equal(fetched, false);
+  }
+});
+test('chunk corruption, truncation and aggregate rebinding cannot produce a saved STEP', async () => {
+  for (const changed of ['corrupt', 'truncate', 'aggregate']) {
+    const { transport, options } = chunkedStep();
+    if (changed === 'aggregate') options.metadata.sha256 = '0'.repeat(64);
+    await assert.rejects(downloadResource({ ...options, fetcher: async url => {
+      const index = options.parts.findIndex(part => part.url === url);
+      let bytes = Buffer.from(transport.files[index][1]);
+      if (index === 0 && changed === 'corrupt') bytes[10] ^= 1;
+      if (index === 0 && changed === 'truncate') bytes = bytes.subarray(0, bytes.length - 1);
+      return new Response(bytes);
+    } }), code('integrity'));
+  }
+});
+test('cancelling chunked STEP after its first part never requests the next part', async () => {
+  const { transport, options } = chunkedStep(), controller = new AbortController(), paths = [];
+  await assert.rejects(downloadResource({ ...options, signal: controller.signal,
+    onProgress: update => { if (update.loaded >= options.parts[0].metadata.bytes) controller.abort(); },
+    fetcher: async url => { paths.push(url); return new Response(transport.files[0][1]); } }), error => error.name === 'AbortError');
+  assert.deepEqual(paths, [options.parts[0].url]);
 });
 
 test('same-size corruption and truncation are rejected before a file can be saved', async () => {

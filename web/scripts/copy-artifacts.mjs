@@ -2,13 +2,14 @@ import { copyFile, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
-import { gzipSync, gunzipSync } from 'node:zlib';
+import { gzipSync } from 'node:zlib';
 import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
 import { validateAnalysisReport } from './analysis-report-validation.mjs';
 import { validateRiverArtifacts } from './river-artifact-validation.mjs';
 import { validateTowerArtifacts } from './tower-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
+import { artifactTransport } from './artifact-transport.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
@@ -58,22 +59,15 @@ for (const source of artifacts) {
   if (!bytes.length) throw new Error(`Empty artifact: ${source}`);
   const out = resolve(dest, source);
   await mkdir(dirname(out), { recursive: true });
-  if (source === 'STEP/house_3d.step' || /^STEP\/tokyo_(tower|skytree)\.step$/.test(source)) {
-    const compressed=gzipSync(bytes,{level:9});
-    if (!gunzipSync(compressed).equals(bytes)) throw new Error('STEP transport round-trip failed');
-    await writeFile(`${out}.gz`,compressed);
-    manifest[`${source}.gz`]={bytes:compressed.length,sha256:sha(compressed),decodedBytes:bytes.length,decodedSha256:sha(bytes)};
-    await rm(out,{force:true});
-    continue;
-  }
-  await copyFile(resolve(root, source), out);
-  manifest[source] = { bytes: bytes.length, sha256: sha(bytes) };
+  const transport = artifactTransport(source, bytes);
+  Object.assign(manifest, transport.records);
+  if (transport.records[source].transport === 'gzip') await rm(out, { force: true });
+  if (transport.records[`${source}.gz`]?.transport === 'chunks') await rm(`${out}.gz`, { force: true });
+  else for (const part of ['001', '002']) await rm(`${out}.gz.part-${part}`, { force: true });
+  for (const [path, payload] of transport.files) await writeFile(resolve(dest, path), payload);
   if (source.endsWith('.glb')) {
-    const compressed = gzipSync(bytes, { level: 9 });
-    if (!gunzipSync(compressed).equals(bytes)) throw new Error(`Model transport round-trip failed: ${source}`);
-    await writeFile(`${out}.gz`, compressed);
-    manifest[`${source}.gz`] = { bytes: compressed.length, sha256: sha(compressed) };
-    console.log(`${source}: ${bytes.length} -> ${compressed.length} transport bytes (${Math.round(100 * compressed.length / bytes.length)}%).`);
+    const encoded = transport.records[`${source}.gz`];
+    console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
     if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
       // Display-only edges are pinned to the exact downloadable model bytes.
       const outlines = await buildStaticOutlines(bytes);
@@ -82,7 +76,7 @@ for (const source of artifacts) {
       await writeFile(`${out}.edges.bin`, outlines.bytes);
       await writeFile(`${out}.edges.bin.gz`, packed);
       manifest[cachePath] = { bytes: outlines.bytes.length, sha256: sha(outlines.bytes) };
-      manifest[`${cachePath}.gz`] = { bytes: packed.length, sha256: sha(packed) };
+      manifest[`${cachePath}.gz`] = { bytes: packed.length, sha256: sha(packed), decodedBytes: outlines.bytes.length, decodedSha256: sha(outlines.bytes) };
       console.log(`${source}: precomputed ${outlines.entries} outlines (${packed.length} transport bytes).`);
     }
   }

@@ -26,7 +26,7 @@ jobs:
       - name: Check portable landmark regression baseline
         run: >-
           python -S -m unittest
-          checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_r05_preserves_base_core_and_steel_below180m_from_r04
+          checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_r07_preserves_r06_geometry_outside_requested_appearance
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_preservation_fingerprint_tolerates_machine_tails_and_signed_zero
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_preservation_fingerprint_rejects_coordinate_and_metadata_changes
           -v

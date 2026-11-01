@@ -1,6 +1,6 @@
 # 東京スカイツリー / 东京晴空塔 / Tokyo Skytree — LANDMARK-R05
 
-[日本語](#日本語) · [中文](#中文) · [English](#english) · [出典 / 来源 / Sources](#sources) · [R04 archive](tokyo_skytree_R04.md) · [Tokyo Tower R06](tokyo_tower_R06.md)
+[日本語](#日本語) · [中文](#中文) · [English](#english) · [出典 / 来源 / Sources](#sources) · [R04 archive](tokyo_skytree_R04.md) · [Tokyo Tower R07](tokyo_tower_R07.md)
 
 ## 日本語
 

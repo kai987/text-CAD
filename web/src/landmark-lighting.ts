@@ -31,7 +31,8 @@ export function landmarkLocalLightLayout(id: LandmarkId): readonly LandmarkLocal
       kind: 'spot', channel: 'uplights', color: '#ffad65', intensity: 50000, distance: 220,
       position: [x * 33, 1.8, z * 33], target: [x * 24, 65, z * 24],
     });
-    return [...lights, { kind: 'point', channel: 'entry', color: '#ffd2a0', intensity: 1000, distance: 32, position: [0, 4.5, 20] }];
+    // R07 FootTown's front is GLB Z=22m; keep its display source outside.
+    return [...lights, { kind: 'point', channel: 'entry', color: '#ffd2a0', intensity: 1000, distance: 32, position: [0, 4.5, 24] }];
   }
   const lights: LandmarkLocalLightSpec[] = [];
   // Alternate fixtures on the six-lamp CAD plaza ring share three real sources.

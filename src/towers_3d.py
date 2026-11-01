@@ -56,7 +56,7 @@ def restore_hierarchy(step_path, glb_path, tower_id):
     scene=read_scene(step_path)
     material_cache={}
     specifications = {part['name']: part for part in component_specs(tower_id)}
-    detailed = TOWERS[tower_id].get('revision',REVISION) in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06')
+    detailed = TOWERS[tower_id].get('revision',REVISION) in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06','LANDMARK-R07')
 
     def insert(occurrence):
         occurrence_id=occurrence.ref.removeprefix('#')
@@ -69,7 +69,7 @@ def restore_hierarchy(step_path, glb_path, tower_id):
             node.setdefault('extras',{}).update({'landmarkGroup':group,'sourceUnits':'mm'})
             specification = specifications[occurrence.label]
             role = specification.get('role', 'glazing' if 'glazing' in occurrence.label else 'structure')
-            if tower_id=='tokyo-skytree' or TOWERS[tower_id].get('revision') in ('LANDMARK-R05','LANDMARK-R06'):
+            if tower_id=='tokyo-skytree' or TOWERS[tower_id].get('revision') in ('LANDMARK-R05','LANDMARK-R06','LANDMARK-R07'):
                 node['extras']['landmarkPrimitive'] = specification['kind']
             if detailed:
                 node['extras']['landmarkRole'] = role

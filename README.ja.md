@@ -58,6 +58,8 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 ## ソースと関連資料
 
+写真比較、ブラウザー回帰テスト、描画負荷計測は[ビューアー品質ガイド](docs/viewer-quality.md)を参照してください。[共通カタログ](docs/model-catalog.md)はCADマニフェストから生成します。[モデル単位のCAD生成](docs/scoped_cad_generation.md)は検証完了後に成果物を反映します。
+
 | パス | 内容 |
 | --- | --- |
 | [`src/lib/`](src/lib/) | 住宅・住戸・河川のパラメータ、形状、製図処理 |

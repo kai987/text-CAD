@@ -1,4 +1,6 @@
 import type { Locale } from './localization';
+import catalog from './landmark-catalog.json' with { type: 'json' };
+import modelNotes from './landmark-model-notes.json' with { type: 'json' };
 
 export const landmarkIds = ['tokyo-tower', 'tokyo-skytree'] as const;
 export type LandmarkId = typeof landmarkIds[number];
@@ -14,25 +16,14 @@ export function landmarkCameraOptions(id: LandmarkId): readonly LandmarkCamera[]
     ? [...landmarkCameras, 'base', 'main-deck', 'top-deck', 'spire']
     : [...landmarkCameras, 'base', 'tembo-deck', 'tembo-galleria', 'spire'];
 }
+// Numeric controls, identities, names and paths are generated from the CAD manifests.
+// Keep editorial translations separate so geometry edits cannot silently rewrite them.
 export const landmarkModels = {
-  'tokyo-tower': { stem: 'tokyo_tower', revision: 'LANDMARK-R07', height: 333000, levels: [125000, 223550], nominalLevels: [150000, 250000],
-    names: { zh: '东京塔', ja: '東京タワー', en: 'Tokyo Tower' },
-    assumptionNotes: {
-      zh: 'R07参照施工立面与实景，将四组主要支腿从地面连续延伸至主展望台下方，随高度平缓收分，并区分粗壮主材与较细腹杆。模型GL130–223.55m之间的塔身改为平滑、单调向内收分，相关杆件和特别展望台下方承托同步追随新轮廓；中间截面仍是外观拟合。四面塔脚拱架细化为立面内分开的上下弦杆、三角腹杆和局部连接，并调整FootTown墙面、开窗与屋顶外观。拱架深度、分格、截面和建筑细部仍为照片引导的拟合。保留R06展望台外壳、楼板、玻璃与屋顶、H24维护平台及上方天线。东京塔展望台平面参考 JAEE 1962 年原图：H11 为 27 m 方形、H12 为 28 m 方形，H23 为直径 13 m 的圆形。历史 H13 的 29 × 24 m 独立平面单独记录，功能及其与当前外幕墙的对应关系尚未核定。R06参照实景照片，用48面近似较细的上部圆筒，独立表现H24圆形设备平台与白色格构。顶部改为两组红白圆形天线阵列，按供应商2012年Fig.5的环形布置控制，每组30×5片、合计300片。历史层号及当时用途仅作资料对应，当前用途尚未核定。H23的GL223.55 m沿用为结构带/屋顶参考，当前游客楼面完成面未实测。改修外观、外壳厚度、玻璃分格及设备细部仍为展示近似；钢材截面和连接尺寸未逐件实测，未进行结构计算。',
-      ja: 'R07は施工立面と実景を参考に、4組の主脚架構を地上からメインデッキ下まで連続させ、上方へ緩やかに細くし、太い主材と細い腹材を区別します。モデルGL130–223.55mの塔体を滑らかに単調縮小する輪郭へ近似し、関連部材と特別展望台下面の支持材を追従させます。中間断面は外観上の近似です。4面の塔脚アーチを同一立面内の上下弦材・三角形の腹材・局部接合で表現し、フットタウン（FootTown）の壁・開口・屋根の外観を修正します。アーチせい・分節・断面と建物の細部は写真に基づく近似です。R06の展望施設の外殻・床・ガラス・屋根、H24保守床と上方アンテナを保持します。東京タワーの展望台平面はJAEEの1962年原図を参照し、H11を27 m角、H12を28 m角、H23を直径13 mの円形として扱います。29 × 24 mの歴史H13平面を別記し、用途や現在の外装との対応は未確定です。R06は実景写真を参考に、細身の上部円筒を48面で近似し、H24の独立した円形設備床と白い格構を表現します。塔頂は供給元の2012年Fig.5を参考に赤白の円形アンテナ2組とし、各30×5枚、計300枚を配置します。歴史の層番号と当時の用途は資料上の対応で、現在の用途は未確認です。H23のGL223.55 mは構造帯・屋根の参照高さを継承し、現来場者床の仕上げ面は未実測です。改修後の外観、外装厚さ、ガラス割付、設備細部は表示用の近似です。部材断面・接合寸法の実測復元や構造計算は行っていません。',
-      en: 'R07 carries four primary leg assemblies continuously from ground to beneath the Main Deck with a gradual taper, distinguishing broad primary members from finer braces. The model GL130–223.55 m shaft tapers smoothly inward without an outward bulge; its framing and lower special-deck supports follow the fitted outline. Intermediate sections are appearance approximations. The four lower arches use deep trusses with separate in-plane chords, triangular webs and local connections. FootTown receives photo-guided wall, glazing and roof treatment. Arch depth, subdivisions, sections and building details are appearance fits. R06 deck envelopes, floors, glazing and roofs, the H24 service platform and upper antenna remain unchanged. Tokyo Tower deck plans follow the JAEE 1962 original drawing: H11 is a 27 m square, H12 a 28 m square, and H23 a 13 m diameter circle. The historical 29 × 24 m H13 plan is recorded separately; its use and mapping to the current envelope remain unverified. R06 follows site photographs with a slimmer upper cylinder approximated by 48 facets, an independent circular H24 equipment platform and white lattice. Two red-and-white circular antenna banks follow the supplier’s 2012 Fig.5 arrangement, each with 30×5 panels, 300 panels in total. Historical level labels and uses describe their source documents; current uses remain unverified. H23 at GL223.55 m remains a structural-band/roof reference; the current visitor finished floor has not been surveyed. Current retrofit appearance, shell thickness, glazing divisions and equipment details remain display approximations. Member sections and connections have not been individually surveyed; no structural analysis is included.',
-    },
-    reference: 'https://www.tokyotower.co.jp/guidance/',
-    constructionReference: 'https://www.miyaji-eng.co.jp/technology/newsletter/media/18/no18-p085-091.pdf' },
-  'tokyo-skytree': { stem: 'tokyo_skytree', revision: 'LANDMARK-R05', height: 634000, levels: [350000, 450000],
-    names: { zh: '东京晴空塔', ja: '東京スカイツリー', en: 'Tokyo Skytree' },
-    assumptionNotes: {
-      zh: '公开资料提供68 m三角形基部、315 m圆形转换、340/345/350 m楼层、375 m设备屋顶高度、445–450 m回廊与451.2 m最高点、向外倾斜71°的天望甲板立面及约6 m宽增益塔等控制。R05沿用角部/面中点圆弧和24点采样拟合塔身，以及展望台、回廊和分段天线设备外包络。圆弧半径、315 m以上约32→18 m的直锥、设备冠半径与分段截面、回廊宽度及未公开设备站点均为模型拟合近似，非竣工实测；375 m不是展望楼层。3组各4柱鼎桁架、模型 GL 0–50 m脚部连接区间及12.5/25 m环层保留。外周水平材改为中空圆管，内侧环桁架与放射连接保留方管（RHS）；基部补充三面宽翼格构，并保留中央尖拱开口。圆管指杆件截面，塔身平面仍由底部三角形过渡到315 m圆形。宽翼分格与节点为照片引导的拟合，构件数量、管径、节点和TMD帽细部未逐件复原，未进行结构计算。',
-      ja: '公開資料の制御値は68 mの三角形基部、315 mの円形への移行、340/345/350 mのフロア、375 mの設備屋上高さ、445–450 mの回廊と最高点451.2 m、外側へ71°傾く天望デッキ外壁、約6 m幅のゲイン塔です。R05は隅部・面中央の円弧と24点の採形による塔体、展望台・回廊・分節したアンテナ設備の輪郭を継承します。円弧半径、315 m以高の約32→18 mの直線テーパー、設備冠の半径と分節断面、回廊幅、非公開の設備配置高さはモデルの形状合わせで、竣工実測ではありません。375 mは展望フロアではありません。各4柱の鼎3組、モデルGL 0–50 m脚部連結区間、12.5/25 mのリング層を保持します。外周水平材を中空円管とし、内側リングトラスと放射方向の連結には角管（RHS）を残します。基部に三面の幅広い格構翼を補い、中央の尖頭アーチ開口を保ちます。円管は部材断面を指し、塔体平面は基部の三角形から315 mの円形へ移行します。翼の割付と接合位置は写真に基づく近似で、部材数・管径・接合部・TMD頂部の細部は実測復元ではなく、構造計算も行っていません。',
-      en: 'Published controls identify the 68 m triangular base, circular transition at 315 m, 340/345/350 m floors, 375 m equipment-roof height, 445–450 m gallery and 451.2 m high point, outward 71° deck facade and roughly 6 m wide gain tower. R05 retains corner and face-midpoint arcs with 24 contour samples, plus the deck, gallery and segmented antenna envelopes. Arc radii, the approximately 32-to-18 m upper taper, equipment-crown radii and sectional stations, gallery width and unpublished equipment stations are model-fit approximations, not surveyed as-built geometry; 375 m is not an observation floor. Three four-column clusters, a model GL 0–50 m base-connection zone and 12.5/25 m ring layers remain. Exterior horizontal members use hollow circular tubes; inner ring trusses and radial links retain rectangular hollow sections (RHS). Three broad lattice wings complete the base faces while preserving central pointed-arch openings. Circular tubes describe member sections; the body plan still changes from the base triangle to a circle at 315 m. Wing subdivisions and joints are photo-guided fits. Member counts, sections, joints and TMD-cap details are display approximations, not a member-for-member reconstruction. No structural analysis is included.',
-    },
-    reference: 'https://www.tokyo-skytree.jp/about/outline/' },
+  'tokyo-tower': { ...catalog.models['tokyo-tower'], assumptionNotes: modelNotes['tokyo-tower'] },
+  'tokyo-skytree': { ...catalog.models['tokyo-skytree'], assumptionNotes: modelNotes['tokyo-skytree'] },
 } as const;
+export type LandmarkDownloadId = 'glb' | 'step' | 'plan' | 'elevation' | 'steelNodes' | 'structureZones' | 'pdf' | 'manifest';
+export interface LandmarkDownloadFile { id: LandmarkDownloadId; path: string; type: string }
 export function isLandmarkId(value: unknown): value is LandmarkId { return landmarkIds.some(id => id === value); }
 export function initialLandmarkView(search: string): LandmarkView {
   const value = new URLSearchParams(search).get('view');
@@ -51,18 +42,8 @@ export function landmarkGroupForName(name: string): LandmarkGroupId | null {
   const tokens = name.toLowerCase().split(/[^a-z]+/);
   return landmarkGroupIds.find(group => tokens.includes(group)) ?? null;
 }
-export function landmarkDownloadFiles(id: LandmarkId) {
-  const { stem } = landmarkModels[id];
-  return [
-    { id: 'glb', path: `GLB/${stem}.glb`, type: 'GLB' },
-    { id: 'step', path: `STEP/${stem}.step`, type: 'STEP' },
-    { id: 'plan', path: `DXF/${stem}_plan.dxf`, type: 'DXF' },
-    { id: 'elevation', path: `DXF/${stem}_elevation.dxf`, type: 'DXF' },
-    ...(id === 'tokyo-tower' ? [{ id: 'steelNodes', path: 'DXF/tokyo_tower_steel_nodes.dxf', type: 'DXF' } as const] : []),
-    ...(id === 'tokyo-skytree' ? [{ id: 'structureZones', path: 'DXF/tokyo_skytree_structure_zones.dxf', type: 'DXF' } as const] : []),
-    { id: 'pdf', path: `output/pdf/${stem}_sheets.pdf`, type: 'PDF' },
-    { id: 'manifest', path: `output/review/${stem}_manifest.json`, type: 'JSON' },
-  ] as const;
+export function landmarkDownloadFiles(id: LandmarkId): readonly LandmarkDownloadFile[] {
+  return landmarkModels[id].downloads as readonly LandmarkDownloadFile[];
 }
 export const landmarkCopy = {
   zh: {

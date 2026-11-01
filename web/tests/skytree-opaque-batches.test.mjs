@@ -191,11 +191,37 @@ test('dispose is idempotent, restores source visibility and releases only owned 
   assert.equal(structure.children.length, 3); assert.ok(sources.every(node => node.material === material && node.geometry === geometry));
 });
 
-test('Tokyo remains an untouched no-op even when its structure has eligible geometry', t => {
+test('unrelated models remain an untouched no-op even when their structure has eligible geometry', t => {
   const f = fixture(t), structure = f.group('structure');
   const sources = [f.box(structure, 'structure:brace_0', [0, 10, 0]), f.box(structure, 'structure:brace_1', [3, 10, 0])];
-  const before = sources.map(snapshotGeometry), controller = batchSkytreeOpaque(f.root, 'tokyo-tower');
+  const before = sources.map(snapshotGeometry), controller = batchSkytreeOpaque(f.root, 'river');
   assert.equal(controller.sourceMeshes, 0); assert.equal(controller.drawBatches, 0); assert.equal(structure.children.length, 2);
   assert.ok(sources.every(node => node.visible)); controller.dispose(); controller.dispose();
   sources.forEach((node, index) => assert.deepEqual(snapshotGeometry(node), before[index]));
+});
+
+test('Tokyo batches ordinary frame members while connection picking and micro visibility stay independent', t => {
+  const f = fixture(t), structure = f.group('structure'), core = f.group('core');
+  const accepted = [f.box(structure, 'structure:brace_0', [0, 10, 0]), f.box(structure, 'structure:brace_1', [3, 10, 0])];
+  const excluded = [
+    f.box(structure, 'structure:node_plate', [0, 15, 0]),
+    f.box(structure, 'structure:node_rivet', [1, 15, 0]),
+    f.box(structure, 'structure:detail', [2, 15, 0]),
+    f.box(core, 'core:stair_proxy_0', [0, 20, 0], { role: 'stair_tread_batch' }),
+    f.box(core, 'core:stair_proxy_1', [2, 20, 0], { role: 'stair_tread_batch' }),
+  ];
+  excluded[0].userData.steelNodeId = 'TT-N01';
+  excluded[1].userData.steelMicro = true;
+  excluded[2].userData.steelDetailKind = 'plate';
+  const originals = [...accepted, ...excluded].map(snapshotGeometry);
+  const controller = batchSkytreeOpaque(f.root, 'tokyo-tower'); t.after(() => controller.dispose());
+  assert.equal(controller.sourceMeshes, 2); assert.equal(controller.drawBatches, 1);
+  assert.ok(accepted.every(node => !node.visible)); assert.ok(excluded.every(node => node.visible));
+  excluded[1].visible = false;
+  assert.equal(excluded[0].visible, true, 'hiding a rivet cannot hide its connection plate or the frame batch');
+  assert.equal(proxies(f.root)[0].visible, true);
+  [...accepted, ...excluded].forEach((node, index) => assert.deepEqual(snapshotGeometry(node), originals[index]));
+  controller.dispose();
+  assert.deepEqual(accepted.map(node => node.visible), [true, true]);
+  assert.equal(excluded[1].visible, false, 'disposing the batching must not undo micro-detail state');
 });

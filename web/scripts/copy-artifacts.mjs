@@ -10,6 +10,7 @@ import { validateRiverArtifacts } from './river-artifact-validation.mjs';
 import { validateTowerArtifacts } from './tower-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
 import { artifactTransport } from './artifact-transport.mjs';
+import { buildLandmarkCatalog, catalogText } from './landmark-catalog.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
@@ -20,6 +21,8 @@ const apartmentPlans = await validateApartmentPreviews(root);
 const analysisReport = await validateAnalysisReport(root);
 const riverArtifacts = await validateRiverArtifacts(root);
 const towerArtifacts = await validateTowerArtifacts(root);
+// Display metadata comes from the same verified, downloadable CAD manifests.
+const landmarkCatalog = buildLandmarkCatalog(towerArtifacts.models.map(({ manifest }) => manifest));
 export const artifacts = [
   'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
@@ -94,6 +97,7 @@ const data = {
   })) })),
 };
 await mkdir(resolve(root, 'web/src'), { recursive: true });
+await writeFile(resolve(root, 'web/src/landmark-catalog.json'), catalogText(landmarkCatalog));
 await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
 await copyFile(resolve(root, 'output/review/apartment_2ldk_manifest.json'), resolve(root, 'web/src/apartment-data.json'));
 await copyFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), resolve(root, 'web/src/apartment-preview-metadata.json'));

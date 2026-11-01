@@ -15,8 +15,9 @@ import { bindLandmarkMaterialLighting, landmarkLocalLightLayout, landmarkLocalLi
 import type { LandmarkMaterialLighting } from './landmark-lighting';
 import { batchLandmarkStairs } from './landmark-stair-batches';
 import type { LandmarkStairBatches } from './landmark-stair-batches';
-import { batchSkytreeOpaque } from './skytree-opaque-batches';
-import type { SkytreeOpaqueBatches } from './skytree-opaque-batches';
+import { batchLandmarkOpaque } from './skytree-opaque-batches';
+import type { LandmarkOpaqueBatches } from './skytree-opaque-batches';
+import { landmarkPickableMeshes, landmarkVisibleGeometry } from './landmark-render-stats';
 import { landmarkCloseupBounds } from './landmark-camera-bounds';
 import { bindLandmarkSteelDetails, readLandmarkSteelNodes } from './landmark-steel-nodes';
 import type { LandmarkSteelDetails, LandmarkSteelNode, SteelMicroMode } from './landmark-steel-nodes';
@@ -28,6 +29,7 @@ export interface LandmarkViewer {
   steelMicro(mode: SteelMicroMode): void;
   appearance(theme: ResolvedTheme, night: boolean): void;
   label(value: string): void;
+  capture(): string | null;
   dispose(): void;
 }
 function disposeModel(root: Object3D) {
@@ -45,12 +47,16 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   onReady(): void; onError(): void; onProgress(value: ModelProgress): void; onSelection(value: LandmarkGroupId | null): void;
   onSteelNodes(value: readonly LandmarkSteelNode[]): void;
   onSteelNodeSelection?(value: string): void;
+  opaqueBatching?: boolean;
 }): LandmarkViewer {
+  const loadStarted = performance.now();
+  const opaqueBatching = options.opaqueBatching !== false;
   const renderer = new WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth <= 760 ? 1.5 : 2));
   const canvas = renderer.domElement;
   canvas.tabIndex = 0; canvas.setAttribute('role', 'img'); canvas.setAttribute('aria-label', options.label);
   canvas.dataset.renderStrategy = 'demand'; canvas.dataset.modelId = id;
+  canvas.dataset.renderBatching = opaqueBatching ? 'on' : 'off';
   host.prepend(canvas);
   const scene = new Scene();
   const sky = new HemisphereLight(0xffffff, 0x667b8f, 2.7);
@@ -83,18 +89,28 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   const groups = new Map<LandmarkGroupId, Object3D[]>();
   let materialLighting: LandmarkMaterialLighting | null = null;
   let stairBatches: LandmarkStairBatches | null = null;
-  let skytreeOpaqueBatches: SkytreeOpaqueBatches | null = null;
+  let opaqueBatches: LandmarkOpaqueBatches | null = null;
   let steelDetails: LandmarkSteelDetails | null = null;
   let steelMicroMode: SteelMicroMode = 'auto', steelNodeId: string | null = null;
   let visibility = Object.fromEntries(landmarkGroupIds.map(group => [group, true])) as Record<LandmarkGroupId, boolean>;
+  function drawFrame() {
+    const started = performance.now();
+    controls.update(); updateSteelDetails(); renderer.render(scene, camera);
+    if (root && canvas.dataset.modelFirstFrameMs === undefined) canvas.dataset.modelFirstFrameMs = String(performance.now() - loadStarted);
+    canvas.dataset.renderCpuMs = String(performance.now() - started);
+    canvas.dataset.renderedFrames = String(++frames);
+    canvas.dataset.renderCalls = String(renderer.info.render.calls);
+    canvas.dataset.renderTriangles = String(renderer.info.render.triangles);
+    canvas.dataset.renderGeometries = String(renderer.info.memory.geometries);
+    canvas.dataset.renderTextures = String(renderer.info.memory.textures);
+    canvas.dataset.renderPrograms = String(renderer.info.programs?.length ?? 0);
+    canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+  }
   const scheduler = createDemandRenderScheduler({
     draw() {
       availability();
       if (disposed || canvas.dataset.renderVisibility !== 'visible') return;
-      controls.update(); updateSteelDetails(); renderer.render(scene, camera);
-      canvas.dataset.renderedFrames = String(++frames);
-      canvas.dataset.renderTriangles = String(renderer.info.render.triangles);
-      canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+      drawFrame();
     },
     requestFrame: callback => requestAnimationFrame(callback), cancelFrame: frame => cancelAnimationFrame(frame),
     onState: value => { canvas.dataset.renderState = value; },
@@ -182,7 +198,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     const rect = canvas.getBoundingClientRect();
     const point = new Vector2((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
     const ray = new Raycaster(); ray.setFromCamera(point, camera);
-    for (const hit of ray.intersectObject(root, true)) {
+    for (const hit of ray.intersectObjects(landmarkPickableMeshes(root), false)) {
       if (!isObjectVisible(hit.object)) continue;
       const nodeId = hit.object.userData.steelNodeId;
       if (typeof nodeId === 'string' && steelDetails?.catalog.some(entry => entry.id === nodeId)) options.onSteelNodeSelection?.(nodeId);
@@ -197,11 +213,20 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   appearance(theme, night); resize();
   const path = `GLB/${landmarkModels[id].stem}.glb`;
   const loader = new GLTFLoader();
+  const transferStarted = performance.now();
   const load = startModelLoad({
     url: asset(path), compressed: !!assetSha256(`${path}.gz`), compressedUrl: asset(`${path}.gz`), expectedSha256: assetSha256(path),
-    parse: bytes => loader.parseAsync(bytes, ''), onProgress: options.onProgress,
+    async parse(bytes) {
+      // Fetch, optional GZIP decode and hash verification; GLTF parse is separate.
+      canvas.dataset.modelTransferDecodeMs = String(performance.now() - transferStarted);
+      const started = performance.now();
+      const gltf = await loader.parseAsync(bytes, '');
+      canvas.dataset.modelParseMs = String(performance.now() - started);
+      return gltf;
+    }, onProgress: options.onProgress,
     onError(error) { console.error('Landmark model load failed.', error); options.onError(); }, disposeLate: gltf => disposeModel(gltf.scene),
     onLoad(gltf) {
+      const preparationStarted = performance.now();
       try {
         const extras = gltf.parser.json.asset?.extras;
         if (extras?.landmarkId !== id || extras?.revision !== landmarkModels[id].revision) {
@@ -219,6 +244,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
           steelDetails = bindLandmarkSteelDetails(cadNodes, catalog, gltf.scene);
           canvas.dataset.steelNodeCount = String(catalog.length); options.onSteelNodes(catalog);
         } else options.onSteelNodes([]);
+        canvas.dataset.nativeVisibleMeshes = String(landmarkVisibleGeometry(gltf.scene).meshes);
         stairBatches = batchLandmarkStairs(gltf.scene, id);
         canvas.dataset.batchedStairMeshes = String(stairBatches.sourceMeshes);
         canvas.dataset.stairDrawBatches = String(stairBatches.drawBatches);
@@ -227,17 +253,22 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
         if (bounds.isEmpty()) throw new Error('Empty landmark model.');
         for (const [preset, region] of landmarkCloseupBounds(id, cadNodes, bounds)) closeupBounds.set(preset, region);
         // Native bounds and the original named-node catalog stay authoritative.
-        skytreeOpaqueBatches = batchSkytreeOpaque(root, id);
-        canvas.dataset.opaqueBatchSourceMeshes = String(skytreeOpaqueBatches.sourceMeshes);
-        canvas.dataset.opaqueDrawBatches = String(skytreeOpaqueBatches.drawBatches);
+        const opaqueStarted = performance.now();
+        if (opaqueBatching) opaqueBatches = batchLandmarkOpaque(root, id);
+        canvas.dataset.opaquePreparationMs = String(performance.now() - opaqueStarted);
+        canvas.dataset.opaqueBatchSourceMeshes = String(opaqueBatches?.sourceMeshes ?? 0);
+        canvas.dataset.opaqueDrawBatches = String(opaqueBatches?.drawBatches ?? 0);
+        canvas.dataset.batchedVisibleMeshes = String(landmarkVisibleGeometry(root).meshes);
         canvas.dataset.modelRevision = extras.revision;
         canvas.dataset.modelReady = 'true'; canvas.dataset.modelHeight = String(bounds.max.y - bounds.min.y);
+        canvas.dataset.modelPreparationMs = String(performance.now() - preparationStarted);
+        canvas.dataset.modelLoadMs = String(performance.now() - loadStarted);
         applyVisibility(visibility); appearance(theme, night); fit(mode); options.onReady(); scheduler.invalidate();
       } catch (error) {
         console.error('Landmark component binding failed.', error);
         scene.remove(gltf.scene); root = null; materialLighting?.dispose(); materialLighting = null;
         steelDetails?.dispose(); steelDetails = null;
-        skytreeOpaqueBatches?.dispose(); skytreeOpaqueBatches = null;
+        opaqueBatches?.dispose(); opaqueBatches = null;
         stairBatches?.dispose(); stairBatches = null;
         disposeModel(gltf.scene); groups.clear(); closeupBounds.clear(); options.onError();
       }
@@ -247,6 +278,10 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     visibility: applyVisibility, camera: fit, appearance, steelNode: focusSteelNode,
     steelMicro(value) { steelMicroMode = value; scheduler.invalidate(); },
     label(value) { canvas.setAttribute('aria-label', value); },
+    capture() {
+      if (disposed || contextLost || !root || !host.clientWidth || !host.clientHeight) return null;
+      try { drawFrame(); return canvas.toDataURL('image/png'); } catch { return null; }
+    },
     dispose() {
       if (disposed) return;
       disposed = true; load.cancel(); scheduler.dispose(); observer.disconnect(); intersection?.disconnect();
@@ -255,7 +290,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
       controls.removeEventListener('change', changed); controls.dispose();
       materialLighting?.dispose(); materialLighting = null;
       steelDetails?.dispose(); steelDetails = null;
-      skytreeOpaqueBatches?.dispose(); skytreeOpaqueBatches = null;
+      opaqueBatches?.dispose(); opaqueBatches = null;
       stairBatches?.dispose(); stairBatches = null;
       if (root) disposeModel(root);
       for (const { light } of localLights) {

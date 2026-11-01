@@ -25,6 +25,8 @@ output/review/*.png
 # Static viewer dependencies and generated copies.
 web/node_modules/
 web/dist/
+web/test-results/
+web/playwright-report/
 web/public/artifacts/
 web/src/house-data.json
 web/src/apartment-data.json

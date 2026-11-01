@@ -2,6 +2,8 @@
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
+See [photo comparison, browser regression tests and performance measurement](docs/viewer-quality.md), the [manifest-derived landmark catalog](docs/model-catalog.md), and [staged per-model CAD generation](docs/scoped_cad_generation.md).
+
 A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments, Tokyo landmarks and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
 
 **[Online viewer](https://kai987.github.io/text-CAD/)** · [Detached house](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [Suburban river](https://kai987.github.io/text-CAD/?model=river&view=3d)

@@ -139,35 +139,11 @@ class CadPipelineTests(unittest.TestCase):
             pipeline.main()
             return saved_checks, gate_check
 
-    def test_regenerate_publishes_only_after_all_shared_tests_pass(self):
-        def test_candidate(snapshot):
-            self.assertFalse(self.gate.exists())
-            self.assertEqual(snapshot['unit_test_commands'], pipeline.UNIT_TESTS)
-            self.assertEqual(module.verify_snapshot(self.root, snapshot)['revision'], 'R22')
-
-        saved_checks, _ = self.run_main('--regenerate', test_candidate)
-        self.assertEqual(saved_checks.call_args_list[0].args[0], pipeline.GENERATORS)
-        self.assertEqual(saved_checks.call_args_list[1].args[0], pipeline.VALIDATORS)
-        self.assertEqual(json.loads(self.gate.read_text())['unit_test_commands'], pipeline.UNIT_TESTS)
-
-    def test_failed_regeneration_test_leaves_no_gate(self):
-        def fail_candidate(snapshot):
-            self.assertFalse(self.gate.exists())
-            raise subprocess.CalledProcessError(1, ['unit tests'])
-
-        with self.assertRaises(subprocess.CalledProcessError):
-            self.run_main('--regenerate', fail_candidate)
-        self.assertFalse(self.gate.exists())
-
-    def test_failed_generator_leaves_no_gate_and_skips_unit_tests(self):
-        with patch.object(pipeline, 'ROOT', self.root), \
-             patch.object(pipeline, 'run', side_effect=subprocess.CalledProcessError(1, ['generator'])), \
-             patch.object(pipeline, 'run_unit_tests') as unit_tests, \
-             patch.object(sys, 'argv', ['cad_pipeline.py', '--regenerate']):
-            with self.assertRaises(subprocess.CalledProcessError):
-                pipeline.main()
-        self.assertFalse(self.gate.exists())
-        unit_tests.assert_not_called()
+    def test_cli_dispatches_selected_models_to_staged_regeneration(self):
+        with patch.object(pipeline, 'regenerate') as regenerate, \
+             patch.object(sys, 'argv', ['cad_pipeline.py', '--regenerate', '--model', 'tokyo-tower']):
+            pipeline.main()
+        regenerate.assert_called_once_with(('tokyo-tower',), refresh=False)
 
     def test_validate_runs_tests_and_never_rewrites_gate(self):
         original = self.gate.read_bytes()

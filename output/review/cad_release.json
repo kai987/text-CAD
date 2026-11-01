@@ -27,6 +27,7 @@
   ],
   "unit_test_commands": [
     "checks/test_cad_release.py",
+    "checks/test_cad_pipeline.py",
     "checks/test_orientation.py",
     "checks/test_step_transport.py",
     "checks/test_attic_opening_rules.py",
@@ -68,7 +69,8 @@
     "checks/benchmark_native_spatial.py": "253f67971cfe40732c508885878cbe39e0d35392bae8a02e0eafd6ec28edc7f2",
     "checks/test_attic_layout.py": "a327490ef6f4b531fdb87f122f68f1cbdcfa1e473304f70efe2a3416c98f4364",
     "checks/test_attic_opening_rules.py": "3cdf66e73755ba57b96781a6157c7a0040f1bb09b2d89e073cdebbdc1f86eb85",
-    "checks/test_cad_release.py": "e578c8ce20a8352750ab4b67981e54664c774498e8bd2c28a94d5bddbc5d77e0",
+    "checks/test_cad_pipeline.py": "91e06767d6890b85d923671b75b0223df4a9f5ca6d8e426399159978e689879c",
+    "checks/test_cad_release.py": "92582d1c56f44152f510db5079bc1a6ebc11045dff6d41b45794d3f2a6cfb37c",
     "checks/test_contact_native.py": "50030847f2c929bf32ee0fa60593ec94efd18b3af9a29775323d7cfb942df070",
     "checks/test_furniture_native.py": "7a3763a8f4b754e66381cf42541fcef4b8e820519f23e369037ec7e03ea0e661",
     "checks/test_glb_export.py": "c2db3e1ace11c045a0bae8ddc6101f0072273e0b03e72038641bd3dfb64a3c08",
@@ -107,7 +109,7 @@
     "requirements.txt": "70ff79a03f935984f8a5a4f78139af148b2d8966b4384639ab644dbf0534fceb",
     "src/apartment_2ldk.py": "f93ac4993bb35ba411ac247f3262d5fbd53b1afdda04f9c554cf2f4926f36ab8",
     "src/build_spatial_native.py": "394c87720b3347686c0532aef88a8ccb6e4855df3b1ac5c145c8527c1f329db8",
-    "src/cad_pipeline.py": "891e792186365307d70a7f5bc5ab99d8ba1efde8f49ca88bb22eee80d0531812",
+    "src/cad_pipeline.py": "68184c63a7e64154bc26b4faacdd7cf24be65570abd555ff4437197d69c79c12",
     "src/cad_release.py": "5e2520e856893d5a6ab0ff1a12648b3a997ebf6724a5b6254518d4b7b57f28dc",
     "src/generate_attic_plan.py": "307af50dc953770434b95ccbf36c3984d4f71c7dafd933b9c443dc2d10c78736",
     "src/generate_plans.py": "5805c55158c4b5ce7fcbd2d4daff850884b507b477728230909095c9da59fad7",
@@ -254,5 +256,30 @@
     "output/vector/house_1f_plan.svg": "79679c37ad45d309de648c274b0ce91beb46530c80861ef8e54ca54fb4235d4a",
     "output/vector/house_2f_plan.svg": "c3891de1584a50c221bc3e12b4d33256d6dd798f6a70bb8cd44c75eec126e113",
     "web/src/plan-preview-metadata.json": "1fd7fab4de759acf2ad375246d3331de4f9b3126bb9d18e98126e49fa0ebcdae"
-  }
+  },
+  "operation": "validation_refresh",
+  "validated_at": "2026-11-01T21:45:43.211171+09:00",
+  "validation_toolchain": {
+    "python": "3.13.16",
+    "platform": "Darwin",
+    "packages": {
+      "cadgen": "0.7.11",
+      "build123d": "0.11.1",
+      "ezdxf": "1.4.4",
+      "shapely": "2.1.2",
+      "reportlab": "5.0.1",
+      "PyMuPDF": "1.26.7"
+    },
+    "font": {
+      "name": "Arial Unicode.ttf",
+      "sha256": "876af2cd4854644e7f3e7feb2f688997fdb3343c6df6693611209c9dfb47ccec"
+    }
+  },
+  "selected_models": [
+    "house",
+    "apartment",
+    "river",
+    "tokyo-tower",
+    "tokyo-skytree"
+  ]
 }

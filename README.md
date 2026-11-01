@@ -2,6 +2,8 @@
 
 **简体中文** | [日本語](README.ja.md) | [English](README.en.md)
 
+新增[照片对比、浏览器回归测试与性能测量](docs/viewer-quality.md)，[地标共用目录](docs/model-catalog.md)从CAD清单生成，并支持[按模型隔离生成CAD](docs/scoped_cad_generation.md)。
+
 用于制作和比较日本一户建、2LDK公寓、东京地标及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
 
 **[在线查看器](https://kai987.github.io/text-CAD/)** · [一户建](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河流](https://kai987.github.io/text-CAD/?model=river&view=3d)

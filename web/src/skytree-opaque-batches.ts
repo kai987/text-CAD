@@ -2,7 +2,7 @@ import { Box3, BufferAttribute, InstancedMesh, Material, Matrix4, Mesh, MeshStan
 import type { BufferGeometry } from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
-export interface SkytreeOpaqueBatches {
+export interface LandmarkOpaqueBatches {
   readonly sourceMeshes: number;
   readonly drawBatches: number;
   dispose(): void;
@@ -26,6 +26,10 @@ function eligibleMaterial(node: Mesh): MeshStandardMaterial | null {
   const material = node.material;
   const role = String(node.userData.landmarkRole ?? '');
   const name = String(node.userData.cadName ?? node.name).toLowerCase();
+  // Connection plates/rivets retain individual picking and view-dependent
+  // visibility. Existing display proxies belong to their own controller.
+  if (node.userData.steelNodeId || node.userData.steelMicro || node.userData.steelDetailKind
+      || role.endsWith('_batch')) return null;
   if (role === 'light_lens' || role === 'obstruction_light_lens' || role === 'glazing'
       || /(?:glazing|light_lens)/.test(name)) return null;
   if (!material.visible || material.transparent || material.opacity !== 1 || material.alphaTest !== 0 || material.alphaHash
@@ -56,10 +60,10 @@ function geometrySchema(geometry: BufferGeometry): string | null {
 }
 
 /** Runtime display proxies only. Compute CAD bounds and camera regions before calling. */
-export function batchSkytreeOpaque(root: Object3D, id: string): SkytreeOpaqueBatches {
+export function batchLandmarkOpaque(root: Object3D, id: string): LandmarkOpaqueBatches {
   const buckets: Bucket[] = [], replacements: Replacement[] = [];
   let disposed = false;
-  if (id === 'tokyo-skytree') {
+  if (id === 'tokyo-skytree' || id === 'tokyo-tower') {
     root.updateWorldMatrix(true, true);
     const finishes = new WeakMap<Material, string>();
     root.traverse(node => {
@@ -124,3 +128,7 @@ export function batchSkytreeOpaque(root: Object3D, id: string): SkytreeOpaqueBat
     },
   };
 }
+
+// Kept for existing integrations; the runtime optimization now covers both towers.
+export const batchSkytreeOpaque = batchLandmarkOpaque;
+export type SkytreeOpaqueBatches = LandmarkOpaqueBatches;

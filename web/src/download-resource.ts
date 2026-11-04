@@ -56,8 +56,8 @@ export async function downloadResource(options: {
     const chunked = options.metadata?.transport === 'chunks';
     if (chunked) {
       const descriptor = options.metadata!.parts;
-      if (!isArtifactMetadata(options.metadata) || options.parts?.length !== 2 || !descriptor
-        || new Set(options.parts.map(part => part.url)).size !== 2 || !options.parts.every((part, index) =>
+      if (!isArtifactMetadata(options.metadata) || !descriptor || options.parts?.length !== descriptor.length
+        || new Set(options.parts.map(part => part.url)).size !== descriptor.length || !options.parts.every((part, index) =>
           isArtifactMetadata(part.metadata) && part.metadata.transport === undefined
           && part.metadata.bytes === descriptor[index].bytes && part.metadata.sha256 === descriptor[index].sha256
           && new URL(part.url, 'https://artifact.local').pathname.endsWith(`/${descriptor[index].path}`))) {

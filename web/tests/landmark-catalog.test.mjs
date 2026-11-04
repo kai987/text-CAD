@@ -33,14 +33,28 @@ test('generated landmark display catalog exactly follows the saved CAD manifests
   }
 });
 
+test('Tokyo R11 catalog follows the integrated lower-frame manifest independently of Skytree', () => {
+  const tokyo = manifests.find(manifest => manifest.id === 'tokyo-tower');
+  const skytree = manifests.find(manifest => manifest.id === 'tokyo-skytree');
+  assert.equal(tokyo.revision, 'LANDMARK-R11');
+  assert.equal(tokyo.parameters.detail.integrated_lower.enabled, true);
+  assert.equal(tokyo.parameters.detail.lower_grid_continuity.enabled, true);
+  assert.match(tokyo.source_sha256['src/lib/tokyo_tower_grid.py'], /^[a-f0-9]{64}$/);
+  const model = buildLandmarkCatalog(manifests).models['tokyo-tower'];
+  assert.equal(model.revision, tokyo.revision);
+  assert.equal(model.loadingPreview.revision, tokyo.revision);
+  assert.ok(model.loadingPreview.svg.includes('data-revision="LANDMARK-R11"'));
+  assert.equal(skytree.revision, 'LANDMARK-R05');
+});
+
 test('model GL controls and official visitor levels remain separate when manifests change', () => {
   const rows = edited(rows => {
     rows[0].parameters.deck_levels_mm = [124000, 224000];
-    rows[0].revision = rows[0].parameters.revision = 'LANDMARK-R08';
+    rows[0].revision = rows[0].parameters.revision = 'LANDMARK-R99';
     rows[0].names.ja = rows[0].parameters.names.ja = '東京タワー（参照）';
   });
   const model = buildLandmarkCatalog(rows).models['tokyo-tower'];
-  assert.equal(model.revision, 'LANDMARK-R08');
+  assert.equal(model.revision, 'LANDMARK-R99');
   assert.equal(model.names.ja, '東京タワー（参照）');
   assert.deepEqual(model.levels, [124000, 224000]);
   assert.deepEqual(model.nominalLevels, [150000, 250000]);

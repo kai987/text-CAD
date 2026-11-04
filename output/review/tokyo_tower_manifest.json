@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "tokyo-tower",
-  "revision": "LANDMARK-R07",
+  "revision": "LANDMARK-R11",
   "units": "mm",
   "names": {
     "zh": "东京塔",
@@ -23,7 +23,7 @@
         1299.9999999999998
       ],
       "member_names": [
-        "structure:leg_01_chord_00_01",
+        "structure:leg_01_assembly_01",
         "structure:leg_01_shoe_plate"
       ],
       "local_frame": {
@@ -146,7 +146,7 @@
         1299.9999999999998
       ],
       "member_names": [
-        "structure:leg_02_chord_00_01",
+        "structure:leg_02_assembly_01",
         "structure:leg_02_shoe_plate"
       ],
       "local_frame": {
@@ -269,7 +269,7 @@
         1299.9999999999998
       ],
       "member_names": [
-        "structure:leg_03_chord_00_01",
+        "structure:leg_03_assembly_01",
         "structure:leg_03_shoe_plate"
       ],
       "local_frame": {
@@ -392,7 +392,7 @@
         1299.9999999999998
       ],
       "member_names": [
-        "structure:leg_04_chord_00_01",
+        "structure:leg_04_assembly_01",
         "structure:leg_04_shoe_plate"
       ],
       "local_frame": {
@@ -515,16 +515,13 @@
         18000.0
       ],
       "member_names": [
-        "structure:leg_01_chord_01_02",
-        "structure:leg_01_web_0_02",
-        "structure:leg_01_tie_0_02",
-        "structure:leg_01_tie_1_02"
+        "structure:leg_01_assembly_02"
       ],
       "local_frame": {
         "origin_mm": [
-          -31739.98302915424,
-          -34551.251732467514,
-          18003.52015395046
+          -31674.59890732409,
+          -34610.67322976922,
+          18002.49542121781
         ],
         "u": [
           -0.5879408063667938,
@@ -568,14 +565,14 @@
           },
           "points_mm": [
             [
-              -31620.035436264236,
-              -34390.7926139819,
-              17214.5553598977
+              -31554.651314434086,
+              -34450.21411128361,
+              17213.530627165048
             ],
             [
-              -32266.770323267712,
-              -35111.42479982805,
-              17736.497156130972
+              -32201.386201437563,
+              -35170.846297129756,
+              17735.47242339832
             ]
           ]
         },
@@ -589,14 +586,14 @@
           },
           "points_mm": [
             [
-              -31669.14701938835,
-              -34440.08406152594,
-              17456.568594250817
+              -31603.7628975582,
+              -34499.505558827645,
+              17455.543861518167
             ],
             [
-              -31610.34104966719,
-              -34378.10943257466,
-              17615.00155575664
+              -31544.95692783704,
+              -34437.53092987637,
+              17613.97682302399
             ]
           ]
         }
@@ -615,12 +612,12 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        -32266.770323267712,
-        -35124.87504396164,
-        17214.323408397795,
-        -31452.487643232053,
-        -34244.26232973646,
-        18599.598434896812
+        -32201.386201437563,
+        -35184.29654126335,
+        17213.298675665144,
+        -31387.103521401903,
+        -34303.68382703817,
+        18598.57370216416
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -638,15 +635,12 @@
         18000.0
       ],
       "member_names": [
-        "structure:leg_02_chord_01_02",
-        "structure:leg_02_web_0_02",
-        "structure:leg_02_tie_0_02",
-        "structure:leg_02_tie_1_02"
+        "structure:leg_02_assembly_02"
       ],
       "local_frame": {
         "origin_mm": [
-          34540.75141424035,
-          -34970.00058575964,
+          34603.22960165904,
+          -34907.52239834095,
           18000.0
         ],
         "u": [
@@ -691,13 +685,13 @@
           },
           "points_mm": [
             [
-              34398.74613380413,
-              -34842.13744094715,
+              34461.22432122282,
+              -34779.65925352846,
               17208.744341867376
             ],
             [
-              35079.35998744864,
-              -35522.75129459165,
+              35141.83817486733,
+              -35460.273107172965,
               17741.219284427443
             ]
           ]
@@ -712,13 +706,13 @@
           },
           "points_mm": [
             [
-              34441.78989544076,
-              -34893.66648395802,
+              34504.268082859446,
+              -34831.18829653933,
               17451.445788732763
             ],
             [
-              34380.17808118139,
-              -34832.05466969865,
+              34442.656268600076,
+              -34769.57648227996,
               17608.951244788543
             ]
           ]
@@ -738,11 +732,11 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        34239.82783125681,
-        -35522.75129459165,
+        34302.306018675496,
+        -35460.273107172965,
         17208.744341867376,
-        35093.502123072365,
-        -34669.077002776095,
+        35155.98031049105,
+        -34606.59881535741,
         18594.2399293854
       ],
       "dimensions_status": "demonstration_assumption"
@@ -761,16 +755,13 @@
         18000.0
       ],
       "member_names": [
-        "structure:leg_03_chord_01_02",
-        "structure:leg_03_web_0_02",
-        "structure:leg_03_tie_0_02",
-        "structure:leg_03_tie_1_02"
+        "structure:leg_03_assembly_02"
       ],
       "local_frame": {
         "origin_mm": [
-          34959.50026753248,
-          31290.768970845755,
-          17996.47984604954
+          34900.07877023077,
+          31356.153092675904,
+          17997.50457878219
         ],
         "u": [
           0.655120168951038,
@@ -814,14 +805,14 @@
           },
           "points_mm": [
             [
-              34812.49139318046,
-              31156.021474873352,
-              17207.283100496876
+              34753.069895878754,
+              31221.405596703502,
+              17208.307833229526
             ],
             [
-              35533.12357902661,
-              31802.75636187683,
-              17729.22489673015
+              35473.7020817249,
+              31868.14048370698,
+              17730.2496294628
             ]
           ]
         },
@@ -835,14 +826,14 @@
           },
           "points_mm": [
             [
-              34869.85298720465,
-              31196.25311614803,
-              17449.15716395005
+              34810.43148990294,
+              31261.63723797818,
+              17450.1818966827
             ],
             [
-              34807.87835825337,
-              31137.447146426868,
-              17607.590125455874
+              34748.456860951665,
+              31202.831268257018,
+              17608.614858188525
             ]
           ]
         }
@@ -861,12 +852,12 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        34652.51086480143,
-        31003.27358492357,
-        17207.283100496876,
-        35533.12357902661,
-        31817.55626495923,
-        18592.558126995893
+        34593.08936749972,
+        31068.65770675372,
+        17208.307833229526,
+        35473.7020817249,
+        31882.940386789378,
+        18593.582859728544
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -884,15 +875,12 @@
         18000.0
       ],
       "member_names": [
-        "structure:leg_04_chord_01_02",
-        "structure:leg_04_web_0_02",
-        "structure:leg_04_tie_0_02",
-        "structure:leg_04_tie_1_02"
+        "structure:leg_04_assembly_02"
       ],
       "local_frame": {
         "origin_mm": [
-          -31300.75141424035,
-          31730.000585759644,
+          -31363.229601659037,
+          31667.522398340956,
           18000.0
         ],
         "u": [
@@ -937,13 +925,13 @@
           },
           "points_mm": [
             [
-              -31146.51761310074,
-              31589.908920243768,
+              -31208.995800519428,
+              31527.43073282508,
               17213.116107777638
             ],
             [
-              -31835.21900412449,
-              32278.61031126752,
+              -31897.69719154318,
+              32216.13212384883,
               17724.37024028308
             ]
           ]
@@ -958,13 +946,13 @@
           },
           "points_mm": [
             [
-              -31193.310806322184,
-              31645.187394839446,
+              -31255.788993740873,
+              31582.709207420758,
               17454.2938167694
             ],
             [
-              -31134.154417666945,
-              31586.031006184206,
+              -31196.632605085633,
+              31523.552818765518,
               17613.670864560292
             ]
           ]
@@ -984,11 +972,11 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        -31849.361139748224,
-        31436.210374930557,
+        -31911.839327166912,
+        31373.73218751187,
         17213.116107777638,
-        -31006.96120341126,
-        32278.61031126752,
+        -31069.43939082995,
+        32216.13212384883,
         18597.71986319535
       ],
       "dimensions_status": "demonstration_assumption"
@@ -1007,16 +995,13 @@
         52000.0
       ],
       "member_names": [
-        "structure:leg_01_chord_01_05",
-        "structure:leg_01_web_0_05",
-        "structure:leg_01_tie_0_05",
-        "structure:leg_01_tie_1_05"
+        "structure:leg_01_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          -20185.473933754405,
-          -22372.770140613455,
-          52002.98627701083
+          -20128.34641240778,
+          -22423.642013870172,
+          52002.12093537701
         ],
         "u": [
           -0.6053517049334571,
@@ -1060,14 +1045,14 @@
           },
           "points_mm": [
             [
-              -20025.28847659853,
-              -22164.74278951745,
-              51232.48952782123
+              -19968.160955251904,
+              -22215.61466277417,
+              51231.62418618741
             ],
             [
-              -20691.175352025333,
-              -22920.045804130732,
-              51675.3349017955
+              -20634.047830678708,
+              -22970.91767738745,
+              51674.46956016168
             ]
           ]
         },
@@ -1081,14 +1066,14 @@
           },
           "points_mm": [
             [
-              -20086.723867363868,
-              -22228.719098726888,
-              51468.168811215946
+              -20029.596346017242,
+              -22279.590971983605,
+              51467.303469582126
             ],
             [
-              -20037.13676815138,
-              -22175.836876441863,
-              51632.924964842714
+              -19980.009246804755,
+              -22226.70874969858,
+              51632.059623208894
             ]
           ]
         }
@@ -1107,12 +1092,12 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        -20691.175352025333,
-        -22933.34564027628,
-        51232.26329471435,
-        -19894.649945404257,
-        -22041.350937519066,
-        52609.85647093683
+        -20634.047830678708,
+        -22984.217513532996,
+        51231.39795308053,
+        -19837.52242405763,
+        -22092.222810775784,
+        52608.99112930301
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -1130,15 +1115,12 @@
         52000.0
       ],
       "member_names": [
-        "structure:leg_02_chord_01_05",
-        "structure:leg_02_web_0_05",
-        "structure:leg_02_tie_0_05",
-        "structure:leg_02_tie_1_05"
+        "structure:leg_02_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          22361.651787501436,
-          -22735.00416796793,
+          22415.745456262204,
+          -22680.910499207163,
           52000.0
         ],
         "u": [
@@ -1183,13 +1165,13 @@
           },
           "points_mm": [
             [
-              22175.811069349624,
-              -22563.30558543985,
+              22229.904738110392,
+              -22509.211916679084,
               51226.3186545905
             ],
             [
-              22884.075753869805,
-              -23271.570269960033,
+              22938.169422630574,
+              -23217.476601199265,
               51680.98586621132
             ]
           ]
@@ -1204,13 +1186,13 @@
           },
           "points_mm": [
             [
-              22232.281970609693,
-              -22628.261768074153,
+              22286.37563937046,
+              -22574.168099313385,
               51462.96973032955
             ],
             [
-              22179.67316303365,
-              -22575.65296049811,
+              22233.76683179442,
+              -22521.559291737343,
               51626.87405220928
             ]
           ]
@@ -1230,11 +1212,11 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        22053.05718500552,
-        -23271.570269960033,
+        22107.15085376629,
+        -23217.476601199265,
         51226.3186545905,
-        22898.21788949354,
-        -22426.409565472015,
+        22952.311558254307,
+        -22372.315896711247,
         52605.4544771098
       ],
       "dimensions_status": "demonstration_assumption"
@@ -1253,16 +1235,13 @@
         52000.0
       ],
       "member_names": [
-        "structure:leg_03_chord_01_05",
-        "structure:leg_03_web_0_05",
-        "structure:leg_03_tie_0_05",
-        "structure:leg_03_tie_1_05"
+        "structure:leg_03_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          22723.885814855912,
-          19791.18202171496,
-          51997.01372298917
+          22673.013941599194,
+          19848.309543061587,
+          51997.87906462299
         ],
         "u": [
           0.6866391041938946,
@@ -1306,14 +1285,14 @@
           },
           "points_mm": [
             [
-              22529.158299905455,
-              19616.06126486062,
-              51226.29074069269
+              22478.286426648738,
+              19673.188786207244,
+              51227.15608232651
             ],
             [
-              23284.461314518736,
-              20281.948140287423,
-              51669.13611466696
+              23233.58944126202,
+              20339.075661634048,
+              51670.00145630078
             ]
           ]
         },
@@ -1327,14 +1306,14 @@
           },
           "points_mm": [
             [
-              22601.11451080222,
-              19668.535475806882,
-              51461.83428422328
+              22550.242637545503,
+              19725.662997153508,
+              51462.6996258571
             ],
             [
-              22548.232288517196,
-              19618.948376594395,
-              51626.59043785005
+              22497.36041526048,
+              19676.07589794102,
+              51627.45577948387
             ]
           ]
         }
@@ -1353,12 +1332,12 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        22392.466611761523,
-        19500.358033364813,
-        51226.29074069269,
-        23284.461314518736,
-        20296.88343998589,
-        52603.88391691517
+        22341.594738504806,
+        19557.48555471144,
+        51227.15608232651,
+        23233.58944126202,
+        20354.010961332515,
+        52604.74925854899
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -1376,15 +1355,12 @@
         52000.0
       ],
       "member_names": [
-        "structure:leg_04_chord_01_05",
-        "structure:leg_04_web_0_05",
-        "structure:leg_04_tie_0_05",
-        "structure:leg_04_tie_1_05"
+        "structure:leg_04_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          -19801.651787501436,
-          20175.00416796793,
+          -19855.745456262204,
+          20120.910499207163,
           52000.0
         ],
         "u": [
@@ -1429,13 +1405,13 @@
           },
           "points_mm": [
             [
-              -19602.896826749366,
-              19990.391342839594,
+              -19656.990495510134,
+              19936.297674078825,
               51232.52715333077
             ],
             [
-              -20318.58138982562,
-              20706.075905915848,
+              -20372.67505858639,
+              20651.98223715508,
               51663.330138869045
             ]
           ]
@@ -1450,13 +1426,13 @@
           },
           "points_mm": [
             [
-              -19663.316199575074,
-              20059.295997039535,
+              -19717.409868335842,
+              20005.202328278767,
               51467.07703718692
             ],
             [
-              -19613.468682995695,
-              20009.448480460156,
+              -19667.562351756464,
+              19955.354811699388,
               51632.698443356945
             ]
           ]
@@ -1476,11 +1452,11 @@
         "dimensioned_plate_width_mm": 1100.0
       },
       "bounds_mm": [
-        -20332.723525449353,
-        19859.938335197316,
+        -20386.81719421012,
+        19805.844666436547,
         51232.52715333077,
-        -19486.58595473082,
-        20706.075905915848,
+        -19540.67962349159,
+        20651.98223715508,
         52608.07574202007
       ],
       "dimensions_status": "demonstration_assumption"
@@ -1499,13 +1475,13 @@
         40000.0
       ],
       "member_names": [
-        "structure:leg_01_chord_00_04",
-        "structure:leg_01_chord_00_05"
+        "structure:leg_01_assembly_04",
+        "structure:leg_01_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          -26596.08071042303,
-          -26203.91928957697,
+          -26538.74142153661,
+          -26261.25857846339,
           40000.0
         ],
         "u": [
@@ -1555,13 +1531,13 @@
           },
           "points_mm": [
             [
-              -26581.696193322623,
-              -26178.221063977577,
+              -26524.356904436205,
+              -26235.560352863995,
               39390.96659626189
             ],
             [
-              -26969.157525134684,
-              -26565.682395789638,
+              -26911.818236248266,
+              -26623.021684676056,
               39681.04836525272
             ]
           ]
@@ -1576,13 +1552,13 @@
           },
           "points_mm": [
             [
-              -26607.0488712602,
-              -26195.088460540912,
+              -26549.70958237378,
+              -26252.42774942733,
               39573.099220068194
             ],
             [
-              -26523.678009873256,
-              -26111.71759915397,
+              -26466.338720986838,
+              -26169.056888040388,
               39795.815629304685
             ]
           ]
@@ -1602,11 +1578,11 @@
         "dimensioned_plate_width_mm": 620.0
       },
       "bounds_mm": [
-        -26969.157525134684,
-        -26969.157525134684,
+        -26911.818236248266,
+        -26911.818236248266,
         39390.96659626189,
-        -25830.842474865316,
-        -25830.842474865316,
+        -25888.181763751734,
+        -25888.181763751734,
         40609.03340373811
       ],
       "dimensions_status": "demonstration_assumption"
@@ -1625,14 +1601,14 @@
         40000.0
       ],
       "member_names": [
-        "structure:leg_02_chord_00_04",
-        "structure:leg_02_chord_00_05"
+        "structure:leg_02_assembly_04",
+        "structure:leg_02_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          23393.70508353894,
-          -26585.266473826545,
-          39996.254186576705
+          23454.031281792915,
+          -26531.08955942844,
+          39997.34956346273
         ],
         "u": [
           0.5893661458055718,
@@ -1681,14 +1657,14 @@
           },
           "points_mm": [
             [
-              23370.403313919545,
-              -26558.98629875896,
-              39387.52158523929
+              23430.729512173522,
+              -26504.809384360855,
+              39388.616962125314
             ],
             [
-              23735.810324318998,
-              -26971.609161774577,
-              39671.45835578465
+              23796.136522572975,
+              -26917.432247376473,
+              39672.553732670676
             ]
           ]
         },
@@ -1702,14 +1678,14 @@
           },
           "points_mm": [
             [
-              23385.414013696103,
-              -26588.354875945573,
-              39569.21287717771
+              23445.74021195008,
+              -26534.17796154747,
+              39570.30825406374
             ],
             [
-              23306.04444610903,
-              -26504.50540931115,
-              39793.20782954531
+              23366.370644363007,
+              -26450.328494913047,
+              39794.30320643134
             ]
           ]
         }
@@ -1728,12 +1704,12 @@
         "dimensioned_plate_width_mm": 620.0
       },
       "bounds_mm": [
-        23039.696782306746,
-        -26971.609161774577,
-        39387.52158523929,
-        24160.303217693254,
-        -25828.390838225423,
-        40612.47841476071
+        23100.022980560723,
+        -26917.432247376473,
+        39388.616962125314,
+        24099.977019439277,
+        -25882.567752623527,
+        40611.383037874686
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -1751,13 +1727,13 @@
         40000.0
       ],
       "member_names": [
-        "structure:leg_03_chord_00_04",
-        "structure:leg_03_chord_00_05"
+        "structure:leg_03_assembly_04",
+        "structure:leg_03_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          23796.08071042303,
-          23403.91928957697,
+          23738.74142153661,
+          23461.25857846339,
           40000.0
         ],
         "u": [
@@ -1807,13 +1783,13 @@
           },
           "points_mm": [
             [
-              23772.076763006215,
-              23368.60163366117,
+              23714.737474119796,
+              23425.940922547587,
               39391.75212808508
             ],
             [
-              24164.02542804497,
-              23760.550298699924,
+              24106.68613915855,
+              23817.88958758634,
               39669.51549490777
             ]
           ]
@@ -1828,13 +1804,13 @@
           },
           "points_mm": [
             [
-              23800.30237476145,
-              23388.341964042163,
+              23742.96308587503,
+              23445.68125292858,
               39573.17206689417
             ],
             [
-              23720.47187995198,
-              23308.511469232693,
+              23663.13259106556,
+              23365.85075811911,
               39798.46783737589
             ]
           ]
@@ -1854,11 +1830,11 @@
         "dimensioned_plate_width_mm": 620.0
       },
       "bounds_mm": [
-        23035.97457195503,
-        23035.97457195503,
+        23093.31386084145,
+        23093.31386084145,
         39391.75212808508,
-        24164.02542804497,
-        24164.02542804497,
+        24106.68613915855,
+        24106.68613915855,
         40608.24787191492
       ],
       "dimensions_status": "demonstration_assumption"
@@ -1877,14 +1853,14 @@
         40000.0
       ],
       "member_names": [
-        "structure:leg_04_chord_00_04",
-        "structure:leg_04_chord_00_05"
+        "structure:leg_04_assembly_04",
+        "structure:leg_04_assembly_05"
       ],
       "local_frame": {
         "origin_mm": [
-          -26214.733526173455,
-          23806.29491646106,
-          40003.745813423295
+          -26268.91044057156,
+          23745.968718207085,
+          40002.65043653727
         ],
         "u": [
           -0.6655207467993856,
@@ -1933,14 +1909,14 @@
           },
           "points_mm": [
             [
-              -26177.763615868855,
-              23794.8962072938,
-              39395.229342683684
+              -26231.94053026696,
+              23734.570009039824,
+              39394.13396579766
             ],
             [
-              -26590.386478884473,
-              24160.303217693254,
-              39679.16611322905
+              -26644.563393282577,
+              24099.977019439277,
+              39678.07073634302
             ]
           ]
         },
@@ -1954,14 +1930,14 @@
           },
           "points_mm": [
             [
-              -26199.1148916277,
-              23818.834202409464,
-              39577.08273257047
+              -26253.291806025805,
+              23758.508004155487,
+              39575.98735568444
             ],
             [
-              -26115.26542499328,
-              23739.46463482239,
-              39801.07768493806
+              -26169.442339391382,
+              23679.138436568413,
+              39799.98230805204
             ]
           ]
         }
@@ -1980,12 +1956,12 @@
         "dimensioned_plate_width_mm": 620.0
       },
       "bounds_mm": [
-        -26971.609161774577,
-        23039.696782306746,
-        39387.52158523929,
-        -25828.390838225423,
-        24160.303217693254,
-        40612.47841476071
+        -26917.432247376473,
+        23100.022980560723,
+        39388.616962125314,
+        -25882.567752623527,
+        24099.977019439277,
+        40611.383037874686
       ],
       "dimensions_status": "demonstration_assumption"
     },
@@ -2004,8 +1980,7 @@
       ],
       "member_names": [
         "structure:upper_chord_0_5",
-        "structure:upper_ring_0_4",
-        "structure:upper_ring_3_4",
+        "structure:grid_support_link_0",
         "decks:main_underside_bracket_7"
       ],
       "local_frame": {
@@ -2129,8 +2104,7 @@
       ],
       "member_names": [
         "structure:upper_chord_1_5",
-        "structure:upper_ring_0_4",
-        "structure:upper_ring_1_4",
+        "structure:grid_support_link_1",
         "decks:main_underside_bracket_1"
       ],
       "local_frame": {
@@ -2254,8 +2228,7 @@
       ],
       "member_names": [
         "structure:upper_chord_2_5",
-        "structure:upper_ring_1_4",
-        "structure:upper_ring_2_4",
+        "structure:grid_support_link_2",
         "decks:main_underside_bracket_3"
       ],
       "local_frame": {
@@ -2379,8 +2352,7 @@
       ],
       "member_names": [
         "structure:upper_chord_3_5",
-        "structure:upper_ring_2_4",
-        "structure:upper_ring_3_4",
+        "structure:grid_support_link_3",
         "decks:main_underside_bracket_5"
       ],
       "local_frame": {
@@ -2494,7 +2466,7 @@
   "height_mm": 333000,
   "parameters": {
     "file_stem": "tokyo_tower",
-    "revision": "LANDMARK-R07",
+    "revision": "LANDMARK-R11",
     "names": {
       "zh": "东京塔",
       "ja": "東京タワー",
@@ -2525,6 +2497,10 @@
           125000.0
         ],
         "leg_continuation_chord_half_width_mm": 262.5,
+        "leg_primary_section_scale": 0.7,
+        "slenderness_scope": "R08 multiplies retained nominal primary sizes by0.70 (720-to-504mm at ground, 525-to-367.5mm continuation); lacing and arch plate sizes are separate photo fits. Axes and gross cage remain unchanged. Not a measured section schedule.",
+        "leg_web_radius_mm": 95.0,
+        "leg_tie_radius_mm": 110.0,
         "leg_continuation_overlap_mm": 40.0,
         "leg_transition_link_radius_mm": 100.0,
         "leg_attachment_inset_mm": 150.0,
@@ -2532,13 +2508,15 @@
         "arch_rib_depth_mm": 1800.0,
         "arch_plane_half_depth_mm": 650.0,
         "arch_panel_count": 16,
-        "arch_profile_width_mm": 450.0,
-        "arch_profile_depth_mm": 600.0,
-        "arch_web_thickness_mm": 20.0,
-        "arch_flange_thickness_mm": 24.0,
+        "arch_profile_width_mm": 320.0,
+        "arch_profile_depth_mm": 420.0,
+        "arch_web_thickness_mm": 16.0,
+        "arch_flange_thickness_mm": 20.0,
         "arch_joint_overlap_mm": 40.0,
-        "arch_web_radius_mm": 85.0,
-        "arch_cross_tie_radius_mm": 75.0,
+        "arch_web_radius_mm": 60.0,
+        "arch_cross_tie_radius_mm": 55.0,
+        "arch_spandrel_tie_radius_mm": 90.0,
+        "arch_spandrel_diagonal_radius_mm": 75.0,
         "foot_town_width_mm": 48000.0,
         "foot_town_depth_mm": 44000.0,
         "foot_town_floor_levels_mm": [
@@ -2566,6 +2544,111 @@
           21000.0
         ],
         "scope": "H3 GL40m and 80m foot-axis spacing are published structural controls. Arch depth, profile and web sizes, panel layout, FootTown 48x44m plan, facade bands, cladding and rooftop equipment are photograph/drawing-guided appearance assumptions, not surveyed dimensions or structural design."
+      },
+      "lower_grid_continuity": {
+        "enabled": true,
+        "band_levels_mm": [
+          80000.0,
+          93000.0,
+          106000.0,
+          120000.0
+        ],
+        "columns": 4,
+        "primary_brace_radius_mm": 160.0,
+        "secondary_brace_radius_mm": 105.0,
+        "vertical_radius_mm": 110.0,
+        "belt_radius_mm": 200.0,
+        "corner_clip_radius_mm": 90.0,
+        "corner_clip_source_overlap_mm": 20.0,
+        "support_link_radius_mm": 110.0,
+        "support_height_mm": 114000.0
+      },
+      "integrated_lower": {
+        "enabled": true,
+        "cover_thickness_mm": 20.0,
+        "web_thickness_mm": 16.0,
+        "border_width_mm": 180.0,
+        "batten_width_mm": 180.0,
+        "pitch_depth_ratio": 1.35,
+        "min_cells": 2,
+        "max_cells": 8,
+        "diaphragm_length_mm": 60.0,
+        "diaphragm_edge_clearance_mm": 1.0,
+        "end_overlap_mm": 40.0,
+        "seam_width_mm": 120.0,
+        "max_pieces_per_assembly": 24
+      },
+      "lower_built_up": {
+        "enabled": true,
+        "cover_thickness_mm": 20.0,
+        "web_thickness_mm": 16.0,
+        "border_width_mm": 40.0,
+        "batten_width_mm": 55.0,
+        "lacing_width_mm": 45.0,
+        "pitch_depth_ratio": 2.0,
+        "min_cells": 4,
+        "max_cells": 12,
+        "diaphragm_length_mm": 100.0,
+        "max_pieces_per_member": 24
+      },
+      "upper_equipment": {
+        "enabled": true,
+        "tiers_mm": [
+          158000.0,
+          166000.0,
+          174000.0,
+          182000.0
+        ],
+        "projections_mm": [
+          2600.0,
+          3000.0,
+          3200.0,
+          2800.0
+        ],
+        "projection_definition": "Additional X and Y half-width at corner tips, not a surveyed radial projection.",
+        "arm_radius_mm": 110.0,
+        "stay_radius_mm": 80.0,
+        "stay_drop_mm": 1800.0,
+        "mount_overlap_mm": 180.0,
+        "platform_width_mm": 1200.0,
+        "platform_length_mm": 1000.0,
+        "platform_thickness_mm": 120.0,
+        "tip_mast_height_mm": 1100.0,
+        "crossbar_half_width_mm": 650.0,
+        "gallery_height_mm": 182000.0,
+        "gallery_projection_mm": 650.0,
+        "gallery_guard_height_mm": 1000.0,
+        "gallery_slab_thickness_mm": 120.0,
+        "radome_facets": 16,
+        "radome_depth_mm": 450.0,
+        "radomes": [
+          {
+            "height_mm": 146000.0,
+            "face": 0,
+            "corner": -1,
+            "diameter_mm": 1600.0,
+            "projection_mm": 1500.0
+          },
+          {
+            "height_mm": 200000.0,
+            "face": 1,
+            "corner": 1,
+            "diameter_mm": 1700.0,
+            "projection_mm": 1700.0
+          },
+          {
+            "height_mm": 209000.0,
+            "face": 3,
+            "corner": 1,
+            "diameter_mm": 1400.0,
+            "projection_mm": 1600.0
+          }
+        ],
+        "dimensions_status": "photo_guided_appearance_assumption",
+        "equipment_inventory_status": "operator_photo_reference_date_and_current_inventory_unverified",
+        "source_reference": "https://www.tokyotower.co.jp/plan/towerpedia/",
+        "source_photo": "https://www.tokyotower.co.jp/plan/towerpedia/img/img_006.jpg",
+        "scope": "Photo-guided outboard appearance from the operator photograph. Heights, projections, directions, bracket sections, service floors and circular covers are model fits, not measured installation coordinates or an original equipment schedule. Current inventory and photo date are unverified; no broadcaster or radio-system assignment is asserted."
       },
       "upper_shaft_outline": {
         "enabled": true,
@@ -2884,7 +2967,7 @@
         "ja": "塔体・トラス",
         "en": "Tower frame"
       },
-      "component_count": 2496
+      "component_count": 1503
     },
     {
       "id": "core",
@@ -2917,7 +3000,7 @@
       "component_count": 1441
     }
   ],
-  "component_count": 6374,
+  "component_count": 5381,
   "assumptions": [
     {
       "zh": "总高333m、脚基准轴距80m及施工图H3/H11/H23/H27标高有公开依据。未标注的宽度、H中间分节、拱曲线及截面仍是图面解释和建模近似；双层GL125000是从GL120000加5m层距的解释。官方150m/250m案内值与几何GL解释分列；H11外壳对应与H23屋顶的解释均未实测核定；R06内部GL220550楼板为假设。不是测绘或原设计复原。",
@@ -2928,6 +3011,26 @@
       "zh": "地面GL=0、屋面Z=18300；主展望层GL120000/125000、上部H23屋顶GL223550（假设内部楼板220550），官方150m/250m案内值另列。24梯跑600踢面为约600阶公开描述的示意布置，路径、踢面、260mm踏面和平台尺寸均非原建筑实测。R04按宽面组合柱形态表达H/I主材，细部截面未核实。",
       "ja": "地盤GL=0、屋上Z=18300、モデルの主展望外殻・仮定床GL120000/125000・H23屋根GL223550（内部床220550は仮定）。公式案内150m/250mは別記。24折返し・600段は公表の約600段をもとにした独自配置です。経路、蹴上げ、踏面260mm、踊場寸法、H/I組立主材・八角副材は実測仕様ではありません。",
       "en": "Ground GL=0, roof Z=18300; interpreted model shell/floor GL120000/125000 and H23 roofGL223550 (assumed inner floorGL220550) are separate from official150m/250m visitor names. The 24-flight/600-rise staircase is an original schematic arrangement informed by the published approximate 600 steps; route, rises, 260 mm treads and landings are not measured specifications. R04 uses graded built-up H/I appearance chords with unverified sections; braces retain octagonal prisms."
+    },
+    {
+      "zh": "R11将模型GL80–120m主展望台下方的旧整面大X和密集横圈，改为与GL40–80m下段一致的四列交叉格网、横带及竖材。新分带80/93/106/120m、杆件和短接件为照片引导的演示假设，不是原设计的逐杆复原。保留R10整体主脚、拱架与真实开孔，保留上方轮廓、展望台、核心、楼梯和天线。既有节点局部形状不变，其相关构件引用映射到实际存在的连接件。以下R10及更早记录作为历史。",
+      "ja": "R11はモデルGL80–120mの主展望施設下にある旧一面大形X・細かい水平環を、GL40–80m下段と同じ四列の交差格子・横帯・縦材へ置換します。80/93/106/120mの分帯、部材と短い接合材は写真に基づくモデル仮定で、原設計の全材配置の復元ではありません。R10の一体主脚・アーチと実開口、上部輪郭・展望施設・コア・階段・アンテナを保持します。既存接合部の局部形状は保ち、関連材の参照を実在する新接合材へ対応させます。以下のR10以前は履歴です。",
+      "en": "R11 replaces the model GL80–120m full-face X and closely spaced horizontal rings beneath the Main Deck with the same four-column crossed grid, belts and verticals as the GL40–80m lower section. The 80/93/106/120m stations, members and short connectors are photo-guided demonstration assumptions, not a reconstructed original member schedule. R10 gross legs, arches and real openings, upper outline, decks, core, stairs and antenna are retained. Existing node geometry remains; related-member references map to actual new connectors. R10 and earlier descriptions below are historical."
+    },
+    {
+      "zh": "R10修正下部主材的建模层级：每根塔脚及每面拱架按整体组合材表达，取消四根各自带小格构的独立小梁。连续宽盖板与带真实开口的整体腹面形成同一构件，原四角轴仅保留为定位参考。沿用既有塔脚位置、拱口和上部外形控制；宽度、板厚、孔形、缀板与接头均为照片引导的演示假设。这种整体组合材不是一根热轧实心钢材，也未恢复实物隐蔽结构。下面R09及更早说明为历史。",
+      "ja": "R10は下部主材のモデル階層を修正します。各主脚と各面のアーチを一体の組立材で表し、それぞれ小さな格構を持つ四本の独立梁を置換します。連続する広い添板と実開口を持つ腹面が同じ部材を構成し、旧四隅の軸は位置参照のみとして残します。主脚位置・アーチ開口・上部外形の制御を継承しますが、幅・板厚・孔形・綴り板・継手は写真に基づくモデル仮定です。単一の圧延実体鋼材や隠れた実物構造を復元したものではありません。以下のR09以前は履歴です。",
+      "en": "R10 corrects the lower-member modelling hierarchy: each leg and face arch is represented as one built-up assembly, replacing four separate miniature lattice beams. Continuous broad cover plates and webs with real openings belong to the same member; the former four corner axes remain location references. Existing foot locations, arch opening and upper outline controls are retained. Widths, plate thicknesses, openings, battens and joints are photo-guided demonstration assumptions. One built-up assembly does not mean one solid rolled-steel section or a recovered hidden structure. R09 and earlier descriptions below are historical."
+    },
+    {
+      "zh": "R09将下部主材、拱弦及横斜杆的统一H/I或八角实心近似改为连续盖板、角形边缘和矩形缀板/三角缀条的透空组合材。开口是STEP和GLB共有的真实几何；接点处的短隔板维持既有连接。主脚轴线、拱洞、上部塔身、展望台、天线和R08附属构件保持。继承的外包尺寸以及板厚、分格、隔板、截面族分配均为照片参考假设，不能据此判定实物隐蔽构造或钢材规格。以下R08及更早说明为历史记录，不再表示现行下部构件均为H形或箱管。",
+      "ja": "R09は下部主材・アーチ弦材・横斜材の一律なH/I形・八角実体の近似を、連続する添板、山形の縁材、矩形の綴り板または三角形のラチスを持つ組立材に変更します。開口はSTEPとGLBで共通の実形状で、接点の短い隔板は既存の取付部をつなぎます。主脚軸線・大きなアーチ開口・上部塔体・展望施設・アンテナ・R08付属材を保持します。継承した外包寸法、板厚・割付・隔板・断面族の割当ては写真を参考にした仮定です。隠れた面や実物の鋼材規格の復元ではありません。以下のR08以前の記録は履歴であり、現行下部材を一律にH形鋼や箱形鋼管とするものではありません。",
+      "en": "R09 replaces uniform lower H/I-like and octagonal-solid approximations with built-up cover plates, angle-like edges and rectangular battened or triangular laced open webs. Voids are shared native STEP/GLB geometry; short fitted diaphragms retain existing attachment contacts. Leg axes, gross arch openings, upper shaft, decks, antenna and R08 fittings remain. Inherited envelopes, plate thicknesses, subdivisions, diaphragms and family assignments are photo-guided assumptions, not a surveyed hidden-section or steel-grade schedule. Earlier R08 and older descriptions below are historical, not current lower-member H/box-tube classifications."
+    },
+    {
+      "zh": "R08按参考照片减细下部主材及腹杆：主弦截面为R07的0.70，地面宽720→504mm、续接段525→367.5mm，拱架H形外观450×600→320×420mm。主脚轴线、拱顶及拱架轴间深度保持。两展望台之间增加111个独立外挑支架、保守床及圆形设备罩，42处主安装点随实际直线主弦定位。尺寸、方向和布置为照片拟合；照片年代和现用设备表未核定，不分配广播系统名称。下列R07条目保留作历史控制说明；现行断面以R08参数为准。",
+      "ja": "R08は下部の主材・腹材を写真に合わせて細くし、主弦断面をR07の0.70（地上720→504mm、継続部525→367.5mm）、アーチH外観を450×600→320×420mmとします。主脚軸線・アーチ頂部・弦軸間隔は保持。両展望施設間に別名の外挑支架・保守床・円形機器カバー111個を追加し、42の主要取付点を実際の直線主弦へ配置します。寸法・方向・割付は写真近似で、写真年代と現用設備表は未確認。以下のR07記録は履歴で、現行断面はR08の値を参照します。",
+      "en": "R08 reduces lower primary and secondary appearance sections: primary sizes are0.70 of R07 (ground720→504mm, continuation525→367.5mm); arch H appearance450×600→320×420mm. Leg axes, arch crown and chord-axis separation stay fixed.111 separately named outboard brackets, service floors and circular covers are added between the decks, with42 primary mounts following actual straight chords. Dimensions, directions and inventory are photo-guided fits; photo date and current equipment schedule are unverified. The R07 notes below describe retained history; R08 parameters govern current section sizes."
     },
     {
       "zh": "R07将下部四面拱架分为立面内的上下弦杆、三角腹杆与前后连接。主腿组合柱由地面连续延伸至模型GL125m主展望台下，消除80m处的中断；80–125m的525mm主材宽度及组合柱1000→450mm半宽收分属于照片引导的假设，腹杆仍保持较细层次。H3的GL40m及80m塔脚轴距沿用公开控制；拱深、板件截面、节点和分格为拟合。FootTown的48×44m外形、五段立面层高、墙窗比例及屋顶附属体也不是实测平面。特别展望台下的模型GL130–223.55m塔身采用局部单调收分，端部半宽9900/3950mm及两端切线衔接既有轮廓，中间线形为照片拟合；原profile数组仅保留为参考控制。相关支承随实际主材移动，展望台外壳、核心、楼梯、天线及区间外形状保持。",
@@ -3100,6 +3203,30 @@
       "url": "https://www.takenaka.co.jp/solution/asset/project/07/",
       "reference_notes": "The tower has undergone maintenance and strengthening. This appearance study does not reconstruct every original or later connection or certify present-day structural capacity.",
       "checked_on": "2026-10-30"
+    },
+    {
+      "title": "IHI Infra-square・東京タワー施工近景と現場継手の記録",
+      "url": "https://www.ihi.co.jp/iis/en/gallery/historical_structures/index.html",
+      "checked_on": "2026-11-04",
+      "reference_notes": "Contractor history and construction photograph support built-up plates and riveted field splices. Not a complete current member schedule."
+    },
+    {
+      "title": "Nature Architects・東京タワー組立材の現地観察と近景写真",
+      "url": "https://nature-architects.com/blog/1817/",
+      "checked_on": "2026-11-04",
+      "reference_notes": "Engineer-authored first-hand observations and photographs show angle/channel/plate assemblies with rectangular and triangular open webs. Observations are not original fabrication drawings; hidden sections and dimensions are unverified."
+    },
+    {
+      "title": "東京タワー公式・塔体上部写真",
+      "url": "https://www.tokyotower.co.jp/plan/towerpedia/img/img_006.jpg",
+      "checked_on": "2026-11-03",
+      "reference_notes": "Photo-guided outboard arms, small service floors and circular covers. Photo date/current equipment inventory, heights, orientations and section dimensions are not verified."
+    },
+    {
+      "title": "IHI・東京タワー外観写真（TOKYO TOWER提供）",
+      "url": "https://www.ihi.co.jp/technology/techinfo/contents_no/__icsFiles/afieldfile/2024/01/25/09.PNG",
+      "checked_on": "2026-11-03",
+      "reference_notes": "Visual primary/secondary member hierarchy only; no measured lower-leg or arch section schedule is provided."
     }
   ],
   "coordinates": {
@@ -3138,12 +3265,12 @@
   },
   "saved_step": {
     "valid": true,
-    "solids": 6374,
+    "solids": 5381,
     "ground_datum_mm": 0
   },
   "glb_export": {
-    "named_mesh_nodes": 6374,
-    "all_nodes": 6380,
+    "named_mesh_nodes": 5381,
+    "all_nodes": 5387,
     "groups": [
       "base",
       "structure",
@@ -3155,19 +3282,23 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "6d2588328ac0e6fcad2c1c1f882b9afbecc3d7c09c53489e0a529c8dd771bbca",
-    "src/lib/tokyo_tower_detail.py": "c4f5275bbcd67533ee2c755d3f9229e451522a10b62abc426e46737a76805785",
+    "src/lib/tower_geometry.py": "2f8d1870b7688dea1875ebf12f349c4d3474391f40a795061dc9aeb2a1648c51",
+    "src/lib/tokyo_tower_detail.py": "ec56a9b8360e11de27cbb7042d4238ff8eb5c26295937e23884e1a065d7a124c",
     "src/lib/tokyo_tower_steel.py": "77c19f14cf9aa044eb3f560a25b77898ba056d56ce8b1dca82431097d62860df",
-    "src/towers_3d.py": "6d2fcd463eca4c97ab93dfd91f1b14232d459633fb821405676026561242ba13"
+    "src/lib/tokyo_tower_equipment.py": "23b6c5da88e250127f8fb036d485a6cab6ae2520594025e2bb2506cc94fe3865",
+    "src/lib/tokyo_tower_builtup.py": "031c1f70cdec220398f702f644acf90e68fd7e8d830817072b6743312e4a7140",
+    "src/lib/tokyo_tower_integrated.py": "87b731201575b6d83b737c0b964e7b006b33562fcfbe699369fa139bb5ba97c5",
+    "src/lib/tokyo_tower_grid.py": "3e55ce2635b7862b600e7392e3776b8194e1f09092b348e2383d9717391d357e",
+    "src/towers_3d.py": "0efec7f5a88c313379244d9bba8fad4af549a6b1371c1e1b3dda569983fb7065"
   },
   "artifacts": {
     "STEP/tokyo_tower.step": {
-      "bytes": 209182117,
-      "sha256": "e2174921589ab50e14327a84b49301968a1848ade4a7c6f5e9816de7b41ea9c7"
+      "bytes": 442563858,
+      "sha256": "1e68ac438d1bafdc6448e83c410c82780968ab9b23e0f1315f7384ce40e36d1b"
     },
     "GLB/tokyo_tower.glb": {
-      "bytes": 18776856,
-      "sha256": "f1f398b0ea4767f4ea5f103ca1bdc07c02745a69145a0ddbe7fc437ac0e78291"
+      "bytes": 26572292,
+      "sha256": "0b9ebeca19a697f01d3786736b783740f72bc40ef8f56470c846e55bbdda0d71"
     }
   }
 }

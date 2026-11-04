@@ -28,6 +28,11 @@ jobs:
         run: >-
           python -S -m unittest
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_r07_preserves_r06_geometry_outside_requested_appearance
+          checks.test_tokyo_tower_r08.TokyoTowerR08Tests.test_only_explicit_framing_hosts_and_separate_fittings_can_change
+          checks.test_tokyo_tower_r09.TokyoTowerR09Tests.test_only_the_exact_1528_frozen_lower_member_names_can_change
+          checks.test_tokyo_tower_r10.TokyoTowerR10Tests.test_exact_material_replacement_has_52_legs_64_arches_and_no_duplicate_old_members
+          checks.test_tokyo_tower_r10.TokyoTowerR10Tests.test_all_5221_retained_specs_only_change_explicit_alias_references
+          checks.test_tokyo_tower_r11.TokyoTowerR11Tests.test_exact_120_old_grid_members_are_removed_and_all_5217_other_specs_stay_exact
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_preservation_fingerprint_tolerates_machine_tails_and_signed_zero
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_preservation_fingerprint_rejects_coordinate_and_metadata_changes
           -v

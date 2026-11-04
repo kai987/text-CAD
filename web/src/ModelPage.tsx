@@ -1,7 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { RotateCcw, View, X } from 'lucide-react';
-import { asset } from './data';
 import { useModel } from './ModelContext';
 import { useLanguage } from './LanguageContext';
 import { cadComponentLabel } from './cad-component-labels';
@@ -20,11 +19,12 @@ import StructuralOptions from './StructuralOptions';
 import { useStructuralDesign } from './StructuralDesignContext';
 import { cityNames, structuralCopy, structuralDesignUrl, structuralPaths } from './structural-design';
 import type { StructuralOverlayState } from './structural-design';
+import DownloadFile from './DownloadFile';
 
 const ThreeScene = lazy(() => import('./ThreeScene'));
 interface Props { settings: ModelSettings; setSettings: Dispatch<SetStateAction<ModelSettings>> }
 export default function ModelPage({ settings, setSettings }: Props) {
-  const { copy, layout, glb } = useModel();
+  const { copy, layout, glb, data } = useModel();
   const { locale } = useLanguage();
   const { design } = useStructuralDesign();
   const [ready, setReady] = useState(false);
@@ -41,6 +41,7 @@ export default function ModelPage({ settings, setSettings }: Props) {
   const displayLayout = structuralParts ? { ...layout, parts: layout.parts.filter(part =>
     !['structure', 'foundation'].includes(part.group) || structuralParts.includes(part.id)) } : layout;
   const hasVisible = anyVisible(settings, displayLayout);
+  const downloadPath = structuralMode ? structuralPaths(design).glb : glb;
   const componentName = selection ? cadComponentLabel(locale, selection.name, layout.id) : null;
   function selectPart(id: ModelPartId, fit = false) {
     const part = layout.parts.find(p => p.id === id);
@@ -91,7 +92,8 @@ export default function ModelPage({ settings, setSettings }: Props) {
         </div> : null}
         {ready && !hasVisible ? <p className="canvas-message" role="status">{copy.model.empty}</p> : null}
         <div className="canvas-footer"><span>{copy.model.gesture} <span className="desktop-gesture">{copy.model.wheel}</span><span className="mobile-gesture">{copy.model.touch}</span></span>
-          <a href={asset(structuralMode ? structuralPaths(design).glb : glb)} download>{copy.model.downloadGlb}</a></div>
+          <DownloadFile key={downloadPath} compact path={downloadPath} type="GLB" title={copy.model.downloadGlb} detail=""
+            download={copy.model.downloadGlb} locale={locale} revision={data.modelRevision}>{copy.model.downloadGlb}</DownloadFile></div>
       </div>
     </section>
   </div>;

@@ -725,10 +725,10 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "6d2588328ac0e6fcad2c1c1f882b9afbecc3d7c09c53489e0a529c8dd771bbca",
+    "src/lib/tower_geometry.py": "2f8d1870b7688dea1875ebf12f349c4d3474391f40a795061dc9aeb2a1648c51",
     "src/lib/skytree_detail.py": "03181ffd2216fd3f41a3154de7d0a44d570fb26d79d3430b80f614a4b279bbdd",
     "src/lib/skytree_outline.py": "b1ea8dc15ad51db400a3d6897517e128ea9013fddf9ce4e618e8be4e8972cf46",
-    "src/towers_3d.py": "6d2fcd463eca4c97ab93dfd91f1b14232d459633fb821405676026561242ba13"
+    "src/towers_3d.py": "0efec7f5a88c313379244d9bba8fad4af549a6b1371c1e1b3dda569983fb7065"
   },
   "artifacts": {
     "STEP/tokyo_skytree.step": {

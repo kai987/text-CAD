@@ -1,7 +1,7 @@
-import { copyFile, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile, rm, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { validateCadRelease } from './cad-release-validation.mjs';
 import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-validation.mjs';
@@ -51,7 +51,7 @@ export const artifacts = [
   ...apartmentPlans.floors.map(floor => floor.path),
   ...riverArtifacts.paths,
   ...towerArtifacts.paths,
-  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
+  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
   'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
 
@@ -65,12 +65,18 @@ for (const source of artifacts) {
   const transport = artifactTransport(source, bytes);
   Object.assign(manifest, transport.records);
   if (transport.records[source].transport === 'gzip') await rm(out, { force: true });
-  if (transport.records[`${source}.gz`]?.transport === 'chunks') await rm(`${out}.gz`, { force: true });
-  else for (const part of ['001', '002']) await rm(`${out}.gz.part-${part}`, { force: true });
+  if (!transport.records[`${source}.gz`] || transport.records[`${source}.gz`].transport === 'chunks') await rm(`${out}.gz`, { force: true });
+  const chunkPrefix = `${basename(out)}.gz.part-`;
+  for (const oldPart of await readdir(dirname(out))) {
+    if (oldPart.startsWith(chunkPrefix) && /^\d{3}$/.test(oldPart.slice(chunkPrefix.length))) {
+      await rm(resolve(dirname(out), oldPart), { force: true });
+    }
+  }
   for (const [path, payload] of transport.files) await writeFile(resolve(dest, path), payload);
   if (source.endsWith('.glb')) {
     const encoded = transport.records[`${source}.gz`];
-    console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
+    if (encoded) console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
+    else console.log(`${source}: ${bytes.length} raw bytes retained; gzip would not reduce transfer size.`);
     if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
       // Display-only edges are pinned to the exact downloadable model bytes.
       const outlines = await buildStaticOutlines(bytes);

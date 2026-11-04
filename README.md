@@ -15,7 +15,7 @@
 | 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| 东京地标 · 东京塔 R07 / 晴空塔 R05 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R05与来源](docs/tokyo_skytree_R05.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
+| 东京地标 · 东京塔 R11 / 晴空塔 R05 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R05与来源](docs/tokyo_skytree_R05.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
 
 查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
 
@@ -78,9 +78,11 @@ CADGEN_DAEMON=0 .venv/bin/python src/cad_pipeline.py --regenerate
 
 模型选择器新增两个地标，分别使用 `?model=tokyo-tower&view=3d` 和 `?model=tokyo-skytree&view=3d`。支持3D、平面、立面和下载，中日英界面、五类部件显隐和四个标准视角。每塔提供STEP、GLB、三张可编辑DXF和三页A3 PDF；参数、官方依据与示意范围见[三语说明](docs/tokyo_landmarks_R01.md)。这两份是本项目原创的参考外观模型，并非原建筑CAD或实测施工图。
 
-东京塔 [R07 塔脚、拱架与塔身轮廓修正](docs/tokyo_tower_R07.md) 将四组主要支腿从地面连续延伸至主展望台下方，平缓收分并区分主材与腹杆；四面拱架采用立面内分开的上下弦、三角腹杆与局部连接，FootTown调整墙面、开窗和屋顶。模型GL130–223.55m的塔身采用平滑收分拟合，相关杆件及特别展望台下方承托随轮廓调整。R06展望台外壳、楼板、玻璃和屋顶保留，包括48面圆形特别展望台及主台27/28m双层外形；H24环形维护平台、双组共300片环形天线、600级外阶梯和20处钢结构节点也保持。局部轮廓、拱深、截面和建筑细部为照片引导的拟合；历史H23屋顶GL223.55m、假设内部楼板220.55m与官方250m案内值分列。部件数量与保存资产哈希见[清单](output/review/tokyo_tower_manifest.json)，提供三张DXF和三页A3图纸；[R06](docs/tokyo_tower_R06.md)保留为历史说明。
+历史记录：东京塔 [R07 塔脚、拱架与塔身轮廓修正](docs/tokyo_tower_R07.md) 将四组主要支腿从地面连续延伸至主展望台下方，平缓收分并区分主材与腹杆；四面拱架采用立面内分开的上下弦、三角腹杆与局部连接，FootTown调整墙面、开窗和屋顶。模型GL130–223.55m的塔身采用平滑收分拟合，相关杆件及特别展望台下方承托随轮廓调整。R06展望台外壳、楼板、玻璃和屋顶保留，包括48面圆形特别展望台及主台27/28m双层外形；H24环形维护平台、双组共300片环形天线、600级外阶梯和20处钢结构节点也保持。局部轮廓、拱深、截面和建筑细部为照片引导的拟合；历史H23屋顶GL223.55m、假设内部楼板220.55m与官方250m案内值分列。部件数量与保存资产哈希见[清单](output/review/tokyo_tower_manifest.json)，提供三张DXF和三页A3图纸；[R06](docs/tokyo_tower_R06.md)保留为历史说明。
 
 晴空塔 [R05 圆管外周与塔脚格构修正](docs/tokyo_skytree_R05.md) 将外周水平材独立为中空圆管，保留内侧环桁架与放射连接的方管（RHS），并在三面补充宽翼格构，保留中央尖拱开口。杆件圆截面与塔身平面分别处理：约68m底部三角形仍在315m过渡至约32m圆形，上部保留直锥。R04的展望台、回廊、分段天线及TMD外形继续使用；宽翼分格、节点和未公开尺寸仍是照片引导的拟合，未进行结构计算。具名部件数量、保存资产版本及哈希见[清单](output/review/tokyo_skytree_manifest.json)；[R04](docs/tokyo_skytree_R04.md)保留为历史说明。
+
+东京塔当前 [R11 主展望台下方面格网衔接](docs/tokyo_tower_R11.md) 将模型GL80–120m区段续接为与40–80m相同的四列网格，替换旧整面大X与过密短横杆，并在80m边界对齐节点。必要的114m模型支承独立保留；R10整体主脚、拱架和展望台等既有控制继续使用。新增三语“80 m 格网衔接”正面近景，直接查看实际上下网格。分格、截面和接合仍为演示假设，具名部件数以[当前清单](output/review/tokyo_tower_manifest.json)为准。[R10](docs/tokyo_tower_R10.md)、[R09](docs/tokyo_tower_R09.md)及更早说明保留为历史。
 
 <details>
 <summary>模型详细说明、改订历史与Rust开发步骤</summary>

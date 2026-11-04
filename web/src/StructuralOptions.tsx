@@ -8,6 +8,7 @@ import {
   structuralSystems, systemNames,
 } from './structural-design';
 import type { RegulatoryProfiles, StructuralVariants } from './structural-design';
+import DownloadFile from './DownloadFile';
 
 const profiles = createAsyncResourceCache<RegulatoryProfiles>(async path => {
   const response = await fetch(asset(path));
@@ -27,8 +28,10 @@ export function StructuralDownloads() {
   const { design } = useStructuralDesign();
   const paths = structuralPaths(design);
   return <div className="structural-downloads">
-    <a href={asset(paths.glb)} download>{structuralCopy.downloadGlb[locale]}</a>
-    <a href={asset(paths.step)} download>{structuralCopy.downloadStep[locale]}</a>
+    <DownloadFile key={paths.glb} compact path={paths.glb} type="GLB" title={structuralCopy.downloadGlb[locale]} detail=""
+      download={structuralCopy.downloadGlb[locale]} locale={locale} revision={house.modelRevision}>{structuralCopy.downloadGlb[locale]}</DownloadFile>
+    <DownloadFile key={paths.step} compact path={paths.step} type="STEP" title={structuralCopy.downloadStep[locale]} detail=""
+      download={structuralCopy.downloadStep[locale]} locale={locale} revision={house.modelRevision}>{structuralCopy.downloadStep[locale]}</DownloadFile>
     <a href={asset(paths.case)} download>{structuralCopy.downloadCase[locale]}</a>
   </div>;
 }

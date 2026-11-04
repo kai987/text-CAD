@@ -19,11 +19,11 @@ export function isArtifactMetadata(value: unknown): value is ArtifactMetadata {
     && (entry.transport === undefined || entry.transport === 'gzip' || entry.transport === 'chunks')
     && ((entry.decodedBytes === undefined && entry.decodedSha256 === undefined) || hasDecodedIntegrity(entry))
     && (entry.transport === 'chunks'
-      ? hasDecodedIntegrity(entry) && Array.isArray(entry.parts) && entry.parts.length === 2
+      ? hasDecodedIntegrity(entry) && Array.isArray(entry.parts) && entry.parts.length >= 2 && entry.parts.length <= 32
         && entry.parts.every((part, index) => part && typeof part.path === 'string'
           && part.path.endsWith(`.gz.part-${String(index + 1).padStart(3, '0')}`)
           && Number.isSafeInteger(part.bytes) && part.bytes > 0 && hash(part.sha256))
-        && entry.parts[0].path.slice(0, -3) === entry.parts[1].path.slice(0, -3)
+        && entry.parts.every(part => part.path.slice(0, -3) === entry.parts![0].path.slice(0, -3))
         && entry.parts.reduce((total, part) => total + part.bytes, 0) === entry.bytes
       : entry.parts === undefined);
 }

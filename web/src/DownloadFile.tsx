@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { Download } from 'lucide-react';
 import { asset, assetSha256 } from './data';
 import { artifactDownloadRequests } from './asset-url';
@@ -18,9 +19,10 @@ export interface DownloadFileProps {
   download: string; locale: Locale; revision: string;
   metadata?: ArtifactMetadata; compressedStep?: boolean;
   manifest?: ArtifactManifest | null;
+  compact?: boolean; className?: string; children?: ReactNode;
 }
 
-export default function DownloadFile({ path, title, detail, type, download, locale, revision, metadata, manifest, compressedStep = false }: DownloadFileProps) {
+export default function DownloadFile({ path, title, detail, type, download, locale, revision, metadata, manifest, compressedStep = false, compact = false, className, children }: DownloadFileProps) {
   const [state, setState] = useState<DownloadState>({ phase: 'idle' });
   const active = useRef<AbortController | null>(null);
   useEffect(() => () => { active.current?.abort(); active.current = null; }, []);
@@ -74,8 +76,11 @@ export default function DownloadFile({ path, title, detail, type, download, loca
     </span>
     <Download size={20} aria-hidden="true" /><span className="sr-only">{download}</span>
   </>;
-  return <div className="download-file" data-file={path}>
-    {!selected || chunked ? <button type="button" className="download-row" aria-busy={busy} disabled={busy}
+  return <div className="download-file" data-file={path} style={compact ? { display: 'contents' } : undefined}>
+    {compact ? <a className={className} href={href} download aria-busy={busy} aria-disabled={busy || undefined}
+      onClick={event => {
+        event.preventDefault(); void start(gzip && typeof DecompressionStream === 'undefined');
+      }}>{children ?? title}</a> : !selected || chunked ? <button type="button" className="download-row" aria-busy={busy} disabled={busy}
       onClick={() => void start(gzip && typeof DecompressionStream === 'undefined')}>{row}</button>
       : <a className="download-row" href={href} download aria-busy={busy} aria-disabled={busy || undefined} onClick={event => {
       // Preserve the native gzip download on browsers without decompression.
@@ -83,7 +88,7 @@ export default function DownloadFile({ path, title, detail, type, download, loca
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault(); void start();
     }}>{row}</a>}
-    {state.phase !== 'idle' ? <div className="download-status">
+    {state.phase !== 'idle' ? <div className="download-status" style={compact ? { pointerEvents: 'auto', padding: '4px 0', minWidth: 0, maxWidth: 240 } : undefined}>
       {state.phase === 'failed' ? <p role="alert">{downloadErrorText(state.code, state.status, locale)}</p>
         : <p role="status" aria-live="polite">{status}</p>}
       {state.phase === 'downloading' ? <progress aria-label={`${download}: ${title}`} max={state.progress.total ?? undefined}

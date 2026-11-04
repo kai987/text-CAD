@@ -7,9 +7,12 @@ import type { PlanView } from './plan-preview';
 import { useModel } from './ModelContext';
 import { format, roomLabel } from './localization';
 import { getCachedPlanVectors, loadPlanVectors } from './plan-vectors';
+import DownloadFile from './DownloadFile';
+import { useLanguage } from './LanguageContext';
 
 export default function PlanPage({ floor }: { floor: 1 | 2 }) {
   const { copy, data, previews, plans, pdf } = useModel();
+  const { locale } = useLanguage();
   const preview = previews.find(item => item.floor === floor)!;
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<PlanView>('plan');
@@ -61,7 +64,8 @@ export default function PlanPage({ floor }: { floor: 1 | 2 }) {
     <aside className="sidebar plan-sidebar" aria-label={format(copy.plan.sidebar, { floor })}>
       <section><h2>{copy.app.tabs[floor === 1 ? '1f' : '2f']}</h2>
         <p className="drawing-details">{copy.plan.details}</p>
-        <a className="outline-button download-action" href={asset(dxf)} download><Download size={16} />{copy.plan.downloadDxf}</a>
+        <DownloadFile key={dxf} compact className="outline-button download-action" path={dxf} type="DXF" title={copy.plan.downloadDxf} detail=""
+          download={copy.plan.downloadDxf} locale={locale} revision={data.drawingRevision}><Download size={16} />{copy.plan.downloadDxf}</DownloadFile>
         <a className="text-link" href={asset(pdf)} target="_blank" rel="noreferrer">{copy.plan.openPdf}</a>
         <p className="muted-note">{copy.plan.originalNote}</p>
       </section>

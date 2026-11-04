@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
     'tokyo_tower': {'height':333000, 'decks':[125000,223550],
                     'base_dimension':80000, 'name':'東京タワー', 'elevation_scale':1500,
-                    'revision':'LANDMARK-R07'},
+                    'revision':'LANDMARK-R11'},
     'tokyo_skytree': {'height':634000, 'decks':[350000,450000],
                       'roof_levels':[375000],
                       'base_dimension':68000, 'name':'東京スカイツリー', 'elevation_scale':3000,
@@ -91,7 +91,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
                 expected_sources={
                     'src/lib/tower_geometry.py',f'src/lib/{detail_source}.py',
                     'src/generate_tower_plans.py'}
-                if stem=='tokyo_tower':expected_sources.add('src/lib/tokyo_tower_steel.py')
+                if stem=='tokyo_tower':expected_sources.update(['src/lib/tokyo_tower_steel.py','src/lib/tokyo_tower_equipment.py','src/lib/tokyo_tower_builtup.py','src/lib/tokyo_tower_integrated.py','src/lib/tokyo_tower_grid.py'])
                 else:expected_sources.add('src/lib/skytree_outline.py')
                 self.assertEqual(set(metadata['source_sha256']),expected_sources)
                 for section in ('source_sha256','artifacts'):
@@ -160,7 +160,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
         self.assertEqual(detail['paper_bounds_mm'],[257,139,394,195])
         self.assertEqual(detail['source_part_prefix'],'decks:main_')
         self.assertEqual(detail['levels_mm'],[120000,125000])
-        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R07')
+        self.assertEqual(detail['source_geometry_revision'],'LANDMARK-R11')
         self.assertTrue(any(part.startswith('decks:main_') for part in detail['source_parts']))
         self.assertEqual(len(set(detail['source_parts'])),len(detail['source_parts']))
         doc=ezdxf.readfile(ROOT/row['dxf'])
@@ -179,7 +179,7 @@ class TowerSavedDrawingTests(unittest.TestCase):
         text=PdfReader(ROOT/f'output/pdf/{stem}_sheets.pdf').pages[1].extract_text()
         self.assertIn('1:300',text)
         self.assertIn('メインデッキ付近',text)
-        self.assertIn('LANDMARK-R07',text)
+        self.assertIn('LANDMARK-R11',text)
         for label in ('公式案内: メイン150 m / トップ250 m','施工GL',
                       '公式案内値との換算・完成面実測ではない。','独立平面',
                       'H11 27×27 / H12 28×28 m','ST支柱□450','1:400','1:1250'):
@@ -408,6 +408,53 @@ class TowerProjectionTests(unittest.TestCase):
         sys.path.insert(0,str(ROOT/'src'))
         import generate_tower_plans
         cls.module=generate_tower_plans
+
+    def test_built_up_overview_keeps_real_hole_contours_without_tessellation_or_solid_fill(self):
+        from lib.tower_geometry import component_specs
+        parts=component_specs('tokyo-tower')
+        representatives=[next(p for p in parts if p.get('built_up_family')==family)
+                         for family in ('battened','laced')]
+        class Drawing:
+            tower_id='tokyo-tower'
+            view='elevation'
+            def __init__(self):self.contours=[]
+            def poly(self,points,group,**data):self.contours.append((points,data))
+        def key(points):return tuple(sorted(set((round(x,8),round(y,8)) for x,y in points)))
+        for part in representatives:
+            drawing=Drawing();self.module.draw_components(drawing,[part])
+            actual={key(points) for points,_ in drawing.contours}
+            holes=[]
+            for piece in part['pieces']:
+                if piece['kind']!='perforated_plate':continue
+                for loop in piece['holes']:
+                    for offset in ([0,0,0],piece['extrusion']):
+                        projected=[(p[0]+offset[0],p[2]+offset[2]) for p in loop]
+                        if len(key(projected))>=2:holes.append(key(projected))
+            self.assertTrue(holes)
+            self.assertTrue(set(holes)<=actual)
+            self.assertTrue(all(data.get('fill') is None for _,data in drawing.contours))
+            self.assertTrue(all(data['part']==part['name'] for _,data in drawing.contours))
+            self.assertLess(len(drawing.contours),len(self.module._primitive_faces(part)))
+
+    def test_node05_context_uses_plate_boundaries_and_keeps_source_dimensions(self):
+        from lib.tower_geometry import component_specs,geometry_manifest
+        parts=component_specs('tokyo-tower')
+        node=next(n for n in geometry_manifest('tokyo-tower')['steel_nodes'] if n['id']=='TT-N05')
+        drawing=self.module.SteelNodeDrawing('tokyo-tower','steel-nodes',30,(0,0))
+        real_faces=self.module._primitive_faces
+        def node_faces(part):
+            self.assertNotEqual(part['kind'],'built_up','Node context must not expose internal mesh triangulation.')
+            return real_faces(part)
+        with patch.object(self.module,'_primitive_faces',side_effect=node_faces):
+            self.module._add_steel_node_detail(drawing,node,parts,(243,160,395,245),15,0)
+        detail=next(op for op in drawing.operations if op['kind']=='detail' and op['id']=='TT-N05')
+        context=[op for op in detail['operations'] if op.get('color')=='#b7c0c6']
+        self.assertTrue(context)
+        self.assertLess(len(context),250,'Dense internal edges would obscure the node plate.')
+        self.assertEqual(drawing.details[0]['node_part_names'],node['part_names'])
+        for actual,source in zip(drawing.details[0]['feature_dimensions'],node['feature_dimensions']):
+            self.assertEqual(actual['points_mm'],source['points_mm'])
+            self.assertAlmostEqual(actual['measurement_mm'],sqrt(sum((source['points_mm'][1][k]-source['points_mm'][0][k])**2 for k in range(3))),places=6)
 
     def test_sloped_loft3d_projection_preserves_every_real_vertex(self):
         part={'group':'decks','name':'decks:tembo_galleria_projection_fixture','kind':'loft3d',

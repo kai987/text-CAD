@@ -37,8 +37,11 @@ def verify_snapshot(root: Path, release: dict) -> dict:
     """Check an unpublished candidate with exactly the final release's rules."""
     if release.get('schema_version') != 1 or not release.get('validation_commands'):
         raise ValueError('CAD release has no completed validation provenance.')
-    if sorted(release['sources']) != source_paths(root):
-        raise ValueError('CAD source set changed; run src/cad_pipeline.py --regenerate.')
+    actual_sources = source_paths(root)
+    if sorted(release['sources']) != actual_sources:
+        missing = sorted(set(release['sources']) - set(actual_sources))
+        added = sorted(set(actual_sources) - set(release['sources']))
+        raise ValueError(f'CAD source set changed at {root}: missing={missing}, added={added}; run src/cad_pipeline.py --regenerate.')
     for section in ('sources', 'artifacts'):
         for relative, expected in release[section].items():
             path = (root/relative).resolve()

@@ -4,6 +4,8 @@ No CAD runtime is required: small named files exercise the same staging and
 publication paths as the expensive generators.
 """
 from contextlib import ExitStack
+from copy import deepcopy
+import io
 import importlib.util
 import json
 from pathlib import Path
@@ -62,10 +64,45 @@ class ScopedCadPipelineTests(unittest.TestCase):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
 
-    def exercise(self, action=None, tests=None, *, refresh=False):
+    def prepare_native_baseline(self):
+        """Completed release fixture with independently bound native inputs."""
+        self.native_contracts = {}
+        for model, stem, detail in (
+            ('tokyo-tower', 'tokyo_tower', 'src/lib/tokyo_tower_detail.py'),
+            ('tokyo-skytree', 'tokyo_skytree', 'src/lib/skytree_detail.py'),
+        ):
+            step, glb = f'STEP/{stem}.step', f'GLB/{stem}.glb'
+            contract = {'manifest': f'output/review/{stem}_manifest.json',
+                        'artifacts': [step, step + '.json', glb],
+                        'model_artifacts': [step, glb],
+                        'sources': ['src/lib/tower_geometry.py', detail, 'src/towers_3d.py']}
+            self.native_contracts[model] = contract
+            self.write(step, 'original STEP for ' + model)
+            self.write(step + '.json', json.dumps({'occurrences': [model]}))
+            manifest = {'id': model,
+                        'source_sha256': pipeline._hashes(self.root, contract['sources']),
+                        'artifacts': {path: {'bytes': (self.root/path).stat().st_size,
+                                             'sha256': release.digest(self.root/path)}
+                                      for path in contract['model_artifacts']}}
+            self.write(contract['manifest'], json.dumps(manifest))
+        self.baseline['unit_test_commands'] = ['checks/check.py']
+        self.baseline['artifacts'] = pipeline._hashes(self.root, release.artifact_paths(self.root))
+        self.write(release.RELEASE, json.dumps(self.baseline))
+        self.old_gate = (self.root/release.RELEASE).read_bytes()
+
+    def native_snapshot(self, previous=None, models=('tokyo-tower',)):
+        with patch.object(pipeline, 'native_model_contract', side_effect=self.native_contracts.__getitem__):
+            return pipeline.verify_reusable_native_inputs(self.root, self.baseline if previous is None else previous, models)
+
+    def exercise(self, action=None, tests=None, *, refresh=False, drawings_only=False, models=None):
         def generate(commands, *, root):
             if commands != pipeline.VALIDATORS and commands:
-                (root/'GLB/tokyo_tower.glb').write_bytes(b'new tower')
+                if drawings_only:
+                    path = root/'DXF/tokyo_tower_plan.dxf'
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(b'new drawing')
+                else:
+                    (root/'GLB/tokyo_tower.glb').write_bytes(b'new tower')
             if action:
                 action(commands, root)
 
@@ -76,7 +113,10 @@ class ScopedCadPipelineTests(unittest.TestCase):
             stack.enter_context(patch.object(pipeline.importlib.metadata, 'version', return_value='test'))
             stack.enter_context(patch.dict(pipeline.os.environ, {'TEXT_CAD_CJK_FONT': str(self.font)}))
             stack.enter_context(patch.dict(sys.modules, {'cad_release': release}))
-            pipeline.regenerate(tuple(pipeline.MODELS) if refresh else ('tokyo-tower',), refresh=refresh)
+            if drawings_only:
+                stack.enter_context(patch.object(pipeline, 'native_model_contract', side_effect=self.native_contracts.__getitem__))
+            selected = models if models is not None else tuple(pipeline.MODELS) if refresh else ('tokyo-tower',)
+            pipeline.regenerate(selected, refresh=refresh, drawings_only=drawings_only)
 
     def assert_unchanged(self):
         self.assertEqual((self.root/'GLB/tokyo_tower.glb').read_bytes(), b'old tower')
@@ -246,6 +286,183 @@ class ScopedCadPipelineTests(unittest.TestCase):
              patch.object(pipeline, 'regenerate') as generate:
             pipeline.main()
         generate.assert_not_called()
+        self.assert_unchanged()
+
+    def test_drawings_only_selects_only_landmark_drawing_generators(self):
+        self.assertEqual(pipeline.generation_commands(('tokyo-tower',), drawings_only=True),
+                         ['src/generate_tower_plans.py --model tokyo-tower'])
+        self.assertEqual(pipeline.generation_commands(('tokyo-skytree',), drawings_only=True),
+                         ['src/generate_tower_plans.py --model tokyo-skytree'])
+        self.assertEqual(pipeline.generation_commands(('tokyo-tower', 'tokyo-skytree'), drawings_only=True),
+                         ['src/generate_tower_plans.py'])
+        self.assertEqual(pipeline.generation_commands(tuple(pipeline.MODELS), drawings_only=False), pipeline.GENERATORS)
+        for models in ((), ('river',), tuple(pipeline.MODELS), ('tokyo-tower', 'house')):
+            with self.subTest(models=models), self.assertRaisesRegex(ValueError, 'nonempty selection'):
+                pipeline.generation_commands(models, drawings_only=True)
+
+    def test_drawings_only_preserves_native_bytes_and_runs_all_candidate_checks(self):
+        self.prepare_native_baseline()
+        original = self.native_snapshot()
+        commands_run, candidates = [], []
+        def inspect(snapshot, *, root):
+            self.assert_unchanged()
+            self.assertFalse((root/release.RELEASE).exists())
+            self.assertEqual(snapshot['reused_native_artifacts'], original['artifacts'])
+            pipeline.guard_reused_native_inputs(root, original)
+            release.verify_snapshot(root, snapshot)
+            candidates.append(snapshot)
+        self.exercise(action=lambda commands, root: commands_run.append(commands), tests=inspect, drawings_only=True)
+        self.assertEqual(commands_run, [['src/generate_tower_plans.py --model tokyo-tower'], pipeline.VALIDATORS])
+        self.assertEqual(len(candidates), 1)
+        candidate = json.loads((self.root/release.RELEASE).read_text())
+        self.assertEqual(candidate['operation'], 'staged_drawings_regeneration')
+        self.assertIs(candidate['drawings_only'], True)
+        self.assertEqual(candidate['reused_native_sources'], original['sources'])
+        self.assertEqual(candidate['reused_native_artifacts'], original['artifacts'])
+        self.assertEqual((self.root/'DXF/tokyo_tower_plan.dxf').read_bytes(), b'new drawing')
+        for path, expected in original['artifacts'].items():
+            self.assertEqual(release.digest(self.root/path), expected, path)
+        release.verify(self.root)
+
+    def test_drawings_only_can_reuse_both_native_models_for_a_shared_drawing_fix(self):
+        self.prepare_native_baseline()
+        self.write('src/generate_tower_plans.py', '# shared drawing fix\nfrom lib.tower_geometry import catalog\n')
+        models = ('tokyo-tower', 'tokyo-skytree')
+        snapshot = self.native_snapshot(models=models)
+        self.assertEqual(len(snapshot['artifacts']), 8)
+        self.exercise(drawings_only=True, models=models)
+        candidate = json.loads((self.root/release.RELEASE).read_text())
+        self.assertEqual(candidate['generation_commands'], ['src/generate_tower_plans.py'])
+        self.assertEqual(candidate['reused_native_artifacts'], snapshot['artifacts'])
+
+    def test_drawings_only_rejects_geometry_and_native_exporter_source_drift(self):
+        self.prepare_native_baseline()
+        for name in self.native_contracts['tokyo-tower']['sources']:
+            original = (self.root/name).read_bytes()
+            try:
+                (self.root/name).write_bytes(original + b'\n# modified native source\n')
+                with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'Native source differs'):
+                    self.native_snapshot()
+            finally:
+                (self.root/name).write_bytes(original)
+        self.assert_unchanged()
+
+    def test_drawings_only_rejects_native_step_glb_sidecar_and_manifest_drift(self):
+        self.prepare_native_baseline()
+        snapshot = self.native_snapshot()
+        for name in snapshot['artifacts']:
+            original = (self.root/name).read_bytes()
+            try:
+                (self.root/name).write_bytes(original + b'\nchanged\n')
+                with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'Native artifact differs'):
+                    self.native_snapshot()
+            finally:
+                (self.root/name).write_bytes(original)
+        self.assert_unchanged()
+
+    def test_drawings_only_rejects_missing_sidecars_and_incomplete_previous_release(self):
+        self.prepare_native_baseline()
+        previous = deepcopy(self.baseline)
+        previous.pop('unit_test_commands')
+        with self.assertRaisesRegex(ValueError, 'completed previous CAD release'):
+            self.native_snapshot(previous)
+        (self.root/'STEP/tokyo_tower.step.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'Cannot reuse native inputs'):
+            self.native_snapshot()
+
+    def test_drawings_only_requires_exact_cached_source_and_artifact_bindings(self):
+        self.prepare_native_baseline()
+        path = self.native_contracts['tokyo-tower']['manifest']
+        original = json.loads((self.root/path).read_text())
+        cases = []
+        for mutation in ('extra_source', 'missing_source', 'wrong_source_hash', 'extra_artifact',
+                         'missing_artifact', 'wrong_artifact_hash', 'wrong_artifact_bytes', 'wrong_id'):
+            manifest = deepcopy(original)
+            if mutation == 'extra_source': manifest['source_sha256']['src/extra.py'] = '0'*64
+            elif mutation == 'missing_source': manifest['source_sha256'].pop('src/towers_3d.py')
+            elif mutation == 'wrong_source_hash': manifest['source_sha256']['src/towers_3d.py'] = '0'*64
+            elif mutation == 'extra_artifact': manifest['artifacts']['STEP/other.step'] = {}
+            elif mutation == 'missing_artifact': manifest['artifacts'].pop('GLB/tokyo_tower.glb')
+            elif mutation == 'wrong_artifact_hash': manifest['artifacts']['GLB/tokyo_tower.glb']['sha256'] = '0'*64
+            elif mutation == 'wrong_artifact_bytes': manifest['artifacts']['GLB/tokyo_tower.glb']['bytes'] += 1
+            elif mutation == 'wrong_id': manifest['id'] = 'tokyo-skytree'
+            cases.append((mutation, manifest))
+        for mutation, manifest in cases:
+            # A trusted release hash alone must not bypass inconsistent cached
+            # model bindings. Construct that prior-release fixture explicitly.
+            self.write(path, json.dumps(manifest))
+            previous = deepcopy(self.baseline)
+            previous['artifacts'][path] = release.digest(self.root/path)
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, 'Native model'):
+                self.native_snapshot(previous)
+
+    def test_drawings_only_stage_guard_rejects_all_reused_input_mutations(self):
+        self.prepare_native_baseline()
+        snapshot = self.native_snapshot()
+        with pipeline.staged_tree(self.root) as stage:
+            pipeline.guard_reused_native_inputs(stage, snapshot)
+            for name in [*snapshot['artifacts'], *snapshot['sources']]:
+                original = (stage/name).read_bytes()
+                try:
+                    (stage/name).write_bytes(original + b'\nstaged mutation\n')
+                    with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'changed during staging'):
+                        pipeline.guard_reused_native_inputs(stage, snapshot)
+                finally:
+                    (stage/name).write_bytes(original)
+        self.assert_unchanged()
+
+    def test_drawings_only_generator_cannot_modify_reused_native_artifacts(self):
+        self.prepare_native_baseline()
+        def mutate(commands, root):
+            if commands != pipeline.VALIDATORS:
+                (root/'STEP/tokyo_tower.step.json').write_bytes(b'new sidecar')
+        with self.assertRaisesRegex(ValueError, 'changed during staging'):
+            self.exercise(action=mutate, drawings_only=True)
+        self.assert_unchanged()
+        self.assertFalse((self.root/'DXF/tokyo_tower_plan.dxf').exists())
+
+    def test_drawings_only_validator_and_shared_unit_cannot_mutate_reused_native(self):
+        self.prepare_native_baseline()
+        def mutate_validator(commands, root):
+            if commands == pipeline.VALIDATORS:
+                (root/'GLB/tokyo_tower.glb').write_bytes(b'changed after drawing generation')
+        with self.assertRaisesRegex(ValueError, 'changed during staging'):
+            self.exercise(action=mutate_validator, drawings_only=True)
+        self.assert_unchanged()
+        def mutate_unit(_snapshot, *, root):
+            (root/'output/review/tokyo_tower_manifest.json').write_bytes(b'changed by test')
+        with self.assertRaisesRegex(ValueError, 'changed during staging'):
+            self.exercise(tests=mutate_unit, drawings_only=True)
+        self.assert_unchanged()
+
+    def test_drawings_only_cannot_add_an_unbound_native_output(self):
+        self.prepare_native_baseline()
+        def add_native(commands, root):
+            if commands != pipeline.VALIDATORS:
+                (root/'STEP/tokyo_tower_extra.step').write_bytes(b'unexpected native output')
+        with self.assertRaisesRegex(ValueError, 'changed a native output'):
+            self.exercise(action=add_native, drawings_only=True)
+        self.assert_unchanged()
+        self.assertFalse((self.root/'STEP/tokyo_tower_extra.step').exists())
+
+    def test_drawings_only_cli_rejects_other_operations_and_nonlandmark_selections(self):
+        for args in (['--validate', '--drawings-only'], ['--refresh-validation', '--drawings-only'],
+                     ['--regenerate', '--drawings-only'], ['--regenerate', '--drawings-only', '--model', 'all'],
+                     ['--regenerate', '--drawings-only', '--model', 'river']):
+            with self.subTest(args=args), patch.object(sys, 'argv', ['cad_pipeline.py', *args]), \
+                 patch('sys.stderr', new=io.StringIO()), self.assertRaises(SystemExit) as raised:
+                pipeline.main()
+            self.assertEqual(raised.exception.code, 2)
+
+    def test_drawings_only_dry_run_skips_reuse_and_generation(self):
+        output = io.StringIO()
+        with patch.object(sys, 'argv', ['cad_pipeline.py', '--regenerate', '--drawings-only',
+                                        '--model', 'tokyo-tower', '--dry-run']), \
+             patch.object(pipeline, 'regenerate') as generate, patch('sys.stdout', new=output):
+            pipeline.main()
+        generate.assert_not_called()
+        record = json.loads(output.getvalue())
+        self.assertEqual(record['generation_commands'], ['src/generate_tower_plans.py --model tokyo-tower'])
         self.assert_unchanged()
 
 

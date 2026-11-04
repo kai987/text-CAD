@@ -143,7 +143,7 @@ class CadPipelineTests(unittest.TestCase):
         with patch.object(pipeline, 'regenerate') as regenerate, \
              patch.object(sys, 'argv', ['cad_pipeline.py', '--regenerate', '--model', 'tokyo-tower']):
             pipeline.main()
-        regenerate.assert_called_once_with(('tokyo-tower',), refresh=False)
+        regenerate.assert_called_once_with(('tokyo-tower',), refresh=False, drawings_only=False)
 
     def test_validate_runs_tests_and_never_rewrites_gate(self):
         original = self.gate.read_bytes()
@@ -172,14 +172,20 @@ class CadPipelineTests(unittest.TestCase):
         self.assertIn('checks/test_upper_layout.py', pipeline.UNIT_TESTS)
         self.assertIn('analysis/test_house_review.py', pipeline.UNIT_TESTS)
         self.assertEqual(len(pipeline.UNIT_TESTS), len(set(pipeline.UNIT_TESTS)))
-        with patch.object(pipeline.subprocess, 'run') as command:
+        groups = [[p for p in pipeline.UNIT_TESTS if not p.startswith('analysis/')],
+                  [p for p in pipeline.UNIT_TESTS if p.startswith('analysis/')]]
+        with patch.object(pipeline.subprocess, 'run') as command, \
+             patch.object(pipeline, 'verify_snapshot') as guard:
             pipeline.run_unit_tests()
-            self.assertEqual(command.call_args.args[0],
-                             [sys.executable, '-m', 'unittest', *pipeline.UNIT_TESTS, '-v'])
+            self.assertEqual([call.args[0] for call in command.call_args_list],
+                             [[sys.executable, '-m', 'unittest', *group, '-v'] for group in groups])
+            command.reset_mock()
             pipeline.run_unit_tests({'candidate': 'snapshot'})
-            self.assertEqual(command.call_args.args[0][3:],
-                             [path.removesuffix('.py').replace('/', '.') for path in pipeline.UNIT_TESTS])
-            self.assertEqual(json.loads(command.call_args.kwargs['input']), {'candidate': 'snapshot'})
+            self.assertEqual([call.args[0][3:] for call in command.call_args_list],
+                             [[path.removesuffix('.py').replace('/', '.') for path in group] for group in groups])
+            for call in command.call_args_list:
+                self.assertEqual(json.loads(call.kwargs['input']), {'candidate': 'snapshot'})
+            self.assertEqual(guard.call_count, 4)
 
 
 if __name__ == '__main__':

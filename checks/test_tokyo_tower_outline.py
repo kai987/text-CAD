@@ -19,6 +19,9 @@ class TokyoShaftOutlineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.p=deepcopy(TOWERS['tokyo-tower'])
+        # Isolate the R07 shaft-fit contract. Full R08 mounts have their own
+        # independent immutable-host and native-contact checks.
+        cls.p['detail'].pop('upper_equipment',None)
         cls.p['detail']['upper_shaft_outline']=deepcopy(UPPER_SHAFT_OUTLINE_DEFAULTS)
         cls.c=cls.p['detail']['upper_shaft_outline']
         cls.off=deepcopy(cls.p);cls.off['detail']['upper_shaft_outline']['enabled']=False

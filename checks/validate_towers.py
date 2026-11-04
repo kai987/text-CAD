@@ -125,7 +125,7 @@ def validate(root=ROOT):
                       for a, b in zip(primitive['bounds'], target)))
             materials = document.get('materials', [])
             check(prefix + 'visible_materials', bool(materials))
-            if revision in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06','LANDMARK-R07'):
+            if revision in ('LANDMARK-R02','LANDMARK-R03','LANDMARK-R04','LANDMARK-R05','LANDMARK-R06','LANDMARK-R07','LANDMARK-R08','LANDMARK-R09','LANDMARK-R10','LANDMARK-R11'):
                 specs = {part['name']: part for part in component_specs(tower_id)}
                 saved_meshes = {mesh['name']: mesh for mesh in document['meshes']}
                 saved_nodes = {node.get('name'): node for node in document['nodes'] if 'mesh' in node}
@@ -134,7 +134,7 @@ def validate(root=ROOT):
                     role = spec.get('role')
                     if role is not None:
                         check(prefix + name + ':saved_role', saved_nodes.get(name, {}).get('extras', {}).get('landmarkRole') == role)
-                    if tower_id=='tokyo-skytree' or revision in ('LANDMARK-R05','LANDMARK-R06','LANDMARK-R07'):
+                    if tower_id=='tokyo-skytree' or revision in ('LANDMARK-R05','LANDMARK-R06','LANDMARK-R07','LANDMARK-R08','LANDMARK-R09','LANDMARK-R10','LANDMARK-R11'):
                         check(prefix+name+':saved_primitive',saved_nodes.get(name,{}).get('extras',{}).get('landmarkPrimitive')==spec['kind'])
                         expected_volume=None
                         if spec['kind']=='tube':

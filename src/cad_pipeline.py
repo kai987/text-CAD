@@ -15,7 +15,7 @@ import subprocess
 import sys
 import tempfile
 from zoneinfo import ZoneInfo
-from cad_release import ROOT, RELEASE, artifact_paths, digest, source_paths, verify
+from cad_release import ROOT, RELEASE, artifact_paths, digest, source_paths, verify, verify_snapshot
 
 GENERATORS = ['src/generate_redesign_plans.py', 'src/generate_attic_plan.py',
               'src/generate_structure_plan.py', 'src/generate_site_plan.py',
@@ -37,7 +37,7 @@ UNIT_TESTS = ['checks/test_cad_release.py', 'checks/test_cad_pipeline.py', 'chec
               'checks/test_attic_layout.py', 'checks/test_upper_layout.py',
               'checks/test_river_geometry.py',
               'checks/test_river_validation.py', 'checks/test_tower_drawings.py',
-              'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_tokyo_tower_base.py', 'checks/test_tokyo_tower_outline.py', 'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py', 'checks/test_tower_tubular.py',
+              'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_tokyo_tower_base.py', 'checks/test_tokyo_tower_outline.py', 'checks/test_tokyo_tower_r08.py', 'checks/test_tokyo_tower_r09.py', 'checks/test_tokyo_tower_r10.py', 'checks/test_tokyo_tower_r11.py', 'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py', 'checks/test_tower_tubular.py',
               'analysis/test_house_review.py']
 
 # The analysis tests call the freshness gate. Verify their inputs against the
@@ -64,9 +64,14 @@ _OUTPUT_ROOTS = ('DXF', 'STEP', 'GLB', 'output/pdf', 'output/svg',
 _VALIDATION_ONLY = {'src/cad_pipeline.py', 'src/cad_release.py'}
 
 
-def generation_commands(models: tuple[str, ...]) -> list[str]:
+def generation_commands(models: tuple[str, ...], *, drawings_only: bool = False) -> list[str]:
     """Select complete model outputs; shared validators always run afterward."""
     selected = set(models)
+    if drawings_only:
+        if not selected or not selected.issubset(MODELS[-2:]):
+            raise ValueError('--drawings-only requires a nonempty selection of Tokyo landmark models.')
+        towers = [model for model in MODELS[-2:] if model in selected]
+        return ['src/generate_tower_plans.py' + (f' --model {towers[0]}' if len(towers) == 1 else '')]
     commands = []
     for path in GENERATORS:
         if path in GENERATORS[:7] or path == 'web/scripts/generate-plan-svg.py':
@@ -145,6 +150,79 @@ def _hashes(root: Path, paths: list[str]) -> dict[str, str]:
     return {path: digest(root/path) for path in paths}
 
 
+def native_model_contract(model: str) -> dict:
+    """Use the model's authoritative source list, never its cached metadata."""
+    from lib.tower_geometry import TOWERS, geometry_source_paths
+    stem = TOWERS[model]['file_stem']
+    step, glb = f'STEP/{stem}.step', f'GLB/{stem}.glb'
+    return {'manifest': f'output/review/{stem}_manifest.json',
+            'artifacts': [step, step + '.json', glb],
+            'model_artifacts': [step, glb],
+            'sources': [*geometry_source_paths(model), 'src/towers_3d.py']}
+
+
+def verify_reusable_native_inputs(root: Path, previous: dict, models: tuple[str, ...]) -> dict:
+    """Authenticate existing native inputs against the completed release.
+
+    This mode cannot repair/rebind a manifest or regenerate a native model.
+    Geometry, exporter, native bytes, sidecars and the model manifest itself
+    must all be unchanged. Only drawing sources/outputs may be regenerated.
+    """
+    generation_commands(models, drawings_only=True)  # Validate even direct callers.
+    if (previous.get('schema_version') != 1 or not previous.get('validation_commands')
+            or not previous.get('unit_test_commands')
+            or not isinstance(previous.get('sources'), dict)
+            or not isinstance(previous.get('artifacts'), dict)):
+        raise ValueError('A completed previous CAD release is required to reuse native artifacts.')
+    result = {'artifacts': {}, 'sources': {}}
+    for model in models:
+        contract = native_model_contract(model)
+        paths = [contract['manifest'], *contract['artifacts']]
+        try:
+            artifacts = _hashes(root, paths)
+            sources = _hashes(root, contract['sources'])
+        except (OSError, ValueError) as error:
+            raise ValueError(f'Cannot reuse native inputs for {model}: {error}') from error
+        for path, actual in artifacts.items():
+            if previous['artifacts'].get(path) != actual:
+                raise ValueError(f'Native artifact differs from the completed release: {path}')
+        for path, actual in sources.items():
+            if previous['sources'].get(path) != actual:
+                raise ValueError(f'Native source differs from the completed release: {path}')
+        manifest = json.loads((root/contract['manifest']).read_text())
+        if manifest.get('id') != model:
+            raise ValueError(f'Native model identity does not match {model}.')
+        bindings = manifest.get('source_sha256')
+        if not isinstance(bindings, dict) or set(bindings) != set(contract['sources']):
+            raise ValueError(f'Native model source binding catalog differs: {model}')
+        for path, actual in sources.items():
+            if bindings[path] != actual:
+                raise ValueError(f'Native model source binding differs: {path}')
+        records = manifest.get('artifacts')
+        if not isinstance(records, dict) or set(records) != set(contract['model_artifacts']):
+            raise ValueError(f'Native model artifact binding catalog differs: {model}')
+        for path in contract['model_artifacts']:
+            expected = {'bytes': (root/path).stat().st_size, 'sha256': artifacts[path]}
+            if records[path] != expected:
+                raise ValueError(f'Native model artifact binding differs: {path}')
+        result['artifacts'].update(artifacts)
+        result['sources'].update(sources)
+    return result
+
+
+def guard_reused_native_inputs(root: Path, snapshot: dict) -> None:
+    """A drawing generator/validator/test may not change a reused input."""
+    for section in ('artifacts', 'sources'):
+        expected = snapshot[section]
+        try:
+            current = _hashes(root, list(expected))
+        except (OSError, ValueError) as error:
+            raise ValueError(f'Reused native inputs changed during staging: {error}') from error
+        for path, actual in current.items():
+            if actual != expected[path]:
+                raise ValueError(f'Reused native inputs changed during staging: {path}')
+
+
 def check_scope(root: Path, previous: dict, models: tuple[str, ...], *, refresh: bool = False) -> None:
     """Never rebind a source change whose generated consumers were not selected."""
     if previous.get('schema_version') != 1 or not previous.get('validation_commands'):
@@ -183,10 +261,11 @@ def _output_paths(root: Path) -> list[str]:
 
 
 @contextmanager
-def staged_tree(root: Path):
-    """Copy inputs, never hard-link writable CAD files into the live preview."""
-    with tempfile.TemporaryDirectory(prefix='text-cad-stage-') as temporary:
-        stage = Path(temporary)
+def staged_tree(root: Path, *, keep_failed: bool = False):
+    """Copy inputs, retaining failed generation candidates for diagnosis."""
+    stage = Path(tempfile.mkdtemp(prefix='text-cad-stage-'))
+    completed = False
+    try:
         for name in ('src', 'checks', 'analysis', 'references', 'rust', 'docs',
                      'DXF', 'STEP', 'GLB', 'output', 'web/scripts', 'web/src'):
             source = root/name
@@ -197,6 +276,12 @@ def staged_tree(root: Path):
             if (root/name).is_file():
                 shutil.copy2(root/name, stage/name)
         yield stage
+        completed = True
+    finally:
+        if completed or not keep_failed:
+            shutil.rmtree(stage, ignore_errors=True)
+        else:
+            print(f'CAD candidate retained after failure: {stage}', file=sys.stderr, flush=True)
 
 
 def _replace_bytes(path: Path, source: Path) -> None:
@@ -254,16 +339,26 @@ def run(paths: list[str], *, root: Path | None = None) -> None:
 
 def run_unit_tests(snapshot: dict | None = None, *, root: Path | None = None) -> None:
     root = ROOT if root is None else root
-    print('CAD pipeline: Python unit tests', flush=True)
-    if snapshot is None:
-        command = [sys.executable, '-m', 'unittest', *UNIT_TESTS, '-v']
-        kwargs = {}
-    else:
-        names = [path.removesuffix('.py').replace('/', '.') for path in UNIT_TESTS]
-        command = [sys.executable, '-c', _CANDIDATE_TEST_RUNNER, *names]
-        kwargs = {'input': json.dumps(snapshot), 'text': True}
-    subprocess.run(command, cwd=root, check=True,
-                   env={**os.environ, 'CADGEN_DAEMON': '0'}, **kwargs)
+    # Keep provenance analysis independent of native CAD kernels and mutable
+    # fixture imports. Both processes verify the same unpublished candidate.
+    groups = [('CAD', [p for p in UNIT_TESTS if not p.startswith('analysis/')]),
+              ('analysis', [p for p in UNIT_TESTS if p.startswith('analysis/')])]
+    for label, tests in groups:
+        if not tests:
+            continue
+        print(f'CAD pipeline: Python {label} unit tests', flush=True)
+        if snapshot is None:
+            command = [sys.executable, '-m', 'unittest', *tests, '-v']
+            kwargs = {}
+        else:
+            verify_snapshot(root, snapshot)
+            names = [path.removesuffix('.py').replace('/', '.') for path in tests]
+            command = [sys.executable, '-c', _CANDIDATE_TEST_RUNNER, *names]
+            kwargs = {'input': json.dumps(snapshot), 'text': True}
+        subprocess.run(command, cwd=root, check=True,
+                       env={**os.environ, 'CADGEN_DAEMON': '0'}, **kwargs)
+        if snapshot is not None:
+            verify_snapshot(root, snapshot)
 
 
 def build_release(root: Path, commands: list[str], models: tuple[str, ...], *, refresh: bool = False) -> dict:
@@ -286,20 +381,31 @@ def build_release(root: Path, commands: list[str], models: tuple[str, ...], *, r
     }
 
 
-def regenerate(models: tuple[str, ...], *, refresh: bool = False) -> None:
+def regenerate(models: tuple[str, ...], *, refresh: bool = False, drawings_only: bool = False) -> None:
     root = ROOT
+    if drawings_only and refresh:
+        raise ValueError('--drawings-only applies only to --regenerate.')
     previous = json.loads((root/RELEASE).read_text()) if (root/RELEASE).is_file() else None
+    reused_native = verify_reusable_native_inputs(root, previous or {}, models) if drawings_only else None
     if refresh or set(models) != set(MODELS):
         check_scope(root, previous or {}, models, refresh=refresh)
     source_snapshot = _hashes(root, source_paths(root))
     output_snapshot = _hashes(root, _output_paths(root))
     gate_snapshot = (root/RELEASE).read_bytes() if (root/RELEASE).is_file() else None
-    commands = [] if refresh else generation_commands(models)
-    with staged_tree(root) as stage:
+    commands = [] if refresh else generation_commands(models, drawings_only=drawings_only)
+    with staged_tree(root, keep_failed=True) as stage:
         (stage/RELEASE).unlink(missing_ok=True)
         run(commands, root=stage)
+        if reused_native is not None:
+            guard_reused_native_inputs(stage, reused_native)
         run(VALIDATORS, root=stage)
+        if reused_native is not None:
+            guard_reused_native_inputs(stage, reused_native)
         candidate = build_release(stage, commands, models, refresh=refresh)
+        if reused_native is not None:
+            candidate.update(operation='staged_drawings_regeneration', drawings_only=True,
+                             reused_native_artifacts=reused_native['artifacts'],
+                             reused_native_sources=reused_native['sources'])
         if refresh:
             # These bytes were authored previously. Retain their generation
             # timestamp/toolchain/commands; record this runner as validation.
@@ -311,6 +417,8 @@ def regenerate(models: tuple[str, ...], *, refresh: bool = False) -> None:
                                                             'selected_models', 'sources', 'artifacts')}}
             candidate.setdefault('generation_commands', [])
         run_unit_tests(candidate, root=stage)
+        if reused_native is not None:
+            guard_reused_native_inputs(stage, reused_native)
         from cad_release import verify_snapshot
         verify_snapshot(stage, candidate)
         # Editors may keep working while an expensive export runs. Never
@@ -327,6 +435,10 @@ def regenerate(models: tuple[str, ...], *, refresh: bool = False) -> None:
                    if output_snapshot.get(path) != digest(stage/path)]
         if refresh and changed:
             raise ValueError(f'Validation refresh changed CAD output: {changed[0]}')
+        if drawings_only:
+            for path in changed:
+                if path.startswith(('STEP/', 'GLB/')):
+                    raise ValueError(f'Drawings-only generation changed a native output: {path}')
         if not refresh:
             for path in changed:
                 if artifact_model(path) not in models:
@@ -342,15 +454,20 @@ def main() -> None:
     parser.add_argument('--validate', action='store_true', help='Verify provenance first, then validate saved CAD; never bless modified inputs.')
     parser.add_argument('--refresh-validation', action='store_true', help='Revalidate unchanged saved CAD after pipeline/check-only changes; generation and analysis changes are rejected.')
     parser.add_argument('--model', choices=['all', *MODELS], action='append', help='Model to regenerate; repeat for shared dependencies. Default: all.')
+    parser.add_argument('--drawings-only', action='store_true', help='Regenerate selected Tokyo landmark drawings, reusing strictly verified unchanged native artifacts.')
     parser.add_argument('--dry-run', action='store_true', help='Print selected generation commands without changing any files.')
     args = parser.parse_args()
     if sum((args.regenerate, args.validate, args.refresh_validation)) != 1:
         parser.error('Choose exactly one of --regenerate, --validate or --refresh-validation.')
     if (args.model or args.dry_run) and not args.regenerate:
         parser.error('--model and --dry-run apply only to --regenerate.')
+    if args.drawings_only and not args.regenerate:
+        parser.error('--drawings-only applies only to --regenerate.')
     models = tuple(MODELS if not args.model or 'all' in args.model else [model for model in MODELS if model in args.model])
+    if args.drawings_only and (not models or not set(models).issubset(MODELS[-2:])):
+        parser.error('--drawings-only requires --model tokyo-tower and/or --model tokyo-skytree.')
     if args.dry_run:
-        print(json.dumps({'models': models, 'generation_commands': generation_commands(models),
+        print(json.dumps({'models': models, 'generation_commands': generation_commands(models, drawings_only=args.drawings_only),
                           'validation_commands': VALIDATORS, 'staged': True}, ensure_ascii=False, indent=2))
         return
     if args.validate:
@@ -358,7 +475,7 @@ def main() -> None:
         run(VALIDATORS)
         run_unit_tests()
         return
-    regenerate(models, refresh=args.refresh_validation)
+    regenerate(models, refresh=args.refresh_validation, drawings_only=args.drawings_only)
 
 
 if __name__ == '__main__':

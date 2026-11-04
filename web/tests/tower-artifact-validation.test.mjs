@@ -4,9 +4,17 @@ import { createHash } from 'node:crypto';
 import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
-import { towerCatalog, towerPaths, validateTowerArtifacts } from '../scripts/tower-artifact-validation.mjs';
+import { towerCatalog, towerPaths, validateTowerArtifacts, hasStepContainerMarkers } from '../scripts/tower-artifact-validation.mjs';
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+test('STEP container markers are checked as binary bytes without whole-file string conversion', () => {
+  const step = Buffer.concat([Buffer.from('ISO-10303-21;\nDATA;'), Buffer.from([0, 255, 128]), Buffer.from('\nEND-ISO-10303-21;')]);
+  step.toString = () => { throw new Error('Whole-file string conversion exceeds the native CAD size budget.'); };
+  assert.equal(hasStepContainerMarkers(step), true);
+  for (const invalid of [Buffer.alloc(0), Buffer.from('not a STEP END-ISO-10303-21;'), Buffer.from('ISO-10303-21;'), 'ISO-10303-21;END-ISO-10303-21;']) {
+    assert.equal(hasStepContainerMarkers(invalid), false);
+  }
+});
 async function fixture(t) {
   const root = await mkdtemp(resolve(tmpdir(), 'tower-publication-'));
   t.after(() => rm(root, { recursive: true, force: true }));
@@ -15,7 +23,7 @@ async function fixture(t) {
     await writeFile(resolve(root, path), value);
   };
   const source = "raise RuntimeError('Publication must not execute CAD sources')\n";
-  for (const path of ['src/lib/tower_geometry.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py']) await save(path, source);
+  for (const path of ['src/lib/tower_geometry.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py']) await save(path, source);
   const records = [];
   async function bind(metadata, paths) {
     metadata.artifacts = {};
@@ -120,15 +128,15 @@ test('all three independently referenced elevation levels are required', async t
 });
 
 // The two towers have independent release revisions and height conventions.
-test('R07 Tokyo models and drawings reject old R06, R05, R04, R03 and R02 independently', async t => {
+test('R11 Tokyo models and drawings reject old R10 through R02 independently', async t => {
   const { root, records, saveMetadata } = await fixture(t);
   assert.equal(records[1].manifest.revision,'LANDMARK-R05');
   for (const metadata of [records[0].manifest, records[0].drawings]) {
-    for (const stale of ['LANDMARK-R06','LANDMARK-R05','LANDMARK-R04','LANDMARK-R03','LANDMARK-R02']) {
+    for (const stale of ['LANDMARK-R10','LANDMARK-R09','LANDMARK-R08','LANDMARK-R07','LANDMARK-R06','LANDMARK-R05','LANDMARK-R04','LANDMARK-R03','LANDMARK-R02']) {
       metadata.revision=stale; await saveMetadata();
       await assert.rejects(validateTowerArtifacts(root), /Invalid landmark reference scope/);
     }
-    metadata.revision='LANDMARK-R07'; await saveMetadata();
+    metadata.revision='LANDMARK-R11'; await saveMetadata();
   }
   await validateTowerArtifacts(root);
 });
@@ -138,10 +146,117 @@ test('changing the Tokyo detail module invalidates its own generation binding', 
   await assert.rejects(validateTowerArtifacts(root), /Stale tower source/);
 });
 
+test('Tokyo equipment source is retained in R11 model and drawing bindings independently', async t => {
+  const { root, records, saveMetadata } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_equipment.py';
+  assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-tower').sources,
+    ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', path, 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py']);
+  for (const metadata of [records[0].manifest, records[0].drawings]) {
+    const expected = metadata.source_sha256[path];
+    assert.match(expected, /^[a-f0-9]{64}$/);
+    delete metadata.source_sha256[path];
+    await saveMetadata();
+    await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
+    metadata.source_sha256[path] = expected;
+    await saveMetadata();
+  }
+  await validateTowerArtifacts(root);
+});
+
+test('changing the Tokyo equipment source invalidates R11 publication provenance', async t => {
+  const { root, save } = await fixture(t);
+  await save('src/lib/tokyo_tower_equipment.py', '# changed outboard brackets or covers');
+  await assert.rejects(validateTowerArtifacts(root),
+    /Stale tower source: src\/lib\/tokyo_tower_equipment\.py/);
+});
+
+test('R11 Tokyo built-up source is required in model and drawing bindings independently', async t => {
+  const { root, records, saveMetadata } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_builtup.py';
+  assert.ok(towerCatalog.find(tower => tower.id === 'tokyo-tower').sources.includes(path));
+  for (const metadata of [records[0].manifest, records[0].drawings]) {
+    const expected = metadata.source_sha256[path];
+    assert.match(expected, /^[a-f0-9]{64}$/);
+    delete metadata.source_sha256[path];
+    await saveMetadata();
+    await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
+    metadata.source_sha256[path] = expected;
+    await saveMetadata();
+  }
+  await validateTowerArtifacts(root);
+});
+
+test('changed or missing Tokyo built-up source invalidates R11 publication provenance', async t => {
+  const { root, save } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_builtup.py';
+  await save(path, '# changed cover plates or open built-up webs');
+  await assert.rejects(validateTowerArtifacts(root),
+    /Stale tower source: src\/lib\/tokyo_tower_builtup\.py/);
+  await rm(resolve(root, path));
+  await assert.rejects(validateTowerArtifacts(root),
+    /Missing tower asset or source: src\/lib\/tokyo_tower_builtup\.py/);
+});
+
+
+test('R11 Tokyo integrated source is required in model and drawing bindings independently', async t => {
+  const { root, records, saveMetadata } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_integrated.py';
+  assert.ok(towerCatalog.find(tower => tower.id === 'tokyo-tower').sources.includes(path));
+  for (const metadata of [records[0].manifest, records[0].drawings]) {
+    const expected = metadata.source_sha256[path];
+    assert.match(expected, /^[a-f0-9]{64}$/);
+    delete metadata.source_sha256[path];
+    await saveMetadata();
+    await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
+    metadata.source_sha256[path] = expected;
+    await saveMetadata();
+  }
+  await validateTowerArtifacts(root);
+});
+
+test('changed or missing Tokyo integrated source invalidates R11 publication provenance', async t => {
+  const { root, save } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_integrated.py';
+  await save(path, '# changed gross leg or arch assembly');
+  await assert.rejects(validateTowerArtifacts(root),
+    /Stale tower source: src\/lib\/tokyo_tower_integrated\.py/);
+  await rm(resolve(root, path));
+  await assert.rejects(validateTowerArtifacts(root),
+    /Missing tower asset or source: src\/lib\/tokyo_tower_integrated\.py/);
+});
+
+
+test('R11 Tokyo grid source is required in model and drawing bindings independently', async t => {
+  const { root, records, saveMetadata } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_grid.py';
+  assert.ok(towerCatalog.find(tower => tower.id === 'tokyo-tower').sources.includes(path));
+  for (const metadata of [records[0].manifest, records[0].drawings]) {
+    const expected = metadata.source_sha256[path];
+    assert.match(expected, /^[a-f0-9]{64}$/);
+    delete metadata.source_sha256[path];
+    await saveMetadata();
+    await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
+    metadata.source_sha256[path] = expected;
+    await saveMetadata();
+  }
+  await validateTowerArtifacts(root);
+});
+
+test('changed or missing Tokyo grid source invalidates R11 publication provenance', async t => {
+  const { root, save } = await fixture(t);
+  const path = 'src/lib/tokyo_tower_grid.py';
+  await save(path, '# changed four-column grid or its 80m transition');
+  await assert.rejects(validateTowerArtifacts(root),
+    /Stale tower source: src\/lib\/tokyo_tower_grid\.py/);
+  await rm(resolve(root, path));
+  await assert.rejects(validateTowerArtifacts(root),
+    /Missing tower asset or source: src\/lib\/tokyo_tower_grid\.py/);
+});
+
 
 test('R05 Skytree models and drawings reject old R04, R03, R02 and R01 independently of Tokyo', async t => {
   const {root,records,saveMetadata}=await fixture(t);
-  assert.equal(records[0].manifest.revision,'LANDMARK-R07');
+  assert.equal(records[0].manifest.revision,'LANDMARK-R11');
   for (const metadata of [records[1].manifest, records[1].drawings]) {
     for (const stale of ['LANDMARK-R04','LANDMARK-R03','LANDMARK-R02','LANDMARK-R01']) {
       metadata.revision=stale; await saveMetadata();

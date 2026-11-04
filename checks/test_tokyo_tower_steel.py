@@ -8,9 +8,11 @@ import sys
 import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from lib.tower_geometry import TOWERS,ring_points,_tower_paint
-from lib.tokyo_tower_detail import component_specs as appearance_specs
+from lib.tower_geometry import _tower_paint
+from lib.tokyo_tower_detail import component_specs as appearance_specs, _square, body_radius
 from lib.tokyo_tower_steel import refine_steel,node_catalog
+from checks.tokyo_tower_r08_baseline import R08_BASELINE, TOKYO_R08_PARAMETERS
+from checks.test_tokyo_tower_r08 import geometry_fingerprint
 
 
 def dot(a,b):return sum(x*y for x,y in zip(a,b))
@@ -34,9 +36,17 @@ def numbers(value):
 class TokyoSteelDetailTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.p=TOWERS['tokyo-tower'];cls.base=appearance_specs(cls.p,lambda z:ring_points('tokyo-tower',z),_tower_paint)
+        # Keep the historical H/I family and selected-joint contracts intact;
+        # the R09 opt-in built-up pass has independent current-model guards.
+        cls.p=deepcopy(TOKYO_R08_PARAMETERS)
+        cls.base=appearance_specs(cls.p,lambda z:_square(body_radius(cls.p,z)),_tower_paint)
         cls.parts=refine_steel(cls.p,cls.base);cls.catalog=node_catalog(cls.p,cls.base)
         cls.by={p['name']:p for p in cls.parts};cls.original={p['name']:p for p in cls.base}
+
+    def test_historical_families_replay_the_frozen_complete_r08(self):
+        self.assertEqual(len(self.parts),6485)
+        self.assertEqual(geometry_fingerprint(self.parts),R08_BASELINE['tokyo_specs_sha256'])
+        self.assertEqual(R08_BASELINE['tokyo_specs_sha256'],'312fa63c6e5d63d24c44b6b80558f84043e1572a0e9f1008c92604c9362cc85f')
 
     def test_twenty_nodes_and_budget_remain_bounded_despite_source_panel_changes(self):
         self.assertEqual([n['id'] for n in self.catalog],[f'TT-N{i:02d}' for i in range(1,21)])

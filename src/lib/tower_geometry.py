@@ -27,7 +27,7 @@ GROUP_NAMES = {
 }
 TOWERS = {
     'tokyo-tower': {   'file_stem': 'tokyo_tower',
-            'revision': 'LANDMARK-R07',
+            'revision': 'LANDMARK-R11',
             'names': {'zh': '东京塔', 'ja': '東京タワー', 'en': 'Tokyo Tower'},
             'height_mm': 333000,
             'deck_levels_mm': [125000, 223550],
@@ -41,6 +41,10 @@ TOWERS = {
                                               'leg_cage_top_half_width_mm': 450.0,
                                               'leg_continuation_levels_mm': [88000.0, 98000.0, 106000.0, 114000.0, 120000.0, 125000.0],
                                               'leg_continuation_chord_half_width_mm': 262.5,
+                                              'leg_primary_section_scale': 0.7,
+                                              'slenderness_scope': 'R08 multiplies retained nominal primary sizes by0.70 (720-to-504mm at ground, 525-to-367.5mm continuation); lacing and arch plate sizes are separate photo fits. Axes and gross cage remain unchanged. Not a measured section schedule.',
+                                              'leg_web_radius_mm': 95.0,
+                                              'leg_tie_radius_mm': 110.0,
                                               'leg_continuation_overlap_mm': 40.0,
                                               'leg_transition_link_radius_mm': 100.0,
                                               'leg_attachment_inset_mm': 150.0,
@@ -52,13 +56,15 @@ TOWERS = {
                                               'arch_rib_depth_mm': 1800.0,
                                               'arch_plane_half_depth_mm': 650.0,
                                               'arch_panel_count': 16,
-                                              'arch_profile_width_mm': 450.0,
-                                              'arch_profile_depth_mm': 600.0,
-                                              'arch_web_thickness_mm': 20.0,
-                                              'arch_flange_thickness_mm': 24.0,
+                                              'arch_profile_width_mm': 320.0,
+                                              'arch_profile_depth_mm': 420.0,
+                                              'arch_web_thickness_mm': 16.0,
+                                              'arch_flange_thickness_mm': 20.0,
                                               'arch_joint_overlap_mm': 40.0,
-                                              'arch_web_radius_mm': 85.0,
-                                              'arch_cross_tie_radius_mm': 75.0,
+                                              'arch_web_radius_mm': 60.0,
+                                              'arch_cross_tie_radius_mm': 55.0,
+                                              'arch_spandrel_tie_radius_mm': 90.0,
+                                              'arch_spandrel_diagonal_radius_mm': 75.0,
                                               'foot_town_width_mm': 48000.0,
                                               'foot_town_depth_mm': 44000.0,
                                               'foot_town_floor_levels_mm': [0.0, 3600.0, 7200.0, 10800.0, 14400.0, 18300.0],
@@ -75,6 +81,84 @@ TOWERS = {
                                                        'profile and web sizes, panel layout, FootTown 48x44m plan, facade bands, cladding and '
                                                        'rooftop equipment are photograph/drawing-guided appearance assumptions, not surveyed '
                                                        'dimensions or structural design.'},
+                          'lower_grid_continuity': {'enabled': True,
+                           'band_levels_mm': [80000.0, 93000.0, 106000.0, 120000.0],
+                           'columns': 4,
+                           'primary_brace_radius_mm': 160.0,
+                           'secondary_brace_radius_mm': 105.0,
+                           'vertical_radius_mm': 110.0,
+                           'belt_radius_mm': 200.0,
+                           'corner_clip_radius_mm': 90.0,
+                           'corner_clip_source_overlap_mm': 20.0,
+                           'support_link_radius_mm': 110.0,
+                           'support_height_mm': 114000.0},
+                          'integrated_lower': {'enabled': True,
+                           'cover_thickness_mm': 20.0,
+                           'web_thickness_mm': 16.0,
+                           'border_width_mm': 180.0,
+                           'batten_width_mm': 180.0,
+                           'pitch_depth_ratio': 1.35,
+                           'min_cells': 2,
+                           'max_cells': 8,
+                           'diaphragm_length_mm': 60.0,
+                           'diaphragm_edge_clearance_mm': 1.0,
+                           'end_overlap_mm': 40.0,
+                           'seam_width_mm': 120.0,
+                           'max_pieces_per_assembly': 24},
+                          'lower_built_up': {'enabled': True,
+                           'cover_thickness_mm': 20.0,
+                           'web_thickness_mm': 16.0,
+                           'border_width_mm': 40.0,
+                           'batten_width_mm': 55.0,
+                           'lacing_width_mm': 45.0,
+                           'pitch_depth_ratio': 2.0,
+                           'min_cells': 4,
+                           'max_cells': 12,
+                           'diaphragm_length_mm': 100.0,
+                           'max_pieces_per_member': 24},
+                          'upper_equipment': {'enabled': True,
+                                              'tiers_mm': [158000.0, 166000.0, 174000.0, 182000.0],
+                                              'projections_mm': [2600.0, 3000.0, 3200.0, 2800.0],
+                                              'projection_definition': 'Additional X and Y half-width at corner tips, not a surveyed radial '
+                                                                       'projection.',
+                                              'arm_radius_mm': 110.0,
+                                              'stay_radius_mm': 80.0,
+                                              'stay_drop_mm': 1800.0,
+                                              'mount_overlap_mm': 180.0,
+                                              'platform_width_mm': 1200.0,
+                                              'platform_length_mm': 1000.0,
+                                              'platform_thickness_mm': 120.0,
+                                              'tip_mast_height_mm': 1100.0,
+                                              'crossbar_half_width_mm': 650.0,
+                                              'gallery_height_mm': 182000.0,
+                                              'gallery_projection_mm': 650.0,
+                                              'gallery_guard_height_mm': 1000.0,
+                                              'gallery_slab_thickness_mm': 120.0,
+                                              'radome_facets': 16,
+                                              'radome_depth_mm': 450.0,
+                                              'radomes': [{'height_mm': 146000.0,
+                                                           'face': 0,
+                                                           'corner': -1,
+                                                           'diameter_mm': 1600.0,
+                                                           'projection_mm': 1500.0},
+                                                          {'height_mm': 200000.0,
+                                                           'face': 1,
+                                                           'corner': 1,
+                                                           'diameter_mm': 1700.0,
+                                                           'projection_mm': 1700.0},
+                                                          {'height_mm': 209000.0,
+                                                           'face': 3,
+                                                           'corner': 1,
+                                                           'diameter_mm': 1400.0,
+                                                           'projection_mm': 1600.0}],
+                                              'dimensions_status': 'photo_guided_appearance_assumption',
+                                              'equipment_inventory_status': 'operator_photo_reference_date_and_current_inventory_unverified',
+                                              'source_reference': 'https://www.tokyotower.co.jp/plan/towerpedia/',
+                                              'source_photo': 'https://www.tokyotower.co.jp/plan/towerpedia/img/img_006.jpg',
+                                              'scope': 'Photo-guided outboard appearance from the operator photograph. Heights, projections, '
+                                                       'directions, bracket sections, service floors and circular covers are model fits, not '
+                                                       'measured installation coordinates or an original equipment schedule. Current inventory and '
+                                                       'photo date are unverified; no broadcaster or radio-system assignment is asserted.'},
                           'upper_shaft_outline': {'enabled': True,
                                                     'start_mm': 130000.0,
                                                     'end_mm': 223550.0,
@@ -791,7 +875,7 @@ def _tower(tower_id):
 def geometry_source_paths(tower_id):
     """Explicit per-model source dependency list for reproducible export binding."""
     _tower(tower_id)
-    return ['src/lib/tower_geometry.py', *(['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'] if tower_id == 'tokyo-tower' else ['src/lib/skytree_detail.py','src/lib/skytree_outline.py'])]
+    return ['src/lib/tower_geometry.py', *(['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py'] if tower_id == 'tokyo-tower' else ['src/lib/skytree_detail.py','src/lib/skytree_outline.py'])]
 
 
 def revision_for(tower_id):
@@ -873,7 +957,11 @@ def _tokyo_base_specs():
 
 def _tokyo_specs():
     from .tokyo_tower_steel import refine_steel
-    return refine_steel(TOWERS['tokyo-tower'], _tokyo_base_specs())
+    from .tokyo_tower_builtup import refine_built_up
+    from .tokyo_tower_integrated import refine_integrated
+    from .tokyo_tower_grid import refine_grid
+    p=TOWERS['tokyo-tower']
+    return refine_grid(p,refine_integrated(p,refine_built_up(p,refine_steel(p,_tokyo_base_specs()))))
 
 
 def _skytree_specs():
@@ -913,6 +1001,46 @@ def geometry_manifest(tower_id):
         'en':'Ground datum is Z=0. The schematic base is below ground; landmark height is measured from ground, not the slab underside. Octagonal member prisms do not specify original tower materials or sections.',
     }]
     if tower_id == 'tokyo-tower':
+        references.extend([
+            {'title':'IHI Infra-square・東京タワー施工近景と現場継手の記録',
+             'url':'https://www.ihi.co.jp/iis/en/gallery/historical_structures/index.html',
+             'checked_on':'2026-11-04',
+             'reference_notes':'Contractor history and construction photograph support built-up plates and riveted field splices. Not a complete current member schedule.'},
+            {'title':'Nature Architects・東京タワー組立材の現地観察と近景写真',
+             'url':'https://nature-architects.com/blog/1817/',
+             'checked_on':'2026-11-04',
+             'reference_notes':'Engineer-authored first-hand observations and photographs show angle/channel/plate assemblies with rectangular and triangular open webs. Observations are not original fabrication drawings; hidden sections and dimensions are unverified.'},
+        ])
+        assumptions.append({
+            'zh':'R11将模型GL80–120m主展望台下方的旧整面大X和密集横圈，改为与GL40–80m下段一致的四列交叉格网、横带及竖材。新分带80/93/106/120m、杆件和短接件为照片引导的演示假设，不是原设计的逐杆复原。保留R10整体主脚、拱架与真实开孔，保留上方轮廓、展望台、核心、楼梯和天线。既有节点局部形状不变，其相关构件引用映射到实际存在的连接件。以下R10及更早记录作为历史。',
+            'ja':'R11はモデルGL80–120mの主展望施設下にある旧一面大形X・細かい水平環を、GL40–80m下段と同じ四列の交差格子・横帯・縦材へ置換します。80/93/106/120mの分帯、部材と短い接合材は写真に基づくモデル仮定で、原設計の全材配置の復元ではありません。R10の一体主脚・アーチと実開口、上部輪郭・展望施設・コア・階段・アンテナを保持します。既存接合部の局部形状は保ち、関連材の参照を実在する新接合材へ対応させます。以下のR10以前は履歴です。',
+            'en':'R11 replaces the model GL80–120m full-face X and closely spaced horizontal rings beneath the Main Deck with the same four-column crossed grid, belts and verticals as the GL40–80m lower section. The 80/93/106/120m stations, members and short connectors are photo-guided demonstration assumptions, not a reconstructed original member schedule. R10 gross legs, arches and real openings, upper outline, decks, core, stairs and antenna are retained. Existing node geometry remains; related-member references map to actual new connectors. R10 and earlier descriptions below are historical.',
+        })
+        assumptions.append({
+            'zh':'R10修正下部主材的建模层级：每根塔脚及每面拱架按整体组合材表达，取消四根各自带小格构的独立小梁。连续宽盖板与带真实开口的整体腹面形成同一构件，原四角轴仅保留为定位参考。沿用既有塔脚位置、拱口和上部外形控制；宽度、板厚、孔形、缀板与接头均为照片引导的演示假设。这种整体组合材不是一根热轧实心钢材，也未恢复实物隐蔽结构。下面R09及更早说明为历史。',
+            'ja':'R10は下部主材のモデル階層を修正します。各主脚と各面のアーチを一体の組立材で表し、それぞれ小さな格構を持つ四本の独立梁を置換します。連続する広い添板と実開口を持つ腹面が同じ部材を構成し、旧四隅の軸は位置参照のみとして残します。主脚位置・アーチ開口・上部外形の制御を継承しますが、幅・板厚・孔形・綴り板・継手は写真に基づくモデル仮定です。単一の圧延実体鋼材や隠れた実物構造を復元したものではありません。以下のR09以前は履歴です。',
+            'en':'R10 corrects the lower-member modelling hierarchy: each leg and face arch is represented as one built-up assembly, replacing four separate miniature lattice beams. Continuous broad cover plates and webs with real openings belong to the same member; the former four corner axes remain location references. Existing foot locations, arch opening and upper outline controls are retained. Widths, plate thicknesses, openings, battens and joints are photo-guided demonstration assumptions. One built-up assembly does not mean one solid rolled-steel section or a recovered hidden structure. R09 and earlier descriptions below are historical.',
+        })
+        assumptions.append({
+            'zh':'R09将下部主材、拱弦及横斜杆的统一H/I或八角实心近似改为连续盖板、角形边缘和矩形缀板/三角缀条的透空组合材。开口是STEP和GLB共有的真实几何；接点处的短隔板维持既有连接。主脚轴线、拱洞、上部塔身、展望台、天线和R08附属构件保持。继承的外包尺寸以及板厚、分格、隔板、截面族分配均为照片参考假设，不能据此判定实物隐蔽构造或钢材规格。以下R08及更早说明为历史记录，不再表示现行下部构件均为H形或箱管。',
+            'ja':'R09は下部主材・アーチ弦材・横斜材の一律なH/I形・八角実体の近似を、連続する添板、山形の縁材、矩形の綴り板または三角形のラチスを持つ組立材に変更します。開口はSTEPとGLBで共通の実形状で、接点の短い隔板は既存の取付部をつなぎます。主脚軸線・大きなアーチ開口・上部塔体・展望施設・アンテナ・R08付属材を保持します。継承した外包寸法、板厚・割付・隔板・断面族の割当ては写真を参考にした仮定です。隠れた面や実物の鋼材規格の復元ではありません。以下のR08以前の記録は履歴であり、現行下部材を一律にH形鋼や箱形鋼管とするものではありません。',
+            'en':'R09 replaces uniform lower H/I-like and octagonal-solid approximations with built-up cover plates, angle-like edges and rectangular battened or triangular laced open webs. Voids are shared native STEP/GLB geometry; short fitted diaphragms retain existing attachment contacts. Leg axes, gross arch openings, upper shaft, decks, antenna and R08 fittings remain. Inherited envelopes, plate thicknesses, subdivisions, diaphragms and family assignments are photo-guided assumptions, not a surveyed hidden-section or steel-grade schedule. Earlier R08 and older descriptions below are historical, not current lower-member H/box-tube classifications.',
+        })
+        references.extend([
+            {'title':'東京タワー公式・塔体上部写真',
+             'url':'https://www.tokyotower.co.jp/plan/towerpedia/img/img_006.jpg',
+             'checked_on':'2026-11-03',
+             'reference_notes':'Photo-guided outboard arms, small service floors and circular covers. Photo date/current equipment inventory, heights, orientations and section dimensions are not verified.'},
+            {'title':'IHI・東京タワー外観写真（TOKYO TOWER提供）',
+             'url':'https://www.ihi.co.jp/technology/techinfo/contents_no/__icsFiles/afieldfile/2024/01/25/09.PNG',
+             'checked_on':'2026-11-03',
+             'reference_notes':'Visual primary/secondary member hierarchy only; no measured lower-leg or arch section schedule is provided.'},
+        ])
+        assumptions.append({
+            'zh':'R08按参考照片减细下部主材及腹杆：主弦截面为R07的0.70，地面宽720→504mm、续接段525→367.5mm，拱架H形外观450×600→320×420mm。主脚轴线、拱顶及拱架轴间深度保持。两展望台之间增加111个独立外挑支架、保守床及圆形设备罩，42处主安装点随实际直线主弦定位。尺寸、方向和布置为照片拟合；照片年代和现用设备表未核定，不分配广播系统名称。下列R07条目保留作历史控制说明；现行断面以R08参数为准。',
+            'ja':'R08は下部の主材・腹材を写真に合わせて細くし、主弦断面をR07の0.70（地上720→504mm、継続部525→367.5mm）、アーチH外観を450×600→320×420mmとします。主脚軸線・アーチ頂部・弦軸間隔は保持。両展望施設間に別名の外挑支架・保守床・円形機器カバー111個を追加し、42の主要取付点を実際の直線主弦へ配置します。寸法・方向・割付は写真近似で、写真年代と現用設備表は未確認。以下のR07記録は履歴で、現行断面はR08の値を参照します。',
+            'en':'R08 reduces lower primary and secondary appearance sections: primary sizes are0.70 of R07 (ground720→504mm, continuation525→367.5mm); arch H appearance450×600→320×420mm. Leg axes, arch crown and chord-axis separation stay fixed.111 separately named outboard brackets, service floors and circular covers are added between the decks, with42 primary mounts following actual straight chords. Dimensions, directions and inventory are photo-guided fits; photo date and current equipment schedule are unverified. The R07 notes below describe retained history; R08 parameters govern current section sizes.',
+        })
         assumptions.append({
             'zh':'R07将下部四面拱架分为立面内的上下弦杆、三角腹杆与前后连接。主腿组合柱由地面连续延伸至模型GL125m主展望台下，消除80m处的中断；80–125m的525mm主材宽度及组合柱1000→450mm半宽收分属于照片引导的假设，腹杆仍保持较细层次。H3的GL40m及80m塔脚轴距沿用公开控制；拱深、板件截面、节点和分格为拟合。FootTown的48×44m外形、五段立面层高、墙窗比例及屋顶附属体也不是实测平面。特别展望台下的模型GL130–223.55m塔身采用局部单调收分，端部半宽9900/3950mm及两端切线衔接既有轮廓，中间线形为照片拟合；原profile数组仅保留为参考控制。相关支承随实际主材移动，展望台外壳、核心、楼梯、天线及区间外形状保持。',
             'ja':'R07は下部四面のアーチを立面内の上下弦・三角腹材・前後連結として分けます。主脚の組柱を地上からモデルGL125mの主展望施設下まで連続させ、80mでの打切りを除きます。80–125mの主材幅525mmと組柱半幅1000→450mmの収束は写真近似で、腹材は細い階層を保ちます。H3のGL40mと塔脚軸間80mは公表制御を継承し、アーチ成・断面・接合・割付は近似です。FootTownの48×44m外形・五段の立面階高・壁窓比・屋上付属体も実測平面ではありません。特別展望施設下のモデルGL130–223.55mは局所的な単調収束形状とし、端部半幅9900/3950mmと接線を既存輪郭に接続します。中間輪郭は写真近似で、元profile配列は参照制御として保持します。支持材は実主材に追従し、展望施設外装・コア・階段・アンテナと区間外を保持します。',
@@ -974,6 +1102,10 @@ def geometry_manifest(tower_id):
     if tower_id == 'tokyo-tower':
         from .tokyo_tower_steel import node_catalog
         steel_nodes = node_catalog(TOWERS[tower_id], _tokyo_base_specs())
+        from .tokyo_tower_integrated import remap_node_catalog
+        steel_nodes = remap_node_catalog(steel_nodes,specs)
+        from .tokyo_tower_grid import remap_node_catalog as remap_grid_nodes
+        steel_nodes = remap_grid_nodes(steel_nodes,specs)
         assumptions.append({
             'zh':'R04的20个钢结构节点、H/I外观截面、板厚、加劲肋、铆钉头数量/尺寸/间距与布置均为演示假设。铆接特征参考历史资料，未复原原设计或历次加固节点，也未验算节点/锚固承载力。',
             'ja':'R04の20箇所の鋼接合部、H/I外観断面、板厚、補剛材、リベット頭の数・寸法・間隔・配置はモデル仮定です。歴史資料を参考にした外観表現であり、原設計・改修接合部の復元や接合・定着の耐力照査ではありません。',
@@ -1001,6 +1133,9 @@ def geometry_manifest(tower_id):
 
 
 def _cad_shape(spec, bd):
+    if spec['kind']=='built_up':
+        from .tokyo_tower_builtup import shape
+        return shape(spec, bd)
     if spec['kind']=='box':
         x1,y1,z1,x2,y2,z2=spec['bounds']
         return bd.Box(x2-x1,y2-y1,z2-z1,align=(bd.Align.MIN,)*3).moved(bd.Location((x1,y1,z1)))

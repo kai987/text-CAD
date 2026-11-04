@@ -1,4 +1,4 @@
-"""Reference-informed R07 Tokyo Tower appearance detail, in mm; not an engineered copy.
+"""Reference-informed Tokyo Tower appearance detail, in mm; not an engineered copy.
 
 Published controls include construction GL heights, the H11/H12 27/28m plan
 widths, H23 D13m plan, replacement ST BOX450 section, and the approximately
@@ -24,6 +24,7 @@ BASE_APPEARANCE_DEFAULTS = {
     'leg_cage_top_half_width_mm': 450.,
     'leg_continuation_levels_mm': [88000.,98000.,106000.,114000.,120000.,125000.],
     'leg_continuation_chord_half_width_mm': 262.5,
+    'leg_primary_section_scale': 1., 'leg_web_radius_mm': 135, 'leg_tie_radius_mm': 155,
     'leg_continuation_overlap_mm': 40., 'leg_transition_link_radius_mm': 100.,
     'leg_attachment_inset_mm': 150.,
     'leg_continuation_scope': 'The four-member gross leg assemblies continue smoothly from ground '
@@ -36,6 +37,7 @@ BASE_APPEARANCE_DEFAULTS = {
     'arch_profile_depth_mm': 600., 'arch_web_thickness_mm': 20.,
     'arch_flange_thickness_mm': 24., 'arch_joint_overlap_mm': 40.,
     'arch_web_radius_mm': 85., 'arch_cross_tie_radius_mm': 75.,
+    'arch_spandrel_tie_radius_mm': 125, 'arch_spandrel_diagonal_radius_mm': 105,
     'foot_town_width_mm': 48000., 'foot_town_depth_mm': 44000.,
     'foot_town_floor_levels_mm': [0.,3600.,7200.,10800.,14400.,18300.],
     'foot_town_glazed_bands': 2, 'foot_town_bays_per_face': 8,
@@ -51,7 +53,12 @@ BASE_APPEARANCE_DEFAULTS = {
 
 
 def _base_config(p):
-    return {**BASE_APPEARANCE_DEFAULTS,**p.get('detail',{}).get('base_appearance',{})}
+    c={**BASE_APPEARANCE_DEFAULTS,**p.get('detail',{}).get('base_appearance',{})}
+    for key in ('leg_primary_section_scale','leg_web_radius_mm','leg_tie_radius_mm',
+                'arch_spandrel_tie_radius_mm','arch_spandrel_diagonal_radius_mm'):
+        if not isinstance(c[key],(int,float)) or isinstance(c[key],bool) or not isfinite(c[key]) or c[key]<=0:
+            raise ValueError(f'Invalid fitted base member size: {key}')
+    return c
 
 
 def _leg_frame_levels(p):
@@ -300,21 +307,21 @@ def _lower_frame(p, ring, paint):
                     aa=[start[k]-delta[k]/length*lap for k in range(3)]
                     bb=[end[k]+delta[k]/length*lap for k in range(3)]
                     part=_rect_chord(f'leg_{leg:02d}_chord_{chord:02d}_{index:02d}',aa,bb,
-                                     c['leg_continuation_chord_half_width_mm'],color)
+                                     c['leg_continuation_chord_half_width_mm']*c['leg_primary_section_scale'],color)
                     part.update(nominal_axis_start=start,nominal_axis_end=end,leg_continuation=True,
                                 continuation_scope=c['leg_continuation_scope'])
                     parts.append(part)
                 else:
                     parts.append(_rect_chord(f'leg_{leg:02d}_chord_{chord:02d}_{index:02d}',
-                                            start,end,max(180,360-za*.0015),color))
+                                            start,end,max(180,360-za*.0015)*c['leg_primary_section_scale'],color))
             # Four-face lacing expresses a built-up leg, rather than two open
             # decorative rails. Exact bar sizes and pitch remain assumptions.
             for face in range(4):
                 nxt=(face+1)%4
                 parts.append(_beam('structure',f'leg_{leg:02d}_web_{face}_{index:02d}',
-                                   (*a[face],za),(*b[nxt],zb),135,color,'leg_brace'))
+                                   (*a[face],za),(*b[nxt],zb),c['leg_web_radius_mm'],color,'leg_brace'))
                 parts.append(_beam('structure',f'leg_{leg:02d}_tie_{face}_{index:02d}',
-                                   (*b[face],zb),(*b[nxt],zb),155,color,'leg_tie'))
+                                   (*b[face],zb),(*b[nxt],zb),c['leg_tie_radius_mm'],color,'leg_tie'))
         r=-ring(levels[-1])[0][0]
         parts.append(_box('structure',f'leg_{leg:02d}_head_plate',
                           (sx*r-1300,sy*r-1300,levels[-1]-100,
@@ -433,9 +440,9 @@ def _lower_frame(p, ring, paint):
                 outer.append(([half_sign*r,-r,z] if side==0 else [r,half_sign*r,z] if side==1 else
                               [-half_sign*r,r,z] if side==2 else [-r,-half_sign*r,z]))
             for i,(a,b) in enumerate(zip(inner,outer)):
-                parts.append(_beam('structure',f'arch_spandrel_tie_{side}_{half_sign}_{i}',a,b,125,ORANGE,'arch_spandrel',arch_side=side))
+                parts.append(_beam('structure',f'arch_spandrel_tie_{side}_{half_sign}_{i}',a,b,c['arch_spandrel_tie_radius_mm'],ORANGE,'arch_spandrel',arch_side=side))
                 if i:
-                    parts.append(_beam('structure',f'arch_spandrel_diagonal_{side}_{half_sign}_{i}',outer[i-1],a,105,ORANGE,'arch_spandrel',arch_side=side))
+                    parts.append(_beam('structure',f'arch_spandrel_diagonal_{side}_{half_sign}_{i}',outer[i-1],a,c['arch_spandrel_diagonal_radius_mm'],ORANGE,'arch_spandrel',arch_side=side))
         # Continuous lower shaft above H3: four panels across, X braces with a
         # hierarchy of primary, secondary and vertical members. No random webs.
         bay_levels=p['detail']['lower_belt_levels_mm']
@@ -1029,6 +1036,10 @@ def component_specs(parameters, ring_at_height, paint_at_height):
     parts=[_box('base','ground_slab',(-48000,-48000,-2000,48000,48000,0),'#D2CDC3','ground')]
     parts.extend(_lower_frame(p,ring_at_height,paint_at_height))
     parts.extend(_upper_frame(p,ring_at_height,paint_at_height))
+    if p.get('detail',{}).get('upper_equipment'):
+        from .tokyo_tower_equipment import upper_equipment_specs
+        parts.extend(upper_equipment_specs(p,lambda z:-_upper_frame_ring(ring_at_height,z)[0][0],
+                                           frame_levels=_upper_frame_levels()))
     parts.extend(_foot_town(p))
     parts.extend(_stairs(p))
     parts.extend(_decks(p,ring_at_height))

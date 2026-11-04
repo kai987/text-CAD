@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { randomBytes } from 'node:crypto';
-import { artifactTransport, verifyArtifactTransports, STATIC_FILE_LIMIT } from '../scripts/artifact-transport.mjs';
+import { artifactTransport, verifyArtifactTransports, verifyStaticBuildBudget, STATIC_FILE_LIMIT, STATIC_BUILD_LIMIT } from '../scripts/artifact-transport.mjs';
 
 async function directory(t, files) {
   const root = await mkdtemp(join(tmpdir(), 'cad-artifact-transport-'));
@@ -29,14 +29,39 @@ test('oversized GLB and editable DXF host only gzip while retaining exact origin
     assert.equal(await verifyArtifactTransports(root, result.records), 1);
   }
 });
-test('small raw files remain present and GLB gzip also binds its restored size and hash', async t => {
-  for (const [name, payload, count] of [['model.glb', Buffer.from('glTF source fixture'), 2],
-    ['drawing.dxf', Buffer.from('0\nSECTION\n2\nHEADER\n0\nENDSEC\n0\nEOF\n'), 1]]) {
+test('under-limit native STEP, GLB and DXF publish only useful gzip with exact native bindings', async t => {
+  for (const name of ['model.step', 'model.glb', 'drawing.dxf']) {
+    const payload = Buffer.from('Exact named CAD source and coordinates.\n'.repeat(100));
+    assert.ok(payload.length < STATIC_FILE_LIMIT);
+    const result = artifactTransport(name, payload);
+    assert.deepEqual(result.files.map(([path]) => path), [`${name}.gz`]);
+    assert.equal(result.records[name].transport, 'gzip');
+    assert.equal(result.records[name].bytes, payload.length);
+    assert.equal(result.records[`${name}.gz`].decodedSha256, result.records[name].sha256);
+    assert.deepEqual(gunzipSync(result.files[0][1]), payload);
+    const root = await directory(t, result.files);
+    await assert.rejects(readFile(join(root, name)), { code: 'ENOENT' });
+    assert.equal(await verifyArtifactTransports(root, result.records), 1);
+  }
+});
+test('small native files retain only raw bytes when gzip offers no saving', async t => {
+  for (const name of ['small.step', 'small.glb', 'small.dxf']) {
+    const payload = Buffer.from('tiny');
     const result = artifactTransport(name, payload);
     assert.equal(result.records[name].transport, undefined);
+    assert.deepEqual(result.files, [[name, payload]]);
+    assert.equal(result.records[`${name}.gz`], undefined);
     const root = await directory(t, result.files);
-    assert.equal(await verifyArtifactTransports(root, result.records), count);
+    assert.equal(await verifyArtifactTransports(root, result.records), 1);
   }
+});
+test('expanded hosting budget counts nested physical bytes and permits only the exact boundary', async t => {
+  assert.equal(STATIC_BUILD_LIMIT, 256 * 1024 * 1024);
+  const root = await directory(t, [['index.html', Buffer.alloc(11)]]);
+  await mkdir(join(root, 'artifacts'));
+  await writeFile(join(root, 'artifacts', 'native.step.gz'), Buffer.alloc(21));
+  assert.deepEqual(await verifyStaticBuildBudget(root, 32), { bytes: 32, files: 2, limitBytes: 32 });
+  await assert.rejects(verifyStaticBuildBudget(root, 31), /Expanded static build exceeds hosting byte limit: 32 > 31/);
 });
 test('missing gzip records, changed transfers and rebound decoded hashes cannot pass build verification', async t => {
   const result = artifactTransport('large.dxf', Buffer.from('0\nSECTION\n' + '999\nframe\n'.repeat(300)), 256);
@@ -87,4 +112,20 @@ test('oversized STEP gzip splits into two bound physical files and verifies both
 test('unsupported large previews and a viewer gzip needing chunks fail before publication', () => {
   assert.throws(() => artifactTransport('preview.svg', Buffer.alloc(1024), 800), /no gzip-capable reader/);
   assert.throws(() => artifactTransport('model.glb', randomBytes(1024), 800), /Viewer gzip exceeds/);
+});
+
+test('larger native CAD uses a bounded ordered chunk set and rejects damage in a later part', async t => {
+  const source = Buffer.concat([Buffer.from('ISO-10303-21;\n'), randomBytes(4096)]);
+  const result = artifactTransport('larger.step', source, 800);
+  const encoded = result.records['larger.step.gz'];
+  assert.ok(encoded.parts.length > 2);
+  assert.ok(result.files.every(([, payload]) => payload.length <= 800));
+  const root = await directory(t, result.files);
+  assert.equal(await verifyArtifactTransports(root, result.records, 800), encoded.parts.length);
+  const missing = structuredClone(result.records); delete missing[encoded.parts.at(-1).path];
+  await assert.rejects(verifyArtifactTransports(root, missing, 800));
+  const [name, payload] = result.files.at(-1);
+  await writeFile(join(root, name), Buffer.concat([payload.subarray(1), Buffer.from([0])]));
+  await assert.rejects(verifyArtifactTransports(root, result.records, 800), /Published asset differs/);
+  assert.throws(() => artifactTransport('too-large.step', randomBytes(4096), 100), /chunked static transport limit/);
 });

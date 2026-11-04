@@ -188,7 +188,7 @@ class TowerDrawing:
         self.paper_text('公表値を参照 / 未測量・未計算 / NOT FOR CONSTRUCTION', (16,16), 2.6)
         self.paper_poly([(250,38),(401,38),(401,253),(250,253)], True, width=.2)
         self.paper_poly([(250,16),(401,16),(401,33),(250,33)], True, width=.2)
-        drawing_date='2026-11-01' if self.tower_id=='tokyo-tower' else '2026-10-30'
+        drawing_date='2026-11-04' if self.tower_id=='tokyo-tower' else '2026-10-30'
         self.paper_text(f'text-CAD | {self.revision} | {drawing_date}', (256,25), 2.7)
         self.paper_text('モデル寸法と図面の対応', (257,244), 3.5)
         deck_names = DECK_LABELS[self.tower_id]
@@ -230,7 +230,9 @@ class TowerDrawing:
                 '公式案内値との換算・完成面実測ではない。',
                 '塔脚基準軸線間80,000 mmは図1参照。',
                 '床・外形の現況対応、部材・接合は仮定。',
-                'R07アーチの上下弦・三角腹材は写真近似。',
+                'R11主脚・アーチは一体の組立材。',
+                'GL80–120m：下方と同じ4列の交差格子。',
+                '断面・板厚・割付は写真近似、未実測。',
                 '上部輪郭GL130,000–223,550は局所平滑近似。',
                 '足元建物の外形・階高・外装もモデル仮定。',
                 '', '03 座標とデータ',
@@ -488,6 +490,17 @@ def draw_components(drawing, parts=None):
             if drawing.view=='plan' and group=='structure' and part['kind'] in ('tube','rhs') \
                     and min(part['start'][2],part['end'][2])>30000:continue
             _draw_hollow_member(drawing,part,outline)
+        elif part['kind']=='built_up':
+            # At overview scale retain the real plate/void boundary loops,
+            # rather than millions of mesh triangulation edges. Native DXF
+            # contours still follow both faces of every through-opening.
+            seen=set()
+            for loop,closed in _built_up_outline_loops(part):
+                projected=[_projection(point,drawing.view) for point in loop]
+                key=tuple(sorted(set((round(x,8),round(y,8)) for x,y in projected)))
+                if len(key)<2 or key in seen:continue
+                seen.add(key)
+                drawing.poly(projected,group,closed=closed,color=outline,width=.10,part=name)
         elif part['kind']=='beam':
             start,end=part['start'],part['end']
             if drawing.view=='plan' and group=='structure' and min(start[2],end[2])>30000:continue
@@ -568,6 +581,9 @@ class _DetailProjection:
 
 
 def _projected_bounds(part):
+    if part['kind']=='built_up':
+        vertices=[point for face in _primitive_faces(part) for point in face]
+        return min(p[0] for p in vertices),min(p[2] for p in vertices),max(p[0] for p in vertices),max(p[2] for p in vertices)
     if part['kind']=='box':
         x1,_,z1,x2,_,z2=part['bounds']
         return x1,z1,x2,z2
@@ -786,9 +802,27 @@ def build_elevation(tower_id):
     return d
 
 
+def _built_up_outline_loops(part):
+    """Exact native plate boundaries; suppress internal tessellation edges."""
+    for piece in part['pieces']:
+        if piece['kind']=='perforated_plate':
+            for loop in (piece['outer'],*piece['holes']):
+                yield loop,True
+                yield [[point[k]+piece['extrusion'][k] for k in range(3)] for point in loop],True
+        elif piece['kind']=='plate_loft':
+            first,last=piece['sections']
+            yield first,True
+            yield last,True
+            for start,end in zip(first,last):yield [start,end],False
+        else:raise ValueError('Unknown built-up plate boundary.')
+
+
 def _primitive_faces(part):
     """Faceted XYZ faces matching the CAD exporter, including octagonal beams."""
     kind=part['kind']
+    if kind=='built_up':
+        from lib.tokyo_tower_builtup import faces
+        return faces(part)
     if kind=='box':
         x1,y1,z1,x2,y2,z2=part['bounds']
         vertices=[[x1,y1,z1],[x2,y1,z1],[x2,y2,z1],[x1,y2,z1],
@@ -894,14 +928,16 @@ def _add_steel_node_detail(drawing,node,parts,bounds,preferred_scale,index):
     source_parts=[]
     for part,is_context in [(part,True) for part in contexts]+[(part,False) for part in selected]:
         seen=set();saved=False
-        for face in _primitive_faces(part):
+        loops=(_built_up_outline_loops(part) if is_context and part['kind']=='built_up'
+               else ((face,True) for face in _primitive_faces(part)))
+        for face,closed in loops:
             points=[_local_projection(vertex,frame) for vertex in face]
             if is_context:points=_clip_polygon(points,roi)
             key=tuple(sorted(set((round(x,8),round(y,8)) for x,y in points)))
             if len(key)<2 or key in seen:continue
             seen.add(key);saved=True
-            projection.poly(points,color='#9aa5ad' if is_context else '#8c3d29',
-                            width=.09 if is_context else .16,part=part['name'])
+            projection.poly(points,closed=closed,color='#b7c0c6' if is_context else '#8c3d29',
+                            width=.06 if is_context else .16,part=part['name'])
         if saved:source_parts.append(part['name'])
     features=[]
     for feature in node['feature_dimensions']:

@@ -1,7 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Box3, BoxGeometry, Group, Mesh, MeshBasicMaterial, Vector3 } from 'three';
-import { landmarkCloseupBounds, landmarkMainDeckBounds } from '../src/landmark-camera-bounds.ts';
+import { landmarkCloseupBounds, landmarkMainDeckBounds, landmarkGridTransitionBounds } from '../src/landmark-camera-bounds.ts';
+
+test('Tokyo grid junction fits native bands below and above 80m without nearby cores or later grid bands', t => {
+  const material = new MeshBasicMaterial(), geometries = [];
+  t.after(() => { material.dispose(); geometries.forEach(geometry => geometry.dispose()); });
+  const box = (y, width, height) => {
+    const geometry = new BoxGeometry(width, height, 2); geometries.push(geometry);
+    const mesh = new Mesh(geometry, material); mesh.position.y = y; return mesh;
+  };
+  const parent = new Group(); parent.position.x = 3;
+  const lower = box(66.5, 42, 27), upper = box(93, 32, 26); parent.add(lower, upper);
+  const nodes = new Map([
+    ['structure:lower_panel_a_0_1_0', lower],
+    ['structure:grid_panel_a_0_0_0', upper],
+    ['structure:grid_panel_a_0_2_0', box(113, 25, 14)],
+    ['structure:lower_panel_a_0_0_0', box(46.5, 50, 13)],
+    ['core:main_elevator_shaft', box(167, 100, 334)],
+    ['decks:main_floor', box(125, 40, 4)],
+  ]);
+  const bounds = landmarkGridTransitionBounds(nodes);
+  assert.ok(bounds);
+  assert.deepEqual(bounds.min.toArray(), [-20, 51, -3]);
+  assert.deepEqual(bounds.max.toArray(), [26, 108, 3]);
+  assert.equal(bounds.getCenter(new Vector3()).y, 79.5);
+  const full = new Box3(new Vector3(-45, -2, -45), new Vector3(45, 335, 45));
+  assert.deepEqual(landmarkCloseupBounds('tokyo-tower', nodes, full).get('grid-transition'), bounds);
+  assert.equal(landmarkCloseupBounds('tokyo-skytree', nodes, full).has('grid-transition'), false);
+  assert.equal(landmarkGridTransitionBounds(new Map([['structure:grid_panel_a_0_0_0', upper]])), null,
+    'the view must contain retained lower bands as well as new upper grid geometry');
+});
 
 test('main deck close-up excludes top_maintenance parts and unrelated main substrings', t => {
   const material = new MeshBasicMaterial(), geometries = [];

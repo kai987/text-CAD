@@ -21,6 +21,10 @@ def polygon_area(points):
 
 
 def horizontal_bounds(spec):
+    if spec['kind']=='built_up':
+        from lib.tokyo_tower_builtup import faces
+        points=[point for face in faces(spec) for point in face]
+        return [min(p[i] for p in points) for i in range(2)]+[max(p[i] for p in points) for i in range(2)]
     if spec['kind'] == 'box':
         return spec['bounds'][:2] + spec['bounds'][3:5]
     if spec['kind'] == 'beam':
@@ -35,6 +39,9 @@ def horizontal_bounds(spec):
 
 
 def maximum_z(spec):
+    if spec['kind']=='built_up':
+        from lib.tokyo_tower_builtup import faces
+        return max(p[2] for face in faces(spec) for p in face)
     if spec['kind']=='box':return spec['bounds'][5]
     if spec['kind']=='beam':return max(spec['start'][2],spec['end'][2])+spec['radius']
     if spec['kind']=='rhs':return max(spec['start'][2],spec['end'][2])
@@ -103,7 +110,7 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertLessEqual(len(names),6500)
         self.assertEqual(set(part['group'] for part in self.specs),set(GROUPS))
         self.assertTrue(all(name.startswith(part['group']+':') for name,part in zip(names,self.specs)))
-        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R07')
+        self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R11')
         self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R05')
         self.assertNotEqual(component_specs('tokyo-skytree'), self.specs)
         self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
@@ -128,6 +135,9 @@ class TokyoTowerDetailTests(unittest.TestCase):
                     self.assertGreater(dist(part['start'],part['end']),0)
                     self.assertGreater(part['wall_thickness_mm'],0)
                     self.assertLess(2*part['wall_thickness_mm'],min(part['width_mm'],part['depth_mm']))
+                elif part['kind']=='built_up':
+                    self.assertTrue(part['pieces'])
+                    self.assertGreater(dist(part['axis_start'],part['axis_end']),0)
                 elif part['kind']=='loft3d':
                     self.assertGreater(len(part['sections']),1)
                     for section in part['sections']:
@@ -159,7 +169,9 @@ class TokyoTowerDetailTests(unittest.TestCase):
         for part in lower:
             x1,y1,x2,y2=horizontal_bounds(part)
             self.assertTrue(x2 < -18500 or x1 > 18500 or y2 < -18500 or y1 > 18500,part['name'])
-        self.assertTrue(any(part.get('role')=='open_cross_frame' for part in self.specs))
+        # Individual R09 arch ribs are replaced by the R10 whole-arch
+        # assemblies, whose count/opening contracts have their own guards.
+        self.assertTrue(any(part.get('role')=='arch_assembly' for part in self.specs))
         self.assertFalse(any(part['name'].startswith('structure:cross_a_') for part in lower))
 
     def test_six_hundred_rises_and_landings_connect_roof_to_main_deck(self):
@@ -256,7 +268,8 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertEqual(p['detail']['arch_crown_mm'],40000)
         self.assertEqual(p['antenna_start_mm'],252650)
         self.assertEqual(p['antenna_lattice_top_mm'],312600)
-        arches=[part for part in self.specs if part['name'].startswith('structure:lower_arch_') and part.get('role')=='open_cross_frame']
+        from checks.test_tokyo_tower_r09 import r09_reference_specs
+        arches=[part for part in r09_reference_specs() if part['name'].startswith('structure:lower_arch_') and part.get('role')=='open_cross_frame']
         self.assertAlmostEqual(max(max(point[2] for point in member_axis(part)) for part in arches),40000)
         self.assertLess(min(min(point[2] for point in member_axis(part)) for part in arches),2000)
         panels=[p for p in self.specs if p.get('role')=='lower_panel_brace']
@@ -265,15 +278,17 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertGreater(len([p for p in self.specs if p.get('role')=='antenna_support_lacing']),40)
 
     def test_arch_end_plates_bridge_actual_chords_and_deck_supports_meet_aprons(self):
-        by_name={part['name']:part for part in self.specs}
-        connectors=[p for p in self.specs if p['name'].startswith('structure:lower_arch_anchor_')]
+        from checks.test_tokyo_tower_r09 import r09_reference_specs
+        historical=r09_reference_specs()
+        by_name={part['name']:part for part in historical}
+        connectors=[p for p in historical if p['name'].startswith('structure:lower_arch_anchor_')]
         self.assertEqual(len(connectors),16)
         for connector in connectors:
             source=by_name[connector['source_member']]
             target=by_name[connector['target_member']]
             a,b=connector['attachment_points']
             self.assertIn(a,member_axis(source))
-            if target['kind']=='loft3d':
+            if target['kind'] in ('loft3d','built_up'):
                 centre_a,centre_b=target['axis_start'],target['axis_end']
             else:
                 section_a,section_b=target['sections']
@@ -306,14 +321,16 @@ class TokyoTowerDetailTests(unittest.TestCase):
         # expanded upper-frame subset has32 values within8ULP of1nm rounding
         # boundaries; the independently checked10nm grid has none. This is
         # still100 times smaller than the0.001mm mutation rejection check.
-        unchanged=r06_preserved_parts(self.specs)
+        from checks.test_tokyo_tower_r08 import r07_reference_specs
+        unchanged=r06_preserved_parts(r07_reference_specs())
         self.assertEqual(len(unchanged),4415)
         self.assertEqual(geometry_fingerprint(unchanged),'66fb767e8037c8355514f931858a5c158204b424c2512fb4b28e523d99b78232')
 
     def test_upper_outline_preserves_the_completed_r07_base_and_all_other_parts(self):
         # Frozen before the subsequent upper-outline request, not derived
         # from the modified upper-shaft implementation.
-        unchanged=[part for part in self.specs if not upper_shaft_refitted_part(part)]
+        from checks.test_tokyo_tower_r08 import r07_reference_specs
+        unchanged=[part for part in r07_reference_specs() if not upper_shaft_refitted_part(part)]
         self.assertEqual(len(unchanged),6126)
         self.assertEqual(geometry_fingerprint(unchanged),'b4632bcc9e8c1e869040c7bcb90451521f4d57bbc56bade341bd0b44e9327f09')
 

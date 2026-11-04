@@ -30,6 +30,25 @@ test('logical GLB and DXF downloads use the gzip entry hash rather than the orig
     assert.notEqual(urls[0], urls[1], 're-encoding must invalidate the gzip URL while preserving the original');
   }
 });
+test('under-limit gzip-only STEP, GLB and DXF downloads restore native bytes without raw requests', async () => {
+  for (const type of ['STEP', 'GLB', 'DXF']) {
+    const path = `CAD/model.${type.toLowerCase()}`, body = 'Named CAD geometry and exact coordinates.\n'.repeat(100);
+    const source = type === 'GLB' ? Buffer.alloc(4096, 0x20)
+      : Buffer.from(type === 'STEP' ? `ISO-10303-21;\nDATA;\n${body}ENDSEC;\nEND-ISO-10303-21;`
+        : `0\nSECTION\n2\nENTITIES\n999\n${body}0\nENDSEC\n0\nEOF\n`);
+    if (type === 'GLB') { source.write('glTF'); source.writeUInt32LE(2, 4); source.writeUInt32LE(source.length, 8); }
+    const transfer = artifactTransport(path, source);
+    const selected = selectDownloadTransport(path, transfer.records, type === 'STEP');
+    assert.equal(transfer.records[path].transport, 'gzip');
+    assert.deepEqual(transfer.files.map(([name]) => name), [`${path}.gz`]);
+    const requests = artifactDownloadRequests(selected, (name, hash) => artifactUrl('/', name, {}, 'catalog', hash));
+    const fetched = [];
+    const restored = await downloadResource({ ...requests, type, compression: selected.compression, metadata: selected.metadata,
+      fetcher: async url => { fetched.push(url); return new Response(transfer.files[0][1]); } });
+    assert.deepEqual(Buffer.from(await restored.arrayBuffer()), source);
+    assert.deepEqual(fetched, [`/artifacts/${path}.gz?v=${transfer.records[`${path}.gz`].sha256}`]);
+  }
+});
 test('gzip-only originals cannot fall back to a missing or inconsistently bound payload', async () => {
   const path = 'large.dxf', manifest = records(path, Buffer.from('0\nSECTION\n0\nENDSEC\n'));
   const missing = structuredClone(manifest); delete missing[`${path}.gz`];
@@ -123,4 +142,32 @@ test('component chunk requests use each selected part hash and never fetch the a
   const fallback = await downloadResource({ ...requests, type: 'STEP', compression: selected.compression,
     metadata: selected.metadata, decompress: false, fetcher });
   assert.equal(sha(Buffer.from(await fallback.arrayBuffer())), selected.metadata.sha256);
+});
+
+test('native CAD with more than two parts preserves every binding and reconstructs exact bytes', async () => {
+  const path = 'STEP/detailed.step';
+  const source = Buffer.from('ISO-10303-21;\nDATA;\n' + randomBytes(4096).toString('hex') + '\nENDSEC;\nEND-ISO-10303-21;');
+  const transfer = artifactTransport(path, source, 800);
+  const selected = selectDownloadTransport(path, transfer.records, true);
+  assert.ok(selected.metadata.parts.length > 2);
+  for (const damage of ['last-missing', 'last-prefix', 'last-order', 'too-many']) {
+    const manifest = structuredClone(transfer.records), parts = manifest[`${path}.gz`].parts;
+    if (damage === 'last-missing') delete manifest[parts.at(-1).path];
+    if (damage === 'last-prefix') parts.at(-1).path = 'OTHER/detailed.step.gz.part-' + String(parts.length).padStart(3, '0');
+    if (damage === 'last-order') [parts[2], parts[3]] = [parts[3], parts[2]];
+    if (damage === 'too-many') manifest[`${path}.gz`].parts = Array.from({ length: 33 }, (_, index) => ({ ...parts[0], path: `${path}.gz.part-${String(index + 1).padStart(3, '0')}` }));
+    assert.equal(selectDownloadTransport(path, manifest, true), null, damage);
+  }
+  const requests = artifactDownloadRequests(selected, (name, hash) => artifactUrl('/', name, {}, 'catalog', hash));
+  const payloads = new Map(transfer.files), fetched = [];
+  const fetcher = async url => {
+    const name = new URL(url, 'https://cad.example').pathname.replace('/artifacts/', '');
+    fetched.push(name);
+    return new Response(payloads.get(name));
+  };
+  const restored = await downloadResource({ ...requests, type: 'STEP', compression: 'gzip', metadata: selected.metadata, fetcher });
+  assert.deepEqual(Buffer.from(await restored.arrayBuffer()), source);
+  assert.deepEqual(fetched, selected.metadata.parts.map(part => part.path));
+  const badRequests = { ...requests, parts: requests.parts.slice(0, -1) };
+  await assert.rejects(downloadResource({ ...badRequests, type: 'STEP', compression: 'gzip', metadata: selected.metadata, fetcher }), error => error instanceof DownloadError && error.code === 'manifest');
 });

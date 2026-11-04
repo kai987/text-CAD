@@ -46,19 +46,20 @@ test('versioned gzip URL verifies decoded bytes, with an independent raw fallbac
   assert.deepEqual(paths, ['/house.glb.gz?v=encoded', '/house.glb?v=native']);
   assert.deepEqual(result.value, [...native]);
 });
-test('a gzip-only large Skytree viewer loads its exact model without requesting an absent raw file', async () => {
-  const path = 'GLB/tokyo_skytree.glb';
-  const native = Buffer.alloc(STATIC_FILE_LIMIT + 1024, 0x20);
-  native.write('glTF'); native.writeUInt32LE(2, 4); native.writeUInt32LE(native.length, 8);
-  const transport = artifactTransport(path, native), paths = [];
-  const raw = `/artifacts/${path}?v=${transport.records[path].sha256}`;
-  const encoded = `/artifacts/${path}.gz?v=${transport.records[`${path}.gz`].sha256}`;
-  const result = await load(async url => {
-    paths.push(url); assert.equal(url, encoded, 'healthy loads must not request the logical raw path');
-    return new Response(transport.files[0][1]);
-  }, { url: raw, compressedUrl: encoded, expectedSha256: transport.records[path].sha256,
-    parse: async bytes => createHash('sha256').update(new Uint8Array(bytes)).digest('hex') });
-  assert.deepEqual(paths, [encoded]); assert.equal(result.value, transport.records[path].sha256);
+test('gzip-only viewer models below and above the file limit never request an absent raw file', async () => {
+  for (const [path, size] of [['GLB/tokyo_tower.glb', 4096], ['GLB/tokyo_skytree.glb', STATIC_FILE_LIMIT + 1024]]) {
+    const native = Buffer.alloc(size, 0x20);
+    native.write('glTF'); native.writeUInt32LE(2, 4); native.writeUInt32LE(native.length, 8);
+    const transport = artifactTransport(path, native), paths = [];
+    const raw = `/artifacts/${path}?v=${transport.records[path].sha256}`;
+    const encoded = `/artifacts/${path}.gz?v=${transport.records[`${path}.gz`].sha256}`;
+    const result = await load(async url => {
+      paths.push(url); assert.equal(url, encoded, 'healthy loads must not request the logical raw path');
+      return new Response(transport.files[0][1]);
+    }, { url: raw, compressedUrl: encoded, expectedSha256: transport.records[path].sha256,
+      parse: async bytes => createHash('sha256').update(new Uint8Array(bytes)).digest('hex') });
+    assert.deepEqual(paths, [encoded]); assert.equal(result.value, transport.records[path].sha256);
+  }
 });
 test('corrupt native bytes are rejected before GLB parsing', async () => {
   let parses = 0;

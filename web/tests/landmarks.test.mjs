@@ -6,7 +6,7 @@ import { Box3, OrthographicCamera, Vector3 } from 'three';
 import { bindCadNodes, isObjectVisible } from '../src/model-scene.ts';
 import { bindLandmarkMaterialLighting, landmarkLightRole, landmarkLocalLightLayout } from '../src/landmark-lighting.ts';
 import { batchLandmarkStairs } from '../src/landmark-stair-batches.ts';
-import { landmarkCloseupBounds, landmarkMainDeckBounds } from '../src/landmark-camera-bounds.ts';
+import { landmarkCloseupBounds, landmarkMainDeckBounds, landmarkGridTransitionBounds } from '../src/landmark-camera-bounds.ts';
 import { bindLandmarkSteelDetails, readLandmarkSteelNodes } from '../src/landmark-steel-nodes.ts';
 import { initialLandmarkView, isLandmarkId, landmarkCameraOptions, landmarkCameras, landmarkCopy, landmarkDetailCameras, landmarkDownloadFiles, landmarkGroupForName, landmarkGroupIds, landmarkIds, landmarkModels, landmarkUrl, landmarkViews } from '../src/landmark-copy.ts';
 
@@ -52,17 +52,29 @@ test('landmark controls and downloads have complete Chinese, Japanese and Englis
   assert.equal(landmarkGroupForName('TokyoTower'), null);
   assert.equal(landmarkGroupForName('substructure'), null);
   assert.deepEqual(landmarkCameraOptions('tokyo-skytree'), [...landmarkCameras, 'base', 'tembo-deck', 'tembo-galleria', 'spire']);
-  assert.deepEqual(landmarkCameraOptions('tokyo-tower'), [...landmarkCameras, 'base', 'main-deck', 'top-deck', 'spire']);
+  assert.deepEqual(landmarkCameraOptions('tokyo-tower'), [...landmarkCameras, 'base', 'grid-transition', 'main-deck', 'top-deck', 'spire']);
   assert.equal(landmarkDownloadFiles('tokyo-tower').length, 7);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').length, 7);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').some(file => file.id === 'steelNodes'), false);
   assert.equal(landmarkDownloadFiles('tokyo-skytree').find(file => file.id === 'structureZones').path,'DXF/tokyo_skytree_structure_zones.dxf');
   assert.equal(landmarkModels['tokyo-skytree'].revision, 'LANDMARK-R05');
-  assert.equal(landmarkModels['tokyo-tower'].revision, 'LANDMARK-R07');
+  assert.equal(landmarkModels['tokyo-tower'].revision, 'LANDMARK-R11');
   assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /JAEE 1962.*H11.*27 m square.*H12.*28 m square.*H23.*13 m diameter circle/);
   assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /historical 29 × 24 m H13 plan.*separately.*use and mapping.*current envelope.*unverified/);
   assert.match(landmarkModels['tokyo-tower'].assumptionNotes.en, /retrofit appearance.*shell thickness.*glazing divisions.*display approximations/);
   const tokyoNotes = landmarkModels['tokyo-tower'].assumptionNotes;
+  assert.match(tokyoNotes.zh, /^R11.*GL80–120m.*40–80m.*四列.*80m.*连续/);
+  assert.match(tokyoNotes.ja, /^R11.*GL80–120m.*40–80m.*4列.*80m.*連続/);
+  assert.match(tokyoNotes.en, /^R11.*GL80–120 m.*40–80 m.*four-column.*continuity.*80 m/);
+  assert.match(tokyoNotes.zh, /R10.*每根主脚.*每道拱架.*一套整体组合构件.*薄板.*大开口.*真实透空.*四根小透空梁/);
+  assert.match(tokyoNotes.ja, /R10.*各主脚.*各アーチ.*一つの全体組立材.*薄い板材.*大きな開口.*実際の開口.*4本の小さな透空梁/);
+  assert.match(tokyoNotes.en, /R10.*each primary leg.*each arch.*one overall built-up assembly.*thin plates.*large openings.*real openings.*four miniature perforated beams/);
+  assert.match(tokyoNotes.zh, /宽度、深度、板厚.*演示假设.*单根轧制钢.*部件数量.*当前清单.*历史R09/);
+  assert.match(tokyoNotes.ja, /幅・せい・板厚.*表示用の仮定.*単一の圧延鋼材.*部品数.*現行マニフェスト.*履歴R09/);
+  assert.match(tokyoNotes.en, /width, depth and plate thickness.*demonstration assumptions.*one rolled steel section.*part counts.*current manifest.*Historical R09/);
+  assert.match(tokyoNotes.zh, /IHI.*Nature Architects.*现场观察.*施工详图.*R08.*70%.*外包演示尺寸/);
+  assert.match(tokyoNotes.ja, /IHI.*Nature Architects.*現地観察.*製作図.*R08.*70%.*外包寸法/);
+  assert.match(tokyoNotes.en, /IHI.*Nature Architects.*site observations.*fabrication drawings.*R08.*70%.*demonstration envelope dimensions/);
   assert.match(tokyoNotes.zh, /四组主要支腿.*地面连续延伸至主展望台下方.*平缓收分.*粗壮主材与较细腹杆/);
   assert.match(tokyoNotes.ja, /4組の主脚架構.*地上からメインデッキ下まで連続.*緩やかに細く.*太い主材と細い腹材/);
   assert.match(tokyoNotes.en, /four primary leg assemblies continuously from ground to beneath the Main Deck.*gradual taper.*broad primary members from finer braces/);
@@ -120,6 +132,42 @@ for (const id of landmarkIds) {
     assert.equal(manifest.revision, model.revision);
     assert.equal(gltf.parser.json.asset.extras.revision, model.revision);
     if (id === 'tokyo-tower') {
+      assert.equal([...nodes.values()].filter(node => node.isMesh).length, manifest.component_count,
+        'the current native manifest owns the part count after lower-member consolidation');
+      for (const [role, pattern] of [
+        ['leg_assembly', /^structure:leg_(0[1-4])_assembly_\d{2}$/],
+        ['arch_assembly', /^structure:arch_assembly_([0-3])_\d{2}$/],
+      ]) {
+        const members = [...nodes].filter(([name]) => pattern.test(name));
+        assert.equal(new Set(members.map(([name]) => name.match(pattern)[1])).size, 4,
+          `${role}: the actual GLB covers all four sides with whole assembly segments`);
+        for (const [name, node] of members) {
+          assert.ok(node.isMesh && node.geometry.getAttribute('position').count > 0, `${name}: native assembly geometry is present`);
+          assert.equal(node.userData.landmarkPrimitive, 'built_up');
+          assert.equal(node.userData.landmarkRole, role);
+        }
+      }
+      assert.ok(![...nodes.keys()].some(name => /^structure:leg_\d{2}_(?:chord|web|tie)_/.test(name)),
+        'former four-chord cages cannot survive beside the consolidated primary legs');
+      assert.ok(![...nodes.keys()].some(name => /^structure:lower_arch_(?:inner_)?[0-3]_[01]_\d+$/.test(name)),
+        'former paired-lane chord sets cannot survive beside the consolidated arch assemblies');
+      for (let side = 0; side < 4; side++) for (let band = 0; band < 3; band++) for (let col = 0; col < 4; col++) {
+        for (const diagonal of ['a', 'b']) {
+          const name = `structure:grid_panel_${diagonal}_${side}_${band}_${col}`, member = nodes.get(name);
+          assert.ok(member?.isMesh && member.geometry.getAttribute('position').count > 0, `${name}: actual four-column lattice geometry is present`);
+          assert.equal(member.userData.landmarkPrimitive, 'built_up');
+          assert.equal(member.userData.landmarkRole, 'grid_panel_brace');
+        }
+      }
+      for (const [name, node] of nodes) {
+        if (!node.isMesh || !/^structure:upper_(?:diagonal|return|secondary(?:_return)?|vertical|ring)_/.test(name)) continue;
+        const memberBounds = new Box3().setFromObject(node);
+        assert.ok(memberBounds.min.y < 79.5 || memberBounds.max.y > 120.5,
+          `${name}: obsolete full-face X members cannot remain inside the replacement GL80–120m band`);
+      }
+      const transition = landmarkGridTransitionBounds(nodes);
+      assert.ok(transition && transition.min.y < 60 && transition.max.y > 100 && transition.max.y < 115,
+        'the native close-up includes two retained bands and two new grid bands across 80m');
       const catalog = readLandmarkSteelNodes(gltf.parser.json.asset.extras.steelNodes);
       assert.equal(catalog.length, 20);
       assert.deepEqual(gltf.parser.json.asset.extras.steelNodes, manifest.steel_nodes, 'viewer catalog must match the downloadable CAD manifest');

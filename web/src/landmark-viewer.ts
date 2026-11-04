@@ -133,7 +133,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     if (!root || !host.clientWidth || !host.clientHeight) return;
     const region = closeupBounds.get(next) ?? bounds;
     const center = region.getCenter(new Vector3());
-    const directions = { iso: new Vector3(1, 1, 1), front: new Vector3(0, 0, 2), side: new Vector3(2, 0, 0), top: new Vector3(0, 2, 0), base: new Vector3(1, .6, 1), 'main-deck': new Vector3(1, .38, 1), 'top-deck': new Vector3(1, .3, 1), 'tembo-deck': new Vector3(1, .3, 1), 'tembo-galleria': new Vector3(1, .25, 1), spire: new Vector3(1, .2, 1), 'steel-node': steelDetails?.direction(steelNodeId ?? '') ?? new Vector3(1, .4, 1) };
+    const directions = { iso: new Vector3(1, 1, 1), front: new Vector3(0, 0, 2), side: new Vector3(2, 0, 0), top: new Vector3(0, 2, 0), base: new Vector3(1, .6, 1), 'grid-transition': new Vector3(0, 0, 2), 'main-deck': new Vector3(1, .38, 1), 'top-deck': new Vector3(1, .3, 1), 'tembo-deck': new Vector3(1, .3, 1), 'tembo-galleria': new Vector3(1, .25, 1), spire: new Vector3(1, .2, 1), 'steel-node': steelDetails?.direction(steelNodeId ?? '') ?? new Vector3(1, .4, 1) };
     camera.up.set(0, next === 'top' ? 0 : 1, next === 'top' ? -1 : 0);
     controls.target.copy(center); camera.position.copy(center).addScaledVector(directions[next], height * 2);
     camera.lookAt(center); camera.updateMatrixWorld();

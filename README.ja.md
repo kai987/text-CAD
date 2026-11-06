@@ -2,7 +2,7 @@
 
 [简体中文](README.md) | **日本語** | [English](README.en.md)
 
-日本の戸建て住宅、2LDKのマンション住戸、東京のランドマーク、近郊河川を作成・比較するパラメトリックCADプロジェクトです。Pythonで編集可能な図面と3Dモデルを生成し、React・TypeScript・Three.jsのビューアーで表示します。Rustはブラウザの断面・輪郭計算と、Python側の空間チェックの一部を担当します。
+日本の戸建て住宅、2LDKのマンション住戸、東京のランドマーク、瀬戸大橋、近郊河川を作成・比較するパラメトリックCADプロジェクトです。Pythonで編集可能な図面と3Dモデルを生成し、React・TypeScript・Three.jsのビューアーで表示します。Rustはブラウザの断面・輪郭計算と、Python側の空間チェックの一部を担当します。
 
 **[オンラインビューアー](https://kai987.github.io/text-CAD/)** · [戸建て](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK住戸](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河川](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -13,6 +13,7 @@
 | 戸建て · R22 | 本体8,190 × 7,280 mm、階高2,800 mm。3寝室、収納用小屋裏、南側バルコニー、並列2台駐車 | [1階DXF](DXF/house_1f_plan.dxf) · [2階DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK住戸 · A01 | 外形7,800 × 8,400 mm。2寝室、LDK、水回り、バルコニー | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河川 · RIVER-R01 | 南北投影延長180,000 mm、幅80,000 mm。護岸、歩道、人道橋、樹木、ベンチ、照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| 瀬戸大橋の連続2橋 · BRIDGE-R03 | 北・南備讃瀬戸大橋。吊橋区間1,538/1,648 m、中央支間990/1,100 m。実景を参考にした道路・鉄道併用の2層構造と4主塔。車両24台・橋下を横断する船4隻・4両編成2列車・波紋海面。アンカレイジ通廊を修正 | [平面DXF](DXF/seto_ohashi_plan.dxf) · [立面DXF](DXF/seto_ohashi_elevation.dxf) · [断面DXF](DXF/seto_ohashi_section.dxf) · [STEP](STEP/seto_ohashi.step) · [GLB](GLB/seto_ohashi.glb) · [出典と仮定](docs/seto_ohashi_R03.md) |
 | 東京のランドマーク · 東京タワー R11 / スカイツリー R05 | 東京タワー333 m・展望台150/250 m、東京スカイツリー634 m・展望台350/450 m。参考外観モデル | [東京タワーSTEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [スカイツリーSTEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [スカイツリーR05・出典](docs/tokyo_skytree_R05.md) · [地標の概要](docs/tokyo_landmarks_R01.md) |
 
 ビューアーは日本語・中国語・英語に対応し、部材の選択・表示切替、水平断面、家具、昼夜・照明、ライト／ダークテーマを操作できます。住宅では東京・大阪・京都・名古屋とW造・軽量S造・RC造の概念案も比較できます。CADの単位はmm、GLBはm・Y-upです。DXFの文字と寸法は編集可能で、閲覧・印刷用にSVGとPDFも用意しています。
@@ -23,7 +24,7 @@
 
 ローカル開発と通常のWebビルドには、**Node.js 24**とnpm、および整合性確認に使う**Python 3（推奨3.13）**が必要です。`python3`をPATHで利用できるようにするか、`CAD_ANALYSIS_PYTHON`に実行ファイルを指定してください。PythonのCADライブラリやRustのインストールは不要です。
 
-事前に[Git LFS](https://git-lfs.com/)をインストールし、`git lfs install`を実行してください。二つのランドマークのSTEPはLFSで管理します。既存のクローンはルートで`git lfs pull`を実行してから検証・ビルドしてください。通常のクローンは完全なSTEPを取得します。ZIP取得時はLFS実体が含まれるか確認してください。
+事前に[Git LFS](https://git-lfs.com/)をインストールし、`git lfs install`を実行してください。ランドマークと橋梁のSTEPはLFSで管理します。既存のクローンはルートで`git lfs pull`を実行してから検証・ビルドしてください。通常のクローンは完全なSTEPを取得します。ZIP取得時はLFS実体が含まれるか確認してください。
 
 ```bash
 git lfs install

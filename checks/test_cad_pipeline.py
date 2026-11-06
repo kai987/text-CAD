@@ -131,6 +131,9 @@ class ScopedCadPipelineTests(unittest.TestCase):
         self.assertEqual(pipeline.generation_commands(('river',)),
                          ['src/river_3d.py', 'src/generate_river_plans.py'])
         self.assertEqual(pipeline.generation_commands(('apartment',)), ['src/apartment_2ldk.py'])
+        self.assertEqual(pipeline.generation_commands(('seto-ohashi',)),
+                         ['src/seto_bridge_3d.py', 'src/generate_seto_bridge_plans.py'])
+        self.assertEqual(pipeline.artifact_model('GLB/seto_ohashi.glb'), 'seto-ohashi')
         house = pipeline.generation_commands(('house',))
         self.assertEqual(len(house), 8)
         self.assertEqual(house[-1], 'web/scripts/generate-plan-svg.py')

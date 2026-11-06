@@ -2,7 +2,7 @@
 
 ## 日本語
 
-通常の対象は `house`、`apartment`、`river`、`tokyo-tower`、`tokyo-skytree` です。
+通常の対象は `house`、`apartment`、`river`、`tokyo-tower`、`tokyo-skytree`、`seto-ohashi` です。
 `--model` を省略するか `all` を指定すると全モデルを生成します。
 
 ```bash
@@ -11,6 +11,9 @@
 
 # 東京タワーだけを生成。最後の検証は全モデルに対して実行します。
 .venv/bin/python src/cad_pipeline.py --regenerate --model tokyo-tower
+
+# 南・北備讃瀬戸大橋の2橋モデルと3種類の図面だけを生成。
+.venv/bin/python src/cad_pipeline.py --regenerate --model seto-ohashi
 
 # 共通の形状処理・入力スキーマやエクスポーターを変更した場合は両方を指定します。
 .venv/bin/python src/cad_pipeline.py --regenerate --model tokyo-tower --model tokyo-skytree
@@ -39,7 +42,7 @@ Pythonのローカルimportを保守的に追跡し、未知の生成依存や�
 
 ## 中文
 
-使用上面的命令可按 `house`、`apartment`、`river`、`tokyo-tower`、`tokyo-skytree` 选择模型；重复 `--model` 可选择多个模型。
+使用上面的命令可按 `house`、`apartment`、`river`、`tokyo-tower`、`tokyo-skytree`、`seto-ohashi` 选择模型；重复 `--model` 可选择多个模型。
 不指定时仍生成全部模型。先在独立临时目录生成，再运行所有CAD检查、共享Python测试和哈希核验，成功后才更新当前文件，最后写入发布凭据。
 失败或检测到并行编辑时保留现有模型与本地预览；替换文件时发生可捕获错误则回滚。
 东京塔参数位于 `src/lib/tokyo_tower_parameters.py`，晴空塔参数位于 `src/lib/skytree_parameters.py`。每次 `parameters()` 调用返回独立的字典和列表；共享输入校验位于 `src/lib/tower_parameters.py`。单个参数模块变动选择对应模型，共享校验、几何或导出源码变动选择两座塔。
@@ -49,7 +52,7 @@ Pythonのローカルimportを保守的に追跡し、未知の生成依存や�
 
 ## English
 
-Use the commands above to select `house`, `apartment`, `river`, `tokyo-tower`, or `tokyo-skytree`; repeat `--model` for shared dependencies. Omitting the selector retains full generation.
+Use the commands above to select `house`, `apartment`, `river`, `tokyo-tower`, `tokyo-skytree`, or `seto-ohashi`; repeat `--model` for shared dependencies. Omitting the selector retains full generation.
 Generators run in an isolated copied tree. All CAD validators, shared Python tests and source/artifact hashes must pass before changed outputs are promoted, with the publication gate written last.
 Generation/validation failures and concurrent edits leave the current CAD and preview files untouched. Caught promotion failures roll back replaced files; an abrupt interruption leaves no valid gate authorizing mixed outputs.
 Tokyo Tower parameters live in `src/lib/tokyo_tower_parameters.py`; Skytree parameters live in `src/lib/skytree_parameters.py`. Each `parameters()` call returns independent dictionaries and lists. Shared input validation lives in `src/lib/tower_parameters.py`. Select the corresponding model for a per-model parameter change, and both towers for shared validation, geometry or exporter changes.

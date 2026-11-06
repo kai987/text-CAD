@@ -1,0 +1,1 @@
+{"animation":{"language":"javascript","source":"export const clips = { named_parts: {label: \"Static named Seto Ohashi assembly\", duration: 1, loop: false, update(t,m) {}} };"},"documentHash":"2965b1554876cda9cb1ae591e189eeb764463a42a4de0a39fc5d09bf95bae32c","schemaVersion":9}

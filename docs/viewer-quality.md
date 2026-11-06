@@ -29,9 +29,15 @@ npm run test:e2e
 
 専用の127.0.0.1:4213で本番ビルドを起動し、デスクトップ1280×900とモバイル390×844を検証します。既存プレビューは再利用しません。Browserプラグインが利用できない環境でも、Playwrightの独立したChromiumで実行できます。
 
-全5モデルの表示、タワーの昼夜・部材・3言語、図面切替、ローカル画像の比較と保存、バッチ化有無の同一視点、東京タワーSTEPの分割復元とSHA-256一致を検証します。復元サイズと分割数は現行の`artifacts/manifest.json`に従います。大きなSTEPを一度復元するため、十分なメモリーと一時保存領域が必要です。
+全6モデルの表示、タワーの昼夜・部材・3言語、図面切替、ローカル画像の比較と保存、バッチ化有無の同一視点、東京タワーSTEPの分割復元とSHA-256一致を検証します。復元サイズと分割数は現行の`artifacts/manifest.json`に従います。大きなSTEPを一度復元するため、十分なメモリーと一時保存領域が必要です。
 
 画像基準は`web/e2e/snapshots/`に保存します。固定バージョンのソフトウェア描画・視点・画面寸法で3Dキャンバスを比較します。OS差を考慮した小さな画素差許容があります。基準更新時は理由と差分をレビューし、失敗の解消だけを目的に更新しないでください。
+
+瀬戸大橋R03は船の橋下横断、下層電車の編成間隔、個別の表示切替と追従視点を検証します。
+水面は時計の数値だけでなく、実際のPNGが動いて変わること、波の停止時に同じ画面を保つこと、
+夜間の色が変わることを比較します。全体停止・画面外・図面切替・OSの動作抑制も対象です。
+元GLBの全頂点と表示用バッチの初期姿勢、24車両×4主塔の96通行組合せはNodeで別に検査します。
+アンカレイジと公鉄通廊の相交、全線電車包絡、元横桁の突出と修正後の解消はPythonのCAD実体で検査します。
 
 ```bash
 npm run test:e2e:update
@@ -66,8 +72,15 @@ Node計測は可視メッシュ数、三角形数、結合準備のCPU時間で�
 
 ## 简体中文
 
-新增本地照片叠加、位置/缩放/透明度调整和PNG/JSON导出。照片不会上传；手动对比不代表实测精度。Playwright覆盖桌面/移动端、五种模型、三语言、昼夜、图纸和分块STEP。东京塔仅合并显示网格，保留CAD部件与几何。CAD验证按共享目录分成6组、最多4组并行，Web独立验证，全部成功后发布。前处理仅在所有输入与生成输出的哈希都匹配时复用，CAD鲜度检查每次执行。命令及限制见上文。
+新增本地照片叠加、位置/缩放/透明度调整和PNG/JSON导出。照片不会上传；手动对比不代表实测精度。Playwright覆盖桌面/移动端、六种模型、三语言、昼夜、图纸和分块STEP。东京塔仅合并显示网格，保留CAD部件与几何。CAD验证按共享目录分成6组、最多4组并行，Web独立验证，全部成功后发布。前处理仅在所有输入与生成输出的哈希都匹配时复用，CAD鲜度检查每次执行。命令及限制见上文。
+
+濑户大桥另检查船只横穿桥轴、四节列车间距、水波实际像素变化和关闭后的静止，以及昼夜显示。
+原生CAD实体检查锚碇通廊、全线电车包络和横梁穿轨的修复；显示批处理保留原GLB顶点与初始姿态。
 
 ## English
 
-Device-local photo overlays support alignment and PNG/JSON review exports. Photos are never uploaded; manual comparison does not establish surveyed accuracy. Playwright covers desktop/mobile, five models, localization, lighting, drawings and reconstructed STEP downloads. Display batching preserves CAD parts and geometry. Six CAD groups share the authoritative catalog and run up to four at a time. Web checks run independently; publication requires every CAD and Web check to succeed. Artifact preparation is reused only when all input and generated-output hashes match; CAD freshness is checked on each invocation. Commands and measurement limits are documented above.
+Device-local photo overlays support alignment and PNG/JSON review exports. Photos are never uploaded; manual comparison does not establish surveyed accuracy. Playwright covers desktop/mobile, six models, localization, lighting, drawings and reconstructed STEP downloads. Display batching preserves CAD parts and geometry. Six CAD groups share the authoritative catalog and run up to four at a time. Web checks run independently; publication requires every CAD and Web check to succeed. Artifact preparation is reused only when all input and generated-output hashes match; CAD freshness is checked on each invocation. Commands and measurement limits are documented above.
+
+Seto Ohashi additionally covers transverse boat passage, four-car consist spacing, rendered water-pixel changes,
+independent water freezing and night colours. Native CAD checks cover anchorage passage, the full railway sweep
+and the repaired floorbeam obstruction; display batching retains original GLB vertices and initial poses.

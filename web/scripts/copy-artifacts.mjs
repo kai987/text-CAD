@@ -8,6 +8,7 @@ import { validatePlanPreviews, validateApartmentPreviews } from './plan-preview-
 import { validateAnalysisReport } from './analysis-report-validation.mjs';
 import { validateRiverArtifacts } from './river-artifact-validation.mjs';
 import { validateTowerArtifacts } from './tower-artifact-validation.mjs';
+import { validateBridgeArtifacts } from './bridge-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
 import { artifactTransport } from './artifact-transport.mjs';
 import { buildLandmarkCatalog, catalogText } from './landmark-catalog.mjs';
@@ -22,6 +23,7 @@ const apartmentPlans = await validateApartmentPreviews(root);
 const analysisReport = await validateAnalysisReport(root);
 const riverArtifacts = await validateRiverArtifacts(root);
 const towerArtifacts = await validateTowerArtifacts(root);
+const bridgeArtifacts = await validateBridgeArtifacts(root);
 // Display metadata comes from the same verified, downloadable CAD manifests.
 const landmarkCatalog = buildLandmarkCatalog(towerArtifacts.models.map(({ manifest }) => manifest));
 export const artifacts = [
@@ -52,6 +54,9 @@ export const artifacts = [
   ...apartmentPlans.floors.map(floor => floor.path),
   ...riverArtifacts.paths,
   ...towerArtifacts.paths,
+  ...bridgeArtifacts.paths,
+  'src/lib/seto_bridge_geometry.py', 'src/lib/seto_bridge_activity.py', 'src/seto_bridge_3d.py', 'src/generate_seto_bridge_plans.py',
+  'src/lib/step_transport.py',
   'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tower_parameters.py', 'src/lib/tokyo_tower_parameters.py', 'src/lib/skytree_parameters.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
   'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
@@ -85,7 +90,7 @@ if (await preparationCacheMatches(root, inputs, generatedMetadata)) {
       const encoded = transport.records[`${source}.gz`];
       if (encoded) console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
       else console.log(`${source}: ${bytes.length} raw bytes retained; gzip would not reduce transfer size.`);
-      if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
+      if (!source.endsWith('river_demo.glb') && !source.endsWith('seto_ohashi.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
         // Display-only edges are pinned to the exact downloadable model bytes.
         const outlines = await buildStaticOutlines(bytes);
         const cachePath = `${source}.edges.bin`;

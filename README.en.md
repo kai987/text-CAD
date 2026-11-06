@@ -4,7 +4,7 @@
 
 See [photo comparison, browser regression tests and performance measurement](docs/viewer-quality.md), the [manifest-derived landmark catalog](docs/model-catalog.md), and [staged per-model CAD generation](docs/scoped_cad_generation.md).
 
-A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments, Tokyo landmarks and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
+A parametric CAD project for creating and comparing Japanese detached houses, 2LDK apartments, Tokyo landmarks, Seto Ohashi and a suburban river. Python generates editable drawings and 3D models; React, TypeScript and Three.js provide the web viewer. Rust handles browser section and outline calculations and part of the Python spatial checks.
 
 **[Online viewer](https://kai987.github.io/text-CAD/)** · [Detached house](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK apartment](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [Suburban river](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -15,6 +15,7 @@ A parametric CAD project for creating and comparing Japanese detached houses, 2L
 | Detached house · R22 | 8,190 × 7,280 mm body; 2,800 mm storey height. Three bedrooms, storage attic, south balcony and two side-by-side parking spaces | [1F DXF](DXF/house_1f_plan.dxf) · [2F DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK apartment · A01 | 7,800 × 8,400 mm outline. Two bedrooms, LDK, bathroom facilities and balcony | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | Suburban river · RIVER-R01 | 180,000 mm north–south projected length; 80,000 mm width. Revetments, paths, footbridge, trees, benches and lighting | [Plan DXF](DXF/river_demo_plan.dxf) · [Section DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| Seto Ohashi twin bridges · BRIDGE-R03 | Kita/Minami Bisan-Seto bridges. Suspended lengths 1,538/1,648 m; central spans 990/1,100 m. Photo-informed road/rail double decks and four portal towers. 24 vehicles, four crossing boats, two four-car trains and procedural water; corrected anchorage corridors | [Plan DXF](DXF/seto_ohashi_plan.dxf) · [Elevation DXF](DXF/seto_ohashi_elevation.dxf) · [Section DXF](DXF/seto_ohashi_section.dxf) · [STEP](STEP/seto_ohashi.step) · [GLB](GLB/seto_ohashi.glb) · [Sources and assumptions](docs/seto_ohashi_R03.md) |
 | Tokyo landmarks · Tokyo Tower R11 / Skytree R05 | Tokyo Tower 333 m with 150/250 m decks; Tokyo Skytree 634 m with 350/450 m decks. Exterior reference studies | [Tokyo Tower STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [Skytree STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [Skytree R05 and sources](docs/tokyo_skytree_R05.md) · [Landmark overview](docs/tokyo_landmarks_R01.md) |
 
 The viewer supports Chinese, Japanese and English, component selection and visibility, horizontal sections, furnishings, day/night and lighting, and light/dark themes. The house also offers concept comparisons for Tokyo, Osaka, Kyoto and Nagoya with timber W, light steel S and reinforced concrete RC systems. CAD uses millimetres; GLB uses metres and Y-up. DXF retains editable text and dimensions, with SVG and PDF for viewing and printing.
@@ -25,7 +26,7 @@ The viewer supports Chinese, Japanese and English, component selection and visib
 
 Local development and normal web builds require **Node.js 24**, npm and **Python 3 (3.13 recommended)** for standard-library consistency checks. Make `python3` available on PATH or set `CAD_ANALYSIS_PYTHON` to its executable. Python CAD libraries and Rust are not required.
 
-Install [Git LFS](https://git-lfs.com/) and run `git lfs install` first. The two landmark STEP files use LFS. For an existing clone, run `git lfs pull` at the repository root before validation or builds. Normal clones restore the complete STEP files; check whether LFS objects are included when downloading a ZIP archive.
+Install [Git LFS](https://git-lfs.com/) and run `git lfs install` first. Landmark and bridge STEP files use LFS. For an existing clone, run `git lfs pull` at the repository root before validation or builds. Normal clones restore the complete STEP files; check whether LFS objects are included when downloading a ZIP archive.
 
 ```bash
 git lfs install

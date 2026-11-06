@@ -8,6 +8,7 @@ import { asset, repository } from './data';
 import { initialRiverView, residentialUrl, riverCopy, riverDownloadFiles, riverGroups, riverUrl, riverViews } from './river-copy';
 import type { RiverGroupId, RiverView } from './river-copy';
 import { isLandmarkId, landmarkIds, landmarkModels, landmarkUrl } from './landmark-copy';
+import { bridgeCopy, bridgeUrl } from './bridge-copy';
 import type { RiverViewer } from './river-viewer';
 import { isRiverQuality, readRiverQuality, riverQualities, saveRiverQuality } from './river-quality';
 import type { RiverQuality } from './river-quality';
@@ -103,6 +104,7 @@ export default function RiverPage() {
   }, []);
   function navigate(next: RiverView) { setPage(next); history.replaceState(null, '', riverUrl(location.href, next)); }
   function changeModel(id: string) {
+    if (id === 'seto-ohashi') location.assign(bridgeUrl(location.href, '3d'));
     if (isLandmarkId(id)) location.assign(landmarkUrl(location.href, id, '3d'));
     if (id === 'house' || id === 'apartment') location.assign(residentialUrl(location.href, id));
   }
@@ -129,6 +131,7 @@ export default function RiverPage() {
       <select id="model-choice" value="river" onChange={event => changeModel(event.target.value)}>
         <option value="house">{base.models.house}</option><option value="apartment">{base.models.apartment}</option><option value="river">{copy.modelName}</option>
         {landmarkIds.map(id => <option key={id} value={id}>{landmarkModels[id].names[locale]}</option>)}
+        <option value="seto-ohashi">{bridgeCopy[locale].modelName}</option>
       </select><span>{riverData.revision} · {copy.parameterNote}</span>
     </div>
     <main id="main-content">

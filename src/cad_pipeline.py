@@ -23,6 +23,7 @@ GENERATORS = ['src/generate_redesign_plans.py', 'src/generate_attic_plan.py',
               'src/generate_structural_cases.py', 'src/apartment_2ldk.py',
               'src/river_3d.py', 'src/generate_river_plans.py',
               'src/towers_3d.py', 'src/generate_tower_plans.py',
+              'src/seto_bridge_3d.py', 'src/generate_seto_bridge_plans.py',
               'web/scripts/generate-plan-svg.py']
 VALIDATORS = ['checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.py',
               'checks/validate_3d.py', 'checks/validate_site.py', 'checks/validate_structure.py',
@@ -30,13 +31,15 @@ VALIDATORS = ['checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.
               'checks/validate_apartment.py', 'checks/validate_fixtures.py',
               'checks/validate_furniture.py', 'checks/validate_outdoor_lighting.py',
               'checks/validate_glb_native.py', 'checks/validate_indoor_lighting.py',
-              'checks/validate_river.py', 'checks/validate_towers.py']
+              'checks/validate_river.py', 'checks/validate_towers.py',
+              'checks/validate_seto_bridge.py']
 UNIT_TESTS = ['checks/test_cad_release.py', 'checks/test_cad_pipeline.py', 'checks/test_orientation.py',
               'checks/test_step_transport.py', 'checks/test_attic_opening_rules.py',
               'checks/test_glb_export.py',
               'checks/test_attic_layout.py', 'checks/test_upper_layout.py',
               'checks/test_river_geometry.py',
               'checks/test_river_validation.py', 'checks/test_tower_drawings.py', 'checks/test_tower_parameters.py',
+              'checks/test_seto_bridge.py',
               'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_tokyo_tower_base.py', 'checks/test_tokyo_tower_outline.py', 'checks/test_tokyo_tower_r08.py', 'checks/test_tokyo_tower_r09.py', 'checks/test_tokyo_tower_r10.py', 'checks/test_tokyo_tower_r11.py', 'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py', 'checks/test_tower_tubular.py',
               'analysis/test_house_review.py']
 
@@ -81,7 +84,8 @@ sys.exit(0 if result.wasSuccessful() else 1)
 '''
 
 
-MODELS = ('house', 'apartment', 'river', 'tokyo-tower', 'tokyo-skytree')
+TOWER_MODELS = ('tokyo-tower', 'tokyo-skytree')
+MODELS = ('house', 'apartment', 'river', *TOWER_MODELS, 'seto-ohashi')
 _OUTPUT_ROOTS = ('DXF', 'STEP', 'GLB', 'output/pdf', 'output/svg',
                  'output/vector', 'output/review')
 _VALIDATION_ONLY = {'src/cad_pipeline.py', 'src/cad_release.py'}
@@ -91,9 +95,9 @@ def generation_commands(models: tuple[str, ...], *, drawings_only: bool = False)
     """Select complete model outputs; shared validators always run afterward."""
     selected = set(models)
     if drawings_only:
-        if not selected or not selected.issubset(MODELS[-2:]):
+        if not selected or not selected.issubset(TOWER_MODELS):
             raise ValueError('--drawings-only requires a nonempty selection of Tokyo landmark models.')
-        towers = [model for model in MODELS[-2:] if model in selected]
+        towers = [model for model in TOWER_MODELS if model in selected]
         return ['src/generate_tower_plans.py' + (f' --model {towers[0]}' if len(towers) == 1 else '')]
     commands = []
     for path in GENERATORS:
@@ -106,8 +110,11 @@ def generation_commands(models: tuple[str, ...], *, drawings_only: bool = False)
         elif path in ('src/river_3d.py', 'src/generate_river_plans.py'):
             if 'river' in selected:
                 commands.append(path)
+        elif path in ('src/seto_bridge_3d.py', 'src/generate_seto_bridge_plans.py'):
+            if 'seto-ohashi' in selected:
+                commands.append(path)
         else:
-            towers = [model for model in MODELS[-2:] if model in selected]
+            towers = [model for model in TOWER_MODELS if model in selected]
             if len(towers) == 2:
                 commands.append(path)
             elif towers:
@@ -120,7 +127,8 @@ def artifact_model(path: str) -> str:
     """Catalog ownership, including retained historical house supplements."""
     name = Path(path).name
     for prefix, model in [('apartment_2ldk', 'apartment'), ('river_demo', 'river'),
-                          ('tokyo_tower', 'tokyo-tower'), ('tokyo_skytree', 'tokyo-skytree')]:
+                          ('tokyo_tower', 'tokyo-tower'), ('tokyo_skytree', 'tokyo-skytree'),
+                          ('seto_ohashi', 'seto-ohashi')]:
         if name.startswith(prefix):
             return model
     return 'house'
@@ -411,7 +419,7 @@ def build_release(root: Path, commands: list[str], models: tuple[str, ...], *, r
     return {
         'schema_version': 1, 'drawing_revision': plan['drawing_revision'], 'model_revision': model['revision'],
         'generated_at': datetime.now(ZoneInfo('Asia/Tokyo')).isoformat(),
-        'scope': 'Current house, apartment, river and Tokyo landmark reference geometry/drawings. No survey, engineering or regulatory approval.',
+        'scope': 'Current house, apartment, river, Tokyo landmarks and Seto Ohashi reference geometry/drawings. No survey, engineering or regulatory approval.',
         'generation_commands': commands, 'validation_commands': VALIDATORS,
         'unit_test_commands': UNIT_TESTS, 'selected_models': list(models),
         'operation': 'validation_refresh' if refresh else 'staged_regeneration',
@@ -511,7 +519,7 @@ def main() -> None:
     if args.drawings_only and not args.regenerate:
         parser.error('--drawings-only applies only to --regenerate.')
     models = tuple(MODELS if not args.model or 'all' in args.model else [model for model in MODELS if model in args.model])
-    if args.drawings_only and (not models or not set(models).issubset(MODELS[-2:])):
+    if args.drawings_only and (not models or not set(models).issubset(TOWER_MODELS)):
         parser.error('--drawings-only requires --model tokyo-tower and/or --model tokyo-skytree.')
     if args.dry_run:
         print(json.dumps({'models': models, 'generation_commands': generation_commands(models, drawings_only=args.drawings_only),

@@ -16,12 +16,15 @@ import { StructuralDesignProvider } from './StructuralDesignContext';
 import { initialSceneLighting, saveSceneLighting, sceneLightingUrl } from './scene-lighting-settings';
 import { riverCopy, riverUrl } from './river-copy';
 import { isLandmarkId, landmarkIds, landmarkModels, landmarkUrl } from './landmark-copy';
+import { bridgeCopy, bridgeUrl } from './bridge-copy';
 
 const RiverPage = lazy(() => import('./RiverPage'));
 const LandmarkPage = lazy(() => import('./LandmarkPage'));
+const BridgePage = lazy(() => import('./BridgePage'));
 
 export default function App() {
   const landmark = new URLSearchParams(location.search).get('model');
+  if (landmark === 'seto-ohashi') return <Suspense fallback={<p role="status">text-CAD</p>}><BridgePage /></Suspense>;
   if (isLandmarkId(landmark)) return <Suspense fallback={<p role="status">text-CAD</p>}><LandmarkPage key={landmark} model={landmark} /></Suspense>;
   if (new URLSearchParams(location.search).get('model') === 'river') {
     return <Suspense fallback={<p role="status">text-CAD</p>}><RiverPage /></Suspense>;
@@ -99,7 +102,8 @@ function ResidentialApp() {
     <div className="model-switcher">
       <label htmlFor="model-choice">{copy.models.label}</label>
       <select id="model-choice" value={model} onChange={event => {
-        if (isLandmarkId(event.target.value)) location.assign(landmarkUrl(location.href, event.target.value, '3d'));
+        if (event.target.value === 'seto-ohashi') location.assign(bridgeUrl(location.href, '3d'));
+        else if (isLandmarkId(event.target.value)) location.assign(landmarkUrl(location.href, event.target.value, '3d'));
         else if (event.target.value === 'river') location.assign(riverUrl(location.href, '3d'));
         else if (event.target.value === 'house' || event.target.value === 'apartment') changeModel(event.target.value);
       }}>
@@ -107,6 +111,7 @@ function ResidentialApp() {
         <option value="apartment">{copy.models.apartment}</option>
         <option value="river">{riverCopy[locale].modelName}</option>
         {landmarkIds.map(id => <option key={id} value={id}>{landmarkModels[id].names[locale]}</option>)}
+        <option value="seto-ohashi">{bridgeCopy[locale].modelName}</option>
       </select>
       <span>{copy.models.note}</span>
     </div>

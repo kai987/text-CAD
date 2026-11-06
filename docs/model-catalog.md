@@ -4,6 +4,11 @@
 形状は変更しません。住宅・住戸・河川は既存の `house-data.json`、`apartment-data.json`、
 `river-data.json` の生成経路を引き続き使用します。
 
+瀬戸大橋は独立した `seto-ohashi` エントリーです。`BridgePage` は公開前に照合済みの
+`seto_ohashi_manifest.json` を読み、公式寸法と3言語の仮定を表示します。
+`bridge-artifact-validation.mjs` がモデル・図面・エクスポーターのハッシュと
+橋長・中央支間の可編集寸法を検査します。塔専用カタログに橋を混在させません。
+
 | 情報 | 編集元 |
 | --- | --- |
 | 改訂、モデル名3言語、全高、モデルGL、公式案内高さ、ファイルパス | `output/review/tokyo_*_manifest.json`。CAD再生成時に更新 |

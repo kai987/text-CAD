@@ -1,0 +1,52 @@
+.bridge-workspace { display: grid; grid-template-columns: 270px minmax(0, 1fr); height: calc(100svh - 122px); min-height: 540px; }
+.bridge-sidebar { padding: 24px; border-right: 1px solid var(--line); background: var(--surface); overflow: auto; }
+.bridge-sidebar section + section { margin-top: 26px; }
+.bridge-sidebar p, .bridge-sidebar details, .bridge-sidebar li { font-size: 12px; line-height: 1.7; color: var(--muted); }
+.bridge-sidebar summary { cursor: pointer; color: var(--secondary); }
+.bridge-sidebar ul { padding-left: 18px; }
+.bridge-components { display: grid; gap: 14px; margin-bottom: 18px; }
+.bridge-components label { display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.5; cursor: pointer; }
+.bridge-components input { width: 19px; height: 19px; flex-shrink: 0; margin: 0; accent-color: var(--accent-fill); }
+.bridge-parameters { margin: 0; font-size: 12px; }
+.bridge-parameters > div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.bridge-parameters dt { color: var(--secondary); }.bridge-parameters dd { margin: 0; white-space: nowrap; }
+.bridge-sources a { display: block; font-size: 12px; line-height: 1.65; margin-bottom: 8px; overflow-wrap: anywhere; }
+.bridge-viewer-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.bridge-viewer-panel .viewer-toolbar { flex-basis: auto; min-height: 76px; padding-block: 12px; flex-wrap: wrap; gap: 10px; }
+.bridge-viewer-panel h1 { font-size: clamp(15px, 1.5vw, 21px); }
+.bridge-environment, .bridge-camera-controls { display: flex; gap: 7px; }
+.bridge-environment .active { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--selected-text); }
+.bridge-camera-controls { flex-wrap: wrap; padding: 10px 24px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.bridge-camera-controls button { min-height: 34px; font-size: 12px; }
+.bridge-camera-controls .bridge-motion-toggle { margin-left: auto; border-color: var(--accent); color: var(--accent); }
+.bridge-canvas { flex: 1; min-height: 360px; position: relative; background: var(--canvas-bg); overflow: hidden; }
+.bridge-canvas canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.bridge-canvas .canvas-message { max-width: min(400px, calc(100% - 40px)); background: var(--overlay); border: 1px solid var(--overlay-border); padding: 16px; border-radius: 4px; }
+.bridge-canvas .canvas-message button { margin-top: 12px; }.bridge-canvas .canvas-message span { display: block; font-size: 12px; margin-top: 8px; }
+.bridge-canvas .selection-details { align-items: center; }
+.bridge-canvas .canvas-footer { font-size: 12px; gap: 15px; }
+.bridge-download-link { border: 0; background: none; padding: 0; color: var(--accent); text-decoration: underline; flex-shrink: 0; pointer-events: auto; }
+.bridge-lighting-note { padding: 7px 24px; margin: 0; color: var(--muted); background: var(--surface); border-top: 1px solid var(--line); font-size: 11px; line-height: 1.5; }
+.bridge-drawing { background: var(--canvas-bg); min-height: calc(100svh - 122px); }.bridge-drawing[hidden] { display: none; }
+.bridge-drawing-note { padding: 12px 24px; background: var(--surface); color: var(--muted); font-size: 12px; border-bottom: 1px solid var(--line); }
+.bridge-paper-scroll { position: relative; overflow: auto; padding: 24px; max-height: calc(100svh - 225px); min-height: 400px; }
+.bridge-paper { display: block; max-width: none; height: auto; background: white; box-shadow: 0 2px 10px var(--paper-shadow); }
+.bridge-drawing-status { padding: 16px; color: var(--text); background: var(--surface); border: 1px solid var(--line); }.bridge-drawing-status button { margin-top: 10px; }
+.bridge-zoom { color: var(--muted); font-size: 12px; align-self: center; min-width: 38px; text-align: center; }
+@media (max-width: 760px) {
+  .bridge-workspace { display: flex; flex-direction: column; height: auto; min-height: 0; }
+  .bridge-sidebar { order: 1; border-right: 0; border-top: 1px solid var(--line); padding: 18px; }
+  .bridge-components { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }.bridge-components label { font-size: 12px; }
+  .bridge-sidebar section + section { margin-top: 20px; }.bridge-sidebar h2 { font-size: 14px; }
+  .bridge-parameters { max-width: 420px; }.bridge-sidebar .outline-button { min-height: 34px; font-size: 12px; }
+  .bridge-viewer-panel .viewer-toolbar { padding: 12px 16px; gap: 8px; }.bridge-viewer-panel h1 { width: 100%; font-size: 15px; }
+  .bridge-viewer-panel .toolbar-actions { margin-left: auto; }.bridge-environment button { min-height: 32px; font-size: 12px; }
+  .bridge-camera-controls { padding: 8px 12px; gap: 6px; }.bridge-camera-controls button { padding: 7px 9px; min-height: 32px; font-size: 11px; }
+  .bridge-canvas { flex: none; height: clamp(360px, 55svh, 650px); }.bridge-canvas .canvas-footer { font-size: 10px; padding: 8px 12px; gap: 10px; }
+  .bridge-canvas .canvas-footer span { max-width: calc(100% - 70px); }.bridge-lighting-note { padding: 7px 14px; font-size: 10px; }
+  .bridge-drawing .viewer-toolbar { padding: 12px 16px; flex-wrap: wrap; flex-basis: auto; gap: 12px; }.bridge-drawing-note { padding: 12px 16px; }
+  .bridge-paper-scroll { padding: 12px; min-height: 350px; max-height: 75svh; }.bridge-app .model-switcher > span { display: none; }
+}
+
+.bridge-wave-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 8px; font-size: 12px; white-space: nowrap; cursor: pointer; }
+.bridge-wave-toggle input { accent-color: var(--accent, #315d7c); width: 15px; height: 15px; margin: 0; }

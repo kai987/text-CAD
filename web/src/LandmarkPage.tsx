@@ -7,6 +7,7 @@ import { isLocale, languageNames, locales } from './localization';
 import { isThemePreference } from './theme-preferences';
 import { initialSceneLighting, saveSceneLighting, sceneLightingUrl } from './scene-lighting-settings';
 import { riverCopy, residentialUrl, riverUrl } from './river-copy';
+import { bridgeCopy, bridgeUrl } from './bridge-copy';
 import { initialLandmarkView, isLandmarkId, landmarkCameraOptions, landmarkCopy, landmarkDownloadFiles, landmarkGroupIds, landmarkIds, landmarkModels, landmarkUrl, landmarkViews } from './landmark-copy';
 import type { LandmarkCamera, LandmarkGroupId, LandmarkId, LandmarkView } from './landmark-copy';
 import type { LandmarkViewer } from './landmark-viewer';
@@ -101,7 +102,8 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
   }, []);
   function navigate(next: LandmarkView) { setPage(next); history.replaceState(null, '', landmarkUrl(location.href, model, next)); }
   function changeModel(id: string) {
-    if (isLandmarkId(id)) location.assign(landmarkUrl(location.href, id, '3d'));
+    if (id === 'seto-ohashi') location.assign(bridgeUrl(location.href, '3d'));
+    else if (isLandmarkId(id)) location.assign(landmarkUrl(location.href, id, '3d'));
     else if (id === 'river') location.assign(riverUrl(location.href, '3d'));
     else if (id === 'house' || id === 'apartment') location.assign(residentialUrl(location.href, id));
   }
@@ -129,6 +131,7 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
       <select id="model-choice" value={model} onChange={event => changeModel(event.target.value)}>
         <option value="house">{base.models.house}</option><option value="apartment">{base.models.apartment}</option><option value="river">{riverCopy[locale].modelName}</option>
         {landmarkIds.map(id => <option key={id} value={id}>{landmarkModels[id].names[locale]}</option>)}
+        <option value="seto-ohashi">{bridgeCopy[locale].modelName}</option>
       </select><span>{metadata.revision} · {copy.subtitle}</span>
     </div>
     <main id="main-content">

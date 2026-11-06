@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "id": "seto-ohashi",
+  "model_id": "seto-ohashi",
+  "revision": "BRIDGE-R03",
+  "units": "mm",
+  "status": "reference_concept_only",
+  "source_geometry_revision": "BRIDGE-R03",
+  "source_sha256": {
+    "src/lib/seto_bridge_geometry.py": "c7150bf89c2b222fec763a95f917776b744e6c9ea11e3b582fcea26af750ae45",
+    "src/lib/seto_bridge_activity.py": "17d045187bd14f82b323c4d309cd38e797cba4d12cdf6c9a6367bd29fb4268d6",
+    "src/generate_seto_bridge_plans.py": "6ce7c9c499de40884ab5e0c56663192683199299a2da63462af2707330e81d45"
+  },
+  "artifacts": {
+    "DXF/seto_ohashi_plan.dxf": {
+      "sha256": "f4b0c35b7fdb701408e7d1626467d9d4eab815fa8a5a12f211d3304504f86a77",
+      "bytes": 113720
+    },
+    "output/svg/seto_ohashi_plan.svg": {
+      "sha256": "9ce08f4e1a25263f3752957c9c0da7ef0aaa4b930dfbfc6c6e0accb642d9dfa0",
+      "bytes": 34189
+    },
+    "DXF/seto_ohashi_elevation.dxf": {
+      "sha256": "9a4da004786fa913a351b35c6d2f09c57a6a7c5575c736f65dddeb74b0a2729a",
+      "bytes": 392511
+    },
+    "output/svg/seto_ohashi_elevation.svg": {
+      "sha256": "5e8ec2fa2f96e2427a8ced262d345ade8e68f6d21dc72aaf4ebb04eb0ceb37e4",
+      "bytes": 199384
+    },
+    "DXF/seto_ohashi_section.dxf": {
+      "sha256": "0b690c11582be2b0e1bbefae3f52ccd0f93c8ef02c40bb50cf012642e3550f46",
+      "bytes": 92900
+    },
+    "output/svg/seto_ohashi_section.svg": {
+      "sha256": "4681ac16e3989c1b6cae0c618625b3ea2ca62eb7acd99c052c244f10eccc4245",
+      "bytes": 19671
+    },
+    "output/pdf/seto_ohashi_sheets.pdf": {
+      "sha256": "fdaa9cf9ee685e1f14afb3ebdf4a4c6afc624709cde7aa44e77e138fd4c9b09a",
+      "bytes": 159840
+    }
+  },
+  "drawings": [
+    {
+      "id": "plan",
+      "dxf": "DXF/seto_ohashi_plan.dxf",
+      "svg": "output/svg/seto_ohashi_plan.svg",
+      "scale": 10000,
+      "dimensions_mm": [
+        1538000,
+        1648000,
+        3333800,
+        4500.0,
+        24000.0
+      ],
+      "required_labels": [
+        "橋梁全体平面図",
+        "北備讃瀬戸大橋",
+        "南備讃瀬戸大橋",
+        "BB4A",
+        "車両",
+        "遊覧船",
+        "電車",
+        "単位 mm"
+      ]
+    },
+    {
+      "id": "elevation",
+      "dxf": "DXF/seto_ohashi_elevation.dxf",
+      "svg": "output/svg/seto_ohashi_elevation.svg",
+      "scale": 10000,
+      "dimensions_mm": [
+        1538000,
+        990000,
+        1648000,
+        1100000,
+        3333800
+      ],
+      "required_labels": [
+        "橋梁全体側面図",
+        "北橋",
+        "南橋",
+        "T.P.",
+        "単位 mm"
+      ]
+    },
+    {
+      "id": "section",
+      "dxf": "DXF/seto_ohashi_section.dxf",
+      "svg": "output/svg/seto_ohashi_section.svg",
+      "scale": 250,
+      "dimensions_mm": [
+        35000,
+        30000,
+        22500,
+        13000,
+        5300,
+        11880,
+        420
+      ],
+      "required_labels": [
+        "A-A 横断面",
+        "上層：道路4車線",
+        "在来線（複線）",
+        "新幹線の留保空間",
+        "BB4A",
+        "通行有効高さ",
+        "軌頂詳細",
+        "単位 mm"
+      ]
+    }
+  ]
+}

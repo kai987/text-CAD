@@ -4,7 +4,7 @@
 
 新增[照片对比、浏览器回归测试与性能测量](docs/viewer-quality.md)，[地标共用目录](docs/model-catalog.md)从CAD清单生成，并支持[按模型隔离生成CAD](docs/scoped_cad_generation.md)。
 
-用于制作和比较日本一户建、2LDK公寓、东京地标及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
+用于制作和比较日本一户建、2LDK公寓、东京地标、濑户大桥及近郊河流的参数化CAD项目。Python生成可编辑图纸和三维模型，React、TypeScript和Three.js提供网页查看器。Rust负责浏览器剖切与轮廓计算，以及Python端的部分空间检查。
 
 **[在线查看器](https://kai987.github.io/text-CAD/)** · [一户建](https://kai987.github.io/text-CAD/?model=house&view=3d) · [2LDK公寓](https://kai987.github.io/text-CAD/?model=apartment&view=3d) · [近郊河流](https://kai987.github.io/text-CAD/?model=river&view=3d)
 
@@ -15,6 +15,7 @@
 | 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
+| 濑户大桥双桥 · BRIDGE-R03 | 北、南备赞濑户大桥。悬索区长度1,538/1,648 m，主跨990/1,100 m；参考实景的公铁双层桥面与四座门型主塔。24辆车、4艘横穿桥下的游船、两列四节电车及波纹海面；修正锚碇通廊 | [平面DXF](DXF/seto_ohashi_plan.dxf) · [立面DXF](DXF/seto_ohashi_elevation.dxf) · [横断面DXF](DXF/seto_ohashi_section.dxf) · [STEP](STEP/seto_ohashi.step) · [GLB](GLB/seto_ohashi.glb) · [来源与假设](docs/seto_ohashi_R03.md) |
 | 东京地标 · 东京塔 R11 / 晴空塔 R05 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R05与来源](docs/tokyo_skytree_R05.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
 
 查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
@@ -25,7 +26,7 @@
 
 本地开发和普通Web构建需要 **Node.js 24**、npm和用于标准库一致性检查的 **Python 3（推荐3.13）**。确保PATH中有`python3`，或用`CAD_ANALYSIS_PYTHON`指定解释器；无需安装Python CAD依赖或Rust。
 
-首次使用前请安装[Git LFS](https://git-lfs.com/)，执行`git lfs install`；仓库的两个地标STEP由LFS保存。已有克隆先在仓库根目录执行`git lfs pull`，再验证或构建。普通克隆会自动还原完整STEP；下载ZIP时请另行确认LFS对象已包含。
+首次使用前请安装[Git LFS](https://git-lfs.com/)，执行`git lfs install`；仓库的地标和大桥STEP由LFS保存。已有克隆先在仓库根目录执行`git lfs pull`，再验证或构建。普通克隆会自动还原完整STEP；下载ZIP时请另行确认LFS对象已包含。
 
 ```bash
 git lfs install

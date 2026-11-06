@@ -1,12 +1,12 @@
 {
   "summary": {
-    "revision": "BRIDGE-R03",
-    "checks": 13706,
-    "passed": 13706,
+    "revision": "BRIDGE-R04",
+    "checks": 13745,
+    "passed": 13745,
     "failed": 0,
-    "STEP_leaf_occurrences": 4450,
-    "GLB_meshes": 4450,
-    "triangles": 86092,
+    "STEP_leaf_occurrences": 4462,
+    "GLB_meshes": 4462,
+    "triangles": 86748,
     "scope": "Saved source-bound appearance geometry and editable drawings; engineering uncalculated."
   },
   "checks": [
@@ -64,6 +64,10 @@
     },
     {
       "check": "manifest:assumptions",
+      "pass": true
+    },
+    {
+      "check": "manifest:tower_alignment",
       "pass": true
     },
     {
@@ -335,6 +339,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:north:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:north:tower_1:leg_1",
       "pass": true
     },
@@ -343,11 +355,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:north:tower_1:crossbeam_0",
+      "check": "STEP:unique:towers:north:tower_1:base_plate_1",
       "pass": true
     },
     {
-      "check": "STEP:valid_positive:towers:north:tower_1:crossbeam_0",
+      "check": "STEP:valid_positive:towers:north:tower_1:base_plate_1",
       "pass": true
     },
     {
@@ -359,51 +371,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:north:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "STEP:unique:towers:north:tower_1:crossbeam_5",
       "pass": true
     },
     {
       "check": "STEP:valid_positive:towers:north:tower_1:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_1:X_0_R",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_1:X_0_R",
       "pass": true
     },
     {
@@ -423,6 +395,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:north:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:north:tower_1:X_4_L",
       "pass": true
     },
@@ -436,6 +416,54 @@
     },
     {
       "check": "STEP:valid_positive:towers:north:tower_1:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_1:lower_chevron_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_1:lower_chevron_R",
       "pass": true
     },
     {
@@ -463,6 +491,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:north:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:north:tower_2:leg_1",
       "pass": true
     },
@@ -471,11 +507,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:north:tower_2:crossbeam_0",
+      "check": "STEP:unique:towers:north:tower_2:base_plate_1",
       "pass": true
     },
     {
-      "check": "STEP:valid_positive:towers:north:tower_2:crossbeam_0",
+      "check": "STEP:valid_positive:towers:north:tower_2:base_plate_1",
       "pass": true
     },
     {
@@ -487,51 +523,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:north:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "STEP:unique:towers:north:tower_2:crossbeam_5",
       "pass": true
     },
     {
       "check": "STEP:valid_positive:towers:north:tower_2:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:north:tower_2:X_0_R",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:north:tower_2:X_0_R",
       "pass": true
     },
     {
@@ -551,6 +547,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:north:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:north:tower_2:X_4_L",
       "pass": true
     },
@@ -564,6 +568,54 @@
     },
     {
       "check": "STEP:valid_positive:towers:north:tower_2:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:north:tower_2:lower_chevron_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:north:tower_2:lower_chevron_R",
       "pass": true
     },
     {
@@ -591,6 +643,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:south:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:south:tower_1:leg_1",
       "pass": true
     },
@@ -599,11 +659,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:south:tower_1:crossbeam_0",
+      "check": "STEP:unique:towers:south:tower_1:base_plate_1",
       "pass": true
     },
     {
-      "check": "STEP:valid_positive:towers:south:tower_1:crossbeam_0",
+      "check": "STEP:valid_positive:towers:south:tower_1:base_plate_1",
       "pass": true
     },
     {
@@ -615,51 +675,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:south:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "STEP:unique:towers:south:tower_1:crossbeam_5",
       "pass": true
     },
     {
       "check": "STEP:valid_positive:towers:south:tower_1:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_1:X_0_R",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_1:X_0_R",
       "pass": true
     },
     {
@@ -679,6 +699,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:south:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:south:tower_1:X_4_L",
       "pass": true
     },
@@ -692,6 +720,54 @@
     },
     {
       "check": "STEP:valid_positive:towers:south:tower_1:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_1:lower_chevron_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_1:lower_chevron_R",
       "pass": true
     },
     {
@@ -719,6 +795,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:south:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:south:tower_2:leg_1",
       "pass": true
     },
@@ -727,11 +811,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:south:tower_2:crossbeam_0",
+      "check": "STEP:unique:towers:south:tower_2:base_plate_1",
       "pass": true
     },
     {
-      "check": "STEP:valid_positive:towers:south:tower_2:crossbeam_0",
+      "check": "STEP:valid_positive:towers:south:tower_2:base_plate_1",
       "pass": true
     },
     {
@@ -743,51 +827,11 @@
       "pass": true
     },
     {
-      "check": "STEP:unique:towers:south:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "STEP:unique:towers:south:tower_2:crossbeam_5",
       "pass": true
     },
     {
       "check": "STEP:valid_positive:towers:south:tower_2:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "STEP:unique:towers:south:tower_2:X_0_R",
-      "pass": true
-    },
-    {
-      "check": "STEP:valid_positive:towers:south:tower_2:X_0_R",
       "pass": true
     },
     {
@@ -807,6 +851,14 @@
       "pass": true
     },
     {
+      "check": "STEP:unique:towers:south:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "STEP:unique:towers:south:tower_2:X_4_L",
       "pass": true
     },
@@ -820,6 +872,54 @@
     },
     {
       "check": "STEP:valid_positive:towers:south:tower_2:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:towers:south:tower_2:lower_chevron_R",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:towers:south:tower_2:lower_chevron_R",
       "pass": true
     },
     {
@@ -35721,7 +35821,7 @@
     {
       "check": "STEP:exact_component_names",
       "pass": true,
-      "actual": 4450
+      "actual": 4462
     },
     {
       "check": "STEP:manifest_bbox:min",
@@ -37062,47 +37162,41 @@
       "check": "STEP:consist:all_infrastructure_full_route_sweeps",
       "pass": true,
       "actual": {
-        "native_candidates": 465,
+        "native_candidates": 449,
         "pieces": 6,
         "collisions": []
       }
     },
     {
-      "check": "STEP:actual_vehicle_clearance:towers:north:tower_1:crossbeam_2",
+      "check": "STEP:road:all_tower_full_route_sweeps",
       "pass": true,
       "actual": {
-        "clearance_mm": 5100.0,
-        "conservative_vehicle_height_mm": 3385.0312326689454
+        "native_candidates": 4,
+        "pieces": 12,
+        "lanes": 4,
+        "collisions": []
       }
     },
     {
-      "check": "STEP:actual_vehicle_clearance:towers:north:tower_2:crossbeam_2",
-      "pass": true,
-      "actual": {
-        "clearance_mm": 5100.0,
-        "conservative_vehicle_height_mm": 3385.0312326689454
-      }
+      "check": "STEP:photo_portal_members:towers:north:tower_1:",
+      "pass": true
     },
     {
-      "check": "STEP:actual_vehicle_clearance:towers:south:tower_1:crossbeam_2",
-      "pass": true,
-      "actual": {
-        "clearance_mm": 5100.0,
-        "conservative_vehicle_height_mm": 3385.0312326689454
-      }
+      "check": "STEP:photo_portal_members:towers:north:tower_2:",
+      "pass": true
     },
     {
-      "check": "STEP:actual_vehicle_clearance:towers:south:tower_2:crossbeam_2",
-      "pass": true,
-      "actual": {
-        "clearance_mm": 5100.0,
-        "conservative_vehicle_height_mm": 3385.0312326689454
-      }
+      "check": "STEP:photo_portal_members:towers:south:tower_1:",
+      "pass": true
+    },
+    {
+      "check": "STEP:photo_portal_members:towers:south:tower_2:",
+      "pass": true
     },
     {
       "check": "STEP:TP_maximum",
       "pass": true,
-      "actual": 194009.99984570002
+      "actual": 194000.0
     },
     {
       "check": "GLB:exact_STEP_names",
@@ -37151,7 +37245,7 @@
     {
       "check": "GLB:numeric_finite_triangles",
       "pass": true,
-      "actual": 86092
+      "actual": 86748
     },
     {
       "check": "GLB:identity_world_transforms",
@@ -37266,11 +37360,15 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:north:tower_1:leg_1",
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:crossbeam_0",
+      "check": "GLB:STEP_bounds:towers:north:tower_1:base_plate_1",
       "pass": true
     },
     {
@@ -37278,27 +37376,7 @@
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "GLB:STEP_bounds:towers:north:tower_1:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_1:X_0_R",
       "pass": true
     },
     {
@@ -37310,11 +37388,39 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:north:tower_1:X_4_L",
       "pass": true
     },
     {
       "check": "GLB:STEP_bounds:towers:north:tower_1:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_1:lower_chevron_R",
       "pass": true
     },
     {
@@ -37330,11 +37436,15 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:north:tower_2:leg_1",
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:crossbeam_0",
+      "check": "GLB:STEP_bounds:towers:north:tower_2:base_plate_1",
       "pass": true
     },
     {
@@ -37342,27 +37452,7 @@
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "GLB:STEP_bounds:towers:north:tower_2:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:north:tower_2:X_0_R",
       "pass": true
     },
     {
@@ -37374,11 +37464,39 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:north:tower_2:X_4_L",
       "pass": true
     },
     {
       "check": "GLB:STEP_bounds:towers:north:tower_2:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:north:tower_2:lower_chevron_R",
       "pass": true
     },
     {
@@ -37394,11 +37512,15 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:south:tower_1:leg_1",
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:crossbeam_0",
+      "check": "GLB:STEP_bounds:towers:south:tower_1:base_plate_1",
       "pass": true
     },
     {
@@ -37406,27 +37528,7 @@
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "GLB:STEP_bounds:towers:south:tower_1:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_1:X_0_R",
       "pass": true
     },
     {
@@ -37438,11 +37540,39 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:south:tower_1:X_4_L",
       "pass": true
     },
     {
       "check": "GLB:STEP_bounds:towers:south:tower_1:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_1:lower_chevron_R",
       "pass": true
     },
     {
@@ -37458,11 +37588,15 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:base_plate_-1",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:south:tower_2:leg_1",
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:crossbeam_0",
+      "check": "GLB:STEP_bounds:towers:south:tower_2:base_plate_1",
       "pass": true
     },
     {
@@ -37470,27 +37604,7 @@
       "pass": true
     },
     {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:crossbeam_2",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:crossbeam_3",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:crossbeam_4",
-      "pass": true
-    },
-    {
       "check": "GLB:STEP_bounds:towers:south:tower_2:crossbeam_5",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:X_0_L",
-      "pass": true
-    },
-    {
-      "check": "GLB:STEP_bounds:towers:south:tower_2:X_0_R",
       "pass": true
     },
     {
@@ -37502,11 +37616,39 @@
       "pass": true
     },
     {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:joint:upper_3",
+      "pass": true
+    },
+    {
       "check": "GLB:STEP_bounds:towers:south:tower_2:X_4_L",
       "pass": true
     },
     {
       "check": "GLB:STEP_bounds:towers:south:tower_2:X_4_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:joint:upper_4",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:X_0_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:X_0_R",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:joint:lower",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:lower_chevron_L",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:towers:south:tower_2:lower_chevron_R",
       "pass": true
     },
     {
@@ -55068,6 +55210,10 @@
       "check": "elevation:native_dimensions",
       "pass": true,
       "actual": [
+        35000.0,
+        35000.0,
+        184000.0,
+        194000.0,
         990000.0,
         1100000.0,
         1538000.0,
@@ -55097,6 +55243,10 @@
     },
     {
       "check": "elevation:published_spans",
+      "pass": true
+    },
+    {
+      "check": "elevation:photo_tower_fronts",
       "pass": true
     },
     {

@@ -66,17 +66,27 @@ test('native bridge batching retains every visibility group, triangle and world-
     }
     assert.ok([...actors.values()].every(actor => actor.object.children.length < 4), 'actor colours share the native PBR finish');
     const crossbeams = [...byName].filter(([name]) => /^towers:(north|south):tower_[12]:crossbeam_2$/.test(name));
-    assert.equal(crossbeams.length, 4);
+    assert.equal(crossbeams.length, 0, 'photo portal has no above-road crossbar');
+    const portals = [...byName].filter(([name]) => /^towers:(north|south):tower_[12]:leg_1$/.test(name));
+    assert.equal(portals.length, 4);
     for (const actor of activity.actors.filter(item => item.group === 'traffic')) {
-      for (const [beamName, beam] of crossbeams) {
-        const beamBounds = new Box3().setFromObject(beam, true), station = beamBounds.getCenter(new Vector3()).x * 1000;
+      for (const [legName, leg] of portals) {
+        const station = new Box3().setFromObject(leg, true).getCenter(new Vector3()).x * 1000;
         const length = actor.route.max_mm - actor.route.min_mm;
         const distance = ((station - actor.origin_mm[0]) * actor.direction % length + length) % length;
         const pose = bridgeActorPose(actor, activity, distance / (actor.speed_mps * 1000), false);
         const object = actors.get(actor.id).object; object.position.copy(pose.position); object.quaternion.copy(pose.rotation);
         const vehicleBounds = new Box3().setFromObject(object, true);
         assert.ok(Math.abs(pose.position.x * 1000 - station) < .01);
-        assert.ok(beamBounds.min.y - vehicleBounds.max.y > 1, actor.id + ': actual vehicle roof needs >1m visual-model clearance under ' + beamName);
+        const prefix=legName.replace(/leg_1$/, '');
+        for (const [name, part] of byName) {
+          if (!name.startsWith(prefix)) continue;
+          const bounds=new Box3().setFromObject(part,true);
+          const gap=Math.max(bounds.min.x-vehicleBounds.max.x,vehicleBounds.min.x-bounds.max.x,
+            bounds.min.y-vehicleBounds.max.y,vehicleBounds.min.y-bounds.max.y,
+            bounds.min.z-vehicleBounds.max.z,vehicleBounds.min.z-bounds.max.z);
+          assert.ok(gap>1,actor.id+': needs >1m separation from actual tower member '+name);
+        }
       }
     }
     for (const [group, nodes] of groups) {

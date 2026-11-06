@@ -10,7 +10,7 @@ from math import cos, sin, pi, ceil, sqrt
 from .seto_bridge_activity import activity_manifest, activity_specs, rail_height_mm, road_height_mm
 
 MODEL_ID = 'seto-ohashi'
-REVISION = 'BRIDGE-R03'
+REVISION = 'BRIDGE-R04'
 GROUPS = ('environment', 'foundations', 'towers', 'cables', 'hangers', 'truss', 'road', 'railway', 'traffic', 'vessels', 'trains')
 GROUP_NAMES = {
     'environment': {'zh': '海面与岛屿示意', 'ja': '海面・島の概形', 'en': 'Sea and island context'},
@@ -36,6 +36,8 @@ REFERENCES = [
     {'title': '川崎製鉄技報 18巻4号 1986・本州四国連絡橋の補剛桁組立工事', 'url': 'https://www.jfe-steel.co.jp/archives/ksc_giho/18-4/j18-372-378.pdf', 'notes': '印刷373頁 Fig.3：北橋主桁間30 m、桁高13 m、主缆間35 m。本文：格点13.2 m、鋼板組立箱形部材、在来線と新幹線留保空間。'},
     {'title':'瀬戸内Finder・瀬戸大橋クルーズの実景','url':'https://www.setouchi.travel/jp/trip-ideas/f20544/', 'notes':'白い船体、濃色の客室窓、露天甲板などの外観参考。船名・商標は複製せず、形状・寸法は独自の概念モデル。'},
     {'title':'JR西日本・マリンライナー公式車両紹介','url':'https://www.jr-odekake.net/railroad/train/marineliner/', 'notes':'銀色車体・青帯などの外観参考。モデルの2列×4両は独自の通勤電車概形で、マリンライナーの正確な編成・寸法・実際の運行ではない。'},
+    {'title':'本四公団・北備讃瀬戸大橋塔架設工事（建設の機械化1986年5月）','url':'https://jcmanet.or.jp/bunken/wp-content/uploads/1986/jcma-1986_05.pdf','notes':'印刷34頁Fig.3：十字形3セル塔柱、塔頂7.1×4.8m・基部約10.7×4.8m、ケーブル間35m、上部2X・下部Xと山形の横構。個別塔の厳密標高・内部板厚は復元しない。'},
+    {'title':'駒井鉄工・南備讃瀬戸大橋の概要と施工試験','url':'https://www.komaihaltec.co.jp/tec/komai/1986/vol5-12.pdf','notes':'印刷124頁Fig.1の塔正面図と実景を参照。上部2X、長い空腹区間、橋面下のXと山形。部材の取り合い・南橋断面の北橋準用は外観近似。'},
 ]
 P = {
     'north_length_mm': 1538000, 'south_length_mm': 1648000,
@@ -101,6 +103,49 @@ def stations(bridge, p=None):
     return [bridge['start']+i*(bridge['end']-bridge['start'])/count for i in range(count+1)]
 
 
+def tower_portal_profile(bridge, x, p=None):
+    """Photo/general-drawing fit using the existing nominal model datum.
+
+    North supplies the three-cell outer section. Applying it to South and
+    fitting stage heights to the simplified deck are appearance assumptions.
+    """
+    p=p or parameters()
+    base=10050
+    steel_top=bridge['tower_top']-4500
+    underdeck=rail_height_mm(x,p)-420-2500
+    lower_bottom=base+4250
+    lower_apex=underdeck-1400
+    lower_middle=lower_bottom+(lower_apex-lower_bottom)*2/3
+    upper_top=steel_top-3000
+    upper_middle=upper_top-30890
+    half_base=19626.5 if bridge['id']=='north' and x==bridge['tower_a'] else 19737
+    return {'base_tp_mm':base,'column_bottom_mm':base+180,'column_top_mm':steel_top,
+        'half_base_span_mm':half_base,'half_top_span_mm':17500,
+        'column_width_mm':4800,'side_width_mm':3700,'core_depth_mm':3200,
+        'base_depth_mm':10700,'top_depth_mm':7100,
+        'head_beam_z_mm':steel_top-1500,'underdeck_beam_z_mm':underdeck,
+        'upper_nodes_mm':[upper_middle-31610,upper_middle,upper_top],
+        'lower_nodes_mm':[lower_bottom,lower_middle,lower_apex],
+        'brace_width_mm':2000,'brace_depth_mm':2000,
+        'scope':'Photo-fit stages with nominal tower/cable levels; not individual surveyed tower elevations.'}
+
+
+def tower_column_centre(spec, z):
+    a,b=spec['base_centre_mm'],spec['top_centre_mm']
+    t=(z-a[2])/(b[2]-a[2])
+    return [a[i]+t*(b[i]-a[i]) for i in range(3)]
+
+
+def tower_column_outline(spec, top=False):
+    """Twelve-corner cruciform envelope of a three-cell box tower column."""
+    x,y,z=spec['top_centre_mm'] if top else spec['base_centre_mm']
+    depth=spec['top_depth_mm'] if top else spec['base_depth_mm']
+    a,b,c,d=depth/2,spec['core_depth_mm']/2,spec['side_width_mm']/2,spec['width_mm']/2
+    ring=[(-a,-c),(-b,-c),(-b,-d),(b,-d),(b,-c),(a,-c),
+          (a,c),(b,c),(b,d),(-b,d),(-b,c),(-a,c)]
+    return [[x+u,y+v,z] for u,v in ring]
+
+
 @lru_cache(maxsize=1)
 def _specs():
     p = parameters(); result = []
@@ -141,20 +186,43 @@ def _specs():
         ident = b['id']; xs = stations(b,p); zlo,zhi = p['rail_deck_z_mm'],p['road_deck_z_mm']
         for i,x in enumerate((b['tower_a'],b['tower_b'])):
             tower = f'{ident}:tower_{i+1}'
+            profile=tower_portal_profile(b,x,p)
             box('foundations',tower+':marine_caisson_assumed',(x-12500,-30000,-22000,x+12500,30000,3500),concrete)
-            box('foundations',tower+':pier',(x-8500,-26500,3500,x+8500,26500,14000),'#CBCDC5')
+            box('foundations',tower+':pier',(x-8500,-26500,3500,x+8500,26500,profile['base_tp_mm']),'#CBCDC5')
             for sign in (-1,1):
-                # Near-vertical box-like portal tower legs; no A-frame silhouette.
-                beam('towers',tower+f':leg_{sign}',(x,sign*18500,14000),(x,sign*17500,b['tower_top']),3600,4200)
-            levels = [14000,zlo-2500-.01*abs(x),zhi+6500-.01*abs(x),122000,148000,b['tower_top']-6500]
-            for j,z in enumerate(levels):
+                result.append({'name':f'towers:{tower}:leg_{sign}','group':'towers','kind':'tower_column',
+                    'base_centre_mm':[x,sign*profile['half_base_span_mm'],profile['column_bottom_mm']],
+                    'top_centre_mm':[x,sign*17500,profile['column_top_mm']],
+                    'width_mm':4800,'side_width_mm':3700,'core_depth_mm':3200,
+                    'base_depth_mm':10700,'top_depth_mm':7100,'color':steel})
+                y=sign*profile['half_base_span_mm'];z=profile['base_tp_mm']
+                box('towers',tower+f':base_plate_{sign}',(x-6150,y-3150,z,x+6150,y+3150,z+180),steel)
+            # Under-deck support and head beam only: the photo's two upper X
+            # stages are not crossed by additional horizontal portal bars.
+            for j,z in ((1,profile['underdeck_beam_z_mm']),(5,profile['head_beam_z_mm'])):
                 beam('towers',tower+f':crossbeam_{j}',(x,-17500,z),(x,17500,z),2300,2800)
-            for j,(a,c) in enumerate(zip(levels,levels[1:])):
-                if j in (1,2): continue
-                beam('towers',tower+f':X_{j}_L',(x,-16500,a),(x,16500,c),1150,1400)
-                beam('towers',tower+f':X_{j}_R',(x,16500,a),(x,-16500,c),1150,1400)
+            def inner(z):
+                t=(z-profile['column_bottom_mm'])/(profile['column_top_mm']-profile['column_bottom_mm'])
+                return profile['half_base_span_mm']+(17500-profile['half_base_span_mm'])*t-2200
+            def brace(name,a,c):
+                beam('towers',tower+':'+name,a,c,2000,2000)
+            def joint(name,z):
+                yz=[(-1500,-900),(-900,-1500),(900,-1500),(1500,-900),
+                    (1500,900),(900,1500),(-900,1500),(-1500,900)]
+                result.append({'name':f'towers:{tower}:joint:{name}','group':'towers','kind':'prism',
+                    'outline':[[x-1100,y,z+v] for y,v in yz],'extrusion':[2200,0,0],'color':steel})
+            for j,(a,c) in enumerate(zip(profile['upper_nodes_mm'],profile['upper_nodes_mm'][1:]),3):
+                brace(f'X_{j}_L',(x,-inner(a),a),(x,inner(c),c))
+                brace(f'X_{j}_R',(x,inner(a),a),(x,-inner(c),c))
+                joint(f'upper_{j}',(a+c)/2)
+            a,c,apex=profile['lower_nodes_mm']
+            brace('X_0_L',(x,-inner(a),a),(x,inner(c),c))
+            brace('X_0_R',(x,inner(a),a),(x,-inner(c),c))
+            joint('lower',(a+c)/2)
+            brace('lower_chevron_L',(x,-inner(c),c),(x,0,apex))
+            brace('lower_chevron_R',(x,inner(c),c),(x,0,apex))
             for sign in (-1,1):
-                box('towers',tower+f':saddle_{sign}',(x-3000,sign*17500-2200,b['tower_top']-4000,x+3000,sign*17500+2200,b['tower_top']),'#DCE5DF')
+                box('towers',tower+f':saddle_{sign}',(x-3000,sign*17500-2200,profile['column_top_mm']-300,x+3000,sign*17500+2200,b['tower_top']),'#DCE5DF')
         box('road',ident+':deck',(b['start'],-p['road_width_mm']/2,zhi-700,b['end'],p['road_width_mm']/2,zhi),asphalt)
         # Lower open deck includes in-use conventional railway and an empty future corridor.
         box('railway',ident+':deck',(b['start'],-15000,zlo-700,b['end'],15000,zlo),'#8D9898')
@@ -302,9 +370,9 @@ def geometry_manifest():
         'ja':'R02の主塔点検足場・短いはしご・橋脚目地・道路照明は外観詳細の仮定です。車24台と遊覧船4隻は独自の概念形状で、寸法・密度・速度・ループは実交通や航路情報ではありません。車両は左側通行を表し、CAD/GLBはt=0の静止形状、Webのみ表示用に動かします。',
         'en':'R02 tower inspection platforms, short ladders, pier joints and road lighting are appearance assumptions. The 24 vehicles and four sightseeing boats are original illustrative assets. Dimensions, density, speeds and loops are not live traffic or navigation information. Vehicles show left-hand traffic; CAD/GLB retain a static t=0 snapshot and only the web presentation animates.'})
     assumptions.append({
-        'zh':'为避免示意车辆穿过主塔横梁，四座主塔的道路上方横梁各提高3000 mm，模型中的梁底道路净高由2100 mm调整为5100 mm。此为演示通行需要的几何调整，不代表实桥测绘标高或结构设计结论，该阶段其余2962个R01构件保持原定义；R03的后续修正另列。',
-        'ja':'概念車両と主塔横梁の干渉を避けるため、4主塔の道路上方横梁を各3000 mm上げ、モデルの梁下面から路面までの高さを2100 mmから5100 mmへ変更しています。表示上の通行条件による幾何修正で、実橋の測量高さや構造設計の結果ではありません。その段階では他のR01部材2962件は変更していません。R03の変更は別記します。',
-        'en':'To avoid illustrative vehicles intersecting the towers, the four crossbeams above the road are raised by 3000 mm, changing model road-to-soffit clearance from 2100 to 5100 mm. This geometric adjustment serves demonstration traffic and does not claim surveyed elevations or structural design of the actual bridge. At that stage the other 2962 R01 component definitions remained unchanged; subsequent R03 edits are listed separately.'})
+        'zh':'R02阶段为避免示意车辆穿过主塔横梁，四座主塔的道路上方横梁各提高3000 mm，模型中的梁底道路净高由2100 mm调整为5100 mm。此为演示通行需要的几何调整，不代表实桥测绘标高或结构设计结论，该阶段其余2962个R01构件保持原定义；R03的后续修正另列；R04按实景移除这些上方横梁，5.1m只作为旧版记录。',
+        'ja':'R02で概念車両と主塔横梁の干渉を避けるため、4主塔の道路上方横梁を各3000 mm上げ、モデルの梁下面から路面までの高さを2100 mmから5100 mmへ変更しています。表示上の通行条件による幾何修正で、実橋の測量高さや構造設計の結果ではありません。その段階では他のR01部材2962件は変更していません。R03の変更は別記します。',
+        'en':'In R02, to avoid illustrative vehicles intersecting the towers, the four crossbeams above the road are raised by 3000 mm, changing model road-to-soffit clearance from 2100 to 5100 mm. This geometric adjustment serves demonstration traffic and does not claim surveyed elevations or structural design of the actual bridge. At that stage the other 2962 R01 component definitions remained unchanged; subsequent R03 edits are listed separately. R04 removes these above-road bars to match the photo; 5.1m is only the historical R02 clearance.'})
     assumptions.append({
         'zh':'R03将4条游船演示航迹设为沿Y轴横穿两座主跨。新增2列相向行驶的原创4节编组电车，约20m/节；外形、速度、架线高度和线路均为演示假设，不对应指定车型。全编组共享运动时钟与回绕边界，每节以两转向架处轨顶高度的均值和连线坡度跟随轨道。海面波纹只用于网页视觉，CAD海面仍为T.P.0静态基准。',
         'ja':'R03の遊覧船4航跡はY軸方向に二つの主径間を横断します。対向する独自概形の4両編成電車2本（約20m/両）を追加します。形状・速度・架線高さ・軌跡は特定形式に対応しない仮定です。編成で共通の時刻・折返し境界を使い、各車両は両台車位置のレール上面の平均高と結線勾配に追従します。波はWebの視覚表現で、CADの海面はT.P.0の静止基準です。',
@@ -313,10 +381,16 @@ def geometry_manifest():
         'zh':'BB4A的V槽底依公团资料印刷50页Fig.2修正为T.P.+52.500m，79×62×86m外包络保留。3个锚碇实体均减去宽33m的公铁通行包络，保留侧部锚固体；此开口细部为演示净空假设，不代表实桥内部结构。122根铁路下横梁整体降低1200mm，使梁顶到下层桥面底，避免凸入轨顶。',
         'ja':'BB4AのV溝底は公団資料の印刷50頁Fig.2に基づきT.P.+52.500mへ修正し、79×62×86mの外包絡を保持します。3アンカレイジのCAD実体から幅33mの道路・鉄道通行包絡を差し引き、側部の定着体を残します。開口の細部は表示上の仮定で実橋内部の再現ではありません。下横桁122本は1200mm下げ、上端を下床版下面に合わせてレール上面への突出を解消します。',
         'en':'The BB4A V-trough is corrected to T.P.+52.500m from the authority paper, printed page 50 Fig.2, while retaining the 79×62×86m outer envelope. A 33m-wide road/rail clearance envelope is subtracted from each of the three anchorage solids, preserving lateral anchoring mass. Opening details are demonstration clearances, not an as-built internal structure. The 122 railway floorbeams are lowered by 1200mm so their upper faces meet the lower-deck underside rather than protrude above the rails.'})
+    assumptions.append({
+        'zh':'R04按用户实景及1986年施工图修正主塔：上部两层连续X、长空腹区、桥面下完整X与山形撑；移除无实景依据的横梁。十字形3单元塔柱采用北桥约4.8m横宽、7.1至10.7m纵深的外轮廓，南桥沿用为假设。既有184/194m名义塔顶及主缆控制仍是概念坐标，并非分别复原各塔的原施工标高；节点、底板及撑端尺寸为外观近似。',
+        'ja':'R04は提供実景と1986年施工図から、上部2X・長い空腹区間・橋面下のXと山形横構へ修正し、実景にない横梁を除きます。十字形3セル塔柱は北橋資料の横4.8m・縦7.1〜10.7mの外包を参考にし、南橋への準用は仮定です。既存184/194mの名目塔頂と主ケーブル制御は概念座標で、各塔の原施工標高を個別に復元したものではありません。節点・底板・端部寸法は外観近似です。',
+        'en':'R04 follows the supplied photograph and 1986 general drawings: two upper X stages, a long open portal, and a lower X plus chevron, removing unsupported horizontal bars. The cruciform three-cell envelope uses approximately 4.8m transverse width and 7.1–10.7m longitudinal depth from North drawings; applying it to South is assumed. Existing nominal 184/194m tower/cable controls remain concept coordinates, not individually restored historical tower elevations. Nodes, base plates and end details are appearance fits.'})
     return {'schema_version':1,'id':MODEL_ID,'model_id':MODEL_ID,'revision':REVISION,'units':'mm',
             'glb_units':'m','glb_up_axis':'Y','status':'reference_concept_only','names':deepcopy(NAMES),
             'coordinate_system':{'CAD':'X southward, Y transverse, Z up; datum T.P.; shared BB4A at X=0','GLB':'(X,Z,-Y)/1000'},
             'parameters':p,'official_dimensions':cited,'references':deepcopy(REFERENCES),'assumptions':assumptions,
+            'tower_alignment':[{'id':f"{b['id']}:tower_{i+1}",'x_mm':x,**tower_portal_profile(b,x,p)}
+                for b in bridges(p) for i,x in enumerate((b['tower_a'],b['tower_b']))],
             'groups':[{'id':g,'names':GROUP_NAMES[g],'count':sum(s['group']==g for s in specs)} for g in GROUPS],
             'activity':activity_manifest(p),'component_count':len(specs),'components':specs}
 
@@ -336,6 +410,9 @@ def _clear_transport(shape, spec, bd):
 
 
 def cad_shape(spec, bd):
+    if spec['kind']=='tower_column':
+        rings=[bd.Wire.make_polygon(tower_column_outline(spec,top),close=True) for top in (False,True)]
+        return bd.Solid.make_loft(rings,ruled=True)
     if spec['kind']=='prism':
         face=bd.Face(bd.Wire.make_polygon(spec['outline'],close=True))
         return bd.Solid.extrude(face,tuple(spec['extrusion']))

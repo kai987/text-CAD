@@ -150,4 +150,21 @@ def physical_clearance_checks(specs, p, activity, shapes=None):
             if overlap>.01:collisions.append({'name':part['name'],'volume_mm3':round(overlap,6)})
     record('consist:all_infrastructure_full_route_sweeps',not collisions,
            {'native_candidates':candidates,'pieces':len(corridors),'collisions':collisions})
+    road_corridors=[]
+    for y in (-8500,-3500,3500,8500):
+        road_corridors.extend(_graded_corridors(bd,p['north_outer_end_mm'],p['south_outer_end_mm'],
+            y-1400,y+1400,p['road_deck_z_mm']+1,p['road_deck_z_mm']+3600,p))
+    candidates=0;collisions=[]
+    road_bounds=[s.bounding_box() for s in road_corridors]
+    for part in specs:
+        if part['group']!='towers':continue
+        solid=shape(part['name']);bounds=solid.bounding_box()
+        for sweep,other in zip(road_corridors,road_bounds):
+            if not all(getattr(bounds.max,axis)>getattr(other.min,axis)+.01 and
+                       getattr(other.max,axis)>getattr(bounds.min,axis)+.01 for axis in ('X','Y','Z')):continue
+            candidates+=1
+            overlap=intersection_volume(solid,sweep)
+            if overlap>.01:collisions.append({'name':part['name'],'volume_mm3':round(overlap,6)})
+    record('road:all_tower_full_route_sweeps',not collisions,
+        {'native_candidates':candidates,'pieces':len(road_corridors),'lanes':4,'collisions':collisions})
     return rows

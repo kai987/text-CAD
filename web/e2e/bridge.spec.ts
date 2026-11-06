@@ -13,7 +13,7 @@ test('Seto twin bridges load, expose independent parts and retain all three draw
   await page.goto('?model=seto-ohashi&view=3d&environment=day');
   const canvas = page.locator('.bridge-canvas canvas');
   await expect(page).toHaveTitle(/Seto Ohashi/); await expect(canvas).toHaveAttribute('data-model-ready', 'true');
-  await expect(canvas).toHaveAttribute('data-model-revision', 'BRIDGE-R03');
+  await expect(canvas).toHaveAttribute('data-model-revision', 'BRIDGE-R04');
   await expect.poll(async () => Number(await canvas.getAttribute('data-render-triangles'))).toBeGreaterThan(0);
   await expect.poll(async () => Number(await canvas.getAttribute('data-render-calls'))).toBeLessThan(100);
   await expect(page.getByText('1,538 m', { exact: true })).toBeAttached();

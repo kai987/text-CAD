@@ -1,7 +1,7 @@
 import type { Locale } from './localization';
 
 export const bridgeId = 'seto-ohashi';
-export const bridgeRevision = 'BRIDGE-R03';
+export const bridgeRevision = 'BRIDGE-R04';
 export const bridgeGroups = ['environment', 'foundations', 'towers', 'cables', 'hangers', 'truss', 'road', 'railway', 'traffic', 'vessels', 'trains'] as const;
 export type BridgeGroupId = typeof bridgeGroups[number];
 export const bridgeViews = ['3d', 'plan', 'elevation', 'section', 'files'] as const;

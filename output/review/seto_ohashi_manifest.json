@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "seto-ohashi",
   "model_id": "seto-ohashi",
-  "revision": "BRIDGE-R03",
+  "revision": "BRIDGE-R04",
   "units": "mm",
   "glb_units": "m",
   "glb_up_axis": "Y",
@@ -159,6 +159,16 @@
       "title": "JR西日本・マリンライナー公式車両紹介",
       "url": "https://www.jr-odekake.net/railroad/train/marineliner/",
       "notes": "銀色車体・青帯などの外観参考。モデルの2列×4両は独自の通勤電車概形で、マリンライナーの正確な編成・寸法・実際の運行ではない。"
+    },
+    {
+      "title": "本四公団・北備讃瀬戸大橋塔架設工事（建設の機械化1986年5月）",
+      "url": "https://jcmanet.or.jp/bunken/wp-content/uploads/1986/jcma-1986_05.pdf",
+      "notes": "印刷34頁Fig.3：十字形3セル塔柱、塔頂7.1×4.8m・基部約10.7×4.8m、ケーブル間35m、上部2X・下部Xと山形の横構。個別塔の厳密標高・内部板厚は復元しない。"
+    },
+    {
+      "title": "駒井鉄工・南備讃瀬戸大橋の概要と施工試験",
+      "url": "https://www.komaihaltec.co.jp/tec/komai/1986/vol5-12.pdf",
+      "notes": "印刷124頁Fig.1の塔正面図と実景を参照。上部2X、長い空腹区間、橋面下のXと山形。部材の取り合い・南橋断面の北橋準用は外観近似。"
     }
   ],
   "assumptions": [
@@ -188,9 +198,9 @@
       "en": "R02 tower inspection platforms, short ladders, pier joints and road lighting are appearance assumptions. The 24 vehicles and four sightseeing boats are original illustrative assets. Dimensions, density, speeds and loops are not live traffic or navigation information. Vehicles show left-hand traffic; CAD/GLB retain a static t=0 snapshot and only the web presentation animates."
     },
     {
-      "zh": "为避免示意车辆穿过主塔横梁，四座主塔的道路上方横梁各提高3000 mm，模型中的梁底道路净高由2100 mm调整为5100 mm。此为演示通行需要的几何调整，不代表实桥测绘标高或结构设计结论，该阶段其余2962个R01构件保持原定义；R03的后续修正另列。",
-      "ja": "概念車両と主塔横梁の干渉を避けるため、4主塔の道路上方横梁を各3000 mm上げ、モデルの梁下面から路面までの高さを2100 mmから5100 mmへ変更しています。表示上の通行条件による幾何修正で、実橋の測量高さや構造設計の結果ではありません。その段階では他のR01部材2962件は変更していません。R03の変更は別記します。",
-      "en": "To avoid illustrative vehicles intersecting the towers, the four crossbeams above the road are raised by 3000 mm, changing model road-to-soffit clearance from 2100 to 5100 mm. This geometric adjustment serves demonstration traffic and does not claim surveyed elevations or structural design of the actual bridge. At that stage the other 2962 R01 component definitions remained unchanged; subsequent R03 edits are listed separately."
+      "zh": "R02阶段为避免示意车辆穿过主塔横梁，四座主塔的道路上方横梁各提高3000 mm，模型中的梁底道路净高由2100 mm调整为5100 mm。此为演示通行需要的几何调整，不代表实桥测绘标高或结构设计结论，该阶段其余2962个R01构件保持原定义；R03的后续修正另列；R04按实景移除这些上方横梁，5.1m只作为旧版记录。",
+      "ja": "R02で概念車両と主塔横梁の干渉を避けるため、4主塔の道路上方横梁を各3000 mm上げ、モデルの梁下面から路面までの高さを2100 mmから5100 mmへ変更しています。表示上の通行条件による幾何修正で、実橋の測量高さや構造設計の結果ではありません。その段階では他のR01部材2962件は変更していません。R03の変更は別記します。",
+      "en": "In R02, to avoid illustrative vehicles intersecting the towers, the four crossbeams above the road are raised by 3000 mm, changing model road-to-soffit clearance from 2100 to 5100 mm. This geometric adjustment serves demonstration traffic and does not claim surveyed elevations or structural design of the actual bridge. At that stage the other 2962 R01 component definitions remained unchanged; subsequent R03 edits are listed separately. R04 removes these above-road bars to match the photo; 5.1m is only the historical R02 clearance."
     },
     {
       "zh": "R03将4条游船演示航迹设为沿Y轴横穿两座主跨。新增2列相向行驶的原创4节编组电车，约20m/节；外形、速度、架线高度和线路均为演示假设，不对应指定车型。全编组共享运动时钟与回绕边界，每节以两转向架处轨顶高度的均值和连线坡度跟随轨道。海面波纹只用于网页视觉，CAD海面仍为T.P.0静态基准。",
@@ -201,6 +211,129 @@
       "zh": "BB4A的V槽底依公团资料印刷50页Fig.2修正为T.P.+52.500m，79×62×86m外包络保留。3个锚碇实体均减去宽33m的公铁通行包络，保留侧部锚固体；此开口细部为演示净空假设，不代表实桥内部结构。122根铁路下横梁整体降低1200mm，使梁顶到下层桥面底，避免凸入轨顶。",
       "ja": "BB4AのV溝底は公団資料の印刷50頁Fig.2に基づきT.P.+52.500mへ修正し、79×62×86mの外包絡を保持します。3アンカレイジのCAD実体から幅33mの道路・鉄道通行包絡を差し引き、側部の定着体を残します。開口の細部は表示上の仮定で実橋内部の再現ではありません。下横桁122本は1200mm下げ、上端を下床版下面に合わせてレール上面への突出を解消します。",
       "en": "The BB4A V-trough is corrected to T.P.+52.500m from the authority paper, printed page 50 Fig.2, while retaining the 79×62×86m outer envelope. A 33m-wide road/rail clearance envelope is subtracted from each of the three anchorage solids, preserving lateral anchoring mass. Opening details are demonstration clearances, not an as-built internal structure. The 122 railway floorbeams are lowered by 1200mm so their upper faces meet the lower-deck underside rather than protrude above the rails."
+    },
+    {
+      "zh": "R04按用户实景及1986年施工图修正主塔：上部两层连续X、长空腹区、桥面下完整X与山形撑；移除无实景依据的横梁。十字形3单元塔柱采用北桥约4.8m横宽、7.1至10.7m纵深的外轮廓，南桥沿用为假设。既有184/194m名义塔顶及主缆控制仍是概念坐标，并非分别复原各塔的原施工标高；节点、底板及撑端尺寸为外观近似。",
+      "ja": "R04は提供実景と1986年施工図から、上部2X・長い空腹区間・橋面下のXと山形横構へ修正し、実景にない横梁を除きます。十字形3セル塔柱は北橋資料の横4.8m・縦7.1〜10.7mの外包を参考にし、南橋への準用は仮定です。既存184/194mの名目塔頂と主ケーブル制御は概念座標で、各塔の原施工標高を個別に復元したものではありません。節点・底板・端部寸法は外観近似です。",
+      "en": "R04 follows the supplied photograph and 1986 general drawings: two upper X stages, a long open portal, and a lower X plus chevron, removing unsupported horizontal bars. The cruciform three-cell envelope uses approximately 4.8m transverse width and 7.1–10.7m longitudinal depth from North drawings; applying it to South is assumed. Existing nominal 184/194m tower/cable controls remain concept coordinates, not individually restored historical tower elevations. Nodes, base plates and end details are appearance fits."
+    }
+  ],
+  "tower_alignment": [
+    {
+      "id": "north:tower_1",
+      "x_mm": -1288500,
+      "base_tp_mm": 10050,
+      "column_bottom_mm": 10230,
+      "column_top_mm": 179500,
+      "half_base_span_mm": 19626.5,
+      "half_top_span_mm": 17500,
+      "column_width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "head_beam_z_mm": 178000,
+      "underdeck_beam_z_mm": 64615.0,
+      "upper_nodes_mm": [
+        114000,
+        145610,
+        176500
+      ],
+      "lower_nodes_mm": [
+        14300,
+        46910.0,
+        63215.0
+      ],
+      "brace_width_mm": 2000,
+      "brace_depth_mm": 2000,
+      "scope": "Photo-fit stages with nominal tower/cable levels; not individual surveyed tower elevations."
+    },
+    {
+      "id": "north:tower_2",
+      "x_mm": -298500,
+      "base_tp_mm": 10050,
+      "column_bottom_mm": 10230,
+      "column_top_mm": 179500,
+      "half_base_span_mm": 19737,
+      "half_top_span_mm": 17500,
+      "column_width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "head_beam_z_mm": 178000,
+      "underdeck_beam_z_mm": 74515.0,
+      "upper_nodes_mm": [
+        114000,
+        145610,
+        176500
+      ],
+      "lower_nodes_mm": [
+        14300,
+        53510.0,
+        73115.0
+      ],
+      "brace_width_mm": 2000,
+      "brace_depth_mm": 2000,
+      "scope": "Photo-fit stages with nominal tower/cable levels; not individual surveyed tower elevations."
+    },
+    {
+      "id": "south:tower_1",
+      "x_mm": 298500,
+      "base_tp_mm": 10050,
+      "column_bottom_mm": 10230,
+      "column_top_mm": 189500,
+      "half_base_span_mm": 19737,
+      "half_top_span_mm": 17500,
+      "column_width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "head_beam_z_mm": 188000,
+      "underdeck_beam_z_mm": 74515.0,
+      "upper_nodes_mm": [
+        124000,
+        155610,
+        186500
+      ],
+      "lower_nodes_mm": [
+        14300,
+        53510.0,
+        73115.0
+      ],
+      "brace_width_mm": 2000,
+      "brace_depth_mm": 2000,
+      "scope": "Photo-fit stages with nominal tower/cable levels; not individual surveyed tower elevations."
+    },
+    {
+      "id": "south:tower_2",
+      "x_mm": 1398500,
+      "base_tp_mm": 10050,
+      "column_bottom_mm": 10230,
+      "column_top_mm": 189500,
+      "half_base_span_mm": 19737,
+      "half_top_span_mm": 17500,
+      "column_width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "head_beam_z_mm": 188000,
+      "underdeck_beam_z_mm": 63515.0,
+      "upper_nodes_mm": [
+        124000,
+        155610,
+        186500
+      ],
+      "lower_nodes_mm": [
+        14300,
+        46176.66666666667,
+        62115.0
+      ],
+      "brace_width_mm": 2000,
+      "brace_depth_mm": 2000,
+      "scope": "Photo-fit stages with nominal tower/cable levels; not individual surveyed tower elevations."
     }
   ],
   "groups": [
@@ -229,7 +362,7 @@
         "ja": "主塔・横構",
         "en": "Towers and cross-bracing"
       },
-      "count": 264
+      "count": 276
     },
     {
       "id": "cables",
@@ -2811,7 +2944,7 @@
       }
     ]
   },
-  "component_count": 4450,
+  "component_count": 4462,
   "components": [
     {
       "name": "environment:sea:illustrative_TP0",
@@ -3050,65 +3183,78 @@
         3500,
         -1280000,
         26500,
-        14000
+        10050
       ],
       "color": "#CBCDC5"
     },
     {
       "name": "towers:north:tower_1:leg_-1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         -1288500,
-        -18500,
-        14000
+        -19626.5,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         -1288500,
         -17500,
-        184000
+        179500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:base_plate_-1",
+      "group": "towers",
+      "kind": "box",
+      "bounds": [
+        -1294650,
+        -22776.5,
+        10050,
+        -1282350,
+        -16476.5,
+        10230
+      ],
       "color": "#E0E8E5"
     },
     {
       "name": "towers:north:tower_1:leg_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         -1288500,
-        18500,
-        14000
+        19626.5,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         -1288500,
         17500,
-        184000
+        179500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:north:tower_1:crossbeam_0",
+      "name": "towers:north:tower_1:base_plate_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        -17500,
-        14000
+      "kind": "box",
+      "bounds": [
+        -1294650,
+        16476.5,
+        10050,
+        -1282350,
+        22776.5,
+        10230
       ],
-      "end": [
-        -1288500,
-        17500,
-        14000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
       "color": "#E0E8E5"
     },
     {
@@ -3131,116 +3277,21 @@
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:north:tower_1:crossbeam_2",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        -17500,
-        86615.0
-      ],
-      "end": [
-        -1288500,
-        17500,
-        86615.0
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_1:crossbeam_3",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        -17500,
-        122000
-      ],
-      "end": [
-        -1288500,
-        17500,
-        122000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_1:crossbeam_4",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        -17500,
-        148000
-      ],
-      "end": [
-        -1288500,
-        17500,
-        148000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
       "name": "towers:north:tower_1:crossbeam_5",
       "group": "towers",
       "kind": "beam",
       "start": [
         -1288500,
         -17500,
-        177500
+        178000
       ],
       "end": [
         -1288500,
         17500,
-        177500
+        178000
       ],
       "width_mm": 2300,
       "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_1:X_0_L",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        -16500,
-        14000
-      ],
-      "end": [
-        -1288500,
-        16500,
-        64615.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_1:X_0_R",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -1288500,
-        16500,
-        14000
-      ],
-      "end": [
-        -1288500,
-        -16500,
-        64615.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3250,16 +3301,16 @@
       "kind": "beam",
       "start": [
         -1288500,
-        -16500,
-        122000
+        -16122.861404856147,
+        114000
       ],
       "end": [
         -1288500,
-        16500,
-        148000
+        15725.752259703433,
+        145610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3269,17 +3320,70 @@
       "kind": "beam",
       "start": [
         -1288500,
-        16500,
-        122000
+        16122.861404856147,
+        114000
       ],
       "end": [
         -1288500,
-        -16500,
-        148000
+        -15725.752259703433,
+        145610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:joint:upper_3",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -1289600,
+          -1500,
+          128905.0
+        ],
+        [
+          -1289600,
+          -900,
+          128305.0
+        ],
+        [
+          -1289600,
+          900,
+          128305.0
+        ],
+        [
+          -1289600,
+          1500,
+          128905.0
+        ],
+        [
+          -1289600,
+          1500,
+          130705.0
+        ],
+        [
+          -1289600,
+          900,
+          131305.0
+        ],
+        [
+          -1289600,
+          -900,
+          131305.0
+        ],
+        [
+          -1289600,
+          -1500,
+          130705.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
       "color": "#E0E8E5"
     },
     {
@@ -3288,16 +3392,16 @@
       "kind": "beam",
       "start": [
         -1288500,
-        -16500,
-        148000
+        -15725.752259703433,
+        145610
       ],
       "end": [
         -1288500,
-        16500,
-        177500
+        15337.688308619367,
+        176500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3307,16 +3411,198 @@
       "kind": "beam",
       "start": [
         -1288500,
-        16500,
-        148000
+        15725.752259703433,
+        145610
       ],
       "end": [
         -1288500,
-        -16500,
-        177500
+        -15337.688308619367,
+        176500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:joint:upper_4",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -1289600,
+          -1500,
+          160155.0
+        ],
+        [
+          -1289600,
+          -900,
+          159555.0
+        ],
+        [
+          -1289600,
+          900,
+          159555.0
+        ],
+        [
+          -1289600,
+          1500,
+          160155.0
+        ],
+        [
+          -1289600,
+          1500,
+          161955.0
+        ],
+        [
+          -1289600,
+          900,
+          162555.0
+        ],
+        [
+          -1289600,
+          -900,
+          162555.0
+        ],
+        [
+          -1289600,
+          -1500,
+          161955.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:X_0_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -1288500,
+        -17375.36952797306,
+        14300
+      ],
+      "end": [
+        -1288500,
+        16965.697613280558,
+        46910.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:X_0_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -1288500,
+        17375.36952797306,
+        14300
+      ],
+      "end": [
+        -1288500,
+        -16965.697613280558,
+        46910.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:joint:lower",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -1289600,
+          -1500,
+          29705.0
+        ],
+        [
+          -1289600,
+          -900,
+          29105.0
+        ],
+        [
+          -1289600,
+          900,
+          29105.0
+        ],
+        [
+          -1289600,
+          1500,
+          29705.0
+        ],
+        [
+          -1289600,
+          1500,
+          31505.0
+        ],
+        [
+          -1289600,
+          900,
+          32105.0
+        ],
+        [
+          -1289600,
+          -900,
+          32105.0
+        ],
+        [
+          -1289600,
+          -1500,
+          31505.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:lower_chevron_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -1288500,
+        -16965.697613280558,
+        46910.0
+      ],
+      "end": [
+        -1288500,
+        0,
+        63215.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_1:lower_chevron_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -1288500,
+        16965.697613280558,
+        46910.0
+      ],
+      "end": [
+        -1288500,
+        0,
+        63215.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3327,7 +3613,7 @@
       "bounds": [
         -1291500,
         -19700,
-        180000,
+        179200,
         -1285500,
         -15300,
         184000
@@ -3341,7 +3627,7 @@
       "bounds": [
         -1291500,
         15300,
-        180000,
+        179200,
         -1285500,
         19700,
         184000
@@ -3372,65 +3658,78 @@
         3500,
         -290000,
         26500,
-        14000
+        10050
       ],
       "color": "#CBCDC5"
     },
     {
       "name": "towers:north:tower_2:leg_-1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         -298500,
-        -18500,
-        14000
+        -19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         -298500,
         -17500,
-        184000
+        179500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:base_plate_-1",
+      "group": "towers",
+      "kind": "box",
+      "bounds": [
+        -304650,
+        -22887,
+        10050,
+        -292350,
+        -16587,
+        10230
+      ],
       "color": "#E0E8E5"
     },
     {
       "name": "towers:north:tower_2:leg_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         -298500,
-        18500,
-        14000
+        19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         -298500,
         17500,
-        184000
+        179500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:north:tower_2:crossbeam_0",
+      "name": "towers:north:tower_2:base_plate_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        -17500,
-        14000
+      "kind": "box",
+      "bounds": [
+        -304650,
+        16587,
+        10050,
+        -292350,
+        22887,
+        10230
       ],
-      "end": [
-        -298500,
-        17500,
-        14000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
       "color": "#E0E8E5"
     },
     {
@@ -3453,116 +3752,21 @@
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:north:tower_2:crossbeam_2",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        -17500,
-        96515.0
-      ],
-      "end": [
-        -298500,
-        17500,
-        96515.0
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_2:crossbeam_3",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        -17500,
-        122000
-      ],
-      "end": [
-        -298500,
-        17500,
-        122000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_2:crossbeam_4",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        -17500,
-        148000
-      ],
-      "end": [
-        -298500,
-        17500,
-        148000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
       "name": "towers:north:tower_2:crossbeam_5",
       "group": "towers",
       "kind": "beam",
       "start": [
         -298500,
         -17500,
-        177500
+        178000
       ],
       "end": [
         -298500,
         17500,
-        177500
+        178000
       ],
       "width_mm": 2300,
       "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_2:X_0_L",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        -16500,
-        14000
-      ],
-      "end": [
-        -298500,
-        16500,
-        74515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:north:tower_2:X_0_R",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        -298500,
-        16500,
-        14000
-      ],
-      "end": [
-        -298500,
-        -16500,
-        74515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3572,16 +3776,16 @@
       "kind": "beam",
       "start": [
         -298500,
-        -16500,
-        122000
+        -16165.620015360077,
+        114000
       ],
       "end": [
         -298500,
-        16500,
-        148000
+        15747.875760619128,
+        145610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3591,17 +3795,70 @@
       "kind": "beam",
       "start": [
         -298500,
-        16500,
-        122000
+        16165.620015360077,
+        114000
       ],
       "end": [
         -298500,
-        -16500,
-        148000
+        -15747.875760619128,
+        145610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:joint:upper_3",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -299600,
+          -1500,
+          128905.0
+        ],
+        [
+          -299600,
+          -900,
+          128305.0
+        ],
+        [
+          -299600,
+          900,
+          128305.0
+        ],
+        [
+          -299600,
+          1500,
+          128905.0
+        ],
+        [
+          -299600,
+          1500,
+          130705.0
+        ],
+        [
+          -299600,
+          900,
+          131305.0
+        ],
+        [
+          -299600,
+          -900,
+          131305.0
+        ],
+        [
+          -299600,
+          -1500,
+          130705.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
       "color": "#E0E8E5"
     },
     {
@@ -3610,16 +3867,16 @@
       "kind": "beam",
       "start": [
         -298500,
-        -16500,
-        148000
+        -15747.875760619128,
+        145610
       ],
       "end": [
         -298500,
-        16500,
-        177500
+        15339.646718260767,
+        176500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3629,16 +3886,198 @@
       "kind": "beam",
       "start": [
         -298500,
-        16500,
-        148000
+        15747.875760619128,
+        145610
       ],
       "end": [
         -298500,
-        -16500,
-        177500
+        -15339.646718260767,
+        176500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:joint:upper_4",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -299600,
+          -1500,
+          160155.0
+        ],
+        [
+          -299600,
+          -900,
+          159555.0
+        ],
+        [
+          -299600,
+          900,
+          159555.0
+        ],
+        [
+          -299600,
+          1500,
+          160155.0
+        ],
+        [
+          -299600,
+          1500,
+          161955.0
+        ],
+        [
+          -299600,
+          900,
+          162555.0
+        ],
+        [
+          -299600,
+          -900,
+          162555.0
+        ],
+        [
+          -299600,
+          -1500,
+          161955.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:X_0_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -298500,
+        -17483.212618892892,
+        14300
+      ],
+      "end": [
+        -298500,
+        16965.03001122467,
+        53510.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:X_0_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -298500,
+        17483.212618892892,
+        14300
+      ],
+      "end": [
+        -298500,
+        -16965.03001122467,
+        53510.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:joint:lower",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          -299600,
+          -1500,
+          33005.0
+        ],
+        [
+          -299600,
+          -900,
+          32405.0
+        ],
+        [
+          -299600,
+          900,
+          32405.0
+        ],
+        [
+          -299600,
+          1500,
+          33005.0
+        ],
+        [
+          -299600,
+          1500,
+          34805.0
+        ],
+        [
+          -299600,
+          900,
+          35405.0
+        ],
+        [
+          -299600,
+          -900,
+          35405.0
+        ],
+        [
+          -299600,
+          -1500,
+          34805.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:lower_chevron_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -298500,
+        -16965.03001122467,
+        53510.0
+      ],
+      "end": [
+        -298500,
+        0,
+        73115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:north:tower_2:lower_chevron_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        -298500,
+        16965.03001122467,
+        53510.0
+      ],
+      "end": [
+        -298500,
+        0,
+        73115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -3649,7 +4088,7 @@
       "bounds": [
         -301500,
         -19700,
-        180000,
+        179200,
         -295500,
         -15300,
         184000
@@ -3663,7 +4102,7 @@
       "bounds": [
         -301500,
         15300,
-        180000,
+        179200,
         -295500,
         19700,
         184000
@@ -29372,65 +29811,78 @@
         3500,
         307000,
         26500,
-        14000
+        10050
       ],
       "color": "#CBCDC5"
     },
     {
       "name": "towers:south:tower_1:leg_-1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         298500,
-        -18500,
-        14000
+        -19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         298500,
         -17500,
-        194000
+        189500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:base_plate_-1",
+      "group": "towers",
+      "kind": "box",
+      "bounds": [
+        292350,
+        -22887,
+        10050,
+        304650,
+        -16587,
+        10230
+      ],
       "color": "#E0E8E5"
     },
     {
       "name": "towers:south:tower_1:leg_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         298500,
-        18500,
-        14000
+        19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         298500,
         17500,
-        194000
+        189500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:south:tower_1:crossbeam_0",
+      "name": "towers:south:tower_1:base_plate_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        -17500,
-        14000
+      "kind": "box",
+      "bounds": [
+        292350,
+        16587,
+        10050,
+        304650,
+        22887,
+        10230
       ],
-      "end": [
-        298500,
-        17500,
-        14000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
       "color": "#E0E8E5"
     },
     {
@@ -29453,116 +29905,21 @@
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:south:tower_1:crossbeam_2",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        -17500,
-        96515.0
-      ],
-      "end": [
-        298500,
-        17500,
-        96515.0
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_1:crossbeam_3",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        -17500,
-        122000
-      ],
-      "end": [
-        298500,
-        17500,
-        122000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_1:crossbeam_4",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        -17500,
-        148000
-      ],
-      "end": [
-        298500,
-        17500,
-        148000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
       "name": "towers:south:tower_1:crossbeam_5",
       "group": "towers",
       "kind": "beam",
       "start": [
         298500,
         -17500,
-        187500
+        188000
       ],
       "end": [
         298500,
         17500,
-        187500
+        188000
       ],
       "width_mm": 2300,
       "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_1:X_0_L",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        -16500,
-        14000
-      ],
-      "end": [
-        298500,
-        16500,
-        74515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_1:X_0_R",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        298500,
-        16500,
-        14000
-      ],
-      "end": [
-        298500,
-        -16500,
-        74515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29572,16 +29929,16 @@
       "kind": "beam",
       "start": [
         298500,
-        -16500,
-        122000
+        -16117.334188653986,
+        124000
       ],
       "end": [
         298500,
-        16500,
-        148000
+        15722.89245272494,
+        155610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29591,17 +29948,70 @@
       "kind": "beam",
       "start": [
         298500,
-        16500,
-        122000
+        16117.334188653986,
+        124000
       ],
       "end": [
         298500,
-        -16500,
-        148000
+        -15722.89245272494,
+        155610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:joint:upper_3",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          297400,
+          -1500,
+          138905.0
+        ],
+        [
+          297400,
+          -900,
+          138305.0
+        ],
+        [
+          297400,
+          900,
+          138305.0
+        ],
+        [
+          297400,
+          1500,
+          138905.0
+        ],
+        [
+          297400,
+          1500,
+          140705.0
+        ],
+        [
+          297400,
+          900,
+          141305.0
+        ],
+        [
+          297400,
+          -900,
+          141305.0
+        ],
+        [
+          297400,
+          -1500,
+          140705.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
       "color": "#E0E8E5"
     },
     {
@@ -29610,16 +30020,16 @@
       "kind": "beam",
       "start": [
         298500,
-        -16500,
-        148000
+        -15722.89245272494,
+        155610
       ],
       "end": [
         298500,
-        16500,
-        187500
+        15337.435153678809,
+        186500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29629,16 +30039,198 @@
       "kind": "beam",
       "start": [
         298500,
-        16500,
-        148000
+        15722.89245272494,
+        155610
       ],
       "end": [
         298500,
-        -16500,
-        187500
+        -15337.435153678809,
+        186500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:joint:upper_4",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          297400,
+          -1500,
+          170155.0
+        ],
+        [
+          297400,
+          -900,
+          169555.0
+        ],
+        [
+          297400,
+          900,
+          169555.0
+        ],
+        [
+          297400,
+          1500,
+          170155.0
+        ],
+        [
+          297400,
+          1500,
+          171955.0
+        ],
+        [
+          297400,
+          900,
+          172555.0
+        ],
+        [
+          297400,
+          -900,
+          172555.0
+        ],
+        [
+          297400,
+          -1500,
+          171955.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:X_0_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        298500,
+        -17486.212974842416,
+        14300
+      ],
+      "end": [
+        298500,
+        16996.93551626039,
+        53510.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:X_0_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        298500,
+        17486.212974842416,
+        14300
+      ],
+      "end": [
+        298500,
+        -16996.93551626039,
+        53510.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:joint:lower",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          297400,
+          -1500,
+          33005.0
+        ],
+        [
+          297400,
+          -900,
+          32405.0
+        ],
+        [
+          297400,
+          900,
+          32405.0
+        ],
+        [
+          297400,
+          1500,
+          33005.0
+        ],
+        [
+          297400,
+          1500,
+          34805.0
+        ],
+        [
+          297400,
+          900,
+          35405.0
+        ],
+        [
+          297400,
+          -900,
+          35405.0
+        ],
+        [
+          297400,
+          -1500,
+          34805.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:lower_chevron_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        298500,
+        -16996.93551626039,
+        53510.0
+      ],
+      "end": [
+        298500,
+        0,
+        73115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_1:lower_chevron_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        298500,
+        16996.93551626039,
+        53510.0
+      ],
+      "end": [
+        298500,
+        0,
+        73115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29649,7 +30241,7 @@
       "bounds": [
         295500,
         -19700,
-        190000,
+        189200,
         301500,
         -15300,
         194000
@@ -29663,7 +30255,7 @@
       "bounds": [
         295500,
         15300,
-        190000,
+        189200,
         301500,
         19700,
         194000
@@ -29694,65 +30286,78 @@
         3500,
         1407000,
         26500,
-        14000
+        10050
       ],
       "color": "#CBCDC5"
     },
     {
       "name": "towers:south:tower_2:leg_-1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         1398500,
-        -18500,
-        14000
+        -19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         1398500,
         -17500,
-        194000
+        189500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:base_plate_-1",
+      "group": "towers",
+      "kind": "box",
+      "bounds": [
+        1392350,
+        -22887,
+        10050,
+        1404650,
+        -16587,
+        10230
+      ],
       "color": "#E0E8E5"
     },
     {
       "name": "towers:south:tower_2:leg_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
+      "kind": "tower_column",
+      "base_centre_mm": [
         1398500,
-        18500,
-        14000
+        19737,
+        10230
       ],
-      "end": [
+      "top_centre_mm": [
         1398500,
         17500,
-        194000
+        189500
       ],
-      "width_mm": 3600,
-      "depth_mm": 4200,
-      "profile": "member",
+      "width_mm": 4800,
+      "side_width_mm": 3700,
+      "core_depth_mm": 3200,
+      "base_depth_mm": 10700,
+      "top_depth_mm": 7100,
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:south:tower_2:crossbeam_0",
+      "name": "towers:south:tower_2:base_plate_1",
       "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        -17500,
-        14000
+      "kind": "box",
+      "bounds": [
+        1392350,
+        16587,
+        10050,
+        1404650,
+        22887,
+        10230
       ],
-      "end": [
-        1398500,
-        17500,
-        14000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
       "color": "#E0E8E5"
     },
     {
@@ -29775,116 +30380,21 @@
       "color": "#E0E8E5"
     },
     {
-      "name": "towers:south:tower_2:crossbeam_2",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        -17500,
-        85515.0
-      ],
-      "end": [
-        1398500,
-        17500,
-        85515.0
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_2:crossbeam_3",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        -17500,
-        122000
-      ],
-      "end": [
-        1398500,
-        17500,
-        122000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_2:crossbeam_4",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        -17500,
-        148000
-      ],
-      "end": [
-        1398500,
-        17500,
-        148000
-      ],
-      "width_mm": 2300,
-      "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
       "name": "towers:south:tower_2:crossbeam_5",
       "group": "towers",
       "kind": "beam",
       "start": [
         1398500,
         -17500,
-        187500
+        188000
       ],
       "end": [
         1398500,
         17500,
-        187500
+        188000
       ],
       "width_mm": 2300,
       "depth_mm": 2800,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_2:X_0_L",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        -16500,
-        14000
-      ],
-      "end": [
-        1398500,
-        16500,
-        63515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
-      "profile": "member",
-      "color": "#E0E8E5"
-    },
-    {
-      "name": "towers:south:tower_2:X_0_R",
-      "group": "towers",
-      "kind": "beam",
-      "start": [
-        1398500,
-        16500,
-        14000
-      ],
-      "end": [
-        1398500,
-        -16500,
-        63515.0
-      ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29894,16 +30404,16 @@
       "kind": "beam",
       "start": [
         1398500,
-        -16500,
-        122000
+        -16117.334188653986,
+        124000
       ],
       "end": [
         1398500,
-        16500,
-        148000
+        15722.89245272494,
+        155610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29913,17 +30423,70 @@
       "kind": "beam",
       "start": [
         1398500,
-        16500,
-        122000
+        16117.334188653986,
+        124000
       ],
       "end": [
         1398500,
-        -16500,
-        148000
+        -15722.89245272494,
+        155610
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:joint:upper_3",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          1397400,
+          -1500,
+          138905.0
+        ],
+        [
+          1397400,
+          -900,
+          138305.0
+        ],
+        [
+          1397400,
+          900,
+          138305.0
+        ],
+        [
+          1397400,
+          1500,
+          138905.0
+        ],
+        [
+          1397400,
+          1500,
+          140705.0
+        ],
+        [
+          1397400,
+          900,
+          141305.0
+        ],
+        [
+          1397400,
+          -900,
+          141305.0
+        ],
+        [
+          1397400,
+          -1500,
+          140705.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
       "color": "#E0E8E5"
     },
     {
@@ -29932,16 +30495,16 @@
       "kind": "beam",
       "start": [
         1398500,
-        -16500,
-        148000
+        -15722.89245272494,
+        155610
       ],
       "end": [
         1398500,
-        16500,
-        187500
+        15337.435153678809,
+        186500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29951,16 +30514,198 @@
       "kind": "beam",
       "start": [
         1398500,
-        16500,
-        148000
+        15722.89245272494,
+        155610
       ],
       "end": [
         1398500,
-        -16500,
-        187500
+        -15337.435153678809,
+        186500
       ],
-      "width_mm": 1150,
-      "depth_mm": 1400,
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:joint:upper_4",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          1397400,
+          -1500,
+          170155.0
+        ],
+        [
+          1397400,
+          -900,
+          169555.0
+        ],
+        [
+          1397400,
+          900,
+          169555.0
+        ],
+        [
+          1397400,
+          1500,
+          170155.0
+        ],
+        [
+          1397400,
+          1500,
+          171955.0
+        ],
+        [
+          1397400,
+          900,
+          172555.0
+        ],
+        [
+          1397400,
+          -900,
+          172555.0
+        ],
+        [
+          1397400,
+          -1500,
+          171955.0
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:X_0_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        1398500,
+        -17486.212974842416,
+        14300
+      ],
+      "end": [
+        1398500,
+        17088.443669697477,
+        46176.66666666667
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:X_0_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        1398500,
+        17486.212974842416,
+        14300
+      ],
+      "end": [
+        1398500,
+        -17088.443669697477,
+        46176.66666666667
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:joint:lower",
+      "group": "towers",
+      "kind": "prism",
+      "outline": [
+        [
+          1397400,
+          -1500,
+          29338.333333333336
+        ],
+        [
+          1397400,
+          -900,
+          28738.333333333336
+        ],
+        [
+          1397400,
+          900,
+          28738.333333333336
+        ],
+        [
+          1397400,
+          1500,
+          29338.333333333336
+        ],
+        [
+          1397400,
+          1500,
+          31138.333333333336
+        ],
+        [
+          1397400,
+          900,
+          31738.333333333336
+        ],
+        [
+          1397400,
+          -900,
+          31738.333333333336
+        ],
+        [
+          1397400,
+          -1500,
+          31138.333333333336
+        ]
+      ],
+      "extrusion": [
+        2200,
+        0,
+        0
+      ],
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:lower_chevron_L",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        1398500,
+        -17088.443669697477,
+        46176.66666666667
+      ],
+      "end": [
+        1398500,
+        0,
+        62115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
+      "profile": "member",
+      "color": "#E0E8E5"
+    },
+    {
+      "name": "towers:south:tower_2:lower_chevron_R",
+      "group": "towers",
+      "kind": "beam",
+      "start": [
+        1398500,
+        17088.443669697477,
+        46176.66666666667
+      ],
+      "end": [
+        1398500,
+        0,
+        62115.0
+      ],
+      "width_mm": 2000,
+      "depth_mm": 2000,
       "profile": "member",
       "color": "#E0E8E5"
     },
@@ -29971,7 +30716,7 @@
       "bounds": [
         1395500,
         -19700,
-        190000,
+        189200,
         1401500,
         -15300,
         194000
@@ -29985,7 +30730,7 @@
       "bounds": [
         1395500,
         15300,
-        190000,
+        189200,
         1401500,
         19700,
         194000
@@ -122622,17 +123367,17 @@
     "max": [
       1897500.0000001,
       380000.0,
-      194009.99984570002
+      194000.0
     ]
   },
   "saved_step": {
     "valid": true,
-    "solids": 4450,
+    "solids": 4462,
     "datum": "T.P.; sea assumed at 0"
   },
   "glb_export": {
-    "named_mesh_nodes": 4450,
-    "all_nodes": 4462,
+    "named_mesh_nodes": 4462,
+    "all_nodes": 4474,
     "groups": [
       "environment",
       "foundations",
@@ -122650,19 +123395,19 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/seto_bridge_geometry.py": "c7150bf89c2b222fec763a95f917776b744e6c9ea11e3b582fcea26af750ae45",
+    "src/lib/seto_bridge_geometry.py": "1561451cad4606798c848c2afe3554a83e08f1f04777f40c4d5f97900cf3de0c",
     "src/lib/seto_bridge_activity.py": "17d045187bd14f82b323c4d309cd38e797cba4d12cdf6c9a6367bd29fb4268d6",
     "src/seto_bridge_3d.py": "55533681db1635593f00f3964f73a8231004028a732c8b808fc80cfa03f27f75",
     "src/lib/step_transport.py": "604856ace383adfcbdebc652664f7a79cdf2ba94cb3a04237a4d01fa343fa151"
   },
   "artifacts": {
     "STEP/seto_ohashi.step": {
-      "sha256": "2965b1554876cda9cb1ae591e189eeb764463a42a4de0a39fc5d09bf95bae32c",
-      "bytes": 120424076
+      "sha256": "e902519ba0671524721849926f154f25f8e0f28d50c3426eb8235457160b867a",
+      "bytes": 121130145
     },
     "GLB/seto_ohashi.glb": {
-      "sha256": "1039dc1f7485b0e61669fb9b037f9c0ab5aa4667d84e5241be00e680beb7912f",
-      "bytes": 9393032
+      "sha256": "ce92ca1f63371964a96cc178b1636b9412eb733bb3dfd3d379995842c5ce1d02",
+      "bytes": 9434452
     }
   }
 }

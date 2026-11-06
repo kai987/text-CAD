@@ -63,18 +63,18 @@ async function fixture(t) {
   await save('STEP/seto_ohashi.step', 'ISO-10303-21;\nEND-ISO-10303-21;');
   const glb = Buffer.alloc(20); glb.write('glTF'); glb.writeUInt32LE(2, 4); glb.writeUInt32LE(20, 8);
   await save('GLB/seto_ohashi.glb', glb);
-  const base = { schema_version: 1, id: 'seto-ohashi', revision: 'BRIDGE-R03', units: 'mm', status: 'reference_concept_only' };
+  const base = { schema_version: 1, id: 'seto-ohashi', revision: 'BRIDGE-R04', units: 'mm', status: 'reference_concept_only' };
   const manifest = { ...base, ...activityFixture(), assumptions: ['Photo-fitted members.', 'Schematic terrain.', 'No structural analysis.'],
     source_sha256: Object.fromEntries(bridgeGeometrySources.map(path => [path, sha(source)])), artifacts: {} };
-  const drawings = { ...base, source_geometry_revision: 'BRIDGE-R03',
+  const drawings = { ...base, source_geometry_revision: 'BRIDGE-R04',
     source_sha256: Object.fromEntries(bridgeDrawingSources.map(path => [path, sha(source)])),
     artifacts: {}, drawings: ['plan', 'elevation', 'section'].map(id => ({ id,
       dxf: `DXF/seto_ohashi_${id}.dxf`, svg: `output/svg/seto_ohashi_${id}.svg`,
-      dimensions_mm: id === 'elevation' ? [1538000, 1648000, 990000, 1100000] : [30000, 13000],
-      required_labels: ['瀬戸大橋', '参考モデル'] })) };
+      dimensions_mm: id === 'elevation' ? [1538000, 1648000, 990000, 1100000, 3333800, 184000, 194000, 35000, 35000] : [30000, 13000],
+      required_labels: id === 'elevation' ? ['瀬戸大橋', '参考モデル', '主塔正面図'] : ['瀬戸大橋', '参考モデル'] })) };
   for (const row of drawings.drawings) {
     await save(row.dxf, '0\nTEXT\n0\nDIMENSION\n');
-    await save(row.svg, `<svg data-units="mm" data-revision="BRIDGE-R03">${row.dimensions_mm.map(value =>
+    await save(row.svg, `<svg data-units="mm" data-revision="BRIDGE-R04">${row.dimensions_mm.map(value =>
       `<text data-dimension-mm="${value}">${value}</text>`).join('')}${row.required_labels.join(' ')}</svg>`);
   }
   await save('output/pdf/seto_ohashi_sheets.pdf', '%PDF-1.4\nfixture');
@@ -132,11 +132,20 @@ test('a mixed drawing revision and raster or executable drawing payloads cannot 
   const f = await fixture(t);
   f.drawings.source_geometry_revision = 'BRIDGE-R00'; await f.saveMetadata();
   await assert.rejects(validateBridgeArtifacts(f.root), /mixed revision/);
-  f.drawings.source_geometry_revision = 'BRIDGE-R03';
+  f.drawings.source_geometry_revision = 'BRIDGE-R04';
   const row = f.drawings.drawings[0], previous = await readFile(resolve(f.root, row.svg), 'utf8');
   await f.save(row.svg, previous.replace('</svg>', '<image href="foreign"/></svg>'));
   await f.bind(f.drawings, [row.svg]); await f.saveMetadata();
   await assert.rejects(validateBridgeArtifacts(f.root), /Invalid Seto Ohashi SVG/);
+});
+
+test('rebinding SVG hashes cannot omit the dimensioned tower front details', async t => {
+  const f=await fixture(t), row=f.drawings.drawings.find(row=>row.id==='elevation');
+  const svg=await readFile(resolve(f.root,row.svg),'utf8');
+  row.dimensions_mm=row.dimensions_mm.filter(value=>value!==194000);
+  await f.save(row.svg,svg.replace('<text data-dimension-mm="194000">194000</text>',''));
+  await f.bind(f.drawings,[row.svg]);await f.saveMetadata();
+  await assert.rejects(validateBridgeArtifacts(f.root),/annotated tower front projections/);
 });
 
 test('traffic metadata rejects wrong-side driving, floating vehicles and routes beyond the deck', () => {

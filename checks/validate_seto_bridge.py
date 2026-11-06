@@ -1,4 +1,4 @@
-"""Read-only source, saved-solid, GLB and editable-drawing checks for BRIDGE-R03.
+"""Read-only source, saved-solid, GLB and editable-drawing checks for BRIDGE-R04.
 
 This audits saved geometry, not structural capacity, geotechnical conditions,
 navigation clearance or construction conformity. It never blesses stale files.
@@ -75,17 +75,13 @@ def validate(root=ROOT):
     # shape cannot be validated from metadata or outer bounds alone.
     for row in physical_clearance_checks(list(specs.values()),parameters(),activity,clearance_shapes):
         check('STEP:'+row['check'],row['pass'],row['actual'])
-    road=lambda x:parameters()['road_deck_z_mm']-.01*max(abs(x),parameters()['shared_anchor_half_length_mm'])
-    traffic_bounds=[bounds for name,bounds in native.items() if name.startswith('traffic:')]
-    max_vehicle_height=max(bounds['max'][2]-min(road(bounds['min'][0]),road(bounds['max'][0])) for bounds in traffic_bounds)
     for bridge in ('north','south'):
         for number in (1,2):
-            name=f'towers:{bridge}:tower_{number}:crossbeam_2'
-            bounds=native[name]
-            beam_center=(bounds['min'][0]+bounds['max'][0])/2
-            clearance=bounds['min'][2]-road(beam_center)
-            check('STEP:actual_vehicle_clearance:'+name,clearance>=max_vehicle_height+1000,
-                  {'clearance_mm':clearance,'conservative_vehicle_height_mm':max_vehicle_height})
+            prefix=f'towers:{bridge}:tower_{number}:'
+            check('STEP:photo_portal_members:'+prefix,
+                all(prefix+f'crossbeam_{j}' not in native for j in (0,2,3,4))
+                and all(prefix+suffix in native for suffix in ('crossbeam_1','crossbeam_5',
+                    'lower_chevron_L','lower_chevron_R','base_plate_-1','base_plate_1')))
     check('STEP:TP_maximum',abs(bounds_max[2]-194000)<50,bounds_max[2])
     raw=(root/'GLB/seto_ohashi.glb').read_bytes();audit=audit_glb_bytes(raw)
     length,kind=struct.unpack_from('<II',raw,12)
@@ -141,7 +137,10 @@ def validate(root=ROOT):
         visible='\n'.join(svg.itertext())
         check(view+':required_labels',all(t in visible and any(t in text for text in texts) for t in row.get('required_labels',[])))
         check(view+':natural_clearance_term','通行純空' not in visible and all('通行純空' not in text for text in texts))
-        if view=='elevation': check(view+':published_spans',all(any(abs(n-target)<.01 for n in measured) for target in [1538000,1648000,990000,1100000]))
+        if view=='elevation':
+            check(view+':published_spans',all(any(abs(n-target)<.01 for n in measured) for target in [1538000,1648000,990000,1100000]))
+            check(view+':photo_tower_fronts',all(any(abs(n-target)<.01 for n in measured) for target in [184000,194000,35000])
+                and '主塔正面図' in visible and '上部2X' in visible and '下部X＋山形' in visible)
         if view=='section':
             check(view+':published_north_section',all(any(abs(n-target)<.01 for n in measured) for target in [30000,13000,35000]))
             check(view+':rail_crest_and_emu_height',all(any(abs(n-target)<.01 for n in measured) for target in [420,5300]))

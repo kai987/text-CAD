@@ -9,12 +9,30 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from lib.seto_bridge_geometry import GROUPS, bridges, cable_z, component_specs, geometry_manifest, parameters, stations
+from lib.seto_bridge_geometry import (GROUPS, bridges, cable_z, component_specs, geometry_manifest, parameters,
+    stations, tower_portal_profile, cad_shape, tower_column_outline)
 from lib.seto_bridge_activity import activity_manifest
 from checks.seto_r01_baseline import (COUNT as BASELINE_COUNT, NAMES as BASELINE_NAMES, SPECS_SHA256,
     CLEARANCE_NAMES, CLEARANCE_ORIGINAL_SPECS, UNCHANGED_CLEARANCE_EXCLUDED_SHA256)
 from checks import seto_r02_baseline as r02
+from checks import seto_r03_baseline as r03
 from checks.seto_bridge_clearance import physical_clearance_checks, prism_vertices
+
+
+def historical_specs():
+    records={part['name']:part for part in component_specs()}
+    records.update(deepcopy(r03.ORIGINAL_TOWER_SPECS))
+    return records
+
+
+def portable_fingerprint(rows):
+    def normalize(value):
+        if isinstance(value,float): return round(value,6) or 0.
+        if isinstance(value,list): return [normalize(v) for v in value]
+        if isinstance(value,dict): return {k:normalize(v) for k,v in value.items()}
+        return value
+    return hashlib.sha256(json.dumps(normalize(sorted(rows,key=lambda p:p['name'])),sort_keys=True,
+        ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
 
 
 class SetoBridgeTests(unittest.TestCase):
@@ -55,7 +73,7 @@ class SetoBridgeTests(unittest.TestCase):
 
     def test_r02_preserves_2962_specs_and_only_raises_four_explicit_road_beams(self):
         old_names=set(BASELINE_NAMES)
-        retained=sorted((s for s in component_specs() if s['name'] in old_names),key=lambda s:s['name'])
+        retained=sorted((s for s in historical_specs().values() if s['name'] in old_names),key=lambda s:s['name'])
         self.assertEqual(len(retained),BASELINE_COUNT)
         # Restore only the independently captured R03 anchor/floorbeam
         # exceptions before replaying the stricter original R01 audit.
@@ -77,7 +95,7 @@ class SetoBridgeTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(encode(reconstructed)).hexdigest(),SPECS_SHA256)
 
     def test_r03_preserves_3583_r02_specs_with_exact_physical_exceptions(self):
-        by_name={s['name']:s for s in component_specs()}
+        by_name=historical_specs()
         self.assertTrue(set(r02.NAMES)<=set(by_name))
         encode=lambda rows:json.dumps(rows,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()
         retained=[by_name[name] for name in r02.NAMES]
@@ -127,26 +145,47 @@ class SetoBridgeTests(unittest.TestCase):
         self.assertEqual(failed,[],json.dumps(failed,ensure_ascii=False))
 
     def test_every_vehicle_route_has_real_clearance_under_all_four_tower_beams(self):
-        specs=component_specs();p=parameters()
-        road=lambda x:p['road_deck_z_mm']-.01*max(abs(x),p['shared_anchor_half_length_mm'])
-        heights=[]
-        for part in specs:
-            if part['group']!='traffic': continue
-            self.assertEqual(part['kind'],'prism')
-            for point in part['outline']:
-                for vertex in (point,[point[i]+part['extrusion'][i] for i in range(3)]):
-                    heights.append(vertex[2]-road(vertex[0]))
-        tallest=max(heights)
-        self.assertGreater(tallest,3300)
-        beams=[part for part in specs if part['name'] in CLEARANCE_NAMES]
-        self.assertEqual(len(beams),4)
-        for part in beams:
-            self.assertEqual(part['kind'],'beam')
-            self.assertEqual(part['start'][0],part['end'][0])
-            x=part['start'][0]
-            bottom=min(part['start'][2],part['end'][2])-part['depth_mm']/2
-            clearance=bottom-road(x)
-            self.assertGreaterEqual(clearance,tallest+1000)
+        # The unsupported above-road bar was removed to match the photo.
+        # Both complete road and rail swept-solid checks cover the portal.
+        specs=component_specs()
+        self.assertFalse(any(part['name'] in CLEARANCE_NAMES for part in specs))
+        rows=physical_clearance_checks(specs,parameters(),activity_manifest(parameters()))
+        road=next(row for row in rows if row['check']=='road:all_tower_full_route_sweeps')
+        self.assertTrue(road['pass'],road)
+        self.assertEqual(road['actual']['lanes'],4)
+
+    def test_r04_changes_only_68_frozen_tower_and_pier_specs(self):
+        specs=component_specs()
+        new_names={f'towers:{bridge}:tower_{number}:{suffix}' for bridge in ('north','south')
+            for number in (1,2) for suffix in ('base_plate_-1','base_plate_1','lower_chevron_L',
+                'lower_chevron_R','joint:upper_3','joint:upper_4','joint:lower')}
+        unchanged=[s for s in specs if s['name'] not in r03.ORIGINAL_TOWER_SPECS and s['name'] not in new_names]
+        self.assertEqual(len(unchanged),r03.UNCHANGED_COUNT)
+        self.assertEqual(portable_fingerprint(unchanged),r03.UNCHANGED_SHA256)
+        self.assertEqual(portable_fingerprint([*unchanged,*r03.ORIGINAL_TOWER_SPECS.values()]),r03.FULL_SHA256)
+        removed={f'towers:{b}:tower_{n}:crossbeam_{j}' for b in ('north','south') for n in (1,2) for j in (0,2,3,4)}
+        actual={s['name'] for s in specs}
+        self.assertFalse(actual & removed)
+        self.assertTrue(new_names<=actual)
+        self.assertEqual(len(specs),r03.COUNT-len(removed)+len(new_names))
+
+    def test_tower_brace_ends_contact_real_column_and_support_solids(self):
+        import build123d as bd
+        by_name={p['name']:p for p in component_specs()}
+        for b in bridges():
+            for number in (1,2):
+                prefix=f"towers:{b['id']}:tower_{number}:"
+                columns={sign:cad_shape(by_name[prefix+f'leg_{sign}'],bd) for sign in (-1,1)}
+                support=cad_shape(by_name[prefix+'crossbeam_1'],bd)
+                for part in by_name.values():
+                    if not part['name'].startswith(prefix) or not ('X_' in part['name'] or 'lower_chevron_' in part['name']):continue
+                    shape=cad_shape(part,bd)
+                    self.assertTrue(shape.is_valid)
+                    for point in (part['start'],part['end']):
+                        host=support if abs(point[1])<.001 else columns[1 if point[1]>0 else -1]
+                        common=shape.intersect(host)
+                        volume=sum(abs(s.volume) for s in common) if common else 0
+                        self.assertGreater(volume,1,part['name'])
 
     def test_traffic_uses_four_left_hand_lanes_and_complete_named_vehicles(self):
         p=parameters();actors=activity_manifest(p)['actors'];cars=[a for a in actors if a['group']=='traffic']
@@ -265,12 +304,22 @@ class SetoBridgeTests(unittest.TestCase):
     def test_four_portal_towers_have_two_upper_x_levels(self):
         specs=component_specs();legs=[s for s in specs if s['group']=='towers' and ':leg_' in s['name']]
         self.assertEqual(len(legs),8)
-        self.assertEqual(sorted({s['start'][0] for s in legs}),parameters()['tower_stations_mm'])
-        self.assertEqual(sorted({s['end'][2] for s in legs}),[184000,194000])
+        self.assertEqual(sorted({s['base_centre_mm'][0] for s in legs}),parameters()['tower_stations_mm'])
+        self.assertEqual(sorted({s['top_centre_mm'][2] for s in legs}),[179500,189500])
+        for leg in legs:
+            self.assertEqual(leg['kind'],'tower_column')
+            self.assertEqual(len(tower_column_outline(leg)),12)
+            self.assertEqual(leg['width_mm'],4800)
+            self.assertEqual((leg['base_depth_mm'],leg['top_depth_mm']),(10700,7100))
         for bridge in ('north','south'):
             for tower in ('tower_1','tower_2'):
                 cross=[s for s in specs if s['name'].startswith(f'towers:{bridge}:{tower}:X_') and min(s['start'][2],s['end'][2])>100000]
                 self.assertEqual(len(cross),4) # Two diagonals per X, two levels.
+                prefix=f'towers:{bridge}:{tower}:'
+                own=[s for s in specs if s['name'].startswith(prefix)]
+                self.assertEqual(sum('lower_chevron_' in s['name'] for s in own),2)
+                self.assertEqual({s['name'].split(':')[-1] for s in own if 'crossbeam_' in s['name']},
+                    {'crossbeam_1','crossbeam_5'})
 
     def test_references_and_assumptions_keep_datums_distinct(self):
         m=geometry_manifest()

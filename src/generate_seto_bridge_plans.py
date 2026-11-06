@@ -22,7 +22,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
 from lib.seto_bridge_geometry import (
-    MODEL_ID, REVISION, parameters, bridges, stations, cable_z, component_specs,
+    MODEL_ID, REVISION, parameters, bridges, stations, cable_z, component_specs, tower_column_outline,
 )
 from lib.seto_bridge_activity import activity_manifest
 
@@ -266,6 +266,8 @@ def draw_plan():
                 label in spec['name'] for label in ('deck', 'base', 'continuation', 'marine_caisson', ':pier')):
             x, y, z, a, b, c = spec['bounds']
             d.rect((x, y, a, b), spec['group'], '#536C73', '#D9E0DE', name=spec['name'])
+        elif spec['kind']=='tower_column':
+            d.poly([(x,y) for x,y,z in tower_column_outline(spec)],'towers',True,'#536C73','#C8D3D0',name=spec['name'])
     activity = activity_manifest(p)
     for actor in activity['actors']:
         if actor['group']!='vessels': continue
@@ -313,9 +315,55 @@ def draw_plan():
     return d, d.finish(['橋梁全体平面図', '北備讃瀬戸大橋', '南備讃瀬戸大橋', 'BB4A', '車両', '遊覧船', '電車', '単位 mm'])
 
 
+def draw_tower_fronts(d):
+    """Native 1:1 Y/Z front projections in separately positioned CAD insets."""
+    d.paper_text('主塔正面図（参考）1:2000', (222,163),3.8)
+    for ident,number,origin,offset,label in [
+            ('north',2,(264,43),(4600000,-1000000),'北橋・3P型'),
+            ('south',1,(350,43),(4800000,-1000000),'南橋・5P型')]:
+        d.scale,d.origin,d.center,d.model_offset=2000,origin,(0,0),offset
+        prefix=f'towers:{ident}:tower_{number}:'
+        own=[s for s in component_specs() if s['name'].startswith(prefix)]
+        for spec in component_specs():
+            if spec['name'] not in (f'foundations:{ident}:tower_{number}:pier',
+                    f'foundations:{ident}:tower_{number}:marine_caisson_assumed'):continue
+            x,y,z,a,b,c=spec['bounds']
+            d.rect((y,max(0,z),b,c),'foundations','#758179','#E1E5DF',.12,spec['name'])
+        for spec in own:
+            if spec['kind']=='tower_column':
+                a,b=spec['base_centre_mm'],spec['top_centre_mm'];half=spec['width_mm']/2
+                d.poly([(a[1]-half,a[2]),(a[1]+half,a[2]),(b[1]+half,b[2]),(b[1]-half,b[2])],
+                    'towers',True,'#536971','#E5ECE8',.15,spec['name'])
+            elif spec['kind']=='beam':
+                a,b=spec['start'],spec['end'];dy,dz=b[1]-a[1],b[2]-a[2];length=math.hypot(dy,dz)
+                if not length:continue
+                ny,nz=-dz/length*spec['depth_mm']/2,dy/length*spec['depth_mm']/2
+                d.poly([(a[1]+ny,a[2]+nz),(b[1]+ny,b[2]+nz),(b[1]-ny,b[2]-nz),(a[1]-ny,a[2]-nz)],
+                    'towers',True,'#536971','#E5ECE8',.13,spec['name'])
+            elif spec['kind']=='box':
+                x,y,z,a,b,c=spec['bounds'];d.rect((y,z,b,c),'towers','#536971','#E5ECE8',.12,spec['name'])
+            elif spec['kind']=='prism':
+                d.poly([(y,z) for x,y,z in spec['outline']],'towers',True,'#536971','#D9E3DF',.12,spec['name'])
+        station=next(s['base_centre_mm'][0] for s in own if s['kind']=='tower_column')
+        road=parameters()['road_deck_z_mm']-.01*abs(station);rail=road-13000
+        d.rect((-15000,rail-700,15000,rail),'railway','#536971','#B7C8CC',.12)
+        d.rect((-13000,road-700,13000,road),'road','#536971','#B7C8CC',.12)
+        for y in (-15000,15000):d.line((y,rail),(y,road),'truss','#536971',.13)
+        d.text('道路',(0,road+3500),2.2,'center')
+        d.text('鉄道',(0,rail+3500),2.2,'center')
+        top=184000 if ident=='north' else 194000
+        d.line((-27000,0),(27000,0),'axis','#92A5AC',.10)
+        d.dim((-17500,top),(17500,top),(0,top+8000))
+        d.dim((17500,0),(17500,top),(42000,0),True)
+        d.viewport((72,110),(origin[0]+4,96),(8000,106000),2000)
+        d.paper_text(label,(origin[0],153),3.1,'center')
+    d.scale,d.origin,d.center,d.model_offset=10000,(191.07,210),(0,0),(0,0)
+    d.paper_text('上部2X / 下部X＋山形。塔柱は十字形3セル外包の近似。',(222,35),2.7)
+
+
 def draw_elevation():
     p = parameters()
-    d = BridgeDrawing('elevation', '橋梁全体側面図 / 水平・鉛直とも1:10000（鉛直倍率なし）', 10000, (191.07, 210))
+    d = BridgeDrawing('elevation', '橋梁全体側面図1:10000（鉛直倍率なし） / 主塔正面1:2000・参考', 10000, (191.07, 210))
     for spec in component_specs():
         if spec['group'] == 'environment':
             continue
@@ -326,6 +374,10 @@ def draw_elevation():
             d.line((a[0], a[2]), (b[0], b[2]), spec['group'],
                 '#58707A' if spec['group'] in ('cables', 'hangers') else '#627478',
                 .13 if spec['group'] == 'cables' else .085, spec['name'])
+        elif spec['kind']=='tower_column' and spec['base_centre_mm'][1]<0:
+            a,b=spec['base_centre_mm'],spec['top_centre_mm'];h1,h2=spec['base_depth_mm']/2,spec['top_depth_mm']/2
+            d.poly([(a[0]-h1,a[2]),(a[0]+h1,a[2]),(b[0]+h2,b[2]),(b[0]-h2,b[2])],
+                'towers',True,'#627478','#E4E8E5',.09,spec['name'])
         elif spec['kind'] == 'box' and spec['group'] in ('foundations', 'road', 'railway') and 'mark' not in spec['name'] and 'track' not in spec['name']:
             x, y, z, a, b, c = spec['bounds']
             gradient = spec.get('longitudinal_gradient', 0)
@@ -353,17 +405,9 @@ def draw_elevation():
         y = 132-i*12
         d.paper_text(label, (22, y), 3.2)
         d.paper_text(value, (107, y), 3.2)
-    d.paper_text('標高・写真合わせの注意', (223, 145), 3.8)
-    notes = ['T.P.は東京湾平均海面基準。モデル海面はT.P.0の仮定。',
-        '公表の航路高65mは略最高高潮面からの値。',
-        'その値をモデルの海面からの高さへ直接置換しない。',
-        'BB4Aの93m道路高を起点に縦断を簡略化。',
-        '主塔の横構・ケーブル曲線・基礎深さは外観近似。',
-        '等縮尺のため桁高は小さく見える。第3図で詳細確認。']
-    for i, note in enumerate(notes):
-        d.paper_text(note, (223, 131-i*12), 3)
-    d.paper_text('参照：JB本四高速公式側面図 / 本四公団・コンクリート工学 Vol.22 No.11（1984）', (20, 40), 2.9)
-    return d, d.finish(['橋梁全体側面図', '北橋', '南橋', 'T.P.', '単位 mm'])
+    draw_tower_fronts(d)
+    d.paper_text('出典：JB本四高速・本四公団 / 塔正面：建設の機械化1986.5 Fig.3・駒井1986 Fig.1。',(20,40),2.7)
+    return d, d.finish(['橋梁全体側面図', '北橋', '南橋', 'T.P.', '主塔正面図', '上部2X', '下部X＋山形', '単位 mm'])
 
 
 def draw_section():

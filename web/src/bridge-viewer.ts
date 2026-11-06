@@ -154,7 +154,7 @@ export function createBridgeViewer(host: HTMLElement, options: {
       region.expandByVector(new Vector3(10, 5, 12));
     } else if (following) region.expandByVector(next === 'traffic' ? new Vector3(16, 6, 18) : new Vector3(22, 7, 18));
     const center = region.getCenter(new Vector3());
-    const directions = { iso: new Vector3(1.1, .65, 1.8), elevation: new Vector3(0, 0, 2), top: new Vector3(0, 2, 0), tower: new Vector3(1, .35, 1.5), deck: new Vector3(.9, .35, 1.8), traffic: new Vector3(1.15, .8, 1.5), vessel: new Vector3(1.2, .7, 1.8), train: new Vector3(.45, .20, 1.8) };
+    const directions = { iso: new Vector3(1.1, .65, 1.8), elevation: new Vector3(0, 0, 2), top: new Vector3(0, 2, 0), tower: new Vector3(2.5, .35, .55), deck: new Vector3(.9, .35, 1.8), traffic: new Vector3(1.15, .8, 1.5), vessel: new Vector3(1.2, .7, 1.8), train: new Vector3(.45, .20, 1.8) };
     camera.up.set(0, next === 'top' ? 0 : 1, next === 'top' ? -1 : 0);
     controls.target.copy(center); camera.position.copy(center).addScaledVector(directions[next], 6000);
     camera.lookAt(center); camera.updateMatrixWorld(); fitHorizontal = 0; fitVertical = 0;

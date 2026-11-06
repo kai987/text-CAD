@@ -1,4 +1,4 @@
-"""Physical R03 preflight shared by source tests and saved-STEP validation.
+"""Physical bridge preflight shared by source tests and saved-STEP validation.
 
 Swept corridors enclose the actual vehicles, wheels, decks and transverse
 beams over the complete demonstration paths, including the flat 49m joint.
@@ -154,17 +154,69 @@ def physical_clearance_checks(specs, p, activity, shapes=None):
     for y in (-8500,-3500,3500,8500):
         road_corridors.extend(_graded_corridors(bd,p['north_outer_end_mm'],p['south_outer_end_mm'],
             y-1400,y+1400,p['road_deck_z_mm']+1,p['road_deck_z_mm']+3600,p))
-    candidates=0;collisions=[]
+    candidates={'towers':0,'foundations':0};collisions={'towers':[],'foundations':[]}
     road_bounds=[s.bounding_box() for s in road_corridors]
     for part in specs:
-        if part['group']!='towers':continue
+        if part['group'] not in ('towers','foundations'):continue
         solid=shape(part['name']);bounds=solid.bounding_box()
         for sweep,other in zip(road_corridors,road_bounds):
             if not all(getattr(bounds.max,axis)>getattr(other.min,axis)+.01 and
                        getattr(other.max,axis)>getattr(bounds.min,axis)+.01 for axis in ('X','Y','Z')):continue
-            candidates+=1
+            candidates[part['group']]+=1
             overlap=intersection_volume(solid,sweep)
-            if overlap>.01:collisions.append({'name':part['name'],'volume_mm3':round(overlap,6)})
-    record('road:all_tower_full_route_sweeps',not collisions,
-        {'native_candidates':candidates,'pieces':len(road_corridors),'lanes':4,'collisions':collisions})
+            if overlap>.01:collisions[part['group']].append({'name':part['name'],'volume_mm3':round(overlap,6)})
+    for group,label in (('towers','tower'),('foundations','foundations')):
+        record('road:all_'+label+'_full_route_sweeps',not collisions[group],
+            {'native_candidates':candidates[group],'pieces':len(road_corridors),'lanes':4,'collisions':collisions[group]})
+    return rows
+
+
+def shared_anchorage_profile_checks(specs, shapes=None):
+    """Probe actual native BB4A solids against the independent reference fit.
+
+    Samples lie away from edges and the road/rail opening. In particular the
+    high V-recess probes use Y=25m, outside the illustrative 33m-wide passage,
+    so a stale full-width concrete block cannot pass by sharing that cut.
+    """
+    import build123d as bd
+    from lib.seto_bridge_geometry import cad_shape
+    by_name={part['name']:part for part in specs}
+    shape_cache=dict(shapes or {})
+    rows=[]
+    body_name='foundations:BB4A_shared:V_notched_body'
+    base_name='foundations:BB4A_shared:base'
+    for name in (body_name,base_name):
+        if name not in shape_cache:
+            shape_cache[name]=cad_shape(by_name[name],bd)
+    body,base=shape_cache[body_name],shape_cache[base_name]
+    expected={body_name:((-39500,-29000,5000),(39500,29000,86000)),
+              base_name:((-28500,-31000,-14000),(28500,31000,5000))}
+    for name,limits in expected.items():
+        bb=shape_cache[name].bounding_box()
+        actual=[[getattr(bb.min,axis) for axis in ('X','Y','Z')],
+                [getattr(bb.max,axis) for axis in ('X','Y','Z')]]
+        rows.append({'check':'shared_anchor:reference_bounds:'+name,
+            'pass':all(abs(a-b)<.001 for value,limit in zip(actual,limits) for a,b in zip(value,limit)),
+            'actual':{'bounds_mm':actual,'expected_mm':limits}})
+    samples=[
+        ('lower_narrow_face',body,(30000,0,10000),False),
+        ('lower_width_retained',body,(0,28000,10000),True),
+        ('lower_shoulder',body,(39000,20000,33000),True),
+        ('upper_batter',body,(38000,25000,80000),False),
+        ('blind_recess',body,(37000,0,40000),False),
+        ('blind_recess_backwall',body,(33000,0,40000),True),
+        ('blind_recess_floor',body,(29000,0,11000),True),
+        ('flat_v_recess',body,(0,25000,54000),False),
+        ('upper_v_return',body,(25000,25000,84000),False),
+        ('upper_v_side_mass',body,(35000,25000,84000),True),
+        ('v_floor_mass',body,(0,25000,51000),True),
+        ('base_footprint',base,(30000,0,0),False),
+        ('base_positive_mass',base,(0,0,0),True),
+    ]
+    for label,shape,point,present in samples:
+        probe=bd.Solid.make_box(200,200,200,plane=bd.Plane(origin=tuple(v-100 for v in point)))
+        volume=intersection_volume(shape,probe)
+        rows.append({'check':'shared_anchor:solid_probe:'+label,
+            'pass':volume>1 if present else volume<.01,
+            'actual':{'centre_mm':point,'expected_mass':present,'intersection_mm3':round(volume,6)}})
     return rows

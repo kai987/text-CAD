@@ -10,7 +10,7 @@ from math import cos, sin, pi, ceil, sqrt
 from .seto_bridge_activity import activity_manifest, activity_specs, rail_height_mm, road_height_mm
 
 MODEL_ID = 'seto-ohashi'
-REVISION = 'BRIDGE-R04'
+REVISION = 'BRIDGE-R05'
 GROUPS = ('environment', 'foundations', 'towers', 'cables', 'hangers', 'truss', 'road', 'railway', 'traffic', 'vessels', 'trains')
 GROUP_NAMES = {
     'environment': {'zh': '海面与岛屿示意', 'ja': '海面・島の概形', 'en': 'Sea and island context'},
@@ -38,6 +38,7 @@ REFERENCES = [
     {'title':'JR西日本・マリンライナー公式車両紹介','url':'https://www.jr-odekake.net/railroad/train/marineliner/', 'notes':'銀色車体・青帯などの外観参考。モデルの2列×4両は独自の通勤電車概形で、マリンライナーの正確な編成・寸法・実際の運行ではない。'},
     {'title':'本四公団・北備讃瀬戸大橋塔架設工事（建設の機械化1986年5月）','url':'https://jcmanet.or.jp/bunken/wp-content/uploads/1986/jcma-1986_05.pdf','notes':'印刷34頁Fig.3：十字形3セル塔柱、塔頂7.1×4.8m・基部約10.7×4.8m、ケーブル間35m、上部2X・下部Xと山形の横構。個別塔の厳密標高・内部板厚は復元しない。'},
     {'title':'駒井鉄工・南備讃瀬戸大橋の概要と施工試験','url':'https://www.komaihaltec.co.jp/tec/komai/1986/vol5-12.pdf','notes':'印刷124頁Fig.1の塔正面図と実景を参照。上部2X、長い空腹区間、橋面下のXと山形。部材の取り合い・南橋断面の北橋準用は外観近似。'},
+    {'title':'JB本四高速・長大橋の維持管理（2025年度講習資料）','url':'https://www.j-cma.jp/jcma-pics/10022220_HjZm38.pdf','notes':'PDF11頁の共用アンカレイジ実景。下部の絞り、橋軸端面の中央くぼみ、水平打継ぎ、下部の濃色保護面を参考。くぼみ深さ・仕上げ寸法は写真合わせの仮定。'},
 ]
 P = {
     'north_length_mm': 1538000, 'south_length_mm': 1648000,
@@ -146,6 +147,96 @@ def tower_column_outline(spec, top=False):
     return [[x+u,y+v,z] for u,v in ring]
 
 
+def shared_anchor_profile():
+    """BB4A Fig.2 envelope plus explicitly approximate photo-fit recesses.
+
+    X dimensions/levels follow the 1984 general drawing. The top knots, face
+    recess dimensions and finish courses are appearance fits, not shop data.
+    The 62m overall transverse footprint includes the 2m footing lips.
+    """
+    outer=[[5000,26500],[33000,39500],[75190,36500],[86000,35750]]
+    trough=[[52500,3000],[66000,14000],[81500,20500],[86000,29500]]
+    outline=[[-26500,5000],[26500,5000],*[ [x,z] for z,x in outer[1:] ],
+        *[[x,z] for z,x in reversed(trough)],
+        *[[-x,z] for z,x in trough],[-35750,86000],[-36500,75190],[-39500,33000]]
+    return {'outline_xz':outline,'outer_half_x_by_z':outer,'trough_half_x_by_z':trough,
+        'body_width_mm':58000,'footing_width_mm':62000,'footing_length_mm':57000,
+        'recess_half_width_mm':6000,'recess_depth_mm':4500,'recess_floor_mm':12000,
+        'course_spacing_mm':3000,'course_band_mm':70}
+
+
+def _interpolate_profile(knots,z):
+    for (a,x),(b,y) in zip(knots,knots[1:]):
+        if z<=b:return x+(y-x)*(z-a)/(b-a)
+    return knots[-1][1]
+
+
+def _clip_polygon(points,axis,limit,keep_lower=True):
+    """Half-plane clipping for convex/monotone independent face pieces."""
+    result=[]
+    for a,b in zip(points,points[1:]+points[:1]):
+        ina=(a[axis]<=limit) if keep_lower else (a[axis]>=limit)
+        inb=(b[axis]<=limit) if keep_lower else (b[axis]>=limit)
+        if ina:result.append(a)
+        if ina!=inb:
+            t=(limit-a[axis])/(b[axis]-a[axis])
+            result.append([a[i]+t*(b[i]-a[i]) for i in range(2)])
+    return result
+
+
+def shared_anchor_recesses(profile=None):
+    profile=profile or shared_anchor_profile()
+    levels=[profile['recess_floor_mm'],33000,75190,86000]
+    result=[]
+    for sign in (-1,1):
+        wall=[(z,_interpolate_profile(profile['outer_half_x_by_z'],z)) for z in levels]
+        xz=[[sign*(x-profile['recess_depth_mm']),z] for z,x in wall]
+        xz.extend([[sign*(x+1000),z] for z,x in reversed(wall)])
+        result.append({'outline':[[x,-profile['recess_half_width_mm'],z] for x,z in xz],
+            'extrusion':[0,profile['recess_half_width_mm']*2,0],
+            'purpose':'photo_fit_blind_central_face_recess_not_through_opening'})
+    return result
+
+
+def shared_anchor_details():
+    """Named CAD face bands, clipped to actual concrete and transport cuts."""
+    profile=shared_anchor_profile();result=[];prefix='foundations:BB4A_shared:detail:'
+    def prism(name,outline,extrusion,color):
+        result.append({'name':prefix+name,'group':'foundations','kind':'prism',
+            'outline':outline,'extrusion':extrusion,'color':color})
+    # Thin finish bands overlap the face by 30mm to avoid coplanar surfaces.
+    # Split at X=0 before clipping: the two wings above the trough floor
+    # must never be bridged by a decorative strip across an empty V opening.
+    for z in range(8000,86000,profile['course_spacing_mm']):
+        low,high=z-35,z+35
+        for half in (-1,1):
+            band=_clip_polygon(profile['outline_xz'],0,0,half<0)
+            band=_clip_polygon(_clip_polygon(band,1,high),1,low,False)
+            if len(band)<3:continue
+            for side in (-1,1):
+                prism(f'course_Y_{side}_{half}_{z}',[[x,side*28970,zz] for x,zz in band],
+                    [0,side*70,0],'#9CA59F')
+        # Bridge-axis end faces have a 12m central blind recess. Joints stop
+        # at its edges and also stay outside the existing transport opening.
+        gap=16550 if high>77785 else (6050 if high>=profile['recess_floor_mm'] else 0)
+        spans=[(-28950,-gap),(gap,28950)] if gap else [(-28950,28950)]
+        for side in (-1,1):
+            a=_interpolate_profile(profile['outer_half_x_by_z'],low)-30
+            b=_interpolate_profile(profile['outer_half_x_by_z'],high)-30
+            for index,(y0,y1) in enumerate(spans):
+                prism(f'course_X_{side}_{index}_{z}',[[side*a,y0,low],[side*a,y1,low],
+                    [side*b,y1,high],[side*b,y0,high]],[side*70,0,0],'#9CA59F')
+    # Darker lower ramp protection visible in the owner's maintenance photo.
+    # Panel depth and tone are illustrative; no historical coating specified.
+    for side in (-1,1):
+        a=_interpolate_profile(profile['outer_half_x_by_z'],8000)-20
+        b=_interpolate_profile(profile['outer_half_x_by_z'],33000)-20
+        for index,(y0,y1) in enumerate(((-28960,-6050),(6050,28960))):
+            prism(f'lower_protection_{side}_{index}',[[side*a,y0,8000],[side*a,y1,8000],
+                [side*b,y1,33000],[side*b,y0,33000]],[side*45,0,0],'#8B9290')
+    return result
+
+
 @lru_cache(maxsize=1)
 def _specs():
     p = parameters(); result = []
@@ -165,12 +256,14 @@ def _specs():
     ellipse('Ban_no_su_context_not_surveyed', p['south_end_mm']+70000,0,155000,155000,12000,'#8B9981')
     # Single common 4A, not two separated island anchorages.
     for label,x,length,width in [('BB1A',p['north_start_mm']-24000,71000,50000),('BB4A_shared',0,79000,62000),('BB7A',p['south_end_mm']+30000,75000,52000)]:
-        box('foundations',label+':base',(x-length/2,-width/2,-14000,x+length/2,width/2,18000),concrete)
         if label == 'BB4A_shared':
+            profile=shared_anchor_profile()
+            box('foundations',label+':base',(-28500,-31000,-14000,28500,31000,5000),concrete)
             result.append({'name':'foundations:BB4A_shared:V_notched_body','group':'foundations','kind':'anchorage',
-                'outline_xz':[[-39500,18000],[-26500,0],[26500,0],[39500,18000],[39500,86000],[24500,86000],[0,52500],[-24500,86000],[-39500,86000]],
-                'width_mm':62000,'color':'#C1C5BC'})
+                'outline_xz':profile['outline_xz'],'width_mm':profile['body_width_mm'],
+                'surface_recesses':shared_anchor_recesses(profile),'color':'#BFC3BA'})
         else:
+            box('foundations',label+':base',(x-length/2,-width/2,-14000,x+length/2,width/2,18000),concrete)
             box('foundations',label+':anchor_block',(x-length*.34,-width*.45,18000,x+length*.34,width*.45,67000),'#C1C5BC')
         # Keep the concrete silhouette and cable anchoring sides, while opening
         # the actual named CAD solid around both transport decks. The opening
@@ -181,6 +274,8 @@ def _specs():
         upper=max(road_height_mm(xx,p) for xx in (xmin,xmax,0) if xmin<=xx<=xmax)+2000
         body['clearance_cuts']=[{'bounds':[xmin-1000,-16500,lower,xmax+1000,16500,upper],
             'purpose':'road_rail_transport_envelope_demo'}]
+
+    result.extend(shared_anchor_details())
 
     for b in bridges(p):
         ident = b['id']; xs = stations(b,p); zlo,zhi = p['rail_deck_z_mm'],p['road_deck_z_mm']
@@ -385,10 +480,15 @@ def geometry_manifest():
         'zh':'R04按用户实景及1986年施工图修正主塔：上部两层连续X、长空腹区、桥面下完整X与山形撑；移除无实景依据的横梁。十字形3单元塔柱采用北桥约4.8m横宽、7.1至10.7m纵深的外轮廓，南桥沿用为假设。既有184/194m名义塔顶及主缆控制仍是概念坐标，并非分别复原各塔的原施工标高；节点、底板及撑端尺寸为外观近似。',
         'ja':'R04は提供実景と1986年施工図から、上部2X・長い空腹区間・橋面下のXと山形横構へ修正し、実景にない横梁を除きます。十字形3セル塔柱は北橋資料の横4.8m・縦7.1〜10.7mの外包を参考にし、南橋への準用は仮定です。既存184/194mの名目塔頂と主ケーブル制御は概念座標で、各塔の原施工標高を個別に復元したものではありません。節点・底板・端部寸法は外観近似です。',
         'en':'R04 follows the supplied photograph and 1986 general drawings: two upper X stages, a long open portal, and a lower X plus chevron, removing unsupported horizontal bars. The cruciform three-cell envelope uses approximately 4.8m transverse width and 7.1–10.7m longitudinal depth from North drawings; applying it to South is assumed. Existing nominal 184/194m tower/cable controls remain concept coordinates, not individually restored historical tower elevations. Nodes, base plates and end details are appearance fits.'})
+    assumptions.append({
+        'zh':'R05按共用BB4A原施工总图与运营方维修近照重塑锚碇：TP+5m处53m纵长，经下部收腰至TP+33m处最大79m；上部缓收至TP+75.190m约73m，顶部86m、V底52.5m。62m横向外包包含基础边沿，墩身58m；57×62m基础仍保留假设水下深度。顶部折线、12m宽/4.5m深端面盲凹槽、3m分层接缝与下部保护面为照片近似，非实测或内部构造复原。通行开口沿用演示净空包络。',
+        'ja':'R05はBB4A原施工一般図と管理者の維持管理写真から修正。TP+5mの縦53mからTP+33mの最大79mへ広がり、TP+75.190m付近73mへ緩く絞る。頂部86m、V底52.5m、横62m外包は基礎縁を含み躯体58m。57×62m基礎の海中深さは仮定を保持。頂部折線、幅12m・深さ4.5mの端面盲くぼみ、3m打継ぎ・下部保護面は写真合わせで、実測・内部設計の復元ではない。通行開口は既存の表示用包絡。',
+        'en':'R05 follows the original shared-BB4A general drawing and owner maintenance photo: 53m longitudinal body at TP+5m widens to79m at TP+33m, then batters to about73m at TP+75.190m; top86m and V floor52.5m. The62m transverse footprint includes footing lips around a58m body. The57×62m footing retains an assumed submerged depth. Upper knots,12m-wide/4.5m-deep blind face recesses,3m course bands and lower protective faces are appearance fits, not surveyed or internal construction data. Existing demonstration transport clearances remain.'})
     return {'schema_version':1,'id':MODEL_ID,'model_id':MODEL_ID,'revision':REVISION,'units':'mm',
             'glb_units':'m','glb_up_axis':'Y','status':'reference_concept_only','names':deepcopy(NAMES),
             'coordinate_system':{'CAD':'X southward, Y transverse, Z up; datum T.P.; shared BB4A at X=0','GLB':'(X,Z,-Y)/1000'},
             'parameters':p,'official_dimensions':cited,'references':deepcopy(REFERENCES),'assumptions':assumptions,
+            'shared_anchorage_alignment':shared_anchor_profile(),
             'tower_alignment':[{'id':f"{b['id']}:tower_{i+1}",'x_mm':x,**tower_portal_profile(b,x,p)}
                 for b in bridges(p) for i,x in enumerate((b['tower_a'],b['tower_b']))],
             'groups':[{'id':g,'names':GROUP_NAMES[g],'count':sum(s['group']==g for s in specs)} for g in GROUPS],
@@ -406,6 +506,9 @@ def clearance_cut_shapes(spec, bd):
 
 def _clear_transport(shape, spec, bd):
     cuts=clearance_cut_shapes(spec,bd)
+    for recess in spec.get('surface_recesses',[]):
+        face=bd.Face(bd.Wire.make_polygon(recess['outline'],close=True))
+        cuts.append(bd.Solid.extrude(face,tuple(recess['extrusion'])))
     return shape.cut(*cuts) if cuts else shape
 
 

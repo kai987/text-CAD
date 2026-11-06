@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { validatePlanMetadata, apartmentPlanRequirements } from './plan-preview-validation.mjs';
 import { verifySectionWasmArtifacts } from './section-wasm-artifacts.mjs';
 import { verifyArtifactTransports, verifyStaticBuildBudget } from './artifact-transport.mjs';
+import { verifyBridgeSummaryAssets } from './bridge-summary.mjs';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
 const budget = await verifyStaticBuildBudget(dist);
@@ -22,6 +23,7 @@ validatePlanMetadata(apartmentMetadata,
   ]))), apartmentPlanRequirements);
 const manifest = JSON.parse(await readFile(resolve(dist, 'artifacts/manifest.json'), 'utf8'));
 await verifyArtifactTransports(resolve(dist, 'artifacts'), manifest);
+await verifyBridgeSummaryAssets(resolve(dist, 'artifacts'), manifest);
 const html = await readFile(resolve(dist, 'index.html'), 'utf8');
 if (!html.includes('/text-CAD/assets/')) throw new Error('Incorrect GitHub Pages project base.');
 const scripts = (await readdir(resolve(dist, 'assets'))).filter(x => x.endsWith('.js'));

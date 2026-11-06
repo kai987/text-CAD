@@ -2,12 +2,22 @@ import { Float32BufferAttribute, Group, Matrix4, Mesh, MeshStandardMaterial, Vec
 import type { BufferGeometry, Material, Object3D } from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { bridgeGroupForName, bridgeGroups } from './bridge-copy.ts';
-import type { BridgeGroupId } from './bridge-copy';
+import type { BridgeEnvironmentVisibility, BridgeGroupId } from './bridge-copy';
 import { bridgeActorPose } from './bridge-motion.ts';
 import type { BridgeActivity, BridgeActor } from './bridge-motion';
 import { isObjectVisible } from './model-scene.ts';
 
 export interface BridgeActorDisplay { spec: BridgeActor; object: Group }
+
+/** Apply display switches without rebuilding or changing the named CAD scene. */
+export function applyBridgeVisibility(groups: ReadonlyMap<BridgeGroupId, readonly Object3D[]>,
+  values: Readonly<Record<BridgeGroupId, boolean>>, environment: Readonly<BridgeEnvironmentVisibility>) {
+  for (const [group, nodes] of groups) for (const node of nodes) {
+    const part = node.userData.bridgeEnvironmentPart;
+    node.visible = values[group] && !node.userData.bridgeWaterSource
+      && (group !== 'environment' || (part === 'sea' ? environment.sea : environment.terrain));
+  }
+}
 
 /** Static finishes batch together; moving actors each retain an independent origin. */
 export function bridgeDisplay(root: Object3D, activity: BridgeActivity) {
@@ -72,7 +82,9 @@ export function bridgeDisplay(root: Object3D, activity: BridgeActivity) {
       geometry.forEach(item => { item.dispose(); pendingGeometry.delete(item); });
       if (!merged) throw new Error('Bridge display batch could not be built.');
       merged.computeBoundingSphere();
-      const mesh = new Mesh(merged, material); mesh.userData.bridgeGroup = group; if (water) mesh.userData.bridgeWaterSource = true;
+      const mesh = new Mesh(merged, material); mesh.userData.bridgeGroup = group;
+      if (group === 'environment') mesh.userData.bridgeEnvironmentPart = water ? 'sea' : 'terrain';
+      if (water) mesh.userData.bridgeWaterSource = true;
       if (actor) {
         if (!actors.has(actor.id)) {
           const object = new Group(), pose = bridgeActorPose(actor, activity, 0, false);

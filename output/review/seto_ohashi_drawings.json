@@ -2,43 +2,43 @@
   "schema_version": 1,
   "id": "seto-ohashi",
   "model_id": "seto-ohashi",
-  "revision": "BRIDGE-R04",
+  "revision": "BRIDGE-R05",
   "units": "mm",
   "status": "reference_concept_only",
-  "source_geometry_revision": "BRIDGE-R04",
+  "source_geometry_revision": "BRIDGE-R05",
   "source_sha256": {
-    "src/lib/seto_bridge_geometry.py": "1561451cad4606798c848c2afe3554a83e08f1f04777f40c4d5f97900cf3de0c",
+    "src/lib/seto_bridge_geometry.py": "64ce41ba88cf876f71841c2bfc7f9c82015b2b869151bbe8cb75be7908aeb586",
     "src/lib/seto_bridge_activity.py": "17d045187bd14f82b323c4d309cd38e797cba4d12cdf6c9a6367bd29fb4268d6",
-    "src/generate_seto_bridge_plans.py": "9438e68dd48d19de709da4edc7cde4bd978c69bf44b8e16b7b4ee8bbd3e6fed5"
+    "src/generate_seto_bridge_plans.py": "8a5ea41de4e288663f3017a76455e015cdc4005f4672632170bb1637ba9f27de"
   },
   "artifacts": {
     "DXF/seto_ohashi_plan.dxf": {
-      "sha256": "f4710a4737e942140060db060ca069d6b35356951bebd823a9e2f2a208f30c80",
-      "bytes": 117418
+      "sha256": "7010e27946e812473c3e8adb6e1636157b1bd4c01c0a7808034f2ac33aa71dac",
+      "bytes": 117686
     },
     "output/svg/seto_ohashi_plan.svg": {
-      "sha256": "91f42e7d355292b95bd8e7ad1ad182602df83f1f95dd07fefcf80caee47bb38a",
-      "bytes": 36709
+      "sha256": "f455c803e9b1a128290198718f7beb65a8bd2494df4f3a835ec1916cc2e34c1d",
+      "bytes": 36874
     },
     "DXF/seto_ohashi_elevation.dxf": {
-      "sha256": "84b74cd2f95fbfdb073b983b313c29e859019c243b3d2f9ec26d9055406c8966",
-      "bytes": 417390
+      "sha256": "9c1cbbf6865a80cfc7a10595260a42f8574519ac13bb2ea5fd3351d13a3f627c",
+      "bytes": 417569
     },
     "output/svg/seto_ohashi_elevation.svg": {
-      "sha256": "8096499318cd8b8bcfaa87ec073a400edaefd613009afef8b5929bfc127bc76b",
-      "bytes": 212621
+      "sha256": "a812b8ac4f620dee4736958f7a924a9252adcc7bece7e7f46f8a07476e43bf4c",
+      "bytes": 212747
     },
     "DXF/seto_ohashi_section.dxf": {
-      "sha256": "d1b18d8e8549dd22d5575087c7f81b746379b181d369f1bff4b019469af79147",
-      "bytes": 92906
+      "sha256": "366f28f0a6a179a80847a6af9bfeaf73b5f15a64311c1c5ccfcfdb7ae8bfa8ff",
+      "bytes": 100949
     },
     "output/svg/seto_ohashi_section.svg": {
-      "sha256": "3378add702c6b19701d37bed92a5ca191d2d464b7bd17ff68d4f2d01a9ce00cc",
-      "bytes": 19671
+      "sha256": "216783b242e923ea39b07fc71f6599a36f2a7b999c28d72769409937cbad54d7",
+      "bytes": 23205
     },
     "output/pdf/seto_ohashi_sheets.pdf": {
-      "sha256": "4a4196ea1a5876e9c8d42ce4e217b48bff07c36e38ffdab355839c2146a36b1e",
-      "bytes": 151762
+      "sha256": "12c8a1e9aa98d35ef9e166959c59537eae807d7b0185edda36dd02416fea6217",
+      "bytes": 152561
     }
   },
   "drawings": [
@@ -104,7 +104,10 @@
         13000,
         5300,
         11880,
-        420
+        420,
+        79000,
+        53000,
+        86000
       ],
       "required_labels": [
         "A-A 横断面",
@@ -112,6 +115,7 @@
         "在来線（複線）",
         "新幹線の留保空間",
         "BB4A",
+        "BB4A外形",
         "通行有効高さ",
         "軌頂詳細",
         "単位 mm"

@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { hasStepContainerMarkers } from './tower-artifact-validation.mjs';
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const revision = 'BRIDGE-R04';
+const revision = 'BRIDGE-R05';
 export const bridgeGeometrySources = ['src/lib/seto_bridge_geometry.py', 'src/lib/seto_bridge_activity.py', 'src/seto_bridge_3d.py', 'src/lib/step_transport.py'];
 export const bridgeDrawingSources = ['src/lib/seto_bridge_geometry.py', 'src/lib/seto_bridge_activity.py', 'src/generate_seto_bridge_plans.py'];
 const models = ['STEP/seto_ohashi.step', 'GLB/seto_ohashi.glb'];
@@ -200,6 +200,11 @@ export async function validateBridgeArtifacts(root) {
   if ([184000,194000,35000].some(value=>!elevation.dimensions_mm.includes(value))
       || !elevation.required_labels.includes('主塔正面図')) {
     throw new Error('Seto Ohashi elevation must retain the annotated tower front projections.');
+  }
+  const section = drawings.drawings.find(row => row.id === 'section');
+  if ([79000, 53000, 86000].some(value => !section.dimensions_mm.includes(value))
+      || !section.required_labels.includes('BB4A外形')) {
+    throw new Error('Seto Ohashi cross-section must retain the annotated BB4A external profile.');
   }
   if (!hasStepContainerMarkers(savedModels.get(models[0]))) throw new Error('Invalid Seto Ohashi STEP container.');
   const glb = savedModels.get(models[1]);

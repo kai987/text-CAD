@@ -3,11 +3,12 @@ import { X } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 import { useTheme } from './ThemeContext';
 import { isLocale, languageNames, locales } from './localization';
-import type { Locale } from './localization';
 import { isThemePreference } from './theme-preferences';
 import { asset, repository } from './data';
 import { initialBridgeView, bridgeCameras, bridgeCopy, bridgeDownloads, bridgeGroups, bridgeRevision, bridgeUrl, bridgeViews } from './bridge-copy';
-import type { BridgeGroupId, BridgeView } from './bridge-copy';
+import type { BridgeEnvironmentVisibility, BridgeGroupId, BridgeView } from './bridge-copy';
+import { bridgeSummaryPath, parseBridgeSummary } from './bridge-metadata';
+import type { BridgeMetadata } from './bridge-metadata';
 import type { BridgeViewer } from './bridge-viewer';
 import type { ModelProgress } from './model-resource';
 import { loadFailureMessage } from './model-load-error';
@@ -20,26 +21,7 @@ import { isLandmarkId, landmarkIds, landmarkModels, landmarkUrl } from './landma
 import './bridge.css';
 
 const allVisible = () => Object.fromEntries(bridgeGroups.map(id => [id, true])) as Record<BridgeGroupId, boolean>;
-type Metadata = { parameters: Record<string, number>; references: { title: string; url: string }[]; assumptions: Record<Locale, string>[] };
-function metadataFrom(value: unknown): Metadata {
-  if (!value || typeof value !== 'object') throw new Error('Invalid bridge metadata.');
-  const data = value as { model_id?: unknown; revision?: unknown; parameters?: unknown; references?: unknown; assumptions?: unknown };
-  if (data.model_id !== 'seto-ohashi' || data.revision !== bridgeRevision || !data.parameters || typeof data.parameters !== 'object') throw new Error('Bridge metadata identity does not match.');
-  const parameters: Record<string, number> = {};
-  for (const key of ['north_length_mm', 'south_length_mm', 'north_main_span_mm', 'south_main_span_mm']) {
-    const number = (data.parameters as Record<string, unknown>)[key];
-    if (typeof number !== 'number' || !Number.isFinite(number) || number <= 0) throw new Error('Invalid bridge dimension.');
-    parameters[key] = number;
-  }
-  if (!Array.isArray(data.references) || !Array.isArray(data.assumptions)) throw new Error('Missing bridge references.');
-  const references = data.references.flatMap(item => {
-    if (!item || typeof item !== 'object' || typeof item.title !== 'string' || typeof item.url !== 'string') return [];
-    try { if (new URL(item.url).protocol !== 'https:') return []; } catch { return []; }
-    return [{ title: item.title, url: item.url }];
-  });
-  const assumptions = data.assumptions.filter((item): item is Record<Locale, string> => !!item && typeof item === 'object' && locales.every(locale => typeof item[locale] === 'string'));
-  return { parameters, references, assumptions };
-}
+const allSurroundingsVisible = (): BridgeEnvironmentVisibility => ({ sea: true, terrain: true });
 function BridgeDrawing({ kind, active }: { kind: 'plan' | 'elevation' | 'section'; active: boolean }) {
   const { locale } = useLanguage(), copy = bridgeCopy[locale];
   const [phase, setPhase] = useState<'loading' | 'ready' | 'error'>('loading'), [attempt, setAttempt] = useState(0), [zoom, setZoom] = useState(1);
@@ -67,10 +49,11 @@ export default function BridgePage() {
   const [waterWaves, setWaterWaves] = useState(true);
   const [night, setNight] = useState(() => new URLSearchParams(location.search).get('environment') === 'night');
   const [visibility, setVisibility] = useState(allVisible), [selection, setSelection] = useState<BridgeGroupId | null>(null);
+  const [surroundings, setSurroundings] = useState(allSurroundingsVisible);
   const [phase, setPhase] = useState<'loading' | 'ready' | 'error'>('loading'), [modelError, setModelError] = useState<unknown>(null), [progress, setProgress] = useState<ModelProgress | null>(null), [attempt, setAttempt] = useState(0);
-  const [manifest, setManifest] = useState<ArtifactManifest | null>(null), [metadata, setMetadata] = useState<Metadata | null>(null), [metadataError, setMetadataError] = useState(false), [metadataAttempt, setMetadataAttempt] = useState(0);
+  const [manifest, setManifest] = useState<ArtifactManifest | null>(null), [metadata, setMetadata] = useState<BridgeMetadata | null>(null), [metadataError, setMetadataError] = useState(false), [metadataAttempt, setMetadataAttempt] = useState(0);
   const host = useRef<HTMLDivElement | null>(null), viewer = useRef<BridgeViewer | null>(null);
-  const live = useRef({ theme, night, label: copy.title, visibility, playing, waterWaves }); live.current = { theme, night, label: copy.title, visibility, playing, waterWaves };
+  const live = useRef({ theme, night, label: copy.title, visibility, surroundings, playing, waterWaves }); live.current = { theme, night, label: copy.title, visibility, surroundings, playing, waterWaves };
   useEffect(() => {
     document.title = `${copy.title} · text-CAD`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', copy.description);
@@ -83,11 +66,12 @@ export default function BridgePage() {
         onReady: () => { if (active) setPhase('ready'); }, onError: error => { if (active) { setModelError(error); setPhase('error'); } },
         onProgress: value => { if (active) setProgress(value); }, onSelection: value => { if (active) setSelection(value); },
       });
-      viewer.current = instance; instance.visibility(current.visibility);
+      viewer.current = instance; instance.visibility(current.visibility); instance.environmentVisibility(current.surroundings);
     }).catch(error => { if (active) { setModelError(error); setPhase('error'); } });
     return () => { active = false; viewer.current?.dispose(); viewer.current = null; };
   }, [attempt]);
   useEffect(() => { viewer.current?.visibility(visibility); }, [visibility]);
+  useEffect(() => { viewer.current?.environmentVisibility(surroundings); }, [surroundings]);
   useEffect(() => { viewer.current?.playing(playing); }, [playing]);
   useEffect(() => { viewer.current?.waterWaves(waterWaves); }, [waterWaves]);
   useEffect(() => {
@@ -98,16 +82,25 @@ export default function BridgePage() {
   useEffect(() => { viewer.current?.appearance(theme, night); viewer.current?.label(copy.title); }, [theme, night, copy.title]);
   useEffect(() => {
     let active = true;
-    void loadDownloadManifest(asset('manifest.json')).then(value => { if (active) setManifest(value); });
-    return () => { active = false; };
-  }, []);
-  useEffect(() => {
-    const controller = new AbortController(); setMetadataError(false);
-    void fetch(asset('output/review/seto_ohashi_manifest.json'), { signal: controller.signal, cache: metadataAttempt ? 'reload' : 'default' })
+    const controller = new AbortController(); setMetadataError(false); setMetadata(null);
+    const catalog = loadDownloadManifest(asset('manifest.json'), fetch, { reload: metadataAttempt > 0 });
+    void catalog.then(value => { if (active) setManifest(value); });
+    const summary = fetch(asset(bridgeSummaryPath), { signal: controller.signal, cache: metadataAttempt ? 'reload' : 'default' })
       .then(response => { if (!response.ok) throw new Error('Bridge metadata unavailable.'); return response.json(); })
-      .then(metadataFrom).then(value => { if (!controller.signal.aborted) setMetadata(value); }).catch(() => { if (!controller.signal.aborted) setMetadataError(true); });
-    return () => controller.abort();
+      .then(parseBridgeSummary);
+    void Promise.all([catalog, summary]).then(([records, value]) => {
+      if (!records || records['output/review/seto_ohashi_manifest.json']?.sha256 !== value.source_manifest_sha256) {
+        throw new Error('Bridge metadata source binding differs from the artifact catalog.');
+      }
+      if (active) setMetadata(value);
+    }).catch(() => { if (active && !controller.signal.aborted) setMetadataError(true); });
+    return () => { active = false; controller.abort(); };
   }, [metadataAttempt]);
+  function changeSurrounding(key: keyof BridgeEnvironmentVisibility, checked: boolean) {
+    setSurroundings(previous => ({ ...previous, [key]: checked }));
+    const other = key === 'sea' ? 'terrain' : 'sea';
+    if (!checked && !surroundings[other] && selection === 'environment') setSelection(null);
+  }
   function navigate(next: BridgeView) { setPage(next); history.replaceState(null, '', bridgeUrl(location.href, next)); }
   function environment(nextNight: boolean) {
     setNight(nextNight); const url = new URL(location.href); url.searchParams.set('environment', nextNight ? 'night' : 'day'); history.replaceState(null, '', url.href);
@@ -118,6 +111,7 @@ export default function BridgePage() {
     else if (id === 'house' || id === 'apartment') location.assign(residentialUrl(location.href, id));
   }
   const ready = phase === 'ready', dimension = (key: string) => metadata ? `${new Intl.NumberFormat(locale).format(metadata.parameters[key] / 1000)} m` : '—';
+  const anyVisible = bridgeGroups.some(id => visibility[id] && (id !== 'environment' || surroundings.sea || surroundings.terrain));
   return <div className="app-shell bridge-app">
     <a className="skip-link" href="#main-content">{base.app.skip}</a>
     <header className="app-header"><a className="wordmark" href={import.meta.env.BASE_URL} aria-label={base.app.home}>text-CAD</a>
@@ -134,8 +128,10 @@ export default function BridgePage() {
     </select><span>{bridgeRevision}</span></div>
     <main id="main-content">
       <div className="model-page-cache" hidden={page !== '3d'}><div className="bridge-workspace">
-        <aside className="bridge-sidebar"><section><h2>{copy.parts}</h2><div className="bridge-components">{bridgeGroups.map(id => <label key={id}><input type="checkbox" checked={visibility[id]} onChange={event => { setVisibility(previous => ({ ...previous, [id]: event.target.checked })); if (!event.target.checked && selection === id) setSelection(null); }} /><span>{copy.groups[id]}</span></label>)}</div>
-          <button className="outline-button" onClick={() => { setVisibility(allVisible()); setSelection(null); }}>{copy.showAll}</button></section>
+        <aside className="bridge-sidebar"><section><h2>{copy.parts}</h2><div className="bridge-components">
+          {(['sea', 'terrain'] as const).map(id => <label key={id}><input type="checkbox" checked={surroundings[id]} onChange={event => changeSurrounding(id, event.target.checked)} /><span>{copy.surroundings[id]}</span></label>)}
+          {bridgeGroups.filter(id => id !== 'environment').map(id => <label key={id}><input type="checkbox" checked={visibility[id]} onChange={event => { setVisibility(previous => ({ ...previous, [id]: event.target.checked })); if (!event.target.checked && selection === id) setSelection(null); }} /><span>{copy.groups[id]}</span></label>)}</div>
+          <button className="outline-button" onClick={() => { setVisibility(allVisible()); setSurroundings(allSurroundingsVisible()); setSelection(null); }}>{copy.showAll}</button></section>
           <section className="bridge-motion-controls"><h2>{copy.motion.title}</h2><p>{copy.motion.note}</p>{reducedMotion ? <p>{copy.motion.reduced}</p> : null}</section>
           <section><h2>{copy.dimensions}</h2><dl className="bridge-parameters">{([['northLength', 'north_length_mm'], ['southLength', 'south_length_mm'], ['northSpan', 'north_main_span_mm'], ['southSpan', 'south_main_span_mm']] as const).map(([label, key]) => <div key={key}><dt>{copy[label]}</dt><dd>{dimension(key)}</dd></div>)}</dl>
             {metadataError ? <p role="status">{copy.metadataError} <button className="outline-button" onClick={() => setMetadataAttempt(value => value + 1)}>{copy.retry}</button></p> : null}</section>
@@ -149,7 +145,7 @@ export default function BridgePage() {
           <div className="bridge-canvas" ref={host}>
             {phase === 'loading' ? <div className="canvas-message" role="status"><p>{copy.loading}</p>{progress ? <span>{formatDownloadBytes(progress.loaded, locale)}{progress.total ? ` / ${formatDownloadBytes(progress.total, locale)}` : ''}</span> : null}</div> : null}
             {phase === 'error' ? <div className="canvas-message" role="alert"><p>{loadFailureMessage(modelError, locale, copy.error)}</p><button className="outline-button" onClick={() => { setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}
-            {ready && !bridgeGroups.some(id => visibility[id]) ? <p className="canvas-message" role="status">{copy.empty}</p> : null}
+            {ready && !anyVisible ? <p className="canvas-message" role="status">{copy.empty}</p> : null}
             {ready && selection ? <div className="selection-details" role="status" aria-label={copy.selected}><strong>{copy.groups[selection]}</strong><button className="selection-clear" aria-label={copy.clear} onClick={() => setSelection(null)}><X size={16} /></button></div> : null}
             <div className="canvas-footer"><span>{copy.gesture}</span><button className="bridge-download-link" onClick={() => navigate('files')}>{copy.download}</button></div>
           </div><p className="bridge-lighting-note">{copy.nightNote}</p>

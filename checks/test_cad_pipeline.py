@@ -489,5 +489,222 @@ class ScopedCadPipelineTests(unittest.TestCase):
         self.assert_unchanged()
 
 
+class DevelopmentCadPipelineTests(unittest.TestCase):
+    setUp = ScopedCadPipelineTests.setUp
+    write = ScopedCadPipelineTests.write
+    assert_unchanged = ScopedCadPipelineTests.assert_unchanged
+
+    def exercise_development(self, *, validators=None, units=None, preflight=None):
+        self.commands, self.selected_tests, self.stages = [], [], []
+        def run(commands, *, root):
+            self.commands.append(commands); self.stages.append(root)
+            self.assert_unchanged()
+            self.assertFalse((root/release.RELEASE).exists())
+            if validators: validators(root)
+        def tests(snapshot, *, root, tests):
+            self.selected_tests.extend(tests)
+            self.assertFalse((root/release.RELEASE).exists())
+            self.assertEqual(snapshot['operation'], 'development_validation_context')
+            release.verify_snapshot(root, snapshot)
+            if units: units(root)
+        with patch.object(pipeline, 'ROOT', self.root), \
+             patch.object(pipeline, 'run', side_effect=run), \
+             patch.object(pipeline, 'run_unit_tests', side_effect=tests), \
+             patch.object(pipeline, 'run_model_preflight', side_effect=preflight):
+            return pipeline.validate_development_models(('tokyo-tower',))
+
+    def test_model_subset_omits_unrelated_heavy_native_tests(self):
+        validators, tests = pipeline.development_commands(('seto-ohashi',))
+        self.assertEqual(validators, ['checks/validate_seto_bridge.py'])
+        self.assertIn('checks/test_seto_bridge.py', tests)
+        self.assertTrue(set(pipeline.COMMON_DEVELOPMENT_TESTS).issubset(tests))
+        self.assertFalse(any('tokyo_tower_r' in path for path in tests))
+        self.assertNotIn('checks/validate_towers.py', validators)
+        self.assertNotIn('analysis/test_house_review.py', tests)
+
+    def test_development_catalog_covers_all_full_checks_and_deduplicates_shared_checks(self):
+        validators, tests = pipeline.development_commands(tuple(pipeline.MODELS))
+        self.assertEqual(validators, pipeline.VALIDATORS)
+        self.assertEqual(tests, pipeline.UNIT_TESTS)
+        validators, tests = pipeline.development_commands(('house', 'apartment', 'tokyo-tower', 'tokyo-skytree'))
+        self.assertEqual(len(validators), len(set(validators)))
+        self.assertEqual(len(tests), len(set(tests)))
+        with patch.object(pipeline, 'VALIDATORS', [*pipeline.VALIDATORS, 'checks/new.py']):
+            with self.assertRaisesRegex(ValueError, 'ownership catalog'):
+                pipeline.development_commands(('seto-ohashi',))
+        with patch.object(pipeline, 'UNIT_TESTS', [*pipeline.UNIT_TESTS, 'checks/test_new.py']):
+            with self.assertRaisesRegex(ValueError, 'ownership catalog'):
+                pipeline.development_commands(('seto-ohashi',))
+        for models in ((), ('unknown',)):
+            with self.subTest(models=models), self.assertRaisesRegex(ValueError, 'known'):
+                pipeline.development_commands(models)
+
+    def test_success_is_development_only_and_never_rewrites_gate_or_saved_cad(self):
+        report = self.exercise_development()
+        self.assertTrue(report['development_only'])
+        self.assertFalse(report['release_ready'])
+        self.assertFalse(report['production_gate_updated'])
+        self.assertEqual(report['status'], 'passed')
+        self.assertEqual(self.commands, [['checks/validate_towers.py']])
+        self.assertIn('checks/test_tokyo_tower_r11.py', self.selected_tests)
+        self.assertTrue(all(not path.exists() for path in self.stages))
+        self.assert_unchanged()
+        # Redirecting this JSON over the release file cannot create a gate.
+        with self.assertRaisesRegex(ValueError, 'completed validation provenance'):
+            release.verify_snapshot(self.root, report)
+
+    def test_selected_generation_change_can_be_checked_but_remains_unreleased(self):
+        self.write('src/lib/tokyo_tower_detail.py', 'tower = 2\n')
+        self.exercise_development()
+        self.assert_unchanged()
+        with self.assertRaisesRegex(ValueError, 'Stale CAD sources'):
+            release.verify(self.root)
+
+    def test_unselected_generation_and_artifact_drift_stop_before_running(self):
+        for path, text in [('src/lib/skytree_detail.py', 'tree = 2\n'),
+                           ('GLB/tokyo_skytree.glb', 'manual overwrite')]:
+            original = (self.root/path).read_bytes()
+            try:
+                self.write(path, text)
+                with patch.object(pipeline, 'run') as checks:
+                    with self.subTest(path=path), self.assertRaises(ValueError):
+                        pipeline.validate_development_models(('tokyo-tower',), root=self.root)
+                    checks.assert_not_called()
+                self.assertEqual((self.root/release.RELEASE).read_bytes(), self.old_gate)
+            finally:
+                (self.root/path).write_bytes(original)
+
+    def test_shared_generation_dependency_requires_every_consumer(self):
+        self.write('src/lib/tower_geometry.py',
+                   'from .tokyo_tower_detail import tower\nfrom .skytree_detail import tree\nshared = 2\n')
+        with self.assertRaisesRegex(ValueError, 'tokyo-skytree'):
+            pipeline.validate_development_models(('tokyo-tower',), root=self.root)
+        self.assert_unchanged()
+
+    def test_verification_only_drift_does_not_bless_the_old_public_gate(self):
+        self.write('checks/check.py', '# changed shared validator\n')
+        self.write('src/cad_pipeline.py', '# changed pipeline\n')
+        self.exercise_development()
+        self.assert_unchanged()
+        with self.assertRaisesRegex(ValueError, 'Stale CAD sources'):
+            release.verify(self.root)
+
+    def test_validator_or_unit_failures_leave_live_preview_and_gate_intact(self):
+        def fail(_root):
+            raise subprocess.CalledProcessError(1, ['failing development check'])
+        for keyword in ('validators', 'units'):
+            with self.subTest(keyword=keyword), self.assertRaises(subprocess.CalledProcessError):
+                self.exercise_development(**{keyword: fail})
+            self.assert_unchanged()
+            self.assertTrue(all(not path.exists() for path in self.stages))
+
+    def test_private_checks_cannot_mutate_inputs_or_create_a_release_gate(self):
+        def mutate(root, path):
+            destination = root/path
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text('changed private input')
+        paths = ['GLB/tokyo_tower.glb', 'GLB/new.glb', 'src/lib/tower_geometry.py', release.RELEASE]
+        for path in paths:
+            with self.subTest(path=path), self.assertRaisesRegex(RuntimeError, 'changed during development'):
+                self.exercise_development(validators=lambda root: mutate(root, path))
+            self.assert_unchanged()
+        with self.assertRaisesRegex(RuntimeError, 'changed during development'):
+            self.exercise_development(units=lambda root: mutate(root, 'GLB/tokyo_tower.glb'))
+        self.assert_unchanged()
+
+    def test_concurrent_live_edit_is_preserved_and_aborts_success(self):
+        def edit(_root):
+            self.write('src/cad_pipeline.py', '# concurrent editor change\n')
+        with self.assertRaisesRegex(RuntimeError, 'changed during development'):
+            self.exercise_development(validators=edit)
+        self.assertEqual((self.root/'src/cad_pipeline.py').read_text(), '# concurrent editor change\n')
+        self.assert_unchanged()
+
+    def test_preflight_failure_stops_before_validators_or_generation(self):
+        def fail(*_args, **_kwargs):
+            raise ValueError('bad JSON metadata')
+        with self.assertRaisesRegex(ValueError, 'bad JSON metadata'):
+            self.exercise_development(preflight=fail)
+        self.assertEqual(self.commands, [])
+        self.assert_unchanged()
+        with patch.object(pipeline, 'ROOT', self.root), \
+             patch.object(pipeline, 'run_model_preflight', side_effect=fail), \
+             patch.object(pipeline, 'run') as generation:
+            with self.assertRaisesRegex(ValueError, 'bad JSON metadata'):
+                pipeline.regenerate(('tokyo-tower',))
+            generation.assert_not_called()
+        self.assert_unchanged()
+
+    def test_cli_requires_explicit_development_scope_and_rejects_mixed_operations(self):
+        cases = [[], ['--model', 'all'], ['--model', 'river', '--regenerate'],
+                 ['--model', 'river', '--validate'], ['--model', 'river', '--refresh-validation'],
+                 ['--model', 'river', '--validation-group', 'core'], ['--model', 'river', '--drawings-only']]
+        for args in cases:
+            with self.subTest(args=args), patch.object(sys, 'argv', ['cad_pipeline.py', '--validate-model', *args]), \
+                 patch('sys.stderr', new=io.StringIO()), self.assertRaises(SystemExit) as raised:
+                pipeline.main()
+            self.assertEqual(raised.exception.code, 2)
+        with patch.object(sys, 'argv', ['cad_pipeline.py', '--validate-model', '--model', 'seto-ohashi', '--model', 'river']), \
+             patch.object(pipeline, 'validate_development_models') as validate:
+            pipeline.main()
+        validate.assert_called_once_with(('river', 'seto-ohashi'))
+
+    def test_development_dry_run_prints_exact_selection_and_does_not_stage(self):
+        output = io.StringIO()
+        with patch.object(sys, 'argv', ['cad_pipeline.py', '--validate-model', '--model', 'seto-ohashi', '--dry-run']), \
+             patch('sys.stdout', new=output), patch.object(pipeline, 'staged_tree') as stage, \
+             patch.object(pipeline, 'validate_development_models') as validate:
+            pipeline.main()
+        record = json.loads(output.getvalue())
+        self.assertEqual(record['validation_commands'], ['checks/validate_seto_bridge.py'])
+        self.assertEqual(record['generation_commands'], [])
+        self.assertEqual(record['preflight_models'], ['seto-ohashi'])
+        self.assertFalse(record['release_ready'])
+        stage.assert_not_called(); validate.assert_not_called()
+        self.assert_unchanged()
+
+
+class SetoMetadataPreflightTests(unittest.TestCase):
+    def metadata(self):
+        return {'id': 'seto-ohashi', 'model_id': 'seto-ohashi', 'units': 'mm',
+                'revision': 'BRIDGE-test', 'component_count': 1,
+                'groups': [{'id': 'foundations', 'count': 1}],
+                'components': [{'name': 'foundations:base', 'group': 'foundations',
+                                'kind': 'box', 'bounds': [0,0,0,100,200,300]}]}
+
+    def test_json_compatible_specification_passes_without_native_geometry(self):
+        record = pipeline.preflight_seto_manifest(self.metadata())
+        self.assertEqual(record['components'], 1)
+        self.assertIn('no CAD kernel', record['check'])
+
+    def test_json_round_trip_and_nonfinite_errors_are_rejected_before_export(self):
+        cases = []
+        for value in (float('nan'), float('inf'), float('-inf'), Path('not-json'), (1,2)):
+            metadata = self.metadata(); metadata['parameters'] = {'value': value}; cases.append(metadata)
+        for metadata in cases:
+            with self.subTest(value=metadata['parameters']), self.assertRaisesRegex(ValueError, 'JSON'):
+                pipeline.preflight_seto_manifest(metadata)
+
+    def test_duplicate_names_groups_and_bad_shape_controls_are_rejected(self):
+        cases = []
+        metadata = self.metadata(); metadata['components'] *= 2; metadata['component_count'] = 2; cases.append(metadata)
+        for field, value in [('name',''), ('group','other'), ('kind','unsupported'),
+                             ('bounds',[0,0,0,0,20,30]), ('bounds',[0,0,0,True,20,30]),
+                             ('clearance_cuts',[{'bounds':[1,1,1,0,3,4]}]),
+                             ('surface_recesses',[{'outline':[[0,0,0]]*3,'extrusion':[0,0,0]}])]:
+            metadata = self.metadata(); metadata['components'][0][field] = value; cases.append(metadata)
+        metadata = self.metadata(); metadata['groups'][0]['count'] = 2; cases.append(metadata)
+        for metadata in cases:
+            with self.subTest(metadata=metadata), self.assertRaises(ValueError):
+                pipeline.preflight_seto_manifest(metadata)
+
+    def test_actual_seto_preflight_does_not_load_a_native_cad_kernel(self):
+        code = pipeline._SETO_PREFLIGHT + '\nassert not any(name in sys.modules for name in ("cadgen", "build123d", "OCP"))\n'
+        result = subprocess.run([sys.executable, '-c', code], cwd=ROOT, check=True, capture_output=True, text=True)
+        record = json.loads(result.stdout)
+        self.assertEqual(record['model_id'], 'seto-ohashi')
+        self.assertGreater(record['components'], 1)
+
+
 if __name__ == '__main__':
     unittest.main()

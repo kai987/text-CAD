@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from time import perf_counter
 from zoneinfo import ZoneInfo
 from cad_release import ROOT, RELEASE, artifact_paths, digest, source_paths, verify, verify_snapshot
 
@@ -89,6 +90,189 @@ MODELS = ('house', 'apartment', 'river', *TOWER_MODELS, 'seto-ohashi')
 _OUTPUT_ROOTS = ('DXF', 'STEP', 'GLB', 'output/pdf', 'output/svg',
                  'output/vector', 'output/review')
 _VALIDATION_ONLY = {'src/cad_pipeline.py', 'src/cad_release.py'}
+
+# Development selection is deliberately separate from the authoritative full
+# release catalogs above. New checks must receive an owner here before this
+# opt-in path can run; default regeneration and publication still use all of
+# VALIDATORS and UNIT_TESTS. Shared validators may inspect retained inputs from
+# another model, but an unrelated tower's expensive native suite is omitted.
+MODEL_VALIDATORS = {
+    'house': ('checks/validate_redesign_plans.py', 'checks/validate_jp_drafting.py',
+              'checks/validate_3d.py', 'checks/validate_site.py', 'checks/validate_structure.py',
+              'checks/validate_structural_variants.py', 'checks/validate_structural_cases.py',
+              'checks/validate_fixtures.py', 'checks/validate_furniture.py',
+              'checks/validate_outdoor_lighting.py', 'checks/validate_glb_native.py',
+              'checks/validate_indoor_lighting.py'),
+    'apartment': ('checks/validate_apartment.py', 'checks/validate_fixtures.py',
+                  'checks/validate_furniture.py', 'checks/validate_outdoor_lighting.py',
+                  'checks/validate_glb_native.py', 'checks/validate_indoor_lighting.py'),
+    'river': ('checks/validate_river.py',),
+    'tokyo-tower': ('checks/validate_towers.py',),
+    'tokyo-skytree': ('checks/validate_towers.py',),
+    'seto-ohashi': ('checks/validate_seto_bridge.py',),
+}
+COMMON_DEVELOPMENT_TESTS = ('checks/test_cad_release.py', 'checks/test_cad_pipeline.py',
+                          'checks/test_orientation.py', 'checks/test_step_transport.py',
+                          'checks/test_glb_export.py')
+MODEL_UNIT_TESTS = {
+    'house': ('checks/test_attic_opening_rules.py', 'checks/test_attic_layout.py',
+              'checks/test_upper_layout.py', 'analysis/test_house_review.py'),
+    'apartment': (),
+    'river': ('checks/test_river_geometry.py', 'checks/test_river_validation.py'),
+    'tokyo-tower': ('checks/test_tower_drawings.py', 'checks/test_tower_parameters.py',
+                    'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py',
+                    'checks/test_tokyo_tower_base.py', 'checks/test_tokyo_tower_outline.py',
+                    'checks/test_tokyo_tower_r08.py', 'checks/test_tokyo_tower_r09.py',
+                    'checks/test_tokyo_tower_r10.py', 'checks/test_tokyo_tower_r11.py',
+                    'checks/test_tower_tubular.py'),
+    'tokyo-skytree': ('checks/test_tower_drawings.py', 'checks/test_tower_parameters.py',
+                      'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py',
+                      'checks/test_tower_tubular.py'),
+    'seto-ohashi': ('checks/test_seto_bridge.py',),
+}
+
+
+def development_commands(models: tuple[str, ...]) -> tuple[list[str], list[str]]:
+    """Return an explicit, coverage-checked development subset, never a gate."""
+    if not models or not set(models).issubset(MODELS):
+        raise ValueError('Development validation requires known, explicitly selected models.')
+    if set(MODEL_VALIDATORS) != set(MODELS) or set(MODEL_UNIT_TESTS) != set(MODELS):
+        raise ValueError('Development model catalog does not cover every known model.')
+    known_validators = {path for paths in MODEL_VALIDATORS.values() for path in paths}
+    known_tests = {*COMMON_DEVELOPMENT_TESTS,
+                   *(path for paths in MODEL_UNIT_TESTS.values() for path in paths)}
+    if known_validators != set(VALIDATORS) or known_tests != set(UNIT_TESTS):
+        raise ValueError('Development ownership catalog differs from the complete validation catalog.')
+    validators = {path for model in models for path in MODEL_VALIDATORS[model]}
+    tests = {*COMMON_DEVELOPMENT_TESTS,
+             *(path for model in models for path in MODEL_UNIT_TESTS[model])}
+    return ([path for path in VALIDATORS if path in validators],
+            [path for path in UNIT_TESTS if path in tests])
+
+
+def preflight_seto_manifest(manifest: dict) -> dict:
+    """Reject cheap metadata/specification errors without loading a CAD kernel.
+
+    This is not a saved-solid, contact or clearance audit. The full native
+    validators still run after generation, including in development checks.
+    """
+    try:
+        restored = json.loads(json.dumps(manifest, ensure_ascii=False, allow_nan=False))
+    except (TypeError, ValueError) as error:
+        raise ValueError(f'Seto metadata is not finite JSON data: {error}') from error
+    if restored != manifest:
+        raise ValueError('Seto metadata changes during JSON round-trip; use JSON-compatible lists and keys.')
+    if (not isinstance(manifest, dict) or manifest.get('model_id') != 'seto-ohashi'
+            or manifest.get('id') != 'seto-ohashi' or manifest.get('units') != 'mm'):
+        raise ValueError('Seto metadata identity or units are invalid.')
+    parts = manifest.get('components')
+    if (not isinstance(parts, list) or not parts or type(manifest.get('component_count')) is not int
+            or manifest['component_count'] != len(parts)):
+        raise ValueError('Seto metadata component count is invalid.')
+    groups = manifest.get('groups')
+    if not isinstance(groups, list) or any(not isinstance(group, dict) for group in groups):
+        raise ValueError('Seto metadata groups are invalid.')
+    group_ids = [group.get('id') for group in groups]
+    if (any(not isinstance(name, str) or not name for name in group_ids)
+            or len(group_ids) != len(set(group_ids))):
+        raise ValueError('Seto metadata group identities are invalid.')
+
+    def number(value):
+        # JSON's allow_nan=False already rejects nonfinite values recursively.
+        return type(value) in (int, float)
+    def vector(value, size, label):
+        if not isinstance(value, list) or len(value) != size or not all(number(item) for item in value):
+            raise ValueError(f'Seto {label} requires {size} finite numeric coordinates.')
+        return value
+    def positive(part, key):
+        if not number(part.get(key)) or part[key] <= 0:
+            raise ValueError(f'Seto {part.get("name", "shape")} requires positive {key}.')
+    def bounds(value, label):
+        row = vector(value, 6, label)
+        if any(row[index+3] <= row[index] for index in range(3)):
+            raise ValueError(f'Seto {label} has nonpositive volume bounds.')
+    def prism(part):
+        outline = part.get('outline')
+        if not isinstance(outline, list) or len(outline) < 3:
+            raise ValueError('Seto prism outline requires at least three vertices.')
+        for point in outline:
+            vector(point, 3, 'prism outline')
+        direction = vector(part.get('extrusion'), 3, 'prism extrusion')
+        if not any(direction):
+            raise ValueError('Seto prism extrusion must be nonzero.')
+    names = set()
+    counts = {group: 0 for group in group_ids}
+    for part in parts:
+        if not isinstance(part, dict):
+            raise ValueError('Seto components must be objects.')
+        name, group, kind = part.get('name'), part.get('group'), part.get('kind')
+        if not isinstance(name, str) or not name.strip() or name in names:
+            raise ValueError('Seto component names must be nonempty and unique.')
+        if not isinstance(group, str) or group not in counts or not name.startswith(group + ':'):
+            raise ValueError(f'Seto component group does not match its name: {name}')
+        names.add(name); counts[group] += 1
+        if kind == 'box':
+            bounds(part.get('bounds'), name)
+        elif kind == 'beam':
+            a = vector(part.get('start'), 3, 'beam start')
+            b = vector(part.get('end'), 3, 'beam end')
+            if a == b:
+                raise ValueError(f'Seto beam has zero length: {name}')
+            positive(part, 'width_mm'); positive(part, 'depth_mm')
+        elif kind == 'prism':
+            prism(part)
+        elif kind == 'island':
+            vector(part.get('centre'), 2, 'island centre')
+            radii = vector(part.get('radii'), 2, 'island radii')
+            if any(value <= 0 for value in radii):
+                raise ValueError(f'Seto island radii must be positive: {name}')
+            positive(part, 'height_mm')
+        elif kind == 'anchorage':
+            outline = part.get('outline_xz')
+            if not isinstance(outline, list) or len(outline) < 3:
+                raise ValueError(f'Seto anchorage outline is invalid: {name}')
+            for point in outline:
+                vector(point, 2, 'anchorage outline')
+            positive(part, 'width_mm')
+        elif kind == 'tower_column':
+            low = vector(part.get('base_centre_mm'), 3, 'column base')
+            high = vector(part.get('top_centre_mm'), 3, 'column top')
+            for key in ('width_mm', 'side_width_mm', 'core_depth_mm', 'base_depth_mm', 'top_depth_mm'):
+                positive(part, key)
+            if (high[2] <= low[2] or part['width_mm'] <= part['side_width_mm']
+                    or min(part['base_depth_mm'], part['top_depth_mm']) <= part['core_depth_mm']):
+                raise ValueError(f'Seto tower column sections or levels are invalid: {name}')
+        else:
+            raise ValueError(f'Unsupported Seto component kind: {kind}')
+        cuts, recesses = part.get('clearance_cuts', []), part.get('surface_recesses', [])
+        if (not isinstance(cuts, list) or not isinstance(recesses, list)
+                or any(not isinstance(item, dict) for item in [*cuts, *recesses])):
+            raise ValueError(f'Seto cut/recess specifications are invalid: {name}')
+        for cut in cuts:
+            bounds(cut.get('bounds'), 'clearance cut')
+        for recess in recesses:
+            prism(recess)
+    if any(type(group.get('count')) is not int or group['count'] != counts[group['id']] for group in groups):
+        raise ValueError('Seto group counts do not match named components.')
+    return {'model_id': 'seto-ohashi', 'revision': manifest.get('revision'),
+            'components': len(parts), 'check': 'JSON/specification preflight; no CAD kernel'}
+
+
+_SETO_PREFLIGHT = '''
+import json
+import sys
+sys.path.insert(0, 'src')
+from cad_pipeline import preflight_seto_manifest
+from lib.seto_bridge_geometry import geometry_manifest
+print(json.dumps(preflight_seto_manifest(geometry_manifest()), ensure_ascii=False))
+'''
+
+
+def run_model_preflight(models: tuple[str, ...], *, root: Path) -> None:
+    if 'seto-ohashi' in models:
+        print('CAD pipeline: Seto metadata preflight (no native CAD)', flush=True)
+        subprocess.run([sys.executable, '-c', _SETO_PREFLIGHT], cwd=root, check=True,
+                       env={**os.environ, 'CADGEN_DAEMON': '0'})
 
 
 def generation_commands(models: tuple[str, ...], *, drawings_only: bool = False) -> list[str]:
@@ -412,6 +596,70 @@ def run_validation_group(name: str, *, root: Path | None = None) -> None:
             raise RuntimeError('CAD release changed during grouped validation.')
 
 
+def validate_development_models(models: tuple[str, ...], *, root: Path | None = None) -> dict:
+    """Check selected saved models privately without publishing their state.
+
+    Generation may have made selected outputs newer than the production gate.
+    Existing dependency ownership still rejects changed unselected consumers.
+    All checks run in a disposable stage, so even validator reports stay out
+    of live previews. An ephemeral source/artifact snapshot serves only the
+    unit-test freshness guards; it is never written as cad_release.json.
+    """
+    root = ROOT if root is None else root
+    validators, tests = development_commands(models)
+    started = perf_counter()
+    gate_path = root/RELEASE
+    if gate_path.is_symlink() or not gate_path.resolve().is_relative_to(root.resolve()):
+        raise ValueError('The existing CAD release must be a regular file inside the repository.')
+    gate_bytes = gate_path.read_bytes()
+    previous = json.loads(gate_bytes)
+    check_scope(root, previous, models)
+    sources = _hashes(root, source_paths(root))
+    outputs = _hashes(root, _output_paths(root))
+
+    def unchanged(target: Path, expected_sources: dict, expected_outputs: dict, *, live=False):
+        try:
+            same = (expected_sources == _hashes(target, source_paths(target))
+                    and expected_outputs == _hashes(target, _output_paths(target)))
+            gate_same = ((target/RELEASE).read_bytes() == gate_bytes) if live else not (target/RELEASE).exists()
+        except (OSError, ValueError) as error:
+            raise RuntimeError('CAD inputs changed during development validation; no release was updated.') from error
+        if not same or not gate_same:
+            raise RuntimeError('CAD inputs changed during development validation; no release was updated.')
+
+    try:
+        with staged_tree(root) as stage:
+            (stage/RELEASE).unlink()
+            stage_sources = _hashes(stage, source_paths(stage))
+            stage_outputs = _hashes(stage, _output_paths(stage))
+            if stage_sources != sources or stage_outputs != outputs:
+                raise RuntimeError('CAD inputs changed while staging development validation.')
+            try:
+                run_model_preflight(models, root=stage)
+                unchanged(stage, stage_sources, stage_outputs)
+                run(validators, root=stage)
+                unchanged(stage, stage_sources, stage_outputs)
+                # This context verifies current bytes before/after tests. It
+                # records the checks selected here, not full-release success.
+                context = {**previous, 'operation': 'development_validation_context',
+                           'selected_models': list(models), 'validation_commands': validators,
+                           'unit_test_commands': tests, 'sources': stage_sources,
+                           'artifacts': _hashes(stage, artifact_paths(stage))}
+                run_unit_tests(context, root=stage, tests=tests)
+            finally:
+                unchanged(stage, stage_sources, stage_outputs)
+    finally:
+        unchanged(root, sources, outputs, live=True)
+    result = {'operation': 'model_development_validation', 'status': 'passed',
+              'development_only': True, 'release_ready': False, 'production_gate_updated': False,
+              'models': list(models), 'validation_commands': validators, 'unit_test_commands': tests,
+              'selected_artifacts': [path for path in artifact_paths(root) if artifact_model(path) in models],
+              'duration_seconds': round(perf_counter()-started, 3),
+              'next_step': 'Run the complete cad_pipeline --regenerate or --refresh-validation before publication.'}
+    print(json.dumps(result, ensure_ascii=False), flush=True)
+    return result
+
+
 def build_release(root: Path, commands: list[str], models: tuple[str, ...], *, refresh: bool = False) -> dict:
     font = Path(os.environ.get('TEXT_CAD_CJK_FONT', '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
     plan = json.loads((root/'output/review/design_manifest.json').read_text())
@@ -446,6 +694,8 @@ def regenerate(models: tuple[str, ...], *, refresh: bool = False, drawings_only:
     commands = [] if refresh else generation_commands(models, drawings_only=drawings_only)
     with staged_tree(root, keep_failed=True) as stage:
         (stage/RELEASE).unlink(missing_ok=True)
+        if not refresh:
+            run_model_preflight(models, root=stage)
         run(commands, root=stage)
         if reused_native is not None:
             guard_reused_native_inputs(stage, reused_native)
@@ -503,17 +753,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--regenerate', action='store_true', help='Rebuild house, apartment, river and landmark outputs, validate, then record provenance.')
     parser.add_argument('--validate', action='store_true', help='Verify provenance first, then validate saved CAD; never bless modified inputs.')
+    parser.add_argument('--validate-model', action='store_true', help='Development only: privately validate explicitly selected saved models without updating the production release gate.')
     parser.add_argument('--validation-group', choices=VALIDATION_GROUPS,
                         help='Run one read-only CI group from the complete validation catalog.')
     parser.add_argument('--refresh-validation', action='store_true', help='Revalidate unchanged saved CAD after pipeline/check-only changes; generation and analysis changes are rejected.')
-    parser.add_argument('--model', choices=['all', *MODELS], action='append', help='Model to regenerate; repeat for shared dependencies. Default: all.')
+    parser.add_argument('--model', choices=['all', *MODELS], action='append', help='Model to regenerate or development-validate; repeat for shared dependencies. Regeneration defaults to all.')
     parser.add_argument('--drawings-only', action='store_true', help='Regenerate selected Tokyo landmark drawings, reusing strictly verified unchanged native artifacts.')
     parser.add_argument('--dry-run', action='store_true', help='Print selected generation commands without changing any files.')
     args = parser.parse_args()
-    if sum((args.regenerate, args.validate, args.refresh_validation)) != 1:
-        parser.error('Choose exactly one of --regenerate, --validate or --refresh-validation.')
-    if (args.model or args.dry_run) and not args.regenerate:
-        parser.error('--model and --dry-run apply only to --regenerate.')
+    if sum((args.regenerate, args.validate, args.validate_model, args.refresh_validation)) != 1:
+        parser.error('Choose exactly one of --regenerate, --validate, --validate-model or --refresh-validation.')
+    if (args.model or args.dry_run) and not (args.regenerate or args.validate_model):
+        parser.error('--model and --dry-run apply only to --regenerate or --validate-model.')
+    if args.validate_model and (not args.model or 'all' in args.model):
+        parser.error('--validate-model requires explicit --model selections; use --validate for the complete release.')
     if args.validation_group and not args.validate:
         parser.error('--validation-group applies only to --validate.')
     if args.drawings_only and not args.regenerate:
@@ -522,8 +775,18 @@ def main() -> None:
     if args.drawings_only and (not models or not set(models).issubset(TOWER_MODELS)):
         parser.error('--drawings-only requires --model tokyo-tower and/or --model tokyo-skytree.')
     if args.dry_run:
+        if args.validate_model:
+            validators, tests = development_commands(models)
+            print(json.dumps({'operation': 'model_development_validation', 'development_only': True,
+                              'release_ready': False, 'models': models, 'staged': True,
+                              'generation_commands': [], 'preflight_models': [model for model in models if model == 'seto-ohashi'],
+                              'validation_commands': validators, 'unit_test_commands': tests}, ensure_ascii=False, indent=2))
+            return
         print(json.dumps({'models': models, 'generation_commands': generation_commands(models, drawings_only=args.drawings_only),
                           'validation_commands': VALIDATORS, 'staged': True}, ensure_ascii=False, indent=2))
+        return
+    if args.validate_model:
+        validate_development_models(models)
         return
     if args.validate:
         if args.validation_group:

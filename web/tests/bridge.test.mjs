@@ -4,7 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { Box3, Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { bindCadNodes } from '../src/model-scene.ts';
-import { bridgeDisplay } from '../src/bridge-batches.ts';
+import { applyBridgeVisibility, bridgeDisplay } from '../src/bridge-batches.ts';
+import { createBridgeWater } from '../src/bridge-water.ts';
 import { bridgeActorPose, parseBridgeActivity } from '../src/bridge-motion.ts';
 import { bridgeCameras, bridgeCopy, bridgeDownloads, bridgeGroupForName, bridgeGroups, bridgeUrl, bridgeViews, initialBridgeView } from '../src/bridge-copy.ts';
 
@@ -27,6 +28,7 @@ test('all bridge controls and downloads have Chinese, Japanese and English label
     for (const view of bridgeViews) assert.ok(copy.tabs[view]?.trim());
     for (const camera of bridgeCameras) assert.ok(copy.cameras[camera]?.trim());
     for (const group of bridgeGroups) assert.ok(copy.groups[group]?.trim());
+    for (const part of ['sea', 'terrain']) assert.ok(copy.surroundings[part]?.trim());
     for (const file of bridgeDownloads) { assert.ok(copy.fileNames[file.id]?.trim()); assert.ok(copy.fileDetails[file.id]?.trim()); }
     assert.ok(copy.note.length > 30);
     for (const key of ['title', 'play', 'pause', 'waves', 'note', 'reduced']) assert.ok(copy.motion[key]?.trim());
@@ -47,6 +49,7 @@ test('native bridge batching retains every visibility group, triangle and world-
   const activity = parseBridgeActivity(gltf.parser.json.asset.extras.activity);
   const byName = new Map(); gltf.scene.traverse(node => { if (node.isMesh) byName.set(node.userData.cadName ?? node.name, node); });
   const { display, groups, actors, ownedMaterials } = bridgeDisplay(gltf.scene, activity);
+  let water;
   display.applyMatrix4(gltf.scene.matrixWorld);
   try {
     const actualBounds = new Box3().setFromObject(display);
@@ -94,7 +97,33 @@ test('native bridge batching retains every visibility group, triangle and world-
       assert.ok(nodes.every(node => !node.visible));
       nodes.forEach(node => { node.visible = true; });
     }
+    const environment = groups.get('environment');
+    const meanWater = environment.filter(node => node.userData.bridgeWaterSource);
+    const terrain = environment.filter(node => node.userData.bridgeEnvironmentPart === 'terrain');
+    assert.ok(meanWater.length > 0 && terrain.length > 0, 'actual CAD environment is classified before batching');
+    const seaBounds = new Box3(); meanWater.forEach(node => seaBounds.expandByObject(node));
+    water = createBridgeWater(seaBounds); water.mesh.userData.bridgeEnvironmentPart = 'sea';
+    display.add(water.mesh); environment.push(water.mesh);
+    const geometry = new Map(); display.traverse(node => { if (node.isMesh) geometry.set(node, node.geometry); });
+    const shown = Object.fromEntries(bridgeGroups.map(group => [group, true]));
+    for (const sea of [false, true]) for (const land of [false, true]) {
+      applyBridgeVisibility(groups, shown, { sea, terrain: land });
+      assert.equal(water.mesh.visible, sea, 'procedural water visibility is independent of islands');
+      assert.ok(terrain.every(node => node.visible === land), 'all island batches follow only the terrain switch');
+      assert.ok(meanWater.every(node => !node.visible), 'the static native sea never duplicates the procedural water');
+      assert.ok([...actors.values()].every(actor => actor.object.visible), 'environment switches do not hide traffic, boats or trains');
+      assert.ok([...geometry].every(([node, before]) => node.geometry === before), 'visibility never rebuilds CAD or display geometry');
+    }
+    applyBridgeVisibility(groups, { ...shown, environment: false }, { sea: true, terrain: true });
+    assert.ok(environment.every(node => !node.visible), 'the existing environment master switch remains compatible');
+    applyBridgeVisibility(groups, { ...shown, foundations: false }, { sea: true, terrain: true });
+    assert.ok(groups.get('foundations').every(node => !node.visible));
+    assert.ok(terrain.every(node => node.visible)); assert.equal(water.mesh.visible, true);
+    applyBridgeVisibility(groups, shown, { sea: true, terrain: true });
+    assert.ok(groups.get('foundations').every(node => node.visible));
+    assert.ok([...byName.values()].every(node => node.visible), 'the retained native CAD scene is untouched');
   } finally {
+    water?.mesh.material.dispose();
     display.traverse(node => { if (node.isMesh) node.geometry.dispose(); }); ownedMaterials.forEach(material => material.dispose());
     gltf.scene.traverse(node => { if (node.isMesh) { node.geometry.dispose(); for (const material of Array.isArray(node.material) ? node.material : [node.material]) material.dispose(); } });
   }

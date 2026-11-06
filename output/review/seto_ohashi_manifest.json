@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "seto-ohashi",
   "model_id": "seto-ohashi",
-  "revision": "BRIDGE-R04",
+  "revision": "BRIDGE-R05",
   "units": "mm",
   "glb_units": "m",
   "glb_up_axis": "Y",
@@ -169,6 +169,11 @@
       "title": "駒井鉄工・南備讃瀬戸大橋の概要と施工試験",
       "url": "https://www.komaihaltec.co.jp/tec/komai/1986/vol5-12.pdf",
       "notes": "印刷124頁Fig.1の塔正面図と実景を参照。上部2X、長い空腹区間、橋面下のXと山形。部材の取り合い・南橋断面の北橋準用は外観近似。"
+    },
+    {
+      "title": "JB本四高速・長大橋の維持管理（2025年度講習資料）",
+      "url": "https://www.j-cma.jp/jcma-pics/10022220_HjZm38.pdf",
+      "notes": "PDF11頁の共用アンカレイジ実景。下部の絞り、橋軸端面の中央くぼみ、水平打継ぎ、下部の濃色保護面を参考。くぼみ深さ・仕上げ寸法は写真合わせの仮定。"
     }
   ],
   "assumptions": [
@@ -216,8 +221,125 @@
       "zh": "R04按用户实景及1986年施工图修正主塔：上部两层连续X、长空腹区、桥面下完整X与山形撑；移除无实景依据的横梁。十字形3单元塔柱采用北桥约4.8m横宽、7.1至10.7m纵深的外轮廓，南桥沿用为假设。既有184/194m名义塔顶及主缆控制仍是概念坐标，并非分别复原各塔的原施工标高；节点、底板及撑端尺寸为外观近似。",
       "ja": "R04は提供実景と1986年施工図から、上部2X・長い空腹区間・橋面下のXと山形横構へ修正し、実景にない横梁を除きます。十字形3セル塔柱は北橋資料の横4.8m・縦7.1〜10.7mの外包を参考にし、南橋への準用は仮定です。既存184/194mの名目塔頂と主ケーブル制御は概念座標で、各塔の原施工標高を個別に復元したものではありません。節点・底板・端部寸法は外観近似です。",
       "en": "R04 follows the supplied photograph and 1986 general drawings: two upper X stages, a long open portal, and a lower X plus chevron, removing unsupported horizontal bars. The cruciform three-cell envelope uses approximately 4.8m transverse width and 7.1–10.7m longitudinal depth from North drawings; applying it to South is assumed. Existing nominal 184/194m tower/cable controls remain concept coordinates, not individually restored historical tower elevations. Nodes, base plates and end details are appearance fits."
+    },
+    {
+      "zh": "R05按共用BB4A原施工总图与运营方维修近照重塑锚碇：TP+5m处53m纵长，经下部收腰至TP+33m处最大79m；上部缓收至TP+75.190m约73m，顶部86m、V底52.5m。62m横向外包包含基础边沿，墩身58m；57×62m基础仍保留假设水下深度。顶部折线、12m宽/4.5m深端面盲凹槽、3m分层接缝与下部保护面为照片近似，非实测或内部构造复原。通行开口沿用演示净空包络。",
+      "ja": "R05はBB4A原施工一般図と管理者の維持管理写真から修正。TP+5mの縦53mからTP+33mの最大79mへ広がり、TP+75.190m付近73mへ緩く絞る。頂部86m、V底52.5m、横62m外包は基礎縁を含み躯体58m。57×62m基礎の海中深さは仮定を保持。頂部折線、幅12m・深さ4.5mの端面盲くぼみ、3m打継ぎ・下部保護面は写真合わせで、実測・内部設計の復元ではない。通行開口は既存の表示用包絡。",
+      "en": "R05 follows the original shared-BB4A general drawing and owner maintenance photo: 53m longitudinal body at TP+5m widens to79m at TP+33m, then batters to about73m at TP+75.190m; top86m and V floor52.5m. The62m transverse footprint includes footing lips around a58m body. The57×62m footing retains an assumed submerged depth. Upper knots,12m-wide/4.5m-deep blind face recesses,3m course bands and lower protective faces are appearance fits, not surveyed or internal construction data. Existing demonstration transport clearances remain."
     }
   ],
+  "shared_anchorage_alignment": {
+    "outline_xz": [
+      [
+        -26500,
+        5000
+      ],
+      [
+        26500,
+        5000
+      ],
+      [
+        39500,
+        33000
+      ],
+      [
+        36500,
+        75190
+      ],
+      [
+        35750,
+        86000
+      ],
+      [
+        29500,
+        86000
+      ],
+      [
+        20500,
+        81500
+      ],
+      [
+        14000,
+        66000
+      ],
+      [
+        3000,
+        52500
+      ],
+      [
+        -3000,
+        52500
+      ],
+      [
+        -14000,
+        66000
+      ],
+      [
+        -20500,
+        81500
+      ],
+      [
+        -29500,
+        86000
+      ],
+      [
+        -35750,
+        86000
+      ],
+      [
+        -36500,
+        75190
+      ],
+      [
+        -39500,
+        33000
+      ]
+    ],
+    "outer_half_x_by_z": [
+      [
+        5000,
+        26500
+      ],
+      [
+        33000,
+        39500
+      ],
+      [
+        75190,
+        36500
+      ],
+      [
+        86000,
+        35750
+      ]
+    ],
+    "trough_half_x_by_z": [
+      [
+        52500,
+        3000
+      ],
+      [
+        66000,
+        14000
+      ],
+      [
+        81500,
+        20500
+      ],
+      [
+        86000,
+        29500
+      ]
+    ],
+    "body_width_mm": 58000,
+    "footing_width_mm": 62000,
+    "footing_length_mm": 57000,
+    "recess_half_width_mm": 6000,
+    "recess_depth_mm": 4500,
+    "recess_floor_mm": 12000,
+    "course_spacing_mm": 3000,
+    "course_band_mm": 70
+  },
   "tower_alignment": [
     {
       "id": "north:tower_1",
@@ -353,7 +475,7 @@
         "ja": "基礎・アンカレイジ",
         "en": "Foundations and anchorages"
       },
-      "count": 22
+      "count": 230
     },
     {
       "id": "towers",
@@ -2944,7 +3066,7 @@
       }
     ]
   },
-  "component_count": 4462,
+  "component_count": 4670,
   "components": [
     {
       "name": "environment:sea:illustrative_TP0",
@@ -3051,12 +3173,12 @@
       "group": "foundations",
       "kind": "box",
       "bounds": [
-        -39500.0,
-        -31000.0,
+        -28500,
+        -31000,
         -14000,
-        39500.0,
-        31000.0,
-        18000
+        28500,
+        31000,
+        5000
       ],
       "color": "#AAAFA7"
     },
@@ -3066,44 +3188,174 @@
       "kind": "anchorage",
       "outline_xz": [
         [
-          -39500,
-          18000
-        ],
-        [
           -26500,
-          0
+          5000
         ],
         [
           26500,
-          0
+          5000
         ],
         [
           39500,
-          18000
+          33000
         ],
         [
-          39500,
+          36500,
+          75190
+        ],
+        [
+          35750,
           86000
         ],
         [
-          24500,
+          29500,
           86000
         ],
         [
-          0,
+          20500,
+          81500
+        ],
+        [
+          14000,
+          66000
+        ],
+        [
+          3000,
           52500
         ],
         [
-          -24500,
+          -3000,
+          52500
+        ],
+        [
+          -14000,
+          66000
+        ],
+        [
+          -20500,
+          81500
+        ],
+        [
+          -29500,
           86000
         ],
         [
-          -39500,
+          -35750,
           86000
+        ],
+        [
+          -36500,
+          75190
+        ],
+        [
+          -39500,
+          33000
         ]
       ],
-      "width_mm": 62000,
-      "color": "#C1C5BC",
+      "width_mm": 58000,
+      "surface_recesses": [
+        {
+          "outline": [
+            [
+              -25250.0,
+              -6000,
+              12000
+            ],
+            [
+              -35000.0,
+              -6000,
+              33000
+            ],
+            [
+              -32000.0,
+              -6000,
+              75190
+            ],
+            [
+              -31250.0,
+              -6000,
+              86000
+            ],
+            [
+              -36750.0,
+              -6000,
+              86000
+            ],
+            [
+              -37500.0,
+              -6000,
+              75190
+            ],
+            [
+              -40500.0,
+              -6000,
+              33000
+            ],
+            [
+              -30750.0,
+              -6000,
+              12000
+            ]
+          ],
+          "extrusion": [
+            0,
+            12000,
+            0
+          ],
+          "purpose": "photo_fit_blind_central_face_recess_not_through_opening"
+        },
+        {
+          "outline": [
+            [
+              25250.0,
+              -6000,
+              12000
+            ],
+            [
+              35000.0,
+              -6000,
+              33000
+            ],
+            [
+              32000.0,
+              -6000,
+              75190
+            ],
+            [
+              31250.0,
+              -6000,
+              86000
+            ],
+            [
+              36750.0,
+              -6000,
+              86000
+            ],
+            [
+              37500.0,
+              -6000,
+              75190
+            ],
+            [
+              40500.0,
+              -6000,
+              33000
+            ],
+            [
+              30750.0,
+              -6000,
+              12000
+            ]
+          ],
+          "extrusion": [
+            0,
+            12000,
+            0
+          ],
+          "purpose": "photo_fit_blind_central_face_recess_not_through_opening"
+        }
+      ],
+      "color": "#BFC3BA",
       "clearance_cuts": [
         {
           "bounds": [
@@ -3158,6 +3410,6870 @@
           "purpose": "road_rail_transport_envelope_demo"
         }
       ]
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          7965.0
+        ],
+        [
+          0.0,
+          -28970,
+          8035.0
+        ],
+        [
+          -27909.107142857145,
+          -28970,
+          8035.0
+        ],
+        [
+          -27876.607142857145,
+          -28970,
+          7965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          7965.0
+        ],
+        [
+          0.0,
+          28970,
+          8035.0
+        ],
+        [
+          -27909.107142857145,
+          28970,
+          8035.0
+        ],
+        [
+          -27876.607142857145,
+          28970,
+          7965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          27876.60714285714,
+          -28970,
+          7965.0
+        ],
+        [
+          27909.10714285714,
+          -28970,
+          8035.0
+        ],
+        [
+          0.0,
+          -28970,
+          8035.0
+        ],
+        [
+          0.0,
+          -28970,
+          7965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          27876.60714285714,
+          28970,
+          7965.0
+        ],
+        [
+          27909.10714285714,
+          28970,
+          8035.0
+        ],
+        [
+          0.0,
+          28970,
+          8035.0
+        ],
+        [
+          0.0,
+          28970,
+          7965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -27846.60714285714,
+          -28950,
+          7965
+        ],
+        [
+          -27846.60714285714,
+          28950,
+          7965
+        ],
+        [
+          -27879.10714285714,
+          28950,
+          8035
+        ],
+        [
+          -27879.10714285714,
+          -28950,
+          8035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_8000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          27846.60714285714,
+          -28950,
+          7965
+        ],
+        [
+          27846.60714285714,
+          28950,
+          7965
+        ],
+        [
+          27879.10714285714,
+          28950,
+          8035
+        ],
+        [
+          27879.10714285714,
+          -28950,
+          8035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          10965.0
+        ],
+        [
+          0.0,
+          -28970,
+          11035.0
+        ],
+        [
+          -29301.964285714286,
+          -28970,
+          11035.0
+        ],
+        [
+          -29269.464285714286,
+          -28970,
+          10965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          10965.0
+        ],
+        [
+          0.0,
+          28970,
+          11035.0
+        ],
+        [
+          -29301.964285714286,
+          28970,
+          11035.0
+        ],
+        [
+          -29269.464285714286,
+          28970,
+          10965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          29269.464285714286,
+          -28970,
+          10965.0
+        ],
+        [
+          29301.964285714286,
+          -28970,
+          11035.0
+        ],
+        [
+          0.0,
+          -28970,
+          11035.0
+        ],
+        [
+          0.0,
+          -28970,
+          10965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          29269.464285714286,
+          28970,
+          10965.0
+        ],
+        [
+          29301.964285714286,
+          28970,
+          11035.0
+        ],
+        [
+          0.0,
+          28970,
+          11035.0
+        ],
+        [
+          0.0,
+          28970,
+          10965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -29239.464285714286,
+          -28950,
+          10965
+        ],
+        [
+          -29239.464285714286,
+          28950,
+          10965
+        ],
+        [
+          -29271.964285714286,
+          28950,
+          11035
+        ],
+        [
+          -29271.964285714286,
+          -28950,
+          11035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_11000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          29239.464285714286,
+          -28950,
+          10965
+        ],
+        [
+          29239.464285714286,
+          28950,
+          10965
+        ],
+        [
+          29271.964285714286,
+          28950,
+          11035
+        ],
+        [
+          29271.964285714286,
+          -28950,
+          11035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          13965.0
+        ],
+        [
+          0.0,
+          -28970,
+          14035.0
+        ],
+        [
+          -30694.821428571428,
+          -28970,
+          14035.0
+        ],
+        [
+          -30662.321428571428,
+          -28970,
+          13965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          13965.0
+        ],
+        [
+          0.0,
+          28970,
+          14035.0
+        ],
+        [
+          -30694.821428571428,
+          28970,
+          14035.0
+        ],
+        [
+          -30662.321428571428,
+          28970,
+          13965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          30662.321428571428,
+          -28970,
+          13965.0
+        ],
+        [
+          30694.821428571428,
+          -28970,
+          14035.0
+        ],
+        [
+          0.0,
+          -28970,
+          14035.0
+        ],
+        [
+          0.0,
+          -28970,
+          13965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          30662.321428571428,
+          28970,
+          13965.0
+        ],
+        [
+          30694.821428571428,
+          28970,
+          14035.0
+        ],
+        [
+          0.0,
+          28970,
+          14035.0
+        ],
+        [
+          0.0,
+          28970,
+          13965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -30632.321428571428,
+          -28950,
+          13965
+        ],
+        [
+          -30632.321428571428,
+          -6050,
+          13965
+        ],
+        [
+          -30664.821428571428,
+          -6050,
+          14035
+        ],
+        [
+          -30664.821428571428,
+          -28950,
+          14035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -30632.321428571428,
+          6050,
+          13965
+        ],
+        [
+          -30632.321428571428,
+          28950,
+          13965
+        ],
+        [
+          -30664.821428571428,
+          28950,
+          14035
+        ],
+        [
+          -30664.821428571428,
+          6050,
+          14035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          30632.321428571428,
+          -28950,
+          13965
+        ],
+        [
+          30632.321428571428,
+          -6050,
+          13965
+        ],
+        [
+          30664.821428571428,
+          -6050,
+          14035
+        ],
+        [
+          30664.821428571428,
+          -28950,
+          14035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_14000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          30632.321428571428,
+          6050,
+          13965
+        ],
+        [
+          30632.321428571428,
+          28950,
+          13965
+        ],
+        [
+          30664.821428571428,
+          28950,
+          14035
+        ],
+        [
+          30664.821428571428,
+          6050,
+          14035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          16965.0
+        ],
+        [
+          0.0,
+          -28970,
+          17035.0
+        ],
+        [
+          -32087.678571428572,
+          -28970,
+          17035.0
+        ],
+        [
+          -32055.178571428572,
+          -28970,
+          16965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          16965.0
+        ],
+        [
+          0.0,
+          28970,
+          17035.0
+        ],
+        [
+          -32087.678571428572,
+          28970,
+          17035.0
+        ],
+        [
+          -32055.178571428572,
+          28970,
+          16965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          32055.178571428572,
+          -28970,
+          16965.0
+        ],
+        [
+          32087.678571428572,
+          -28970,
+          17035.0
+        ],
+        [
+          0.0,
+          -28970,
+          17035.0
+        ],
+        [
+          0.0,
+          -28970,
+          16965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          32055.178571428572,
+          28970,
+          16965.0
+        ],
+        [
+          32087.678571428572,
+          28970,
+          17035.0
+        ],
+        [
+          0.0,
+          28970,
+          17035.0
+        ],
+        [
+          0.0,
+          28970,
+          16965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -32025.178571428572,
+          -28950,
+          16965
+        ],
+        [
+          -32025.178571428572,
+          -6050,
+          16965
+        ],
+        [
+          -32057.678571428572,
+          -6050,
+          17035
+        ],
+        [
+          -32057.678571428572,
+          -28950,
+          17035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -32025.178571428572,
+          6050,
+          16965
+        ],
+        [
+          -32025.178571428572,
+          28950,
+          16965
+        ],
+        [
+          -32057.678571428572,
+          28950,
+          17035
+        ],
+        [
+          -32057.678571428572,
+          6050,
+          17035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          32025.178571428572,
+          -28950,
+          16965
+        ],
+        [
+          32025.178571428572,
+          -6050,
+          16965
+        ],
+        [
+          32057.678571428572,
+          -6050,
+          17035
+        ],
+        [
+          32057.678571428572,
+          -28950,
+          17035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_17000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          32025.178571428572,
+          6050,
+          16965
+        ],
+        [
+          32025.178571428572,
+          28950,
+          16965
+        ],
+        [
+          32057.678571428572,
+          28950,
+          17035
+        ],
+        [
+          32057.678571428572,
+          6050,
+          17035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          19965.0
+        ],
+        [
+          0.0,
+          -28970,
+          20035.0
+        ],
+        [
+          -33480.53571428572,
+          -28970,
+          20035.0
+        ],
+        [
+          -33448.03571428572,
+          -28970,
+          19965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          19965.0
+        ],
+        [
+          0.0,
+          28970,
+          20035.0
+        ],
+        [
+          -33480.53571428572,
+          28970,
+          20035.0
+        ],
+        [
+          -33448.03571428572,
+          28970,
+          19965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          33448.03571428571,
+          -28970,
+          19965.0
+        ],
+        [
+          33480.53571428571,
+          -28970,
+          20035.0
+        ],
+        [
+          0.0,
+          -28970,
+          20035.0
+        ],
+        [
+          0.0,
+          -28970,
+          19965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          33448.03571428571,
+          28970,
+          19965.0
+        ],
+        [
+          33480.53571428571,
+          28970,
+          20035.0
+        ],
+        [
+          0.0,
+          28970,
+          20035.0
+        ],
+        [
+          0.0,
+          28970,
+          19965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -33418.03571428572,
+          -28950,
+          19965
+        ],
+        [
+          -33418.03571428572,
+          -6050,
+          19965
+        ],
+        [
+          -33450.53571428572,
+          -6050,
+          20035
+        ],
+        [
+          -33450.53571428572,
+          -28950,
+          20035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -33418.03571428572,
+          6050,
+          19965
+        ],
+        [
+          -33418.03571428572,
+          28950,
+          19965
+        ],
+        [
+          -33450.53571428572,
+          28950,
+          20035
+        ],
+        [
+          -33450.53571428572,
+          6050,
+          20035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          33418.03571428572,
+          -28950,
+          19965
+        ],
+        [
+          33418.03571428572,
+          -6050,
+          19965
+        ],
+        [
+          33450.53571428572,
+          -6050,
+          20035
+        ],
+        [
+          33450.53571428572,
+          -28950,
+          20035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_20000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          33418.03571428572,
+          6050,
+          19965
+        ],
+        [
+          33418.03571428572,
+          28950,
+          19965
+        ],
+        [
+          33450.53571428572,
+          28950,
+          20035
+        ],
+        [
+          33450.53571428572,
+          6050,
+          20035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          22965.0
+        ],
+        [
+          0.0,
+          -28970,
+          23035.0
+        ],
+        [
+          -34873.392857142855,
+          -28970,
+          23035.0
+        ],
+        [
+          -34840.892857142855,
+          -28970,
+          22965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          22965.0
+        ],
+        [
+          0.0,
+          28970,
+          23035.0
+        ],
+        [
+          -34873.392857142855,
+          28970,
+          23035.0
+        ],
+        [
+          -34840.892857142855,
+          28970,
+          22965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          34840.892857142855,
+          -28970,
+          22965.0
+        ],
+        [
+          34873.392857142855,
+          -28970,
+          23035.0
+        ],
+        [
+          0.0,
+          -28970,
+          23034.999999999996
+        ],
+        [
+          0.0,
+          -28970,
+          22965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          34840.892857142855,
+          28970,
+          22965.0
+        ],
+        [
+          34873.392857142855,
+          28970,
+          23035.0
+        ],
+        [
+          0.0,
+          28970,
+          23034.999999999996
+        ],
+        [
+          0.0,
+          28970,
+          22965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -34810.892857142855,
+          -28950,
+          22965
+        ],
+        [
+          -34810.892857142855,
+          -6050,
+          22965
+        ],
+        [
+          -34843.392857142855,
+          -6050,
+          23035
+        ],
+        [
+          -34843.392857142855,
+          -28950,
+          23035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -34810.892857142855,
+          6050,
+          22965
+        ],
+        [
+          -34810.892857142855,
+          28950,
+          22965
+        ],
+        [
+          -34843.392857142855,
+          28950,
+          23035
+        ],
+        [
+          -34843.392857142855,
+          6050,
+          23035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          34810.892857142855,
+          -28950,
+          22965
+        ],
+        [
+          34810.892857142855,
+          -6050,
+          22965
+        ],
+        [
+          34843.392857142855,
+          -6050,
+          23035
+        ],
+        [
+          34843.392857142855,
+          -28950,
+          23035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_23000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          34810.892857142855,
+          6050,
+          22965
+        ],
+        [
+          34810.892857142855,
+          28950,
+          22965
+        ],
+        [
+          34843.392857142855,
+          28950,
+          23035
+        ],
+        [
+          34843.392857142855,
+          6050,
+          23035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          25965.0
+        ],
+        [
+          0.0,
+          -28970,
+          26035.0
+        ],
+        [
+          -36266.25,
+          -28970,
+          26035.0
+        ],
+        [
+          -36233.75,
+          -28970,
+          25965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          25965.0
+        ],
+        [
+          0.0,
+          28970,
+          26035.0
+        ],
+        [
+          -36266.25,
+          28970,
+          26035.0
+        ],
+        [
+          -36233.75,
+          28970,
+          25965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36233.75,
+          -28970,
+          25965.0
+        ],
+        [
+          36266.25,
+          -28970,
+          26035.0
+        ],
+        [
+          0.0,
+          -28970,
+          26035.0
+        ],
+        [
+          0.0,
+          -28970,
+          25965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36233.75,
+          28970,
+          25965.0
+        ],
+        [
+          36266.25,
+          28970,
+          26035.0
+        ],
+        [
+          0.0,
+          28970,
+          26035.0
+        ],
+        [
+          0.0,
+          28970,
+          25965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36203.75,
+          -28950,
+          25965
+        ],
+        [
+          -36203.75,
+          -6050,
+          25965
+        ],
+        [
+          -36236.25,
+          -6050,
+          26035
+        ],
+        [
+          -36236.25,
+          -28950,
+          26035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36203.75,
+          6050,
+          25965
+        ],
+        [
+          -36203.75,
+          28950,
+          25965
+        ],
+        [
+          -36236.25,
+          28950,
+          26035
+        ],
+        [
+          -36236.25,
+          6050,
+          26035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36203.75,
+          -28950,
+          25965
+        ],
+        [
+          36203.75,
+          -6050,
+          25965
+        ],
+        [
+          36236.25,
+          -6050,
+          26035
+        ],
+        [
+          36236.25,
+          -28950,
+          26035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_26000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36203.75,
+          6050,
+          25965
+        ],
+        [
+          36203.75,
+          28950,
+          25965
+        ],
+        [
+          36236.25,
+          28950,
+          26035
+        ],
+        [
+          36236.25,
+          6050,
+          26035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          28965.0
+        ],
+        [
+          0.0,
+          -28970,
+          29035.0
+        ],
+        [
+          -37659.107142857145,
+          -28970,
+          29035.0
+        ],
+        [
+          -37626.607142857145,
+          -28970,
+          28965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          28965.0
+        ],
+        [
+          0.0,
+          28970,
+          29035.0
+        ],
+        [
+          -37659.107142857145,
+          28970,
+          29035.0
+        ],
+        [
+          -37626.607142857145,
+          28970,
+          28965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37626.607142857145,
+          -28970,
+          28965.0
+        ],
+        [
+          37659.107142857145,
+          -28970,
+          29035.0
+        ],
+        [
+          0.0,
+          -28970,
+          29035.0
+        ],
+        [
+          0.0,
+          -28970,
+          28965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37626.607142857145,
+          28970,
+          28965.0
+        ],
+        [
+          37659.107142857145,
+          28970,
+          29035.0
+        ],
+        [
+          0.0,
+          28970,
+          29035.0
+        ],
+        [
+          0.0,
+          28970,
+          28965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37596.607142857145,
+          -28950,
+          28965
+        ],
+        [
+          -37596.607142857145,
+          -6050,
+          28965
+        ],
+        [
+          -37629.107142857145,
+          -6050,
+          29035
+        ],
+        [
+          -37629.107142857145,
+          -28950,
+          29035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37596.607142857145,
+          6050,
+          28965
+        ],
+        [
+          -37596.607142857145,
+          28950,
+          28965
+        ],
+        [
+          -37629.107142857145,
+          28950,
+          29035
+        ],
+        [
+          -37629.107142857145,
+          6050,
+          29035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37596.607142857145,
+          -28950,
+          28965
+        ],
+        [
+          37596.607142857145,
+          -6050,
+          28965
+        ],
+        [
+          37629.107142857145,
+          -6050,
+          29035
+        ],
+        [
+          37629.107142857145,
+          -28950,
+          29035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_29000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37596.607142857145,
+          6050,
+          28965
+        ],
+        [
+          37596.607142857145,
+          28950,
+          28965
+        ],
+        [
+          37629.107142857145,
+          28950,
+          29035
+        ],
+        [
+          37629.107142857145,
+          6050,
+          29035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          31965.0
+        ],
+        [
+          0.0,
+          -28970,
+          32035.0
+        ],
+        [
+          -39051.96428571428,
+          -28970,
+          32035.0
+        ],
+        [
+          -39019.46428571428,
+          -28970,
+          31965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          31965.0
+        ],
+        [
+          0.0,
+          28970,
+          32035.0
+        ],
+        [
+          -39051.96428571428,
+          28970,
+          32035.0
+        ],
+        [
+          -39019.46428571428,
+          28970,
+          31965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39019.46428571429,
+          -28970,
+          31965.0
+        ],
+        [
+          39051.96428571429,
+          -28970,
+          32035.0
+        ],
+        [
+          0.0,
+          -28970,
+          32035.0
+        ],
+        [
+          0.0,
+          -28970,
+          31965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39019.46428571429,
+          28970,
+          31965.0
+        ],
+        [
+          39051.96428571429,
+          28970,
+          32035.0
+        ],
+        [
+          0.0,
+          28970,
+          32035.0
+        ],
+        [
+          0.0,
+          28970,
+          31965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38989.46428571429,
+          -28950,
+          31965
+        ],
+        [
+          -38989.46428571429,
+          -6050,
+          31965
+        ],
+        [
+          -39021.96428571429,
+          -6050,
+          32035
+        ],
+        [
+          -39021.96428571429,
+          -28950,
+          32035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38989.46428571429,
+          6050,
+          31965
+        ],
+        [
+          -38989.46428571429,
+          28950,
+          31965
+        ],
+        [
+          -39021.96428571429,
+          28950,
+          32035
+        ],
+        [
+          -39021.96428571429,
+          6050,
+          32035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38989.46428571429,
+          -28950,
+          31965
+        ],
+        [
+          38989.46428571429,
+          -6050,
+          31965
+        ],
+        [
+          39021.96428571429,
+          -6050,
+          32035
+        ],
+        [
+          39021.96428571429,
+          -28950,
+          32035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_32000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38989.46428571429,
+          6050,
+          31965
+        ],
+        [
+          38989.46428571429,
+          28950,
+          31965
+        ],
+        [
+          39021.96428571429,
+          28950,
+          32035
+        ],
+        [
+          39021.96428571429,
+          6050,
+          32035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          34965.0
+        ],
+        [
+          0.0,
+          -28970,
+          35035.0
+        ],
+        [
+          -39355.297463853996,
+          -28970,
+          35035.0
+        ],
+        [
+          -39360.27494666983,
+          -28970,
+          34965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          34965.0
+        ],
+        [
+          0.0,
+          28970,
+          35035.0
+        ],
+        [
+          -39355.297463853996,
+          28970,
+          35035.0
+        ],
+        [
+          -39360.27494666983,
+          28970,
+          34965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39360.27494666983,
+          -28970,
+          34965.0
+        ],
+        [
+          39355.297463853996,
+          -28970,
+          35035.0
+        ],
+        [
+          0.0,
+          -28970,
+          35035.0
+        ],
+        [
+          0.0,
+          -28970,
+          34965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39360.27494666983,
+          28970,
+          34965.0
+        ],
+        [
+          39355.297463853996,
+          28970,
+          35035.0
+        ],
+        [
+          0.0,
+          28970,
+          35035.0
+        ],
+        [
+          0.0,
+          28970,
+          34965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -39330.27494666983,
+          -28950,
+          34965
+        ],
+        [
+          -39330.27494666983,
+          -6050,
+          34965
+        ],
+        [
+          -39325.297463853996,
+          -6050,
+          35035
+        ],
+        [
+          -39325.297463853996,
+          -28950,
+          35035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -39330.27494666983,
+          6050,
+          34965
+        ],
+        [
+          -39330.27494666983,
+          28950,
+          34965
+        ],
+        [
+          -39325.297463853996,
+          28950,
+          35035
+        ],
+        [
+          -39325.297463853996,
+          6050,
+          35035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39330.27494666983,
+          -28950,
+          34965
+        ],
+        [
+          39330.27494666983,
+          -6050,
+          34965
+        ],
+        [
+          39325.297463853996,
+          -6050,
+          35035
+        ],
+        [
+          39325.297463853996,
+          -28950,
+          35035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_35000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39330.27494666983,
+          6050,
+          34965
+        ],
+        [
+          39330.27494666983,
+          28950,
+          34965
+        ],
+        [
+          39325.297463853996,
+          28950,
+          35035
+        ],
+        [
+          39325.297463853996,
+          6050,
+          35035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          37965.0
+        ],
+        [
+          0.0,
+          -28970,
+          38035.0
+        ],
+        [
+          -39141.97677174686,
+          -28970,
+          38035.0
+        ],
+        [
+          -39146.95425456269,
+          -28970,
+          37965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          37965.0
+        ],
+        [
+          0.0,
+          28970,
+          38035.0
+        ],
+        [
+          -39141.97677174686,
+          28970,
+          38035.0
+        ],
+        [
+          -39146.95425456269,
+          28970,
+          37965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39146.95425456269,
+          -28970,
+          37965.0
+        ],
+        [
+          39141.97677174686,
+          -28970,
+          38035.0
+        ],
+        [
+          0.0,
+          -28970,
+          38035.0
+        ],
+        [
+          0.0,
+          -28970,
+          37965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39146.95425456269,
+          28970,
+          37965.0
+        ],
+        [
+          39141.97677174686,
+          28970,
+          38035.0
+        ],
+        [
+          0.0,
+          28970,
+          38035.0
+        ],
+        [
+          0.0,
+          28970,
+          37965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -39116.95425456269,
+          -28950,
+          37965
+        ],
+        [
+          -39116.95425456269,
+          -6050,
+          37965
+        ],
+        [
+          -39111.97677174686,
+          -6050,
+          38035
+        ],
+        [
+          -39111.97677174686,
+          -28950,
+          38035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -39116.95425456269,
+          6050,
+          37965
+        ],
+        [
+          -39116.95425456269,
+          28950,
+          37965
+        ],
+        [
+          -39111.97677174686,
+          28950,
+          38035
+        ],
+        [
+          -39111.97677174686,
+          6050,
+          38035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39116.95425456269,
+          -28950,
+          37965
+        ],
+        [
+          39116.95425456269,
+          -6050,
+          37965
+        ],
+        [
+          39111.97677174686,
+          -6050,
+          38035
+        ],
+        [
+          39111.97677174686,
+          -28950,
+          38035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_38000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          39116.95425456269,
+          6050,
+          37965
+        ],
+        [
+          39116.95425456269,
+          28950,
+          37965
+        ],
+        [
+          39111.97677174686,
+          28950,
+          38035
+        ],
+        [
+          39111.97677174686,
+          6050,
+          38035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          40965.0
+        ],
+        [
+          0.0,
+          -28970,
+          41035.0
+        ],
+        [
+          -38928.656079639724,
+          -28970,
+          41035.0
+        ],
+        [
+          -38933.63356245556,
+          -28970,
+          40965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          40965.0
+        ],
+        [
+          0.0,
+          28970,
+          41035.0
+        ],
+        [
+          -38928.656079639724,
+          28970,
+          41035.0
+        ],
+        [
+          -38933.63356245556,
+          28970,
+          40965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38933.63356245556,
+          -28970,
+          40965.0
+        ],
+        [
+          38928.656079639724,
+          -28970,
+          41035.0
+        ],
+        [
+          0.0,
+          -28970,
+          41035.0
+        ],
+        [
+          0.0,
+          -28970,
+          40965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38933.63356245556,
+          28970,
+          40965.0
+        ],
+        [
+          38928.656079639724,
+          28970,
+          41035.0
+        ],
+        [
+          0.0,
+          28970,
+          41035.0
+        ],
+        [
+          0.0,
+          28970,
+          40965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38903.63356245556,
+          -28950,
+          40965
+        ],
+        [
+          -38903.63356245556,
+          -6050,
+          40965
+        ],
+        [
+          -38898.656079639724,
+          -6050,
+          41035
+        ],
+        [
+          -38898.656079639724,
+          -28950,
+          41035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38903.63356245556,
+          6050,
+          40965
+        ],
+        [
+          -38903.63356245556,
+          28950,
+          40965
+        ],
+        [
+          -38898.656079639724,
+          28950,
+          41035
+        ],
+        [
+          -38898.656079639724,
+          6050,
+          41035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38903.63356245556,
+          -28950,
+          40965
+        ],
+        [
+          38903.63356245556,
+          -6050,
+          40965
+        ],
+        [
+          38898.656079639724,
+          -6050,
+          41035
+        ],
+        [
+          38898.656079639724,
+          -28950,
+          41035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_41000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38903.63356245556,
+          6050,
+          40965
+        ],
+        [
+          38903.63356245556,
+          28950,
+          40965
+        ],
+        [
+          38898.656079639724,
+          28950,
+          41035
+        ],
+        [
+          38898.656079639724,
+          6050,
+          41035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          43965.0
+        ],
+        [
+          0.0,
+          -28970,
+          44035.0
+        ],
+        [
+          -38715.33538753259,
+          -28970,
+          44035.0
+        ],
+        [
+          -38720.312870348425,
+          -28970,
+          43965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          43965.0
+        ],
+        [
+          0.0,
+          28970,
+          44035.0
+        ],
+        [
+          -38715.33538753259,
+          28970,
+          44035.0
+        ],
+        [
+          -38720.312870348425,
+          28970,
+          43965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38720.312870348425,
+          -28970,
+          43965.0
+        ],
+        [
+          38715.33538753259,
+          -28970,
+          44035.0
+        ],
+        [
+          0.0,
+          -28970,
+          44035.0
+        ],
+        [
+          0.0,
+          -28970,
+          43965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38720.312870348425,
+          28970,
+          43965.0
+        ],
+        [
+          38715.33538753259,
+          28970,
+          44035.0
+        ],
+        [
+          0.0,
+          28970,
+          44035.0
+        ],
+        [
+          0.0,
+          28970,
+          43965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38690.312870348425,
+          -28950,
+          43965
+        ],
+        [
+          -38690.312870348425,
+          -6050,
+          43965
+        ],
+        [
+          -38685.33538753259,
+          -6050,
+          44035
+        ],
+        [
+          -38685.33538753259,
+          -28950,
+          44035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38690.312870348425,
+          6050,
+          43965
+        ],
+        [
+          -38690.312870348425,
+          28950,
+          43965
+        ],
+        [
+          -38685.33538753259,
+          28950,
+          44035
+        ],
+        [
+          -38685.33538753259,
+          6050,
+          44035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38690.312870348425,
+          -28950,
+          43965
+        ],
+        [
+          38690.312870348425,
+          -6050,
+          43965
+        ],
+        [
+          38685.33538753259,
+          -6050,
+          44035
+        ],
+        [
+          38685.33538753259,
+          -28950,
+          44035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_44000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38690.312870348425,
+          6050,
+          43965
+        ],
+        [
+          38690.312870348425,
+          28950,
+          43965
+        ],
+        [
+          38685.33538753259,
+          28950,
+          44035
+        ],
+        [
+          38685.33538753259,
+          6050,
+          44035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          46965.0
+        ],
+        [
+          0.0,
+          -28970,
+          47035.0
+        ],
+        [
+          -38502.01469542546,
+          -28970,
+          47035.0
+        ],
+        [
+          -38506.99217824129,
+          -28970,
+          46965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          46965.0
+        ],
+        [
+          0.0,
+          28970,
+          47035.0
+        ],
+        [
+          -38502.01469542546,
+          28970,
+          47035.0
+        ],
+        [
+          -38506.99217824129,
+          28970,
+          46965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38506.99217824129,
+          -28970,
+          46965.0
+        ],
+        [
+          38502.01469542546,
+          -28970,
+          47035.0
+        ],
+        [
+          0.0,
+          -28970,
+          47035.0
+        ],
+        [
+          0.0,
+          -28970,
+          46965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38506.99217824129,
+          28970,
+          46965.0
+        ],
+        [
+          38502.01469542546,
+          28970,
+          47035.0
+        ],
+        [
+          0.0,
+          28970,
+          47035.0
+        ],
+        [
+          0.0,
+          28970,
+          46965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38476.992178241286,
+          -28950,
+          46965
+        ],
+        [
+          -38476.992178241286,
+          -6050,
+          46965
+        ],
+        [
+          -38472.01469542546,
+          -6050,
+          47035
+        ],
+        [
+          -38472.01469542546,
+          -28950,
+          47035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38476.992178241286,
+          6050,
+          46965
+        ],
+        [
+          -38476.992178241286,
+          28950,
+          46965
+        ],
+        [
+          -38472.01469542546,
+          28950,
+          47035
+        ],
+        [
+          -38472.01469542546,
+          6050,
+          47035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38476.992178241286,
+          -28950,
+          46965
+        ],
+        [
+          38476.992178241286,
+          -6050,
+          46965
+        ],
+        [
+          38472.01469542546,
+          -6050,
+          47035
+        ],
+        [
+          38472.01469542546,
+          -28950,
+          47035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_47000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38476.992178241286,
+          6050,
+          46965
+        ],
+        [
+          38476.992178241286,
+          28950,
+          46965
+        ],
+        [
+          38472.01469542546,
+          28950,
+          47035
+        ],
+        [
+          38472.01469542546,
+          6050,
+          47035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          -28970,
+          49965.0
+        ],
+        [
+          0.0,
+          -28970,
+          50035.0
+        ],
+        [
+          -38288.69400331832,
+          -28970,
+          50035.0
+        ],
+        [
+          -38293.67148613415,
+          -28970,
+          49965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          0.0,
+          28970,
+          49965.0
+        ],
+        [
+          0.0,
+          28970,
+          50035.0
+        ],
+        [
+          -38288.69400331832,
+          28970,
+          50035.0
+        ],
+        [
+          -38293.67148613415,
+          28970,
+          49965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38293.67148613415,
+          -28970,
+          49965.0
+        ],
+        [
+          38288.69400331832,
+          -28970,
+          50035.0
+        ],
+        [
+          0.0,
+          -28970,
+          50035.0
+        ],
+        [
+          0.0,
+          -28970,
+          49965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38293.67148613415,
+          28970,
+          49965.0
+        ],
+        [
+          38288.69400331832,
+          28970,
+          50035.0
+        ],
+        [
+          0.0,
+          28970,
+          50035.0
+        ],
+        [
+          0.0,
+          28970,
+          49965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38263.67148613415,
+          -28950,
+          49965
+        ],
+        [
+          -38263.67148613415,
+          -6050,
+          49965
+        ],
+        [
+          -38258.69400331832,
+          -6050,
+          50035
+        ],
+        [
+          -38258.69400331832,
+          -28950,
+          50035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38263.67148613415,
+          6050,
+          49965
+        ],
+        [
+          -38263.67148613415,
+          28950,
+          49965
+        ],
+        [
+          -38258.69400331832,
+          28950,
+          50035
+        ],
+        [
+          -38258.69400331832,
+          6050,
+          50035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38263.67148613415,
+          -28950,
+          49965
+        ],
+        [
+          38263.67148613415,
+          -6050,
+          49965
+        ],
+        [
+          38258.69400331832,
+          -6050,
+          50035
+        ],
+        [
+          38258.69400331832,
+          -28950,
+          50035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_50000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38263.67148613415,
+          6050,
+          49965
+        ],
+        [
+          38263.67148613415,
+          28950,
+          49965
+        ],
+        [
+          38258.69400331832,
+          28950,
+          50035
+        ],
+        [
+          38258.69400331832,
+          6050,
+          50035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -3378.888888888889,
+          -28970,
+          52965.0
+        ],
+        [
+          -3435.925925925926,
+          -28970,
+          53035.0
+        ],
+        [
+          -38075.37331121119,
+          -28970,
+          53035.0
+        ],
+        [
+          -38080.35079402702,
+          -28970,
+          52965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -3378.888888888889,
+          28970,
+          52965.0
+        ],
+        [
+          -3435.925925925926,
+          28970,
+          53035.0
+        ],
+        [
+          -38075.37331121119,
+          28970,
+          53035.0
+        ],
+        [
+          -38080.35079402702,
+          28970,
+          52965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38080.35079402702,
+          -28970,
+          52965.0
+        ],
+        [
+          38075.37331121119,
+          -28970,
+          53035.0
+        ],
+        [
+          3435.925925925927,
+          -28970,
+          53035.0
+        ],
+        [
+          3378.88888888889,
+          -28970,
+          52965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38080.35079402702,
+          28970,
+          52965.0
+        ],
+        [
+          38075.37331121119,
+          28970,
+          53035.0
+        ],
+        [
+          3435.925925925927,
+          28970,
+          53035.0
+        ],
+        [
+          3378.88888888889,
+          28970,
+          52965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38050.35079402702,
+          -28950,
+          52965
+        ],
+        [
+          -38050.35079402702,
+          -6050,
+          52965
+        ],
+        [
+          -38045.37331121119,
+          -6050,
+          53035
+        ],
+        [
+          -38045.37331121119,
+          -28950,
+          53035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -38050.35079402702,
+          6050,
+          52965
+        ],
+        [
+          -38050.35079402702,
+          28950,
+          52965
+        ],
+        [
+          -38045.37331121119,
+          28950,
+          53035
+        ],
+        [
+          -38045.37331121119,
+          6050,
+          53035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38050.35079402702,
+          -28950,
+          52965
+        ],
+        [
+          38050.35079402702,
+          -6050,
+          52965
+        ],
+        [
+          38045.37331121119,
+          -6050,
+          53035
+        ],
+        [
+          38045.37331121119,
+          -28950,
+          53035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_53000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          38050.35079402702,
+          6050,
+          52965
+        ],
+        [
+          38050.35079402702,
+          28950,
+          52965
+        ],
+        [
+          38045.37331121119,
+          28950,
+          53035
+        ],
+        [
+          38045.37331121119,
+          6050,
+          53035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -5823.333333333334,
+          -28970,
+          55965.0
+        ],
+        [
+          -5880.37037037037,
+          -28970,
+          56035.0
+        ],
+        [
+          -37862.052619104055,
+          -28970,
+          56035.0
+        ],
+        [
+          -37867.03010191989,
+          -28970,
+          55965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -5823.333333333334,
+          28970,
+          55965.0
+        ],
+        [
+          -5880.37037037037,
+          28970,
+          56035.0
+        ],
+        [
+          -37862.052619104055,
+          28970,
+          56035.0
+        ],
+        [
+          -37867.03010191989,
+          28970,
+          55965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37867.03010191989,
+          -28970,
+          55965.0
+        ],
+        [
+          37862.052619104055,
+          -28970,
+          56035.0
+        ],
+        [
+          5880.37037037037,
+          -28970,
+          56035.0
+        ],
+        [
+          5823.333333333333,
+          -28970,
+          55965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37867.03010191989,
+          28970,
+          55965.0
+        ],
+        [
+          37862.052619104055,
+          28970,
+          56035.0
+        ],
+        [
+          5880.37037037037,
+          28970,
+          56035.0
+        ],
+        [
+          5823.333333333333,
+          28970,
+          55965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37837.03010191989,
+          -28950,
+          55965
+        ],
+        [
+          -37837.03010191989,
+          -6050,
+          55965
+        ],
+        [
+          -37832.052619104055,
+          -6050,
+          56035
+        ],
+        [
+          -37832.052619104055,
+          -28950,
+          56035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37837.03010191989,
+          6050,
+          55965
+        ],
+        [
+          -37837.03010191989,
+          28950,
+          55965
+        ],
+        [
+          -37832.052619104055,
+          28950,
+          56035
+        ],
+        [
+          -37832.052619104055,
+          6050,
+          56035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37837.03010191989,
+          -28950,
+          55965
+        ],
+        [
+          37837.03010191989,
+          -6050,
+          55965
+        ],
+        [
+          37832.052619104055,
+          -6050,
+          56035
+        ],
+        [
+          37832.052619104055,
+          -28950,
+          56035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_56000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37837.03010191989,
+          6050,
+          55965
+        ],
+        [
+          37837.03010191989,
+          28950,
+          55965
+        ],
+        [
+          37832.052619104055,
+          28950,
+          56035
+        ],
+        [
+          37832.052619104055,
+          6050,
+          56035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -8267.777777777777,
+          -28970,
+          58965.0
+        ],
+        [
+          -8324.814814814814,
+          -28970,
+          59035.0
+        ],
+        [
+          -37648.731926996916,
+          -28970,
+          59035.0
+        ],
+        [
+          -37653.70940981275,
+          -28970,
+          58965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -8267.777777777777,
+          28970,
+          58965.0
+        ],
+        [
+          -8324.814814814814,
+          28970,
+          59035.0
+        ],
+        [
+          -37648.731926996916,
+          28970,
+          59035.0
+        ],
+        [
+          -37653.70940981275,
+          28970,
+          58965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37653.70940981275,
+          -28970,
+          58965.0
+        ],
+        [
+          37648.731926996916,
+          -28970,
+          59035.0
+        ],
+        [
+          8324.814814814814,
+          -28970,
+          59035.0
+        ],
+        [
+          8267.777777777777,
+          -28970,
+          58965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37653.70940981275,
+          28970,
+          58965.0
+        ],
+        [
+          37648.731926996916,
+          28970,
+          59035.0
+        ],
+        [
+          8324.814814814814,
+          28970,
+          59035.0
+        ],
+        [
+          8267.777777777777,
+          28970,
+          58965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37623.70940981275,
+          -28950,
+          58965
+        ],
+        [
+          -37623.70940981275,
+          -6050,
+          58965
+        ],
+        [
+          -37618.731926996916,
+          -6050,
+          59035
+        ],
+        [
+          -37618.731926996916,
+          -28950,
+          59035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37623.70940981275,
+          6050,
+          58965
+        ],
+        [
+          -37623.70940981275,
+          28950,
+          58965
+        ],
+        [
+          -37618.731926996916,
+          28950,
+          59035
+        ],
+        [
+          -37618.731926996916,
+          6050,
+          59035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37623.70940981275,
+          -28950,
+          58965
+        ],
+        [
+          37623.70940981275,
+          -6050,
+          58965
+        ],
+        [
+          37618.731926996916,
+          -6050,
+          59035
+        ],
+        [
+          37618.731926996916,
+          -28950,
+          59035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_59000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37623.70940981275,
+          6050,
+          58965
+        ],
+        [
+          37623.70940981275,
+          28950,
+          58965
+        ],
+        [
+          37618.731926996916,
+          28950,
+          59035
+        ],
+        [
+          37618.731926996916,
+          6050,
+          59035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -10712.222222222223,
+          -28970,
+          61965.0
+        ],
+        [
+          -10769.25925925926,
+          -28970,
+          62035.0
+        ],
+        [
+          -37435.41123488978,
+          -28970,
+          62035.0
+        ],
+        [
+          -37440.38871770562,
+          -28970,
+          61965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -10712.222222222223,
+          28970,
+          61965.0
+        ],
+        [
+          -10769.25925925926,
+          28970,
+          62035.0
+        ],
+        [
+          -37435.41123488978,
+          28970,
+          62035.0
+        ],
+        [
+          -37440.38871770562,
+          28970,
+          61965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37440.38871770562,
+          -28970,
+          61965.0
+        ],
+        [
+          37435.41123488978,
+          -28970,
+          62035.0
+        ],
+        [
+          10769.25925925926,
+          -28970,
+          62035.0
+        ],
+        [
+          10712.222222222223,
+          -28970,
+          61965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37440.38871770562,
+          28970,
+          61965.0
+        ],
+        [
+          37435.41123488978,
+          28970,
+          62035.0
+        ],
+        [
+          10769.25925925926,
+          28970,
+          62035.0
+        ],
+        [
+          10712.222222222223,
+          28970,
+          61965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37410.38871770562,
+          -28950,
+          61965
+        ],
+        [
+          -37410.38871770562,
+          -6050,
+          61965
+        ],
+        [
+          -37405.41123488978,
+          -6050,
+          62035
+        ],
+        [
+          -37405.41123488978,
+          -28950,
+          62035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37410.38871770562,
+          6050,
+          61965
+        ],
+        [
+          -37410.38871770562,
+          28950,
+          61965
+        ],
+        [
+          -37405.41123488978,
+          28950,
+          62035
+        ],
+        [
+          -37405.41123488978,
+          6050,
+          62035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37410.38871770562,
+          -28950,
+          61965
+        ],
+        [
+          37410.38871770562,
+          -6050,
+          61965
+        ],
+        [
+          37405.41123488978,
+          -6050,
+          62035
+        ],
+        [
+          37405.41123488978,
+          -28950,
+          62035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_62000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37410.38871770562,
+          6050,
+          61965
+        ],
+        [
+          37410.38871770562,
+          28950,
+          61965
+        ],
+        [
+          37405.41123488978,
+          28950,
+          62035
+        ],
+        [
+          37405.41123488978,
+          6050,
+          62035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -13156.666666666668,
+          -28970,
+          64965.0
+        ],
+        [
+          -13213.703703703704,
+          -28970,
+          65035.0
+        ],
+        [
+          -37222.09054278265,
+          -28970,
+          65035.0
+        ],
+        [
+          -37227.068025598484,
+          -28970,
+          64965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -13156.666666666668,
+          28970,
+          64965.0
+        ],
+        [
+          -13213.703703703704,
+          28970,
+          65035.0
+        ],
+        [
+          -37222.09054278265,
+          28970,
+          65035.0
+        ],
+        [
+          -37227.068025598484,
+          28970,
+          64965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37227.068025598484,
+          -28970,
+          64965.0
+        ],
+        [
+          37222.09054278265,
+          -28970,
+          65035.0
+        ],
+        [
+          13213.703703703704,
+          -28970,
+          65035.0
+        ],
+        [
+          13156.666666666668,
+          -28970,
+          64965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37227.068025598484,
+          28970,
+          64965.0
+        ],
+        [
+          37222.09054278265,
+          28970,
+          65035.0
+        ],
+        [
+          13213.703703703704,
+          28970,
+          65035.0
+        ],
+        [
+          13156.666666666668,
+          28970,
+          64965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37197.068025598484,
+          -28950,
+          64965
+        ],
+        [
+          -37197.068025598484,
+          -6050,
+          64965
+        ],
+        [
+          -37192.09054278265,
+          -6050,
+          65035
+        ],
+        [
+          -37192.09054278265,
+          -28950,
+          65035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -37197.068025598484,
+          6050,
+          64965
+        ],
+        [
+          -37197.068025598484,
+          28950,
+          64965
+        ],
+        [
+          -37192.09054278265,
+          28950,
+          65035
+        ],
+        [
+          -37192.09054278265,
+          6050,
+          65035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37197.068025598484,
+          -28950,
+          64965
+        ],
+        [
+          37197.068025598484,
+          -6050,
+          64965
+        ],
+        [
+          37192.09054278265,
+          -6050,
+          65035
+        ],
+        [
+          37192.09054278265,
+          -28950,
+          65035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_65000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37197.068025598484,
+          6050,
+          64965
+        ],
+        [
+          37197.068025598484,
+          28950,
+          64965
+        ],
+        [
+          37192.09054278265,
+          28950,
+          65035
+        ],
+        [
+          37192.09054278265,
+          6050,
+          65035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -14824.032258064515,
+          -28970,
+          67965.0
+        ],
+        [
+          -14853.387096774193,
+          -28970,
+          68035.0
+        ],
+        [
+          -37008.76985067552,
+          -28970,
+          68035.0
+        ],
+        [
+          -37013.74733349135,
+          -28970,
+          67965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -14824.032258064515,
+          28970,
+          67965.0
+        ],
+        [
+          -14853.387096774193,
+          28970,
+          68035.0
+        ],
+        [
+          -37008.76985067552,
+          28970,
+          68035.0
+        ],
+        [
+          -37013.74733349135,
+          28970,
+          67965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37013.74733349135,
+          -28970,
+          67965.0
+        ],
+        [
+          37008.76985067552,
+          -28970,
+          68035.0
+        ],
+        [
+          14853.387096774193,
+          -28970,
+          68035.0
+        ],
+        [
+          14824.032258064515,
+          -28970,
+          67965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          37013.74733349135,
+          28970,
+          67965.0
+        ],
+        [
+          37008.76985067552,
+          28970,
+          68035.0
+        ],
+        [
+          14853.387096774193,
+          28970,
+          68035.0
+        ],
+        [
+          14824.032258064515,
+          28970,
+          67965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36983.74733349135,
+          -28950,
+          67965
+        ],
+        [
+          -36983.74733349135,
+          -6050,
+          67965
+        ],
+        [
+          -36978.76985067552,
+          -6050,
+          68035
+        ],
+        [
+          -36978.76985067552,
+          -28950,
+          68035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36983.74733349135,
+          6050,
+          67965
+        ],
+        [
+          -36983.74733349135,
+          28950,
+          67965
+        ],
+        [
+          -36978.76985067552,
+          28950,
+          68035
+        ],
+        [
+          -36978.76985067552,
+          6050,
+          68035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36983.74733349135,
+          -28950,
+          67965
+        ],
+        [
+          36983.74733349135,
+          -6050,
+          67965
+        ],
+        [
+          36978.76985067552,
+          -6050,
+          68035
+        ],
+        [
+          36978.76985067552,
+          -28950,
+          68035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_68000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36983.74733349135,
+          6050,
+          67965
+        ],
+        [
+          36983.74733349135,
+          28950,
+          67965
+        ],
+        [
+          36978.76985067552,
+          28950,
+          68035
+        ],
+        [
+          36978.76985067552,
+          6050,
+          68035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -16082.096774193547,
+          -28970,
+          70965.0
+        ],
+        [
+          -16111.451612903225,
+          -28970,
+          71035.0
+        ],
+        [
+          -36795.44915856838,
+          -28970,
+          71035.0
+        ],
+        [
+          -36800.42664138421,
+          -28970,
+          70965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -16082.096774193547,
+          28970,
+          70965.0
+        ],
+        [
+          -16111.451612903225,
+          28970,
+          71035.0
+        ],
+        [
+          -36795.44915856838,
+          28970,
+          71035.0
+        ],
+        [
+          -36800.42664138421,
+          28970,
+          70965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36800.42664138421,
+          -28970,
+          70965.0
+        ],
+        [
+          36795.44915856838,
+          -28970,
+          71035.0
+        ],
+        [
+          16111.451612903225,
+          -28970,
+          71035.0
+        ],
+        [
+          16082.096774193547,
+          -28970,
+          70965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36800.42664138421,
+          28970,
+          70965.0
+        ],
+        [
+          36795.44915856838,
+          28970,
+          71035.0
+        ],
+        [
+          16111.451612903225,
+          28970,
+          71035.0
+        ],
+        [
+          16082.096774193547,
+          28970,
+          70965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36770.42664138421,
+          -28950,
+          70965
+        ],
+        [
+          -36770.42664138421,
+          -6050,
+          70965
+        ],
+        [
+          -36765.44915856838,
+          -6050,
+          71035
+        ],
+        [
+          -36765.44915856838,
+          -28950,
+          71035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36770.42664138421,
+          6050,
+          70965
+        ],
+        [
+          -36770.42664138421,
+          28950,
+          70965
+        ],
+        [
+          -36765.44915856838,
+          28950,
+          71035
+        ],
+        [
+          -36765.44915856838,
+          6050,
+          71035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36770.42664138421,
+          -28950,
+          70965
+        ],
+        [
+          36770.42664138421,
+          -6050,
+          70965
+        ],
+        [
+          36765.44915856838,
+          -6050,
+          71035
+        ],
+        [
+          36765.44915856838,
+          -28950,
+          71035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_71000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36770.42664138421,
+          6050,
+          70965
+        ],
+        [
+          36770.42664138421,
+          28950,
+          70965
+        ],
+        [
+          36765.44915856838,
+          28950,
+          71035
+        ],
+        [
+          36765.44915856838,
+          6050,
+          71035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -17340.16129032258,
+          -28970,
+          73965.0
+        ],
+        [
+          -17369.516129032258,
+          -28970,
+          74035.0
+        ],
+        [
+          -36582.12846646125,
+          -28970,
+          74035.0
+        ],
+        [
+          -36587.10594927708,
+          -28970,
+          73965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -17340.16129032258,
+          28970,
+          73965.0
+        ],
+        [
+          -17369.516129032258,
+          28970,
+          74035.0
+        ],
+        [
+          -36582.12846646125,
+          28970,
+          74035.0
+        ],
+        [
+          -36587.10594927708,
+          28970,
+          73965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36587.10594927708,
+          -28970,
+          73965.0
+        ],
+        [
+          36582.12846646125,
+          -28970,
+          74035.0
+        ],
+        [
+          17369.516129032258,
+          -28970,
+          74035.0
+        ],
+        [
+          17340.16129032258,
+          -28970,
+          73965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36587.10594927708,
+          28970,
+          73965.0
+        ],
+        [
+          36582.12846646125,
+          28970,
+          74035.0
+        ],
+        [
+          17369.516129032258,
+          28970,
+          74035.0
+        ],
+        [
+          17340.16129032258,
+          28970,
+          73965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36557.10594927708,
+          -28950,
+          73965
+        ],
+        [
+          -36557.10594927708,
+          -6050,
+          73965
+        ],
+        [
+          -36552.12846646125,
+          -6050,
+          74035
+        ],
+        [
+          -36552.12846646125,
+          -28950,
+          74035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36557.10594927708,
+          6050,
+          73965
+        ],
+        [
+          -36557.10594927708,
+          28950,
+          73965
+        ],
+        [
+          -36552.12846646125,
+          28950,
+          74035
+        ],
+        [
+          -36552.12846646125,
+          6050,
+          74035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36557.10594927708,
+          -28950,
+          73965
+        ],
+        [
+          36557.10594927708,
+          -6050,
+          73965
+        ],
+        [
+          36552.12846646125,
+          -6050,
+          74035
+        ],
+        [
+          36552.12846646125,
+          -28950,
+          74035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_74000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36557.10594927708,
+          6050,
+          73965
+        ],
+        [
+          36557.10594927708,
+          28950,
+          73965
+        ],
+        [
+          36552.12846646125,
+          28950,
+          74035
+        ],
+        [
+          36552.12846646125,
+          6050,
+          74035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -18598.22580645161,
+          -28970,
+          76965.0
+        ],
+        [
+          -18627.580645161288,
+          -28970,
+          77035.0
+        ],
+        [
+          -36371.993524514335,
+          -28970,
+          77035.0
+        ],
+        [
+          -36376.850138760405,
+          -28970,
+          76965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -18598.22580645161,
+          28970,
+          76965.0
+        ],
+        [
+          -18627.580645161288,
+          28970,
+          77035.0
+        ],
+        [
+          -36371.993524514335,
+          28970,
+          77035.0
+        ],
+        [
+          -36376.850138760405,
+          28970,
+          76965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36376.850138760405,
+          -28970,
+          76965.0
+        ],
+        [
+          36371.993524514335,
+          -28970,
+          77035.0
+        ],
+        [
+          18627.58064516129,
+          -28970,
+          77035.0
+        ],
+        [
+          18598.225806451614,
+          -28970,
+          76965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36376.850138760405,
+          28970,
+          76965.0
+        ],
+        [
+          36371.993524514335,
+          28970,
+          77035.0
+        ],
+        [
+          18627.58064516129,
+          28970,
+          77035.0
+        ],
+        [
+          18598.225806451614,
+          28970,
+          76965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36346.850138760405,
+          -28950,
+          76965
+        ],
+        [
+          -36346.850138760405,
+          -6050,
+          76965
+        ],
+        [
+          -36341.993524514335,
+          -6050,
+          77035
+        ],
+        [
+          -36341.993524514335,
+          -28950,
+          77035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36346.850138760405,
+          6050,
+          76965
+        ],
+        [
+          -36346.850138760405,
+          28950,
+          76965
+        ],
+        [
+          -36341.993524514335,
+          28950,
+          77035
+        ],
+        [
+          -36341.993524514335,
+          6050,
+          77035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36346.850138760405,
+          -28950,
+          76965
+        ],
+        [
+          36346.850138760405,
+          -6050,
+          76965
+        ],
+        [
+          36341.993524514335,
+          -6050,
+          77035
+        ],
+        [
+          36341.993524514335,
+          -28950,
+          77035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_77000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36346.850138760405,
+          6050,
+          76965
+        ],
+        [
+          36346.850138760405,
+          28950,
+          76965
+        ],
+        [
+          36341.993524514335,
+          28950,
+          77035
+        ],
+        [
+          36341.993524514335,
+          6050,
+          77035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -19856.290322580644,
+          -28970,
+          79965.0
+        ],
+        [
+          -19885.645161290322,
+          -28970,
+          80035.0
+        ],
+        [
+          -36163.85291396855,
+          -28970,
+          80035.0
+        ],
+        [
+          -36168.70952821462,
+          -28970,
+          79965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -19856.290322580644,
+          28970,
+          79965.0
+        ],
+        [
+          -19885.645161290322,
+          28970,
+          80035.0
+        ],
+        [
+          -36163.85291396855,
+          28970,
+          80035.0
+        ],
+        [
+          -36168.70952821462,
+          28970,
+          79965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36168.70952821462,
+          -28970,
+          79965.0
+        ],
+        [
+          36163.85291396855,
+          -28970,
+          80035.0
+        ],
+        [
+          19885.645161290322,
+          -28970,
+          80035.0
+        ],
+        [
+          19856.290322580644,
+          -28970,
+          79965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36168.70952821462,
+          28970,
+          79965.0
+        ],
+        [
+          36163.85291396855,
+          28970,
+          80035.0
+        ],
+        [
+          19885.645161290322,
+          28970,
+          80035.0
+        ],
+        [
+          19856.290322580644,
+          28970,
+          79965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36138.70952821462,
+          -28950,
+          79965
+        ],
+        [
+          -36138.70952821462,
+          -16550,
+          79965
+        ],
+        [
+          -36133.85291396855,
+          -16550,
+          80035
+        ],
+        [
+          -36133.85291396855,
+          -28950,
+          80035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -36138.70952821462,
+          16550,
+          79965
+        ],
+        [
+          -36138.70952821462,
+          28950,
+          79965
+        ],
+        [
+          -36133.85291396855,
+          28950,
+          80035
+        ],
+        [
+          -36133.85291396855,
+          16550,
+          80035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36138.70952821462,
+          -28950,
+          79965
+        ],
+        [
+          36138.70952821462,
+          -16550,
+          79965
+        ],
+        [
+          36133.85291396855,
+          -16550,
+          80035
+        ],
+        [
+          36133.85291396855,
+          -28950,
+          80035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_80000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          36138.70952821462,
+          16550,
+          79965
+        ],
+        [
+          36138.70952821462,
+          28950,
+          79965
+        ],
+        [
+          36133.85291396855,
+          28950,
+          80035
+        ],
+        [
+          36133.85291396855,
+          16550,
+          80035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_-1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -23430.0,
+          -28970,
+          82965.0
+        ],
+        [
+          -23570.0,
+          -28970,
+          83035.0
+        ],
+        [
+          -35955.712303422755,
+          -28970,
+          83035.0
+        ],
+        [
+          -35960.568917668825,
+          -28970,
+          82965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_-1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -23430.0,
+          28970,
+          82965.0
+        ],
+        [
+          -23570.0,
+          28970,
+          83035.0
+        ],
+        [
+          -35955.712303422755,
+          28970,
+          83035.0
+        ],
+        [
+          -35960.568917668825,
+          28970,
+          82965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_-1_1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          35960.568917668825,
+          -28970,
+          82965.0
+        ],
+        [
+          35955.712303422755,
+          -28970,
+          83035.0
+        ],
+        [
+          23570.0,
+          -28970,
+          83035.0
+        ],
+        [
+          23430.0,
+          -28970,
+          82965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        -70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_Y_1_1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          35960.568917668825,
+          28970,
+          82965.0
+        ],
+        [
+          35955.712303422755,
+          28970,
+          83035.0
+        ],
+        [
+          23570.0,
+          28970,
+          83035.0
+        ],
+        [
+          23430.0,
+          28970,
+          82965.0
+        ]
+      ],
+      "extrusion": [
+        0,
+        70,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_0_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -35930.568917668825,
+          -28950,
+          82965
+        ],
+        [
+          -35930.568917668825,
+          -16550,
+          82965
+        ],
+        [
+          -35925.712303422755,
+          -16550,
+          83035
+        ],
+        [
+          -35925.712303422755,
+          -28950,
+          83035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_-1_1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -35930.568917668825,
+          16550,
+          82965
+        ],
+        [
+          -35930.568917668825,
+          28950,
+          82965
+        ],
+        [
+          -35925.712303422755,
+          28950,
+          83035
+        ],
+        [
+          -35925.712303422755,
+          16550,
+          83035
+        ]
+      ],
+      "extrusion": [
+        -70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_0_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          35930.568917668825,
+          -28950,
+          82965
+        ],
+        [
+          35930.568917668825,
+          -16550,
+          82965
+        ],
+        [
+          35925.712303422755,
+          -16550,
+          83035
+        ],
+        [
+          35925.712303422755,
+          -28950,
+          83035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:course_X_1_1_83000",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          35930.568917668825,
+          16550,
+          82965
+        ],
+        [
+          35930.568917668825,
+          28950,
+          82965
+        ],
+        [
+          35925.712303422755,
+          28950,
+          83035
+        ],
+        [
+          35925.712303422755,
+          16550,
+          83035
+        ]
+      ],
+      "extrusion": [
+        70,
+        0,
+        0
+      ],
+      "color": "#9CA59F"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:lower_protection_-1_0",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -27872.85714285714,
+          -28960,
+          8000
+        ],
+        [
+          -27872.85714285714,
+          -6050,
+          8000
+        ],
+        [
+          -39480.0,
+          -6050,
+          33000
+        ],
+        [
+          -39480.0,
+          -28960,
+          33000
+        ]
+      ],
+      "extrusion": [
+        -45,
+        0,
+        0
+      ],
+      "color": "#8B9290"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:lower_protection_-1_1",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          -27872.85714285714,
+          6050,
+          8000
+        ],
+        [
+          -27872.85714285714,
+          28960,
+          8000
+        ],
+        [
+          -39480.0,
+          28960,
+          33000
+        ],
+        [
+          -39480.0,
+          6050,
+          33000
+        ]
+      ],
+      "extrusion": [
+        -45,
+        0,
+        0
+      ],
+      "color": "#8B9290"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:lower_protection_1_0",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          27872.85714285714,
+          -28960,
+          8000
+        ],
+        [
+          27872.85714285714,
+          -6050,
+          8000
+        ],
+        [
+          39480.0,
+          -6050,
+          33000
+        ],
+        [
+          39480.0,
+          -28960,
+          33000
+        ]
+      ],
+      "extrusion": [
+        45,
+        0,
+        0
+      ],
+      "color": "#8B9290"
+    },
+    {
+      "name": "foundations:BB4A_shared:detail:lower_protection_1_1",
+      "group": "foundations",
+      "kind": "prism",
+      "outline": [
+        [
+          27872.85714285714,
+          6050,
+          8000
+        ],
+        [
+          27872.85714285714,
+          28960,
+          8000
+        ],
+        [
+          39480.0,
+          28960,
+          33000
+        ],
+        [
+          39480.0,
+          6050,
+          33000
+        ]
+      ],
+      "extrusion": [
+        45,
+        0,
+        0
+      ],
+      "color": "#8B9290"
     },
     {
       "name": "foundations:north:tower_1:marine_caisson_assumed",
@@ -123372,12 +130488,12 @@
   },
   "saved_step": {
     "valid": true,
-    "solids": 4462,
+    "solids": 4670,
     "datum": "T.P.; sea assumed at 0"
   },
   "glb_export": {
-    "named_mesh_nodes": 4462,
-    "all_nodes": 4474,
+    "named_mesh_nodes": 4670,
+    "all_nodes": 4682,
     "groups": [
       "environment",
       "foundations",
@@ -123395,19 +130511,19 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/seto_bridge_geometry.py": "1561451cad4606798c848c2afe3554a83e08f1f04777f40c4d5f97900cf3de0c",
+    "src/lib/seto_bridge_geometry.py": "64ce41ba88cf876f71841c2bfc7f9c82015b2b869151bbe8cb75be7908aeb586",
     "src/lib/seto_bridge_activity.py": "17d045187bd14f82b323c4d309cd38e797cba4d12cdf6c9a6367bd29fb4268d6",
     "src/seto_bridge_3d.py": "55533681db1635593f00f3964f73a8231004028a732c8b808fc80cfa03f27f75",
     "src/lib/step_transport.py": "604856ace383adfcbdebc652664f7a79cdf2ba94cb3a04237a4d01fa343fa151"
   },
   "artifacts": {
     "STEP/seto_ohashi.step": {
-      "sha256": "e902519ba0671524721849926f154f25f8e0f28d50c3426eb8235457160b867a",
-      "bytes": 121130145
+      "sha256": "d34d4e68485e4bf020d67d7ef229fc7b513b315f6d9debfb955859aa23383ecc",
+      "bytes": 125340907
     },
     "GLB/seto_ohashi.glb": {
-      "sha256": "ce92ca1f63371964a96cc178b1636b9412eb733bb3dfd3d379995842c5ce1d02",
-      "bytes": 9434452
+      "sha256": "7d6b3a0d3850ad87a4c1384ce72040ceb1134803f23536143e22eb0fa8ffc433",
+      "bytes": 9826116
     }
   }
 }

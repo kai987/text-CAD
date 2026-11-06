@@ -217,10 +217,55 @@ test('manifest is shared by concurrent downloads; failed metadata can retry and 
   assert.equal(results[0], results[1]);
   assert.deepEqual(results[0]['case.json'], metadata(source));
   assert.equal(results[0].invalid, undefined);
+  assert.equal(await loadDownloadManifest('/manifest.json?v=one', fetcher), results[0]);
+  assert.equal(requests, 1, 'successful catalogs remain deduplicated by default');
   await loadDownloadManifest('/manifest.json?v=two', fetcher);
   assert.equal(requests, 2);
   assert.equal(await loadDownloadManifest('/missing-manifest', async () => new Response('', { status: 503 })), null);
   assert.deepEqual(await loadDownloadManifest('/missing-manifest', fetcher), { 'case.json': metadata(source) });
+});
+
+test('explicit manifest reload replaces cached success and bypasses the HTTP cache', async () => {
+  const url = '/manifest.json?v=explicit-reload', original = metadata(Buffer.from('old')), latest = metadata(Buffer.from('new catalog'));
+  const cacheModes = []; let requests = 0;
+  const fetcher = async (requested, options) => {
+    assert.equal(requested, url); assert.ok(options.signal instanceof AbortSignal);
+    cacheModes.push(options.cache); requests++;
+    return Response.json({ 'case.json': requests === 1 ? original : latest });
+  };
+  const first = loadDownloadManifest(url, fetcher);
+  assert.deepEqual(await first, { 'case.json': original });
+  assert.equal(loadDownloadManifest(url, fetcher), first);
+  const refreshed = loadDownloadManifest(url, fetcher, { reload: true });
+  assert.notEqual(refreshed, first);
+  assert.equal(loadDownloadManifest(url, fetcher), refreshed, 'ordinary callers share the reload while it is pending');
+  assert.deepEqual(await refreshed, { 'case.json': latest });
+  assert.equal(loadDownloadManifest(url, fetcher, { reload: false }), refreshed);
+  assert.equal(requests, 2); assert.deepEqual(cacheModes, [undefined, 'reload']);
+});
+
+test('a superseded failing manifest request cannot evict a successful forced reload', async () => {
+  const url = '/manifest.json?v=superseded-failure', latest = { 'case.json': metadata(Buffer.from('fresh catalog')) };
+  let failOld;
+  const oldFailure = new Promise(resolve => { failOld = resolve; });
+  let oldStarted;
+  const started = new Promise(resolve => { oldStarted = resolve; });
+  const old = loadDownloadManifest(url, async () => {
+    oldStarted(); await oldFailure; throw new TypeError('Superseded network request failed late');
+  });
+  await started;
+  const fresh = loadDownloadManifest(url, async (_url, options) => {
+    assert.equal(options.cache, 'reload'); return Response.json(latest);
+  }, { reload: true });
+  try {
+    assert.notEqual(fresh, old, 'an explicit reload bypasses a pending older request');
+    assert.deepEqual(await fresh, latest);
+    failOld(); assert.equal(await old, null);
+    let unexpectedRequest = false;
+    const retained = loadDownloadManifest(url, async () => { unexpectedRequest = true; return Response.json({}); });
+    assert.equal(retained, fresh, 'the late failure leaves the latest cached promise intact');
+    assert.deepEqual(await retained, latest); assert.equal(unexpectedRequest, false);
+  } finally { failOld(); await old; }
 });
 
 test('download refuses an unavailable manifest or missing file entry, and a later retry can obtain verified metadata', async () => {

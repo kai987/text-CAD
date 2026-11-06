@@ -1,1 +1,1 @@
-{"animation":{"language":"javascript","source":"export const clips = { named_parts: {label: \"Static named Seto Ohashi assembly\", duration: 1, loop: false, update(t,m) {}} };"},"documentHash":"e902519ba0671524721849926f154f25f8e0f28d50c3426eb8235457160b867a","schemaVersion":9}
+{"animation":{"language":"javascript","source":"export const clips = { named_parts: {label: \"Static named Seto Ohashi assembly\", duration: 1, loop: false, update(t,m) {}} };"},"documentHash":"d34d4e68485e4bf020d67d7ef229fc7b513b315f6d9debfb955859aa23383ecc","schemaVersion":9}

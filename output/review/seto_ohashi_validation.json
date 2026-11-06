@@ -1,12 +1,12 @@
 {
   "summary": {
-    "revision": "BRIDGE-R04",
-    "checks": 13745,
-    "passed": 13745,
+    "revision": "BRIDGE-R05",
+    "checks": 14387,
+    "passed": 14387,
     "failed": 0,
-    "STEP_leaf_occurrences": 4462,
-    "GLB_meshes": 4462,
-    "triangles": 86748,
+    "STEP_leaf_occurrences": 4670,
+    "GLB_meshes": 4670,
+    "triangles": 89344,
     "scope": "Saved source-bound appearance geometry and editable drawings; engineering uncalculated."
   },
   "checks": [
@@ -64,6 +64,10 @@
     },
     {
       "check": "manifest:assumptions",
+      "pass": true
+    },
+    {
+      "check": "manifest:shared_anchorage_alignment",
       "pass": true
     },
     {
@@ -200,6 +204,1670 @@
     },
     {
       "check": "STEP:valid_positive:foundations:BB7A:anchor_block",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_Y_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_Y_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:course_X_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:course_X_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:lower_protection_-1_0",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:lower_protection_-1_0",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:lower_protection_-1_1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:lower_protection_-1_1",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:lower_protection_1_0",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:lower_protection_1_0",
+      "pass": true
+    },
+    {
+      "check": "STEP:unique:foundations:BB4A_shared:detail:lower_protection_1_1",
+      "pass": true
+    },
+    {
+      "check": "STEP:valid_positive:foundations:BB4A_shared:detail:lower_protection_1_1",
       "pass": true
     },
     {
@@ -35821,7 +37489,7 @@
     {
       "check": "STEP:exact_component_names",
       "pass": true,
-      "actual": 4462
+      "actual": 4670
     },
     {
       "check": "STEP:manifest_bbox:min",
@@ -37162,7 +38830,7 @@
       "check": "STEP:consist:all_infrastructure_full_route_sweeps",
       "pass": true,
       "actual": {
-        "native_candidates": 449,
+        "native_candidates": 469,
         "pieces": 6,
         "collisions": []
       }
@@ -37175,6 +38843,245 @@
         "pieces": 12,
         "lanes": 4,
         "collisions": []
+      }
+    },
+    {
+      "check": "STEP:road:all_foundations_full_route_sweeps",
+      "pass": true,
+      "actual": {
+        "native_candidates": 12,
+        "pieces": 12,
+        "lanes": 4,
+        "collisions": []
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:reference_bounds:foundations:BB4A_shared:V_notched_body",
+      "pass": true,
+      "actual": {
+        "bounds_mm": [
+          [
+            -39500.0,
+            -29000.0,
+            5000.0
+          ],
+          [
+            39500.000000014516,
+            29000.0,
+            86000.0000000001
+          ]
+        ],
+        "expected_mm": [
+          [
+            -39500,
+            -29000,
+            5000
+          ],
+          [
+            39500,
+            29000,
+            86000
+          ]
+        ]
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:reference_bounds:foundations:BB4A_shared:base",
+      "pass": true,
+      "actual": {
+        "bounds_mm": [
+          [
+            -28500.0,
+            -31000.0,
+            -14000.0
+          ],
+          [
+            28500.0,
+            31000.0,
+            5000.0
+          ]
+        ],
+        "expected_mm": [
+          [
+            -28500,
+            -31000,
+            -14000
+          ],
+          [
+            28500,
+            31000,
+            5000
+          ]
+        ]
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:lower_narrow_face",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          30000,
+          0,
+          10000
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:lower_width_retained",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          0,
+          28000,
+          10000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:lower_shoulder",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          39000,
+          20000,
+          33000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:upper_batter",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          38000,
+          25000,
+          80000
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:blind_recess",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          37000,
+          0,
+          40000
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:blind_recess_backwall",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          33000,
+          0,
+          40000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:blind_recess_floor",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          29000,
+          0,
+          11000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:flat_v_recess",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          0,
+          25000,
+          54000
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:upper_v_return",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          25000,
+          25000,
+          84000
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:upper_v_side_mass",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          35000,
+          25000,
+          84000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:v_floor_mass",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          0,
+          25000,
+          51000
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:base_footprint",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          30000,
+          0,
+          0
+        ],
+        "expected_mass": false,
+        "intersection_mm3": 0.0
+      }
+    },
+    {
+      "check": "STEP:shared_anchor:solid_probe:base_positive_mass",
+      "pass": true,
+      "actual": {
+        "centre_mm": [
+          0,
+          0,
+          0
+        ],
+        "expected_mass": true,
+        "intersection_mm3": 8000000.0
       }
     },
     {
@@ -37245,7 +39152,7 @@
     {
       "check": "GLB:numeric_finite_triangles",
       "pass": true,
-      "actual": 86748
+      "actual": 89344
     },
     {
       "check": "GLB:identity_world_transforms",
@@ -37289,6 +39196,838 @@
     },
     {
       "check": "GLB:STEP_bounds:foundations:BB7A:anchor_block",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_8000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_11000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_14000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_17000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_20000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_23000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_26000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_29000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_32000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_35000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_38000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_41000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_44000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_47000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_50000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_53000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_56000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_59000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_62000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_65000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_68000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_71000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_74000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_77000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_80000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_-1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_Y_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_-1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_0_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:course_X_1_1_83000",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:lower_protection_-1_0",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:lower_protection_-1_1",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:lower_protection_1_0",
+      "pass": true
+    },
+    {
+      "check": "GLB:STEP_bounds:foundations:BB4A_shared:detail:lower_protection_1_1",
       "pass": true
     },
     {
@@ -55271,7 +58010,10 @@
         13000.0,
         22500.0,
         30000.0,
-        35000.0
+        35000.0,
+        53000.0,
+        79000.0,
+        86000.0
       ]
     },
     {
@@ -55304,6 +58046,10 @@
     },
     {
       "check": "section:editable_transport_passage",
+      "pass": true
+    },
+    {
+      "check": "section:photo_shared_anchorage_external",
       "pass": true
     },
     {

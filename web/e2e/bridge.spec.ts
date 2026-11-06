@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { bridgeCopy, bridgeGroups } from '../src/bridge-copy';
 
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
@@ -13,14 +14,23 @@ test('Seto twin bridges load, expose independent parts and retain all three draw
   await page.goto('?model=seto-ohashi&view=3d&environment=day');
   const canvas = page.locator('.bridge-canvas canvas');
   await expect(page).toHaveTitle(/Seto Ohashi/); await expect(canvas).toHaveAttribute('data-model-ready', 'true');
-  await expect(canvas).toHaveAttribute('data-model-revision', 'BRIDGE-R04');
+  await expect(canvas).toHaveAttribute('data-model-revision', 'BRIDGE-R05');
   await expect.poll(async () => Number(await canvas.getAttribute('data-render-triangles'))).toBeGreaterThan(0);
   await expect.poll(async () => Number(await canvas.getAttribute('data-render-calls'))).toBeLessThan(100);
   await expect(page.getByText('1,538 m', { exact: true })).toBeAttached();
-  for (const [label, camera] of [['Side', 'elevation'], ['Top', 'top'], ['Tower close-up', 'tower'], ['Road–rail close-up', 'deck'], ['Follow vehicles', 'traffic'], ['Follow cruise boat', 'vessel'], ['Follow train', 'train']]) {
+  for (const [label, camera] of [['Side', 'elevation'], ['Top', 'top'], ['Tower close-up', 'tower'], ['Central anchorage close-up', 'anchorage'], ['Road–rail close-up', 'deck'], ['Follow vehicles', 'traffic'], ['Follow cruise boat', 'vessel'], ['Follow train', 'train']]) {
     await page.getByRole('button', { name: label, exact: true }).click();
     await canvas.scrollIntoViewIfNeeded(); await expect(canvas).toHaveAttribute('data-camera-view', camera);
     await expect.poll(async () => Number(await canvas.getAttribute('data-render-triangles'))).toBeGreaterThan(0);
+    if (camera === 'anchorage') {
+      await expect.poll(async () => Math.abs(JSON.parse((await canvas.getAttribute('data-camera-pose'))!).target[0])).toBeLessThan(1);
+      const pose = JSON.parse((await canvas.getAttribute('data-camera-pose'))!);
+      expect(Math.abs(pose.target[0])).toBeLessThan(1);
+      expect(Math.abs(pose.target[2])).toBeLessThan(1);
+      expect(pose.target[1]).toBeGreaterThan(20); expect(pose.target[1]).toBeLessThan(65);
+      expect(pose.verticalSpan).toBeLessThan(350);
+      await info.attach('seto-central-anchorage-closeup', { body: await canvas.screenshot(), contentType: 'image/png' });
+    }
   }
   await page.getByRole('button', { name: 'Road–rail close-up', exact: true }).click(); await canvas.scrollIntoViewIfNeeded();
   await info.attach('seto-road-rail-closeup', { body: await canvas.screenshot(), contentType: 'image/png' });
@@ -29,9 +39,12 @@ test('Seto twin bridges load, expose independent parts and retain all three draw
   await page.getByRole('button', { name: 'Twin-bridge overview', exact: true }).click();
   await page.getByRole('button', { name: 'Night', exact: true }).click(); await expect(canvas).toHaveAttribute('data-environment', 'night');
   await page.getByRole('button', { name: 'Day', exact: true }).click();
-  for (const [locale, label, train, waves] of [['ja', '双子橋の全景', '電車を追う', '水面の波'], ['zh', '双桥全景', '电车跟随近景', '水面波动'], ['en', 'Twin-bridge overview', 'Follow train', 'Water animation']]) {
+  for (const [locale, label, train, waves, anchorage, sea, terrain] of [['ja', '双子橋の全景', '電車を追う', '水面の波', '中央アンカレイジを拡大', '海面', '島・地形（概形）'], ['zh', '双桥全景', '电车跟随近景', '水面波动', '中间共用锚碇近景', '海面', '岛屿与地形示意'], ['en', 'Twin-bridge overview', 'Follow train', 'Water animation', 'Central anchorage close-up', 'Sea surface', 'Illustrative islands and terrain']]) {
     await page.locator('.language-control select').selectOption(locale); await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
     await expect(canvas).toHaveAttribute('data-model-ready', 'true');
+    await expect(page.getByRole('checkbox', { name: sea, exact: true })).toBeAttached();
+    await expect(page.getByRole('checkbox', { name: terrain, exact: true })).toBeAttached();
+    await expect(page.getByRole('button', { name: anchorage, exact: true })).toBeAttached();
     await expect(page.getByRole('button', { name: train, exact: true })).toBeAttached(); await expect(page.getByRole('checkbox', { name: waves, exact: true })).toBeAttached();
   }
   for (const view of ['Plan', 'Elevation', 'Cross-section']) {
@@ -44,6 +57,66 @@ test('Seto twin bridges load, expose independent parts and retain all three draw
   await info.attach('seto-overview', { body: await canvas.screenshot(), contentType: 'image/png' });
   await info.attach('seto-renderer', { body: JSON.stringify(await canvas.evaluate(element => ({ ...(element as HTMLCanvasElement).dataset })), null, 2), contentType: 'application/json' });
   expect(errors).toEqual([]);
+});
+
+test('sea and illustrative terrain remain independently visible without changing bridge actors', async ({ page }, info) => {
+  await page.goto('?model=seto-ohashi&view=3d');
+  const canvas = page.locator('.bridge-canvas canvas');
+  const sea = page.getByRole('checkbox', { name: 'Sea surface', exact: true });
+  const terrain = page.getByRole('checkbox', { name: 'Illustrative islands and terrain', exact: true });
+  await expect(canvas).toHaveAttribute('data-model-ready', 'true');
+  await page.getByRole('button', { name: 'Central anchorage close-up', exact: true }).click();
+  await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-sea-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-terrain-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-sea-meshes-visible', '1');
+  const terrainCount = Number(await canvas.getAttribute('data-terrain-meshes-visible'));
+  expect(terrainCount).toBeGreaterThan(0);
+  await terrain.uncheck(); await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-terrain-visible', 'false');
+  await expect(canvas).toHaveAttribute('data-terrain-meshes-visible', '0');
+  await expect(canvas).toHaveAttribute('data-sea-meshes-visible', '1');
+  const waterBefore = Number(await canvas.getAttribute('data-water-time'));
+  await expect.poll(async () => Number(await canvas.getAttribute('data-water-time'))).toBeGreaterThan(waterBefore);
+  await expect(canvas).toHaveAttribute('data-actor-count', '36');
+  await info.attach('seto-footing-with-sea-without-illustrative-terrain', { body: await canvas.screenshot(), contentType: 'image/png' });
+
+  await sea.uncheck(); await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-sea-visible', 'false');
+  await expect(canvas).toHaveAttribute('data-motion-state', 'playing');
+  const poses = async () => JSON.parse((await canvas.getAttribute('data-actor-poses'))!);
+  const firstTraffic = (await poses()).traffic[0];
+  await expect.poll(async () => (await poses()).traffic[0]).not.toBe(firstTraffic);
+  const stoppedWater = await canvas.getAttribute('data-water-time');
+  await page.waitForTimeout(300); expect(await canvas.getAttribute('data-water-time')).toBe(stoppedWater);
+  await terrain.check(); await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-sea-visible', 'false');
+  await expect(canvas).toHaveAttribute('data-terrain-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-terrain-meshes-visible', String(terrainCount));
+
+  await terrain.uncheck();
+  for (const group of bridgeGroups.filter(group => group !== 'environment')) {
+    await page.getByRole('checkbox', { name: bridgeCopy.en.groups[group], exact: true }).uncheck();
+  }
+  await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-sea-visible', 'false');
+  await expect(canvas).toHaveAttribute('data-terrain-visible', 'false');
+  await expect(canvas).toHaveAttribute('data-visible-groups', '[]');
+  await expect(page.getByText(bridgeCopy.en.empty, { exact: true })).toBeVisible();
+  await expect(canvas).toHaveAttribute('data-motion-state', 'inactive-groups');
+
+  await page.getByRole('button', { name: 'Show all', exact: true }).click(); await canvas.scrollIntoViewIfNeeded();
+  await expect(sea).toBeChecked(); await expect(terrain).toBeChecked();
+  await expect(canvas).toHaveAttribute('data-sea-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-terrain-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-visible-groups', JSON.stringify(bridgeGroups));
+  await expect(page.getByText(bridgeCopy.en.empty, { exact: true })).toHaveCount(0);
+  for (const group of bridgeGroups.filter(group => group !== 'environment')) {
+    await expect(page.getByRole('checkbox', { name: bridgeCopy.en.groups[group], exact: true })).toBeChecked();
+  }
+  const resumedWater = Number(await canvas.getAttribute('data-water-time'));
+  await expect.poll(async () => Number(await canvas.getAttribute('data-water-time'))).toBeGreaterThan(resumedWater);
+  await expect(canvas).toHaveAttribute('data-actor-count', '36');
 });
 
 test('Seto native CAD and 3D downloads reconstruct exact released files', async ({ page }, info) => {

@@ -23,6 +23,7 @@ from reportlab.pdfgen import canvas
 
 from lib.seto_bridge_geometry import (
     MODEL_ID, REVISION, parameters, bridges, stations, cable_z, component_specs, tower_column_outline,
+    shared_anchor_profile,
 )
 from lib.seto_bridge_activity import activity_manifest
 
@@ -268,6 +269,10 @@ def draw_plan():
             d.rect((x, y, a, b), spec['group'], '#536C73', '#D9E0DE', name=spec['name'])
         elif spec['kind']=='tower_column':
             d.poly([(x,y) for x,y,z in tower_column_outline(spec)],'towers',True,'#536C73','#C8D3D0',name=spec['name'])
+        elif spec['kind']=='anchorage':
+            low,high=min(x for x,z in spec['outline_xz']),max(x for x,z in spec['outline_xz'])
+            d.rect((low,-spec['width_mm']/2,high,spec['width_mm']/2),'foundations',
+                '#536C73',None,.12,spec['name']+':plan_envelope')
     activity = activity_manifest(p)
     for actor in activity['actors']:
         if actor['group']!='vessels': continue
@@ -465,7 +470,13 @@ def draw_section():
     d.scale,d.origin,d.center,d.model_offset=750,(326,140),(0,52500),(1000000,0)
     anchor=next(s for s in specs if s['name']=='foundations:BB4A_shared:V_notched_body')
     cut=anchor['clearance_cuts'][0]['bounds'];cut_bottom=cut[2]
-    polygon=[(-39500,18000),(39500,18000),*anchor['outline_xz'][4:]]
+    # At Y=-5500 the blind end-face recesses also remove the outer 4500mm.
+    # Preserve the real V contour and crop the omitted base, instead of
+    # splicing positional vertices from an older anchorage polygon.
+    polygon=[list(point) for point in anchor['outline_xz']]
+    outer_indices={0,1,2,3,4,len(polygon)-3,len(polygon)-2,len(polygon)-1}
+    for index in outer_indices:
+        polygon[index][0]-=math.copysign(shared_anchor_profile()['recess_depth_mm'],polygon[index][0])
     # Clip the true X-Z polygon to the remaining material below the bore.
     def clip_top(points,height):
         clipped=[]
@@ -476,6 +487,7 @@ def draw_section():
                 ratio=(height-a[1])/(b[1]-a[1]);clipped.append((a[0]+ratio*(b[0]-a[0]),height))
         return clipped
     polygon=clip_top(polygon,cut_bottom)
+    polygon=[(x,-z) for x,z in clip_top([(x,-z) for x,z in polygon],-18000)]
     d.poly(polygon,'foundations',True,'#77847D','#E1E6DE',.24,anchor['name']+':railway_section')
     road_here=p['road_deck_z_mm']-245
     rail_here=p['rail_deck_z_mm']-245
@@ -515,9 +527,20 @@ def draw_section():
     d.paper_text('開口は説明用の仮定。',(343,67),2.7)
     d.paper_text('原図のアンカレイジを',(343,57),2.7)
     d.paper_text('再現する施工図ではない。',(343,47),2.7)
+    # Full external side profile, separate from the cropped railway section.
+    # Native 1:1 geometry/dimensions share the same parameter source as STEP.
+    d.scale,d.origin,d.center,d.model_offset=2000,(179,36),(0,0),(1700000,0)
+    d.rect((-28500,0,28500,5000),'foundations','#758179','#CBD2CB',.12)
+    d.poly(anchor['outline_xz'],'foundations',True,'#64776A','#E1E6DE',.16,anchor['name']+':full_external_profile')
+    d.line((-44000,33000),(44000,33000),'axis','#92A5AC',.1)
+    d.dim((-39500,33000),(39500,33000),(0,94000))
+    d.dim((-26500,5000),(26500,5000),(0,-7000))
+    d.dim((39500,0),(39500,86000),(53500,0),True)
+    d.viewport((73,58),(181,58),(4000,44000),2000)
+    d.paper_text('BB4A外形 1:2000',(149,92),2.8)
     d.scale=250
     return d,d.finish(['A-A 横断面','上層：道路4車線','在来線（複線）','新幹線の留保空間',
-        'BB4A','通行有効高さ','軌頂詳細','単位 mm'])
+        'BB4A','BB4A外形','通行有効高さ','軌頂詳細','単位 mm'])
 
 
 def generate():

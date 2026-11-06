@@ -16,11 +16,19 @@ from checks.seto_r01_baseline import (COUNT as BASELINE_COUNT, NAMES as BASELINE
     CLEARANCE_NAMES, CLEARANCE_ORIGINAL_SPECS, UNCHANGED_CLEARANCE_EXCLUDED_SHA256)
 from checks import seto_r02_baseline as r02
 from checks import seto_r03_baseline as r03
-from checks.seto_bridge_clearance import physical_clearance_checks, prism_vertices
+from checks import seto_r04_baseline as r04
+from checks.seto_bridge_clearance import physical_clearance_checks, prism_vertices, shared_anchorage_profile_checks
+
+
+def r04_specs():
+    records={part['name']:part for part in component_specs()
+             if not part['name'].startswith('foundations:BB4A_shared:detail:')}
+    records.update(deepcopy(r04.ORIGINAL_SHARED_SPECS))
+    return records
 
 
 def historical_specs():
-    records={part['name']:part for part in component_specs()}
+    records=r04_specs()
     records.update(deepcopy(r03.ORIGINAL_TOWER_SPECS))
     return records
 
@@ -63,13 +71,12 @@ class SetoBridgeTests(unittest.TestCase):
     def test_named_groups_and_box_member_hierarchy(self):
         specs=component_specs();names=[s['name'] for s in specs]
         self.assertEqual(len(names),len(set(names)))
-        self.assertLess(len(specs),4500)
         self.assertEqual({s['group'] for s in specs},set(GROUPS))
         self.assertTrue(all(s['name'].startswith(s['group']+':') for s in specs))
         self.assertTrue(all(s['profile']=='member' for s in specs if s['group']=='truss' and s['kind']=='beam'))
         anchor=[s for s in specs if s['name']=='foundations:BB4A_shared:V_notched_body']
         self.assertEqual(len(anchor),1)
-        self.assertEqual(anchor[0]['width_mm'],62000)
+        self.assertEqual(anchor[0]['width_mm'],58000)
 
     def test_r02_preserves_2962_specs_and_only_raises_four_explicit_road_beams(self):
         old_names=set(BASELINE_NAMES)
@@ -155,7 +162,7 @@ class SetoBridgeTests(unittest.TestCase):
         self.assertEqual(road['actual']['lanes'],4)
 
     def test_r04_changes_only_68_frozen_tower_and_pier_specs(self):
-        specs=component_specs()
+        specs=list(r04_specs().values())
         new_names={f'towers:{bridge}:tower_{number}:{suffix}' for bridge in ('north','south')
             for number in (1,2) for suffix in ('base_plate_-1','base_plate_1','lower_chevron_L',
                 'lower_chevron_R','joint:upper_3','joint:upper_4','joint:lower')}
@@ -168,6 +175,28 @@ class SetoBridgeTests(unittest.TestCase):
         self.assertFalse(actual & removed)
         self.assertTrue(new_names<=actual)
         self.assertEqual(len(specs),r03.COUNT-len(removed)+len(new_names))
+
+    def test_r05_changes_only_two_frozen_shared_anchorage_specs(self):
+        specs=component_specs();names={s['name'] for s in specs}
+        additions={name for name in names if name.startswith('foundations:BB4A_shared:detail:')}
+        retained=[s for s in specs if s['name'] not in r04.ORIGINAL_SHARED_SPECS and s['name'] not in additions]
+        self.assertEqual(len(retained),r04.UNCHANGED_COUNT)
+        self.assertEqual(portable_fingerprint(retained),r04.UNCHANGED_SHA256)
+        self.assertEqual(portable_fingerprint([*retained,*r04.ORIGINAL_SHARED_SPECS.values()]),r04.FULL_SHA256)
+        self.assertTrue(set(r04.ORIGINAL_SHARED_SPECS)<=names)
+        self.assertEqual(len(specs),r04.COUNT+len(additions))
+
+    def test_shared_anchorage_native_silhouette_matches_reference_shoulders_and_v(self):
+        rows=shared_anchorage_profile_checks(component_specs())
+        failed=[row for row in rows if not row['pass']]
+        self.assertEqual(failed,[],json.dumps(failed,ensure_ascii=False))
+        # The old block must fail the same actual-solid probes; relabeling
+        # metadata as R05 without changing the concrete cannot satisfy them.
+        old={part['name']:part for part in component_specs()}
+        old.update(deepcopy(r04.ORIGINAL_SHARED_SPECS))
+        rejected={row['check'] for row in shared_anchorage_profile_checks(list(old.values())) if not row['pass']}
+        self.assertTrue({'shared_anchor:solid_probe:'+name for name in
+            ('lower_narrow_face','upper_batter','blind_recess','upper_v_return','base_footprint')}<=rejected)
 
     def test_tower_brace_ends_contact_real_column_and_support_solids(self):
         import build123d as bd

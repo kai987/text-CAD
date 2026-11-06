@@ -8,10 +8,10 @@ import type { ModelProgress } from './model-resource';
 import { bindCadNodes, isObjectVisible } from './model-scene';
 import { createDemandRenderScheduler } from './demand-render';
 import { bridgeGroupForName, bridgeGroups, bridgeRevision } from './bridge-copy';
-import type { BridgeCamera, BridgeGroupId } from './bridge-copy';
+import type { BridgeCamera, BridgeEnvironmentVisibility, BridgeGroupId } from './bridge-copy';
 import type { ResolvedTheme } from './theme-preferences';
 import { themePalette } from './theme-preferences';
-import { bridgeDisplay } from './bridge-batches';
+import { applyBridgeVisibility, bridgeDisplay } from './bridge-batches';
 import type { BridgeActorDisplay } from './bridge-batches';
 import { bridgeActivityRunning, bridgeActorPose, createBridgeMotionClock, parseBridgeActivity } from './bridge-motion';
 import type { BridgeActivity } from './bridge-motion';
@@ -19,6 +19,7 @@ import { bridgeWaterShaderProfile, createBridgeWater } from './bridge-water';
 
 export interface BridgeViewer {
   visibility(values: Record<BridgeGroupId, boolean>): void;
+  environmentVisibility(values: BridgeEnvironmentVisibility): void;
   camera(mode: BridgeCamera): void;
   appearance(theme: ResolvedTheme, night: boolean): void;
   label(value: string): void;
@@ -64,6 +65,8 @@ export function createBridgeViewer(host: HTMLElement, options: {
   const bounds = new Box3(), regions = new Map<BridgeCamera, Box3>();
   let groups = new Map<BridgeGroupId, Object3D[]>();
   let visibility = Object.fromEntries(bridgeGroups.map(id => [id, true])) as Record<BridgeGroupId, boolean>;
+  let environmentVisibility: BridgeEnvironmentVisibility = { sea: true, terrain: true };
+  const seaVisible = () => visibility.environment && environmentVisibility.sea;
   const scheduler = createDemandRenderScheduler({
     draw() {
       availability();
@@ -81,14 +84,14 @@ export function createBridgeViewer(host: HTMLElement, options: {
     const value = document.hidden ? 'document-hidden' : contextLost ? 'context-lost' : !host.clientWidth || !host.clientHeight ? 'layout-hidden' : !inViewport ? 'offscreen' : 'visible';
     canvas.dataset.renderVisibility = value;
     for (const group of ['traffic', 'vessels', 'trains'] as const) if (value !== 'visible' || !playing || !visibility[group]) clocks[group].pause();
-    if (value !== 'visible' || !playing || !visibility.environment || !waterWaves) clocks.water.pause();
-    const active = bridgeActivityRunning(playing, value === 'visible', visibility, visibility.environment, waterWaves);
+    if (value !== 'visible' || !playing || !seaVisible() || !waterWaves) clocks.water.pause();
+    const active = bridgeActivityRunning(playing, value === 'visible', visibility, seaVisible(), waterWaves);
     canvas.dataset.motionState = !activity ? 'loading' : value !== 'visible' ? 'hidden' : !playing ? 'paused' : active ? 'playing' : 'inactive-groups';
     canvas.dataset.waterWaves = String(waterWaves);
     scheduler.setActive(!disposed && value === 'visible');
   }
   function motionRunning() {
-    return !!activity && !disposed && bridgeActivityRunning(playing, canvas.dataset.renderVisibility === 'visible', visibility, visibility.environment, waterWaves);
+    return !!activity && !disposed && bridgeActivityRunning(playing, canvas.dataset.renderVisibility === 'visible', visibility, seaVisible(), waterWaves);
   }
   function animate(now: number) {
     if (!activity) return;
@@ -96,7 +99,7 @@ export function createBridgeViewer(host: HTMLElement, options: {
       traffic: clocks.traffic.step(now, playing && visible && visibility.traffic),
       vessels: clocks.vessels.step(now, playing && visible && visibility.vessels),
       trains: clocks.trains.step(now, playing && visible && visibility.trains),
-      water: clocks.water.step(now, playing && visible && visibility.environment && waterWaves),
+      water: clocks.water.step(now, playing && visible && seaVisible() && waterWaves),
     };
     water?.time(times.water);
     for (const { spec, object } of actors.values()) {
@@ -154,7 +157,7 @@ export function createBridgeViewer(host: HTMLElement, options: {
       region.expandByVector(new Vector3(10, 5, 12));
     } else if (following) region.expandByVector(next === 'traffic' ? new Vector3(16, 6, 18) : new Vector3(22, 7, 18));
     const center = region.getCenter(new Vector3());
-    const directions = { iso: new Vector3(1.1, .65, 1.8), elevation: new Vector3(0, 0, 2), top: new Vector3(0, 2, 0), tower: new Vector3(2.5, .35, .55), deck: new Vector3(.9, .35, 1.8), traffic: new Vector3(1.15, .8, 1.5), vessel: new Vector3(1.2, .7, 1.8), train: new Vector3(.45, .20, 1.8) };
+    const directions = { iso: new Vector3(1.1, .65, 1.8), elevation: new Vector3(0, 0, 2), top: new Vector3(0, 2, 0), tower: new Vector3(2.5, .35, .55), anchorage: new Vector3(1.1, .4, 2.5), deck: new Vector3(.9, .35, 1.8), traffic: new Vector3(1.15, .8, 1.5), vessel: new Vector3(1.2, .7, 1.8), train: new Vector3(.45, .20, 1.8) };
     camera.up.set(0, next === 'top' ? 0 : 1, next === 'top' ? -1 : 0);
     controls.target.copy(center); camera.position.copy(center).addScaledVector(directions[next], 6000);
     camera.lookAt(center); camera.updateMatrixWorld(); fitHorizontal = 0; fitVertical = 0;
@@ -166,8 +169,14 @@ export function createBridgeViewer(host: HTMLElement, options: {
   }
   function applyVisibility(values: Record<BridgeGroupId, boolean>) {
     visibility = { ...values };
-    for (const [group, nodes] of groups) nodes.forEach(node => { node.visible = visibility[group] && !node.userData.bridgeWaterSource; });
-    canvas.dataset.visibleGroups = JSON.stringify(bridgeGroups.filter(group => visibility[group])); availability(); scheduler.invalidate();
+    applyBridgeVisibility(groups, visibility, environmentVisibility);
+    const environment = groups.get('environment') ?? [];
+    const seaCount = environment.filter(node => node.visible && node.userData.bridgeEnvironmentPart === 'sea').length;
+    const terrainCount = environment.filter(node => node.visible && node.userData.bridgeEnvironmentPart === 'terrain').length;
+    canvas.dataset.seaVisible = String(seaCount > 0); canvas.dataset.terrainVisible = String(terrainCount > 0);
+    canvas.dataset.seaMeshesVisible = String(seaCount); canvas.dataset.terrainMeshesVisible = String(terrainCount);
+    canvas.dataset.visibleGroups = JSON.stringify(bridgeGroups.filter(group => group === 'environment' ? seaCount + terrainCount > 0 : visibility[group]));
+    availability(); scheduler.invalidate();
   }
   function appearance() {
     renderer.setClearColor(night ? '#091624' : themePalette[theme].canvasBackground);
@@ -207,15 +216,18 @@ export function createBridgeViewer(host: HTMLElement, options: {
         bindCadNodes(gltf); root = gltf.scene; bounds.makeEmpty();
         activity = parseBridgeActivity(gltf.parser.json.asset?.extras?.activity);
         // Named south tower + adjoining span: the opposite bridge remains available in overview.
-        const towerBounds = new Box3(), trussBounds = new Box3();
+        const towerBounds = new Box3(), trussBounds = new Box3(), anchorageBounds = new Box3();
         root.traverse(node => {
           const name = String(node.userData.cadName ?? node.name);
           if (node instanceof Mesh && /^towers[:\-]south[:\-]tower_1[:\-]/.test(name)) towerBounds.expandByObject(node);
+          if (node instanceof Mesh && /^foundations[:\-]BB4A_shared[:\-]/.test(name)) anchorageBounds.expandByObject(node);
           if (node instanceof Mesh && bridgeGroupForName(name) === 'truss') trussBounds.expandByObject(node);
           if (node instanceof Mesh && bridgeGroupForName(name) && !['environment', 'traffic', 'vessels', 'trains'].includes(bridgeGroupForName(name)!)) bounds.expandByObject(node);
         });
-        if (towerBounds.isEmpty() || trussBounds.isEmpty() || bounds.isEmpty()) throw new Error('Bridge camera regions are missing.');
+        if (towerBounds.isEmpty() || trussBounds.isEmpty() || anchorageBounds.isEmpty() || bounds.isEmpty()) throw new Error('Bridge camera regions are missing.');
         const southTowerX = towerBounds.getCenter(new Vector3()).x;
+        // Native BB4A bounds keep the V-profile and lower faces framed as geometry evolves.
+        regions.set('anchorage', anchorageBounds.clone().expandByVector(new Vector3(18, 10, 12)));
         regions.set('tower', towerBounds.clone().expandByVector(new Vector3(60, 10, 30)));
         regions.set('deck', new Box3(new Vector3(southTowerX + 65, trussBounds.min.y - 8, -28), new Vector3(southTowerX + 150, trussBounds.max.y + 8, 28)));
         const presentation = bridgeDisplay(root, activity); display = presentation.display; groups = presentation.groups; actors = presentation.actors;
@@ -223,7 +235,8 @@ export function createBridgeViewer(host: HTMLElement, options: {
         const seaBounds = new Box3();
         display.traverse(node => { if (node.userData.bridgeWaterSource) { seaBounds.expandByObject(node); node.visible = false; } });
         if (seaBounds.isEmpty()) throw new Error('Bridge sea surface is missing.');
-        water = createBridgeWater(seaBounds); water.night(night); display.add(water.mesh); groups.get('environment')!.push(water.mesh);
+        water = createBridgeWater(seaBounds); water.night(night); water.mesh.userData.bridgeEnvironmentPart = 'sea';
+        display.add(water.mesh); groups.get('environment')!.push(water.mesh);
         ownedMaterials.add(water.mesh.material); canvas.dataset.waterProfile = JSON.stringify(bridgeWaterShaderProfile);
         addWakes();
         display.applyMatrix4(root.matrixWorld); scene.add(display);
@@ -239,6 +252,10 @@ export function createBridgeViewer(host: HTMLElement, options: {
   });
   return {
     visibility: applyVisibility, camera: fit,
+    environmentVisibility(value) {
+      if (environmentVisibility.sea !== value.sea) clocks.water.pause();
+      environmentVisibility = { ...value }; applyVisibility(visibility);
+    },
     appearance(value, nextNight) { theme = value; night = nextNight; appearance(); },
     label(value) { canvas.setAttribute('aria-label', value); },
     playing(value) { playing = value; Object.values(clocks).forEach(clock => clock.pause()); availability(); scheduler.invalidate(); },

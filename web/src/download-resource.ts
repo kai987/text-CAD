@@ -150,12 +150,14 @@ export async function downloadResource(options: {
 }
 
 const manifests = new Map<string, Promise<ArtifactManifest | null>>();
-export function loadDownloadManifest(url: string, fetcher: typeof fetch = fetch): Promise<ArtifactManifest | null> {
+export function loadDownloadManifest(url: string, fetcher: typeof fetch = fetch,
+  options: { reload?: boolean } = {}): Promise<ArtifactManifest | null> {
   const existing = manifests.get(url);
-  if (existing) return existing;
+  if (existing && !options.reload) return existing;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
-  const request = Promise.resolve().then(() => fetcher(url, { signal: controller.signal }))
+  const request = Promise.resolve().then(() => fetcher(url, { signal: controller.signal,
+    ...(options.reload ? { cache: 'reload' as const } : {}) }))
     .then(async response => {
       if (!response.ok) throw new Error('Artifact manifest unavailable.');
       const manifest: unknown = await response.json();
@@ -165,7 +167,12 @@ export function loadDownloadManifest(url: string, fetcher: typeof fetch = fetch)
         if (isArtifactMetadata(value)) result[path] = value;
       }
       return result;
-    }).catch(() => { manifests.delete(url); return null; })
+    }).catch(() => {
+      // A superseded request may fail after an explicit reload has already
+      // installed a newer promise. It must not evict that fresh catalog.
+      if (manifests.get(url) === request) manifests.delete(url);
+      return null;
+    })
     .finally(() => clearTimeout(timer));
   manifests.set(url, request);
   return request;

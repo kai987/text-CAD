@@ -12,6 +12,7 @@ import { validateBridgeArtifacts } from './bridge-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
 import { artifactTransport } from './artifact-transport.mjs';
 import { buildLandmarkCatalog, catalogText } from './landmark-catalog.mjs';
+import { buildBridgeSummary, bridgeManifestPath, bridgeSummaryPath } from './bridge-summary.mjs';
 import { preparationInputPaths, preparationSnapshot, preparationCacheMatches, savePreparationCache } from './artifact-preparation-cache.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -26,6 +27,7 @@ const towerArtifacts = await validateTowerArtifacts(root);
 const bridgeArtifacts = await validateBridgeArtifacts(root);
 // Display metadata comes from the same verified, downloadable CAD manifests.
 const landmarkCatalog = buildLandmarkCatalog(towerArtifacts.models.map(({ manifest }) => manifest));
+const bridgeSummary = buildBridgeSummary(await readFile(resolve(root, bridgeManifestPath)));
 export const artifacts = [
   'output/review/cad_release.json',
   'GLB/house_3d.glb', 'STEP/house_3d.step', 'STEP/house_3d.step.json',
@@ -103,6 +105,11 @@ if (await preparationCacheMatches(root, inputs, generatedMetadata)) {
       }
     }
   }
+  // Browser metadata is derived only after the complete native artifact guards
+  // pass. Keep the full source downloadable and bind both in the same catalog.
+  await mkdir(dirname(resolve(dest, bridgeSummaryPath)), { recursive: true });
+  await writeFile(resolve(dest, bridgeSummaryPath), bridgeSummary.bytes);
+  manifest[bridgeSummaryPath] = { bytes: bridgeSummary.bytes.length, sha256: sha(bridgeSummary.bytes) };
   await writeFile(resolve(dest, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
   const plan = JSON.parse(await readFile(resolve(root, 'output/review/design_manifest.json'), 'utf8'));
   const model = JSON.parse(await readFile(resolve(root, 'output/review/house_3d_assumptions_R01.json'), 'utf8'));

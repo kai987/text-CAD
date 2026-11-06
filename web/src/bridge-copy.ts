@@ -1,12 +1,14 @@
 import type { Locale } from './localization';
 
 export const bridgeId = 'seto-ohashi';
-export const bridgeRevision = 'BRIDGE-R04';
+export const bridgeRevision = 'BRIDGE-R05';
 export const bridgeGroups = ['environment', 'foundations', 'towers', 'cables', 'hangers', 'truss', 'road', 'railway', 'traffic', 'vessels', 'trains'] as const;
 export type BridgeGroupId = typeof bridgeGroups[number];
+/** Display-only switches; native CAD keeps its single environment group. */
+export type BridgeEnvironmentVisibility = { sea: boolean; terrain: boolean };
 export const bridgeViews = ['3d', 'plan', 'elevation', 'section', 'files'] as const;
 export type BridgeView = typeof bridgeViews[number];
-export const bridgeCameras = ['iso', 'elevation', 'top', 'tower', 'deck', 'traffic', 'vessel', 'train'] as const;
+export const bridgeCameras = ['iso', 'elevation', 'top', 'tower', 'anchorage', 'deck', 'traffic', 'vessel', 'train'] as const;
 export type BridgeCamera = typeof bridgeCameras[number];
 export function initialBridgeView(search: string): BridgeView {
   const value = new URLSearchParams(search).get('view');
@@ -42,7 +44,8 @@ export const bridgeCopy = {
     description: '参考实景及官方侧面图的南、北备赞濑户大桥参数化 CAD 与公铁双层 3D 模型。', nav: '桥梁模型与图纸',
     tabs: { '3d': '三维模型', plan: '平面图', elevation: '侧立面', section: '横断面', files: '文件下载' },
     parts: '部件显示', showAll: '显示全部', groups: { environment: '海面与岛屿示意', foundations: '基础与锚碇', towers: '主塔', cables: '主缆', hangers: '吊索', truss: '加劲钢桁架', road: '上层道路桥面', railway: '下层铁路桥面', traffic: '行驶车辆', vessels: '水面游船', trains: '铁路电车' },
-    cameras: { iso: '双桥全景', elevation: '侧视', top: '俯视', tower: '主塔近景', deck: '公铁双层近景', traffic: '车辆跟随近景', vessel: '游船跟随近景', train: '电车跟随近景' },
+    cameras: { iso: '双桥全景', elevation: '侧视', top: '俯视', tower: '主塔近景', anchorage: '中间共用锚碇近景', deck: '公铁双层近景', traffic: '车辆跟随近景', vessel: '游船跟随近景', train: '电车跟随近景' },
+    surroundings: { sea: '海面', terrain: '岛屿与地形示意' },
     dimensions: '官方参考尺寸', northLength: '北桥悬索区桁长', southLength: '南桥悬索区桁长', northSpan: '北桥主跨', southSpan: '南桥主跨',
     source: '资料与实景参考', assumptionTitle: '模型假设', note: '本次范围为南、北备赞濑户大桥双桥，未包含濑户大桥全线。桥长与主跨参考官方资料；截面、缆索曲线及环境细节为外观拟合，未进行结构计算。',
     motion: { title: '船车与水面', play: '播放行驶动画', waves: '水面波动', pause: '暂停行驶动画', note: '车辆按左侧通行；游船横穿主跨，电车沿下层轨道运行；航线、速度和数量为演示假设。STEP 和 GLB 保留静态时刻，动态仅在此查看器中呈现。拖动或缩放可结束跟随。', reduced: '系统已开启减少动态，动画默认暂停，可手动播放。' },
@@ -59,7 +62,8 @@ export const bridgeCopy = {
     description: '実景と公式側面図を参考にした南・北備讃瀬戸大橋のパラメトリックCADと道路鉄道併用3Dモデル。', nav: '橋のモデルと図面',
     tabs: { '3d': '3Dモデル', plan: '平面図', elevation: '側面図', section: '横断面図', files: 'ダウンロード' },
     parts: '部材の表示', showAll: 'すべて表示', groups: { environment: '海面・島の概念形状', foundations: '基礎・アンカレイジ', towers: '主塔', cables: '主ケーブル', hangers: 'ハンガー', truss: '補剛トラス', road: '上層の道路', railway: '下層の鉄道', traffic: '走行車両', vessels: '遊覧船', trains: '鉄道の電車' },
-    cameras: { iso: '双子橋の全景', elevation: '側面', top: '上面', tower: '主塔を拡大', deck: '道路・鉄道を拡大', traffic: '車両を追う', vessel: '遊覧船を追う', train: '電車を追う' },
+    cameras: { iso: '双子橋の全景', elevation: '側面', top: '上面', tower: '主塔を拡大', anchorage: '中央アンカレイジを拡大', deck: '道路・鉄道を拡大', traffic: '車両を追う', vessel: '遊覧船を追う', train: '電車を追う' },
+    surroundings: { sea: '海面', terrain: '島・地形（概形）' },
     dimensions: '公式資料の参考寸法', northLength: '北橋の補剛桁長', southLength: '南橋の補剛桁長', northSpan: '北橋の中央支間', southSpan: '南橋の中央支間',
     source: '資料・実景の出典', assumptionTitle: 'モデルの仮定', note: '対象は南・北備讃瀬戸大橋の双子橋で、瀬戸大橋全線ではありません。橋長・中央支間は公式資料を参照し、断面・ケーブル曲線・環境は外観の近似です。構造計算は実施していません。',
     motion: { title: '船・車・電車と波', play: '走行アニメーションを再生', waves: '水面の波', pause: '走行アニメーションを一時停止', note: '車は左側通行です。船は中央支間を横切り、電車は下層の線路を走ります。航路・速度・台数は表示用の仮定です。STEP・GLBは静止時点を保存し、動きはこのビューアーだけで表示します。ドラッグ・拡大縮小で追従を解除します。', reduced: '端末の動きを減らす設定に合わせ、初期状態は停止しています。手動で再生できます。' },
@@ -76,7 +80,8 @@ export const bridgeCopy = {
     description: 'Photo-informed parametric CAD and double-deck road–rail 3D models of the North and South Bisan-Seto bridges.', nav: 'Bridge model and drawings',
     tabs: { '3d': '3D model', plan: 'Plan', elevation: 'Elevation', section: 'Cross-section', files: 'Downloads' },
     parts: 'Components', showAll: 'Show all', groups: { environment: 'Sea and illustrative islands', foundations: 'Foundations and anchorages', towers: 'Main towers', cables: 'Main cables', hangers: 'Hangers', truss: 'Stiffening truss', road: 'Upper road deck', railway: 'Lower railway deck', traffic: 'Moving vehicles', vessels: 'Cruise boats', trains: 'Railway trains' },
-    cameras: { iso: 'Twin-bridge overview', elevation: 'Side', top: 'Top', tower: 'Tower close-up', deck: 'Road–rail close-up', traffic: 'Follow vehicles', vessel: 'Follow cruise boat', train: 'Follow train' },
+    cameras: { iso: 'Twin-bridge overview', elevation: 'Side', top: 'Top', tower: 'Tower close-up', anchorage: 'Central anchorage close-up', deck: 'Road–rail close-up', traffic: 'Follow vehicles', vessel: 'Follow cruise boat', train: 'Follow train' },
+    surroundings: { sea: 'Sea surface', terrain: 'Illustrative islands and terrain' },
     dimensions: 'Official reference dimensions', northLength: 'North stiffening girder', southLength: 'South stiffening girder', northSpan: 'North main span', southSpan: 'South main span',
     source: 'Sources and photo references', assumptionTitle: 'Modelling assumptions', note: 'This model covers the North and South Bisan-Seto twin bridges, rather than the entire Seto Ohashi route. Bridge lengths and main spans follow official sources; sections, cable curves and surroundings are visual approximations. No structural analysis is included.',
     motion: { title: 'Boats, traffic and waves', play: 'Play traffic animation', waves: 'Water animation', pause: 'Pause traffic animation', note: 'Vehicles keep left. Boats cross the main spans; trains use the lower tracks. Routes, speeds and counts are illustrative assumptions. STEP and GLB retain a static snapshot; movement is provided by this viewer. Drag or zoom to stop following.', reduced: 'Your reduced-motion preference pauses animation initially. You can start it manually.' },

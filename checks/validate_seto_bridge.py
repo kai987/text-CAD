@@ -1,4 +1,4 @@
-"""Read-only source, saved-solid, GLB and editable-drawing checks for BRIDGE-R04.
+"""Read-only source, saved-solid, GLB and editable-drawing checks for BRIDGE-R05.
 
 This audits saved geometry, not structural capacity, geotechnical conditions,
 navigation clearance or construction conformity. It never blesses stale files.
@@ -22,7 +22,7 @@ from cadgen import read_scene
 from lib.native_glb import audit_glb_bytes
 from lib.seto_bridge_geometry import MODEL_ID, REVISION, GROUPS, geometry_manifest, component_specs, parameters
 from lib.seto_bridge_activity import activity_manifest
-from checks.seto_bridge_clearance import physical_clearance_checks
+from checks.seto_bridge_clearance import physical_clearance_checks, shared_anchorage_profile_checks
 from checks.seto_r02_baseline import ANCHOR_NAMES, FLOORBEAM_NAMES
 
 GEOMETRY_SOURCES=['src/lib/seto_bridge_geometry.py','src/lib/seto_bridge_activity.py','src/seto_bridge_3d.py','src/lib/step_transport.py']
@@ -74,6 +74,8 @@ def validate(root=ROOT):
     # Reopen and intersect saved anchorage/floorbeam solids. The perforated
     # shape cannot be validated from metadata or outer bounds alone.
     for row in physical_clearance_checks(list(specs.values()),parameters(),activity,clearance_shapes):
+        check('STEP:'+row['check'],row['pass'],row['actual'])
+    for row in shared_anchorage_profile_checks(list(specs.values()),clearance_shapes):
         check('STEP:'+row['check'],row['pass'],row['actual'])
     for bridge in ('north','south'):
         for number in (1,2):
@@ -146,6 +148,9 @@ def validate(root=ROOT):
             check(view+':rail_crest_and_emu_height',all(any(abs(n-target)<.01 for n in measured) for target in [420,5300]))
             check(view+':editable_transport_passage','通行有効高さ' in visible and 'BB4A' in visible and
                 any('通行有効高さ' in text for text in texts))
+            check(view+':photo_shared_anchorage_external',
+                all(any(abs(n-target)<.01 for n in measured) for target in [79000,53000,86000])
+                and 'BB4A外形' in visible and any('BB4A外形' in text for text in texts))
     pdf=PdfReader(root/'output/pdf/seto_ohashi_sheets.pdf')
     check('PDF:three_pages',len(pdf.pages)==3)
     check('PDF:A3_landscape',all(abs(float(page.mediabox.width)-420*72/25.4)<.1 and abs(float(page.mediabox.height)-297*72/25.4)<.1 for page in pdf.pages))

@@ -2,7 +2,7 @@
 
 **2026-11-07 · BRIDGE-R03 · 外観と交通のデモ / 外观与交通示意 / Appearance and activity study**
 
-R03の履歴です。現在の共通出力は[主塔を実景へ合わせたR04](seto_ohashi_R04.md)です。
+R03の履歴です。現在の共通出力は[主塔を実景へ合わせたR05](seto_ohashi_R05.md)です。
 
 ## 日本語
 

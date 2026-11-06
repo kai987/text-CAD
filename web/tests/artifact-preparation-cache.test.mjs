@@ -18,6 +18,7 @@ async function fixture(t) {
     'web/src/static-outline-cache.ts': 'cache format',
     'web/public/artifacts/manifest.json': '{}',
     'web/public/artifacts/GLB/model.glb.gz': 'compressed model',
+    'web/public/artifacts/output/review/seto_ohashi_summary.json': '{"revision":"BRIDGE-R05"}',
     'web/src/model-data.json': '{"revision":"1"}',
   };
   async function write(path, value) {
@@ -53,6 +54,7 @@ test('corrupt, missing, extra and modified generated metadata all invalidate reu
   const f = await fixture(t);
   await f.save();
   for (const path of ['web/public/artifacts/GLB/model.glb.gz', 'web/public/artifacts/manifest.json',
+    'web/public/artifacts/output/review/seto_ohashi_summary.json',
     'web/src/model-data.json']) {
     await f.write(path, 'corrupt output');
     assert.equal(await f.matches(), false, path);

@@ -15,7 +15,7 @@
 | 一户建 · R22 | 主体8,190 × 7,280 mm，层高2,800 mm。三卧室、储物阁楼、南侧阳台、两个并列车位 | [一层DXF](DXF/house_1f_plan.dxf) · [二层DXF](DXF/house_2f_plan.dxf) · [STEP](STEP/house_3d.step) · [GLB](GLB/house_3d.glb) |
 | 2LDK公寓 · A01 | 外轮廓7,800 × 8,400 mm。两间卧室、LDK、厨卫与阳台 | [DXF](DXF/apartment_2ldk_plan.dxf) · [STEP](STEP/apartment_2ldk.step) · [GLB](GLB/apartment_2ldk.glb) |
 | 近郊河流 · RIVER-R01 | 南北投影长度180,000 mm、宽80,000 mm。护岸、步道、人行桥、树木、长椅与照明 | [平面DXF](DXF/river_demo_plan.dxf) · [横断面DXF](DXF/river_demo_section.dxf) · [STEP](STEP/river_demo.step) · [GLB](GLB/river_demo.glb) |
-| 濑户大桥双桥 · BRIDGE-R04 | 北、南备赞濑户大桥。悬索区长度1,538/1,648 m，主跨990/1,100 m；参考实景的公铁双层桥面与四座门型主塔。24辆车、4艘横穿桥下的游船、两列四节电车及波纹海面；修正锚碇通廊及按实景对齐的主塔横撑、三单元塔柱 | [平面DXF](DXF/seto_ohashi_plan.dxf) · [立面DXF](DXF/seto_ohashi_elevation.dxf) · [横断面DXF](DXF/seto_ohashi_section.dxf) · [STEP](STEP/seto_ohashi.step) · [GLB](GLB/seto_ohashi.glb) · [来源与假设](docs/seto_ohashi_R04.md) |
+| 濑户大桥双桥 · BRIDGE-R05 | 北、南备赞濑户大桥。悬索区长度1,538/1,648 m，主跨990/1,100 m；参考实景的公铁双层桥面与四座门型主塔。24辆车、4艘横穿桥下的游船、两列四节电车及波纹海面；修正锚碇通廊及按实景对齐的主塔横撑、三单元塔柱；共用锚碇收腰、端面凹槽与混凝土接缝 | [平面DXF](DXF/seto_ohashi_plan.dxf) · [立面DXF](DXF/seto_ohashi_elevation.dxf) · [横断面DXF](DXF/seto_ohashi_section.dxf) · [STEP](STEP/seto_ohashi.step) · [GLB](GLB/seto_ohashi.glb) · [来源与假设](docs/seto_ohashi_R05.md) |
 | 东京地标 · 东京塔 R11 / 晴空塔 R05 | 东京塔333 m、展望台150/250 m；晴空塔634 m、展望台350/450 m。参考外观模型 | [东京塔STEP](STEP/tokyo_tower.step) · [GLB](GLB/tokyo_tower.glb) · [晴空塔STEP](STEP/tokyo_skytree.step) · [GLB](GLB/tokyo_skytree.glb) · [晴空塔R05与来源](docs/tokyo_skytree_R05.md) · [地标总览](docs/tokyo_landmarks_R01.md) |
 
 查看器支持中、日、英三种语言，提供构件选择和显隐、水平剖切、家具、昼夜与照明、浅色和深色主题。住宅还可比较东京、大阪、京都、名古屋及W造、轻钢S造、RC造的概念方案。CAD使用毫米，GLB使用米、Y轴向上。DXF保留可编辑文字和尺寸，SVG和PDF用于查看与打印。
@@ -45,6 +45,12 @@ npm test
 npm run build
 npm run preview
 ```
+
+## 开发用模型检查与桥梁显示
+
+`.venv/bin/python src/cad_pipeline.py --validate-model --model seto-ohashi` 在临时副本中运行所选模型及公共基础测试；`--dry-run`可查看范围。该模式不更新生产发布记录，发布前仍保留完整验证。[三语使用说明](docs/cad_development_validation.md)
+
+桥梁页面改用从完整构件清单派生的轻量摘要，完整JSON、CAD下载和来源哈希校验保留。海面与岛屿地形可独立显示，隐藏示意地形后仍能保留水面查看基脚。
 
 ## 参数编辑与CAD重建
 

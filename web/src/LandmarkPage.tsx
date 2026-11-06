@@ -12,6 +12,7 @@ import type { LandmarkCamera, LandmarkGroupId, LandmarkId, LandmarkView } from '
 import type { LandmarkViewer } from './landmark-viewer';
 import type { LandmarkSteelNode, SteelMicroMode } from './landmark-steel-nodes';
 import type { ModelProgress } from './model-resource';
+import { loadFailureMessage } from './model-load-error';
 import { formatDownloadBytes } from './download-copy';
 import { loadDownloadManifest } from './download-resource';
 import type { ArtifactManifest } from './download-resource';
@@ -60,6 +61,7 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
     try { return initialSceneLighting(location.search, window.localStorage); } catch { return initialSceneLighting(location.search); }
   });
   const [phase, setPhase] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [modelError, setModelError] = useState<unknown>(null);
   const [progress, setProgress] = useState<ModelProgress | null>(null); const [attempt, setAttempt] = useState(0);
   const [manifest, setManifest] = useState<ArtifactManifest | null>(null);
   const host = useRef<HTMLDivElement | null>(null); const viewer = useRef<LandmarkViewer | null>(null);
@@ -74,14 +76,14 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
     history.replaceState(null, '', sceneLightingUrl(location.href, lighting));
   }, [lighting]);
   useEffect(() => {
-    let active = true; setPhase('loading'); setProgress(null); setSteelNodes([]);
+    let active = true; setPhase('loading'); setProgress(null); setModelError(null); setSteelNodes([]);
     void import('./landmark-viewer').then(({ createLandmarkViewer }) => {
       if (!active || !host.current) return;
       const current = live.current;
       const instance = createLandmarkViewer(host.current, model, {
         opaqueBatching: new URLSearchParams(location.search).get('renderBatching') !== 'off',
         theme: current.theme, night: current.night, label: current.name,
-        onReady: () => { if (active) setPhase('ready'); }, onError: () => { if (active) setPhase('error'); },
+        onReady: () => { if (active) setPhase('ready'); }, onError: error => { if (active) { setModelError(error); setPhase('error'); } },
         onProgress: value => { if (active) setProgress(value); }, onSelection: value => { if (active) setSelection(value); },
         onSteelNodes: value => { if (active) { setSteelNodes(value); setSteelNode(previous => value.some(node => node.id === previous) ? previous : value[0]?.id ?? ''); } },
         onSteelNodeSelection: value => { if (active) setSteelNode(value); },
@@ -139,7 +141,9 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
           </label>)}</div><button className="outline-button" onClick={() => { setVisibility(allVisible()); setSelection(null); }}>{copy.showAll}</button></section>
           <section><h2>{copy.environment}</h2><div className="landmark-environment">{(['day', 'night'] as const).map(value => <button key={value} className="outline-button"
             aria-pressed={lighting.environment === value} onClick={() => setLighting(previous => ({ ...previous, environment: value }))}>{copy[value]}</button>)}</div></section>
-          <ReferenceCompare key={model} model={model} target={host.current} ready={ready} camera={camera} capture={() => viewer.current?.capture() ?? null} />
+          <ReferenceCompare key={model} model={model} target={host.current} ready={ready} camera={camera} capture={() => viewer.current?.capture() ?? null}
+            restoreCamera={(preset, pose) => { const restored = viewer.current?.restoreCamera(preset, pose) ?? false; if (restored) setCamera(preset); return restored; }}
+            onPickingChange={picking => viewer.current?.interaction(!picking)} />
           {model === 'tokyo-tower' ? <section className="landmark-steel-controls"><h2>{copy.steel.title}</h2>
             <label htmlFor="steel-node-choice">{copy.steel.node}</label>
             <select id="steel-node-choice" value={steelNode} disabled={!ready || !steelNodes.length} onChange={event => {
@@ -169,7 +173,7 @@ export default function LandmarkPage({ model }: { model: LandmarkId }) {
           <div className="landmark-canvas" ref={host}>
             {phase === 'loading' ? <img className="landmark-loading-preview" src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(metadata.loadingPreview.svg)}`} alt="" aria-hidden="true" /> : null}
             {phase === 'loading' ? <div className="canvas-message" role="status"><p>{copy.loading}</p>{progress ? <span>{formatDownloadBytes(progress.loaded, locale)}{progress.total ? ` / ${formatDownloadBytes(progress.total, locale)}` : ''}</span> : null}</div> : null}
-            {phase === 'error' ? <div className="canvas-message" role="alert"><p>{copy.error}</p><button className="outline-button" onClick={() => { setCamera('iso'); setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}
+            {phase === 'error' ? <div className="canvas-message" role="alert"><p>{loadFailureMessage(modelError, locale, copy.error)}</p><button className="outline-button" onClick={() => { setCamera('iso'); setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}
             {ready && !landmarkGroupIds.some(id => visibility[id]) ? <p className="canvas-message" role="status">{copy.empty}</p> : null}
             {ready && selection ? <div className="selection-details" role="status" aria-label={copy.selected}><strong>{copy.groups[selection]}</strong>
               <button className="selection-clear" aria-label={copy.clear} onClick={() => setSelection(null)}><X size={16} /></button></div> : null}

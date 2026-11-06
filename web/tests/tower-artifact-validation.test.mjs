@@ -23,7 +23,7 @@ async function fixture(t) {
     await writeFile(resolve(root, path), value);
   };
   const source = "raise RuntimeError('Publication must not execute CAD sources')\n";
-  for (const path of ['src/lib/tower_geometry.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py']) await save(path, source);
+  for (const path of ['src/lib/tower_geometry.py', 'src/lib/tower_parameters.py', 'src/lib/tokyo_tower_parameters.py', 'src/lib/skytree_parameters.py', 'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py']) await save(path, source);
   const records = [];
   async function bind(metadata, paths) {
     metadata.artifacts = {};
@@ -45,10 +45,10 @@ async function fixture(t) {
     const manifest = { ...common, id: tower.id, height_mm: tower.height,
       parameters: { base_width_mm: 80000 }, assumptions: ['Schematic frame.', 'No structural design.'],
       source_references: [{ url: 'https://example.com/operator-reference' }],
-      source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/towers_3d.py': sha(source) } };
+      source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/lib/tower_parameters.py': sha(source), 'src/towers_3d.py': sha(source) } };
     const drawings = { ...common, source_geometry_revision: tower.revision,
       ...(tower.roofLevels ? { roof_levels_mm: tower.roofLevels } : {}),
-      source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/generate_tower_plans.py': sha(source) },
+      source_sha256: { 'src/lib/tower_geometry.py': sha(source), 'src/lib/tower_parameters.py': sha(source), 'src/generate_tower_plans.py': sha(source) },
       drawings: ['plan', 'elevation'].map((id, index) => ({ id,
         dxf: paths.drawings[index], svg: paths.drawings[index + 2],
         dimensions_mm: dimensions[index], required_labels: ['参考モデル', '単位 mm'] })) };
@@ -150,7 +150,7 @@ test('Tokyo equipment source is retained in R11 model and drawing bindings indep
   const { root, records, saveMetadata } = await fixture(t);
   const path = 'src/lib/tokyo_tower_equipment.py';
   assert.deepEqual(towerCatalog.find(tower => tower.id === 'tokyo-tower').sources,
-    ['src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', path, 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py']);
+    ['src/lib/tokyo_tower_parameters.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', path, 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py']);
   for (const metadata of [records[0].manifest, records[0].drawings]) {
     const expected = metadata.source_sha256[path];
     assert.match(expected, /^[a-f0-9]{64}$/);
@@ -274,7 +274,7 @@ test('changing the Skytree detail module invalidates its own generation binding'
 test('changing or omitting the Skytree outline source invalidates R05 provenance', async t => {
   const {root,save,records,saveMetadata}=await fixture(t);
   assert.deepEqual(towerCatalog.find(tower=>tower.id==='tokyo-skytree').sources,
-    ['src/lib/skytree_detail.py','src/lib/skytree_outline.py']);
+    ['src/lib/skytree_parameters.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py']);
   delete records[1].manifest.source_sha256['src/lib/skytree_outline.py'];
   await saveMetadata();
   await assert.rejects(validateTowerArtifacts(root), /Invalid tower source set/);
@@ -362,4 +362,20 @@ test('six-decimal SVG dimensions accept only rounding-scale differences from nat
   await saveMetadata();await validateTowerArtifacts(root);
   records[0].drawings.drawings[2].dimensions_mm[1]=151.21;
   await saveMetadata();await assert.rejects(validateTowerArtifacts(root),/visible dimensions differ/);
+});
+
+test('each landmark binds its own parameters and the shared input schema', async t => {
+  for (const tower of towerCatalog) {
+    const own = tower.id === 'tokyo-tower' ? 'tokyo_tower_parameters' : 'skytree_parameters';
+    const other = tower.id === 'tokyo-tower' ? 'skytree_parameters' : 'tokyo_tower_parameters';
+    assert.ok(tower.sources.includes(`src/lib/${own}.py`));
+    assert.ok(!tower.sources.includes(`src/lib/${other}.py`));
+    for (const path of [`src/lib/${own}.py`, 'src/lib/tower_parameters.py']) {
+      await t.test(`${tower.id}: ${path}`, async t => {
+        const { root, save } = await fixture(t);
+        await save(path, '# changed parameter values or shared validation');
+        await assert.rejects(validateTowerArtifacts(root), /Stale tower source/);
+      });
+    }
+  }
 });

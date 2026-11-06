@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { startModelLoad } from '../src/model-resource.ts';
 import { artifactTransport, STATIC_FILE_LIMIT } from '../scripts/artifact-transport.mjs';
+import { UnsupportedModelCompressionError, loadFailureMessage } from '../src/model-load-error.ts';
 
 function load(fetcher, extras = {}) {
   const progress = [];
@@ -60,6 +61,47 @@ test('gzip-only viewer models below and above the file limit never request an ab
       parse: async bytes => createHash('sha256').update(new Uint8Array(bytes)).digest('hex') });
     assert.deepEqual(paths, [encoded]); assert.equal(result.value, transport.records[path].sha256);
   }
+});
+test('gzip-only failures retry the published compressed URL with cache reload', async () => {
+  const native = new Uint8Array([1, 2, 3]);
+  const expectedSha256 = createHash('sha256').update(native).digest('hex');
+  for (const failure of ['missing', 'corrupt', 'stale']) {
+    const requests = [];
+    const result = await load(async (url, options) => {
+      requests.push({ url, cache: options.cache });
+      if (requests.length > 1) return new Response(gzipSync(native));
+      if (failure === 'missing') return new Response('', { status: 404 });
+      return new Response(failure === 'corrupt' ? new Uint8Array([0x1f, 0x8b, 0]) : gzipSync(new Uint8Array([9])));
+    }, { rawAvailable: false, expectedSha256 });
+    assert.deepEqual(requests, [{ url: '/house.glb.gz', cache: undefined }, { url: '/house.glb.gz', cache: 'reload' }]);
+    assert.deepEqual(result.value, [...native]);
+  }
+});
+test('persistent gzip-only failure ends after one retry without requesting missing raw bytes', async () => {
+  const requests = [];
+  await assert.rejects(load(async url => {
+    requests.push(url);
+    return new Response('', { status: 503 });
+  }, { rawAvailable: false }), /503/);
+  assert.deepEqual(requests, ['/house.glb.gz', '/house.glb.gz']);
+});
+test('gzip-only browsers without decompression get a localized capability error or host-decoded bytes', async () => {
+  const decoder = globalThis.DecompressionStream;
+  globalThis.DecompressionStream = undefined;
+  try {
+    const requests = [];
+    await assert.rejects(load(async url => {
+      requests.push(url);
+      return new Response(gzipSync(new Uint8Array([1, 2, 3])));
+    }, { rawAvailable: false }), UnsupportedModelCompressionError);
+    assert.deepEqual(requests, ['/house.glb.gz']);
+    const decoded = await load(async () => new Response(new Uint8Array([1, 2, 3])), { rawAvailable: false });
+    assert.deepEqual(decoded.value, [1, 2, 3]);
+    for (const locale of ['ja', 'zh', 'en']) {
+      assert.notEqual(loadFailureMessage(new UnsupportedModelCompressionError(), locale, 'generic'), 'generic');
+      assert.equal(loadFailureMessage(new Error('HTTP 503'), locale, 'generic'), 'generic');
+    }
+  } finally { globalThis.DecompressionStream = decoder; }
 });
 test('corrupt native bytes are rejected before GLB parsing', async () => {
   let parses = 0;

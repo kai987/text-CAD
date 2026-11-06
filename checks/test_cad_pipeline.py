@@ -142,6 +142,26 @@ class ScopedCadPipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'tokyo-skytree'):
             pipeline.check_scope(self.root, self.baseline, ('tokyo-tower',))
 
+    def test_model_parameter_defaults_have_independent_pipeline_dependencies(self):
+        self.write('src/lib/tower_geometry.py',
+                   'from .tokyo_tower_parameters import tower\n'
+                   'from .skytree_parameters import tree\n'
+                   'from .tower_parameters import validate\n')
+        self.write('src/lib/tokyo_tower_parameters.py', 'tower = 1\n')
+        self.write('src/lib/skytree_parameters.py', 'tree = 1\n')
+        self.write('src/lib/tower_parameters.py', 'validate = True\n')
+        self.baseline['sources'] = pipeline._hashes(self.root, release.source_paths(self.root))
+        self.write('src/lib/tokyo_tower_parameters.py', 'tower = 2\n')
+        pipeline.check_scope(self.root, self.baseline, ('tokyo-tower',))
+        with self.assertRaisesRegex(ValueError, 'tokyo-tower'):
+            pipeline.check_scope(self.root, self.baseline, ('tokyo-skytree',))
+        self.write('src/lib/tokyo_tower_parameters.py', 'tower = 1\n')
+        self.write('src/lib/skytree_parameters.py', 'tree = 2\n')
+        pipeline.check_scope(self.root, self.baseline, ('tokyo-skytree',))
+        self.write('src/lib/tower_parameters.py', 'validate = False\n')
+        with self.assertRaisesRegex(ValueError, 'tokyo-tower'):
+            pipeline.check_scope(self.root, self.baseline, ('tokyo-skytree',))
+
     def test_unknown_new_and_removed_generation_sources_are_not_blessed(self):
         self.write('src/new_generator.py', 'new = 1\n')
         with self.assertRaisesRegex(ValueError, 'unknown dependency'):

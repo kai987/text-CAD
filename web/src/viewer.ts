@@ -10,7 +10,7 @@ import type { ModelProgress } from './model-resource';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import type { Material, MeshStandardMaterial } from 'three';
-import { asset, assetSha256 } from './data';
+import { asset, assetSha256, modelAsset } from './data';
 import { modelLayouts, settingsForPreset } from './model-state';
 import type { ModelLayout, ModelPartId, ModelSettings } from './model-state';
 import { bindCadNodes, centerModelAtFloorDatum, isObjectVisible, selectionFor, visibleMeshes } from './model-scene';
@@ -58,7 +58,7 @@ function disposeObject(root: Object3D, disposeTextures = false) {
   materials.forEach(m => m.dispose());
 }
 
-export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: () => void,
+export function createHouseViewer(host: HTMLElement, onReady: () => void, onError: (error?: unknown) => void,
   onSelection: (selection: ModelSelection | null) => void, initialTheme: ResolvedTheme = 'light',
   layout: ModelLayout = modelLayouts.house, glbPath = 'GLB/house_3d.glb',
   onOverlayState: (state: StructuralOverlayState) => void = () => {},
@@ -535,8 +535,7 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
     overlayOutlineRequests.set(system, outlineRequest);
     const loading = new Promise<GLTF>((resolve, reject) => {
       overlayRequests.set(system, startModelLoad<GLTF>({
-        url: overlayUrl.href, compressed: true,
-        compressedUrl: asset(`${overlayPath}.gz`), expectedSha256: assetSha256(overlayPath),
+        ...modelAsset(overlayPath), url: overlayUrl.href,
         parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', overlayUrl).href),
         onLoad: resolve, onError: reject, disposeLate: gltf => disposeObject(gltf.scene, true),
       }));
@@ -619,11 +618,10 @@ export function createHouseViewer(host: HTMLElement, onReady: () => void, onErro
   const modelUrl = new URL(asset(glbPath), location.href);
   const outlineRequest = outlineCacheFor(glbPath);
   const modelLoad = startModelLoad<GLTF>({
-    url: modelUrl.href, onProgress, compressed: true,
-    compressedUrl: asset(`${glbPath}.gz`), expectedSha256: assetSha256(glbPath),
+    ...modelAsset(glbPath), url: modelUrl.href, onProgress,
     parse: bytes => new GLTFLoader().parseAsync(bytes, new URL('.', modelUrl).href),
     disposeLate: gltf => disposeObject(gltf.scene, true),
-    onError: () => { if (!disposed) onError(); },
+    onError: error => { if (!disposed) onError(error); },
     onLoad: gltf => {
       void outlineRequest.ready.then(cache => {
         if (disposed) { disposeObject(gltf.scene, true); return; }

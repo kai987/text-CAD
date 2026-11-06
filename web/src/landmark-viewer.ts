@@ -2,7 +2,9 @@ import { Box3, DirectionalLight, HemisphereLight, Mesh, OrthographicCamera, Poin
 import type { Material, Object3D } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { asset, assetSha256 } from './data';
+import { modelAsset } from './data';
+import { validReferencePose } from './reference-record';
+import type { ReferenceCameraPose } from './reference-record';
 import { bindCadNodes, isObjectVisible } from './model-scene';
 import { createDemandRenderScheduler } from './demand-render';
 import { startModelLoad } from './model-resource';
@@ -30,6 +32,8 @@ export interface LandmarkViewer {
   appearance(theme: ResolvedTheme, night: boolean): void;
   label(value: string): void;
   capture(): string | null;
+  restoreCamera(mode: LandmarkCamera, pose: ReferenceCameraPose): boolean;
+  interaction(enabled: boolean): void;
   dispose(): void;
 }
 function disposeModel(root: Object3D) {
@@ -44,7 +48,7 @@ function disposeModel(root: Object3D) {
 
 export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options: {
   theme: ResolvedTheme; night: boolean; label: string;
-  onReady(): void; onError(): void; onProgress(value: ModelProgress): void; onSelection(value: LandmarkGroupId | null): void;
+  onReady(): void; onError(error?: unknown): void; onProgress(value: ModelProgress): void; onSelection(value: LandmarkGroupId | null): void;
   onSteelNodes(value: readonly LandmarkSteelNode[]): void;
   onSteelNodeSelection?(value: string): void;
   opaqueBatching?: boolean;
@@ -83,6 +87,8 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   let root: Object3D | null = null, disposed = false, inViewport = true, contextLost = false, frames = 0;
   let fitHorizontal = height / 2, fitVertical = height / 2;
   let mode: LandmarkCamera = 'iso';
+  let restoredVerticalSpan: number | null = null;
+  let comparisonPoseSignature = '';
   let theme = options.theme, night = options.night;
   const bounds = new Box3();
   const closeupBounds = new Map<LandmarkCamera, Box3>();
@@ -104,7 +110,10 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     canvas.dataset.renderGeometries = String(renderer.info.memory.geometries);
     canvas.dataset.renderTextures = String(renderer.info.memory.textures);
     canvas.dataset.renderPrograms = String(renderer.info.programs?.length ?? 0);
-    canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom });
+    canvas.dataset.cameraPose = JSON.stringify({ position: camera.position.toArray(), target: controls.target.toArray(), zoom: camera.zoom, verticalSpan: camera.top - camera.bottom });
+    const signature = [...camera.position.toArray(), ...controls.target.toArray(), camera.zoom, camera.top - camera.bottom, host.clientWidth, host.clientHeight].map(value => Math.round(value * 1e6)).join(',');
+    if (comparisonPoseSignature && comparisonPoseSignature !== signature) canvas.dispatchEvent(new Event('comparisoncamerachange', { bubbles: true }));
+    comparisonPoseSignature = signature;
   }
   const scheduler = createDemandRenderScheduler({
     draw() {
@@ -123,12 +132,13 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
     availability();
     if (disposed || !host.clientWidth || !host.clientHeight) return;
     const aspect = host.clientWidth / host.clientHeight;
-    const halfHeight = Math.max(fitVertical, fitHorizontal / aspect, .1) * 1.12;
+    const halfHeight = restoredVerticalSpan === null ? Math.max(fitVertical, fitHorizontal / aspect, .1) * 1.12 : restoredVerticalSpan / 2;
     camera.left = -halfHeight * aspect; camera.right = halfHeight * aspect;
     camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix();
     renderer.setSize(host.clientWidth, host.clientHeight, false); scheduler.invalidate();
   }
   function fit(next: LandmarkCamera) {
+    restoredVerticalSpan = null;
     mode = next;
     if (!root || !host.clientWidth || !host.clientHeight) return;
     const region = closeupBounds.get(next) ?? bounds;
@@ -215,7 +225,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   const loader = new GLTFLoader();
   const transferStarted = performance.now();
   const load = startModelLoad({
-    url: asset(path), compressed: !!assetSha256(`${path}.gz`), compressedUrl: asset(`${path}.gz`), expectedSha256: assetSha256(path),
+    ...modelAsset(path),
     async parse(bytes) {
       // Fetch, optional GZIP decode and hash verification; GLTF parse is separate.
       canvas.dataset.modelTransferDecodeMs = String(performance.now() - transferStarted);
@@ -224,7 +234,7 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
       canvas.dataset.modelParseMs = String(performance.now() - started);
       return gltf;
     }, onProgress: options.onProgress,
-    onError(error) { console.error('Landmark model load failed.', error); options.onError(); }, disposeLate: gltf => disposeModel(gltf.scene),
+    onError(error) { console.error('Landmark model load failed.', error); options.onError(error); }, disposeLate: gltf => disposeModel(gltf.scene),
     onLoad(gltf) {
       const preparationStarted = performance.now();
       try {
@@ -277,6 +287,19 @@ export function createLandmarkViewer(host: HTMLElement, id: LandmarkId, options:
   return {
     visibility: applyVisibility, camera: fit, appearance, steelNode: focusSteelNode,
     steelMicro(value) { steelMicroMode = value; scheduler.invalidate(); },
+    interaction(enabled) { controls.enabled = enabled; },
+    restoreCamera(next, pose) {
+      if (!root || disposed || !validReferencePose(pose)) return false;
+      const damping = controls.enableDamping;
+      controls.enableDamping = false;
+      controls.update();
+      fit(next);
+      camera.position.fromArray(pose.position); controls.target.fromArray(pose.target);
+      camera.zoom = pose.zoom; restoredVerticalSpan = pose.verticalSpan ?? null;
+      controls.update(); controls.enableDamping = damping;
+      resize(); drawFrame(); scheduler.invalidate();
+      return true;
+    },
     label(value) { canvas.setAttribute('aria-label', value); },
     capture() {
       if (disposed || contextLost || !root || !host.clientWidth || !host.clientHeight) return null;

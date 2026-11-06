@@ -89,7 +89,9 @@ class TowerSavedDrawingTests(unittest.TestCase):
                 self.assertEqual(len(metadata['drawings']),3)
                 detail_source='tokyo_tower_detail' if stem=='tokyo_tower' else 'skytree_detail'
                 expected_sources={
-                    'src/lib/tower_geometry.py',f'src/lib/{detail_source}.py',
+                    'src/lib/tower_geometry.py', 'src/lib/tower_parameters.py',
+                    f'src/lib/{stem if stem == "tokyo_tower" else "skytree"}_parameters.py',
+                    f'src/lib/{detail_source}.py',
                     'src/generate_tower_plans.py'}
                 if stem=='tokyo_tower':expected_sources.update(['src/lib/tokyo_tower_steel.py','src/lib/tokyo_tower_equipment.py','src/lib/tokyo_tower_builtup.py','src/lib/tokyo_tower_integrated.py','src/lib/tokyo_tower_grid.py'])
                 else:expected_sources.add('src/lib/skytree_outline.py')

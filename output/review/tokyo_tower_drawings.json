@@ -5,7 +5,9 @@
   "status": "reference_concept_only",
   "source_geometry_revision": "LANDMARK-R11",
   "source_sha256": {
-    "src/lib/tower_geometry.py": "2f8d1870b7688dea1875ebf12f349c4d3474391f40a795061dc9aeb2a1648c51",
+    "src/lib/tower_geometry.py": "2ff17702a99cda44b0dd873457d20be11ccb60027068bc96df4731dd22f077f9",
+    "src/lib/tower_parameters.py": "92b813a50eaca7a0bf73998c40e6673159eb4486432af7de200f196f50d1d5fe",
+    "src/lib/tokyo_tower_parameters.py": "aca2048a2f105b384cec07a8fe48b570ee2601b69f3a98d3e2ddc27d069836b2",
     "src/lib/tokyo_tower_detail.py": "ec56a9b8360e11de27cbb7042d4238ff8eb5c26295937e23884e1a065d7a124c",
     "src/lib/tokyo_tower_steel.py": "77c19f14cf9aa044eb3f560a25b77898ba056d56ce8b1dca82431097d62860df",
     "src/lib/tokyo_tower_equipment.py": "23b6c5da88e250127f8fb036d485a6cab6ae2520594025e2bb2506cc94fe3865",
@@ -16,24 +18,24 @@
   },
   "artifacts": {
     "DXF/tokyo_tower_plan.dxf": {
-      "sha256": "2d83ca4a88655c5b7e39effcb167b407b4867e6c0a2093f260b804fe6793c857",
-      "bytes": 16143822
+      "sha256": "ff816778ed30d1e59b4752603d9dd7e0f055ae06aeda6ccb72e09d3a5b2dc8e3",
+      "bytes": 16143821
     },
     "output/svg/tokyo_tower_plan.svg": {
       "sha256": "4878c197e88a4bf748c2626357b30e765968b2211dd549cd2ba70dd0c45009e6",
       "bytes": 8523164
     },
     "DXF/tokyo_tower_elevation.dxf": {
-      "sha256": "9547e47b2893f9bf75e8c6f45b4a4e91c451059d1b9d4cd8773273e941ae4c1e",
-      "bytes": 16055658
+      "sha256": "322ac99d9e0d323c6bd9aa83f833e7a53e0c2d00b15615537a9500ba54e8c936",
+      "bytes": 16055660
     },
     "output/svg/tokyo_tower_elevation.svg": {
       "sha256": "e18fff9c1f89d29e879ea6dcc779bea5e0b4bb08a46b9b73bdc12186ef4a80a7",
       "bytes": 10158902
     },
     "DXF/tokyo_tower_steel_nodes.dxf": {
-      "sha256": "d728b44572229f632424aa6e636f83b79c65ec41fb49537e3a3a2ccde1618f5e",
-      "bytes": 16438148
+      "sha256": "efa65efa0c0c4eddb7ff155ade1fbc3116844b5e1f3d5c39b27b00b9a969b45c",
+      "bytes": 16438155
     },
     "output/svg/tokyo_tower_steel_nodes.svg": {
       "sha256": "25636041b1a1a47f14ebed3ed4f2857eb1e40bed8eead81d5bc3c20e47ee5460",

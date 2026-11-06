@@ -14,8 +14,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  cad:
+  cad-plan:
     runs-on: ubuntu-latest
+    outputs:
+      groups: ${{ steps.catalog.outputs.groups }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Read the authoritative validation catalog
+        id: catalog
+        run: >-
+          PYTHONPATH=src python -S -c
+          'import json; from cad_pipeline import VALIDATION_GROUPS; print("groups=" + json.dumps(VALIDATION_GROUPS))'
+          >> "$GITHUB_OUTPUT"
+  cad:
+    needs: cad-plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        group: ${{ fromJSON(needs.cad-plan.outputs.groups) }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -25,6 +45,7 @@ jobs:
           python-version: '3.13'
           cache: pip
       - name: Check portable landmark regression baseline
+        if: matrix.group == 'core'
         run: >-
           python -S -m unittest
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_r07_preserves_r06_geometry_outside_requested_appearance
@@ -37,10 +58,9 @@ jobs:
           checks.test_tokyo_tower_detail.TokyoTowerDetailTests.test_preservation_fingerprint_rejects_coordinate_and_metadata_changes
           -v
       - run: python -m pip install -r requirements.txt
-      # Saved-artifact validation and the shared Python unit suite run together.
-      - run: python src/cad_pipeline.py --validate
+      # These groups exactly partition the shared full local validation catalog.
+      - run: python src/cad_pipeline.py --validate --validation-group ${{ matrix.group }}
   build:
-    needs: cad
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -77,7 +97,7 @@ jobs:
 
   deploy:
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: [cad, build]
     runs-on: ubuntu-latest
     permissions:
       pages: write

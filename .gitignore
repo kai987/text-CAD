@@ -28,6 +28,8 @@ web/dist/
 web/test-results/
 web/playwright-report/
 web/public/artifacts/
+web/.artifact-preparation-cache.json
+web/.artifact-preparation-cache.json.*.tmp
 web/src/house-data.json
 web/src/apartment-data.json
 web/src/apartment-preview-metadata.json

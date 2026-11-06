@@ -11,10 +11,11 @@ import { validateTowerArtifacts } from './tower-artifact-validation.mjs';
 import { buildStaticOutlines } from './static-outlines.mjs';
 import { artifactTransport } from './artifact-transport.mjs';
 import { buildLandmarkCatalog, catalogText } from './landmark-catalog.mjs';
+import { preparationInputPaths, preparationSnapshot, preparationCacheMatches, savePreparationCache } from './artifact-preparation-cache.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dest = resolve(root, 'web/public/artifacts');
-await validateCadRelease(root);
+const release = await validateCadRelease(root);
 // Fail before publishing if the approved PDF was changed without regenerating SVG.
 const vectorPlans = await validatePlanPreviews(root);
 const apartmentPlans = await validateApartmentPreviews(root);
@@ -51,61 +52,71 @@ export const artifacts = [
   ...apartmentPlans.floors.map(floor => floor.path),
   ...riverArtifacts.paths,
   ...towerArtifacts.paths,
-  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
+  'src/towers_3d.py', 'src/generate_tower_plans.py', 'src/lib/tower_geometry.py', 'src/lib/tower_parameters.py', 'src/lib/tokyo_tower_parameters.py', 'src/lib/skytree_parameters.py', 'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_equipment.py', 'src/lib/tokyo_tower_builtup.py', 'src/lib/tokyo_tower_integrated.py', 'src/lib/tokyo_tower_grid.py', 'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py',
   'src/river_3d.py', 'src/generate_river_plans.py', 'src/lib/river_geometry.py',
 ];
 
-const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const manifest = {};
-for (const source of artifacts) {
-  const bytes = await readFile(resolve(root, source));
-  if (!bytes.length) throw new Error(`Empty artifact: ${source}`);
-  const out = resolve(dest, source);
-  await mkdir(dirname(out), { recursive: true });
-  const transport = artifactTransport(source, bytes);
-  Object.assign(manifest, transport.records);
-  if (transport.records[source].transport === 'gzip') await rm(out, { force: true });
-  if (!transport.records[`${source}.gz`] || transport.records[`${source}.gz`].transport === 'chunks') await rm(`${out}.gz`, { force: true });
-  const chunkPrefix = `${basename(out)}.gz.part-`;
-  for (const oldPart of await readdir(dirname(out))) {
-    if (oldPart.startsWith(chunkPrefix) && /^\d{3}$/.test(oldPart.slice(chunkPrefix.length))) {
-      await rm(resolve(dirname(out), oldPart), { force: true });
+const generatedMetadata = ['web/src/landmark-catalog.json', 'web/src/house-data.json',
+  'web/src/apartment-data.json', 'web/src/apartment-preview-metadata.json', 'web/src/river-data.json'];
+const inputs = await preparationSnapshot(root, await preparationInputPaths(root, artifacts, release));
+if (await preparationCacheMatches(root, inputs, generatedMetadata)) {
+  await validateCadRelease(root);
+  console.log('Reused prepared artifacts after checking every input and generated output hash.');
+} else {
+  const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+  const manifest = {};
+  for (const source of artifacts) {
+    const bytes = await readFile(resolve(root, source));
+    if (!bytes.length) throw new Error(`Empty artifact: ${source}`);
+    const out = resolve(dest, source);
+    await mkdir(dirname(out), { recursive: true });
+    const transport = artifactTransport(source, bytes);
+    Object.assign(manifest, transport.records);
+    if (transport.records[source].transport === 'gzip') await rm(out, { force: true });
+    if (!transport.records[`${source}.gz`] || transport.records[`${source}.gz`].transport === 'chunks') await rm(`${out}.gz`, { force: true });
+    const chunkPrefix = `${basename(out)}.gz.part-`;
+    for (const oldPart of await readdir(dirname(out))) {
+      if (oldPart.startsWith(chunkPrefix) && /^\d{3}$/.test(oldPart.slice(chunkPrefix.length))) {
+        await rm(resolve(dirname(out), oldPart), { force: true });
+      }
+    }
+    for (const [path, payload] of transport.files) await writeFile(resolve(dest, path), payload);
+    if (source.endsWith('.glb')) {
+      const encoded = transport.records[`${source}.gz`];
+      if (encoded) console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
+      else console.log(`${source}: ${bytes.length} raw bytes retained; gzip would not reduce transfer size.`);
+      if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
+        // Display-only edges are pinned to the exact downloadable model bytes.
+        const outlines = await buildStaticOutlines(bytes);
+        const cachePath = `${source}.edges.bin`;
+        const packed = gzipSync(outlines.bytes, { level: 9 });
+        await writeFile(`${out}.edges.bin`, outlines.bytes);
+        await writeFile(`${out}.edges.bin.gz`, packed);
+        manifest[cachePath] = { bytes: outlines.bytes.length, sha256: sha(outlines.bytes) };
+        manifest[`${cachePath}.gz`] = { bytes: packed.length, sha256: sha(packed), decodedBytes: outlines.bytes.length, decodedSha256: sha(outlines.bytes) };
+        console.log(`${source}: precomputed ${outlines.entries} outlines (${packed.length} transport bytes).`);
+      }
     }
   }
-  for (const [path, payload] of transport.files) await writeFile(resolve(dest, path), payload);
-  if (source.endsWith('.glb')) {
-    const encoded = transport.records[`${source}.gz`];
-    if (encoded) console.log(`${source}: ${bytes.length} -> ${encoded.bytes} transport bytes (${Math.round(100 * encoded.bytes / bytes.length)}%).`);
-    else console.log(`${source}: ${bytes.length} raw bytes retained; gzip would not reduce transfer size.`);
-    if (!source.endsWith('river_demo.glb') && !/\/tokyo_(tower|skytree)\.glb$/.test(source)) {
-      // Display-only edges are pinned to the exact downloadable model bytes.
-      const outlines = await buildStaticOutlines(bytes);
-      const cachePath = `${source}.edges.bin`;
-      const packed = gzipSync(outlines.bytes, { level: 9 });
-      await writeFile(`${out}.edges.bin`, outlines.bytes);
-      await writeFile(`${out}.edges.bin.gz`, packed);
-      manifest[cachePath] = { bytes: outlines.bytes.length, sha256: sha(outlines.bytes) };
-      manifest[`${cachePath}.gz`] = { bytes: packed.length, sha256: sha(packed), decodedBytes: outlines.bytes.length, decodedSha256: sha(outlines.bytes) };
-      console.log(`${source}: precomputed ${outlines.entries} outlines (${packed.length} transport bytes).`);
-    }
-  }
+  await writeFile(resolve(dest, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+  const plan = JSON.parse(await readFile(resolve(root, 'output/review/design_manifest.json'), 'utf8'));
+  const model = JSON.parse(await readFile(resolve(root, 'output/review/house_3d_assumptions_R01.json'), 'utf8'));
+  const data = {
+    parameters: plan.parameters,
+    drawingRevision: plan.drawing_revision,
+    modelRevision: model.revision,
+    assumptions: [...plan.assumptions, ...model.assumptions],
+    floors: plan.floors.map(f => ({ floor: f.floor, rooms: f.rooms.map(r => ({
+      id: r.id, name: r.name, area: r.area_m2, size: r.size_note,
+    })) })),
+  };
+  await mkdir(resolve(root, 'web/src'), { recursive: true });
+  await writeFile(resolve(root, 'web/src/landmark-catalog.json'), catalogText(landmarkCatalog));
+  await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
+  await copyFile(resolve(root, 'output/review/apartment_2ldk_manifest.json'), resolve(root, 'web/src/apartment-data.json'));
+  await copyFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), resolve(root, 'web/src/apartment-preview-metadata.json'));
+  await copyFile(resolve(root, 'output/review/river_demo_manifest.json'), resolve(root, 'web/src/river-data.json'));
+  console.log(`Prepared ${Object.keys(manifest).length} CAD/drawing and lossless transport assets, including verified vector PDF previews.`);
+  await validateCadRelease(root);
+  await savePreparationCache(root, inputs, generatedMetadata);
 }
-await writeFile(resolve(dest, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
-const plan = JSON.parse(await readFile(resolve(root, 'output/review/design_manifest.json'), 'utf8'));
-const model = JSON.parse(await readFile(resolve(root, 'output/review/house_3d_assumptions_R01.json'), 'utf8'));
-const data = {
-  parameters: plan.parameters,
-  drawingRevision: plan.drawing_revision,
-  modelRevision: model.revision,
-  assumptions: [...plan.assumptions, ...model.assumptions],
-  floors: plan.floors.map(f => ({ floor: f.floor, rooms: f.rooms.map(r => ({
-    id: r.id, name: r.name, area: r.area_m2, size: r.size_note,
-  })) })),
-};
-await mkdir(resolve(root, 'web/src'), { recursive: true });
-await writeFile(resolve(root, 'web/src/landmark-catalog.json'), catalogText(landmarkCatalog));
-await writeFile(resolve(root, 'web/src/house-data.json'), JSON.stringify(data, null, 2) + '\n');
-await copyFile(resolve(root, 'output/review/apartment_2ldk_manifest.json'), resolve(root, 'web/src/apartment-data.json'));
-await copyFile(resolve(root, 'output/review/apartment_2ldk_preview.json'), resolve(root, 'web/src/apartment-preview-metadata.json'));
-await copyFile(resolve(root, 'output/review/river_demo_manifest.json'), resolve(root, 'web/src/river-data.json'));
-console.log(`Prepared ${Object.keys(manifest).length} CAD/drawing and lossless transport assets, including verified vector PDF previews.`);

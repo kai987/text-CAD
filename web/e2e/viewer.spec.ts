@@ -199,6 +199,33 @@ test('model network failure can be retried without a page reload', async ({ page
   await expect(page.locator('.landmark-canvas [role="alert"]')).toHaveCount(0);
 });
 
+test('gzip-only model retries a temporary failure without requesting an absent raw GLB', async ({ page }) => {
+  const requests: string[] = [];
+  await page.route('**/GLB/tokyo_tower.glb*', async route => {
+    requests.push(new URL(route.request().url()).pathname);
+    if (requests.length === 1) await route.fulfill({ status: 503, body: 'Temporary test failure' });
+    else await route.continue();
+  });
+  await landmark(page);
+  expect(requests).toEqual(['/text-CAD/artifacts/GLB/tokyo_tower.glb.gz', '/text-CAD/artifacts/GLB/tokyo_tower.glb.gz']);
+});
+
+test('gzip-only model explains unsupported decompression without a raw request', async ({ page }) => {
+  await page.addInitScript(() => { Object.defineProperty(globalThis, 'DecompressionStream', { value: undefined }); });
+  // Serve encoded bytes directly to exercise hosts without HTTP gzip decoding.
+  const compressed = await readFile(new URL('../public/artifacts/GLB/tokyo_tower.glb.gz', import.meta.url));
+  await page.route('**/GLB/tokyo_tower.glb.gz*', route => route.fulfill({
+    status: 200, contentType: 'application/gzip', body: compressed,
+  }));
+  const requests: string[] = [];
+  page.on('request', request => {
+    if (request.url().includes('/GLB/tokyo_tower.glb')) requests.push(new URL(request.url()).pathname);
+  });
+  await page.goto('?model=tokyo-tower&view=3d');
+  await expect(page.locator('.landmark-canvas [role="alert"]')).toContainText('This browser cannot decompress the model.');
+  expect(requests).toEqual(['/text-CAD/artifacts/GLB/tokyo_tower.glb.gz']);
+});
+
 test('invalid and corrupt photos are rejected locally', async ({ page }) => {
   await landmark(page); await page.getByText('Compare a photo', { exact: true }).click();
   const input = page.getByLabel('Choose reference image', { exact: true });

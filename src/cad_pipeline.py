@@ -36,9 +36,32 @@ UNIT_TESTS = ['checks/test_cad_release.py', 'checks/test_cad_pipeline.py', 'chec
               'checks/test_glb_export.py',
               'checks/test_attic_layout.py', 'checks/test_upper_layout.py',
               'checks/test_river_geometry.py',
-              'checks/test_river_validation.py', 'checks/test_tower_drawings.py',
+              'checks/test_river_validation.py', 'checks/test_tower_drawings.py', 'checks/test_tower_parameters.py',
               'checks/test_tokyo_tower_detail.py', 'checks/test_tokyo_tower_steel.py', 'checks/test_tokyo_tower_base.py', 'checks/test_tokyo_tower_outline.py', 'checks/test_tokyo_tower_r08.py', 'checks/test_tokyo_tower_r09.py', 'checks/test_tokyo_tower_r10.py', 'checks/test_tokyo_tower_r11.py', 'checks/test_skytree_detail.py', 'checks/test_skytree_outline.py', 'checks/test_tower_tubular.py',
               'analysis/test_house_review.py']
+
+# Every CI group reads the same completed release. Heavy native geometry suites
+# run in separate jobs, while this catalog retains the complete local suite.
+NATIVE_UNIT_GROUPS = {
+    'tokyo-r11': ['checks/test_tokyo_tower_r11.py'],
+    'tokyo-r09': ['checks/test_tokyo_tower_r09.py'],
+    'tokyo-r10': ['checks/test_tokyo_tower_r10.py'],
+}
+VALIDATION_GROUPS = (*NATIVE_UNIT_GROUPS, 'artifacts', 'core', 'analysis')
+
+
+def validation_group(name: str) -> tuple[list[str], list[str]]:
+    """Partition the authoritative validator/unit catalogs without omissions."""
+    if name not in VALIDATION_GROUPS:
+        raise ValueError(f'Unknown CAD validation group: {name}')
+    native = {path for paths in NATIVE_UNIT_GROUPS.values() for path in paths}
+    if name == 'artifacts':
+        return list(VALIDATORS), []
+    if name == 'analysis':
+        return [], [path for path in UNIT_TESTS if path.startswith('analysis/')]
+    if name == 'core':
+        return [], [path for path in UNIT_TESTS if path not in native and not path.startswith('analysis/')]
+    return [], list(NATIVE_UNIT_GROUPS[name])
 
 # The analysis tests call the freshness gate. Verify their inputs against the
 # unpublished candidate in an isolated process, without creating a usable gate
@@ -116,8 +139,8 @@ def dependency_sources(root: Path, model: str) -> set[str]:
     """
     all_sources = set(source_paths(root))
     pending = [shlex.split(command)[0] for command in generation_commands((model,))]
-    excluded = ({'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py'} if model == 'tokyo-tower'
-                else {'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py'} if model == 'tokyo-skytree'
+    excluded = ({'src/lib/skytree_detail.py', 'src/lib/skytree_outline.py', 'src/lib/skytree_parameters.py'} if model == 'tokyo-tower'
+                else {'src/lib/tokyo_tower_detail.py', 'src/lib/tokyo_tower_steel.py', 'src/lib/tokyo_tower_parameters.py'} if model == 'tokyo-skytree'
                 else set())
     result = set()
     while pending:
@@ -337,12 +360,14 @@ def run(paths: list[str], *, root: Path | None = None) -> None:
                        env={**os.environ, 'CADGEN_DAEMON': '0'})
 
 
-def run_unit_tests(snapshot: dict | None = None, *, root: Path | None = None) -> None:
+def run_unit_tests(snapshot: dict | None = None, *, root: Path | None = None,
+                   tests: list[str] | None = None) -> None:
     root = ROOT if root is None else root
     # Keep provenance analysis independent of native CAD kernels and mutable
     # fixture imports. Both processes verify the same unpublished candidate.
-    groups = [('CAD', [p for p in UNIT_TESTS if not p.startswith('analysis/')]),
-              ('analysis', [p for p in UNIT_TESTS if p.startswith('analysis/')])]
+    catalog = UNIT_TESTS if tests is None else tests
+    groups = [('CAD', [p for p in catalog if not p.startswith('analysis/')]),
+              ('analysis', [p for p in catalog if p.startswith('analysis/')])]
     for label, tests in groups:
         if not tests:
             continue
@@ -359,6 +384,24 @@ def run_unit_tests(snapshot: dict | None = None, *, root: Path | None = None) ->
                        env={**os.environ, 'CADGEN_DAEMON': '0'}, **kwargs)
         if snapshot is not None:
             verify_snapshot(root, snapshot)
+
+
+def run_validation_group(name: str, *, root: Path | None = None) -> None:
+    """Read-only CI entry point, guarded before and after one complete group."""
+    root = ROOT if root is None else root
+    validators, tests = validation_group(name)
+    gate_bytes = (root/RELEASE).read_bytes()
+    snapshot = json.loads(gate_bytes)
+    print(json.dumps(verify_snapshot(root, snapshot), ensure_ascii=False), flush=True)
+    try:
+        if validators:
+            run(validators, root=root)
+        if tests:
+            run_unit_tests(root=root, tests=tests)
+    finally:
+        verify_snapshot(root, snapshot)
+        if (root/RELEASE).read_bytes() != gate_bytes:
+            raise RuntimeError('CAD release changed during grouped validation.')
 
 
 def build_release(root: Path, commands: list[str], models: tuple[str, ...], *, refresh: bool = False) -> dict:
@@ -452,6 +495,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--regenerate', action='store_true', help='Rebuild house, apartment, river and landmark outputs, validate, then record provenance.')
     parser.add_argument('--validate', action='store_true', help='Verify provenance first, then validate saved CAD; never bless modified inputs.')
+    parser.add_argument('--validation-group', choices=VALIDATION_GROUPS,
+                        help='Run one read-only CI group from the complete validation catalog.')
     parser.add_argument('--refresh-validation', action='store_true', help='Revalidate unchanged saved CAD after pipeline/check-only changes; generation and analysis changes are rejected.')
     parser.add_argument('--model', choices=['all', *MODELS], action='append', help='Model to regenerate; repeat for shared dependencies. Default: all.')
     parser.add_argument('--drawings-only', action='store_true', help='Regenerate selected Tokyo landmark drawings, reusing strictly verified unchanged native artifacts.')
@@ -461,6 +506,8 @@ def main() -> None:
         parser.error('Choose exactly one of --regenerate, --validate or --refresh-validation.')
     if (args.model or args.dry_run) and not args.regenerate:
         parser.error('--model and --dry-run apply only to --regenerate.')
+    if args.validation_group and not args.validate:
+        parser.error('--validation-group applies only to --validate.')
     if args.drawings_only and not args.regenerate:
         parser.error('--drawings-only applies only to --regenerate.')
     models = tuple(MODELS if not args.model or 'all' in args.model else [model for model in MODELS if model in args.model])
@@ -471,6 +518,9 @@ def main() -> None:
                           'validation_commands': VALIDATORS, 'staged': True}, ensure_ascii=False, indent=2))
         return
     if args.validate:
+        if args.validation_group:
+            run_validation_group(args.validation_group)
+            return
         print(json.dumps(verify(), ensure_ascii=False), flush=True)
         run(VALIDATORS)
         run_unit_tests()

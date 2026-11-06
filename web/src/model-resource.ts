@@ -1,4 +1,5 @@
 import { gzipUrl } from './asset-url.ts';
+import { UnsupportedModelCompressionError } from './model-load-error.ts';
 
 export interface ModelProgress { loaded: number; total: number | null }
 export interface ModelLoadOptions<T> {
@@ -13,6 +14,7 @@ export interface ModelLoadOptions<T> {
   compressed?: boolean;
   compressedUrl?: string;
   expectedSha256?: string;
+  rawAvailable?: boolean;
 }
 
 // One deadline covers download and parsing. Cancellation also isolates late decode results.
@@ -25,8 +27,8 @@ export function startModelLoad<T>(options: ModelLoadOptions<T>) {
     finish(); abort.abort(); options.onError(error);
   }
   const deadline = setTimeout(() => fail(new Error('Model load timed out.')), options.timeoutMs ?? 60_000);
-  async function download(url: string) {
-    const response = await (options.fetcher ?? fetch)(url, { signal: abort.signal });
+  async function download(url: string, reload = false) {
+    const response = await (options.fetcher ?? fetch)(url, { signal: abort.signal, ...(reload ? { cache: 'reload' as const } : {}) });
     if (!response.ok) throw new Error(`Model request failed: ${response.status}`);
     const length = Number(response.headers.get('content-length'));
     const total = !response.headers.get('content-encoding') && Number.isFinite(length) && length > 0 ? length : null;
@@ -60,21 +62,27 @@ export function startModelLoad<T>(options: ModelLoadOptions<T>) {
     const actual = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
     if (actual !== options.expectedSha256) throw new Error('Model checksum does not match this release.');
   }
+  async function compressedBytes(reload = false) {
+    let bytes = await download(options.compressedUrl ?? gzipUrl(options.url), reload);
+    const magic = new Uint8Array(bytes, 0, Math.min(bytes.byteLength, 2));
+    // Hosts may already decompress a response with Content-Encoding: gzip.
+    if (magic[0] === 0x1f && magic[1] === 0x8b) {
+      if (typeof DecompressionStream === 'undefined') throw new UnsupportedModelCompressionError();
+      bytes = await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    }
+    await verify(bytes);
+    return bytes;
+  }
   void (async () => {
     let bytes: ArrayBuffer;
-    if (options.compressed && typeof DecompressionStream !== 'undefined') {
+    if (options.compressed && (typeof DecompressionStream !== 'undefined' || options.rawAvailable === false)) {
       try {
-        bytes = await download(options.compressedUrl ?? gzipUrl(options.url));
-        const magic = new Uint8Array(bytes, 0, Math.min(bytes.byteLength, 2));
-        // Hosts may already decompress a response with Content-Encoding: gzip.
-        if (magic[0] === 0x1f && magic[1] === 0x8b) {
-          bytes = await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
-        }
-        await verify(bytes);
+        bytes = await compressedBytes();
       } catch (error) {
         if (!active || abort.signal.aborted) return;
-        bytes = await download(options.url);
-        await verify(bytes);
+        if (error instanceof UnsupportedModelCompressionError) throw error;
+        if (options.rawAvailable === false) bytes = await compressedBytes(true);
+        else { bytes = await download(options.url); await verify(bytes); }
       }
     } else { bytes = await download(options.url); await verify(bytes); }
     if (!active) return;

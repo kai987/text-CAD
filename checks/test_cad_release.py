@@ -187,6 +187,56 @@ class CadPipelineTests(unittest.TestCase):
                 self.assertEqual(json.loads(call.kwargs['input']), {'candidate': 'snapshot'})
             self.assertEqual(guard.call_count, 4)
 
+    def test_ci_groups_exactly_partition_all_validators_and_unit_modules(self):
+        validators, tests = [], []
+        for name in pipeline.VALIDATION_GROUPS:
+            group_validators, group_tests = pipeline.validation_group(name)
+            validators.extend(group_validators)
+            tests.extend(group_tests)
+        self.assertCountEqual(validators, pipeline.VALIDATORS)
+        self.assertCountEqual(tests, pipeline.UNIT_TESTS)
+        self.assertEqual(len(validators), len(set(validators)))
+        self.assertEqual(len(tests), len(set(tests)))
+        with self.assertRaisesRegex(ValueError, 'Unknown CAD validation group'):
+            pipeline.validation_group('unknown')
+
+    def test_grouped_cli_is_read_only_and_dispatches_only_with_validate(self):
+        with patch.object(pipeline, 'run_validation_group') as grouped, \
+             patch.object(sys, 'argv', ['cad_pipeline.py', '--validate', '--validation-group', 'tokyo-r11']):
+            pipeline.main()
+        grouped.assert_called_once_with('tokyo-r11')
+        for mode in ('--regenerate', '--refresh-validation'):
+            with patch.object(sys, 'argv', ['cad_pipeline.py', mode, '--validation-group', 'core']), \
+                 patch('sys.stderr'):
+                with self.assertRaises(SystemExit):
+                    pipeline.main()
+
+    def test_grouped_units_verify_inputs_before_and_after_without_rewriting_gate(self):
+        gate = json.dumps({'candidate': 'snapshot'}).encode()
+        self.gate.write_bytes(gate)
+        with patch.object(pipeline, 'verify_snapshot', return_value={'revision': 'R22'}) as guard, \
+             patch.object(pipeline, 'run_unit_tests') as units, \
+             patch.object(pipeline, 'run') as validators:
+            pipeline.run_validation_group('tokyo-r11', root=self.root)
+        units.assert_called_once_with(root=self.root, tests=['checks/test_tokyo_tower_r11.py'])
+        validators.assert_not_called()
+        self.assertEqual(guard.call_count, 2)
+        self.assertEqual(self.gate.read_bytes(), gate)
+
+    def test_grouped_failure_still_checks_the_same_snapshot_and_gate(self):
+        gate = json.dumps({'candidate': 'snapshot'}).encode()
+        self.gate.write_bytes(gate)
+        with patch.object(pipeline, 'verify_snapshot', return_value={'revision': 'R22'}) as guard, \
+             patch.object(pipeline, 'run', side_effect=subprocess.CalledProcessError(1, ['validator'])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                pipeline.run_validation_group('artifacts', root=self.root)
+        self.assertEqual(guard.call_count, 2)
+        self.assertEqual(self.gate.read_bytes(), gate)
+        with patch.object(pipeline, 'verify_snapshot', return_value={'revision': 'R22'}), \
+             patch.object(pipeline, 'run', side_effect=lambda *_args, **_kwargs: self.gate.write_bytes(b'changed gate')):
+            with self.assertRaisesRegex(RuntimeError, 'release changed'):
+                pipeline.run_validation_group('artifacts', root=self.root)
+
 
 if __name__ == '__main__':
     unittest.main()

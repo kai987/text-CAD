@@ -28,10 +28,15 @@ test('build metadata binds artifact hashes and uses GitHub source identity for a
   await mkdir(resolve(root, 'web/public/artifacts'), { recursive: true });
   await mkdir(resolve(root, 'docs'));
   const hash = 'b'.repeat(64), sha = 'c'.repeat(40);
-  await writeFile(resolve(root, 'web/public/artifacts/manifest.json'), JSON.stringify({ 'GLB/a.glb': { sha256: hash } }));
+  await writeFile(resolve(root, 'web/public/artifacts/manifest.json'), JSON.stringify({
+    'GLB/a.glb': { sha256: hash },
+    'GLB/compressed.glb': { sha256: hash, transport: 'gzip' },
+    'GLB/compressed.glb.gz': { sha256: hash },
+  }));
   await writeFile(resolve(root, 'docs/sites-release.json'), JSON.stringify({ github_commit: sha }));
   const defs = releaseBuildDefinitions(root);
   assert.equal(JSON.parse(defs.__CAD_ASSET_HASHES__)['GLB/a.glb'], hash);
+  assert.deepEqual(JSON.parse(defs.__CAD_ASSET_TRANSPORTS__), { 'GLB/compressed.glb': 'gzip' });
   assert.equal(JSON.parse(defs.__CAD_SOURCE_COMMIT__), sha);
   assert.match(JSON.parse(defs.__CAD_MANIFEST_HASH__), /^[a-f0-9]{64}$/);
   assert.throws(() => releaseBuildDefinitions(root, 'main'), /Invalid release/);

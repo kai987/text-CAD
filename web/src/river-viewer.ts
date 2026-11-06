@@ -2,7 +2,7 @@ import { Box3, Color, DirectionalLight, HemisphereLight, Mesh, Object3D, Orthogr
 import type { Material, MeshStandardMaterial } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { asset, assetSha256 } from './data';
+import { modelAsset } from './data';
 import { startModelLoad } from './model-resource';
 import type { ModelProgress } from './model-resource';
 import { createDemandRenderScheduler } from './demand-render';
@@ -35,7 +35,7 @@ function disposeModel(root: Object3D) {
 }
 
 export function createRiverViewer(host: HTMLElement, options: {
-  theme: ResolvedTheme; label: string; quality: RiverQuality; onReady: () => void; onError: () => void;
+  theme: ResolvedTheme; label: string; quality: RiverQuality; onReady: () => void; onError: (error?: unknown) => void;
   onProgress: (progress: ModelProgress) => void; onSelection: (group: RiverGroupId | null) => void;
 }): RiverViewer {
   const coarsePointer = window.matchMedia('(pointer: coarse)');
@@ -201,11 +201,10 @@ export function createRiverViewer(host: HTMLElement, options: {
   availability(); resize();
   const loader = new GLTFLoader();
   const load = startModelLoad({
-    url: asset('GLB/river_demo.glb'), compressed: !!assetSha256('GLB/river_demo.glb.gz'), compressedUrl: asset('GLB/river_demo.glb.gz'),
-    expectedSha256: assetSha256('GLB/river_demo.glb'),
+    ...modelAsset('GLB/river_demo.glb'),
     parse: bytes => loader.parseAsync(bytes, ''),
     onProgress: options.onProgress,
-    onError: error => { console.error('River model load failed.', error); options.onError(); },
+    onError: error => { console.error('River model load failed.', error); options.onError(error); },
     disposeLate: gltf => disposeModel(gltf.scene),
     onLoad(gltf) {
       try {

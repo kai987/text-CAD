@@ -725,7 +725,9 @@
     "mapping_from_CAD": "(X,Z,-Y)/1000"
   },
   "source_sha256": {
-    "src/lib/tower_geometry.py": "2f8d1870b7688dea1875ebf12f349c4d3474391f40a795061dc9aeb2a1648c51",
+    "src/lib/tower_geometry.py": "2ff17702a99cda44b0dd873457d20be11ccb60027068bc96df4731dd22f077f9",
+    "src/lib/tower_parameters.py": "92b813a50eaca7a0bf73998c40e6673159eb4486432af7de200f196f50d1d5fe",
+    "src/lib/skytree_parameters.py": "999e7837f61fa9c93f42910cb0253b32c5d7c14ce73af53d3d20b3efe58ec990",
     "src/lib/skytree_detail.py": "03181ffd2216fd3f41a3154de7d0a44d570fb26d79d3430b80f614a4b279bbdd",
     "src/lib/skytree_outline.py": "b1ea8dc15ad51db400a3d6897517e128ea9013fddf9ce4e618e8be4e8972cf46",
     "src/towers_3d.py": "0efec7f5a88c313379244d9bba8fad4af549a6b1371c1e1b3dda569983fb7065"

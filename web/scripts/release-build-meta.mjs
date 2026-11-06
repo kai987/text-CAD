@@ -8,9 +8,11 @@ export function releaseBuildDefinitions(root = fileURLToPath(new URL('../../', i
   const bytes = readFileSync(resolve(root, 'web/public/artifacts/manifest.json'));
   const manifest = JSON.parse(bytes.toString());
   const hashes = {};
+  const transports = {};
   for (const [path, entry] of Object.entries(manifest)) {
     if (!/^[0-9a-f]{64}$/.test(entry.sha256)) throw new Error(`Invalid artifact hash: ${path}`);
     hashes[path] = entry.sha256;
+    if (entry.transport) transports[path] = entry.transport;
   }
   // Sites has its own source history. Link to the GitHub commit it was copied from.
   const siteRecord = resolve(root, 'docs/sites-release.json');
@@ -20,6 +22,7 @@ export function releaseBuildDefinitions(root = fileURLToPath(new URL('../../', i
   if (!/^[0-9a-f]{40}$/.test(sourceCommit)) throw new Error('Invalid release source commit.');
   return {
     __CAD_ASSET_HASHES__: JSON.stringify(hashes),
+    __CAD_ASSET_TRANSPORTS__: JSON.stringify(transports),
     __CAD_MANIFEST_HASH__: JSON.stringify(createHash('sha256').update(bytes).digest('hex')),
     __CAD_SOURCE_COMMIT__: JSON.stringify(sourceCommit),
   };

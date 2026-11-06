@@ -72,3 +72,23 @@
   .landmark-drawing-note { padding: 12px 16px; }
   .landmark-paper-scroll { padding: 12px; min-height: 350px; max-height: 75svh; }
 }
+.reference-points { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); }
+.reference-points h3 { margin: 0 0 8px; font-size: 13px; }
+.reference-points ol { padding-left: 18px; font-size: 12px; }
+.reference-points li { margin-block: 8px; }
+.reference-points output { display: block; font-variant-numeric: tabular-nums; }
+.reference-points li button { margin-top: 4px; }
+.reference-point-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.reference-point-overlay[hidden] { display: none; }
+.reference-point-overlay line { stroke: #ffd800; stroke-width: 2; }
+.reference-photo-point { fill: #00bcd4; stroke: #fff; stroke-width: 1; }
+.reference-model-point { fill: #db2777; stroke: #fff; stroke-width: 1; }
+.reference-point-overlay text { fill: #111827; stroke: #fff; stroke-width: 3; paint-order: stroke; font-size: 13px; font-weight: 700; }
+.reference-point-picker { position: absolute; inset: 0; width: 100%; height: 100%; border: 2px solid var(--accent); padding: 0; border-radius: 0; background: transparent; z-index: 3; cursor: crosshair; touch-action: none; }
+.reference-picker-cursor { position: absolute; transform: translate(-50%, -50%); color: #db2777; font-size: 26px; text-shadow: 0 0 3px #fff; pointer-events: none; }
+.reference-point-legend { display: flex; flex-wrap: wrap; gap: 12px; }
+.reference-point-legend span::before { content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+.reference-photo-legend::before { background: #00bcd4; }
+.reference-model-legend::before { background: #db2777; }
+.reference-revision-confirm { border: 1px solid var(--line); padding: 10px; margin-block: 12px; }
+.reference-revision-confirm button { width: 100%; white-space: normal; }

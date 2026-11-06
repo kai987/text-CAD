@@ -5,6 +5,13 @@ export const repository = 'https://github.com/kai987/text-CAD';
 export const asset = (path: string, selectedSha256?: string) =>
   artifactUrl(import.meta.env.BASE_URL, path, __CAD_ASSET_HASHES__, __CAD_MANIFEST_HASH__, selectedSha256);
 export const assetSha256 = (path: string): string | undefined => __CAD_ASSET_HASHES__[path];
+export const modelAsset = (path: string) => ({
+  url: asset(path),
+  compressed: !!assetSha256(`${path}.gz`),
+  compressedUrl: asset(`${path}.gz`),
+  expectedSha256: assetSha256(path),
+  rawAvailable: __CAD_ASSET_TRANSPORTS__[path] === undefined,
+});
 export const sourceUrl = (path: string, kind: 'blob' | 'tree' = 'blob') => pinnedSourceUrl(repository, __CAD_SOURCE_COMMIT__, path, kind);
 export const downloadFiles = [
   { id: 'glb', path: 'GLB/house_3d.glb', type: 'GLB' },

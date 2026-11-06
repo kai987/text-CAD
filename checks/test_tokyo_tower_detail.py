@@ -113,7 +113,7 @@ class TokyoTowerDetailTests(unittest.TestCase):
         self.assertEqual(revision_for('tokyo-tower'),'LANDMARK-R11')
         self.assertEqual(revision_for('tokyo-skytree'),'LANDMARK-R05')
         self.assertNotEqual(component_specs('tokyo-skytree'), self.specs)
-        self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
+        self.assertEqual(geometry_source_paths('tokyo-skytree'),['src/lib/tower_geometry.py','src/lib/tower_parameters.py','src/lib/skytree_parameters.py','src/lib/skytree_detail.py','src/lib/skytree_outline.py'])
         self.assertIn('src/lib/tokyo_tower_detail.py',geometry_source_paths('tokyo-tower'))
 
     def test_all_primitives_are_finite_and_have_nonzero_sections(self):

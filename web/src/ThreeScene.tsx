@@ -6,6 +6,8 @@ import type { HouseViewer } from './viewer';
 import type { ModelSettings } from './model-state';
 import { activePreset } from './model-state';
 import { asset } from './data';
+import { useLanguage } from './LanguageContext';
+import { loadFailureMessage } from './model-load-error';
 import type { ModelSelection } from './model-scene';
 import { useModel } from './ModelContext';
 import { useTheme } from './ThemeContext';
@@ -24,6 +26,7 @@ interface Props {
 export default function ThreeScene({ settings, cameraRequest, onReady, selection, onSelection, structuralSystem, overlayAttempt, onOverlayState }: Props) {
   const { copy, layout, glb, fallback: modelFallback } = useModel();
   const { theme } = useTheme();
+  const { locale } = useLanguage();
   const host = useRef<HTMLDivElement>(null);
   const viewer = useRef<HouseViewer | null>(null);
   const latest = useRef({ settings, cameraRequest, selection, theme, structuralSystem });
@@ -32,9 +35,10 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
   const [attempt, setAttempt] = useState(0);
   const [progress, setProgress] = useState<ModelProgress>({ loaded: 0, total: null });
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [modelError, setModelError] = useState<unknown>(null);
   useEffect(() => {
     let alive = true;
-    setStatus('loading'); setProgress({ loaded: 0, total: null }); onReady(false);
+    setStatus('loading'); setModelError(null); setProgress({ loaded: 0, total: null }); onReady(false);
     try {
       const controller = createHouseViewer(host.current!, () => {
         if (!alive) return;
@@ -43,7 +47,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
         if (savedCamera.current) controller.restoreCamera(savedCamera.current);
         else controller.camera(latest.current.cameraRequest.mode);
         setStatus('ready'); onReady(true);
-      }, () => { if (alive) { savedCamera.current = viewer.current?.captureCamera() ?? null; setStatus('error'); onReady(false); } }, onSelection, latest.current.theme, layout, glb,
+      }, error => { if (alive) { savedCamera.current = viewer.current?.captureCamera() ?? null; setModelError(error); setStatus('error'); onReady(false); } }, onSelection, latest.current.theme, layout, glb,
         state => { if (alive) onOverlayState(state); },
         value => { if (alive) setProgress(value); },
         () => { if (alive) setAttempt(value => value + 1); });
@@ -71,7 +75,7 @@ export default function ThreeScene({ settings, cameraRequest, onReady, selection
     {status === 'loading' ? <p className="canvas-message" role="status">{progress.loaded ? copy.model.loadingProgress.replace('{amount}', progress.total ? `${Math.min(100, Math.round(progress.loaded / progress.total * 100))}%` : `${(progress.loaded / 1_000_000).toFixed(1)} MB`) : copy.model.loadingModel}</p> : null}
     {status === 'error' ? <div className="viewer-fallback" role="alert">
       {structuralSystem === null ? <img src={asset(fallback)} alt={copy.model.fallback} /> : null}
-      <p>{copy.model.error}</p>
+      <p>{loadFailureMessage(modelError, locale, copy.model.error)}</p>
       <button type="button" className="outline-button" onClick={() => setAttempt(value => value + 1)}>{copy.model.retry}</button>
     </div> : null}
   </div>;

@@ -12,7 +12,7 @@
 # 東京タワーだけを生成。最後の検証は全モデルに対して実行します。
 .venv/bin/python src/cad_pipeline.py --regenerate --model tokyo-tower
 
-# 共通の塔体パラメーターやエクスポーターを変更した場合は両方を指定します。
+# 共通の形状処理・入力スキーマやエクスポーターを変更した場合は両方を指定します。
 .venv/bin/python src/cad_pipeline.py --regenerate --model tokyo-tower --model tokyo-skytree
 
 # チェックと生成パイプラインだけを変更し、保存済みCADが同一の場合。
@@ -30,6 +30,8 @@
 複数ファイルを一度のファイルシステム操作で切り替えることはできないため、置き換え中は公開ゲートを無効にし、ゲートを最後に保存します。捕捉できた置き換えエラーでは旧ファイルと旧ゲートを復元します。
 強制終了や電源断の場合も有効なゲートのない途中状態は公開できません。必要ならGitとの差分を確認し、再生成してください。
 
+東京タワーの設定は `src/lib/tokyo_tower_parameters.py`、晴空塔の設定は `src/lib/skytree_parameters.py` にあります。各 `parameters()` 呼び出しは独立した辞書とリストを返し、既定値の変更を別の呼び出しへ持ち越しません。共有入力チェックは `src/lib/tower_parameters.py`、共有形状処理は `src/lib/tower_geometry.py` にあります。モデル固有の設定変更はそのモデルを選び、共有ファイルの変更では両モデルを選びます。
+
 対象外モデルの成果物は前回リリースと一致している必要があります。共通ソースの変更は、そのソースを利用するモデルも選択する必要があります。
 Pythonのローカルimportを保守的に追跡し、未知の生成依存や解析コードの変更を部分生成で承認しません。その場合は `--model all` を使用します。
 `--refresh-validation` はチェックとパイプラインの変更に限定し、生成ソース・解析コード・CAD成果物の変更を拒否します。
@@ -40,6 +42,7 @@ Pythonのローカルimportを保守的に追跡し、未知の生成依存や�
 使用上面的命令可按 `house`、`apartment`、`river`、`tokyo-tower`、`tokyo-skytree` 选择模型；重复 `--model` 可选择多个模型。
 不指定时仍生成全部模型。先在独立临时目录生成，再运行所有CAD检查、共享Python测试和哈希核验，成功后才更新当前文件，最后写入发布凭据。
 失败或检测到并行编辑时保留现有模型与本地预览；替换文件时发生可捕获错误则回滚。
+东京塔参数位于 `src/lib/tokyo_tower_parameters.py`，晴空塔参数位于 `src/lib/skytree_parameters.py`。每次 `parameters()` 调用返回独立的字典和列表；共享输入校验位于 `src/lib/tower_parameters.py`。单个参数模块变动选择对应模型，共享校验、几何或导出源码变动选择两座塔。
 共享源文件变动必须同时选择其依赖模型，未知依赖及分析源码变动需完整生成。
 `--refresh-validation` 仅用于检查／管线代码的修改：拒绝模型源码及CAD字节变化，保留原生成记录，另外记录本次验证信息。
 本流程不改变演示尺寸、几何模型或工程／法规未核定的状态。
@@ -49,6 +52,7 @@ Pythonのローカルimportを保守的に追跡し、未知の生成依存や�
 Use the commands above to select `house`, `apartment`, `river`, `tokyo-tower`, or `tokyo-skytree`; repeat `--model` for shared dependencies. Omitting the selector retains full generation.
 Generators run in an isolated copied tree. All CAD validators, shared Python tests and source/artifact hashes must pass before changed outputs are promoted, with the publication gate written last.
 Generation/validation failures and concurrent edits leave the current CAD and preview files untouched. Caught promotion failures roll back replaced files; an abrupt interruption leaves no valid gate authorizing mixed outputs.
+Tokyo Tower parameters live in `src/lib/tokyo_tower_parameters.py`; Skytree parameters live in `src/lib/skytree_parameters.py`. Each `parameters()` call returns independent dictionaries and lists. Shared input validation lives in `src/lib/tower_parameters.py`. Select the corresponding model for a per-model parameter change, and both towers for shared validation, geometry or exporter changes.
 Changes shared by other generators require those models to be selected too. Unknown generation dependencies and analysis-source changes require `--model all`.
 `--refresh-validation` permits only pipeline/check changes and requires every saved CAD byte to remain unchanged. Original generation time, commands and toolchain are retained; the new validation time and environment are recorded separately.
 These workflow improvements do not certify model dimensions, engineering capacity or regulatory compliance.

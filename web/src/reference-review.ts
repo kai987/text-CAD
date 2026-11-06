@@ -22,3 +22,20 @@ export function referenceImageRect(width: number, height: number, imageWidth: nu
   const a = referenceAlignment(value), fit = Math.min(width / imageWidth, height / imageHeight) * a.scale;
   return { centerX: width * (.5 + a.x / 100), centerY: height * (.5 + a.y / 100), width: imageWidth * fit, height: imageHeight * fit, rotation: a.rotation * Math.PI / 180, opacity: a.opacity };
 }
+
+export function referenceImagePoint(width: number, height: number, imageWidth: number, imageHeight: number, alignment: ReferenceAlignment, point: { x: number; y: number }) {
+  const rect = referenceImageRect(width, height, imageWidth, imageHeight, alignment);
+  const x = (point.x - .5) * rect.width, y = (point.y - .5) * rect.height;
+  return { x: rect.centerX + x * Math.cos(rect.rotation) - y * Math.sin(rect.rotation),
+    y: rect.centerY + x * Math.sin(rect.rotation) + y * Math.cos(rect.rotation) };
+}
+export function referenceImageCoordinate(width: number, height: number, imageWidth: number, imageHeight: number, alignment: ReferenceAlignment, point: { x: number; y: number }) {
+  const rect = referenceImageRect(width, height, imageWidth, imageHeight, alignment);
+  const x = point.x - rect.centerX, y = point.y - rect.centerY;
+  return { x: .5 + (x * Math.cos(rect.rotation) + y * Math.sin(rect.rotation)) / rect.width,
+    y: .5 + (-x * Math.sin(rect.rotation) + y * Math.cos(rect.rotation)) / rect.height };
+}
+export function referencePointError(reference: { x: number; y: number }, model: { x: number; y: number }, width: number, height: number) {
+  const pixels = Math.hypot(reference.x - model.x * width, reference.y - model.y * height);
+  return { pixels, diagonalPercent: pixels / Math.hypot(width, height) * 100 };
+}

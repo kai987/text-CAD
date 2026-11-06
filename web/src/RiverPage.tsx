@@ -12,6 +12,7 @@ import type { RiverViewer } from './river-viewer';
 import { isRiverQuality, readRiverQuality, riverQualities, saveRiverQuality } from './river-quality';
 import type { RiverQuality } from './river-quality';
 import type { ModelProgress } from './model-resource';
+import { loadFailureMessage } from './model-load-error';
 import { loadDownloadManifest } from './download-resource';
 import type { ArtifactManifest } from './download-resource';
 import DownloadFile from './DownloadFile';
@@ -63,6 +64,7 @@ export default function RiverPage() {
   });
   const [selection, setSelection] = useState<RiverGroupId | null>(null);
   const [phase, setPhase] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [modelError, setModelError] = useState<unknown>(null);
   const [progress, setProgress] = useState<ModelProgress | null>(null);
   const [attempt, setAttempt] = useState(0);
   const [manifest, setManifest] = useState<ArtifactManifest | null>(null);
@@ -76,13 +78,13 @@ export default function RiverPage() {
   }, [copy.title, copy.description]);
   useEffect(() => {
     let active = true;
-    setPhase('loading'); setProgress(null);
+    setPhase('loading'); setModelError(null); setProgress(null);
     void import('./river-viewer').then(({ createRiverViewer }) => {
       if (!active || !host.current) return;
       const current = live.current;
       const instance = createRiverViewer(host.current, { theme: current.theme, label: current.label, quality: current.quality,
         onReady: () => { if (active) setPhase('ready'); },
-        onError: () => { if (active) setPhase('error'); },
+        onError: error => { if (active) { setModelError(error); setPhase('error'); } },
         onProgress: value => { if (active) setProgress(value); },
         onSelection: value => { if (active) setSelection(value); },
       });
@@ -164,7 +166,7 @@ export default function RiverPage() {
             <p id="river-quality-help" className="river-quality-help">{copy.qualityHelp[quality]}</p>
             <div className="river-canvas" ref={host}>
               {phase === 'loading' ? <div className="canvas-message" role="status"><p>{copy.loading}</p>{progress ? <span>{formatDownloadBytes(progress.loaded, locale)}{progress.total ? ` / ${formatDownloadBytes(progress.total, locale)}` : ''}</span> : null}</div> : null}
-              {phase === 'error' ? <div className="canvas-message" role="alert"><p>{copy.error}</p><button className="outline-button" onClick={() => { setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}
+              {phase === 'error' ? <div className="canvas-message" role="alert"><p>{loadFailureMessage(modelError, locale, copy.error)}</p><button className="outline-button" onClick={() => { setSelection(null); setAttempt(value => value + 1); }}>{copy.retry}</button></div> : null}
               {ready && !groupIds.some(id => visibility[id]) ? <p className="canvas-message" role="status">{copy.empty}</p> : null}
               {ready && selection ? <div className="selection-details" role="status" aria-label={copy.selected}><strong>{copy.groups[selection]}</strong>
                 <button className="selection-clear" aria-label={copy.clear} onClick={() => setSelection(null)}><X size={16} /></button></div> : null}
